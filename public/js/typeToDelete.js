@@ -110,7 +110,7 @@ deleteInput.addEventListener("keyup", function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/cwiseman/Projects/TalentCloud/resources/assets/js/typeToDelete.js */"./resources/assets/js/typeToDelete.js");
+module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\typeToDelete.js */"./resources/assets/js/typeToDelete.js");
 
 
 /***/ })

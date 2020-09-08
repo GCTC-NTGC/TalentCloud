@@ -86,35 +86,157 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/aliases.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/aliases.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCanonicalLocales = void 0;
+var parser_1 = __webpack_require__(/*! ./src/parser */ "./node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+var emitter_1 = __webpack_require__(/*! ./src/emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js");
+var canonicalizer_1 = __webpack_require__(/*! ./src/canonicalizer */ "./node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js");
+/**
+ * https://tc39.es/ecma402/#sec-canonicalizelocalelist
+ * @param locales
+ */
+function CanonicalizeLocaleList(locales) {
+    if (locales === undefined) {
+        return [];
+    }
+    var seen = [];
+    if (typeof locales === 'string') {
+        locales = [locales];
+    }
+    for (var _i = 0, locales_1 = locales; _i < locales_1.length; _i++) {
+        var locale = locales_1[_i];
+        var canonicalizedTag = emitter_1.emitUnicodeLocaleId(canonicalizer_1.canonicalizeUnicodeLocaleId(parser_1.parseUnicodeLocaleId(locale)));
+        if (seen.indexOf(canonicalizedTag) < 0) {
+            seen.push(canonicalizedTag);
+        }
+    }
+    return seen;
+}
+function getCanonicalLocales(locales) {
+    return CanonicalizeLocaleList(locales);
+}
+exports.getCanonicalLocales = getCanonicalLocales;
+var parser_2 = __webpack_require__(/*! ./src/parser */ "./node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+Object.defineProperty(exports, "parseUnicodeLocaleId", { enumerable: true, get: function () { return parser_2.parseUnicodeLocaleId; } });
+Object.defineProperty(exports, "parseUnicodeLanguageId", { enumerable: true, get: function () { return parser_2.parseUnicodeLanguageId; } });
+Object.defineProperty(exports, "isStructurallyValidLanguageTag", { enumerable: true, get: function () { return parser_2.isStructurallyValidLanguageTag; } });
+Object.defineProperty(exports, "isUnicodeRegionSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeRegionSubtag; } });
+Object.defineProperty(exports, "isUnicodeScriptSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeScriptSubtag; } });
+Object.defineProperty(exports, "isUnicodeLanguageSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeLanguageSubtag; } });
+__exportStar(__webpack_require__(/*! ./src/types */ "./node_modules/@formatjs/intl-getcanonicallocales/src/types.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js"), exports);
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/polyfill.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/polyfill.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(/*! . */ "./node_modules/@formatjs/intl-getcanonicallocales/index.js");
+var should_polyfill_1 = __webpack_require__(/*! ./should-polyfill */ "./node_modules/@formatjs/intl-getcanonicallocales/should-polyfill.js");
+if (typeof Intl === 'undefined') {
+    if (typeof window !== 'undefined') {
+        Object.defineProperty(window, 'Intl', {
+            value: {},
+        });
+    }
+    else if (typeof global !== 'undefined') {
+        Object.defineProperty(global, 'Intl', {
+            value: {},
+        });
+    }
+}
+if (should_polyfill_1.shouldPolyfill()) {
+    Object.defineProperty(Intl, 'getCanonicalLocales', {
+        value: _1.getCanonicalLocales,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    });
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/should-polyfill.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/should-polyfill.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/* @generated */
-// prettier-ignore  
-exports.languageAlias = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
-exports.territoryAlias = { "100": "BG", "104": "MM", "108": "BI", "112": "BY", "116": "KH", "120": "CM", "124": "CA", "132": "CV", "136": "KY", "140": "CF", "144": "LK", "148": "TD", "152": "CL", "156": "CN", "158": "TW", "162": "CX", "166": "CC", "170": "CO", "172": "RU AM AZ BY GE KG KZ MD TJ TM UA UZ", "174": "KM", "175": "YT", "178": "CG", "180": "CD", "184": "CK", "188": "CR", "191": "HR", "192": "CU", "196": "CY", "200": "CZ SK", "203": "CZ", "204": "BJ", "208": "DK", "212": "DM", "214": "DO", "218": "EC", "222": "SV", "226": "GQ", "230": "ET", "231": "ET", "232": "ER", "233": "EE", "234": "FO", "238": "FK", "239": "GS", "242": "FJ", "246": "FI", "248": "AX", "249": "FR", "250": "FR", "254": "GF", "258": "PF", "260": "TF", "262": "DJ", "266": "GA", "268": "GE", "270": "GM", "275": "PS", "276": "DE", "278": "DE", "280": "DE", "288": "GH", "292": "GI", "296": "KI", "300": "GR", "304": "GL", "308": "GD", "312": "GP", "316": "GU", "320": "GT", "324": "GN", "328": "GY", "332": "HT", "334": "HM", "336": "VA", "340": "HN", "344": "HK", "348": "HU", "352": "IS", "356": "IN", "360": "ID", "364": "IR", "368": "IQ", "372": "IE", "376": "IL", "380": "IT", "384": "CI", "388": "JM", "392": "JP", "398": "KZ", "400": "JO", "404": "KE", "408": "KP", "410": "KR", "414": "KW", "417": "KG", "418": "LA", "422": "LB", "426": "LS", "428": "LV", "430": "LR", "434": "LY", "438": "LI", "440": "LT", "442": "LU", "446": "MO", "450": "MG", "454": "MW", "458": "MY", "462": "MV", "466": "ML", "470": "MT", "474": "MQ", "478": "MR", "480": "MU", "484": "MX", "492": "MC", "496": "MN", "498": "MD", "499": "ME", "500": "MS", "504": "MA", "508": "MZ", "512": "OM", "516": "NA", "520": "NR", "524": "NP", "528": "NL", "530": "CW SX BQ", "531": "CW", "532": "CW SX BQ", "533": "AW", "534": "SX", "535": "BQ", "536": "SA IQ", "540": "NC", "548": "VU", "554": "NZ", "558": "NI", "562": "NE", "566": "NG", "570": "NU", "574": "NF", "578": "NO", "580": "MP", "581": "UM", "582": "FM MH MP PW", "583": "FM", "584": "MH", "585": "PW", "586": "PK", "591": "PA", "598": "PG", "600": "PY", "604": "PE", "608": "PH", "612": "PN", "616": "PL", "620": "PT", "624": "GW", "626": "TL", "630": "PR", "634": "QA", "638": "RE", "642": "RO", "643": "RU", "646": "RW", "652": "BL", "654": "SH", "659": "KN", "660": "AI", "662": "LC", "663": "MF", "666": "PM", "670": "VC", "674": "SM", "678": "ST", "682": "SA", "686": "SN", "688": "RS", "690": "SC", "694": "SL", "702": "SG", "703": "SK", "704": "VN", "705": "SI", "706": "SO", "710": "ZA", "716": "ZW", "720": "YE", "724": "ES", "728": "SS", "729": "SD", "732": "EH", "736": "SD", "740": "SR", "744": "SJ", "748": "SZ", "752": "SE", "756": "CH", "760": "SY", "762": "TJ", "764": "TH", "768": "TG", "772": "TK", "776": "TO", "780": "TT", "784": "AE", "788": "TN", "792": "TR", "795": "TM", "796": "TC", "798": "TV", "800": "UG", "804": "UA", "807": "MK", "810": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "818": "EG", "826": "GB", "830": "JE GG", "831": "GG", "832": "JE", "833": "IM", "834": "TZ", "840": "US", "850": "VI", "854": "BF", "858": "UY", "860": "UZ", "862": "VE", "876": "WF", "882": "WS", "886": "YE", "887": "YE", "890": "RS ME SI HR MK BA", "891": "RS ME", "894": "ZM", "958": "AA", "959": "QM", "960": "QN", "962": "QP", "963": "QQ", "964": "QR", "965": "QS", "966": "QT", "967": "EU", "968": "QV", "969": "QW", "970": "QX", "971": "QY", "972": "QZ", "973": "XA", "974": "XB", "975": "XC", "976": "XD", "977": "XE", "978": "XF", "979": "XG", "980": "XH", "981": "XI", "982": "XJ", "983": "XK", "984": "XL", "985": "XM", "986": "XN", "987": "XO", "988": "XP", "989": "XQ", "990": "XR", "991": "XS", "992": "XT", "993": "XU", "994": "XV", "995": "XW", "996": "XX", "997": "XY", "998": "XZ", "999": "ZZ", "004": "AF", "008": "AL", "010": "AQ", "012": "DZ", "016": "AS", "020": "AD", "024": "AO", "028": "AG", "031": "AZ", "032": "AR", "036": "AU", "040": "AT", "044": "BS", "048": "BH", "050": "BD", "051": "AM", "052": "BB", "056": "BE", "060": "BM", "062": "034 143", "064": "BT", "068": "BO", "070": "BA", "072": "BW", "074": "BV", "076": "BR", "084": "BZ", "086": "IO", "090": "SB", "092": "VG", "096": "BN", "AAA": "AA", "ABW": "AW", "AFG": "AF", "AGO": "AO", "AIA": "AI", "ALA": "AX", "ALB": "AL", "AN": "CW SX BQ", "AND": "AD", "ANT": "CW SX BQ", "ARE": "AE", "ARG": "AR", "ARM": "AM", "ASC": "AC", "ASM": "AS", "ATA": "AQ", "ATF": "TF", "ATG": "AG", "AUS": "AU", "AUT": "AT", "AZE": "AZ", "BDI": "BI", "BEL": "BE", "BEN": "BJ", "BES": "BQ", "BFA": "BF", "BGD": "BD", "BGR": "BG", "BHR": "BH", "BHS": "BS", "BIH": "BA", "BLM": "BL", "BLR": "BY", "BLZ": "BZ", "BMU": "BM", "BOL": "BO", "BRA": "BR", "BRB": "BB", "BRN": "BN", "BTN": "BT", "BU": "MM", "BUR": "MM", "BVT": "BV", "BWA": "BW", "CAF": "CF", "CAN": "CA", "CCK": "CC", "CHE": "CH", "CHL": "CL", "CHN": "CN", "CIV": "CI", "CMR": "CM", "COD": "CD", "COG": "CG", "COK": "CK", "COL": "CO", "COM": "KM", "CPT": "CP", "CPV": "CV", "CRI": "CR", "CS": "RS ME", "CT": "KI", "CUB": "CU", "CUW": "CW", "CXR": "CX", "CYM": "KY", "CYP": "CY", "CZE": "CZ", "DD": "DE", "DDR": "DE", "DEU": "DE", "DGA": "DG", "DJI": "DJ", "DMA": "DM", "DNK": "DK", "DOM": "DO", "DY": "BJ", "DZA": "DZ", "ECU": "EC", "EGY": "EG", "ERI": "ER", "ESH": "EH", "ESP": "ES", "EST": "EE", "ETH": "ET", "FIN": "FI", "FJI": "FJ", "FLK": "FK", "FQ": "AQ TF", "FRA": "FR", "FRO": "FO", "FSM": "FM", "FX": "FR", "FXX": "FR", "GAB": "GA", "GBR": "GB", "GEO": "GE", "GGY": "GG", "GHA": "GH", "GIB": "GI", "GIN": "GN", "GLP": "GP", "GMB": "GM", "GNB": "GW", "GNQ": "GQ", "GRC": "GR", "GRD": "GD", "GRL": "GL", "GTM": "GT", "GUF": "GF", "GUM": "GU", "GUY": "GY", "HKG": "HK", "HMD": "HM", "HND": "HN", "HRV": "HR", "HTI": "HT", "HUN": "HU", "HV": "BF", "IDN": "ID", "IMN": "IM", "IND": "IN", "IOT": "IO", "IRL": "IE", "IRN": "IR", "IRQ": "IQ", "ISL": "IS", "ISR": "IL", "ITA": "IT", "JAM": "JM", "JEY": "JE", "JOR": "JO", "JPN": "JP", "JT": "UM", "KAZ": "KZ", "KEN": "KE", "KGZ": "KG", "KHM": "KH", "KIR": "KI", "KNA": "KN", "KOR": "KR", "KWT": "KW", "LAO": "LA", "LBN": "LB", "LBR": "LR", "LBY": "LY", "LCA": "LC", "LIE": "LI", "LKA": "LK", "LSO": "LS", "LTU": "LT", "LUX": "LU", "LVA": "LV", "MAC": "MO", "MAF": "MF", "MAR": "MA", "MCO": "MC", "MDA": "MD", "MDG": "MG", "MDV": "MV", "MEX": "MX", "MHL": "MH", "MI": "UM", "MKD": "MK", "MLI": "ML", "MLT": "MT", "MMR": "MM", "MNE": "ME", "MNG": "MN", "MNP": "MP", "MOZ": "MZ", "MRT": "MR", "MSR": "MS", "MTQ": "MQ", "MUS": "MU", "MWI": "MW", "MYS": "MY", "MYT": "YT", "NAM": "NA", "NCL": "NC", "NER": "NE", "NFK": "NF", "NGA": "NG", "NH": "VU", "NIC": "NI", "NIU": "NU", "NLD": "NL", "NOR": "NO", "NPL": "NP", "NQ": "AQ", "NRU": "NR", "NT": "SA IQ", "NTZ": "SA IQ", "NZL": "NZ", "OMN": "OM", "PAK": "PK", "PAN": "PA", "PC": "FM MH MP PW", "PCN": "PN", "PER": "PE", "PHL": "PH", "PLW": "PW", "PNG": "PG", "POL": "PL", "PRI": "PR", "PRK": "KP", "PRT": "PT", "PRY": "PY", "PSE": "PS", "PU": "UM", "PYF": "PF", "PZ": "PA", "QAT": "QA", "QMM": "QM", "QNN": "QN", "QPP": "QP", "QQQ": "QQ", "QRR": "QR", "QSS": "QS", "QTT": "QT", "QU": "EU", "QUU": "EU", "QVV": "QV", "QWW": "QW", "QXX": "QX", "QYY": "QY", "QZZ": "QZ", "REU": "RE", "RH": "ZW", "ROU": "RO", "RUS": "RU", "RWA": "RW", "SAU": "SA", "SCG": "RS ME", "SDN": "SD", "SEN": "SN", "SGP": "SG", "SGS": "GS", "SHN": "SH", "SJM": "SJ", "SLB": "SB", "SLE": "SL", "SLV": "SV", "SMR": "SM", "SOM": "SO", "SPM": "PM", "SRB": "RS", "SSD": "SS", "STP": "ST", "SU": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "SUN": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "SUR": "SR", "SVK": "SK", "SVN": "SI", "SWE": "SE", "SWZ": "SZ", "SXM": "SX", "SYC": "SC", "SYR": "SY", "TAA": "TA", "TCA": "TC", "TCD": "TD", "TGO": "TG", "THA": "TH", "TJK": "TJ", "TKL": "TK", "TKM": "TM", "TLS": "TL", "TMP": "TL", "TON": "TO", "TP": "TL", "TTO": "TT", "TUN": "TN", "TUR": "TR", "TUV": "TV", "TWN": "TW", "TZA": "TZ", "UGA": "UG", "UK": "GB", "UKR": "UA", "UMI": "UM", "URY": "UY", "USA": "US", "UZB": "UZ", "VAT": "VA", "VCT": "VC", "VD": "VN", "VEN": "VE", "VGB": "VG", "VIR": "VI", "VNM": "VN", "VUT": "VU", "WK": "UM", "WLF": "WF", "WSM": "WS", "XAA": "XA", "XBB": "XB", "XCC": "XC", "XDD": "XD", "XEE": "XE", "XFF": "XF", "XGG": "XG", "XHH": "XH", "XII": "XI", "XJJ": "XJ", "XKK": "XK", "XLL": "XL", "XMM": "XM", "XNN": "XN", "XOO": "XO", "XPP": "XP", "XQQ": "XQ", "XRR": "XR", "XSS": "XS", "XTT": "XT", "XUU": "XU", "XVV": "XV", "XWW": "XW", "XXX": "XX", "XYY": "XY", "XZZ": "XZ", "YD": "YE", "YEM": "YE", "YMD": "YE", "YU": "RS ME", "YUG": "RS ME", "ZAF": "ZA", "ZAR": "CD", "ZMB": "ZM", "ZR": "CD", "ZWE": "ZW", "ZZZ": "ZZ" };
-exports.scriptAlias = { "Qaai": "Zinh" };
-exports.variantAlias = { "AALAND": "AX", "arevela": "hy", "arevmda": "hyw", "heploc": "alalc97", "HEPLOC": "ALALC97", "POLYTONI": "POLYTON" };
-//# sourceMappingURL=aliases.js.map
+exports.shouldPolyfill = void 0;
+function shouldPolyfill() {
+    return (typeof Intl === 'undefined' ||
+        !('getCanonicalLocales' in Intl) ||
+        // Native Intl.getCanonicalLocales is just buggy
+        // https://bugs.chromium.org/p/v8/issues/detail?id=10682
+        Intl.getCanonicalLocales('und-x-private')[0] ===
+            'x-private');
+}
+exports.shouldPolyfill = shouldPolyfill;
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/canonicalizer.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/canonicalizer.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -123,10 +245,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var aliases_1 = __webpack_require__(/*! ./aliases */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/aliases.js");
-var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/parser.js");
-var likelySubtags = __webpack_require__(/*! cldr-core/supplemental/likelySubtags.json */ "./node_modules/cldr-core/supplemental/likelySubtags.json");
-var emitter_1 = __webpack_require__(/*! ./emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/emitter.js");
+exports.canonicalizeUnicodeLocaleId = exports.canonicalizeUnicodeLanguageId = void 0;
+var aliases_1 = __webpack_require__(/*! ./data/aliases */ "./node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js");
+var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+var likelySubtags = __importStar(__webpack_require__(/*! cldr-core/supplemental/likelySubtags.json */ "./node_modules/cldr-core/supplemental/likelySubtags.json"));
+var emitter_1 = __webpack_require__(/*! ./emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js");
 function canonicalizeAttrs(strs) {
     return Object.keys(strs.reduce(function (all, str) {
         all[str.toLowerCase()] = 1;
@@ -343,14 +466,35 @@ function canonicalizeUnicodeLocaleId(locale) {
     return locale;
 }
 exports.canonicalizeUnicodeLocaleId = canonicalizeUnicodeLocaleId;
-//# sourceMappingURL=canonicalizer.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/emitter.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/emitter.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.variantAlias = exports.scriptAlias = exports.territoryAlias = exports.languageAlias = void 0;
+/* @generated */
+// prettier-ignore  
+exports.languageAlias = { "aa-SAAHO": "ssy", "aam": "aas", "aar": "aa", "abk": "ab", "adp": "dz", "afr": "af", "aju": "jrb", "aka": "ak", "alb": "sq", "als": "sq", "amh": "am", "ara": "ar", "arb": "ar", "arg": "an", "arm": "hy", "art-lojban": "jbo", "asd": "snz", "asm": "as", "aue": "ktz", "ava": "av", "ave": "ae", "aym": "ay", "ayr": "ay", "ayx": "nun", "az-AZ": "az-Latn-AZ", "aze": "az", "azj": "az", "bak": "ba", "bam": "bm", "baq": "eu", "bcc": "bal", "bcl": "bik", "bel": "be", "ben": "bn", "bgm": "bcg", "bh": "bho", "bih": "bho", "bis": "bi", "bjd": "drl", "bod": "bo", "bos": "bs", "bre": "br", "bs-BA": "bs-Latn-BA", "bul": "bg", "bur": "my", "bxk": "luy", "bxr": "bua", "cat": "ca", "ccq": "rki", "cel-gaulish": "xtg-x-cel-gaulish", "ces": "cs", "cha": "ch", "che": "ce", "chi": "zh", "chu": "cu", "chv": "cv", "cjr": "mom", "cka": "cmr", "cld": "syr", "cmk": "xch", "cmn": "zh", "cnr": "sr-ME", "cor": "kw", "cos": "co", "coy": "pij", "cqu": "quh", "cre": "cr", "cwd": "cr", "cym": "cy", "cze": "cs", "dan": "da", "deu": "de", "dgo": "doi", "dhd": "mwr", "dik": "din", "diq": "zza", "dit": "dif", "div": "dv", "drh": "mn", "drw": "fa-af", "dut": "nl", "dzo": "dz", "ekk": "et", "ell": "el", "emk": "man", "eng": "en", "epo": "eo", "esk": "ik", "est": "et", "eus": "eu", "ewe": "ee", "fao": "fo", "fas": "fa", "fat": "ak", "fij": "fj", "fin": "fi", "fra": "fr", "fre": "fr", "fry": "fy", "fuc": "ff", "ful": "ff", "gav": "dev", "gaz": "om", "gbo": "grb", "geo": "ka", "ger": "de", "gfx": "vaj", "ggn": "gvr", "gla": "gd", "gle": "ga", "glg": "gl", "glv": "gv", "gno": "gon", "gre": "el", "grn": "gn", "gti": "nyc", "gug": "gn", "guj": "gu", "guv": "duz", "gya": "gba", "ha-Latn-GH": "ha-GH", "ha-Latn-NE": "ha-NE", "ha-Latn-NG": "ha-NG", "hat": "ht", "hau": "ha", "hbs": "sr-Latn", "hdn": "hai", "hea": "hmn", "heb": "he", "her": "hz", "him": "srx", "hin": "hi", "hmo": "ho", "hrr": "jal", "hrv": "hr", "hun": "hu", "hye": "hy", "i-ami": "ami", "i-bnn": "bnn", "i-hak": "hak", "i-klingon": "tlh", "i-lux": "lb", "i-navajo": "nv", "i-pwn": "pwn", "i-tao": "tao", "i-tay": "tay", "i-tsu": "tsu", "i-default": "en-x-i-default", "i-enochian": "und-x-i-enochian", "i-mingo": "see-x-i-mingo", "ibi": "opa", "ibo": "ig", "ice": "is", "ido": "io", "iii": "ii", "ike": "iu", "iku": "iu", "ile": "ie", "ilw": "gal", "in": "id", "ina": "ia", "ind": "id", "ipk": "ik", "isl": "is", "ita": "it", "iw": "he", "jav": "jv", "jeg": "oyb", "ji": "yi", "jpn": "ja", "jw": "jv", "kal": "kl", "kan": "kn", "kas": "ks", "kat": "ka", "kau": "kr", "kaz": "kk", "kgc": "tdf", "kgh": "kml", "khk": "mn", "khm": "km", "kik": "ki", "kin": "rw", "kir": "ky", "kk-Cyrl-KZ": "kk-KZ", "kmr": "ku", "knc": "kr", "kng": "kg", "knn": "kok", "koj": "kwv", "kom": "kv", "kon": "kg", "kor": "ko", "kpv": "kv", "krm": "bmf", "ks-Arab-IN": "ks-IN", "ktr": "dtp", "kua": "kj", "kur": "ku", "kvs": "gdj", "kwq": "yam", "kxe": "tvd", "ky-Cyrl-KG": "ky-KG", "kzj": "dtp", "kzt": "dtp", "lao": "lo", "lat": "la", "lav": "lv", "lbk": "bnc", "lii": "raq", "lim": "li", "lin": "ln", "lit": "lt", "llo": "ngt", "lmm": "rmx", "ltz": "lb", "lub": "lu", "lug": "lg", "lvs": "lv", "mac": "mk", "mah": "mh", "mal": "ml", "mao": "mi", "mar": "mr", "may": "ms", "meg": "cir", "mhr": "chm", "mkd": "mk", "mlg": "mg", "mlt": "mt", "mn-Cyrl-MN": "mn-MN", "mnk": "man", "mo": "ro", "mol": "ro", "mon": "mn", "mri": "mi", "ms-Latn-BN": "ms-BN", "ms-Latn-MY": "ms-MY", "ms-Latn-SG": "ms-SG", "msa": "ms", "mst": "mry", "mup": "raj", "mwj": "vaj", "mya": "my", "myd": "aog", "myt": "mry", "nad": "xny", "nau": "na", "nav": "nv", "nbl": "nr", "ncp": "kdz", "nde": "nd", "ndo": "ng", "nep": "ne", "nld": "nl", "nno": "nn", "nns": "nbr", "nnx": "ngv", "no": "nb", "no-bok": "nb", "no-BOKMAL": "nb", "no-nyn": "nn", "no-NYNORSK": "nn", "nob": "nb", "nor": "nb", "npi": "ne", "nts": "pij", "nya": "ny", "oci": "oc", "ojg": "oj", "oji": "oj", "ori": "or", "orm": "om", "ory": "or", "oss": "os", "oun": "vaj", "pa-IN": "pa-Guru-IN", "pa-PK": "pa-Arab-PK", "pan": "pa", "pbu": "ps", "pcr": "adx", "per": "fa", "pes": "fa", "pli": "pi", "plt": "mg", "pmc": "huw", "pmu": "phr", "pnb": "lah", "pol": "pl", "por": "pt", "ppa": "bfy", "ppr": "lcq", "prs": "fa-AF", "pry": "prt", "pus": "ps", "puz": "pub", "que": "qu", "quz": "qu", "rmy": "rom", "roh": "rm", "ron": "ro", "rum": "ro", "run": "rn", "rus": "ru", "sag": "sg", "san": "sa", "sca": "hle", "scc": "sr", "scr": "hr", "sgn-BE-FR": "sfb", "sgn-BE-NL": "vgt", "sgn-CH-DE": "sgg", "sh": "sr-Latn", "shi-MA": "shi-Tfng-MA", "sin": "si", "skk": "oyb", "slk": "sk", "slo": "sk", "slv": "sl", "sme": "se", "smo": "sm", "sna": "sn", "snd": "sd", "som": "so", "sot": "st", "spa": "es", "spy": "kln", "sqi": "sq", "sr-BA": "sr-Cyrl-BA", "sr-ME": "sr-Latn-ME", "sr-RS": "sr-Cyrl-RS", "sr-XK": "sr-Cyrl-XK", "src": "sc", "srd": "sc", "srp": "sr", "ssw": "ss", "sun": "su", "swa": "sw", "swc": "sw-CD", "swe": "sv", "swh": "sw", "tah": "ty", "tam": "ta", "tat": "tt", "tdu": "dtp", "tel": "te", "tgk": "tg", "tgl": "fil", "tha": "th", "thc": "tpo", "thx": "oyb", "tib": "bo", "tie": "ras", "tir": "ti", "tkk": "twm", "tl": "fil", "tlw": "weo", "tmp": "tyj", "tne": "kak", "tnf": "fa-af", "ton": "to", "tsf": "taj", "tsn": "tn", "tso": "ts", "ttq": "tmh", "tuk": "tk", "tur": "tr", "tw": "ak", "twi": "ak", "tzm-Latn-MA": "tzm-MA", "ug-Arab-CN": "ug-CN", "uig": "ug", "ukr": "uk", "umu": "del", "uok": "ema", "urd": "ur", "uz-AF": "uz-Arab-AF", "uz-UZ": "uz-Latn-UZ", "uzb": "uz", "uzn": "uz", "vai-LR": "vai-Vaii-LR", "ven": "ve", "vie": "vi", "vol": "vo", "wel": "cy", "wln": "wa", "wol": "wo", "xba": "cax", "xho": "xh", "xia": "acn", "xkh": "waw", "xpe": "kpe", "xsj": "suj", "xsl": "den", "ybd": "rki", "ydd": "yi", "yid": "yi", "yma": "lrr", "ymt": "mtm", "yor": "yo", "yos": "zom", "yue-CN": "yue-Hans-CN", "yue-HK": "yue-Hant-HK", "yuu": "yug", "zai": "zap", "zh-CN": "zh-Hans-CN", "zh-guoyu": "zh", "zh-hakka": "hak", "zh-HK": "zh-Hant-HK", "zh-min-nan": "nan", "zh-MO": "zh-Hant-MO", "zh-SG": "zh-Hans-SG", "zh-TW": "zh-Hant-TW", "zh-xiang": "hsn", "zh-min": "nan-x-zh-min", "zha": "za", "zho": "zh", "zsm": "ms", "zul": "zu", "zyb": "za" };
+exports.territoryAlias = { "100": "BG", "104": "MM", "108": "BI", "112": "BY", "116": "KH", "120": "CM", "124": "CA", "132": "CV", "136": "KY", "140": "CF", "144": "LK", "148": "TD", "152": "CL", "156": "CN", "158": "TW", "162": "CX", "166": "CC", "170": "CO", "172": "RU AM AZ BY GE KG KZ MD TJ TM UA UZ", "174": "KM", "175": "YT", "178": "CG", "180": "CD", "184": "CK", "188": "CR", "191": "HR", "192": "CU", "196": "CY", "200": "CZ SK", "203": "CZ", "204": "BJ", "208": "DK", "212": "DM", "214": "DO", "218": "EC", "222": "SV", "226": "GQ", "230": "ET", "231": "ET", "232": "ER", "233": "EE", "234": "FO", "238": "FK", "239": "GS", "242": "FJ", "246": "FI", "248": "AX", "249": "FR", "250": "FR", "254": "GF", "258": "PF", "260": "TF", "262": "DJ", "266": "GA", "268": "GE", "270": "GM", "275": "PS", "276": "DE", "278": "DE", "280": "DE", "288": "GH", "292": "GI", "296": "KI", "300": "GR", "304": "GL", "308": "GD", "312": "GP", "316": "GU", "320": "GT", "324": "GN", "328": "GY", "332": "HT", "334": "HM", "336": "VA", "340": "HN", "344": "HK", "348": "HU", "352": "IS", "356": "IN", "360": "ID", "364": "IR", "368": "IQ", "372": "IE", "376": "IL", "380": "IT", "384": "CI", "388": "JM", "392": "JP", "398": "KZ", "400": "JO", "404": "KE", "408": "KP", "410": "KR", "414": "KW", "417": "KG", "418": "LA", "422": "LB", "426": "LS", "428": "LV", "430": "LR", "434": "LY", "438": "LI", "440": "LT", "442": "LU", "446": "MO", "450": "MG", "454": "MW", "458": "MY", "462": "MV", "466": "ML", "470": "MT", "474": "MQ", "478": "MR", "480": "MU", "484": "MX", "492": "MC", "496": "MN", "498": "MD", "499": "ME", "500": "MS", "504": "MA", "508": "MZ", "512": "OM", "516": "NA", "520": "NR", "524": "NP", "528": "NL", "530": "CW SX BQ", "531": "CW", "532": "CW SX BQ", "533": "AW", "534": "SX", "535": "BQ", "536": "SA IQ", "540": "NC", "548": "VU", "554": "NZ", "558": "NI", "562": "NE", "566": "NG", "570": "NU", "574": "NF", "578": "NO", "580": "MP", "581": "UM", "582": "FM MH MP PW", "583": "FM", "584": "MH", "585": "PW", "586": "PK", "591": "PA", "598": "PG", "600": "PY", "604": "PE", "608": "PH", "612": "PN", "616": "PL", "620": "PT", "624": "GW", "626": "TL", "630": "PR", "634": "QA", "638": "RE", "642": "RO", "643": "RU", "646": "RW", "652": "BL", "654": "SH", "659": "KN", "660": "AI", "662": "LC", "663": "MF", "666": "PM", "670": "VC", "674": "SM", "678": "ST", "682": "SA", "686": "SN", "688": "RS", "690": "SC", "694": "SL", "702": "SG", "703": "SK", "704": "VN", "705": "SI", "706": "SO", "710": "ZA", "716": "ZW", "720": "YE", "724": "ES", "728": "SS", "729": "SD", "732": "EH", "736": "SD", "740": "SR", "744": "SJ", "748": "SZ", "752": "SE", "756": "CH", "760": "SY", "762": "TJ", "764": "TH", "768": "TG", "772": "TK", "776": "TO", "780": "TT", "784": "AE", "788": "TN", "792": "TR", "795": "TM", "796": "TC", "798": "TV", "800": "UG", "804": "UA", "807": "MK", "810": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "818": "EG", "826": "GB", "830": "JE GG", "831": "GG", "832": "JE", "833": "IM", "834": "TZ", "840": "US", "850": "VI", "854": "BF", "858": "UY", "860": "UZ", "862": "VE", "876": "WF", "882": "WS", "886": "YE", "887": "YE", "890": "RS ME SI HR MK BA", "891": "RS ME", "894": "ZM", "958": "AA", "959": "QM", "960": "QN", "962": "QP", "963": "QQ", "964": "QR", "965": "QS", "966": "QT", "967": "EU", "968": "QV", "969": "QW", "970": "QX", "971": "QY", "972": "QZ", "973": "XA", "974": "XB", "975": "XC", "976": "XD", "977": "XE", "978": "XF", "979": "XG", "980": "XH", "981": "XI", "982": "XJ", "983": "XK", "984": "XL", "985": "XM", "986": "XN", "987": "XO", "988": "XP", "989": "XQ", "990": "XR", "991": "XS", "992": "XT", "993": "XU", "994": "XV", "995": "XW", "996": "XX", "997": "XY", "998": "XZ", "999": "ZZ", "004": "AF", "008": "AL", "010": "AQ", "012": "DZ", "016": "AS", "020": "AD", "024": "AO", "028": "AG", "031": "AZ", "032": "AR", "036": "AU", "040": "AT", "044": "BS", "048": "BH", "050": "BD", "051": "AM", "052": "BB", "056": "BE", "060": "BM", "062": "034 143", "064": "BT", "068": "BO", "070": "BA", "072": "BW", "074": "BV", "076": "BR", "084": "BZ", "086": "IO", "090": "SB", "092": "VG", "096": "BN", "AAA": "AA", "ABW": "AW", "AFG": "AF", "AGO": "AO", "AIA": "AI", "ALA": "AX", "ALB": "AL", "AN": "CW SX BQ", "AND": "AD", "ANT": "CW SX BQ", "ARE": "AE", "ARG": "AR", "ARM": "AM", "ASC": "AC", "ASM": "AS", "ATA": "AQ", "ATF": "TF", "ATG": "AG", "AUS": "AU", "AUT": "AT", "AZE": "AZ", "BDI": "BI", "BEL": "BE", "BEN": "BJ", "BES": "BQ", "BFA": "BF", "BGD": "BD", "BGR": "BG", "BHR": "BH", "BHS": "BS", "BIH": "BA", "BLM": "BL", "BLR": "BY", "BLZ": "BZ", "BMU": "BM", "BOL": "BO", "BRA": "BR", "BRB": "BB", "BRN": "BN", "BTN": "BT", "BU": "MM", "BUR": "MM", "BVT": "BV", "BWA": "BW", "CAF": "CF", "CAN": "CA", "CCK": "CC", "CHE": "CH", "CHL": "CL", "CHN": "CN", "CIV": "CI", "CMR": "CM", "COD": "CD", "COG": "CG", "COK": "CK", "COL": "CO", "COM": "KM", "CPT": "CP", "CPV": "CV", "CRI": "CR", "CS": "RS ME", "CT": "KI", "CUB": "CU", "CUW": "CW", "CXR": "CX", "CYM": "KY", "CYP": "CY", "CZE": "CZ", "DD": "DE", "DDR": "DE", "DEU": "DE", "DGA": "DG", "DJI": "DJ", "DMA": "DM", "DNK": "DK", "DOM": "DO", "DY": "BJ", "DZA": "DZ", "ECU": "EC", "EGY": "EG", "ERI": "ER", "ESH": "EH", "ESP": "ES", "EST": "EE", "ETH": "ET", "FIN": "FI", "FJI": "FJ", "FLK": "FK", "FQ": "AQ TF", "FRA": "FR", "FRO": "FO", "FSM": "FM", "FX": "FR", "FXX": "FR", "GAB": "GA", "GBR": "GB", "GEO": "GE", "GGY": "GG", "GHA": "GH", "GIB": "GI", "GIN": "GN", "GLP": "GP", "GMB": "GM", "GNB": "GW", "GNQ": "GQ", "GRC": "GR", "GRD": "GD", "GRL": "GL", "GTM": "GT", "GUF": "GF", "GUM": "GU", "GUY": "GY", "HKG": "HK", "HMD": "HM", "HND": "HN", "HRV": "HR", "HTI": "HT", "HUN": "HU", "HV": "BF", "IDN": "ID", "IMN": "IM", "IND": "IN", "IOT": "IO", "IRL": "IE", "IRN": "IR", "IRQ": "IQ", "ISL": "IS", "ISR": "IL", "ITA": "IT", "JAM": "JM", "JEY": "JE", "JOR": "JO", "JPN": "JP", "JT": "UM", "KAZ": "KZ", "KEN": "KE", "KGZ": "KG", "KHM": "KH", "KIR": "KI", "KNA": "KN", "KOR": "KR", "KWT": "KW", "LAO": "LA", "LBN": "LB", "LBR": "LR", "LBY": "LY", "LCA": "LC", "LIE": "LI", "LKA": "LK", "LSO": "LS", "LTU": "LT", "LUX": "LU", "LVA": "LV", "MAC": "MO", "MAF": "MF", "MAR": "MA", "MCO": "MC", "MDA": "MD", "MDG": "MG", "MDV": "MV", "MEX": "MX", "MHL": "MH", "MI": "UM", "MKD": "MK", "MLI": "ML", "MLT": "MT", "MMR": "MM", "MNE": "ME", "MNG": "MN", "MNP": "MP", "MOZ": "MZ", "MRT": "MR", "MSR": "MS", "MTQ": "MQ", "MUS": "MU", "MWI": "MW", "MYS": "MY", "MYT": "YT", "NAM": "NA", "NCL": "NC", "NER": "NE", "NFK": "NF", "NGA": "NG", "NH": "VU", "NIC": "NI", "NIU": "NU", "NLD": "NL", "NOR": "NO", "NPL": "NP", "NQ": "AQ", "NRU": "NR", "NT": "SA IQ", "NTZ": "SA IQ", "NZL": "NZ", "OMN": "OM", "PAK": "PK", "PAN": "PA", "PC": "FM MH MP PW", "PCN": "PN", "PER": "PE", "PHL": "PH", "PLW": "PW", "PNG": "PG", "POL": "PL", "PRI": "PR", "PRK": "KP", "PRT": "PT", "PRY": "PY", "PSE": "PS", "PU": "UM", "PYF": "PF", "PZ": "PA", "QAT": "QA", "QMM": "QM", "QNN": "QN", "QPP": "QP", "QQQ": "QQ", "QRR": "QR", "QSS": "QS", "QTT": "QT", "QU": "EU", "QUU": "EU", "QVV": "QV", "QWW": "QW", "QXX": "QX", "QYY": "QY", "QZZ": "QZ", "REU": "RE", "RH": "ZW", "ROU": "RO", "RUS": "RU", "RWA": "RW", "SAU": "SA", "SCG": "RS ME", "SDN": "SD", "SEN": "SN", "SGP": "SG", "SGS": "GS", "SHN": "SH", "SJM": "SJ", "SLB": "SB", "SLE": "SL", "SLV": "SV", "SMR": "SM", "SOM": "SO", "SPM": "PM", "SRB": "RS", "SSD": "SS", "STP": "ST", "SU": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "SUN": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ", "SUR": "SR", "SVK": "SK", "SVN": "SI", "SWE": "SE", "SWZ": "SZ", "SXM": "SX", "SYC": "SC", "SYR": "SY", "TAA": "TA", "TCA": "TC", "TCD": "TD", "TGO": "TG", "THA": "TH", "TJK": "TJ", "TKL": "TK", "TKM": "TM", "TLS": "TL", "TMP": "TL", "TON": "TO", "TP": "TL", "TTO": "TT", "TUN": "TN", "TUR": "TR", "TUV": "TV", "TWN": "TW", "TZA": "TZ", "UGA": "UG", "UK": "GB", "UKR": "UA", "UMI": "UM", "URY": "UY", "USA": "US", "UZB": "UZ", "VAT": "VA", "VCT": "VC", "VD": "VN", "VEN": "VE", "VGB": "VG", "VIR": "VI", "VNM": "VN", "VUT": "VU", "WK": "UM", "WLF": "WF", "WSM": "WS", "XAA": "XA", "XBB": "XB", "XCC": "XC", "XDD": "XD", "XEE": "XE", "XFF": "XF", "XGG": "XG", "XHH": "XH", "XII": "XI", "XJJ": "XJ", "XKK": "XK", "XLL": "XL", "XMM": "XM", "XNN": "XN", "XOO": "XO", "XPP": "XP", "XQQ": "XQ", "XRR": "XR", "XSS": "XS", "XTT": "XT", "XUU": "XU", "XVV": "XV", "XWW": "XW", "XXX": "XX", "XYY": "XY", "XZZ": "XZ", "YD": "YE", "YEM": "YE", "YMD": "YE", "YU": "RS ME", "YUG": "RS ME", "ZAF": "ZA", "ZAR": "CD", "ZMB": "ZM", "ZR": "CD", "ZWE": "ZW", "ZZZ": "ZZ" };
+exports.scriptAlias = { "Qaai": "Zinh" };
+exports.variantAlias = { "AALAND": "AX", "arevela": "hy", "arevmda": "hyw", "heploc": "alalc97", "HEPLOC": "ALALC97", "POLYTONI": "POLYTON" };
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -364,6 +508,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.emitUnicodeLocaleId = exports.emitUnicodeLanguageId = void 0;
 function emitUnicodeLanguageId(lang) {
     if (!lang) {
         return '';
@@ -393,63 +538,14 @@ function emitUnicodeLocaleId(_a) {
     return chunks.filter(Boolean).join('-');
 }
 exports.emitUnicodeLocaleId = emitUnicodeLocaleId;
-//# sourceMappingURL=emitter.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/index.js":
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/src/parser.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/index.js ***!
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/src/parser.js ***!
   \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/parser.js");
-var emitter_1 = __webpack_require__(/*! ./emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/emitter.js");
-var canonicalizer_1 = __webpack_require__(/*! ./canonicalizer */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/canonicalizer.js");
-function canonicalizeLocaleList(locales) {
-    if (locales === undefined) {
-        return [];
-    }
-    var seen = [];
-    if (typeof locales === 'string') {
-        locales = [locales];
-    }
-    for (var _i = 0, locales_1 = locales; _i < locales_1.length; _i++) {
-        var locale = locales_1[_i];
-        var canonicalizedTag = emitter_1.emitUnicodeLocaleId(canonicalizer_1.canonicalizeUnicodeLocaleId(parser_1.parseUnicodeLocaleId(locale)));
-        if (seen.indexOf(canonicalizedTag) < 0) {
-            seen.push(canonicalizedTag);
-        }
-    }
-    return seen;
-}
-function getCanonicalLocales(locales) {
-    return canonicalizeLocaleList(locales);
-}
-exports.getCanonicalLocales = getCanonicalLocales;
-var parser_2 = __webpack_require__(/*! ./parser */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/parser.js");
-exports.parseUnicodeLocaleId = parser_2.parseUnicodeLocaleId;
-exports.parseUnicodeLanguageId = parser_2.parseUnicodeLanguageId;
-exports.isStructurallyValidLanguageTag = parser_2.isStructurallyValidLanguageTag;
-exports.isUnicodeRegionSubtag = parser_2.isUnicodeRegionSubtag;
-exports.isUnicodeScriptSubtag = parser_2.isUnicodeScriptSubtag;
-exports.isUnicodeLanguageSubtag = parser_2.isUnicodeLanguageSubtag;
-__export(__webpack_require__(/*! ./emitter */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/emitter.js"));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/parser.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/parser.js ***!
-  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -467,6 +563,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseUnicodeLocaleId = exports.parseUnicodeLanguageId = exports.isUnicodeVariantSubtag = exports.isUnicodeScriptSubtag = exports.isUnicodeRegionSubtag = exports.isStructurallyValidLanguageTag = exports.isUnicodeLanguageSubtag = exports.SEPARATOR = void 0;
 var ALPHANUM_1_8 = /^[a-z0-9]{1,8}$/i;
 var ALPHANUM_2_8 = /^[a-z0-9]{2,8}$/i;
 var ALPHANUM_3_8 = /^[a-z0-9]{3,8}$/i;
@@ -706,51 +803,52 @@ function parseUnicodeLocaleId(locale) {
     return __assign({ lang: lang }, parseExtensions(chunks));
 }
 exports.parseUnicodeLocaleId = parseUnicodeLocaleId;
-//# sourceMappingURL=parser.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/dist/polyfill.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/dist/polyfill.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/@formatjs/intl-getcanonicallocales/src/types.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-getcanonicallocales/src/types.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(/*! ./ */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/index.js");
-if (!('getCanonicalLocales' in Intl) ||
-    // Native Intl.getCanonicalLocales is just buggy
-    Intl.getCanonicalLocales('und-x-private')[0] === 'x-private') {
-    Object.defineProperty(Intl, 'getCanonicalLocales', {
-        value: _1.getCanonicalLocales,
-        writable: true,
-        enumerable: false,
-        configurable: true,
-    });
-}
-//# sourceMappingURL=polyfill.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-getcanonicallocales/polyfill.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-getcanonicallocales/polyfill.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/get_internal_slots.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/get_internal_slots.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./dist/polyfill */ "./node_modules/@formatjs/intl-getcanonicallocales/dist/polyfill.js");
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var internalSlotMap = new WeakMap();
+function getInternalSlots(x) {
+    var internalSlots = internalSlotMap.get(x);
+    if (!internalSlots) {
+        internalSlots = Object.create(null);
+        internalSlotMap.set(x, internalSlots);
+    }
+    return internalSlots;
+}
+exports.default = getInternalSlots;
 
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/dist/core.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/dist/core.js ***!
-  \**************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/index.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -763,67 +861,30 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/index.js");
+exports.PluralRules = void 0;
+var ecma402_abstract_1 = __webpack_require__(/*! @formatjs/ecma402-abstract */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/index.js");
+var get_internal_slots_1 = __importDefault(__webpack_require__(/*! ./get_internal_slots */ "./node_modules/@formatjs/intl-pluralrules/get_internal_slots.js"));
 function validateInstance(instance, method) {
     if (!(instance instanceof PluralRules)) {
         throw new TypeError("Method Intl.PluralRules.prototype." + method + " called on incompatible receiver " + String(instance));
     }
 }
 /**
- * https://tc39.es/ecma402/#sec-torawprecision
- * @param x
- * @param minPrecision
- * @param maxPrecision
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-pluralruleselect
+ * @param locale
+ * @param type
+ * @param _n
+ * @param param3
  */
-function toRawPrecision(x, minPrecision, maxPrecision) {
-    var m = x.toPrecision(maxPrecision);
-    if (~m.indexOf('.') && maxPrecision > minPrecision) {
-        var cut = maxPrecision - minPrecision;
-        while (cut > 0 && m[m.length - 1] === '0') {
-            m = m.slice(0, m.length - 1);
-            cut--;
-        }
-        if (m[m.length - 1] === '.') {
-            return m.slice(0, m.length - 1);
-        }
-    }
-    return m;
-}
-/**
- * https://tc39.es/ecma402/#sec-torawfixed
- * @param x
- * @param minInteger
- * @param minFraction
- * @param maxFraction
- */
-function toRawFixed(x, minInteger, minFraction, maxFraction) {
-    var cut = maxFraction - minFraction;
-    var m = x.toFixed(maxFraction);
-    while (cut > 0 && m[m.length - 1] === '0') {
-        m = m.slice(0, m.length - 1);
-        cut--;
-    }
-    if (m[m.length - 1] === '.') {
-        m = m.slice(0, m.length - 1);
-    }
-    var int = m.split('.')[0].length;
-    if (int < minInteger) {
-        var z = '';
-        for (; z.length < minInteger - int; z += '0')
-            ;
-        m = z + m;
-    }
-    return m;
-}
-function formatNumericToString(internalSlotMap, pl, x) {
-    var minimumSignificantDigits = intl_utils_1.getInternalSlot(internalSlotMap, pl, 'minimumSignificantDigits');
-    var maximumSignificantDigits = intl_utils_1.getInternalSlot(internalSlotMap, pl, 'maximumSignificantDigits');
-    if (minimumSignificantDigits !== undefined &&
-        maximumSignificantDigits !== undefined) {
-        return toRawPrecision(x, minimumSignificantDigits, maximumSignificantDigits);
-    }
-    return toRawFixed(x, intl_utils_1.getInternalSlot(internalSlotMap, pl, 'minimumIntegerDigits'), intl_utils_1.getInternalSlot(internalSlotMap, pl, 'minimumFractionDigits'), intl_utils_1.getInternalSlot(internalSlotMap, pl, 'maximumFractionDigits'));
+function PluralRuleSelect(locale, type, _n, _a) {
+    var IntegerDigits = _a.IntegerDigits, NumberOfFractionDigits = _a.NumberOfFractionDigits, FractionDigits = _a.FractionDigits;
+    return PluralRules.localeData[locale].fn(NumberOfFractionDigits
+        ? IntegerDigits + "." + FractionDigits
+        : IntegerDigits, type === 'ordinal');
 }
 var PluralRules = /** @class */ (function () {
     function PluralRules(locales, options) {
@@ -833,24 +894,20 @@ var PluralRules = /** @class */ (function () {
         if (!newTarget) {
             throw new TypeError("Intl.PluralRules must be called with 'new'");
         }
-        var requestedLocales = Intl
-            .getCanonicalLocales(locales);
-        var opt = Object.create(null);
-        var opts = options === undefined ? Object.create(null) : intl_utils_1.toObject(options);
-        intl_utils_1.setInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'initializedPluralRules', true);
-        var matcher = intl_utils_1.getOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
-        opt.localeMatcher = matcher;
-        intl_utils_1.setInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'type', intl_utils_1.getOption(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal'));
-        intl_utils_1.setNumberFormatDigitOptions(PluralRules.__INTERNAL_SLOT_MAP__.get(this), opts, 0, 3, 'standard');
-        var r = intl_utils_1.createResolveLocale(PluralRules.getDefaultLocale)(PluralRules.availableLocales, requestedLocales, opt, PluralRules.relevantExtensionKeys, PluralRules.localeData);
-        intl_utils_1.setInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'locale', r.locale);
+        return ecma402_abstract_1.InitializePluralRules(this, locales, options, {
+            availableLocales: PluralRules.availableLocales,
+            relevantExtensionKeys: PluralRules.relevantExtensionKeys,
+            localeData: PluralRules.localeData,
+            getDefaultLocale: PluralRules.getDefaultLocale,
+            getInternalSlots: get_internal_slots_1.default,
+        });
     }
     PluralRules.prototype.resolvedOptions = function () {
-        var _this = this;
         validateInstance(this, 'resolvedOptions');
         var opts = Object.create(null);
-        opts.locale = intl_utils_1.getInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'locale');
-        opts.type = intl_utils_1.getInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'type');
+        var internalSlots = get_internal_slots_1.default(this);
+        opts.locale = internalSlots.locale;
+        opts.type = internalSlots.type;
         [
             'minimumIntegerDigits',
             'minimumFractionDigits',
@@ -858,7 +915,7 @@ var PluralRules = /** @class */ (function () {
             'minimumSignificantDigits',
             'maximumSignificantDigits',
         ].forEach(function (field) {
-            var val = intl_utils_1.getInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, _this, field);
+            var val = internalSlots[field];
             if (val !== undefined) {
                 opts[field] = val;
             }
@@ -867,16 +924,16 @@ var PluralRules = /** @class */ (function () {
         return opts;
     };
     PluralRules.prototype.select = function (val) {
-        validateInstance(this, 'select');
-        var locale = intl_utils_1.getInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'locale');
-        var type = intl_utils_1.getInternalSlot(PluralRules.__INTERNAL_SLOT_MAP__, this, 'type');
-        return PluralRules.localeData[locale].fn(formatNumericToString(PluralRules.__INTERNAL_SLOT_MAP__, this, Math.abs(Number(val))), type == 'ordinal');
+        var pr = this;
+        validateInstance(pr, 'select');
+        var n = ecma402_abstract_1.ToNumber(val);
+        return ecma402_abstract_1.ResolvePlural(pr, n, { getInternalSlots: get_internal_slots_1.default, PluralRuleSelect: PluralRuleSelect });
     };
     PluralRules.prototype.toString = function () {
         return '[object Intl.PluralRules]';
     };
     PluralRules.supportedLocalesOf = function (locales, options) {
-        return intl_utils_1.supportedLocales(PluralRules.availableLocales, Intl.getCanonicalLocales(locales), options);
+        return ecma402_abstract_1.SupportedLocales(PluralRules.availableLocales, ecma402_abstract_1.CanonicalizeLocaleList(locales), options);
     };
     PluralRules.__addLocaleData = function () {
         var data = [];
@@ -887,10 +944,10 @@ var PluralRules = /** @class */ (function () {
             var availableLocales = datum.availableLocales;
             availableLocales.forEach(function (locale) {
                 try {
-                    PluralRules.localeData[locale] = intl_utils_1.unpackData(locale, datum);
+                    PluralRules.localeData[locale] = ecma402_abstract_1.unpackData(locale, datum);
                 }
                 catch (e) {
-                    if (intl_utils_1.isMissingLocaleDataError(e)) {
+                    if (ecma402_abstract_1.isMissingLocaleDataError(e)) {
                         // If we just don't have data for certain locale, that's ok
                         return;
                     }
@@ -915,18 +972,32 @@ var PluralRules = /** @class */ (function () {
     PluralRules.__defaultLocale = 'en';
     PluralRules.relevantExtensionKeys = [];
     PluralRules.polyfilled = true;
-    PluralRules.__INTERNAL_SLOT_MAP__ = new WeakMap();
     return PluralRules;
 }());
 exports.PluralRules = PluralRules;
 try {
-    // https://github.com/tc39/test262/blob/master/test/intl402/PluralRules/length.js
-    Object.defineProperty(PluralRules, 'length', {
-        value: 0,
-        writable: false,
-        enumerable: false,
-        configurable: true,
-    });
+    // IE11 does not have Symbol
+    if (typeof Symbol !== 'undefined') {
+        Object.defineProperty(PluralRules.prototype, Symbol.toStringTag, {
+            value: 'Intl.PluralRules',
+            writable: false,
+            enumerable: false,
+            configurable: true,
+        });
+    }
+    try {
+        // https://github.com/tc39/test262/blob/master/test/intl402/PluralRules/length.js
+        Object.defineProperty(PluralRules, 'length', {
+            value: 0,
+            writable: false,
+            enumerable: false,
+            configurable: true,
+        });
+    }
+    catch (error) {
+        // IE 11 sets Function.prototype.length to be non-configurable which will cause the
+        // above Object.defineProperty to throw an error.
+    }
     // https://github.com/tc39/test262/blob/master/test/intl402/RelativeTimeFormat/constructor/length.js
     Object.defineProperty(PluralRules.prototype.constructor, 'length', {
         value: 0,
@@ -945,14 +1016,14 @@ try {
 catch (ex) {
     // Meta fixes for test262
 }
-//# sourceMappingURL=core.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/dist/locale-data/en.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/dist/locale-data/en.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/locale-data/en.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/locale-data/en.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -972,10 +1043,10 @@ if (Intl.PluralRules && typeof Intl.PluralRules.__addLocaleData === 'function') 
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/dist/locale-data/fr.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/dist/locale-data/fr.js ***!
-  \************************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/locale-data/fr.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/locale-data/fr.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -991,400 +1062,103 @@ if (Intl.PluralRules && typeof Intl.PluralRules.__addLocaleData === 'function') 
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/dist/polyfill.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/dist/polyfill.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! ./core */ "./node_modules/@formatjs/intl-pluralrules/dist/core.js");
-if (typeof Intl.PluralRules === 'undefined' ||
-    (!Intl.PluralRules.polyfilled &&
-        new Intl.PluralRules('en', { minimumFractionDigits: 2 }).select(1) ===
-            'one')) {
-    Object.defineProperty(Intl, 'PluralRules', {
-        value: core_1.PluralRules,
-        writable: true,
-        enumerable: false,
-        configurable: true,
-    });
-}
-//# sourceMappingURL=polyfill.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/diff.js":
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js":
 /*!************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/diff.js ***!
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js ***!
   \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var MS_PER_SECOND = 1e3;
-var SECS_PER_MIN = 60;
-var SECS_PER_HOUR = SECS_PER_MIN * 60;
-var SECS_PER_DAY = SECS_PER_HOUR * 24;
-var SECS_PER_WEEK = SECS_PER_DAY * 7;
-function selectUnit(from, to, thresholds) {
-    if (to === void 0) { to = Date.now(); }
-    if (thresholds === void 0) { thresholds = {}; }
-    var resolvedThresholds = __assign(__assign({}, exports.DEFAULT_THRESHOLDS), (thresholds || {}));
-    var secs = (+from - +to) / MS_PER_SECOND;
-    if (Math.abs(secs) < resolvedThresholds.second) {
-        return {
-            value: Math.round(secs),
-            unit: 'second',
-        };
-    }
-    var mins = secs / SECS_PER_MIN;
-    if (Math.abs(mins) < resolvedThresholds.minute) {
-        return {
-            value: Math.round(mins),
-            unit: 'minute',
-        };
-    }
-    var hours = secs / SECS_PER_HOUR;
-    if (Math.abs(hours) < resolvedThresholds.hour) {
-        return {
-            value: Math.round(hours),
-            unit: 'hour',
-        };
-    }
-    var days = secs / SECS_PER_DAY;
-    if (Math.abs(days) < resolvedThresholds.day) {
-        return {
-            value: Math.round(days),
-            unit: 'day',
-        };
-    }
-    var fromDate = new Date(from);
-    var toDate = new Date(to);
-    var years = fromDate.getFullYear() - toDate.getFullYear();
-    if (Math.round(Math.abs(years)) > 0) {
-        return {
-            value: Math.round(years),
-            unit: 'year',
-        };
-    }
-    var months = years * 12 + fromDate.getMonth() - toDate.getMonth();
-    if (Math.round(Math.abs(months)) > 0) {
-        return {
-            value: Math.round(months),
-            unit: 'month',
-        };
-    }
-    var weeks = secs / SECS_PER_WEEK;
-    return {
-        value: Math.round(weeks),
-        unit: 'week',
-    };
-}
-exports.selectUnit = selectUnit;
-exports.DEFAULT_THRESHOLDS = {
-    second: 45,
-    minute: 45,
-    hour: 22,
-    day: 5,
-};
-//# sourceMappingURL=diff.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/index.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/index.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var diff_1 = __webpack_require__(/*! ./diff */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/diff.js");
-exports.selectUnit = diff_1.selectUnit;
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-exports.defaultNumberOption = polyfill_utils_1.defaultNumberOption;
-exports.getInternalSlot = polyfill_utils_1.getInternalSlot;
-exports.getMultiInternalSlots = polyfill_utils_1.getMultiInternalSlots;
-exports.getNumberOption = polyfill_utils_1.getNumberOption;
-exports.getOption = polyfill_utils_1.getOption;
-exports.isLiteralPart = polyfill_utils_1.isLiteralPart;
-exports.partitionPattern = polyfill_utils_1.partitionPattern;
-exports.setInternalSlot = polyfill_utils_1.setInternalSlot;
-exports.setMultiInternalSlots = polyfill_utils_1.setMultiInternalSlots;
-exports.setNumberFormatDigitOptions = polyfill_utils_1.setNumberFormatDigitOptions;
-exports.toObject = polyfill_utils_1.toObject;
-exports.objectIs = polyfill_utils_1.objectIs;
-exports.isWellFormedCurrencyCode = polyfill_utils_1.isWellFormedCurrencyCode;
-exports.toString = polyfill_utils_1.toString;
-exports.formatNumericToString = polyfill_utils_1.formatNumericToString;
-exports.toRawFixed = polyfill_utils_1.toRawFixed;
-exports.toRawPrecision = polyfill_utils_1.toRawPrecision;
-exports.getMagnitude = polyfill_utils_1.getMagnitude;
-exports.repeat = polyfill_utils_1.repeat;
-exports.hasOwnProperty = polyfill_utils_1.hasOwnProperty;
-exports.isWellFormedUnitIdentifier = polyfill_utils_1.isWellFormedUnitIdentifier;
-exports.defineProperty = polyfill_utils_1.defineProperty;
-var resolve_locale_1 = __webpack_require__(/*! ./resolve-locale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/resolve-locale.js");
-exports.createResolveLocale = resolve_locale_1.createResolveLocale;
-exports.getLocaleHierarchy = resolve_locale_1.getLocaleHierarchy;
-exports.supportedLocales = resolve_locale_1.supportedLocales;
-exports.unpackData = resolve_locale_1.unpackData;
-exports.isMissingLocaleDataError = resolve_locale_1.isMissingLocaleDataError;
-__export(__webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/units.js"));
-var units_1 = __webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/units.js");
-exports.removeUnitNamespace = units_1.removeUnitNamespace;
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js");
-exports.invariant = invariant_1.invariant;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js":
-/*!*****************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function invariant(condition, message, Err) {
-    if (Err === void 0) { Err = Error; }
-    if (!condition) {
-        throw new Err(message);
-    }
-}
-exports.invariant = invariant;
-//# sourceMappingURL=invariant.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js ***!
-  \**********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js");
-var units_1 = __webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/units.js");
-function hasOwnProperty(o, key) {
-    return Object.prototype.hasOwnProperty.call(o, key);
-}
-exports.hasOwnProperty = hasOwnProperty;
-/**
- * https://tc39.es/ecma262/#sec-toobject
- * @param arg
- */
-function toObject(arg) {
-    if (arg == null) {
-        throw new TypeError('undefined/null cannot be converted to object');
-    }
-    return Object(arg);
-}
-exports.toObject = toObject;
+exports.SecFromTime = exports.MinFromTime = exports.HourFromTime = exports.DateFromTime = exports.MonthFromTime = exports.InLeapYear = exports.DayWithinYear = exports.DaysInYear = exports.YearFromTime = exports.TimeFromYear = exports.DayFromYear = exports.WeekDay = exports.Day = exports.Type = exports.HasOwnProperty = exports.ArrayCreate = exports.SameValue = exports.ToObject = exports.TimeClip = exports.ToNumber = exports.ToString = void 0;
 /**
  * https://tc39.es/ecma262/#sec-tostring
  */
-function toString(o) {
+function ToString(o) {
     // Only symbol is irregular...
     if (typeof o === 'symbol') {
         throw TypeError('Cannot convert a Symbol value to a string');
     }
     return String(o);
 }
-exports.toString = toString;
+exports.ToString = ToString;
 /**
- * https://tc39.es/ecma402/#sec-getoption
- * @param opts
- * @param prop
- * @param type
- * @param values
- * @param fallback
- */
-function getOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
-    var value = opts[prop];
-    if (value !== undefined) {
-        if (type !== 'boolean' && type !== 'string') {
-            throw new TypeError('invalid type');
-        }
-        if (type === 'boolean') {
-            value = Boolean(value);
-        }
-        if (type === 'string') {
-            value = toString(value);
-        }
-        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
-            throw new RangeError(value + " is not within " + values.join(', '));
-        }
-        return value;
-    }
-    return fallback;
-}
-exports.getOption = getOption;
-/**
- * https://tc39.es/ecma402/#sec-defaultnumberoption
+ * https://tc39.es/ecma262/#sec-tonumber
  * @param val
- * @param min
- * @param max
- * @param fallback
  */
-function defaultNumberOption(val, min, max, fallback) {
-    if (val !== undefined) {
-        val = Number(val);
-        if (isNaN(val) || val < min || val > max) {
-            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
-        }
-        return Math.floor(val);
+function ToNumber(val) {
+    if (val === undefined) {
+        return NaN;
     }
-    return fallback;
+    if (val === null) {
+        return +0;
+    }
+    if (typeof val === 'boolean') {
+        return val ? 1 : +0;
+    }
+    if (typeof val === 'number') {
+        return val;
+    }
+    if (typeof val === 'symbol' || typeof val === 'bigint') {
+        throw new TypeError('Cannot convert symbol/bigint to number');
+    }
+    return Number(val);
 }
-exports.defaultNumberOption = defaultNumberOption;
+exports.ToNumber = ToNumber;
 /**
- * https://tc39.es/ecma402/#sec-getnumberoption
- * @param options
- * @param property
- * @param min
- * @param max
- * @param fallback
+ * https://tc39.es/ecma262/#sec-tointeger
+ * @param n
  */
-function getNumberOption(options, property, minimum, maximum, fallback) {
-    var val = options[property];
-    return defaultNumberOption(val, minimum, maximum, fallback);
-}
-exports.getNumberOption = getNumberOption;
-function setInternalSlot(map, pl, field, value) {
-    if (!map.get(pl)) {
-        map.set(pl, Object.create(null));
+function ToInteger(n) {
+    var number = ToNumber(n);
+    if (isNaN(number) || SameValue(number, -0)) {
+        return 0;
     }
-    var slots = map.get(pl);
-    slots[field] = value;
-}
-exports.setInternalSlot = setInternalSlot;
-function setMultiInternalSlots(map, pl, props) {
-    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
-        var k = _a[_i];
-        setInternalSlot(map, pl, k, props[k]);
+    if (isFinite(number)) {
+        return number;
     }
-}
-exports.setMultiInternalSlots = setMultiInternalSlots;
-function getInternalSlot(map, pl, field) {
-    return getMultiInternalSlots(map, pl, field)[field];
-}
-exports.getInternalSlot = getInternalSlot;
-function getMultiInternalSlots(map, pl) {
-    var fields = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        fields[_i - 2] = arguments[_i];
+    var integer = Math.floor(Math.abs(number));
+    if (number < 0) {
+        integer = -integer;
     }
-    var slots = map.get(pl);
-    if (!slots) {
-        throw new TypeError(pl + " InternalSlot has not been initialized");
+    if (SameValue(integer, -0)) {
+        return 0;
     }
-    return fields.reduce(function (all, f) {
-        all[f] = slots[f];
-        return all;
-    }, Object.create(null));
+    return integer;
 }
-exports.getMultiInternalSlots = getMultiInternalSlots;
-function isLiteralPart(patternPart) {
-    return patternPart.type === 'literal';
-}
-exports.isLiteralPart = isLiteralPart;
-function partitionPattern(pattern) {
-    var result = [];
-    var beginIndex = pattern.indexOf('{');
-    var endIndex = 0;
-    var nextIndex = 0;
-    var length = pattern.length;
-    while (beginIndex < pattern.length && beginIndex > -1) {
-        endIndex = pattern.indexOf('}', beginIndex);
-        invariant_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
-        if (beginIndex > nextIndex) {
-            result.push({
-                type: 'literal',
-                value: pattern.substring(nextIndex, beginIndex),
-            });
-        }
-        result.push({
-            type: pattern.substring(beginIndex + 1, endIndex),
-            value: undefined,
-        });
-        nextIndex = endIndex + 1;
-        beginIndex = pattern.indexOf('{', nextIndex);
-    }
-    if (nextIndex < length) {
-        result.push({
-            type: 'literal',
-            value: pattern.substring(nextIndex, length),
-        });
-    }
-    return result;
-}
-exports.partitionPattern = partitionPattern;
 /**
- * https://tc39.es/ecma402/#sec-setnfdigitoptions
+ * https://tc39.es/ecma262/#sec-timeclip
+ * @param time
  */
-function setNumberFormatDigitOptions(internalSlots, opts, mnfdDefault, mxfdDefault, notation) {
-    var mnid = getNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
-    var mnfd = opts.minimumFractionDigits;
-    var mxfd = opts.maximumFractionDigits;
-    var mnsd = opts.minimumSignificantDigits;
-    var mxsd = opts.maximumSignificantDigits;
-    internalSlots.minimumIntegerDigits = mnid;
-    if (mnsd !== undefined || mxsd !== undefined) {
-        internalSlots.roundingType = 'significantDigits';
-        mnsd = defaultNumberOption(mnsd, 1, 21, 1);
-        mxsd = defaultNumberOption(mxsd, mnsd, 21, 21);
-        internalSlots.minimumSignificantDigits = mnsd;
-        internalSlots.maximumSignificantDigits = mxsd;
+function TimeClip(time) {
+    if (!isFinite(time)) {
+        return NaN;
     }
-    else if (mnfd !== undefined || mxfd !== undefined) {
-        internalSlots.roundingType = 'fractionDigits';
-        mnfd = defaultNumberOption(mnfd, 0, 20, mnfdDefault);
-        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
-        mxfd = defaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
-        internalSlots.minimumFractionDigits = mnfd;
-        internalSlots.maximumFractionDigits = mxfd;
+    if (Math.abs(time) > 8.64 * 1e16) {
+        return NaN;
     }
-    else if (notation === 'compact') {
-        internalSlots.roundingType = 'compactRounding';
-    }
-    else {
-        internalSlots.roundingType = 'fractionDigits';
-        internalSlots.minimumFractionDigits = mnfdDefault;
-        internalSlots.maximumFractionDigits = mxfdDefault;
-    }
+    return ToInteger(time);
 }
-exports.setNumberFormatDigitOptions = setNumberFormatDigitOptions;
-function objectIs(x, y) {
+exports.TimeClip = TimeClip;
+/**
+ * https://tc39.es/ecma262/#sec-toobject
+ * @param arg
+ */
+function ToObject(arg) {
+    if (arg == null) {
+        throw new TypeError('undefined/null cannot be converted to object');
+    }
+    return Object(arg);
+}
+exports.ToObject = ToObject;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-samevalue
+ * @param x
+ * @param y
+ */
+function SameValue(x, y) {
     if (Object.is) {
         return Object.is(x, y);
     }
@@ -1397,422 +1171,354 @@ function objectIs(x, y) {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
 }
-exports.objectIs = objectIs;
-var NOT_A_Z_REGEX = /[^A-Z]/;
+exports.SameValue = SameValue;
 /**
- * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
- * @param str string to convert
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-arraycreate
+ * @param len
  */
-function toUpperCase(str) {
-    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
+function ArrayCreate(len) {
+    return new Array(len);
+}
+exports.ArrayCreate = ArrayCreate;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-hasownproperty
+ * @param o
+ * @param prop
+ */
+function HasOwnProperty(o, prop) {
+    return Object.prototype.hasOwnProperty.call(o, prop);
+}
+exports.HasOwnProperty = HasOwnProperty;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-type
+ * @param x
+ */
+function Type(x) {
+    if (x === null) {
+        return 'Null';
+    }
+    if (typeof x === 'undefined') {
+        return 'Undefined';
+    }
+    if (typeof x === 'function' || typeof x === 'object') {
+        return 'Object';
+    }
+    if (typeof x === 'number') {
+        return 'Number';
+    }
+    if (typeof x === 'boolean') {
+        return 'Boolean';
+    }
+    if (typeof x === 'string') {
+        return 'String';
+    }
+    if (typeof x === 'symbol') {
+        return 'Symbol';
+    }
+    if (typeof x === 'bigint') {
+        return 'BigInt';
+    }
+}
+exports.Type = Type;
+var MS_PER_DAY = 86400000;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#eqn-modulo
+ * @param x
+ * @param y
+ * @return k of the same sign as y
+ */
+function mod(x, y) {
+    return x - Math.floor(x / y) * y;
 }
 /**
- * https://tc39.es/ecma402/#sec-iswellformedcurrencycode
+ * https://tc39.es/ecma262/#eqn-Day
+ * @param t
  */
-function isWellFormedCurrencyCode(currency) {
-    currency = toUpperCase(currency);
-    if (currency.length !== 3) {
-        return false;
-    }
-    if (NOT_A_Z_REGEX.test(currency)) {
-        return false;
-    }
-    return true;
+function Day(t) {
+    return Math.floor(t / MS_PER_DAY);
 }
-exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
+exports.Day = Day;
 /**
- * https://tc39.es/ecma402/#sec-formatnumberstring
- * TODO: dedup with intl-pluralrules
+ * https://tc39.es/ecma262/#sec-week-day
+ * @param t
  */
-function formatNumericToString(internalSlots, x) {
-    var isNegative = x < 0 || objectIs(x, -0);
-    if (isNegative) {
-        x = -x;
-    }
-    var result;
-    var rourndingType = internalSlots.roundingType;
-    switch (rourndingType) {
-        case 'significantDigits':
-            result = toRawPrecision(x, internalSlots.minimumSignificantDigits, internalSlots.maximumSignificantDigits);
-            break;
-        case 'fractionDigits':
-            result = toRawFixed(x, internalSlots.minimumFractionDigits, internalSlots.maximumFractionDigits);
-            break;
-        default:
-            result = toRawPrecision(x, 1, 2);
-            if (result.integerDigitsCount > 1) {
-                result = toRawFixed(x, 0, 0);
-            }
-            break;
-    }
-    x = result.roundedNumber;
-    var string = result.formattedString;
-    var int = result.integerDigitsCount;
-    var minInteger = internalSlots.minimumIntegerDigits;
-    if (int < minInteger) {
-        var forwardZeros = repeat('0', minInteger - int);
-        string = forwardZeros + string;
-    }
-    if (isNegative) {
-        x = -x;
-    }
-    return { roundedNumber: x, formattedString: string };
+function WeekDay(t) {
+    return mod(Day(t) + 4, 7);
 }
-exports.formatNumericToString = formatNumericToString;
+exports.WeekDay = WeekDay;
 /**
- * TODO: dedup with intl-pluralrules and support BigInt
- * https://tc39.es/ecma402/#sec-torawfixed
- * @param x a finite non-negative Number or BigInt
- * @param minFraction and integer between 0 and 20
- * @param maxFraction and integer between 0 and 20
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param y
  */
-function toRawFixed(x, minFraction, maxFraction) {
-    var f = maxFraction;
-    var n;
-    {
-        var exactSolve = x * Math.pow(10, f);
-        var roundDown = Math.floor(exactSolve);
-        var roundUp = Math.ceil(exactSolve);
-        n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
-    }
-    var xFinal = n / Math.pow(10, f);
-    // n is a positive integer, but it is possible to be greater than 1e21.
-    // In such case we will go the slow path.
-    // See also: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
-    var m;
-    if (n < 1e21) {
-        m = n.toString();
-    }
-    else {
-        m = n.toString();
-        var idx1 = m.indexOf('.');
-        var idx2 = m.indexOf('e+');
-        var exponent = parseInt(m.substring(idx2 + 2), 10);
-        m =
-            m.substring(0, idx1) +
-                m.substring(idx1 + 1, idx2) +
-                repeat('0', exponent - (idx2 - idx1 - 1));
-    }
-    var int;
-    if (f !== 0) {
-        var k = m.length;
-        if (k <= f) {
-            var z = repeat('0', f + 1 - k);
-            m = z + m;
-            k = f + 1;
-        }
-        var a = m.slice(0, k - f);
-        var b = m.slice(k - f);
-        m = a + "." + b;
-        int = a.length;
-    }
-    else {
-        int = m.length;
-    }
-    var cut = maxFraction - minFraction;
-    while (cut > 0 && m[m.length - 1] === '0') {
-        m = m.slice(0, -1);
-        cut--;
-    }
-    if (m[m.length - 1] === '.') {
-        m = m.slice(0, -1);
-    }
-    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+function DayFromYear(y) {
+    return (365 * (y - 1970) +
+        Math.floor((y - 1969) / 4) -
+        Math.floor((y - 1901) / 100) +
+        Math.floor((y - 1601) / 400));
 }
-exports.toRawFixed = toRawFixed;
-// https://tc39.es/ecma402/#sec-torawprecision
-function toRawPrecision(x, minPrecision, maxPrecision) {
-    var p = maxPrecision;
-    var m;
-    var e;
-    var xFinal;
-    if (x === 0) {
-        m = repeat('0', p);
-        e = 0;
-        xFinal = 0;
-    }
-    else {
-        e = getMagnitude(x);
-        var n = void 0;
-        {
-            var magnitude = e - p + 1;
-            var exactSolve = 
-            // Preserve floating point precision as much as possible with multiplication.
-            magnitude < 0 ? x * Math.pow(10, -magnitude) : x / Math.pow(10, magnitude);
-            var roundDown = Math.floor(exactSolve);
-            var roundUp = Math.ceil(exactSolve);
-            n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
-        }
-        // See: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
-        // No need to worry about scientific notation because it only happens for values >= 1e21,
-        // which has 22 significant digits. So it will at least be divided by 10 here to bring the
-        // value back into non-scientific-notation range.
-        m = n.toString();
-        xFinal = n * Math.pow(10, (e - p + 1));
-    }
-    var int;
-    if (e >= p - 1) {
-        m = m + repeat('0', e - p + 1);
-        int = e + 1;
-    }
-    else if (e >= 0) {
-        m = m.slice(0, e + 1) + "." + m.slice(e + 1);
-        int = e + 1;
-    }
-    else {
-        m = "0." + repeat('0', -e - 1) + m;
-        int = 1;
-    }
-    if (m.indexOf('.') >= 0 && maxPrecision > minPrecision) {
-        var cut = maxPrecision - minPrecision;
-        while (cut > 0 && m[m.length - 1] === '0') {
-            m = m.slice(0, -1);
-            cut--;
-        }
-        if (m[m.length - 1] === '.') {
-            m = m.slice(0, -1);
-        }
-    }
-    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
-}
-exports.toRawPrecision = toRawPrecision;
-function repeat(s, times) {
-    if (typeof s.repeat === 'function') {
-        return s.repeat(times);
-    }
-    var arr = new Array(times);
-    for (var i = 0; i < arr.length; i++) {
-        arr[i] = s;
-    }
-    return arr.join('');
-}
-exports.repeat = repeat;
+exports.DayFromYear = DayFromYear;
 /**
- * Cannot do Math.log(x) / Math.log(10) bc if IEEE floating point issue
- * @param x number
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param y
  */
-function getMagnitude(x) {
-    // Cannot count string length via Number.toString because it may use scientific notation
-    // for very small or very large numbers.
-    return Math.floor(Math.log(x) * Math.LOG10E);
+function TimeFromYear(y) {
+    return MS_PER_DAY * DayFromYear(y);
 }
-exports.getMagnitude = getMagnitude;
+exports.TimeFromYear = TimeFromYear;
 /**
- * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
- * @param str string to convert
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param t
  */
-function toLowerCase(str) {
-    return str.replace(/([A-Z])/g, function (_, c) { return c.toLowerCase(); });
+function YearFromTime(t) {
+    var min = Math.ceil(t / MS_PER_DAY / 366);
+    var y = min;
+    while (TimeFromYear(y) <= t) {
+        y++;
+    }
+    return y - 1;
 }
-var SHORTENED_SACTION_UNITS = units_1.SANCTIONED_UNITS.map(function (unit) {
-    return unit.replace(/^(.*?)-/, '');
-});
+exports.YearFromTime = YearFromTime;
+function DaysInYear(y) {
+    if (y % 4 !== 0) {
+        return 365;
+    }
+    if (y % 100 !== 0) {
+        return 366;
+    }
+    if (y % 400 !== 0) {
+        return 365;
+    }
+    return 366;
+}
+exports.DaysInYear = DaysInYear;
+function DayWithinYear(t) {
+    return Day(t) - DayFromYear(YearFromTime(t));
+}
+exports.DayWithinYear = DayWithinYear;
+function InLeapYear(t) {
+    return DaysInYear(YearFromTime(t)) === 365 ? 0 : 1;
+}
+exports.InLeapYear = InLeapYear;
 /**
- * https://tc39.es/ecma402/#sec-iswellformedunitidentifier
- * @param unit
+ * https://tc39.es/ecma262/#sec-month-number
+ * @param t
  */
-function isWellFormedUnitIdentifier(unit) {
-    unit = toLowerCase(unit);
-    if (SHORTENED_SACTION_UNITS.indexOf(unit) > -1) {
-        return true;
+function MonthFromTime(t) {
+    var dwy = DayWithinYear(t);
+    var leap = InLeapYear(t);
+    if (dwy >= 0 && dwy < 31) {
+        return 0;
     }
-    var units = unit.split('-per-');
-    if (units.length !== 2) {
-        return false;
+    if (dwy < 59 + leap) {
+        return 1;
     }
-    if (SHORTENED_SACTION_UNITS.indexOf(units[0]) < 0 ||
-        SHORTENED_SACTION_UNITS.indexOf(units[1]) < 0) {
-        return false;
+    if (dwy < 90 + leap) {
+        return 2;
     }
-    return true;
+    if (dwy < 120 + leap) {
+        return 3;
+    }
+    if (dwy < 151 + leap) {
+        return 4;
+    }
+    if (dwy < 181 + leap) {
+        return 5;
+    }
+    if (dwy < 212 + leap) {
+        return 6;
+    }
+    if (dwy < 243 + leap) {
+        return 7;
+    }
+    if (dwy < 273 + leap) {
+        return 8;
+    }
+    if (dwy < 304 + leap) {
+        return 9;
+    }
+    if (dwy < 334 + leap) {
+        return 10;
+    }
+    if (dwy < 365 + leap) {
+        return 11;
+    }
+    throw new Error('Invalid time');
 }
-exports.isWellFormedUnitIdentifier = isWellFormedUnitIdentifier;
-/*
-  17 ECMAScript Standard Built-in Objects:
-    Every built-in Function object, including constructors, that is not
-    identified as an anonymous function has a name property whose value
-    is a String.
+exports.MonthFromTime = MonthFromTime;
+function DateFromTime(t) {
+    var dwy = DayWithinYear(t);
+    var mft = MonthFromTime(t);
+    var leap = InLeapYear(t);
+    if (mft === 0) {
+        return dwy + 1;
+    }
+    if (mft === 1) {
+        return dwy - 30;
+    }
+    if (mft === 2) {
+        return dwy - 58 - leap;
+    }
+    if (mft === 3) {
+        return dwy - 89 - leap;
+    }
+    if (mft === 4) {
+        return dwy - 119 - leap;
+    }
+    if (mft === 5) {
+        return dwy - 150 - leap;
+    }
+    if (mft === 6) {
+        return dwy - 180 - leap;
+    }
+    if (mft === 7) {
+        return dwy - 211 - leap;
+    }
+    if (mft === 8) {
+        return dwy - 242 - leap;
+    }
+    if (mft === 9) {
+        return dwy - 272 - leap;
+    }
+    if (mft === 10) {
+        return dwy - 303 - leap;
+    }
+    if (mft === 11) {
+        return dwy - 333 - leap;
+    }
+    throw new Error('Invalid time');
+}
+exports.DateFromTime = DateFromTime;
+var HOURS_PER_DAY = 24;
+var MINUTES_PER_HOUR = 60;
+var SECONDS_PER_MINUTE = 60;
+var MS_PER_SECOND = 1e3;
+var MS_PER_MINUTE = MS_PER_SECOND * SECONDS_PER_MINUTE;
+var MS_PER_HOUR = MS_PER_MINUTE * MINUTES_PER_HOUR;
+function HourFromTime(t) {
+    return mod(Math.floor(t / MS_PER_HOUR), HOURS_PER_DAY);
+}
+exports.HourFromTime = HourFromTime;
+function MinFromTime(t) {
+    return mod(Math.floor(t / MS_PER_MINUTE), MINUTES_PER_HOUR);
+}
+exports.MinFromTime = MinFromTime;
+function SecFromTime(t) {
+    return mod(Math.floor(t / MS_PER_SECOND), SECONDS_PER_MINUTE);
+}
+exports.SecFromTime = SecFromTime;
 
-    Unless otherwise specified, the name property of a built-in Function
-    object, if it exists, has the attributes { [[Writable]]: false,
-    [[Enumerable]]: false, [[Configurable]]: true }.
-*/
-function defineProperty(target, name, _a) {
-    var value = _a.value;
-    Object.defineProperty(target, name, {
-        configurable: true,
-        enumerable: false,
-        writable: true,
-        value: value,
-    });
-}
-exports.defineProperty = defineProperty;
-//# sourceMappingURL=polyfill-utils.js.map
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/resolve-locale.js":
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/resolve-locale.js ***!
-  \**********************************************************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/index.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/index.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/invariant.js");
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-function createResolveLocale(getDefaultLocale) {
-    var lookupMatcher = createLookupMatcher(getDefaultLocale);
-    var bestFitMatcher = createBestFitMatcher(getDefaultLocale);
-    /**
-     * https://tc39.es/ecma402/#sec-resolvelocale
-     */
-    return function resolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData) {
-        var matcher = options.localeMatcher;
-        var r;
-        if (matcher === 'lookup') {
-            r = lookupMatcher(availableLocales, requestedLocales);
-        }
-        else {
-            r = bestFitMatcher(availableLocales, requestedLocales);
-        }
-        var foundLocale = r.locale;
-        var result = { locale: '', dataLocale: foundLocale };
-        var supportedExtension = '-u';
-        for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
-            var key = relevantExtensionKeys_1[_i];
-            var foundLocaleData = localeData[foundLocale];
-            invariant_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
-            var keyLocaleData = foundLocaleData[key];
-            invariant_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
-            var value = keyLocaleData[0];
-            invariant_1.invariant(typeof value === 'string' || value === null, 'value must be string or null');
-            var supportedExtensionAddition = '';
-            if (r.extension) {
-                var requestedValue = unicodeExtensionValue(r.extension, key);
-                if (requestedValue !== undefined) {
-                    if (requestedValue !== '') {
-                        if (~keyLocaleData.indexOf(requestedValue)) {
-                            value = requestedValue;
-                            supportedExtensionAddition = "-" + key + "-" + value;
-                        }
-                    }
-                    else if (~requestedValue.indexOf('true')) {
-                        value = 'true';
-                        supportedExtensionAddition = "-" + key;
-                    }
-                }
-            }
-            if (key in options) {
-                var optionsValue = options[key];
-                invariant_1.invariant(typeof optionsValue === 'string' ||
-                    typeof optionsValue === 'undefined' ||
-                    optionsValue === null, 'optionsValue must be String, Undefined or Null');
-                if (~keyLocaleData.indexOf(optionsValue)) {
-                    if (optionsValue !== value) {
-                        value = optionsValue;
-                        supportedExtensionAddition = '';
-                    }
-                }
-            }
-            result[key] = value;
-            supportedExtension += supportedExtensionAddition;
-        }
-        if (supportedExtension.length > 2) {
-            var privateIndex = foundLocale.indexOf('-x-');
-            if (privateIndex === -1) {
-                foundLocale = foundLocale + supportedExtension;
-            }
-            else {
-                var preExtension = foundLocale.slice(0, privateIndex);
-                var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
-                foundLocale = preExtension + supportedExtension + postExtension;
-            }
-            foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
-        }
-        result.locale = foundLocale;
-        return result;
-    };
-}
-exports.createResolveLocale = createResolveLocale;
-/**
- * https://tc39.es/ecma402/#sec-unicodeextensionvalue
- * @param extension
- * @param key
- */
-function unicodeExtensionValue(extension, key) {
-    invariant_1.invariant(key.length === 2, 'key must have 2 elements');
-    var size = extension.length;
-    var searchValue = "-" + key + "-";
-    var pos = extension.indexOf(searchValue);
-    if (pos !== -1) {
-        var start = pos + 4;
-        var end = start;
-        var k = start;
-        var done = false;
-        while (!done) {
-            var e = extension.indexOf('-', k);
-            var len = void 0;
-            if (e === -1) {
-                len = size - k;
-            }
-            else {
-                len = e - k;
-            }
-            if (len === 2) {
-                done = true;
-            }
-            else if (e === -1) {
-                end = size;
-                done = true;
-            }
-            else {
-                end = e;
-                k = e + 1;
-            }
-        }
-        return extension.slice(start, end);
-    }
-    searchValue = "-" + key;
-    pos = extension.indexOf(searchValue);
-    if (pos !== -1 && pos + 3 === size) {
-        return '';
-    }
-    return undefined;
-}
-var UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
+var BestFitFormatMatcher_1 = __webpack_require__(/*! ./src/DateTimeFormat/BestFitFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js");
+Object.defineProperty(exports, "BestFitFormatMatcher", { enumerable: true, get: function () { return BestFitFormatMatcher_1.BestFitFormatMatcher; } });
+__exportStar(__webpack_require__(/*! ./src/CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/GetNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsValidTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/GetOperands */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/SupportedLocales */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js"), exports);
+var format_to_parts_1 = __webpack_require__(/*! ./src/NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js");
+Object.defineProperty(exports, "_formatToParts", { enumerable: true, get: function () { return format_to_parts_1.default; } });
+var utils_1 = __webpack_require__(/*! ./src/DateTimeFormat/utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+Object.defineProperty(exports, "DATE_TIME_PROPS", { enumerable: true, get: function () { return utils_1.DATE_TIME_PROPS; } });
+var skeleton_1 = __webpack_require__(/*! ./src/DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js");
+Object.defineProperty(exports, "parseDateTimeSkeleton", { enumerable: true, get: function () { return skeleton_1.parseDateTimeSkeleton; } });
+var utils_2 = __webpack_require__(/*! ./src/utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+Object.defineProperty(exports, "getInternalSlot", { enumerable: true, get: function () { return utils_2.getInternalSlot; } });
+Object.defineProperty(exports, "getMultiInternalSlots", { enumerable: true, get: function () { return utils_2.getMultiInternalSlots; } });
+Object.defineProperty(exports, "isLiteralPart", { enumerable: true, get: function () { return utils_2.isLiteralPart; } });
+Object.defineProperty(exports, "setInternalSlot", { enumerable: true, get: function () { return utils_2.setInternalSlot; } });
+Object.defineProperty(exports, "setMultiInternalSlots", { enumerable: true, get: function () { return utils_2.setMultiInternalSlots; } });
+Object.defineProperty(exports, "getMagnitude", { enumerable: true, get: function () { return utils_2.getMagnitude; } });
+Object.defineProperty(exports, "defineProperty", { enumerable: true, get: function () { return utils_2.defineProperty; } });
+var data_1 = __webpack_require__(/*! ./src/data */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/data.js");
+Object.defineProperty(exports, "getLocaleHierarchy", { enumerable: true, get: function () { return data_1.getLocaleHierarchy; } });
+Object.defineProperty(exports, "unpackData", { enumerable: true, get: function () { return data_1.unpackData; } });
+Object.defineProperty(exports, "isMissingLocaleDataError", { enumerable: true, get: function () { return data_1.isMissingLocaleDataError; } });
+__exportStar(__webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/relative-time.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/date-time.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/list.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/number.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/displaynames.js"), exports);
+var utils_3 = __webpack_require__(/*! ./src/utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+Object.defineProperty(exports, "invariant", { enumerable: true, get: function () { return utils_3.invariant; } });
+__exportStar(__webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js"), exports);
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js ***!
+  \********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BestAvailableLocale = void 0;
 /**
  * https://tc39.es/ecma402/#sec-bestavailablelocale
  * @param availableLocales
  * @param locale
  */
-function bestAvailableLocale(availableLocales, locale) {
+function BestAvailableLocale(availableLocales, locale) {
     var candidate = locale;
     while (true) {
         if (~availableLocales.indexOf(candidate)) {
@@ -1828,123 +1534,1347 @@ function bestAvailableLocale(availableLocales, locale) {
         candidate = candidate.slice(0, pos);
     }
 }
-function createLookupMatcher(getDefaultLocale) {
-    /**
-     * https://tc39.es/ecma402/#sec-lookupmatcher
-     */
-    return function lookupMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
-            var locale = requestedLocales_1[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function createBestFitMatcher(getDefaultLocale) {
-    return function bestFitMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_2 = requestedLocales; _i < requestedLocales_2.length; _i++) {
-            var locale = requestedLocales_2[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function getLocaleHierarchy(locale) {
-    var results = [locale];
-    var localeParts = locale.split('-');
-    for (var i = localeParts.length; i > 1; i--) {
-        results.push(localeParts.slice(0, i - 1).join('-'));
-    }
-    return results;
-}
-exports.getLocaleHierarchy = getLocaleHierarchy;
-function lookupSupportedLocales(availableLocales, requestedLocales) {
-    var subset = [];
-    for (var _i = 0, requestedLocales_3 = requestedLocales; _i < requestedLocales_3.length; _i++) {
-        var locale = requestedLocales_3[_i];
-        var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-        var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-        if (availableLocale) {
-            subset.push(availableLocale);
-        }
-    }
-    return subset;
-}
-function supportedLocales(availableLocales, requestedLocales, options) {
-    var matcher = 'best fit';
-    if (options !== undefined) {
-        options = polyfill_utils_1.toObject(options);
-        matcher = polyfill_utils_1.getOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
-    }
-    if (matcher === 'best fit') {
-        return lookupSupportedLocales(availableLocales, requestedLocales);
-    }
-    return lookupSupportedLocales(availableLocales, requestedLocales);
-}
-exports.supportedLocales = supportedLocales;
-var MissingLocaleDataError = /** @class */ (function (_super) {
-    __extends(MissingLocaleDataError, _super);
-    function MissingLocaleDataError() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.type = 'MISSING_LOCALE_DATA';
-        return _this;
-    }
-    return MissingLocaleDataError;
-}(Error));
-function isMissingLocaleDataError(e) {
-    return e.type === 'MISSING_LOCALE_DATA';
-}
-exports.isMissingLocaleDataError = isMissingLocaleDataError;
-function unpackData(locale, localeData, 
-/** By default shallow merge the dictionaries. */
-reducer) {
-    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
-    var localeHierarchy = getLocaleHierarchy(locale);
-    var dataToMerge = localeHierarchy
-        .map(function (l) { return localeData.data[l]; })
-        .filter(Boolean);
-    if (!dataToMerge.length) {
-        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
-    }
-    dataToMerge.reverse();
-    return dataToMerge.reduce(reducer, {});
-}
-exports.unpackData = unpackData;
-//# sourceMappingURL=resolve-locale.js.map
+exports.BestAvailableLocale = BestAvailableLocale;
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/units.js":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/intl-utils/dist/units.js ***!
-  \*************************************************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-// https://tc39.es/ecma402/#sec-issanctionedsimpleunitidentifier
+exports.BestFitMatcher = void 0;
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-bestfitmatcher
+ * @param availableLocales
+ * @param requestedLocales
+ * @param getDefaultLocale
+ */
+function BestFitMatcher(availableLocales, requestedLocales, getDefaultLocale) {
+    var result = { locale: '' };
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            result.locale = availableLocale;
+            if (locale !== noExtensionLocale) {
+                result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+            }
+            return result;
+        }
+    }
+    result.locale = getDefaultLocale();
+    return result;
+}
+exports.BestFitMatcher = BestFitMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalizeLocaleList = void 0;
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-canonicalizelocalelist
+ * @param locales
+ */
+function CanonicalizeLocaleList(locales) {
+    // TODO
+    return Intl.getCanonicalLocales(locales);
+}
+exports.CanonicalizeLocaleList = CanonicalizeLocaleList;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalizeTimeZoneName = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-canonicalizetimezonename
+ * @param tz
+ */
+function CanonicalizeTimeZoneName(tz, _a) {
+    var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    var uppercasedTz = tz.toUpperCase();
+    var uppercasedZones = Object.keys(tzData).reduce(function (all, z) {
+        all[z.toUpperCase()] = z;
+        return all;
+    }, {});
+    var ianaTimeZone = uppercaseLinks[uppercasedTz] || uppercasedZones[uppercasedTz];
+    if (ianaTimeZone === 'Etc/UTC' || ianaTimeZone === 'Etc/GMT') {
+        return 'UTC';
+    }
+    return ianaTimeZone;
+}
+exports.CanonicalizeTimeZoneName = CanonicalizeTimeZoneName;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BasicFormatMatcher = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-basicformatmatcher
+ * @param options
+ * @param formats
+ */
+function BasicFormatMatcher(options, formats) {
+    var bestScore = -Infinity;
+    var bestFormat = formats[0];
+    utils_1.invariant(Array.isArray(formats), 'formats should be a list of things');
+    for (var _i = 0, formats_1 = formats; _i < formats_1.length; _i++) {
+        var format = formats_1[_i];
+        var score = 0;
+        for (var _a = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _a < DATE_TIME_PROPS_1.length; _a++) {
+            var prop = DATE_TIME_PROPS_1[_a];
+            var optionsProp = options[prop];
+            var formatProp = format[prop];
+            if (optionsProp === undefined && formatProp !== undefined) {
+                score -= utils_2.additionPenalty;
+            }
+            else if (optionsProp !== undefined && formatProp === undefined) {
+                score -= utils_2.removalPenalty;
+            }
+            else if (optionsProp !== formatProp) {
+                var values = ['2-digit', 'numeric', 'narrow', 'short', 'long'];
+                var optionsPropIndex = values.indexOf(optionsProp);
+                var formatPropIndex = values.indexOf(formatProp);
+                var delta = Math.max(-2, Math.min(formatPropIndex - optionsPropIndex, 2));
+                if (delta === 2) {
+                    score -= utils_2.longMorePenalty;
+                }
+                else if (delta === 1) {
+                    score -= utils_2.shortMorePenalty;
+                }
+                else if (delta === -1) {
+                    score -= utils_2.shortLessPenalty;
+                }
+                else if (delta === -2) {
+                    score -= utils_2.longLessPenalty;
+                }
+            }
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            bestFormat = format;
+        }
+    }
+    return __assign({}, bestFormat);
+}
+exports.BasicFormatMatcher = BasicFormatMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BestFitFormatMatcher = exports.bestFitFormatMatcherScore = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var skeleton_1 = __webpack_require__(/*! ./skeleton */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js");
+function isNumericType(t) {
+    return t === 'numeric' || t === '2-digit';
+}
+/**
+ * Credit: https://github.com/andyearnshaw/Intl.js/blob/0958dc1ad8153f1056653ea22b8208f0df289a4e/src/12.datetimeformat.js#L611
+ * with some modifications
+ * @param options
+ * @param format
+ */
+function bestFitFormatMatcherScore(options, format) {
+    var score = 0;
+    if (options.hour12 && !format.hour12) {
+        score -= utils_2.removalPenalty;
+    }
+    else if (!options.hour12 && format.hour12) {
+        score -= utils_2.additionPenalty;
+    }
+    for (var _i = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _i < DATE_TIME_PROPS_1.length; _i++) {
+        var prop = DATE_TIME_PROPS_1[_i];
+        var optionsProp = options[prop];
+        var formatProp = format[prop];
+        if (optionsProp === undefined && formatProp !== undefined) {
+            score -= utils_2.additionPenalty;
+        }
+        else if (optionsProp !== undefined && formatProp === undefined) {
+            score -= utils_2.removalPenalty;
+        }
+        else if (optionsProp !== formatProp) {
+            // extra penalty for numeric vs non-numeric
+            if (isNumericType(optionsProp) !==
+                isNumericType(formatProp)) {
+                score -= utils_2.differentNumericTypePenalty;
+            }
+            else {
+                var values = ['2-digit', 'numeric', 'narrow', 'short', 'long'];
+                var optionsPropIndex = values.indexOf(optionsProp);
+                var formatPropIndex = values.indexOf(formatProp);
+                var delta = Math.max(-2, Math.min(formatPropIndex - optionsPropIndex, 2));
+                if (delta === 2) {
+                    score -= utils_2.longMorePenalty;
+                }
+                else if (delta === 1) {
+                    score -= utils_2.shortMorePenalty;
+                }
+                else if (delta === -1) {
+                    score -= utils_2.shortLessPenalty;
+                }
+                else if (delta === -2) {
+                    score -= utils_2.longLessPenalty;
+                }
+            }
+        }
+    }
+    return score;
+}
+exports.bestFitFormatMatcherScore = bestFitFormatMatcherScore;
+/**
+ * https://tc39.es/ecma402/#sec-bestfitformatmatcher
+ * Just alias to basic for now
+ * @param options
+ * @param formats
+ * @param implDetails Implementation details
+ */
+function BestFitFormatMatcher(options, formats) {
+    var bestScore = -Infinity;
+    var bestFormat = formats[0];
+    utils_1.invariant(Array.isArray(formats), 'formats should be a list of things');
+    for (var _i = 0, formats_1 = formats; _i < formats_1.length; _i++) {
+        var format = formats_1[_i];
+        var score = bestFitFormatMatcherScore(options, format);
+        if (score > bestScore) {
+            bestScore = score;
+            bestFormat = format;
+        }
+    }
+    var skeletonFormat = __assign({}, bestFormat);
+    var patternFormat = skeleton_1.parseDateTimeSkeleton(bestFormat.rawPattern);
+    // Kinda following https://github.com/unicode-org/icu/blob/dd50e38f459d84e9bf1b0c618be8483d318458ad/icu4j/main/classes/core/src/com/ibm/icu/text/DateTimePatternGenerator.java
+    // Method adjustFieldTypes
+    for (var prop in patternFormat) {
+        var skeletonValue = skeletonFormat[prop];
+        var patternValue = patternFormat[prop];
+        var requestedValue = options[prop];
+        // Don't mess with minute/second or we can get in the situation of
+        // 7:0:0 which is weird
+        if (prop === 'minute' || prop === 'second') {
+            continue;
+        }
+        // Nothing to do here
+        if (!requestedValue) {
+            continue;
+        }
+        // https://unicode.org/reports/tr35/tr35-dates.html#Matching_Skeletons
+        // Looks like we should not convert numeric to alphabetic but the other way
+        // around is ok
+        if (isNumericType(patternValue) &&
+            !isNumericType(requestedValue)) {
+            continue;
+        }
+        if (skeletonValue === requestedValue) {
+            continue;
+        }
+        patternFormat[prop] = requestedValue;
+    }
+    return patternFormat;
+}
+exports.BestFitFormatMatcher = BestFitFormatMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DateTimeStyleFormat = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function DateTimeStyleFormat(dateStyle, timeStyle, dataLocaleData) {
+    var dateFormat, timeFormat;
+    if (timeStyle !== undefined) {
+        utils_1.invariant(timeStyle === 'full' ||
+            timeStyle === 'long' ||
+            timeStyle === 'medium' ||
+            timeStyle === 'short', 'invalid timeStyle');
+        timeFormat = dataLocaleData.timeFormat[timeStyle];
+    }
+    if (dateStyle !== undefined) {
+        utils_1.invariant(dateStyle === 'full' ||
+            dateStyle === 'long' ||
+            dateStyle === 'medium' ||
+            dateStyle === 'short', 'invalid dateStyle');
+        dateFormat = dataLocaleData.dateFormat[dateStyle];
+    }
+    if (dateStyle !== undefined && timeStyle !== undefined) {
+        var format = {};
+        for (var field in dateFormat) {
+            if (field !== 'pattern') {
+                // @ts-ignore
+                format[field] = dateFormat[field];
+            }
+        }
+        for (var field in timeFormat) {
+            if (field !== 'pattern' && field !== 'pattern12') {
+                // @ts-ignore
+                format[field] = timeFormat[field];
+            }
+        }
+        var connector = dataLocaleData.dateTimeFormat[dateStyle];
+        var pattern = connector
+            .replace('{0}', timeFormat.pattern)
+            .replace('{1}', dateFormat.pattern);
+        format.pattern = pattern;
+        if ('pattern12' in timeFormat) {
+            var pattern12 = connector
+                .replace('{0}', timeFormat.pattern12)
+                .replace('{1}', dateFormat.pattern);
+            format.pattern12 = pattern12;
+        }
+        return format;
+    }
+    if (timeStyle !== undefined) {
+        return timeFormat;
+    }
+    utils_1.invariant(dateStyle !== undefined, 'dateStyle should not be undefined');
+    return dateFormat;
+}
+exports.DateTimeStyleFormat = DateTimeStyleFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatDateTime = void 0;
+var PartitionDateTimePattern_1 = __webpack_require__(/*! ./PartitionDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatdatetime
+ * @param dtf DateTimeFormat
+ * @param x
+ */
+function FormatDateTime(dtf, x, implDetails) {
+    var parts = PartitionDateTimePattern_1.PartitionDateTimePattern(dtf, x, implDetails);
+    var result = '';
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result += part.value;
+    }
+    return result;
+}
+exports.FormatDateTime = FormatDateTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatDateTimeToParts = void 0;
+var PartitionDateTimePattern_1 = __webpack_require__(/*! ./PartitionDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatdatetimetoparts
+ *
+ * @param dtf
+ * @param x
+ * @param implDetails
+ */
+function FormatDateTimeToParts(dtf, x, implDetails) {
+    var parts = PartitionDateTimePattern_1.PartitionDateTimePattern(dtf, x, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result.push({
+            type: part.type,
+            value: part.value,
+        });
+    }
+    return result;
+}
+exports.FormatDateTimeToParts = FormatDateTimeToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeDateTimeFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var ToDateTimeOptions_1 = __webpack_require__(/*! ./ToDateTimeOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var IsValidTimeZoneName_1 = __webpack_require__(/*! ../IsValidTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js");
+var CanonicalizeTimeZoneName_1 = __webpack_require__(/*! ../CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js");
+var BasicFormatMatcher_1 = __webpack_require__(/*! ./BasicFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js");
+var BestFitFormatMatcher_1 = __webpack_require__(/*! ./BestFitFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var DateTimeStyleFormat_1 = __webpack_require__(/*! ./DateTimeStyleFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js");
+function isTimeRelated(opt) {
+    for (var _i = 0, _a = ['hour', 'minute', 'second']; _i < _a.length; _i++) {
+        var prop = _a[_i];
+        var value = opt[prop];
+        if (value !== undefined) {
+            return true;
+        }
+    }
+    return false;
+}
+var TYPE_REGEX = /^[a-z0-9]{3,8}$/i;
+/**
+ * https://tc39.es/ecma402/#sec-initializedatetimeformat
+ * @param dtf DateTimeFormat
+ * @param locales locales
+ * @param opts options
+ */
+function InitializeDateTimeFormat(dtf, locales, opts, _a) {
+    var getInternalSlots = _a.getInternalSlots, availableLocales = _a.availableLocales, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getDefaultTimeZone = _a.getDefaultTimeZone, relevantExtensionKeys = _a.relevantExtensionKeys, tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    // @ts-ignore
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var options = ToDateTimeOptions_1.ToDateTimeOptions(opts, 'any', 'date');
+    var opt = Object.create(null);
+    var matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    opt.localeMatcher = matcher;
+    var calendar = GetOption_1.GetOption(options, 'calendar', 'string', undefined, undefined);
+    if (calendar !== undefined && !TYPE_REGEX.test(calendar)) {
+        throw new RangeError('Malformed calendar');
+    }
+    var internalSlots = getInternalSlots(dtf);
+    opt.ca = calendar;
+    var numberingSystem = GetOption_1.GetOption(options, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined && !TYPE_REGEX.test(numberingSystem)) {
+        throw new RangeError('Malformed numbering system');
+    }
+    opt.nu = numberingSystem;
+    var hour12 = GetOption_1.GetOption(options, 'hour12', 'boolean', undefined, undefined);
+    var hourCycle = GetOption_1.GetOption(options, 'hourCycle', 'string', ['h11', 'h12', 'h23', 'h24'], undefined);
+    if (hour12 !== undefined) {
+        // @ts-ignore
+        hourCycle = null;
+    }
+    opt.hc = hourCycle;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.locale = r.locale;
+    calendar = r.ca;
+    internalSlots.calendar = calendar;
+    internalSlots.hourCycle = r.hc;
+    internalSlots.numberingSystem = r.nu;
+    var dataLocale = r.dataLocale;
+    internalSlots.dataLocale = dataLocale;
+    var timeZone = options.timeZone;
+    if (timeZone !== undefined) {
+        timeZone = String(timeZone);
+        if (!IsValidTimeZoneName_1.IsValidTimeZoneName(timeZone, { tzData: tzData, uppercaseLinks: uppercaseLinks })) {
+            throw new RangeError('Invalid timeZoneName');
+        }
+        timeZone = CanonicalizeTimeZoneName_1.CanonicalizeTimeZoneName(timeZone, { tzData: tzData, uppercaseLinks: uppercaseLinks });
+    }
+    else {
+        timeZone = getDefaultTimeZone();
+    }
+    internalSlots.timeZone = timeZone;
+    opt = Object.create(null);
+    opt.weekday = GetOption_1.GetOption(options, 'weekday', 'string', ['narrow', 'short', 'long'], undefined);
+    opt.era = GetOption_1.GetOption(options, 'era', 'string', ['narrow', 'short', 'long'], undefined);
+    opt.year = GetOption_1.GetOption(options, 'year', 'string', ['2-digit', 'numeric'], undefined);
+    opt.month = GetOption_1.GetOption(options, 'month', 'string', ['2-digit', 'numeric', 'narrow', 'short', 'long'], undefined);
+    opt.day = GetOption_1.GetOption(options, 'day', 'string', ['2-digit', 'numeric'], undefined);
+    opt.hour = GetOption_1.GetOption(options, 'hour', 'string', ['2-digit', 'numeric'], undefined);
+    opt.minute = GetOption_1.GetOption(options, 'minute', 'string', ['2-digit', 'numeric'], undefined);
+    opt.second = GetOption_1.GetOption(options, 'second', 'string', ['2-digit', 'numeric'], undefined);
+    opt.timeZoneName = GetOption_1.GetOption(options, 'timeZoneName', 'string', ['short', 'long'], undefined);
+    var dataLocaleData = localeData[dataLocale];
+    var formats = dataLocaleData.formats[calendar];
+    matcher = GetOption_1.GetOption(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
+    var dateStyle = GetOption_1.GetOption(options, 'dateStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
+    internalSlots.dateStyle = dateStyle;
+    var timeStyle = GetOption_1.GetOption(options, 'timeStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
+    internalSlots.timeStyle = timeStyle;
+    var bestFormat;
+    if (dateStyle === undefined && timeStyle === undefined) {
+        if (matcher === 'basic') {
+            bestFormat = BasicFormatMatcher_1.BasicFormatMatcher(opt, formats);
+        }
+        else {
+            if (isTimeRelated(opt)) {
+                opt.hour12 =
+                    internalSlots.hourCycle === 'h11' ||
+                        internalSlots.hourCycle === 'h12';
+            }
+            bestFormat = BestFitFormatMatcher_1.BestFitFormatMatcher(opt, formats);
+        }
+    }
+    else {
+        for (var _i = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _i < DATE_TIME_PROPS_1.length; _i++) {
+            var prop = DATE_TIME_PROPS_1[_i];
+            var p = opt[prop];
+            if (p !== undefined) {
+                throw new TypeError("Intl.DateTimeFormat can't set option " + prop + " when " + (dateStyle ? 'dateStyle' : 'timeStyle') + " is used");
+            }
+        }
+        bestFormat = DateTimeStyleFormat_1.DateTimeStyleFormat(dateStyle, timeStyle, dataLocaleData);
+    }
+    for (var prop in opt) {
+        var p = bestFormat[prop];
+        if (p !== undefined) {
+            internalSlots[prop] = p;
+        }
+    }
+    var pattern;
+    if (internalSlots.hour !== undefined) {
+        var hcDefault = dataLocaleData.hourCycle;
+        var hc = internalSlots.hourCycle;
+        if (hc == null) {
+            hc = hcDefault;
+        }
+        if (hour12 !== undefined) {
+            if (hour12) {
+                if (hcDefault === 'h11' || hcDefault === 'h23') {
+                    hc = 'h11';
+                }
+                else {
+                    hc = 'h12';
+                }
+            }
+            else {
+                utils_1.invariant(!hour12, 'hour12 must not be set');
+                if (hcDefault === 'h11' || hcDefault === 'h23') {
+                    hc = 'h23';
+                }
+                else {
+                    hc = 'h24';
+                }
+            }
+        }
+        internalSlots.hourCycle = hc;
+        if (hc === 'h11' || hc === 'h12') {
+            pattern = bestFormat.pattern12;
+        }
+        else {
+            pattern = bestFormat.pattern;
+        }
+    }
+    else {
+        // @ts-ignore
+        internalSlots.hourCycle = undefined;
+        pattern = bestFormat.pattern;
+    }
+    internalSlots.pattern = pattern;
+    return dtf;
+}
+exports.InitializeDateTimeFormat = InitializeDateTimeFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionDateTimePattern = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var PartitionPattern_1 = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var ToLocalTime_1 = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js");
+function pad(n) {
+    if (n < 10) {
+        return "0" + n;
+    }
+    return String(n);
+}
+function offsetToGmtString(gmtFormat, hourFormat, offsetInMs, style) {
+    var offsetInMinutes = Math.floor(offsetInMs / 60000);
+    var mins = Math.abs(offsetInMinutes) % 60;
+    var hours = Math.floor(Math.abs(offsetInMinutes) / 60);
+    var _a = hourFormat.split(';'), positivePattern = _a[0], negativePattern = _a[1];
+    var offsetStr = '';
+    var pattern = offsetInMs < 0 ? negativePattern : positivePattern;
+    if (style === 'long') {
+        offsetStr = pattern
+            .replace('HH', pad(hours))
+            .replace('H', String(hours))
+            .replace('mm', pad(mins))
+            .replace('m', String(mins));
+    }
+    else if (mins || hours) {
+        if (!mins) {
+            pattern = pattern.replace(/:?m+/, '');
+        }
+        offsetStr = pattern
+            .replace(/H+/, String(hours))
+            .replace(/m+/, String(mins));
+    }
+    return gmtFormat.replace('{0}', offsetStr);
+}
+/**
+ * https://tc39.es/ecma402/#sec-partitiondatetimepattern
+ * @param dtf
+ * @param x
+ */
+function PartitionDateTimePattern(dtf, x, _a) {
+    var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, getDefaultTimeZone = _a.getDefaultTimeZone, tzData = _a.tzData;
+    x = _262_1.TimeClip(x);
+    if (isNaN(x)) {
+        throw new RangeError('invalid time');
+    }
+    /** IMPL START */
+    var internalSlots = getInternalSlots(dtf);
+    var dataLocale = internalSlots.dataLocale;
+    var dataLocaleData = localeData[dataLocale];
+    /** IMPL END */
+    var locale = internalSlots.locale;
+    var nfOptions = Object.create(null);
+    nfOptions.useGrouping = false;
+    var nf = new Intl.NumberFormat(locale, nfOptions);
+    var nf2Options = Object.create(null);
+    nf2Options.minimumIntegerDigits = 2;
+    nf2Options.useGrouping = false;
+    var nf2 = new Intl.NumberFormat(locale, nf2Options);
+    var tm = ToLocalTime_1.ToLocalTime(x, 
+    // @ts-ignore
+    internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
+    var result = [];
+    var patternParts = PartitionPattern_1.PartitionPattern(internalSlots.pattern);
+    for (var _i = 0, patternParts_1 = patternParts; _i < patternParts_1.length; _i++) {
+        var patternPart = patternParts_1[_i];
+        var p = patternPart.type;
+        if (p === 'literal') {
+            result.push({
+                type: 'literal',
+                value: patternPart.value,
+            });
+        }
+        else if (utils_1.DATE_TIME_PROPS.indexOf(p) > -1) {
+            var fv = '';
+            var f = internalSlots[p];
+            // @ts-ignore
+            var v = tm[p];
+            if (p === 'year' && v <= 0) {
+                v = 1 - v;
+            }
+            if (p === 'month') {
+                v++;
+            }
+            var hourCycle = internalSlots.hourCycle;
+            if (p === 'hour' && (hourCycle === 'h11' || hourCycle === 'h12')) {
+                v = v % 12;
+                if (v === 0 && hourCycle === 'h12') {
+                    v = 12;
+                }
+            }
+            if (p === 'hour' && hourCycle === 'h24') {
+                if (v === 0) {
+                    v = 24;
+                }
+            }
+            if (f === 'numeric') {
+                fv = nf.format(v);
+            }
+            else if (f === '2-digit') {
+                fv = nf2.format(v);
+                if (fv.length > 2) {
+                    fv = fv.slice(fv.length - 2, fv.length);
+                }
+            }
+            else if (f === 'narrow' || f === 'short' || f === 'long') {
+                if (p === 'era') {
+                    fv = dataLocaleData[p][f][v];
+                }
+                else if (p === 'timeZoneName') {
+                    var timeZoneName = dataLocaleData.timeZoneName, gmtFormat = dataLocaleData.gmtFormat, hourFormat = dataLocaleData.hourFormat;
+                    var timeZone = internalSlots.timeZone || getDefaultTimeZone();
+                    var timeZoneData = timeZoneName[timeZone];
+                    if (timeZoneData && timeZoneData[f]) {
+                        fv = timeZoneData[f][+tm.inDST];
+                    }
+                    else {
+                        // Fallback to gmtFormat
+                        fv = offsetToGmtString(gmtFormat, hourFormat, tm.timeZoneOffset, f);
+                    }
+                }
+                else if (p === 'month') {
+                    fv = dataLocaleData.month[f][v - 1];
+                }
+                else {
+                    fv = dataLocaleData[p][f][v];
+                }
+            }
+            result.push({
+                type: p,
+                value: fv,
+            });
+        }
+        else if (p === 'ampm') {
+            var v = tm.hour;
+            var fv = void 0;
+            if (v >= 11) {
+                fv = dataLocaleData.pm;
+            }
+            else {
+                fv = dataLocaleData.am;
+            }
+            result.push({
+                type: 'dayPeriod',
+                value: fv,
+            });
+        }
+        else if (p === 'relatedYear') {
+            var v = tm.relatedYear;
+            // @ts-ignore
+            var fv = nf.format(v);
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'relatedYear',
+                value: fv,
+            });
+        }
+        else if (p === 'yearName') {
+            var v = tm.yearName;
+            // @ts-ignore
+            var fv = nf.format(v);
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'yearName',
+                value: fv,
+            });
+        }
+        else {
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'unknown',
+                value: String(x),
+            });
+        }
+    }
+    return result;
+}
+exports.PartitionDateTimePattern = PartitionDateTimePattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToDateTimeOptions = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-todatetimeoptions
+ * @param options
+ * @param required
+ * @param defaults
+ */
+function ToDateTimeOptions(options, required, defaults) {
+    if (options === undefined) {
+        options = null;
+    }
+    else {
+        options = _262_1.ToObject(options);
+    }
+    options = Object.create(options);
+    var needDefaults = true;
+    if (required === 'date' || required === 'any') {
+        for (var _i = 0, _a = ['weekday', 'year', 'month', 'day']; _i < _a.length; _i++) {
+            var prop = _a[_i];
+            var value = options[prop];
+            if (value !== undefined) {
+                needDefaults = false;
+            }
+        }
+    }
+    if (required === 'time' || required === 'any') {
+        for (var _b = 0, _c = ['hour', 'minute', 'second']; _b < _c.length; _b++) {
+            var prop = _c[_b];
+            var value = options[prop];
+            if (value !== undefined) {
+                needDefaults = false;
+            }
+        }
+    }
+    if (options.dateStyle !== undefined || options.timeStyle !== undefined) {
+        needDefaults = false;
+    }
+    if (required === 'date' && options.timeStyle) {
+        throw new TypeError('Intl.DateTimeFormat date was required but timeStyle was included');
+    }
+    if (required === 'time' && options.dateStyle) {
+        throw new TypeError('Intl.DateTimeFormat time was required but dateStyle was included');
+    }
+    if (needDefaults && (defaults === 'date' || defaults === 'all')) {
+        for (var _d = 0, _e = ['year', 'month', 'day']; _d < _e.length; _d++) {
+            var prop = _e[_d];
+            options[prop] = 'numeric';
+        }
+    }
+    if (needDefaults && (defaults === 'time' || defaults === 'all')) {
+        for (var _f = 0, _g = ['hour', 'minute', 'second']; _f < _g.length; _f++) {
+            var prop = _g[_f];
+            options[prop] = 'numeric';
+        }
+    }
+    return options;
+}
+exports.ToDateTimeOptions = ToDateTimeOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToLocalTime = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+function getApplicableZoneData(t, timeZone, tzData) {
+    var _a;
+    var zoneData = tzData[timeZone];
+    // We don't have data for this so just say it's UTC
+    if (!zoneData) {
+        return [0, false];
+    }
+    var i = 0;
+    var offset = 0;
+    var dst = false;
+    for (; i <= zoneData.length; i++) {
+        if (i === zoneData.length || zoneData[i][0] * 1e3 >= t) {
+            _a = zoneData[i - 1], offset = _a[2], dst = _a[3];
+            break;
+        }
+    }
+    return [offset * 1e3, dst];
+}
+/**
+ * https://tc39.es/ecma402/#sec-tolocaltime
+ * @param t
+ * @param calendar
+ * @param timeZone
+ */
+function ToLocalTime(t, calendar, timeZone, _a) {
+    var tzData = _a.tzData;
+    utils_1.invariant(_262_1.Type(t) === 'Number', 'invalid time');
+    utils_1.invariant(calendar === 'gregory', 'We only support Gregory calendar right now');
+    var _b = getApplicableZoneData(t, timeZone, tzData), timeZoneOffset = _b[0], inDST = _b[1];
+    var tz = t + timeZoneOffset;
+    var year = _262_1.YearFromTime(tz);
+    return {
+        weekday: _262_1.WeekDay(tz),
+        era: year < 0 ? 'BC' : 'AD',
+        year: year,
+        relatedYear: undefined,
+        yearName: undefined,
+        month: _262_1.MonthFromTime(tz),
+        day: _262_1.DateFromTime(tz),
+        hour: _262_1.HourFromTime(tz),
+        minute: _262_1.MinFromTime(tz),
+        second: _262_1.SecFromTime(tz),
+        inDST: inDST,
+        // IMPORTANT: Not in spec
+        timeZoneOffset: timeZoneOffset,
+    };
+}
+exports.ToLocalTime = ToLocalTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseDateTimeSkeleton = void 0;
+/**
+ * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
+ * with some tweaks
+ */
+var DATE_TIME_REGEX = /(?:[Eec]{1,6}|G{1,5}|[Qq]{1,5}|(?:[yYur]+|U{1,5})|[ML]{1,5}|d{1,2}|D{1,3}|F{1}|[abB]{1,5}|[hkHK]{1,2}|w{1,2}|W{1}|m{1,2}|s{1,2}|[zZOvVxX]{1,4})(?=([^']*'[^']*')*[^']*$)/g;
+// trim patterns after transformations
+var expPatternTrimmer = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+function matchSkeletonPattern(match, result) {
+    if (result === void 0) { result = {
+        pattern: '',
+        pattern12: '',
+        skeleton: '',
+        rawPattern: '',
+    }; }
+    var len = match.length;
+    switch (match[0]) {
+        // Era
+        case 'G':
+            result.era = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
+            return '{era}';
+        // Year
+        case 'y':
+        case 'Y':
+        case 'u':
+        case 'U':
+        case 'r':
+            result.year = len === 2 ? '2-digit' : 'numeric';
+            return '{year}';
+        // Quarter
+        case 'q':
+        case 'Q':
+            throw new RangeError('`w/Q` (quarter) patterns are not supported');
+        // Month
+        case 'M':
+        case 'L':
+            result.month = ['numeric', '2-digit', 'short', 'long', 'narrow'][len - 1];
+            return '{month}';
+        // Week
+        case 'w':
+        case 'W':
+            throw new RangeError('`w/W` (week of year) patterns are not supported');
+        case 'd':
+            result.day = ['numeric', '2-digit'][len - 1];
+            return '{day}';
+        case 'D':
+        case 'F':
+        case 'g':
+            result.day = 'numeric';
+            return '{day}';
+        // Weekday
+        case 'E':
+            result.weekday = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
+            return '{weekday}';
+        case 'e':
+            result.weekday = [
+                'numeric',
+                '2-digit',
+                'short',
+                'long',
+                'narrow',
+                'short',
+            ][len - 1];
+            return '{weekday}';
+        case 'c':
+            result.weekday = [
+                'numeric',
+                undefined,
+                'short',
+                'long',
+                'narrow',
+                'short',
+            ][len - 1];
+            return '{weekday}';
+        // Period
+        case 'a': // AM, PM
+        case 'b': // am, pm, noon, midnight
+        case 'B': // flexible day periods
+            result.hour12 = true;
+            return '{ampm}';
+        // Hour
+        case 'h':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'H':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'K':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'k':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'j':
+        case 'J':
+        case 'C':
+            throw new RangeError('`j/J/C` (hour) patterns are not supported, use `h/H/K/k` instead');
+        // Minute
+        case 'm':
+            result.minute = ['numeric', '2-digit'][len - 1];
+            return '{minute}';
+        // Second
+        case 's':
+            result.second = ['numeric', '2-digit'][len - 1];
+            return '{second}';
+        case 'S':
+        case 'A':
+            result.second = 'numeric';
+            return '{second}';
+        // Zone
+        case 'z': // 1..3, 4: specific non-location format
+        case 'Z': // 1..3, 4, 5: The ISO8601 varios formats
+        case 'O': // 1, 4: miliseconds in day short, long
+        case 'v': // 1, 4: generic non-location format
+        case 'V': // 1, 2, 3, 4: time zone ID or city
+        case 'X': // 1, 2, 3, 4: The ISO8601 varios formats
+        case 'x': // 1, 2, 3, 4: The ISO8601 varios formats
+            result.timeZoneName = len < 4 ? 'short' : 'long';
+            return '{timeZoneName}';
+    }
+    return '';
+}
+/**
+ * Parse Date time skeleton into Intl.DateTimeFormatOptions
+ * Ref: https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * @public
+ * @param skeleton skeleton string
+ */
+function parseDateTimeSkeleton(skeleton, pattern) {
+    if (pattern === void 0) { pattern = skeleton; }
+    var result = {
+        pattern: '',
+        pattern12: '',
+        skeleton: skeleton,
+        rawPattern: pattern,
+    };
+    var literals = [];
+    // Use skeleton to populate result, but use mapped pattern to populate pattern
+    result.pattern12 = pattern
+        // Double apostrophe
+        .replace(/'{2}/g, '{apostrophe}')
+        // Apostrophe-escaped
+        .replace(/'(.*?)'/g, function (_, literal) {
+        literals.push(literal);
+        return "$$" + (literals.length - 1) + "$$";
+    })
+        .replace(DATE_TIME_REGEX, matchSkeletonPattern);
+    skeleton.replace(DATE_TIME_REGEX, function (m) { return matchSkeletonPattern(m, result); });
+    //Restore literals
+    if (literals.length) {
+        result.pattern12 = result.pattern12
+            .replace(/\$\$(\d+)\$\$/g, function (_, i) {
+            return literals[+i];
+        })
+            .replace(/\{apostrophe\}/g, "'");
+    }
+    // Handle apostrophe-escaped things
+    result.pattern = result.pattern12
+        .replace(/([\s\uFEFF\xA0])\{ampm\}([\s\uFEFF\xA0])/, '$1')
+        .replace('{ampm}', '')
+        .replace(expPatternTrimmer, '');
+    return result;
+}
+exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shortMorePenalty = exports.shortLessPenalty = exports.longMorePenalty = exports.longLessPenalty = exports.differentNumericTypePenalty = exports.additionPenalty = exports.removalPenalty = exports.DATE_TIME_PROPS = void 0;
+exports.DATE_TIME_PROPS = [
+    'weekday',
+    'era',
+    'year',
+    'month',
+    'day',
+    'hour',
+    'minute',
+    'second',
+    'timeZoneName',
+];
+exports.removalPenalty = 120;
+exports.additionPenalty = 20;
+exports.differentNumericTypePenalty = 15;
+exports.longLessPenalty = 8;
+exports.longMorePenalty = 6;
+exports.shortLessPenalty = 6;
+exports.shortMorePenalty = 3;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js ***!
+  \********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DefaultNumberOption = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-defaultnumberoption
+ * @param val
+ * @param min
+ * @param max
+ * @param fallback
+ */
+function DefaultNumberOption(val, min, max, fallback) {
+    if (val !== undefined) {
+        val = Number(val);
+        if (isNaN(val) || val < min || val > max) {
+            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
+        }
+        return Math.floor(val);
+    }
+    return fallback;
+}
+exports.DefaultNumberOption = DefaultNumberOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js":
+/*!******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalCodeForDisplayNames = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var IsWellFormedCurrencyCode_1 = __webpack_require__(/*! ../IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js");
+var UNICODE_REGION_SUBTAG_REGEX = /^([a-z]{2}|[0-9]{3})$/i;
+var ALPHA_4 = /^[a-z]{4}$/i;
+function isUnicodeRegionSubtag(region) {
+    return UNICODE_REGION_SUBTAG_REGEX.test(region);
+}
+function isUnicodeScriptSubtag(script) {
+    return ALPHA_4.test(script);
+}
+function CanonicalCodeForDisplayNames(type, code) {
+    if (type === 'language') {
+        return CanonicalizeLocaleList_1.CanonicalizeLocaleList([code])[0];
+    }
+    if (type === 'region') {
+        if (!isUnicodeRegionSubtag(code)) {
+            throw RangeError('invalid region');
+        }
+        return code.toUpperCase();
+    }
+    if (type === 'script') {
+        if (!isUnicodeScriptSubtag(code)) {
+            throw RangeError('invalid script');
+        }
+        return "" + code[0].toUpperCase() + code.slice(1);
+    }
+    utils_1.invariant(type === 'currency', 'invalid type');
+    if (!IsWellFormedCurrencyCode_1.IsWellFormedCurrencyCode(code)) {
+        throw RangeError('invalid currency');
+    }
+    return code.toUpperCase();
+}
+exports.CanonicalCodeForDisplayNames = CanonicalCodeForDisplayNames;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * https://tc39.es/ecma402/#sec-getnumberoption
+ * @param options
+ * @param property
+ * @param min
+ * @param max
+ * @param fallback
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetNumberOption = void 0;
+var DefaultNumberOption_1 = __webpack_require__(/*! ./DefaultNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js");
+function GetNumberOption(options, property, minimum, maximum, fallback) {
+    var val = options[property];
+    return DefaultNumberOption_1.DefaultNumberOption(val, minimum, maximum, fallback);
+}
+exports.GetNumberOption = GetNumberOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetOption = void 0;
+var _262_1 = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-getoption
+ * @param opts
+ * @param prop
+ * @param type
+ * @param values
+ * @param fallback
+ */
+function GetOption(opts, prop, type, values, fallback) {
+    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    var value = opts[prop];
+    if (value !== undefined) {
+        if (type !== 'boolean' && type !== 'string') {
+            throw new TypeError('invalid type');
+        }
+        if (type === 'boolean') {
+            value = Boolean(value);
+        }
+        if (type === 'string') {
+            value = _262_1.ToString(value);
+        }
+        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
+            throw new RangeError(value + " is not within " + values.join(', '));
+        }
+        return value;
+    }
+    return fallback;
+}
+exports.GetOption = GetOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsSanctionedSimpleUnitIdentifier = exports.SIMPLE_UNITS = exports.removeUnitNamespace = exports.SANCTIONED_UNITS = void 0;
+/**
+ * https://tc39.es/ecma402/#table-sanctioned-simple-unit-identifiers
+ */
 exports.SANCTIONED_UNITS = [
     'angle-degree',
     'area-acre',
@@ -1993,75 +2923,1797 @@ exports.SANCTIONED_UNITS = [
 // In CLDR, the unit name always follows the form `namespace-unit` pattern.
 // For example: `digital-bit` instead of `bit`. This function removes the namespace prefix.
 function removeUnitNamespace(unit) {
-    return unit.replace(/^(.*?)-/, '');
+    return unit.slice(unit.indexOf('-') + 1);
 }
 exports.removeUnitNamespace = removeUnitNamespace;
-//# sourceMappingURL=units.js.map
+/**
+ * https://tc39.es/ecma402/#table-sanctioned-simple-unit-identifiers
+ */
+exports.SIMPLE_UNITS = exports.SANCTIONED_UNITS.map(removeUnitNamespace);
+/**
+ * https://tc39.es/ecma402/#sec-issanctionedsimpleunitidentifier
+ */
+function IsSanctionedSimpleUnitIdentifier(unitIdentifier) {
+    return exports.SIMPLE_UNITS.indexOf(unitIdentifier) > -1;
+}
+exports.IsSanctionedSimpleUnitIdentifier = IsSanctionedSimpleUnitIdentifier;
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-pluralrules/polyfill.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-pluralrules/polyfill.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! ./dist/polyfill */ "./node_modules/@formatjs/intl-pluralrules/dist/polyfill.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/dist/core.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/dist/core.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js":
+/*!********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js ***!
+  \********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsValidTimeZoneName = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-isvalidtimezonename
+ * @param tz
+ * @param implDetails implementation details
+ */
+function IsValidTimeZoneName(tz, _a) {
+    var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    var uppercasedTz = tz.toUpperCase();
+    var zoneNames = new Set(Object.keys(tzData).map(function (z) { return z.toUpperCase(); }));
+    return zoneNames.has(uppercasedTz) || uppercasedTz in uppercaseLinks;
+}
+exports.IsValidTimeZoneName = IsValidTimeZoneName;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js":
+/*!*************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsWellFormedCurrencyCode = void 0;
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toUpperCase(str) {
+    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
+}
+var NOT_A_Z_REGEX = /[^A-Z]/;
+/**
+ * https://tc39.es/ecma402/#sec-iswellformedcurrencycode
+ */
+function IsWellFormedCurrencyCode(currency) {
+    currency = toUpperCase(currency);
+    if (currency.length !== 3) {
+        return false;
+    }
+    if (NOT_A_Z_REGEX.test(currency)) {
+        return false;
+    }
+    return true;
+}
+exports.IsWellFormedCurrencyCode = IsWellFormedCurrencyCode;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsWellFormedUnitIdentifier = void 0;
+var IsSanctionedSimpleUnitIdentifier_1 = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js");
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toLowerCase(str) {
+    return str.replace(/([A-Z])/g, function (_, c) { return c.toLowerCase(); });
+}
+/**
+ * https://tc39.es/ecma402/#sec-iswellformedunitidentifier
+ * @param unit
+ */
+function IsWellFormedUnitIdentifier(unit) {
+    unit = toLowerCase(unit);
+    if (IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(unit)) {
+        return true;
+    }
+    var units = unit.split('-per-');
+    if (units.length !== 2) {
+        return false;
+    }
+    var numerator = units[0], denominator = units[1];
+    if (!IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(numerator) ||
+        !IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(denominator)) {
+        return false;
+    }
+    return true;
+}
+exports.IsWellFormedUnitIdentifier = IsWellFormedUnitIdentifier;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LookupMatcher = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+/**
+ * https://tc39.es/ecma402/#sec-lookupmatcher
+ * @param availableLocales
+ * @param requestedLocales
+ * @param getDefaultLocale
+ */
+function LookupMatcher(availableLocales, requestedLocales, getDefaultLocale) {
+    var result = { locale: '' };
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            result.locale = availableLocale;
+            if (locale !== noExtensionLocale) {
+                result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+            }
+            return result;
         }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
+    }
+    result.locale = getDefaultLocale();
+    return result;
+}
+exports.LookupMatcher = LookupMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LookupSupportedLocales = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+/**
+ * https://tc39.es/ecma402/#sec-lookupsupportedlocales
+ * @param availableLocales
+ * @param requestedLocales
+ */
+function LookupSupportedLocales(availableLocales, requestedLocales) {
+    var subset = [];
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            subset.push(availableLocale);
         }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+    }
+    return subset;
+}
+exports.LookupSupportedLocales = LookupSupportedLocales;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComputeExponent = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var ComputeExponentForMagnitude_1 = __webpack_require__(/*! ./ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js");
+var FormatNumericToString_1 = __webpack_require__(/*! ./FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+/**
+ * The abstract operation ComputeExponent computes an exponent (power of ten) by which to scale x
+ * according to the number formatting settings. It handles cases such as 999 rounding up to 1000,
+ * requiring a different exponent.
+ *
+ * NOT IN SPEC: it returns [exponent, magnitude].
+ */
+function ComputeExponent(numberFormat, x, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    if (x === 0) {
+        return [0, 0];
+    }
+    if (x < 0) {
+        x = -x;
+    }
+    var magnitude = utils_1.getMagnitude(x);
+    var exponent = ComputeExponentForMagnitude_1.ComputeExponentForMagnitude(numberFormat, magnitude, {
+        getInternalSlots: getInternalSlots,
+    });
+    // Preserve more precision by doing multiplication when exponent is negative.
+    x = exponent < 0 ? x * Math.pow(10, -exponent) : x / Math.pow(10, exponent);
+    var formatNumberResult = FormatNumericToString_1.FormatNumericToString(getInternalSlots(numberFormat), x);
+    if (formatNumberResult.roundedNumber === 0) {
+        return [exponent, magnitude];
+    }
+    var newMagnitude = utils_1.getMagnitude(formatNumberResult.roundedNumber);
+    if (newMagnitude === magnitude - exponent) {
+        return [exponent, magnitude];
+    }
+    return [
+        ComputeExponentForMagnitude_1.ComputeExponentForMagnitude(numberFormat, magnitude + 1, {
+            getInternalSlots: getInternalSlots,
+        }),
+        magnitude + 1,
+    ];
+}
+exports.ComputeExponent = ComputeExponent;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComputeExponentForMagnitude = void 0;
+/**
+ * The abstract operation ComputeExponentForMagnitude computes an exponent by which to scale a
+ * number of the given magnitude (power of ten of the most significant digit) according to the
+ * locale and the desired notation (scientific, engineering, or compact).
+ */
+function ComputeExponentForMagnitude(numberFormat, magnitude, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(numberFormat);
+    var notation = internalSlots.notation, dataLocaleData = internalSlots.dataLocaleData, numberingSystem = internalSlots.numberingSystem;
+    switch (notation) {
+        case 'standard':
+            return 0;
+        case 'scientific':
+            return magnitude;
+        case 'engineering':
+            return Math.floor(magnitude / 3) * 3;
+        default: {
+            // Let exponent be an implementation- and locale-dependent (ILD) integer by which to scale a
+            // number of the given magnitude in compact notation for the current locale.
+            var compactDisplay = internalSlots.compactDisplay, style = internalSlots.style, currencyDisplay = internalSlots.currencyDisplay;
+            var thresholdMap = void 0;
+            if (style === 'currency' && currencyDisplay !== 'name') {
+                var currency = dataLocaleData.numbers.currency[numberingSystem] ||
+                    dataLocaleData.numbers.currency[dataLocaleData.numbers.nu[0]];
+                thresholdMap = currency.short;
+            }
+            else {
+                var decimal = dataLocaleData.numbers.decimal[numberingSystem] ||
+                    dataLocaleData.numbers.decimal[dataLocaleData.numbers.nu[0]];
+                thresholdMap = compactDisplay === 'long' ? decimal.long : decimal.short;
+            }
+            if (!thresholdMap) {
+                return 0;
+            }
+            var num = String(Math.pow(10, magnitude));
+            var thresholds = Object.keys(thresholdMap); // TODO: this can be pre-processed
+            if (num < thresholds[0]) {
+                return 0;
+            }
+            if (num > thresholds[thresholds.length - 1]) {
+                return thresholds[thresholds.length - 1].length - 1;
+            }
+            var i = thresholds.indexOf(num);
+            if (i === -1) {
+                return 0;
+            }
+            // See https://unicode.org/reports/tr35/tr35-numbers.html#Compact_Number_Formats
+            // Special handling if the pattern is precisely `0`.
+            var magnitudeKey = thresholds[i];
+            // TODO: do we need to handle plural here?
+            var compactPattern = thresholdMap[magnitudeKey].other;
+            if (compactPattern === '0') {
+                return 0;
+            }
+            // Example: in zh-TW, `10000000` maps to `0000萬`. So we need to return 8 - 4 = 4 here.
+            return (magnitudeKey.length -
+                thresholdMap[magnitudeKey].other.match(/0+/)[0].length);
+        }
+    }
+}
+exports.ComputeExponentForMagnitude = ComputeExponentForMagnitude;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js":
+/*!****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CurrencyDigits = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-currencydigits
+ */
+function CurrencyDigits(c, _a) {
+    var currencyDigitsData = _a.currencyDigitsData;
+    return _262_1.HasOwnProperty(currencyDigitsData, c)
+        ? currencyDigitsData[c]
+        : 2;
+}
+exports.CurrencyDigits = CurrencyDigits;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatNumericToParts = void 0;
+var PartitionNumberPattern_1 = __webpack_require__(/*! ./PartitionNumberPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+function FormatNumericToParts(nf, x, implDetails) {
+    var parts = PartitionNumberPattern_1.PartitionNumberPattern(nf, x, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result.push({
+            type: part.type,
+            value: part.value,
+        });
+    }
+    return result;
+}
+exports.FormatNumericToParts = FormatNumericToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatNumericToString = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var ToRawPrecision_1 = __webpack_require__(/*! ./ToRawPrecision */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var ToRawFixed_1 = __webpack_require__(/*! ./ToRawFixed */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatnumberstring
+ */
+function FormatNumericToString(intlObject, x) {
+    var isNegative = x < 0 || _262_1.SameValue(x, -0);
+    if (isNegative) {
+        x = -x;
+    }
+    var result;
+    var rourndingType = intlObject.roundingType;
+    switch (rourndingType) {
+        case 'significantDigits':
+            result = ToRawPrecision_1.ToRawPrecision(x, intlObject.minimumSignificantDigits, intlObject.maximumSignificantDigits);
+            break;
+        case 'fractionDigits':
+            result = ToRawFixed_1.ToRawFixed(x, intlObject.minimumFractionDigits, intlObject.maximumFractionDigits);
+            break;
+        default:
+            result = ToRawPrecision_1.ToRawPrecision(x, 1, 2);
+            if (result.integerDigitsCount > 1) {
+                result = ToRawFixed_1.ToRawFixed(x, 0, 0);
+            }
+            break;
+    }
+    x = result.roundedNumber;
+    var string = result.formattedString;
+    var int = result.integerDigitsCount;
+    var minInteger = intlObject.minimumIntegerDigits;
+    if (int < minInteger) {
+        var forwardZeros = utils_1.repeat('0', minInteger - int);
+        string = forwardZeros + string;
+    }
+    if (isNegative) {
+        x = -x;
+    }
+    return { roundedNumber: x, formattedString: string };
+}
+exports.FormatNumericToString = FormatNumericToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeNumberFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var SetNumberFormatUnitOptions_1 = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js");
+var CurrencyDigits_1 = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js");
+var SetNumberFormatDigitOptions_1 = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js");
+/**
+ * Chop off the unicode extension from the locale string.
+ */
+function removeUnicodeExtensionFromLocale(canonicalLocale) {
+    var extensionIndex = canonicalLocale.indexOf('-u-');
+    return extensionIndex >= 0
+        ? canonicalLocale.slice(0, extensionIndex)
+        : canonicalLocale;
+}
+/**
+ * https://tc39.es/ecma402/#sec-initializenumberformat
+ */
+function InitializeNumberFormat(nf, locales, opts, _a) {
+    var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, availableLocales = _a.availableLocales, numberingSystemNames = _a.numberingSystemNames, getDefaultLocale = _a.getDefaultLocale, currencyDigitsData = _a.currencyDigitsData;
+    // @ts-ignore
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var options = opts === undefined ? Object.create(null) : _262_1.ToObject(opts);
+    var opt = Object.create(null);
+    var matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    opt.localeMatcher = matcher;
+    var numberingSystem = GetOption_1.GetOption(options, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined &&
+        numberingSystemNames.indexOf(numberingSystem) < 0) {
+        // 8.a. If numberingSystem does not match the Unicode Locale Identifier type nonterminal,
+        // throw a RangeError exception.
+        throw RangeError("Invalid numberingSystems: " + numberingSystem);
+    }
+    opt.nu = numberingSystem;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, 
+    // [[RelevantExtensionKeys]] slot, which is a constant
+    ['nu'], localeData, getDefaultLocale);
+    var dataLocaleData = localeData[removeUnicodeExtensionFromLocale(r.locale)];
+    var internalSlots = getInternalSlots(nf);
+    internalSlots.locale = r.locale;
+    internalSlots.dataLocale = r.dataLocale;
+    internalSlots.numberingSystem = r.nu;
+    internalSlots.dataLocaleData = dataLocaleData;
+    SetNumberFormatUnitOptions_1.SetNumberFormatUnitOptions(nf, options, { getInternalSlots: getInternalSlots });
+    var style = internalSlots.style;
+    var mnfdDefault;
+    var mxfdDefault;
+    if (style === 'currency') {
+        var currency = internalSlots.currency;
+        var cDigits = CurrencyDigits_1.CurrencyDigits(currency, { currencyDigitsData: currencyDigitsData });
+        mnfdDefault = cDigits;
+        mxfdDefault = cDigits;
+    }
+    else {
+        mnfdDefault = 0;
+        mxfdDefault = style === 'percent' ? 0 : 3;
+    }
+    var notation = GetOption_1.GetOption(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
+    internalSlots.notation = notation;
+    SetNumberFormatDigitOptions_1.SetNumberFormatDigitOptions(internalSlots, options, mnfdDefault, mxfdDefault, notation);
+    var compactDisplay = GetOption_1.GetOption(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
+    if (notation === 'compact') {
+        internalSlots.compactDisplay = compactDisplay;
+    }
+    var useGrouping = GetOption_1.GetOption(options, 'useGrouping', 'boolean', undefined, true);
+    internalSlots.useGrouping = useGrouping;
+    var signDisplay = GetOption_1.GetOption(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
+    internalSlots.signDisplay = signDisplay;
+    return nf;
+}
+exports.InitializeNumberFormat = InitializeNumberFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var intl_utils_1 = __webpack_require__(/*! @formatjs/intl-utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/index.js");
-function unpackData(locale, localeData) {
-    var localeHierarchy = intl_utils_1.getLocaleHierarchy(locale);
-    var dataToMerge = localeHierarchy
-        .map(function (l) { return localeData.data[l]; })
-        .filter(Boolean);
-    if (!dataToMerge.length) {
-        throw new Error("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
+exports.PartitionNumberPattern = void 0;
+var FormatNumericToString_1 = __webpack_require__(/*! ./FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var ComputeExponent_1 = __webpack_require__(/*! ./ComputeExponent */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js");
+var format_to_parts_1 = __importDefault(__webpack_require__(/*! ./format_to_parts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js"));
+/**
+ * https://tc39.es/ecma402/#sec-formatnumberstring
+ */
+function PartitionNumberPattern(numberFormat, x, _a) {
+    var _b;
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(numberFormat);
+    var pl = internalSlots.pl, dataLocaleData = internalSlots.dataLocaleData, numberingSystem = internalSlots.numberingSystem;
+    var symbols = dataLocaleData.numbers.symbols[numberingSystem] ||
+        dataLocaleData.numbers.symbols[dataLocaleData.numbers.nu[0]];
+    var magnitude = 0;
+    var exponent = 0;
+    var n;
+    if (isNaN(x)) {
+        n = symbols.nan;
     }
-    dataToMerge.reverse();
-    return dataToMerge.reduce(function (all, d) { return (__assign(__assign({}, all), d)); }, { nu: [] });
+    else if (!isFinite(x)) {
+        n = symbols.infinity;
+    }
+    else {
+        if (internalSlots.style === 'percent') {
+            x *= 100;
+        }
+        _b = ComputeExponent_1.ComputeExponent(numberFormat, x, {
+            getInternalSlots: getInternalSlots,
+        }), exponent = _b[0], magnitude = _b[1];
+        // Preserve more precision by doing multiplication when exponent is negative.
+        x = exponent < 0 ? x * Math.pow(10, -exponent) : x / Math.pow(10, exponent);
+        var formatNumberResult = FormatNumericToString_1.FormatNumericToString(internalSlots, x);
+        n = formatNumberResult.formattedString;
+        x = formatNumberResult.roundedNumber;
+    }
+    // Based on https://tc39.es/ecma402/#sec-getnumberformatpattern
+    // We need to do this before `x` is rounded.
+    var sign;
+    var signDisplay = internalSlots.signDisplay;
+    switch (signDisplay) {
+        case 'never':
+            sign = 0;
+            break;
+        case 'auto':
+            if (_262_1.SameValue(x, 0) || x > 0 || isNaN(x)) {
+                sign = 0;
+            }
+            else {
+                sign = -1;
+            }
+            break;
+        case 'always':
+            if (_262_1.SameValue(x, 0) || x > 0 || isNaN(x)) {
+                sign = 1;
+            }
+            else {
+                sign = -1;
+            }
+            break;
+        default:
+            // x === 0 -> x is 0 or x is -0
+            if (x === 0 || isNaN(x)) {
+                sign = 0;
+            }
+            else if (x > 0) {
+                sign = 1;
+            }
+            else {
+                sign = -1;
+            }
+    }
+    return format_to_parts_1.default({ roundedNumber: x, formattedString: n, exponent: exponent, magnitude: magnitude, sign: sign }, internalSlots.dataLocaleData, pl, internalSlots);
 }
+exports.PartitionNumberPattern = PartitionNumberPattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SetNumberFormatDigitOptions = void 0;
+var GetNumberOption_1 = __webpack_require__(/*! ../GetNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js");
+var DefaultNumberOption_1 = __webpack_require__(/*! ../DefaultNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js");
+/**
+ * https://tc39.es/ecma402/#sec-setnfdigitoptions
+ */
+function SetNumberFormatDigitOptions(internalSlots, opts, mnfdDefault, mxfdDefault, notation) {
+    var mnid = GetNumberOption_1.GetNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
+    var mnfd = opts.minimumFractionDigits;
+    var mxfd = opts.maximumFractionDigits;
+    var mnsd = opts.minimumSignificantDigits;
+    var mxsd = opts.maximumSignificantDigits;
+    internalSlots.minimumIntegerDigits = mnid;
+    if (mnsd !== undefined || mxsd !== undefined) {
+        internalSlots.roundingType = 'significantDigits';
+        mnsd = DefaultNumberOption_1.DefaultNumberOption(mnsd, 1, 21, 1);
+        mxsd = DefaultNumberOption_1.DefaultNumberOption(mxsd, mnsd, 21, 21);
+        internalSlots.minimumSignificantDigits = mnsd;
+        internalSlots.maximumSignificantDigits = mxsd;
+    }
+    else if (mnfd !== undefined || mxfd !== undefined) {
+        internalSlots.roundingType = 'fractionDigits';
+        mnfd = DefaultNumberOption_1.DefaultNumberOption(mnfd, 0, 20, mnfdDefault);
+        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
+        mxfd = DefaultNumberOption_1.DefaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
+        internalSlots.minimumFractionDigits = mnfd;
+        internalSlots.maximumFractionDigits = mxfd;
+    }
+    else if (notation === 'compact') {
+        internalSlots.roundingType = 'compactRounding';
+    }
+    else {
+        internalSlots.roundingType = 'fractionDigits';
+        internalSlots.minimumFractionDigits = mnfdDefault;
+        internalSlots.maximumFractionDigits = mxfdDefault;
+    }
+}
+exports.SetNumberFormatDigitOptions = SetNumberFormatDigitOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SetNumberFormatUnitOptions = void 0;
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var IsWellFormedCurrencyCode_1 = __webpack_require__(/*! ../IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js");
+var IsWellFormedUnitIdentifier_1 = __webpack_require__(/*! ../IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js");
+/**
+ * https://tc39.es/ecma402/#sec-setnumberformatunitoptions
+ */
+function SetNumberFormatUnitOptions(nf, options, _a) {
+    if (options === void 0) { options = Object.create(null); }
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(nf);
+    var style = GetOption_1.GetOption(options, 'style', 'string', ['decimal', 'percent', 'currency', 'unit'], 'decimal');
+    internalSlots.style = style;
+    var currency = GetOption_1.GetOption(options, 'currency', 'string', undefined, undefined);
+    if (currency !== undefined && !IsWellFormedCurrencyCode_1.IsWellFormedCurrencyCode(currency)) {
+        throw RangeError('Malformed currency code');
+    }
+    if (style === 'currency' && currency === undefined) {
+        throw TypeError('currency cannot be undefined');
+    }
+    var currencyDisplay = GetOption_1.GetOption(options, 'currencyDisplay', 'string', ['code', 'symbol', 'narrowSymbol', 'name'], 'symbol');
+    var currencySign = GetOption_1.GetOption(options, 'currencySign', 'string', ['standard', 'accounting'], 'standard');
+    var unit = GetOption_1.GetOption(options, 'unit', 'string', undefined, undefined);
+    if (unit !== undefined && !IsWellFormedUnitIdentifier_1.IsWellFormedUnitIdentifier(unit)) {
+        throw RangeError('Invalid unit argument for Intl.NumberFormat()');
+    }
+    if (style === 'unit' && unit === undefined) {
+        throw TypeError('unit cannot be undefined');
+    }
+    var unitDisplay = GetOption_1.GetOption(options, 'unitDisplay', 'string', ['short', 'narrow', 'long'], 'short');
+    if (style === 'currency') {
+        internalSlots.currency = currency.toUpperCase();
+        internalSlots.currencyDisplay = currencyDisplay;
+        internalSlots.currencySign = currencySign;
+    }
+    if (style === 'unit') {
+        internalSlots.unit = unit;
+        internalSlots.unitDisplay = unitDisplay;
+    }
+}
+exports.SetNumberFormatUnitOptions = SetNumberFormatUnitOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToRawFixed = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * TODO: dedup with intl-pluralrules and support BigInt
+ * https://tc39.es/ecma402/#sec-torawfixed
+ * @param x a finite non-negative Number or BigInt
+ * @param minFraction and integer between 0 and 20
+ * @param maxFraction and integer between 0 and 20
+ */
+function ToRawFixed(x, minFraction, maxFraction) {
+    var f = maxFraction;
+    var n = Math.round(x * Math.pow(10, f));
+    var xFinal = n / Math.pow(10, f);
+    // n is a positive integer, but it is possible to be greater than 1e21.
+    // In such case we will go the slow path.
+    // See also: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
+    var m;
+    if (n < 1e21) {
+        m = n.toString();
+    }
+    else {
+        m = n.toString();
+        var _a = m.split('e'), mantissa = _a[0], exponent = _a[1];
+        m = mantissa.replace('.', '');
+        m = m + utils_1.repeat('0', Math.max(+exponent - m.length + 1, 0));
+    }
+    var int;
+    if (f !== 0) {
+        var k = m.length;
+        if (k <= f) {
+            var z = utils_1.repeat('0', f + 1 - k);
+            m = z + m;
+            k = f + 1;
+        }
+        var a = m.slice(0, k - f);
+        var b = m.slice(k - f);
+        m = a + "." + b;
+        int = a.length;
+    }
+    else {
+        int = m.length;
+    }
+    var cut = maxFraction - minFraction;
+    while (cut > 0 && m[m.length - 1] === '0') {
+        m = m.slice(0, -1);
+        cut--;
+    }
+    if (m[m.length - 1] === '.') {
+        m = m.slice(0, -1);
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+}
+exports.ToRawFixed = ToRawFixed;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js":
+/*!****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToRawPrecision = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function ToRawPrecision(x, minPrecision, maxPrecision) {
+    var p = maxPrecision;
+    var m;
+    var e;
+    var xFinal;
+    if (x === 0) {
+        m = utils_1.repeat('0', p);
+        e = 0;
+        xFinal = 0;
+    }
+    else {
+        var xToString = x.toString();
+        // If xToString is formatted as scientific notation, the number is either very small or very
+        // large. If the precision of the formatted string is lower that requested max precision, we
+        // should still infer them from the formatted string, otherwise the formatted result might have
+        // precision loss (e.g. 1e41 will not have 0 in every trailing digits).
+        var xToStringExponentIndex = xToString.indexOf('e');
+        var _a = xToString.split('e'), xToStringMantissa = _a[0], xToStringExponent = _a[1];
+        var xToStringMantissaWithoutDecimalPoint = xToStringMantissa.replace('.', '');
+        if (xToStringExponentIndex >= 0 &&
+            xToStringMantissaWithoutDecimalPoint.length <= p) {
+            e = +xToStringExponent;
+            m =
+                xToStringMantissaWithoutDecimalPoint +
+                    utils_1.repeat('0', p - xToStringMantissaWithoutDecimalPoint.length);
+            xFinal = x;
+        }
+        else {
+            e = utils_1.getMagnitude(x);
+            var decimalPlaceOffset = e - p + 1;
+            // n is the integer containing the required precision digits. To derive the formatted string,
+            // we will adjust its decimal place in the logic below.
+            var n = Math.round(adjustDecimalPlace(x, decimalPlaceOffset));
+            // The rounding caused the change of magnitude, so we should increment `e` by 1.
+            if (adjustDecimalPlace(n, p - 1) >= 10) {
+                e = e + 1;
+                // Divide n by 10 to swallow one precision.
+                n = Math.floor(n / 10);
+            }
+            m = n.toString();
+            // Equivalent of n * 10 ** (e - p + 1)
+            xFinal = adjustDecimalPlace(n, p - 1 - e);
+        }
+    }
+    var int;
+    if (e >= p - 1) {
+        m = m + utils_1.repeat('0', e - p + 1);
+        int = e + 1;
+    }
+    else if (e >= 0) {
+        m = m.slice(0, e + 1) + "." + m.slice(e + 1);
+        int = e + 1;
+    }
+    else {
+        m = "0." + utils_1.repeat('0', -e - 1) + m;
+        int = 1;
+    }
+    if (m.indexOf('.') >= 0 && maxPrecision > minPrecision) {
+        var cut = maxPrecision - minPrecision;
+        while (cut > 0 && m[m.length - 1] === '0') {
+            m = m.slice(0, -1);
+            cut--;
+        }
+        if (m[m.length - 1] === '.') {
+            m = m.slice(0, -1);
+        }
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+    // x / (10 ** magnitude), but try to preserve as much floating point precision as possible.
+    function adjustDecimalPlace(x, magnitude) {
+        return magnitude < 0 ? x * Math.pow(10, -magnitude) : x / Math.pow(10, magnitude);
+    }
+}
+exports.ToRawPrecision = ToRawPrecision;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: adlm, ahom, arab, arabext, bali, beng, bhks, brah, cakm, cham, deva, diak, fullwide, gong, gonm, gujr, guru, hanidec, hmng, hmnp, java, kali, khmr, knda, lana, lanatham, laoo, lepc, limb, mathbold, mathdbl, mathmono, mathsanb, mathsans, mlym, modi, mong, mroo, mtei, mymr, mymrshan, mymrtlng, newa, nkoo, olck, orya, osma, rohg, saur, segment, shrd, sind, sinh, sora, sund, takr, talu, tamldec, telu, thai, tibt, tirh, vaii, wara, wcho, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"adlm\":[\"𞥐\",\"𞥑\",\"𞥒\",\"𞥓\",\"𞥔\",\"𞥕\",\"𞥖\",\"𞥗\",\"𞥘\",\"𞥙\"],\"ahom\":[\"𑜰\",\"𑜱\",\"𑜲\",\"𑜳\",\"𑜴\",\"𑜵\",\"𑜶\",\"𑜷\",\"𑜸\",\"𑜹\"],\"arab\":[\"٠\",\"١\",\"٢\",\"٣\",\"٤\",\"٥\",\"٦\",\"٧\",\"٨\",\"٩\"],\"arabext\":[\"۰\",\"۱\",\"۲\",\"۳\",\"۴\",\"۵\",\"۶\",\"۷\",\"۸\",\"۹\"],\"bali\":[\"᭐\",\"᭑\",\"᭒\",\"᭓\",\"᭔\",\"᭕\",\"᭖\",\"᭗\",\"᭘\",\"᭙\"],\"beng\":[\"০\",\"১\",\"২\",\"৩\",\"৪\",\"৫\",\"৬\",\"৭\",\"৮\",\"৯\"],\"bhks\":[\"𑱐\",\"𑱑\",\"𑱒\",\"𑱓\",\"𑱔\",\"𑱕\",\"𑱖\",\"𑱗\",\"𑱘\",\"𑱙\"],\"brah\":[\"𑁦\",\"𑁧\",\"𑁨\",\"𑁩\",\"𑁪\",\"𑁫\",\"𑁬\",\"𑁭\",\"𑁮\",\"𑁯\"],\"cakm\":[\"𑄶\",\"𑄷\",\"𑄸\",\"𑄹\",\"𑄺\",\"𑄻\",\"𑄼\",\"𑄽\",\"𑄾\",\"𑄿\"],\"cham\":[\"꩐\",\"꩑\",\"꩒\",\"꩓\",\"꩔\",\"꩕\",\"꩖\",\"꩗\",\"꩘\",\"꩙\"],\"deva\":[\"०\",\"१\",\"२\",\"३\",\"४\",\"५\",\"६\",\"७\",\"८\",\"९\"],\"diak\":[\"𑥐\",\"𑥑\",\"𑥒\",\"𑥓\",\"𑥔\",\"𑥕\",\"𑥖\",\"𑥗\",\"𑥘\",\"𑥙\"],\"fullwide\":[\"０\",\"１\",\"２\",\"３\",\"４\",\"５\",\"６\",\"７\",\"８\",\"９\"],\"gong\":[\"𑶠\",\"𑶡\",\"𑶢\",\"𑶣\",\"𑶤\",\"𑶥\",\"𑶦\",\"𑶧\",\"𑶨\",\"𑶩\"],\"gonm\":[\"𑵐\",\"𑵑\",\"𑵒\",\"𑵓\",\"𑵔\",\"𑵕\",\"𑵖\",\"𑵗\",\"𑵘\",\"𑵙\"],\"gujr\":[\"૦\",\"૧\",\"૨\",\"૩\",\"૪\",\"૫\",\"૬\",\"૭\",\"૮\",\"૯\"],\"guru\":[\"੦\",\"੧\",\"੨\",\"੩\",\"੪\",\"੫\",\"੬\",\"੭\",\"੮\",\"੯\"],\"hanidec\":[\"〇\",\"一\",\"二\",\"三\",\"四\",\"五\",\"六\",\"七\",\"八\",\"九\"],\"hmng\":[\"𖭐\",\"𖭑\",\"𖭒\",\"𖭓\",\"𖭔\",\"𖭕\",\"𖭖\",\"𖭗\",\"𖭘\",\"𖭙\"],\"hmnp\":[\"𞅀\",\"𞅁\",\"𞅂\",\"𞅃\",\"𞅄\",\"𞅅\",\"𞅆\",\"𞅇\",\"𞅈\",\"𞅉\"],\"java\":[\"꧐\",\"꧑\",\"꧒\",\"꧓\",\"꧔\",\"꧕\",\"꧖\",\"꧗\",\"꧘\",\"꧙\"],\"kali\":[\"꤀\",\"꤁\",\"꤂\",\"꤃\",\"꤄\",\"꤅\",\"꤆\",\"꤇\",\"꤈\",\"꤉\"],\"khmr\":[\"០\",\"១\",\"២\",\"៣\",\"៤\",\"៥\",\"៦\",\"៧\",\"៨\",\"៩\"],\"knda\":[\"೦\",\"೧\",\"೨\",\"೩\",\"೪\",\"೫\",\"೬\",\"೭\",\"೮\",\"೯\"],\"lana\":[\"᪀\",\"᪁\",\"᪂\",\"᪃\",\"᪄\",\"᪅\",\"᪆\",\"᪇\",\"᪈\",\"᪉\"],\"lanatham\":[\"᪐\",\"᪑\",\"᪒\",\"᪓\",\"᪔\",\"᪕\",\"᪖\",\"᪗\",\"᪘\",\"᪙\"],\"laoo\":[\"໐\",\"໑\",\"໒\",\"໓\",\"໔\",\"໕\",\"໖\",\"໗\",\"໘\",\"໙\"],\"lepc\":[\"᪐\",\"᪑\",\"᪒\",\"᪓\",\"᪔\",\"᪕\",\"᪖\",\"᪗\",\"᪘\",\"᪙\"],\"limb\":[\"᥆\",\"᥇\",\"᥈\",\"᥉\",\"᥊\",\"᥋\",\"᥌\",\"᥍\",\"᥎\",\"᥏\"],\"mathbold\":[\"𝟎\",\"𝟏\",\"𝟐\",\"𝟑\",\"𝟒\",\"𝟓\",\"𝟔\",\"𝟕\",\"𝟖\",\"𝟗\"],\"mathdbl\":[\"𝟘\",\"𝟙\",\"𝟚\",\"𝟛\",\"𝟜\",\"𝟝\",\"𝟞\",\"𝟟\",\"𝟠\",\"𝟡\"],\"mathmono\":[\"𝟶\",\"𝟷\",\"𝟸\",\"𝟹\",\"𝟺\",\"𝟻\",\"𝟼\",\"𝟽\",\"𝟾\",\"𝟿\"],\"mathsanb\":[\"𝟬\",\"𝟭\",\"𝟮\",\"𝟯\",\"𝟰\",\"𝟱\",\"𝟲\",\"𝟳\",\"𝟴\",\"𝟵\"],\"mathsans\":[\"𝟢\",\"𝟣\",\"𝟤\",\"𝟥\",\"𝟦\",\"𝟧\",\"𝟨\",\"𝟩\",\"𝟪\",\"𝟫\"],\"mlym\":[\"൦\",\"൧\",\"൨\",\"൩\",\"൪\",\"൫\",\"൬\",\"൭\",\"൮\",\"൯\"],\"modi\":[\"𑙐\",\"𑙑\",\"𑙒\",\"𑙓\",\"𑙔\",\"𑙕\",\"𑙖\",\"𑙗\",\"𑙘\",\"𑙙\"],\"mong\":[\"᠐\",\"᠑\",\"᠒\",\"᠓\",\"᠔\",\"᠕\",\"᠖\",\"᠗\",\"᠘\",\"᠙\"],\"mroo\":[\"𖩠\",\"𖩡\",\"𖩢\",\"𖩣\",\"𖩤\",\"𖩥\",\"𖩦\",\"𖩧\",\"𖩨\",\"𖩩\"],\"mtei\":[\"꯰\",\"꯱\",\"꯲\",\"꯳\",\"꯴\",\"꯵\",\"꯶\",\"꯷\",\"꯸\",\"꯹\"],\"mymr\":[\"၀\",\"၁\",\"၂\",\"၃\",\"၄\",\"၅\",\"၆\",\"၇\",\"၈\",\"၉\"],\"mymrshan\":[\"႐\",\"႑\",\"႒\",\"႓\",\"႔\",\"႕\",\"႖\",\"႗\",\"႘\",\"႙\"],\"mymrtlng\":[\"꧰\",\"꧱\",\"꧲\",\"꧳\",\"꧴\",\"꧵\",\"꧶\",\"꧷\",\"꧸\",\"꧹\"],\"newa\":[\"𑑐\",\"𑑑\",\"𑑒\",\"𑑓\",\"𑑔\",\"𑑕\",\"𑑖\",\"𑑗\",\"𑑘\",\"𑑙\"],\"nkoo\":[\"߀\",\"߁\",\"߂\",\"߃\",\"߄\",\"߅\",\"߆\",\"߇\",\"߈\",\"߉\"],\"olck\":[\"᱐\",\"᱑\",\"᱒\",\"᱓\",\"᱔\",\"᱕\",\"᱖\",\"᱗\",\"᱘\",\"᱙\"],\"orya\":[\"୦\",\"୧\",\"୨\",\"୩\",\"୪\",\"୫\",\"୬\",\"୭\",\"୮\",\"୯\"],\"osma\":[\"𐒠\",\"𐒡\",\"𐒢\",\"𐒣\",\"𐒤\",\"𐒥\",\"𐒦\",\"𐒧\",\"𐒨\",\"𐒩\"],\"rohg\":[\"𐴰\",\"𐴱\",\"𐴲\",\"𐴳\",\"𐴴\",\"𐴵\",\"𐴶\",\"𐴷\",\"𐴸\",\"𐴹\"],\"saur\":[\"꣐\",\"꣑\",\"꣒\",\"꣓\",\"꣔\",\"꣕\",\"꣖\",\"꣗\",\"꣘\",\"꣙\"],\"segment\":[\"🯰\",\"🯱\",\"🯲\",\"🯳\",\"🯴\",\"🯵\",\"🯶\",\"🯷\",\"🯸\",\"🯹\"],\"shrd\":[\"𑇐\",\"𑇑\",\"𑇒\",\"𑇓\",\"𑇔\",\"𑇕\",\"𑇖\",\"𑇗\",\"𑇘\",\"𑇙\"],\"sind\":[\"𑋰\",\"𑋱\",\"𑋲\",\"𑋳\",\"𑋴\",\"𑋵\",\"𑋶\",\"𑋷\",\"𑋸\",\"𑋹\"],\"sinh\":[\"෦\",\"෧\",\"෨\",\"෩\",\"෪\",\"෫\",\"෬\",\"෭\",\"෮\",\"෯\"],\"sora\":[\"𑃰\",\"𑃱\",\"𑃲\",\"𑃳\",\"𑃴\",\"𑃵\",\"𑃶\",\"𑃷\",\"𑃸\",\"𑃹\"],\"sund\":[\"᮰\",\"᮱\",\"᮲\",\"᮳\",\"᮴\",\"᮵\",\"᮶\",\"᮷\",\"᮸\",\"᮹\"],\"takr\":[\"𑛀\",\"𑛁\",\"𑛂\",\"𑛃\",\"𑛄\",\"𑛅\",\"𑛆\",\"𑛇\",\"𑛈\",\"𑛉\"],\"talu\":[\"᧐\",\"᧑\",\"᧒\",\"᧓\",\"᧔\",\"᧕\",\"᧖\",\"᧗\",\"᧘\",\"᧙\"],\"tamldec\":[\"௦\",\"௧\",\"௨\",\"௩\",\"௪\",\"௫\",\"௬\",\"௭\",\"௮\",\"௯\"],\"telu\":[\"౦\",\"౧\",\"౨\",\"౩\",\"౪\",\"౫\",\"౬\",\"౭\",\"౮\",\"౯\"],\"thai\":[\"๐\",\"๑\",\"๒\",\"๓\",\"๔\",\"๕\",\"๖\",\"๗\",\"๘\",\"๙\"],\"tibt\":[\"༠\",\"༡\",\"༢\",\"༣\",\"༤\",\"༥\",\"༦\",\"༧\",\"༨\",\"༩\"],\"tirh\":[\"𑓐\",\"𑓑\",\"𑓒\",\"𑓓\",\"𑓔\",\"𑓕\",\"𑓖\",\"𑓗\",\"𑓘\",\"𑓙\"],\"vaii\":[\"ᘠ\",\"ᘡ\",\"ᘢ\",\"ᘣ\",\"ᘤ\",\"ᘥ\",\"ᘦ\",\"ᘧ\",\"ᘨ\",\"ᘩ\"],\"wara\":[\"𑣠\",\"𑣡\",\"𑣢\",\"𑣣\",\"𑣤\",\"𑣥\",\"𑣦\",\"𑣧\",\"𑣨\",\"𑣩\"],\"wcho\":[\"𞋰\",\"𞋱\",\"𞋲\",\"𞋳\",\"𞋴\",\"𞋵\",\"𞋶\",\"𞋷\",\"𞋸\",\"𞋹\"]}");
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ToRawFixed_1 = __webpack_require__(/*! ./ToRawFixed */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js");
+var digitMapping = __importStar(__webpack_require__(/*! ./digit-mapping.json */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json"));
+// This is from: unicode-12.1.0/General_Category/Symbol/regex.js
+// IE11 does not support unicode flag, otherwise this is just /\p{S}/u.
+var S_UNICODE_REGEX = /[\$\+<->\^`\|~\xA2-\xA6\xA8\xA9\xAC\xAE-\xB1\xB4\xB8\xD7\xF7\u02C2-\u02C5\u02D2-\u02DF\u02E5-\u02EB\u02ED\u02EF-\u02FF\u0375\u0384\u0385\u03F6\u0482\u058D-\u058F\u0606-\u0608\u060B\u060E\u060F\u06DE\u06E9\u06FD\u06FE\u07F6\u07FE\u07FF\u09F2\u09F3\u09FA\u09FB\u0AF1\u0B70\u0BF3-\u0BFA\u0C7F\u0D4F\u0D79\u0E3F\u0F01-\u0F03\u0F13\u0F15-\u0F17\u0F1A-\u0F1F\u0F34\u0F36\u0F38\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE\u0FCF\u0FD5-\u0FD8\u109E\u109F\u1390-\u1399\u166D\u17DB\u1940\u19DE-\u19FF\u1B61-\u1B6A\u1B74-\u1B7C\u1FBD\u1FBF-\u1FC1\u1FCD-\u1FCF\u1FDD-\u1FDF\u1FED-\u1FEF\u1FFD\u1FFE\u2044\u2052\u207A-\u207C\u208A-\u208C\u20A0-\u20BF\u2100\u2101\u2103-\u2106\u2108\u2109\u2114\u2116-\u2118\u211E-\u2123\u2125\u2127\u2129\u212E\u213A\u213B\u2140-\u2144\u214A-\u214D\u214F\u218A\u218B\u2190-\u2307\u230C-\u2328\u232B-\u2426\u2440-\u244A\u249C-\u24E9\u2500-\u2767\u2794-\u27C4\u27C7-\u27E5\u27F0-\u2982\u2999-\u29D7\u29DC-\u29FB\u29FE-\u2B73\u2B76-\u2B95\u2B98-\u2BFF\u2CE5-\u2CEA\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3004\u3012\u3013\u3020\u3036\u3037\u303E\u303F\u309B\u309C\u3190\u3191\u3196-\u319F\u31C0-\u31E3\u3200-\u321E\u322A-\u3247\u3250\u3260-\u327F\u328A-\u32B0\u32C0-\u33FF\u4DC0-\u4DFF\uA490-\uA4C6\uA700-\uA716\uA720\uA721\uA789\uA78A\uA828-\uA82B\uA836-\uA839\uAA77-\uAA79\uAB5B\uFB29\uFBB2-\uFBC1\uFDFC\uFDFD\uFE62\uFE64-\uFE66\uFE69\uFF04\uFF0B\uFF1C-\uFF1E\uFF3E\uFF40\uFF5C\uFF5E\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC\uFFFD]|\uD800[\uDD37-\uDD3F\uDD79-\uDD89\uDD8C-\uDD8E\uDD90-\uDD9B\uDDA0\uDDD0-\uDDFC]|\uD802[\uDC77\uDC78\uDEC8]|\uD805\uDF3F|\uD807[\uDFD5-\uDFF1]|\uD81A[\uDF3C-\uDF3F\uDF45]|\uD82F\uDC9C|\uD834[\uDC00-\uDCF5\uDD00-\uDD26\uDD29-\uDD64\uDD6A-\uDD6C\uDD83\uDD84\uDD8C-\uDDA9\uDDAE-\uDDE8\uDE00-\uDE41\uDE45\uDF00-\uDF56]|\uD835[\uDEC1\uDEDB\uDEFB\uDF15\uDF35\uDF4F\uDF6F\uDF89\uDFA9\uDFC3]|\uD836[\uDC00-\uDDFF\uDE37-\uDE3A\uDE6D-\uDE74\uDE76-\uDE83\uDE85\uDE86]|\uD838[\uDD4F\uDEFF]|\uD83B[\uDCAC\uDCB0\uDD2E\uDEF0\uDEF1]|\uD83C[\uDC00-\uDC2B\uDC30-\uDC93\uDCA0-\uDCAE\uDCB1-\uDCBF\uDCC1-\uDCCF\uDCD1-\uDCF5\uDD10-\uDD6C\uDD70-\uDDAC\uDDE6-\uDE02\uDE10-\uDE3B\uDE40-\uDE48\uDE50\uDE51\uDE60-\uDE65\uDF00-\uDFFF]|\uD83D[\uDC00-\uDED5\uDEE0-\uDEEC\uDEF0-\uDEFA\uDF00-\uDF73\uDF80-\uDFD8\uDFE0-\uDFEB]|\uD83E[\uDC00-\uDC0B\uDC10-\uDC47\uDC50-\uDC59\uDC60-\uDC87\uDC90-\uDCAD\uDD00-\uDD0B\uDD0D-\uDD71\uDD73-\uDD76\uDD7A-\uDDA2\uDDA5-\uDDAA\uDDAE-\uDDCA\uDDCD-\uDE53\uDE60-\uDE6D\uDE70-\uDE73\uDE78-\uDE7A\uDE80-\uDE82\uDE90-\uDE95]/;
+// /^\p{S}/u
+var CARET_S_UNICODE_REGEX = new RegExp("^" + S_UNICODE_REGEX.source);
+// /\p{S}$/u
+var S_DOLLAR_UNICODE_REGEX = new RegExp(S_UNICODE_REGEX.source + "$");
+var CLDR_NUMBER_PATTERN = /[#0](?:[\.,][#0]+)*/g;
+function formatToParts(numberResult, data, pl, options) {
+    var sign = numberResult.sign, exponent = numberResult.exponent, magnitude = numberResult.magnitude;
+    var notation = options.notation, style = options.style, numberingSystem = options.numberingSystem;
+    var defaultNumberingSystem = data.numbers.nu[0];
+    // #region Part 1: partition and interpolate the CLDR number pattern.
+    // ----------------------------------------------------------
+    var compactNumberPattern = null;
+    if (notation === 'compact' && magnitude) {
+        compactNumberPattern = getCompactDisplayPattern(numberResult, pl, data, style, options.compactDisplay, options.currencyDisplay, numberingSystem);
+    }
+    // This is used multiple times
+    var nonNameCurrencyPart;
+    if (style === 'currency' && options.currencyDisplay !== 'name') {
+        var byCurrencyDisplay = data.currencies[options.currency];
+        if (byCurrencyDisplay) {
+            switch (options.currencyDisplay) {
+                case 'code':
+                    nonNameCurrencyPart = options.currency;
+                    break;
+                case 'symbol':
+                    nonNameCurrencyPart = byCurrencyDisplay.symbol;
+                    break;
+                default:
+                    nonNameCurrencyPart = byCurrencyDisplay.narrow;
+                    break;
+            }
+        }
+        else {
+            // Fallback for unknown currency
+            nonNameCurrencyPart = options.currency;
+        }
+    }
+    var numberPattern;
+    if (!compactNumberPattern) {
+        // Note: if the style is unit, or is currency and the currency display is name,
+        // its unit parts will be interpolated in part 2. So here we can fallback to decimal.
+        if (style === 'decimal' ||
+            style === 'unit' ||
+            (style === 'currency' && options.currencyDisplay === 'name')) {
+            // Shortcut for decimal
+            var decimalData = data.numbers.decimal[numberingSystem] ||
+                data.numbers.decimal[defaultNumberingSystem];
+            numberPattern = getPatternForSign(decimalData.standard, sign);
+        }
+        else if (style === 'currency') {
+            var currencyData = data.numbers.currency[numberingSystem] ||
+                data.numbers.currency[defaultNumberingSystem];
+            // We replace number pattern part with `0` for easier postprocessing.
+            numberPattern = getPatternForSign(currencyData[options.currencySign], sign);
+        }
+        else {
+            // percent
+            var percentPattern = data.numbers.percent[numberingSystem] ||
+                data.numbers.percent[defaultNumberingSystem];
+            numberPattern = getPatternForSign(percentPattern, sign);
+        }
+    }
+    else {
+        numberPattern = compactNumberPattern;
+    }
+    // Extract the decimal number pattern string. It looks like "#,##0,00", which will later be
+    // used to infer decimal group sizes.
+    var decimalNumberPattern = CLDR_NUMBER_PATTERN.exec(numberPattern)[0];
+    // Now we start to substitute patterns
+    // 1. replace strings like `0` and `#,##0.00` with `{0}`
+    // 2. unquote characters (invariant: the quoted characters does not contain the special tokens)
+    numberPattern = numberPattern
+        .replace(CLDR_NUMBER_PATTERN, '{0}')
+        .replace(/'(.)'/g, '$1');
+    // Handle currency spacing (both compact and non-compact).
+    if (style === 'currency' && options.currencyDisplay !== 'name') {
+        var currencyData = data.numbers.currency[numberingSystem] ||
+            data.numbers.currency[defaultNumberingSystem];
+        // See `currencySpacing` substitution rule in TR-35.
+        // Here we always assume the currencyMatch is "[:^S:]" and surroundingMatch is "[:digit:]".
+        //
+        // Example 1: for pattern "#,##0.00¤" with symbol "US$", we replace "¤" with the symbol,
+        // but insert an extra non-break space before the symbol, because "[:^S:]" matches "U" in
+        // "US$" and "[:digit:]" matches the latn numbering system digits.
+        //
+        // Example 2: for pattern "¤#,##0.00" with symbol "US$", there is no spacing between symbol
+        // and number, because `$` does not match "[:^S:]".
+        //
+        // Implementation note: here we do the best effort to infer the insertion.
+        // We also assume that `beforeInsertBetween` and `afterInsertBetween` will never be `;`.
+        var afterCurrency = currencyData.currencySpacing.afterInsertBetween;
+        if (afterCurrency && !S_DOLLAR_UNICODE_REGEX.test(nonNameCurrencyPart)) {
+            numberPattern = numberPattern.replace('¤{0}', "\u00A4" + afterCurrency + "{0}");
+        }
+        var beforeCurrency = currencyData.currencySpacing.beforeInsertBetween;
+        if (beforeCurrency && !CARET_S_UNICODE_REGEX.test(nonNameCurrencyPart)) {
+            numberPattern = numberPattern.replace('{0}¤', "{0}" + beforeCurrency + "\u00A4");
+        }
+    }
+    // The following tokens are special: `{0}`, `¤`, `%`, `-`, `+`, `{c:...}.
+    var numberPatternParts = numberPattern.split(/({c:[^}]+}|\{0\}|[¤%\-\+])/g);
+    var numberParts = [];
+    var symbols = data.numbers.symbols[numberingSystem] ||
+        data.numbers.symbols[defaultNumberingSystem];
+    for (var _i = 0, numberPatternParts_1 = numberPatternParts; _i < numberPatternParts_1.length; _i++) {
+        var part = numberPatternParts_1[_i];
+        if (!part) {
+            continue;
+        }
+        switch (part) {
+            case '{0}': {
+                // We only need to handle scientific and engineering notation here.
+                numberParts.push.apply(numberParts, paritionNumberIntoParts(symbols, numberResult, notation, exponent, numberingSystem, 
+                // If compact number pattern exists, do not insert group separators.
+                !compactNumberPattern && options.useGrouping, decimalNumberPattern));
+                break;
+            }
+            case '-':
+                numberParts.push({ type: 'minusSign', value: symbols.minusSign });
+                break;
+            case '+':
+                numberParts.push({ type: 'plusSign', value: symbols.plusSign });
+                break;
+            case '%':
+                numberParts.push({ type: 'percentSign', value: symbols.percentSign });
+                break;
+            case '¤':
+                // Computed above when handling currency spacing.
+                numberParts.push({ type: 'currency', value: nonNameCurrencyPart });
+                break;
+            default:
+                if (/^\{c:/.test(part)) {
+                    numberParts.push({
+                        type: 'compact',
+                        value: part.substring(3, part.length - 1),
+                    });
+                }
+                else {
+                    // literal
+                    numberParts.push({ type: 'literal', value: part });
+                }
+                break;
+        }
+    }
+    // #endregion
+    // #region Part 2: interpolate unit pattern if necessary.
+    // ----------------------------------------------
+    switch (style) {
+        case 'currency': {
+            // `currencyDisplay: 'name'` has similar pattern handling as units.
+            if (options.currencyDisplay === 'name') {
+                var unitPattern = (data.numbers.currency[numberingSystem] ||
+                    data.numbers.currency[defaultNumberingSystem]).unitPattern;
+                // Select plural
+                var unitName = void 0;
+                var currencyNameData = data.currencies[options.currency];
+                if (currencyNameData) {
+                    unitName = selectPlural(pl, 
+                    // NOTE: Google Chrome's Intl.NumberFormat uses the original number to determine the plurality,
+                    // but the mantissa for unit. We think this is a bug in ICU, but will still replicate the behavior.
+                    // TODO: use original number.
+                    numberResult.roundedNumber * Math.pow(10, exponent), currencyNameData.displayName);
+                }
+                else {
+                    // Fallback for unknown currency
+                    unitName = options.currency;
+                }
+                // Do {0} and {1} substitution
+                var unitPatternParts = unitPattern.split(/(\{[01]\})/g);
+                var result = [];
+                for (var _a = 0, unitPatternParts_1 = unitPatternParts; _a < unitPatternParts_1.length; _a++) {
+                    var part = unitPatternParts_1[_a];
+                    switch (part) {
+                        case '{0}':
+                            result.push.apply(result, numberParts);
+                            break;
+                        case '{1}':
+                            result.push({ type: 'currency', value: unitName });
+                            break;
+                        default:
+                            if (part) {
+                                result.push({ type: 'literal', value: part });
+                            }
+                            break;
+                    }
+                }
+                return result;
+            }
+            else {
+                return numberParts;
+            }
+        }
+        case 'unit': {
+            var unit = options.unit, unitDisplay = options.unitDisplay;
+            var unitData = data.units.simple[unit];
+            var unitPattern = void 0;
+            if (unitData) {
+                // Simple unit pattern
+                unitPattern = selectPlural(pl, numberResult.roundedNumber, data.units.simple[unit][unitDisplay]);
+            }
+            else {
+                // See: http://unicode.org/reports/tr35/tr35-general.html#perUnitPatterns
+                // If cannot find unit in the simple pattern, it must be "per" compound pattern.
+                // Implementation note: we are not following TR-35 here because we need to format to parts!
+                var _b = unit.split('-per-'), numeratorUnit = _b[0], denominatorUnit = _b[1];
+                unitData = data.units.simple[numeratorUnit];
+                var numeratorUnitPattern = selectPlural(pl, numberResult.roundedNumber, data.units.simple[numeratorUnit][unitDisplay]);
+                var perUnitPattern = data.units.simple[denominatorUnit].perUnit[unitDisplay];
+                if (perUnitPattern) {
+                    // perUnitPattern exists, combine it with numeratorUnitPattern
+                    unitPattern = perUnitPattern.replace('{0}', numeratorUnitPattern);
+                }
+                else {
+                    // get compoundUnit pattern (e.g. "{0} per {1}"), repalce {0} with numerator pattern and {1} with
+                    // the denominator pattern in singular form.
+                    var perPattern = data.units.compound.per[unitDisplay];
+                    var denominatorPattern = selectPlural(pl, 1, data.units.simple[denominatorUnit][unitDisplay]);
+                    unitPattern = unitPattern = perPattern
+                        .replace('{0}', numeratorUnitPattern)
+                        .replace('{1}', denominatorPattern.replace('{0}', ''));
+                }
+            }
+            var result = [];
+            // We need spacing around "{0}" because they are not treated as "unit" parts, but "literal".
+            for (var _c = 0, _d = unitPattern.split(/(\s*\{0\}\s*)/); _c < _d.length; _c++) {
+                var part = _d[_c];
+                var interpolateMatch = /^(\s*)\{0\}(\s*)$/.exec(part);
+                if (interpolateMatch) {
+                    // Space before "{0}"
+                    if (interpolateMatch[1]) {
+                        result.push({ type: 'literal', value: interpolateMatch[1] });
+                    }
+                    // "{0}" itself
+                    result.push.apply(result, numberParts);
+                    // Space after "{0}"
+                    if (interpolateMatch[2]) {
+                        result.push({ type: 'literal', value: interpolateMatch[2] });
+                    }
+                }
+                else if (part) {
+                    result.push({ type: 'unit', value: part });
+                }
+            }
+            return result;
+        }
+        default:
+            return numberParts;
+    }
+    // #endregion
+}
+exports.default = formatToParts;
+// A subset of https://tc39.es/ecma402/#sec-partitionnotationsubpattern
+// Plus the exponent parts handling.
+function paritionNumberIntoParts(symbols, numberResult, notation, exponent, numberingSystem, useGrouping, 
+/**
+ * This is the decimal number pattern without signs or symbols.
+ * It is used to infer the group size when `useGrouping` is true.
+ *
+ * A typical value looks like "#,##0.00" (primary group size is 3).
+ * Some locales like Hindi has secondary group size of 2 (e.g. "#,##,##0.00").
+ */
+decimalNumberPattern) {
+    var result = [];
+    // eslint-disable-next-line prefer-const
+    var n = numberResult.formattedString, x = numberResult.roundedNumber;
+    if (isNaN(x)) {
+        return [{ type: 'nan', value: n }];
+    }
+    else if (!isFinite(x)) {
+        return [{ type: 'infinity', value: n }];
+    }
+    var digitReplacementTable = digitMapping[numberingSystem];
+    if (digitReplacementTable) {
+        n = n.replace(/\d/g, function (digit) { return digitReplacementTable[+digit] || digit; });
+    }
+    // TODO: Else use an implementation dependent algorithm to map n to the appropriate
+    // representation of n in the given numbering system.
+    var decimalSepIndex = n.indexOf('.');
+    var integer;
+    var fraction;
+    if (decimalSepIndex > 0) {
+        integer = n.slice(0, decimalSepIndex);
+        fraction = n.slice(decimalSepIndex + 1);
+    }
+    else {
+        integer = n;
+    }
+    // #region Grouping integer digits
+    // The weird compact and x >= 10000 check is to ensure consistency with Node.js and Chrome.
+    // Note that `de` does not have compact form for thousands, but Node.js does not insert grouping separator
+    // unless the rounded number is greater than 10000:
+    //   NumberFormat('de', {notation: 'compact', compactDisplay: 'short'}).format(1234) //=> "1234"
+    //   NumberFormat('de').format(1234) //=> "1.234"
+    if (useGrouping && (notation !== 'compact' || x >= 10000)) {
+        var groupSepSymbol = symbols.group;
+        var groups = [];
+        // > There may be two different grouping sizes: The primary grouping size used for the least
+        // > significant integer group, and the secondary grouping size used for more significant groups.
+        // > If a pattern contains multiple grouping separators, the interval between the last one and the
+        // > end of the integer defines the primary grouping size, and the interval between the last two
+        // > defines the secondary grouping size. All others are ignored.
+        var integerNumberPattern = decimalNumberPattern.split('.')[0];
+        var patternGroups = integerNumberPattern.split(',');
+        var primaryGroupingSize = 3;
+        var secondaryGroupingSize = 3;
+        if (patternGroups.length > 1) {
+            primaryGroupingSize = patternGroups[patternGroups.length - 1].length;
+        }
+        if (patternGroups.length > 2) {
+            secondaryGroupingSize = patternGroups[patternGroups.length - 2].length;
+        }
+        var i = integer.length - primaryGroupingSize;
+        if (i > 0) {
+            // Slice the least significant integer group
+            groups.push(integer.slice(i, i + primaryGroupingSize));
+            // Then iteratively push the more signicant groups
+            // TODO: handle surrogate pairs in some numbering system digits
+            for (i -= secondaryGroupingSize; i > 0; i -= secondaryGroupingSize) {
+                groups.push(integer.slice(i, i + secondaryGroupingSize));
+            }
+            groups.push(integer.slice(0, i + secondaryGroupingSize));
+        }
+        else {
+            groups.push(integer);
+        }
+        while (groups.length > 0) {
+            var integerGroup = groups.pop();
+            result.push({ type: 'integer', value: integerGroup });
+            if (groups.length > 0) {
+                result.push({ type: 'group', value: groupSepSymbol });
+            }
+        }
+    }
+    else {
+        result.push({ type: 'integer', value: integer });
+    }
+    // #endregion
+    if (fraction !== undefined) {
+        result.push({ type: 'decimal', value: symbols.decimal }, { type: 'fraction', value: fraction });
+    }
+    if ((notation === 'scientific' || notation === 'engineering') &&
+        isFinite(x)) {
+        result.push({ type: 'exponentSeparator', value: symbols.exponential });
+        if (exponent < 0) {
+            result.push({ type: 'exponentMinusSign', value: symbols.minusSign });
+            exponent = -exponent;
+        }
+        var exponentResult = ToRawFixed_1.ToRawFixed(exponent, 0, 0);
+        result.push({
+            type: 'exponentInteger',
+            value: exponentResult.formattedString,
+        });
+    }
+    return result;
+}
+function getPatternForSign(pattern, sign) {
+    if (pattern.indexOf(';') < 0) {
+        pattern = pattern + ";-" + pattern;
+    }
+    var _a = pattern.split(';'), zeroPattern = _a[0], negativePattern = _a[1];
+    switch (sign) {
+        case 0:
+            return zeroPattern;
+        case -1:
+            return negativePattern;
+        default:
+            return negativePattern.indexOf('-') >= 0
+                ? negativePattern.replace(/-/g, '+')
+                : "+" + zeroPattern;
+    }
+}
+// Find the CLDR pattern for compact notation based on the magnitude of data and style.
+//
+// Example return value: "¤ {c:laki}000;¤{c:laki} -0" (`sw` locale):
+// - Notice the `{c:...}` token that wraps the compact literal.
+// - The consecutive zeros are normalized to single zero to match CLDR_NUMBER_PATTERN.
+//
+// Returning null means the compact display pattern cannot be found.
+function getCompactDisplayPattern(numberResult, pl, data, style, compactDisplay, currencyDisplay, numberingSystem) {
+    var _a;
+    var roundedNumber = numberResult.roundedNumber, sign = numberResult.sign, magnitude = numberResult.magnitude;
+    var magnitudeKey = String(Math.pow(10, magnitude));
+    var defaultNumberingSystem = data.numbers.nu[0];
+    var pattern;
+    if (style === 'currency' && currencyDisplay !== 'name') {
+        var byNumberingSystem = data.numbers.currency;
+        var currencyData = byNumberingSystem[numberingSystem] ||
+            byNumberingSystem[defaultNumberingSystem];
+        // NOTE: compact notation ignores currencySign!
+        var compactPluralRules = (_a = currencyData.short) === null || _a === void 0 ? void 0 : _a[magnitudeKey];
+        if (!compactPluralRules) {
+            return null;
+        }
+        pattern = selectPlural(pl, roundedNumber, compactPluralRules);
+    }
+    else {
+        var byNumberingSystem = data.numbers.decimal;
+        var byCompactDisplay = byNumberingSystem[numberingSystem] ||
+            byNumberingSystem[defaultNumberingSystem];
+        var compactPlaralRule = byCompactDisplay[compactDisplay][magnitudeKey];
+        if (!compactPlaralRule) {
+            return null;
+        }
+        pattern = selectPlural(pl, roundedNumber, compactPlaralRule);
+    }
+    // See https://unicode.org/reports/tr35/tr35-numbers.html#Compact_Number_Formats
+    // > If the value is precisely “0”, either explicit or defaulted, then the normal number format
+    // > pattern for that sort of object is supplied.
+    if (pattern === '0') {
+        return null;
+    }
+    pattern = getPatternForSign(pattern, sign)
+        // Extract compact literal from the pattern
+        .replace(/([^\s;\-\+\d¤]+)/g, '{c:$1}')
+        // We replace one or more zeros with a single zero so it matches `CLDR_NUMBER_PATTERN`.
+        .replace(/0+/, '0');
+    return pattern;
+}
+function selectPlural(pl, x, rules) {
+    return rules[pl.select(x)] || rules.other;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionPattern = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-partitionpattern
+ * @param pattern
+ */
+function PartitionPattern(pattern) {
+    var result = [];
+    var beginIndex = pattern.indexOf('{');
+    var endIndex = 0;
+    var nextIndex = 0;
+    var length = pattern.length;
+    while (beginIndex < pattern.length && beginIndex > -1) {
+        endIndex = pattern.indexOf('}', beginIndex);
+        utils_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
+        if (beginIndex > nextIndex) {
+            result.push({
+                type: 'literal',
+                value: pattern.substring(nextIndex, beginIndex),
+            });
+        }
+        result.push({
+            type: pattern.substring(beginIndex + 1, endIndex),
+            value: undefined,
+        });
+        nextIndex = endIndex + 1;
+        beginIndex = pattern.indexOf('{', nextIndex);
+    }
+    if (nextIndex < length) {
+        result.push({
+            type: 'literal',
+            value: pattern.substring(nextIndex, length),
+        });
+    }
+    return result;
+}
+exports.PartitionPattern = PartitionPattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetOperands = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-getoperands
+ * @param s
+ */
+function GetOperands(s) {
+    utils_1.invariant(typeof s === 'string', "GetOperands should have been called with a string");
+    var n = _262_1.ToNumber(s);
+    utils_1.invariant(isFinite(n), 'n should be finite');
+    var dp = s.indexOf('.');
+    var iv;
+    var f;
+    var v;
+    var fv = '';
+    if (dp === -1) {
+        iv = n;
+        f = 0;
+        v = 0;
+    }
+    else {
+        iv = s.slice(0, dp);
+        fv = s.slice(dp, s.length);
+        f = _262_1.ToNumber(fv);
+        v = fv.length;
+    }
+    var i = Math.abs(_262_1.ToNumber(iv));
+    var w;
+    var t;
+    if (f !== 0) {
+        var ft = fv.replace(/0+$/, '');
+        w = ft.length;
+        t = _262_1.ToNumber(ft);
+    }
+    else {
+        w = 0;
+        t = 0;
+    }
+    return {
+        Number: n,
+        IntegerDigits: i,
+        NumberOfFractionDigits: v,
+        NumberOfFractionDigitsWithoutTrailing: w,
+        FractionDigits: f,
+        FractionDigitsWithoutTrailing: t,
+    };
+}
+exports.GetOperands = GetOperands;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializePluralRules = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var SetNumberFormatDigitOptions_1 = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+function InitializePluralRules(pl, locales, options, _a) {
+    var availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getInternalSlots = _a.getInternalSlots;
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var opt = Object.create(null);
+    var opts = options === undefined ? Object.create(null) : _262_1.ToObject(options);
+    var internalSlots = getInternalSlots(pl);
+    internalSlots.initializedPluralRules = true;
+    var matcher = GetOption_1.GetOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    opt.localeMatcher = matcher;
+    internalSlots.type = GetOption_1.GetOption(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
+    SetNumberFormatDigitOptions_1.SetNumberFormatDigitOptions(internalSlots, opts, 0, 3, 'standard');
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.locale = r.locale;
+    return pl;
+}
+exports.InitializePluralRules = InitializePluralRules;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js":
+/*!**************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResolvePlural = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var FormatNumericToString_1 = __webpack_require__(/*! ../NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+var GetOperands_1 = __webpack_require__(/*! ./GetOperands */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js");
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-resolveplural
+ * @param pl
+ * @param n
+ * @param PluralRuleSelect Has to pass in bc it's implementation-specific
+ */
+function ResolvePlural(pl, n, _a) {
+    var getInternalSlots = _a.getInternalSlots, PluralRuleSelect = _a.PluralRuleSelect;
+    var internalSlots = getInternalSlots(pl);
+    utils_1.invariant(_262_1.Type(internalSlots) === 'Object', 'pl has to be an object');
+    utils_1.invariant('initializedPluralRules' in internalSlots, 'pluralrules must be initialized');
+    utils_1.invariant(_262_1.Type(n) === 'Number', 'n must be a number');
+    if (!isFinite(n)) {
+        return 'other';
+    }
+    var locale = internalSlots.locale, type = internalSlots.type;
+    var res = FormatNumericToString_1.FormatNumericToString(internalSlots, n);
+    var s = res.formattedString;
+    var operands = GetOperands_1.GetOperands(s);
+    return PluralRuleSelect(locale, type, n, operands);
+}
+exports.ResolvePlural = ResolvePlural;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js":
+/*!**************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js ***!
+  \**************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatRelativeTime = void 0;
+var PartitionRelativeTimePattern_1 = __webpack_require__(/*! ./PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+function FormatRelativeTime(rtf, value, unit, implDetails) {
+    var parts = PartitionRelativeTimePattern_1.PartitionRelativeTimePattern(rtf, value, unit, implDetails);
+    var result = '';
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result += part.value;
+    }
+    return result;
+}
+exports.FormatRelativeTime = FormatRelativeTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatRelativeTimeToParts = void 0;
+var PartitionRelativeTimePattern_1 = __webpack_require__(/*! ./PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+function FormatRelativeTimeToParts(rtf, value, unit, implDetails) {
+    var parts = PartitionRelativeTimePattern_1.PartitionRelativeTimePattern(rtf, value, unit, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        var o = {
+            type: part.type,
+            value: part.value,
+        };
+        if ('unit' in part) {
+            o.unit = part.unit;
+        }
+        result.push(o);
+    }
+    return result;
+}
+exports.FormatRelativeTimeToParts = FormatRelativeTimeToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeRelativeTimeFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var NUMBERING_SYSTEM_REGEX = /^[a-z0-9]{3,8}(-[a-z0-9]{3,8})*$/i;
+function InitializeRelativeTimeFormat(rtf, locales, options, _a) {
+    var getInternalSlots = _a.getInternalSlots, availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale;
+    var internalSlots = getInternalSlots(rtf);
+    internalSlots.initializedRelativeTimeFormat = true;
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var opt = Object.create(null);
+    var opts = options === undefined ? Object.create(null) : _262_1.ToObject(options);
+    var matcher = GetOption_1.GetOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    opt.localeMatcher = matcher;
+    var numberingSystem = GetOption_1.GetOption(opts, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined) {
+        if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
+            throw new RangeError("Invalid numbering system " + numberingSystem);
+        }
+    }
+    opt.nu = numberingSystem;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    var locale = r.locale, nu = r.nu;
+    internalSlots.locale = locale;
+    internalSlots.style = GetOption_1.GetOption(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
+    internalSlots.numeric = GetOption_1.GetOption(opts, 'numeric', 'string', ['always', 'auto'], 'always');
+    internalSlots.fields = localeData[locale];
+    internalSlots.numberFormat = new Intl.NumberFormat(locales);
+    internalSlots.pluralRules = new Intl.PluralRules(locales);
+    internalSlots.numberingSystem = nu;
+    return rtf;
+}
+exports.InitializeRelativeTimeFormat = InitializeRelativeTimeFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MakePartsList = void 0;
+var PartitionPattern_1 = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function MakePartsList(pattern, unit, parts) {
+    var patternParts = PartitionPattern_1.PartitionPattern(pattern);
+    var result = [];
+    for (var _i = 0, patternParts_1 = patternParts; _i < patternParts_1.length; _i++) {
+        var patternPart = patternParts_1[_i];
+        if (patternPart.type === 'literal') {
+            result.push({
+                type: 'literal',
+                value: patternPart.value,
+            });
+        }
+        else {
+            utils_1.invariant(patternPart.type === '0', "Malformed pattern " + pattern);
+            for (var _a = 0, parts_1 = parts; _a < parts_1.length; _a++) {
+                var part = parts_1[_a];
+                result.push({
+                    type: part.type,
+                    value: part.value,
+                    unit: unit,
+                });
+            }
+        }
+    }
+    return result;
+}
+exports.MakePartsList = MakePartsList;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionRelativeTimePattern = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var SingularRelativeTimeUnit_1 = __webpack_require__(/*! ./SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js");
+var MakePartsList_1 = __webpack_require__(/*! ./MakePartsList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+function PartitionRelativeTimePattern(rtf, value, unit, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    utils_1.invariant(_262_1.Type(value) === 'Number', "value must be number, instead got " + typeof value, TypeError);
+    utils_1.invariant(_262_1.Type(unit) === 'String', "unit must be number, instead got " + typeof value, TypeError);
+    if (isNaN(value) || !isFinite(value)) {
+        throw new RangeError("Invalid value " + value);
+    }
+    var resolvedUnit = SingularRelativeTimeUnit_1.SingularRelativeTimeUnit(unit);
+    var _b = getInternalSlots(rtf), fields = _b.fields, style = _b.style, numeric = _b.numeric, pluralRules = _b.pluralRules, numberFormat = _b.numberFormat;
+    var entry = resolvedUnit;
+    if (style === 'short') {
+        entry = resolvedUnit + "-short";
+    }
+    else if (style === 'narrow') {
+        entry = resolvedUnit + "-narrow";
+    }
+    if (!(entry in fields)) {
+        entry = resolvedUnit;
+    }
+    var patterns = fields[entry];
+    if (numeric === 'auto') {
+        if (_262_1.ToString(value) in patterns) {
+            return [
+                {
+                    type: 'literal',
+                    value: patterns[_262_1.ToString(value)],
+                },
+            ];
+        }
+    }
+    var tl = 'future';
+    if (_262_1.SameValue(value, -0) || value < 0) {
+        tl = 'past';
+    }
+    var po = patterns[tl];
+    var fv = typeof numberFormat.formatToParts === 'function'
+        ? numberFormat.formatToParts(Math.abs(value))
+        : // TODO: If formatToParts is not supported, we assume the whole formatted
+            // number is a part
+            [
+                {
+                    type: 'literal',
+                    value: numberFormat.format(Math.abs(value)),
+                    unit: unit,
+                },
+            ];
+    var pr = pluralRules.select(value);
+    var pattern = po[pr];
+    return MakePartsList_1.MakePartsList(pattern, resolvedUnit, fv);
+}
+exports.PartitionRelativeTimePattern = PartitionRelativeTimePattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SingularRelativeTimeUnit = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
 /**
  * https://tc39.es/proposal-intl-relative-time/#sec-singularrelativetimeunit
  * @param unit
  */
-function singularRelativeTimeUnit(unit) {
-    intl_utils_1.invariant(typeof unit === 'string', "unit must be a string, instead got " + typeof unit, TypeError);
+function SingularRelativeTimeUnit(unit) {
+    utils_1.invariant(_262_1.Type(unit) === 'String', 'unit must be a string');
     if (unit === 'seconds')
         return 'second';
     if (unit === 'minutes')
@@ -2086,136 +4738,551 @@ function singularRelativeTimeUnit(unit) {
         unit !== 'month' &&
         unit !== 'quarter' &&
         unit !== 'year') {
-        throw new RangeError("Invalid unit " + unit);
+        throw new RangeError('invalid unit');
     }
     return unit;
 }
-var NUMBERING_SYSTEM_REGEX = /^[a-z0-9]{3,8}(-[a-z0-9]{3,8})*$/i;
+exports.SingularRelativeTimeUnit = SingularRelativeTimeUnit;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResolveLocale = void 0;
+var LookupMatcher_1 = __webpack_require__(/*! ./LookupMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js");
+var BestFitMatcher_1 = __webpack_require__(/*! ./BestFitMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var UnicodeExtensionValue_1 = __webpack_require__(/*! ./UnicodeExtensionValue */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js");
 /**
- * https://tc39.es/proposal-intl-relative-time/#sec-makepartslist
- * @param pattern
- * @param unit
- * @param parts
+ * https://tc39.es/ecma402/#sec-resolvelocale
  */
-function makePartsList(pattern, unit, parts) {
-    var e_1, _a, e_2, _b;
-    var patternParts = intl_utils_1.partitionPattern(pattern);
-    var result = [];
-    try {
-        for (var patternParts_1 = __values(patternParts), patternParts_1_1 = patternParts_1.next(); !patternParts_1_1.done; patternParts_1_1 = patternParts_1.next()) {
-            var patternPart = patternParts_1_1.value;
-            if (intl_utils_1.isLiteralPart(patternPart)) {
-                result.push({
-                    type: 'literal',
-                    value: patternPart.value,
-                });
-            }
-            else {
-                intl_utils_1.invariant(patternPart.type === '0', "Malformed pattern " + pattern);
-                try {
-                    for (var parts_1 = (e_2 = void 0, __values(parts)), parts_1_1 = parts_1.next(); !parts_1_1.done; parts_1_1 = parts_1.next()) {
-                        var part = parts_1_1.value;
-                        result.push({
-                            type: part.type,
-                            value: part.value,
-                            unit: unit,
-                        });
+function ResolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData, getDefaultLocale) {
+    var matcher = options.localeMatcher;
+    var r;
+    if (matcher === 'lookup') {
+        r = LookupMatcher_1.LookupMatcher(availableLocales, requestedLocales, getDefaultLocale);
+    }
+    else {
+        r = BestFitMatcher_1.BestFitMatcher(availableLocales, requestedLocales, getDefaultLocale);
+    }
+    var foundLocale = r.locale;
+    var result = { locale: '', dataLocale: foundLocale };
+    var supportedExtension = '-u';
+    for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
+        var key = relevantExtensionKeys_1[_i];
+        var foundLocaleData = localeData[foundLocale];
+        utils_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
+        var keyLocaleData = foundLocaleData[key];
+        utils_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
+        var value = keyLocaleData[0];
+        utils_1.invariant(typeof value === 'string' || value === null, "value must be string or null but got " + typeof value + " in key " + key);
+        var supportedExtensionAddition = '';
+        if (r.extension) {
+            var requestedValue = UnicodeExtensionValue_1.UnicodeExtensionValue(r.extension, key);
+            if (requestedValue !== undefined) {
+                if (requestedValue !== '') {
+                    if (~keyLocaleData.indexOf(requestedValue)) {
+                        value = requestedValue;
+                        supportedExtensionAddition = "-" + key + "-" + value;
                     }
                 }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (parts_1_1 && !parts_1_1.done && (_b = parts_1.return)) _b.call(parts_1);
-                    }
-                    finally { if (e_2) throw e_2.error; }
+                else if (~requestedValue.indexOf('true')) {
+                    value = 'true';
+                    supportedExtensionAddition = "-" + key;
                 }
             }
         }
-    }
-    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-    finally {
-        try {
-            if (patternParts_1_1 && !patternParts_1_1.done && (_a = patternParts_1.return)) _a.call(patternParts_1);
+        if (key in options) {
+            var optionsValue = options[key];
+            utils_1.invariant(typeof optionsValue === 'string' ||
+                typeof optionsValue === 'undefined' ||
+                optionsValue === null, 'optionsValue must be String, Undefined or Null');
+            if (~keyLocaleData.indexOf(optionsValue)) {
+                if (optionsValue !== value) {
+                    value = optionsValue;
+                    supportedExtensionAddition = '';
+                }
+            }
         }
-        finally { if (e_1) throw e_1.error; }
+        result[key] = value;
+        supportedExtension += supportedExtensionAddition;
     }
+    if (supportedExtension.length > 2) {
+        var privateIndex = foundLocale.indexOf('-x-');
+        if (privateIndex === -1) {
+            foundLocale = foundLocale + supportedExtension;
+        }
+        else {
+            var preExtension = foundLocale.slice(0, privateIndex);
+            var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
+            foundLocale = preExtension + supportedExtension + postExtension;
+        }
+        foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
+    }
+    result.locale = foundLocale;
     return result;
 }
-function objectIs(x, y) {
-    if (Object.is) {
-        return Object.is(x, y);
-    }
-    // SameValue algorithm
-    if (x === y) {
-        // Steps 1-5, 7-10
-        // Steps 6.b-6.e: +0 != -0
-        return x !== 0 || 1 / x === 1 / y;
-    }
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-}
-function toString(arg) {
-    return arg + '';
-}
+exports.ResolveLocale = ResolveLocale;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SupportedLocales = void 0;
+var _262_1 = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var LookupSupportedLocales_1 = __webpack_require__(/*! ./LookupSupportedLocales */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js");
 /**
- * PartitionRelativeTimePattern
- * @param rtf
- * @param value
- * @param unit
+ * https://tc39.es/ecma402/#sec-supportedlocales
+ * @param availableLocales
+ * @param requestedLocales
+ * @param options
  */
-function partitionRelativeTimePattern(internalSlotMap, rtf, value, unit) {
-    intl_utils_1.invariant(typeof value === 'number', "value must be number, instead got " + typeof value, TypeError);
-    intl_utils_1.invariant(typeof unit === 'string', "unit must be number, instead got " + typeof value, TypeError);
-    if (isNaN(value) || value === Infinity || value === -Infinity) {
-        throw new RangeError("Invalid value " + value);
+function SupportedLocales(availableLocales, requestedLocales, options) {
+    var matcher = 'best fit';
+    if (options !== undefined) {
+        options = _262_1.ToObject(options);
+        matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
     }
-    var resolvedUnit = singularRelativeTimeUnit(unit);
-    var fields = intl_utils_1.getInternalSlot(internalSlotMap, rtf, 'fields');
-    var style = intl_utils_1.getInternalSlot(internalSlotMap, rtf, 'style');
-    var entry = resolvedUnit;
-    if (style === 'short') {
-        entry = unit + "-short";
+    if (matcher === 'best fit') {
+        return LookupSupportedLocales_1.LookupSupportedLocales(availableLocales, requestedLocales);
     }
-    else if (style === 'narrow') {
-        entry = unit + "-narrow";
-    }
-    if (!(entry in fields)) {
-        entry = unit;
-    }
-    var patterns = fields[entry];
-    var numeric = intl_utils_1.getInternalSlot(internalSlotMap, rtf, 'numeric');
-    if (numeric === 'auto') {
-        if (toString(value) in patterns) {
-            return [
-                {
-                    type: 'literal',
-                    value: patterns[toString(value)],
-                },
-            ];
-        }
-    }
-    var tl = 'future';
-    if (objectIs(value, -0) || value < 0) {
-        tl = 'past';
-    }
-    var po = patterns[tl];
-    var pluralRules = intl_utils_1.getInternalSlot(internalSlotMap, rtf, 'pluralRules');
-    var numberFormat = intl_utils_1.getInternalSlot(internalSlotMap, rtf, 'numberFormat');
-    var fv = typeof numberFormat.formatToParts === 'function'
-        ? numberFormat.formatToParts(Math.abs(value))
-        : // TODO: If formatToParts is not supported, we assume the whole formatted
-            // number is a part
-            [
-                {
-                    type: 'literal',
-                    value: numberFormat.format(Math.abs(value)),
-                    unit: unit,
-                },
-            ];
-    var pr = pluralRules.select(value);
-    var pattern = po[pr];
-    return makePartsList(pattern, resolvedUnit, fv);
+    return LookupSupportedLocales_1.LookupSupportedLocales(availableLocales, requestedLocales);
 }
+exports.SupportedLocales = SupportedLocales;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnicodeExtensionValue = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-unicodeextensionvalue
+ * @param extension
+ * @param key
+ */
+function UnicodeExtensionValue(extension, key) {
+    utils_1.invariant(key.length === 2, 'key must have 2 elements');
+    var size = extension.length;
+    var searchValue = "-" + key + "-";
+    var pos = extension.indexOf(searchValue);
+    if (pos !== -1) {
+        var start = pos + 4;
+        var end = start;
+        var k = start;
+        var done = false;
+        while (!done) {
+            var e = extension.indexOf('-', k);
+            var len = void 0;
+            if (e === -1) {
+                len = size - k;
+            }
+            else {
+                len = e - k;
+            }
+            if (len === 2) {
+                done = true;
+            }
+            else if (e === -1) {
+                end = size;
+                done = true;
+            }
+            else {
+                end = e;
+                k = e + 1;
+            }
+        }
+        return extension.slice(start, end);
+    }
+    searchValue = "-" + key;
+    pos = extension.indexOf(searchValue);
+    if (pos !== -1 && pos + 3 === size) {
+        return '';
+    }
+    return undefined;
+}
+exports.UnicodeExtensionValue = UnicodeExtensionValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/data.js":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/data.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.unpackData = exports.isMissingLocaleDataError = exports.getLocaleHierarchy = void 0;
+function getLocaleHierarchy(locale) {
+    var results = [locale];
+    var localeParts = locale.split('-');
+    for (var i = localeParts.length; i > 1; i--) {
+        results.push(localeParts.slice(0, i - 1).join('-'));
+    }
+    return results;
+}
+exports.getLocaleHierarchy = getLocaleHierarchy;
+var MissingLocaleDataError = /** @class */ (function (_super) {
+    __extends(MissingLocaleDataError, _super);
+    function MissingLocaleDataError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'MISSING_LOCALE_DATA';
+        return _this;
+    }
+    return MissingLocaleDataError;
+}(Error));
+function isMissingLocaleDataError(e) {
+    return e.type === 'MISSING_LOCALE_DATA';
+}
+exports.isMissingLocaleDataError = isMissingLocaleDataError;
+function unpackData(locale, localeData, 
+/** By default shallow merge the dictionaries. */
+reducer) {
+    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
+    var localeHierarchy = getLocaleHierarchy(locale);
+    var dataToMerge = localeHierarchy
+        .map(function (l) { return localeData.data[l]; })
+        .filter(Boolean);
+    if (!dataToMerge.length) {
+        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
+    }
+    dataToMerge.reverse();
+    return dataToMerge.reduce(reducer, {});
+}
+exports.unpackData = unpackData;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/src/utils.js ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.invariant = exports.UNICODE_EXTENSION_SEQUENCE_REGEX = exports.defineProperty = exports.isLiteralPart = exports.getMultiInternalSlots = exports.getInternalSlot = exports.setMultiInternalSlots = exports.setInternalSlot = exports.repeat = exports.getMagnitude = void 0;
+/**
+ * Cannot do Math.log(x) / Math.log(10) bc if IEEE floating point issue
+ * @param x number
+ */
+function getMagnitude(x) {
+    // Cannot count string length via Number.toString because it may use scientific notation
+    // for very small or very large numbers.
+    return Math.floor(Math.log(x) * Math.LOG10E);
+}
+exports.getMagnitude = getMagnitude;
+function repeat(s, times) {
+    if (typeof s.repeat === 'function') {
+        return s.repeat(times);
+    }
+    var arr = new Array(times);
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = s;
+    }
+    return arr.join('');
+}
+exports.repeat = repeat;
+function setInternalSlot(map, pl, field, value) {
+    if (!map.get(pl)) {
+        map.set(pl, Object.create(null));
+    }
+    var slots = map.get(pl);
+    slots[field] = value;
+}
+exports.setInternalSlot = setInternalSlot;
+function setMultiInternalSlots(map, pl, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var k = _a[_i];
+        setInternalSlot(map, pl, k, props[k]);
+    }
+}
+exports.setMultiInternalSlots = setMultiInternalSlots;
+function getInternalSlot(map, pl, field) {
+    return getMultiInternalSlots(map, pl, field)[field];
+}
+exports.getInternalSlot = getInternalSlot;
+function getMultiInternalSlots(map, pl) {
+    var fields = [];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        fields[_i - 2] = arguments[_i];
+    }
+    var slots = map.get(pl);
+    if (!slots) {
+        throw new TypeError(pl + " InternalSlot has not been initialized");
+    }
+    return fields.reduce(function (all, f) {
+        all[f] = slots[f];
+        return all;
+    }, Object.create(null));
+}
+exports.getMultiInternalSlots = getMultiInternalSlots;
+function isLiteralPart(patternPart) {
+    return patternPart.type === 'literal';
+}
+exports.isLiteralPart = isLiteralPart;
+/*
+  17 ECMAScript Standard Built-in Objects:
+    Every built-in Function object, including constructors, that is not
+    identified as an anonymous function has a name property whose value
+    is a String.
+
+    Unless otherwise specified, the name property of a built-in Function
+    object, if it exists, has the attributes { [[Writable]]: false,
+    [[Enumerable]]: false, [[Configurable]]: true }.
+*/
+function defineProperty(target, name, _a) {
+    var value = _a.value;
+    Object.defineProperty(target, name, {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        value: value,
+    });
+}
+exports.defineProperty = defineProperty;
+exports.UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
+function invariant(condition, message, Err) {
+    if (Err === void 0) { Err = Error; }
+    if (!condition) {
+        throw new Err(message);
+    }
+}
+exports.invariant = invariant;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/date-time.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/date-time.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/displaynames.js":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/displaynames.js ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/list.js":
+/*!*******************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/list.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/number.js":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/number.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js":
+/*!***************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/relative-time.js":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/types/relative-time.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/polyfill.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/polyfill.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(/*! ./ */ "./node_modules/@formatjs/intl-pluralrules/index.js");
+var should_polyfill_1 = __webpack_require__(/*! ./should-polyfill */ "./node_modules/@formatjs/intl-pluralrules/should-polyfill.js");
+if (should_polyfill_1.shouldPolyfill()) {
+    Object.defineProperty(Intl, 'PluralRules', {
+        value: _1.PluralRules,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/should-polyfill.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/should-polyfill.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shouldPolyfill = void 0;
+function shouldPolyfill() {
+    return (typeof Intl === 'undefined' ||
+        !('PluralRules' in Intl) ||
+        new Intl.PluralRules('en', { minimumFractionDigits: 2 }).select(1) ===
+            'one');
+}
+exports.shouldPolyfill = shouldPolyfill;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/get_internal_slots.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/get_internal_slots.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// Type-only circular import
+// eslint-disable-next-line import/no-cycle
+Object.defineProperty(exports, "__esModule", { value: true });
+var internalSlotMap = new WeakMap();
+function getInternalSlots(x) {
+    var internalSlots = internalSlotMap.get(x);
+    if (!internalSlots) {
+        internalSlots = Object.create(null);
+        internalSlotMap.set(x, internalSlots);
+    }
+    return internalSlots;
+}
+exports.default = getInternalSlots;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/index.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ecma402_abstract_1 = __webpack_require__(/*! @formatjs/ecma402-abstract */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/index.js");
+var get_internal_slots_1 = __importDefault(__webpack_require__(/*! ./get_internal_slots */ "./node_modules/@formatjs/intl-relativetimeformat/get_internal_slots.js"));
 var RelativeTimeFormat = /** @class */ (function () {
     function RelativeTimeFormat(locales, options) {
         // test262/test/intl402/RelativeTimeFormat/constructor/constructor/newtarget-undefined.js
@@ -2224,38 +5291,25 @@ var RelativeTimeFormat = /** @class */ (function () {
         if (!newTarget) {
             throw new TypeError("Intl.RelativeTimeFormat must be called with 'new'");
         }
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'initializedRelativeTimeFormat', true);
-        var requestedLocales = Intl
-            .getCanonicalLocales(locales);
-        var opt = Object.create(null);
-        var opts = options === undefined ? Object.create(null) : intl_utils_1.toObject(options);
-        var matcher = intl_utils_1.getOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
-        opt.localeMatcher = matcher;
-        var numberingSystem = intl_utils_1.getOption(opts, 'numberingSystem', 'string', undefined, undefined);
-        if (numberingSystem !== undefined) {
-            if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
-                throw new RangeError("Invalid numbering system " + numberingSystem);
-            }
-        }
-        opt.nu = numberingSystem;
-        var r = intl_utils_1.createResolveLocale(RelativeTimeFormat.getDefaultLocale)(RelativeTimeFormat.availableLocales, requestedLocales, opt, RelativeTimeFormat.relevantExtensionKeys, RelativeTimeFormat.localeData);
-        var locale = r.locale, nu = r.nu;
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'locale', locale);
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'style', intl_utils_1.getOption(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long'));
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'numeric', intl_utils_1.getOption(opts, 'numeric', 'string', ['always', 'auto'], 'always'));
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'fields', RelativeTimeFormat.localeData[locale]);
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'numberFormat', new Intl.NumberFormat(locales));
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'pluralRules', new Intl.PluralRules(locales));
-        intl_utils_1.setInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'numberingSystem', nu);
+        return ecma402_abstract_1.InitializeRelativeTimeFormat(this, locales, options, {
+            getInternalSlots: get_internal_slots_1.default,
+            availableLocales: RelativeTimeFormat.availableLocales,
+            relevantExtensionKeys: RelativeTimeFormat.relevantExtensionKeys,
+            localeData: RelativeTimeFormat.localeData,
+            getDefaultLocale: RelativeTimeFormat.getDefaultLocale,
+        });
     }
     RelativeTimeFormat.prototype.format = function (value, unit) {
         if (typeof this !== 'object') {
             throw new TypeError('format was called on a non-object');
         }
-        if (!intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'initializedRelativeTimeFormat')) {
+        var internalSlots = get_internal_slots_1.default(this);
+        if (!internalSlots.initializedRelativeTimeFormat) {
             throw new TypeError('format was called on a invalid context');
         }
-        return partitionRelativeTimePattern(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, Number(value), toString(unit))
+        return ecma402_abstract_1.PartitionRelativeTimePattern(this, Number(value), ecma402_abstract_1.ToString(unit), {
+            getInternalSlots: get_internal_slots_1.default,
+        })
             .map(function (el) { return el.value; })
             .join('');
     };
@@ -2263,31 +5317,32 @@ var RelativeTimeFormat = /** @class */ (function () {
         if (typeof this !== 'object') {
             throw new TypeError('formatToParts was called on a non-object');
         }
-        if (!intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'initializedRelativeTimeFormat')) {
+        var internalSlots = get_internal_slots_1.default(this);
+        if (!internalSlots.initializedRelativeTimeFormat) {
             throw new TypeError('formatToParts was called on a invalid context');
         }
-        return partitionRelativeTimePattern(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, Number(value), toString(unit));
+        return ecma402_abstract_1.PartitionRelativeTimePattern(this, Number(value), ecma402_abstract_1.ToString(unit), { getInternalSlots: get_internal_slots_1.default });
     };
     RelativeTimeFormat.prototype.resolvedOptions = function () {
         if (typeof this !== 'object') {
             throw new TypeError('resolvedOptions was called on a non-object');
         }
-        if (!intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'initializedRelativeTimeFormat')) {
+        var internalSlots = get_internal_slots_1.default(this);
+        if (!internalSlots.initializedRelativeTimeFormat) {
             throw new TypeError('resolvedOptions was called on a invalid context');
         }
         // test262/test/intl402/RelativeTimeFormat/prototype/resolvedOptions/type.js
         return {
-            locale: intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'locale'),
-            style: intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'style'),
-            numeric: intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'numeric'),
-            numberingSystem: intl_utils_1.getInternalSlot(RelativeTimeFormat.__INTERNAL_SLOT_MAP__, this, 'numberingSystem'),
+            locale: internalSlots.locale,
+            style: internalSlots.style,
+            numeric: internalSlots.numeric,
+            numberingSystem: internalSlots.numberingSystem,
         };
     };
     RelativeTimeFormat.supportedLocalesOf = function (locales, options) {
-        return intl_utils_1.supportedLocales(RelativeTimeFormat.availableLocales, Intl.getCanonicalLocales(locales), options);
+        return ecma402_abstract_1.SupportedLocales(RelativeTimeFormat.availableLocales, ecma402_abstract_1.CanonicalizeLocaleList(locales), options);
     };
     RelativeTimeFormat.__addLocaleData = function () {
-        var e_3, _a;
         var data = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             data[_i] = arguments[_i];
@@ -2296,25 +5351,20 @@ var RelativeTimeFormat = /** @class */ (function () {
             var availableLocales = datum.availableLocales;
             availableLocales.forEach(function (locale) {
                 try {
-                    RelativeTimeFormat.localeData[locale] = unpackData(locale, datum);
+                    RelativeTimeFormat.localeData[locale] = ecma402_abstract_1.unpackData(locale, datum);
                 }
                 catch (e) {
-                    // If we can't unpack this data, ignore the locale
+                    if (ecma402_abstract_1.isMissingLocaleDataError(e)) {
+                        // If we just don't have data for certain locale, that's ok
+                        return;
+                    }
+                    throw e;
                 }
             });
         };
-        try {
-            for (var data_1 = __values(data), data_1_1 = data_1.next(); !data_1_1.done; data_1_1 = data_1.next()) {
-                var datum = data_1_1.value;
-                _loop_1(datum);
-            }
-        }
-        catch (e_3_1) { e_3 = { error: e_3_1 }; }
-        finally {
-            try {
-                if (data_1_1 && !data_1_1.done && (_a = data_1.return)) _a.call(data_1);
-            }
-            finally { if (e_3) throw e_3.error; }
+        for (var _a = 0, data_1 = data; _a < data_1.length; _a++) {
+            var datum = data_1[_a];
+            _loop_1(datum);
         }
         RelativeTimeFormat.availableLocales = Object.keys(RelativeTimeFormat.localeData);
         if (!RelativeTimeFormat.__defaultLocale) {
@@ -2330,7 +5380,6 @@ var RelativeTimeFormat = /** @class */ (function () {
     RelativeTimeFormat.__defaultLocale = 'en';
     RelativeTimeFormat.relevantExtensionKeys = ['nu'];
     RelativeTimeFormat.polyfilled = true;
-    RelativeTimeFormat.__INTERNAL_SLOT_MAP__ = new WeakMap();
     return RelativeTimeFormat;
 }());
 exports.default = RelativeTimeFormat;
@@ -2362,431 +5411,139 @@ try {
 catch (e) {
     // Meta fix so we're test262-compliant, not important
 }
-//# sourceMappingURL=core.js.map
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/en.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/en.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/locale-data/en.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/locale-data/en.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 /* @generated */	
 // prettier-ignore
 if (Intl.RelativeTimeFormat && typeof Intl.RelativeTimeFormat.__addLocaleData === 'function') {
-  Intl.RelativeTimeFormat.__addLocaleData({"data":{"en-001":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-150":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-AG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-AI":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-AT":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-AU":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yrs"},"past":{"one":"{0} yr ago","other":"{0} yrs ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yrs"},"past":{"one":"{0} yr ago","other":"{0} yrs ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtrs"},"past":{"one":"{0} qtr ago","other":"{0} qtrs ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtrs"},"past":{"one":"in {0} qtr ago","other":"{0} qtrs ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wks"},"past":{"one":"{0} wk ago","other":"{0} wks ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wks"},"past":{"one":"{0} wk ago","other":"{0} wks ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hrs"},"past":{"one":"{0} hr ago","other":"{0} hrs ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hrs"},"past":{"one":"{0} hr ago","other":"{0} hrs ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} mins"},"past":{"one":"{0} min. ago","other":"{0} mins ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} mins"},"past":{"one":"{0} min. ago","other":"{0} mins ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} secs"},"past":{"one":"{0} sec. ago","other":"{0} secs ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} secs"},"past":{"one":"{0} sec. ago","other":"{0} secs ago"}}},"en-BB":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-BE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-BM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-BS":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-BW":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-BZ":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CA":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr.","other":"in {0} yrs."},"past":{"one":"{0} yr. ago","other":"{0} yrs. ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr.","other":"in {0} yrs."},"past":{"one":"{0} yr. ago","other":"{0} yrs. ago"},"-1":"last yr"},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo.","other":"in {0} mos."},"past":{"one":"{0} mo. ago","other":"{0} mos. ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo.","other":"in {0} mos."},"past":{"one":"{0} mo. ago","other":"{0} mos. ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk.","other":"in {0} wks."},"past":{"one":"{0} wk. ago","other":"{0} wks. ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk.","other":"in {0} wks."},"past":{"one":"{0} wk. ago","other":"{0} wks. ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hrs."},"past":{"one":"{0} hr. ago","other":"{0} hrs. ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hrs."},"past":{"one":"{0} hr. ago","other":"{0} hrs. ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} mins."},"past":{"one":"{0} min. ago","other":"{0} mins. ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} mins."},"past":{"one":"{0} min. ago","other":"{0} mins. ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} secs."},"past":{"one":"{0} sec. ago","other":"{0} secs. ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} secs."},"past":{"one":"{0} sec. ago","other":"{0} secs. ago"}}},"en-CC":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CH":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CX":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-CY":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-DE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-DG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-DK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-DM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-ER":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-FI":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-FJ":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-FK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-FM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GB":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GD":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GH":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GI":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-GY":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-HK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-IE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-IL":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-IM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-IN":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-IO":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-JE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-JM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-KE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-KI":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-KN":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-KY":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-LC":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-LR":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-LS":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MO":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MS":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MT":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MU":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MW":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-MY":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NA":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NF":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NL":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NR":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NU":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-NZ":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-PG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-PH":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-PK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-PN":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-PW":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-RW":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SB":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SC":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SD":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SE":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr","1":"next qtr","future":{"one":"in {0} qtr","other":"in {0} qtrs"},"past":{"one":"{0} qtr ago","other":"{0} qtrs ago"},"-1":"last qtr"},"quarter-narrow":{"0":"this qtr","1":"next qtr","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr"},"month-short":{"0":"this mth","1":"next mth","future":{"one":"in {0} mth","other":"in {0} mth"},"past":{"one":"{0} mth ago","other":"{0} mth ago"},"-1":"last mth"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SH":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SI":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SL":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SS":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SX":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-SZ":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TC":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TK":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TO":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TT":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TV":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-TZ":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-UG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-VC":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-VG":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-VU":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-WS":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-ZA":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-ZM":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en-ZW":{"year-short":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"year-narrow":{"0":"this yr","1":"next yr","future":{"one":"in {0} yr","other":"in {0} yr"},"past":{"one":"{0} yr ago","other":"{0} yr ago"},"-1":"last yr"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr","other":"in {0} qtr"},"past":{"one":"{0} qtr ago","other":"{0} qtr ago"},"-1":"last qtr."},"month-short":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"month-narrow":{"0":"this mo","1":"next mo","future":{"one":"in {0} mo","other":"in {0} mo"},"past":{"one":"{0} mo ago","other":"{0} mo ago"},"-1":"last mo"},"week-short":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"week-narrow":{"0":"this wk","1":"next wk","future":{"one":"in {0} wk","other":"in {0} wk"},"past":{"one":"{0} wk ago","other":"{0} wk ago"},"-1":"last wk"},"hour-short":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr","other":"in {0} hr"},"past":{"one":"{0} hr ago","other":"{0} hr ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min","other":"in {0} min"},"past":{"one":"{0} min ago","other":"{0} min ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec","other":"in {0} sec"},"past":{"one":"{0} sec ago","other":"{0} sec ago"}}},"en":{"nu":["latn"],"year":{"0":"this year","1":"next year","future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"},"-1":"last year"},"year-short":{"0":"this yr.","1":"next yr.","future":{"one":"in {0} yr.","other":"in {0} yr."},"past":{"one":"{0} yr. ago","other":"{0} yr. ago"},"-1":"last yr."},"year-narrow":{"0":"this yr.","1":"next yr.","future":{"one":"in {0} yr.","other":"in {0} yr."},"past":{"one":"{0} yr. ago","other":"{0} yr. ago"},"-1":"last yr."},"quarter":{"0":"this quarter","1":"next quarter","future":{"one":"in {0} quarter","other":"in {0} quarters"},"past":{"one":"{0} quarter ago","other":"{0} quarters ago"},"-1":"last quarter"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr.","other":"in {0} qtrs."},"past":{"one":"{0} qtr. ago","other":"{0} qtrs. ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr.","other":"in {0} qtrs."},"past":{"one":"{0} qtr. ago","other":"{0} qtrs. ago"},"-1":"last qtr."},"month":{"0":"this month","1":"next month","future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"},"-1":"last month"},"month-short":{"0":"this mo.","1":"next mo.","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo."},"month-narrow":{"0":"this mo.","1":"next mo.","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo."},"week":{"0":"this week","1":"next week","future":{"one":"in {0} week","other":"in {0} weeks"},"past":{"one":"{0} week ago","other":"{0} weeks ago"},"-1":"last week"},"week-short":{"0":"this wk.","1":"next wk.","future":{"one":"in {0} wk.","other":"in {0} wk."},"past":{"one":"{0} wk. ago","other":"{0} wk. ago"},"-1":"last wk."},"week-narrow":{"0":"this wk.","1":"next wk.","future":{"one":"in {0} wk.","other":"in {0} wk."},"past":{"one":"{0} wk. ago","other":"{0} wk. ago"},"-1":"last wk."},"day":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"day-short":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"day-narrow":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"hour":{"0":"this hour","future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}},"hour-short":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hr."},"past":{"one":"{0} hr. ago","other":"{0} hr. ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hr."},"past":{"one":"{0} hr. ago","other":"{0} hr. ago"}},"minute":{"0":"this minute","future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} min."},"past":{"one":"{0} min. ago","other":"{0} min. ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} min."},"past":{"one":"{0} min. ago","other":"{0} min. ago"}},"second":{"0":"now","future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} sec."},"past":{"one":"{0} sec. ago","other":"{0} sec. ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} sec."},"past":{"one":"{0} sec. ago","other":"{0} sec. ago"}}}},"availableLocales":["en-001","en-150","en-AE","en-AG","en-AI","en-AS","en-AT","en-AU","en-BB","en-BE","en-BI","en-BM","en-BS","en-BW","en-BZ","en-CA","en-CC","en-CH","en-CK","en-CM","en-CX","en-CY","en-DE","en-DG","en-DK","en-DM","en-ER","en-FI","en-FJ","en-FK","en-FM","en-GB","en-GD","en-GG","en-GH","en-GI","en-GM","en-GU","en-GY","en-HK","en-IE","en-IL","en-IM","en-IN","en-IO","en-JE","en-JM","en-KE","en-KI","en-KN","en-KY","en-LC","en-LR","en-LS","en-MG","en-MH","en-MO","en-MP","en-MS","en-MT","en-MU","en-MW","en-MY","en-NA","en-NF","en-NG","en-NL","en-NR","en-NU","en-NZ","en-PG","en-PH","en-PK","en-PN","en-PR","en-PW","en-RW","en-SB","en-SC","en-SD","en-SE","en-SG","en-SH","en-SI","en-SL","en-SS","en-SX","en-SZ","en-TC","en-TK","en-TO","en-TT","en-TV","en-TZ","en-UG","en-UM","en-US-POSIX","en-US","en-VC","en-VG","en-VI","en-VU","en-WS","en-ZA","en-ZM","en-ZW","en"]})
+  Intl.RelativeTimeFormat.__addLocaleData({"data":{"en":{"nu":["latn"],"year":{"0":"this year","1":"next year","future":{"one":"in {0} year","other":"in {0} years"},"past":{"one":"{0} year ago","other":"{0} years ago"},"-1":"last year"},"year-short":{"0":"this yr.","1":"next yr.","future":{"one":"in {0} yr.","other":"in {0} yr."},"past":{"one":"{0} yr. ago","other":"{0} yr. ago"},"-1":"last yr."},"year-narrow":{"0":"this yr.","1":"next yr.","future":{"one":"in {0} yr.","other":"in {0} yr."},"past":{"one":"{0} yr. ago","other":"{0} yr. ago"},"-1":"last yr."},"quarter":{"0":"this quarter","1":"next quarter","future":{"one":"in {0} quarter","other":"in {0} quarters"},"past":{"one":"{0} quarter ago","other":"{0} quarters ago"},"-1":"last quarter"},"quarter-short":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr.","other":"in {0} qtrs."},"past":{"one":"{0} qtr. ago","other":"{0} qtrs. ago"},"-1":"last qtr."},"quarter-narrow":{"0":"this qtr.","1":"next qtr.","future":{"one":"in {0} qtr.","other":"in {0} qtrs."},"past":{"one":"{0} qtr. ago","other":"{0} qtrs. ago"},"-1":"last qtr."},"month":{"0":"this month","1":"next month","future":{"one":"in {0} month","other":"in {0} months"},"past":{"one":"{0} month ago","other":"{0} months ago"},"-1":"last month"},"month-short":{"0":"this mo.","1":"next mo.","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo."},"month-narrow":{"0":"this mo.","1":"next mo.","future":{"one":"in {0} mo.","other":"in {0} mo."},"past":{"one":"{0} mo. ago","other":"{0} mo. ago"},"-1":"last mo."},"week":{"0":"this week","1":"next week","future":{"one":"in {0} week","other":"in {0} weeks"},"past":{"one":"{0} week ago","other":"{0} weeks ago"},"-1":"last week"},"week-short":{"0":"this wk.","1":"next wk.","future":{"one":"in {0} wk.","other":"in {0} wk."},"past":{"one":"{0} wk. ago","other":"{0} wk. ago"},"-1":"last wk."},"week-narrow":{"0":"this wk.","1":"next wk.","future":{"one":"in {0} wk.","other":"in {0} wk."},"past":{"one":"{0} wk. ago","other":"{0} wk. ago"},"-1":"last wk."},"day":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"day-short":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"day-narrow":{"0":"today","1":"tomorrow","future":{"one":"in {0} day","other":"in {0} days"},"past":{"one":"{0} day ago","other":"{0} days ago"},"-1":"yesterday"},"hour":{"0":"this hour","future":{"one":"in {0} hour","other":"in {0} hours"},"past":{"one":"{0} hour ago","other":"{0} hours ago"}},"hour-short":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hr."},"past":{"one":"{0} hr. ago","other":"{0} hr. ago"}},"hour-narrow":{"0":"this hour","future":{"one":"in {0} hr.","other":"in {0} hr."},"past":{"one":"{0} hr. ago","other":"{0} hr. ago"}},"minute":{"0":"this minute","future":{"one":"in {0} minute","other":"in {0} minutes"},"past":{"one":"{0} minute ago","other":"{0} minutes ago"}},"minute-short":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} min."},"past":{"one":"{0} min. ago","other":"{0} min. ago"}},"minute-narrow":{"0":"this minute","future":{"one":"in {0} min.","other":"in {0} min."},"past":{"one":"{0} min. ago","other":"{0} min. ago"}},"second":{"0":"now","future":{"one":"in {0} second","other":"in {0} seconds"},"past":{"one":"{0} second ago","other":"{0} seconds ago"}},"second-short":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} sec."},"past":{"one":"{0} sec. ago","other":"{0} sec. ago"}},"second-narrow":{"0":"now","future":{"one":"in {0} sec.","other":"in {0} sec."},"past":{"one":"{0} sec. ago","other":"{0} sec. ago"}}}},"availableLocales":["en"]}
+)
 }
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/fr.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/fr.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/locale-data/fr.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/locale-data/fr.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 /* @generated */	
 // prettier-ignore
 if (Intl.RelativeTimeFormat && typeof Intl.RelativeTimeFormat.__addLocaleData === 'function') {
-  Intl.RelativeTimeFormat.__addLocaleData({"data":{"fr-CA":{"quarter":{"0":"ce trimestre-ci","1":"le trimestre prochain","future":{"one":"dans {0} trimestre","other":"dans {0} trimestres"},"past":{"one":"il y a {0} trimestre","other":"il y a {0} trimestres"},"-1":"le trimestre dernier"},"quarter-short":{"0":"ce trim.","1":"trim. prochain","future":{"one":"dans {0} trim.","other":"dans {0} trim."},"past":{"one":"il y a {0} trim.","other":"il y a {0} trim."},"-1":"trim. dernier"},"quarter-narrow":{"0":"ce trim.","1":"trim.prochain","future":{"one":"+{0} trim.","other":"+{0} trim."},"past":{"one":"-{0} trim.","other":"-{0} trim."},"-1":"trim. dernier"},"second-narrow":{"0":"maintenant","future":{"one":"+ {0} s","other":"+{0} s"},"past":{"one":"-{0} s","other":"-{0} s"}}},"fr":{"nu":["latn"],"year":{"0":"cette année","1":"l’année prochaine","future":{"one":"dans {0} an","other":"dans {0} ans"},"past":{"one":"il y a {0} an","other":"il y a {0} ans"},"-1":"l’année dernière"},"year-short":{"0":"cette année","1":"l’année prochaine","future":{"one":"dans {0} a","other":"dans {0} a"},"past":{"one":"il y a {0} a","other":"il y a {0} a"},"-1":"l’année dernière"},"year-narrow":{"0":"cette année","1":"l’année prochaine","future":{"one":"+{0} a","other":"+{0} a"},"past":{"one":"-{0} a","other":"-{0} a"},"-1":"l’année dernière"},"quarter":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"dans {0} trimestre","other":"dans {0} trimestres"},"past":{"one":"il y a {0} trimestre","other":"il y a {0} trimestres"},"-1":"le trimestre dernier"},"quarter-short":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"dans {0} trim.","other":"dans {0} trim."},"past":{"one":"il y a {0} trim.","other":"il y a {0} trim."},"-1":"le trimestre dernier"},"quarter-narrow":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"+{0} trim.","other":"+{0} trim."},"past":{"one":"-{0} trim.","other":"-{0} trim."},"-1":"le trimestre dernier"},"month":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"dans {0} mois","other":"dans {0} mois"},"past":{"one":"il y a {0} mois","other":"il y a {0} mois"},"-1":"le mois dernier"},"month-short":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"dans {0} m.","other":"dans {0} m."},"past":{"one":"il y a {0} m.","other":"il y a {0} m."},"-1":"le mois dernier"},"month-narrow":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"+{0} m.","other":"+{0} m."},"past":{"one":"-{0} m.","other":"-{0} m."},"-1":"le mois dernier"},"week":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"dans {0} semaine","other":"dans {0} semaines"},"past":{"one":"il y a {0} semaine","other":"il y a {0} semaines"},"-1":"la semaine dernière"},"week-short":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"dans {0} sem.","other":"dans {0} sem."},"past":{"one":"il y a {0} sem.","other":"il y a {0} sem."},"-1":"la semaine dernière"},"week-narrow":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"+{0} sem.","other":"+{0} sem."},"past":{"one":"-{0} sem.","other":"-{0} sem."},"-1":"la semaine dernière"},"day":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"dans {0} jour","other":"dans {0} jours"},"past":{"one":"il y a {0} jour","other":"il y a {0} jours"},"-2":"avant-hier","-1":"hier"},"day-short":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"dans {0} j","other":"dans {0} j"},"past":{"one":"il y a {0} j","other":"il y a {0} j"},"-2":"avant-hier","-1":"hier"},"day-narrow":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"+{0} j","other":"+{0} j"},"past":{"one":"-{0} j","other":"-{0} j"},"-2":"avant-hier","-1":"hier"},"hour":{"0":"cette heure-ci","future":{"one":"dans {0} heure","other":"dans {0} heures"},"past":{"one":"il y a {0} heure","other":"il y a {0} heures"}},"hour-short":{"0":"cette heure-ci","future":{"one":"dans {0} h","other":"dans {0} h"},"past":{"one":"il y a {0} h","other":"il y a {0} h"}},"hour-narrow":{"0":"cette heure-ci","future":{"one":"+{0} h","other":"+{0} h"},"past":{"one":"-{0} h","other":"-{0} h"}},"minute":{"0":"cette minute-ci","future":{"one":"dans {0} minute","other":"dans {0} minutes"},"past":{"one":"il y a {0} minute","other":"il y a {0} minutes"}},"minute-short":{"0":"cette minute-ci","future":{"one":"dans {0} min","other":"dans {0} min"},"past":{"one":"il y a {0} min","other":"il y a {0} min"}},"minute-narrow":{"0":"cette minute-ci","future":{"one":"+{0} min","other":"+{0} min"},"past":{"one":"-{0} min","other":"-{0} min"}},"second":{"0":"maintenant","future":{"one":"dans {0} seconde","other":"dans {0} secondes"},"past":{"one":"il y a {0} seconde","other":"il y a {0} secondes"}},"second-short":{"0":"maintenant","future":{"one":"dans {0} s","other":"dans {0} s"},"past":{"one":"il y a {0} s","other":"il y a {0} s"}},"second-narrow":{"0":"maintenant","future":{"one":"+{0} s","other":"+{0} s"},"past":{"one":"-{0} s","other":"-{0} s"}}}},"availableLocales":["fr-BE","fr-BF","fr-BI","fr-BJ","fr-BL","fr-CA","fr-CD","fr-CF","fr-CG","fr-CH","fr-CI","fr-CM","fr-DJ","fr-DZ","fr-GA","fr-GF","fr-GN","fr-GP","fr-GQ","fr-HT","fr-KM","fr-LU","fr-MA","fr-MC","fr-MF","fr-MG","fr-ML","fr-MQ","fr-MR","fr-MU","fr-NC","fr-NE","fr-PF","fr-PM","fr-RE","fr-RW","fr-SC","fr-SN","fr-SY","fr-TD","fr-TG","fr-TN","fr-VU","fr-WF","fr-YT","fr"]})
+  Intl.RelativeTimeFormat.__addLocaleData({"data":{"fr":{"nu":["latn"],"year":{"0":"cette année","1":"l’année prochaine","future":{"one":"dans {0} an","other":"dans {0} ans"},"past":{"one":"il y a {0} an","other":"il y a {0} ans"},"-1":"l’année dernière"},"year-short":{"0":"cette année","1":"l’année prochaine","future":{"one":"dans {0} a","other":"dans {0} a"},"past":{"one":"il y a {0} a","other":"il y a {0} a"},"-1":"l’année dernière"},"year-narrow":{"0":"cette année","1":"l’année prochaine","future":{"one":"+{0} a","other":"+{0} a"},"past":{"one":"-{0} a","other":"-{0} a"},"-1":"l’année dernière"},"quarter":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"dans {0} trimestre","other":"dans {0} trimestres"},"past":{"one":"il y a {0} trimestre","other":"il y a {0} trimestres"},"-1":"le trimestre dernier"},"quarter-short":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"dans {0} trim.","other":"dans {0} trim."},"past":{"one":"il y a {0} trim.","other":"il y a {0} trim."},"-1":"le trimestre dernier"},"quarter-narrow":{"0":"ce trimestre","1":"le trimestre prochain","future":{"one":"+{0} trim.","other":"+{0} trim."},"past":{"one":"-{0} trim.","other":"-{0} trim."},"-1":"le trimestre dernier"},"month":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"dans {0} mois","other":"dans {0} mois"},"past":{"one":"il y a {0} mois","other":"il y a {0} mois"},"-1":"le mois dernier"},"month-short":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"dans {0} m.","other":"dans {0} m."},"past":{"one":"il y a {0} m.","other":"il y a {0} m."},"-1":"le mois dernier"},"month-narrow":{"0":"ce mois-ci","1":"le mois prochain","future":{"one":"+{0} m.","other":"+{0} m."},"past":{"one":"-{0} m.","other":"-{0} m."},"-1":"le mois dernier"},"week":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"dans {0} semaine","other":"dans {0} semaines"},"past":{"one":"il y a {0} semaine","other":"il y a {0} semaines"},"-1":"la semaine dernière"},"week-short":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"dans {0} sem.","other":"dans {0} sem."},"past":{"one":"il y a {0} sem.","other":"il y a {0} sem."},"-1":"la semaine dernière"},"week-narrow":{"0":"cette semaine","1":"la semaine prochaine","future":{"one":"+{0} sem.","other":"+{0} sem."},"past":{"one":"-{0} sem.","other":"-{0} sem."},"-1":"la semaine dernière"},"day":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"dans {0} jour","other":"dans {0} jours"},"past":{"one":"il y a {0} jour","other":"il y a {0} jours"},"-2":"avant-hier","-1":"hier"},"day-short":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"dans {0} j","other":"dans {0} j"},"past":{"one":"il y a {0} j","other":"il y a {0} j"},"-2":"avant-hier","-1":"hier"},"day-narrow":{"0":"aujourd’hui","1":"demain","2":"après-demain","future":{"one":"+{0} j","other":"+{0} j"},"past":{"one":"-{0} j","other":"-{0} j"},"-2":"avant-hier","-1":"hier"},"hour":{"0":"cette heure-ci","future":{"one":"dans {0} heure","other":"dans {0} heures"},"past":{"one":"il y a {0} heure","other":"il y a {0} heures"}},"hour-short":{"0":"cette heure-ci","future":{"one":"dans {0} h","other":"dans {0} h"},"past":{"one":"il y a {0} h","other":"il y a {0} h"}},"hour-narrow":{"0":"cette heure-ci","future":{"one":"+{0} h","other":"+{0} h"},"past":{"one":"-{0} h","other":"-{0} h"}},"minute":{"0":"cette minute-ci","future":{"one":"dans {0} minute","other":"dans {0} minutes"},"past":{"one":"il y a {0} minute","other":"il y a {0} minutes"}},"minute-short":{"0":"cette minute-ci","future":{"one":"dans {0} min","other":"dans {0} min"},"past":{"one":"il y a {0} min","other":"il y a {0} min"}},"minute-narrow":{"0":"cette minute-ci","future":{"one":"+{0} min","other":"+{0} min"},"past":{"one":"-{0} min","other":"-{0} min"}},"second":{"0":"maintenant","future":{"one":"dans {0} seconde","other":"dans {0} secondes"},"past":{"one":"il y a {0} seconde","other":"il y a {0} secondes"}},"second-short":{"0":"maintenant","future":{"one":"dans {0} s","other":"dans {0} s"},"past":{"one":"il y a {0} s","other":"il y a {0} s"}},"second-narrow":{"0":"maintenant","future":{"one":"+{0} s","other":"+{0} s"},"past":{"one":"-{0} s","other":"-{0} s"}}}},"availableLocales":["fr"]}
+)
 }
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/dist/polyfill.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/dist/polyfill.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = __webpack_require__(/*! ./core */ "./node_modules/@formatjs/intl-relativetimeformat/dist/core.js");
-if (!('RelativeTimeFormat' in Intl)) {
-    Object.defineProperty(Intl, 'RelativeTimeFormat', {
-        value: core_1.default,
-        writable: true,
-        enumerable: false,
-        configurable: true,
-    });
-}
-//# sourceMappingURL=polyfill.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/diff.js":
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js":
 /*!*******************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/diff.js ***!
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js ***!
   \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var MS_PER_SECOND = 1e3;
-var SECS_PER_MIN = 60;
-var SECS_PER_HOUR = SECS_PER_MIN * 60;
-var SECS_PER_DAY = SECS_PER_HOUR * 24;
-var SECS_PER_WEEK = SECS_PER_DAY * 7;
-function selectUnit(from, to, thresholds) {
-    if (to === void 0) { to = Date.now(); }
-    if (thresholds === void 0) { thresholds = {}; }
-    var resolvedThresholds = __assign(__assign({}, exports.DEFAULT_THRESHOLDS), (thresholds || {}));
-    var secs = (+from - +to) / MS_PER_SECOND;
-    if (Math.abs(secs) < resolvedThresholds.second) {
-        return {
-            value: Math.round(secs),
-            unit: 'second',
-        };
-    }
-    var mins = secs / SECS_PER_MIN;
-    if (Math.abs(mins) < resolvedThresholds.minute) {
-        return {
-            value: Math.round(mins),
-            unit: 'minute',
-        };
-    }
-    var hours = secs / SECS_PER_HOUR;
-    if (Math.abs(hours) < resolvedThresholds.hour) {
-        return {
-            value: Math.round(hours),
-            unit: 'hour',
-        };
-    }
-    var days = secs / SECS_PER_DAY;
-    if (Math.abs(days) < resolvedThresholds.day) {
-        return {
-            value: Math.round(days),
-            unit: 'day',
-        };
-    }
-    var fromDate = new Date(from);
-    var toDate = new Date(to);
-    var years = fromDate.getFullYear() - toDate.getFullYear();
-    if (Math.round(Math.abs(years)) > 0) {
-        return {
-            value: Math.round(years),
-            unit: 'year',
-        };
-    }
-    var months = years * 12 + fromDate.getMonth() - toDate.getMonth();
-    if (Math.round(Math.abs(months)) > 0) {
-        return {
-            value: Math.round(months),
-            unit: 'month',
-        };
-    }
-    var weeks = secs / SECS_PER_WEEK;
-    return {
-        value: Math.round(weeks),
-        unit: 'week',
-    };
-}
-exports.selectUnit = selectUnit;
-exports.DEFAULT_THRESHOLDS = {
-    second: 45,
-    minute: 45,
-    hour: 22,
-    day: 5,
-};
-//# sourceMappingURL=diff.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/index.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/index.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-var diff_1 = __webpack_require__(/*! ./diff */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/diff.js");
-exports.selectUnit = diff_1.selectUnit;
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-exports.defaultNumberOption = polyfill_utils_1.defaultNumberOption;
-exports.getInternalSlot = polyfill_utils_1.getInternalSlot;
-exports.getMultiInternalSlots = polyfill_utils_1.getMultiInternalSlots;
-exports.getNumberOption = polyfill_utils_1.getNumberOption;
-exports.getOption = polyfill_utils_1.getOption;
-exports.isLiteralPart = polyfill_utils_1.isLiteralPart;
-exports.partitionPattern = polyfill_utils_1.partitionPattern;
-exports.setInternalSlot = polyfill_utils_1.setInternalSlot;
-exports.setMultiInternalSlots = polyfill_utils_1.setMultiInternalSlots;
-exports.setNumberFormatDigitOptions = polyfill_utils_1.setNumberFormatDigitOptions;
-exports.toObject = polyfill_utils_1.toObject;
-exports.objectIs = polyfill_utils_1.objectIs;
-exports.isWellFormedCurrencyCode = polyfill_utils_1.isWellFormedCurrencyCode;
-exports.toString = polyfill_utils_1.toString;
-exports.formatNumericToString = polyfill_utils_1.formatNumericToString;
-exports.toRawFixed = polyfill_utils_1.toRawFixed;
-exports.toRawPrecision = polyfill_utils_1.toRawPrecision;
-exports.getMagnitude = polyfill_utils_1.getMagnitude;
-exports.repeat = polyfill_utils_1.repeat;
-exports.hasOwnProperty = polyfill_utils_1.hasOwnProperty;
-exports.isWellFormedUnitIdentifier = polyfill_utils_1.isWellFormedUnitIdentifier;
-exports.defineProperty = polyfill_utils_1.defineProperty;
-var resolve_locale_1 = __webpack_require__(/*! ./resolve-locale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/resolve-locale.js");
-exports.createResolveLocale = resolve_locale_1.createResolveLocale;
-exports.getLocaleHierarchy = resolve_locale_1.getLocaleHierarchy;
-exports.supportedLocales = resolve_locale_1.supportedLocales;
-exports.unpackData = resolve_locale_1.unpackData;
-exports.isMissingLocaleDataError = resolve_locale_1.isMissingLocaleDataError;
-__export(__webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/units.js"));
-var units_1 = __webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/units.js");
-exports.removeUnitNamespace = units_1.removeUnitNamespace;
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js");
-exports.invariant = invariant_1.invariant;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js ***!
-  \************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function invariant(condition, message, Err) {
-    if (Err === void 0) { Err = Error; }
-    if (!condition) {
-        throw new Err(message);
-    }
-}
-exports.invariant = invariant;
-//# sourceMappingURL=invariant.js.map
-
-/***/ }),
-
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js":
-/*!*****************************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js ***!
-  \*****************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js");
-var units_1 = __webpack_require__(/*! ./units */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/units.js");
-function hasOwnProperty(o, key) {
-    return Object.prototype.hasOwnProperty.call(o, key);
-}
-exports.hasOwnProperty = hasOwnProperty;
-/**
- * https://tc39.es/ecma262/#sec-toobject
- * @param arg
- */
-function toObject(arg) {
-    if (arg == null) {
-        throw new TypeError('undefined/null cannot be converted to object');
-    }
-    return Object(arg);
-}
-exports.toObject = toObject;
+exports.SecFromTime = exports.MinFromTime = exports.HourFromTime = exports.DateFromTime = exports.MonthFromTime = exports.InLeapYear = exports.DayWithinYear = exports.DaysInYear = exports.YearFromTime = exports.TimeFromYear = exports.DayFromYear = exports.WeekDay = exports.Day = exports.Type = exports.HasOwnProperty = exports.ArrayCreate = exports.SameValue = exports.ToObject = exports.TimeClip = exports.ToNumber = exports.ToString = void 0;
 /**
  * https://tc39.es/ecma262/#sec-tostring
  */
-function toString(o) {
+function ToString(o) {
     // Only symbol is irregular...
     if (typeof o === 'symbol') {
         throw TypeError('Cannot convert a Symbol value to a string');
     }
     return String(o);
 }
-exports.toString = toString;
+exports.ToString = ToString;
 /**
- * https://tc39.es/ecma402/#sec-getoption
- * @param opts
- * @param prop
- * @param type
- * @param values
- * @param fallback
- */
-function getOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
-    var value = opts[prop];
-    if (value !== undefined) {
-        if (type !== 'boolean' && type !== 'string') {
-            throw new TypeError('invalid type');
-        }
-        if (type === 'boolean') {
-            value = Boolean(value);
-        }
-        if (type === 'string') {
-            value = toString(value);
-        }
-        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
-            throw new RangeError(value + " is not within " + values.join(', '));
-        }
-        return value;
-    }
-    return fallback;
-}
-exports.getOption = getOption;
-/**
- * https://tc39.es/ecma402/#sec-defaultnumberoption
+ * https://tc39.es/ecma262/#sec-tonumber
  * @param val
- * @param min
- * @param max
- * @param fallback
  */
-function defaultNumberOption(val, min, max, fallback) {
-    if (val !== undefined) {
-        val = Number(val);
-        if (isNaN(val) || val < min || val > max) {
-            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
-        }
-        return Math.floor(val);
+function ToNumber(val) {
+    if (val === undefined) {
+        return NaN;
     }
-    return fallback;
+    if (val === null) {
+        return +0;
+    }
+    if (typeof val === 'boolean') {
+        return val ? 1 : +0;
+    }
+    if (typeof val === 'number') {
+        return val;
+    }
+    if (typeof val === 'symbol' || typeof val === 'bigint') {
+        throw new TypeError('Cannot convert symbol/bigint to number');
+    }
+    return Number(val);
 }
-exports.defaultNumberOption = defaultNumberOption;
+exports.ToNumber = ToNumber;
 /**
- * https://tc39.es/ecma402/#sec-getnumberoption
- * @param options
- * @param property
- * @param min
- * @param max
- * @param fallback
+ * https://tc39.es/ecma262/#sec-tointeger
+ * @param n
  */
-function getNumberOption(options, property, minimum, maximum, fallback) {
-    var val = options[property];
-    return defaultNumberOption(val, minimum, maximum, fallback);
-}
-exports.getNumberOption = getNumberOption;
-function setInternalSlot(map, pl, field, value) {
-    if (!map.get(pl)) {
-        map.set(pl, Object.create(null));
+function ToInteger(n) {
+    var number = ToNumber(n);
+    if (isNaN(number) || SameValue(number, -0)) {
+        return 0;
     }
-    var slots = map.get(pl);
-    slots[field] = value;
-}
-exports.setInternalSlot = setInternalSlot;
-function setMultiInternalSlots(map, pl, props) {
-    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
-        var k = _a[_i];
-        setInternalSlot(map, pl, k, props[k]);
+    if (isFinite(number)) {
+        return number;
     }
-}
-exports.setMultiInternalSlots = setMultiInternalSlots;
-function getInternalSlot(map, pl, field) {
-    return getMultiInternalSlots(map, pl, field)[field];
-}
-exports.getInternalSlot = getInternalSlot;
-function getMultiInternalSlots(map, pl) {
-    var fields = [];
-    for (var _i = 2; _i < arguments.length; _i++) {
-        fields[_i - 2] = arguments[_i];
+    var integer = Math.floor(Math.abs(number));
+    if (number < 0) {
+        integer = -integer;
     }
-    var slots = map.get(pl);
-    if (!slots) {
-        throw new TypeError(pl + " InternalSlot has not been initialized");
+    if (SameValue(integer, -0)) {
+        return 0;
     }
-    return fields.reduce(function (all, f) {
-        all[f] = slots[f];
-        return all;
-    }, Object.create(null));
+    return integer;
 }
-exports.getMultiInternalSlots = getMultiInternalSlots;
-function isLiteralPart(patternPart) {
-    return patternPart.type === 'literal';
-}
-exports.isLiteralPart = isLiteralPart;
-function partitionPattern(pattern) {
-    var result = [];
-    var beginIndex = pattern.indexOf('{');
-    var endIndex = 0;
-    var nextIndex = 0;
-    var length = pattern.length;
-    while (beginIndex < pattern.length && beginIndex > -1) {
-        endIndex = pattern.indexOf('}', beginIndex);
-        invariant_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
-        if (beginIndex > nextIndex) {
-            result.push({
-                type: 'literal',
-                value: pattern.substring(nextIndex, beginIndex),
-            });
-        }
-        result.push({
-            type: pattern.substring(beginIndex + 1, endIndex),
-            value: undefined,
-        });
-        nextIndex = endIndex + 1;
-        beginIndex = pattern.indexOf('{', nextIndex);
-    }
-    if (nextIndex < length) {
-        result.push({
-            type: 'literal',
-            value: pattern.substring(nextIndex, length),
-        });
-    }
-    return result;
-}
-exports.partitionPattern = partitionPattern;
 /**
- * https://tc39.es/ecma402/#sec-setnfdigitoptions
+ * https://tc39.es/ecma262/#sec-timeclip
+ * @param time
  */
-function setNumberFormatDigitOptions(internalSlots, opts, mnfdDefault, mxfdDefault, notation) {
-    var mnid = getNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
-    var mnfd = opts.minimumFractionDigits;
-    var mxfd = opts.maximumFractionDigits;
-    var mnsd = opts.minimumSignificantDigits;
-    var mxsd = opts.maximumSignificantDigits;
-    internalSlots.minimumIntegerDigits = mnid;
-    if (mnsd !== undefined || mxsd !== undefined) {
-        internalSlots.roundingType = 'significantDigits';
-        mnsd = defaultNumberOption(mnsd, 1, 21, 1);
-        mxsd = defaultNumberOption(mxsd, mnsd, 21, 21);
-        internalSlots.minimumSignificantDigits = mnsd;
-        internalSlots.maximumSignificantDigits = mxsd;
+function TimeClip(time) {
+    if (!isFinite(time)) {
+        return NaN;
     }
-    else if (mnfd !== undefined || mxfd !== undefined) {
-        internalSlots.roundingType = 'fractionDigits';
-        mnfd = defaultNumberOption(mnfd, 0, 20, mnfdDefault);
-        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
-        mxfd = defaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
-        internalSlots.minimumFractionDigits = mnfd;
-        internalSlots.maximumFractionDigits = mxfd;
+    if (Math.abs(time) > 8.64 * 1e16) {
+        return NaN;
     }
-    else if (notation === 'compact') {
-        internalSlots.roundingType = 'compactRounding';
-    }
-    else {
-        internalSlots.roundingType = 'fractionDigits';
-        internalSlots.minimumFractionDigits = mnfdDefault;
-        internalSlots.maximumFractionDigits = mxfdDefault;
-    }
+    return ToInteger(time);
 }
-exports.setNumberFormatDigitOptions = setNumberFormatDigitOptions;
-function objectIs(x, y) {
+exports.TimeClip = TimeClip;
+/**
+ * https://tc39.es/ecma262/#sec-toobject
+ * @param arg
+ */
+function ToObject(arg) {
+    if (arg == null) {
+        throw new TypeError('undefined/null cannot be converted to object');
+    }
+    return Object(arg);
+}
+exports.ToObject = ToObject;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-samevalue
+ * @param x
+ * @param y
+ */
+function SameValue(x, y) {
     if (Object.is) {
         return Object.is(x, y);
     }
@@ -2799,422 +5556,354 @@ function objectIs(x, y) {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
 }
-exports.objectIs = objectIs;
-var NOT_A_Z_REGEX = /[^A-Z]/;
+exports.SameValue = SameValue;
 /**
- * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
- * @param str string to convert
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-arraycreate
+ * @param len
  */
-function toUpperCase(str) {
-    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
+function ArrayCreate(len) {
+    return new Array(len);
+}
+exports.ArrayCreate = ArrayCreate;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-hasownproperty
+ * @param o
+ * @param prop
+ */
+function HasOwnProperty(o, prop) {
+    return Object.prototype.hasOwnProperty.call(o, prop);
+}
+exports.HasOwnProperty = HasOwnProperty;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#sec-type
+ * @param x
+ */
+function Type(x) {
+    if (x === null) {
+        return 'Null';
+    }
+    if (typeof x === 'undefined') {
+        return 'Undefined';
+    }
+    if (typeof x === 'function' || typeof x === 'object') {
+        return 'Object';
+    }
+    if (typeof x === 'number') {
+        return 'Number';
+    }
+    if (typeof x === 'boolean') {
+        return 'Boolean';
+    }
+    if (typeof x === 'string') {
+        return 'String';
+    }
+    if (typeof x === 'symbol') {
+        return 'Symbol';
+    }
+    if (typeof x === 'bigint') {
+        return 'BigInt';
+    }
+}
+exports.Type = Type;
+var MS_PER_DAY = 86400000;
+/**
+ * https://www.ecma-international.org/ecma-262/11.0/index.html#eqn-modulo
+ * @param x
+ * @param y
+ * @return k of the same sign as y
+ */
+function mod(x, y) {
+    return x - Math.floor(x / y) * y;
 }
 /**
- * https://tc39.es/ecma402/#sec-iswellformedcurrencycode
+ * https://tc39.es/ecma262/#eqn-Day
+ * @param t
  */
-function isWellFormedCurrencyCode(currency) {
-    currency = toUpperCase(currency);
-    if (currency.length !== 3) {
-        return false;
-    }
-    if (NOT_A_Z_REGEX.test(currency)) {
-        return false;
-    }
-    return true;
+function Day(t) {
+    return Math.floor(t / MS_PER_DAY);
 }
-exports.isWellFormedCurrencyCode = isWellFormedCurrencyCode;
+exports.Day = Day;
 /**
- * https://tc39.es/ecma402/#sec-formatnumberstring
- * TODO: dedup with intl-pluralrules
+ * https://tc39.es/ecma262/#sec-week-day
+ * @param t
  */
-function formatNumericToString(internalSlots, x) {
-    var isNegative = x < 0 || objectIs(x, -0);
-    if (isNegative) {
-        x = -x;
-    }
-    var result;
-    var rourndingType = internalSlots.roundingType;
-    switch (rourndingType) {
-        case 'significantDigits':
-            result = toRawPrecision(x, internalSlots.minimumSignificantDigits, internalSlots.maximumSignificantDigits);
-            break;
-        case 'fractionDigits':
-            result = toRawFixed(x, internalSlots.minimumFractionDigits, internalSlots.maximumFractionDigits);
-            break;
-        default:
-            result = toRawPrecision(x, 1, 2);
-            if (result.integerDigitsCount > 1) {
-                result = toRawFixed(x, 0, 0);
-            }
-            break;
-    }
-    x = result.roundedNumber;
-    var string = result.formattedString;
-    var int = result.integerDigitsCount;
-    var minInteger = internalSlots.minimumIntegerDigits;
-    if (int < minInteger) {
-        var forwardZeros = repeat('0', minInteger - int);
-        string = forwardZeros + string;
-    }
-    if (isNegative) {
-        x = -x;
-    }
-    return { roundedNumber: x, formattedString: string };
+function WeekDay(t) {
+    return mod(Day(t) + 4, 7);
 }
-exports.formatNumericToString = formatNumericToString;
+exports.WeekDay = WeekDay;
 /**
- * TODO: dedup with intl-pluralrules and support BigInt
- * https://tc39.es/ecma402/#sec-torawfixed
- * @param x a finite non-negative Number or BigInt
- * @param minFraction and integer between 0 and 20
- * @param maxFraction and integer between 0 and 20
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param y
  */
-function toRawFixed(x, minFraction, maxFraction) {
-    var f = maxFraction;
-    var n;
-    {
-        var exactSolve = x * Math.pow(10, f);
-        var roundDown = Math.floor(exactSolve);
-        var roundUp = Math.ceil(exactSolve);
-        n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
-    }
-    var xFinal = n / Math.pow(10, f);
-    // n is a positive integer, but it is possible to be greater than 1e21.
-    // In such case we will go the slow path.
-    // See also: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
-    var m;
-    if (n < 1e21) {
-        m = n.toString();
-    }
-    else {
-        m = n.toString();
-        var idx1 = m.indexOf('.');
-        var idx2 = m.indexOf('e+');
-        var exponent = parseInt(m.substring(idx2 + 2), 10);
-        m =
-            m.substring(0, idx1) +
-                m.substring(idx1 + 1, idx2) +
-                repeat('0', exponent - (idx2 - idx1 - 1));
-    }
-    var int;
-    if (f !== 0) {
-        var k = m.length;
-        if (k <= f) {
-            var z = repeat('0', f + 1 - k);
-            m = z + m;
-            k = f + 1;
-        }
-        var a = m.slice(0, k - f);
-        var b = m.slice(k - f);
-        m = a + "." + b;
-        int = a.length;
-    }
-    else {
-        int = m.length;
-    }
-    var cut = maxFraction - minFraction;
-    while (cut > 0 && m[m.length - 1] === '0') {
-        m = m.slice(0, -1);
-        cut--;
-    }
-    if (m[m.length - 1] === '.') {
-        m = m.slice(0, -1);
-    }
-    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+function DayFromYear(y) {
+    return (365 * (y - 1970) +
+        Math.floor((y - 1969) / 4) -
+        Math.floor((y - 1901) / 100) +
+        Math.floor((y - 1601) / 400));
 }
-exports.toRawFixed = toRawFixed;
-// https://tc39.es/ecma402/#sec-torawprecision
-function toRawPrecision(x, minPrecision, maxPrecision) {
-    var p = maxPrecision;
-    var m;
-    var e;
-    var xFinal;
-    if (x === 0) {
-        m = repeat('0', p);
-        e = 0;
-        xFinal = 0;
-    }
-    else {
-        e = getMagnitude(x);
-        var n = void 0;
-        {
-            var magnitude = e - p + 1;
-            var exactSolve = 
-            // Preserve floating point precision as much as possible with multiplication.
-            magnitude < 0 ? x * Math.pow(10, -magnitude) : x / Math.pow(10, magnitude);
-            var roundDown = Math.floor(exactSolve);
-            var roundUp = Math.ceil(exactSolve);
-            n = exactSolve - roundDown < roundUp - exactSolve ? roundDown : roundUp;
-        }
-        // See: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
-        // No need to worry about scientific notation because it only happens for values >= 1e21,
-        // which has 22 significant digits. So it will at least be divided by 10 here to bring the
-        // value back into non-scientific-notation range.
-        m = n.toString();
-        xFinal = n * Math.pow(10, (e - p + 1));
-    }
-    var int;
-    if (e >= p - 1) {
-        m = m + repeat('0', e - p + 1);
-        int = e + 1;
-    }
-    else if (e >= 0) {
-        m = m.slice(0, e + 1) + "." + m.slice(e + 1);
-        int = e + 1;
-    }
-    else {
-        m = "0." + repeat('0', -e - 1) + m;
-        int = 1;
-    }
-    if (m.indexOf('.') >= 0 && maxPrecision > minPrecision) {
-        var cut = maxPrecision - minPrecision;
-        while (cut > 0 && m[m.length - 1] === '0') {
-            m = m.slice(0, -1);
-            cut--;
-        }
-        if (m[m.length - 1] === '.') {
-            m = m.slice(0, -1);
-        }
-    }
-    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
-}
-exports.toRawPrecision = toRawPrecision;
-function repeat(s, times) {
-    if (typeof s.repeat === 'function') {
-        return s.repeat(times);
-    }
-    var arr = new Array(times);
-    for (var i = 0; i < arr.length; i++) {
-        arr[i] = s;
-    }
-    return arr.join('');
-}
-exports.repeat = repeat;
+exports.DayFromYear = DayFromYear;
 /**
- * Cannot do Math.log(x) / Math.log(10) bc if IEEE floating point issue
- * @param x number
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param y
  */
-function getMagnitude(x) {
-    // Cannot count string length via Number.toString because it may use scientific notation
-    // for very small or very large numbers.
-    return Math.floor(Math.log(x) * Math.LOG10E);
+function TimeFromYear(y) {
+    return MS_PER_DAY * DayFromYear(y);
 }
-exports.getMagnitude = getMagnitude;
+exports.TimeFromYear = TimeFromYear;
 /**
- * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
- * @param str string to convert
+ * https://tc39.es/ecma262/#sec-year-number
+ * @param t
  */
-function toLowerCase(str) {
-    return str.replace(/([A-Z])/g, function (_, c) { return c.toLowerCase(); });
+function YearFromTime(t) {
+    var min = Math.ceil(t / MS_PER_DAY / 366);
+    var y = min;
+    while (TimeFromYear(y) <= t) {
+        y++;
+    }
+    return y - 1;
 }
-var SHORTENED_SACTION_UNITS = units_1.SANCTIONED_UNITS.map(function (unit) {
-    return unit.replace(/^(.*?)-/, '');
-});
+exports.YearFromTime = YearFromTime;
+function DaysInYear(y) {
+    if (y % 4 !== 0) {
+        return 365;
+    }
+    if (y % 100 !== 0) {
+        return 366;
+    }
+    if (y % 400 !== 0) {
+        return 365;
+    }
+    return 366;
+}
+exports.DaysInYear = DaysInYear;
+function DayWithinYear(t) {
+    return Day(t) - DayFromYear(YearFromTime(t));
+}
+exports.DayWithinYear = DayWithinYear;
+function InLeapYear(t) {
+    return DaysInYear(YearFromTime(t)) === 365 ? 0 : 1;
+}
+exports.InLeapYear = InLeapYear;
 /**
- * https://tc39.es/ecma402/#sec-iswellformedunitidentifier
- * @param unit
+ * https://tc39.es/ecma262/#sec-month-number
+ * @param t
  */
-function isWellFormedUnitIdentifier(unit) {
-    unit = toLowerCase(unit);
-    if (SHORTENED_SACTION_UNITS.indexOf(unit) > -1) {
-        return true;
+function MonthFromTime(t) {
+    var dwy = DayWithinYear(t);
+    var leap = InLeapYear(t);
+    if (dwy >= 0 && dwy < 31) {
+        return 0;
     }
-    var units = unit.split('-per-');
-    if (units.length !== 2) {
-        return false;
+    if (dwy < 59 + leap) {
+        return 1;
     }
-    if (SHORTENED_SACTION_UNITS.indexOf(units[0]) < 0 ||
-        SHORTENED_SACTION_UNITS.indexOf(units[1]) < 0) {
-        return false;
+    if (dwy < 90 + leap) {
+        return 2;
     }
-    return true;
+    if (dwy < 120 + leap) {
+        return 3;
+    }
+    if (dwy < 151 + leap) {
+        return 4;
+    }
+    if (dwy < 181 + leap) {
+        return 5;
+    }
+    if (dwy < 212 + leap) {
+        return 6;
+    }
+    if (dwy < 243 + leap) {
+        return 7;
+    }
+    if (dwy < 273 + leap) {
+        return 8;
+    }
+    if (dwy < 304 + leap) {
+        return 9;
+    }
+    if (dwy < 334 + leap) {
+        return 10;
+    }
+    if (dwy < 365 + leap) {
+        return 11;
+    }
+    throw new Error('Invalid time');
 }
-exports.isWellFormedUnitIdentifier = isWellFormedUnitIdentifier;
-/*
-  17 ECMAScript Standard Built-in Objects:
-    Every built-in Function object, including constructors, that is not
-    identified as an anonymous function has a name property whose value
-    is a String.
+exports.MonthFromTime = MonthFromTime;
+function DateFromTime(t) {
+    var dwy = DayWithinYear(t);
+    var mft = MonthFromTime(t);
+    var leap = InLeapYear(t);
+    if (mft === 0) {
+        return dwy + 1;
+    }
+    if (mft === 1) {
+        return dwy - 30;
+    }
+    if (mft === 2) {
+        return dwy - 58 - leap;
+    }
+    if (mft === 3) {
+        return dwy - 89 - leap;
+    }
+    if (mft === 4) {
+        return dwy - 119 - leap;
+    }
+    if (mft === 5) {
+        return dwy - 150 - leap;
+    }
+    if (mft === 6) {
+        return dwy - 180 - leap;
+    }
+    if (mft === 7) {
+        return dwy - 211 - leap;
+    }
+    if (mft === 8) {
+        return dwy - 242 - leap;
+    }
+    if (mft === 9) {
+        return dwy - 272 - leap;
+    }
+    if (mft === 10) {
+        return dwy - 303 - leap;
+    }
+    if (mft === 11) {
+        return dwy - 333 - leap;
+    }
+    throw new Error('Invalid time');
+}
+exports.DateFromTime = DateFromTime;
+var HOURS_PER_DAY = 24;
+var MINUTES_PER_HOUR = 60;
+var SECONDS_PER_MINUTE = 60;
+var MS_PER_SECOND = 1e3;
+var MS_PER_MINUTE = MS_PER_SECOND * SECONDS_PER_MINUTE;
+var MS_PER_HOUR = MS_PER_MINUTE * MINUTES_PER_HOUR;
+function HourFromTime(t) {
+    return mod(Math.floor(t / MS_PER_HOUR), HOURS_PER_DAY);
+}
+exports.HourFromTime = HourFromTime;
+function MinFromTime(t) {
+    return mod(Math.floor(t / MS_PER_MINUTE), MINUTES_PER_HOUR);
+}
+exports.MinFromTime = MinFromTime;
+function SecFromTime(t) {
+    return mod(Math.floor(t / MS_PER_SECOND), SECONDS_PER_MINUTE);
+}
+exports.SecFromTime = SecFromTime;
 
-    Unless otherwise specified, the name property of a built-in Function
-    object, if it exists, has the attributes { [[Writable]]: false,
-    [[Enumerable]]: false, [[Configurable]]: true }.
-*/
-function defineProperty(target, name, _a) {
-    var value = _a.value;
-    Object.defineProperty(target, name, {
-        configurable: true,
-        enumerable: false,
-        writable: true,
-        value: value,
-    });
-}
-exports.defineProperty = defineProperty;
-//# sourceMappingURL=polyfill-utils.js.map
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/resolve-locale.js":
-/*!*****************************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/resolve-locale.js ***!
-  \*****************************************************************************************************************/
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/index.js":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var invariant_1 = __webpack_require__(/*! ./invariant */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/invariant.js");
-var polyfill_utils_1 = __webpack_require__(/*! ./polyfill-utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/polyfill-utils.js");
-function createResolveLocale(getDefaultLocale) {
-    var lookupMatcher = createLookupMatcher(getDefaultLocale);
-    var bestFitMatcher = createBestFitMatcher(getDefaultLocale);
-    /**
-     * https://tc39.es/ecma402/#sec-resolvelocale
-     */
-    return function resolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData) {
-        var matcher = options.localeMatcher;
-        var r;
-        if (matcher === 'lookup') {
-            r = lookupMatcher(availableLocales, requestedLocales);
-        }
-        else {
-            r = bestFitMatcher(availableLocales, requestedLocales);
-        }
-        var foundLocale = r.locale;
-        var result = { locale: '', dataLocale: foundLocale };
-        var supportedExtension = '-u';
-        for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
-            var key = relevantExtensionKeys_1[_i];
-            var foundLocaleData = localeData[foundLocale];
-            invariant_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
-            var keyLocaleData = foundLocaleData[key];
-            invariant_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
-            var value = keyLocaleData[0];
-            invariant_1.invariant(typeof value === 'string' || value === null, 'value must be string or null');
-            var supportedExtensionAddition = '';
-            if (r.extension) {
-                var requestedValue = unicodeExtensionValue(r.extension, key);
-                if (requestedValue !== undefined) {
-                    if (requestedValue !== '') {
-                        if (~keyLocaleData.indexOf(requestedValue)) {
-                            value = requestedValue;
-                            supportedExtensionAddition = "-" + key + "-" + value;
-                        }
-                    }
-                    else if (~requestedValue.indexOf('true')) {
-                        value = 'true';
-                        supportedExtensionAddition = "-" + key;
-                    }
-                }
-            }
-            if (key in options) {
-                var optionsValue = options[key];
-                invariant_1.invariant(typeof optionsValue === 'string' ||
-                    typeof optionsValue === 'undefined' ||
-                    optionsValue === null, 'optionsValue must be String, Undefined or Null');
-                if (~keyLocaleData.indexOf(optionsValue)) {
-                    if (optionsValue !== value) {
-                        value = optionsValue;
-                        supportedExtensionAddition = '';
-                    }
-                }
-            }
-            result[key] = value;
-            supportedExtension += supportedExtensionAddition;
-        }
-        if (supportedExtension.length > 2) {
-            var privateIndex = foundLocale.indexOf('-x-');
-            if (privateIndex === -1) {
-                foundLocale = foundLocale + supportedExtension;
-            }
-            else {
-                var preExtension = foundLocale.slice(0, privateIndex);
-                var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
-                foundLocale = preExtension + supportedExtension + postExtension;
-            }
-            foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
-        }
-        result.locale = foundLocale;
-        return result;
-    };
-}
-exports.createResolveLocale = createResolveLocale;
-/**
- * https://tc39.es/ecma402/#sec-unicodeextensionvalue
- * @param extension
- * @param key
- */
-function unicodeExtensionValue(extension, key) {
-    invariant_1.invariant(key.length === 2, 'key must have 2 elements');
-    var size = extension.length;
-    var searchValue = "-" + key + "-";
-    var pos = extension.indexOf(searchValue);
-    if (pos !== -1) {
-        var start = pos + 4;
-        var end = start;
-        var k = start;
-        var done = false;
-        while (!done) {
-            var e = extension.indexOf('-', k);
-            var len = void 0;
-            if (e === -1) {
-                len = size - k;
-            }
-            else {
-                len = e - k;
-            }
-            if (len === 2) {
-                done = true;
-            }
-            else if (e === -1) {
-                end = size;
-                done = true;
-            }
-            else {
-                end = e;
-                k = e + 1;
-            }
-        }
-        return extension.slice(start, end);
-    }
-    searchValue = "-" + key;
-    pos = extension.indexOf(searchValue);
-    if (pos !== -1 && pos + 3 === size) {
-        return '';
-    }
-    return undefined;
-}
-var UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
+var BestFitFormatMatcher_1 = __webpack_require__(/*! ./src/DateTimeFormat/BestFitFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js");
+Object.defineProperty(exports, "BestFitFormatMatcher", { enumerable: true, get: function () { return BestFitFormatMatcher_1.BestFitFormatMatcher; } });
+__exportStar(__webpack_require__(/*! ./src/CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/GetNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsValidTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/GetOperands */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js"), exports);
+__exportStar(__webpack_require__(/*! ./src/SupportedLocales */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js"), exports);
+var format_to_parts_1 = __webpack_require__(/*! ./src/NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js");
+Object.defineProperty(exports, "_formatToParts", { enumerable: true, get: function () { return format_to_parts_1.default; } });
+var utils_1 = __webpack_require__(/*! ./src/DateTimeFormat/utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+Object.defineProperty(exports, "DATE_TIME_PROPS", { enumerable: true, get: function () { return utils_1.DATE_TIME_PROPS; } });
+var skeleton_1 = __webpack_require__(/*! ./src/DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js");
+Object.defineProperty(exports, "parseDateTimeSkeleton", { enumerable: true, get: function () { return skeleton_1.parseDateTimeSkeleton; } });
+var utils_2 = __webpack_require__(/*! ./src/utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+Object.defineProperty(exports, "getInternalSlot", { enumerable: true, get: function () { return utils_2.getInternalSlot; } });
+Object.defineProperty(exports, "getMultiInternalSlots", { enumerable: true, get: function () { return utils_2.getMultiInternalSlots; } });
+Object.defineProperty(exports, "isLiteralPart", { enumerable: true, get: function () { return utils_2.isLiteralPart; } });
+Object.defineProperty(exports, "setInternalSlot", { enumerable: true, get: function () { return utils_2.setInternalSlot; } });
+Object.defineProperty(exports, "setMultiInternalSlots", { enumerable: true, get: function () { return utils_2.setMultiInternalSlots; } });
+Object.defineProperty(exports, "getMagnitude", { enumerable: true, get: function () { return utils_2.getMagnitude; } });
+Object.defineProperty(exports, "defineProperty", { enumerable: true, get: function () { return utils_2.defineProperty; } });
+var data_1 = __webpack_require__(/*! ./src/data */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/data.js");
+Object.defineProperty(exports, "getLocaleHierarchy", { enumerable: true, get: function () { return data_1.getLocaleHierarchy; } });
+Object.defineProperty(exports, "unpackData", { enumerable: true, get: function () { return data_1.unpackData; } });
+Object.defineProperty(exports, "isMissingLocaleDataError", { enumerable: true, get: function () { return data_1.isMissingLocaleDataError; } });
+__exportStar(__webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/relative-time.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/date-time.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/list.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/number.js"), exports);
+__exportStar(__webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/displaynames.js"), exports);
+var utils_3 = __webpack_require__(/*! ./src/utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+Object.defineProperty(exports, "invariant", { enumerable: true, get: function () { return utils_3.invariant; } });
+__exportStar(__webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js"), exports);
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BestAvailableLocale = void 0;
 /**
  * https://tc39.es/ecma402/#sec-bestavailablelocale
  * @param availableLocales
  * @param locale
  */
-function bestAvailableLocale(availableLocales, locale) {
+function BestAvailableLocale(availableLocales, locale) {
     var candidate = locale;
     while (true) {
         if (~availableLocales.indexOf(candidate)) {
@@ -3230,123 +5919,1347 @@ function bestAvailableLocale(availableLocales, locale) {
         candidate = candidate.slice(0, pos);
     }
 }
-function createLookupMatcher(getDefaultLocale) {
-    /**
-     * https://tc39.es/ecma402/#sec-lookupmatcher
-     */
-    return function lookupMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
-            var locale = requestedLocales_1[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function createBestFitMatcher(getDefaultLocale) {
-    return function bestFitMatcher(availableLocales, requestedLocales) {
-        var result = { locale: '' };
-        for (var _i = 0, requestedLocales_2 = requestedLocales; _i < requestedLocales_2.length; _i++) {
-            var locale = requestedLocales_2[_i];
-            var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-            var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-            if (availableLocale) {
-                result.locale = availableLocale;
-                if (locale !== noExtensionLocale) {
-                    result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
-                }
-                return result;
-            }
-        }
-        result.locale = getDefaultLocale();
-        return result;
-    };
-}
-function getLocaleHierarchy(locale) {
-    var results = [locale];
-    var localeParts = locale.split('-');
-    for (var i = localeParts.length; i > 1; i--) {
-        results.push(localeParts.slice(0, i - 1).join('-'));
-    }
-    return results;
-}
-exports.getLocaleHierarchy = getLocaleHierarchy;
-function lookupSupportedLocales(availableLocales, requestedLocales) {
-    var subset = [];
-    for (var _i = 0, requestedLocales_3 = requestedLocales; _i < requestedLocales_3.length; _i++) {
-        var locale = requestedLocales_3[_i];
-        var noExtensionLocale = locale.replace(UNICODE_EXTENSION_SEQUENCE_REGEX, '');
-        var availableLocale = bestAvailableLocale(availableLocales, noExtensionLocale);
-        if (availableLocale) {
-            subset.push(availableLocale);
-        }
-    }
-    return subset;
-}
-function supportedLocales(availableLocales, requestedLocales, options) {
-    var matcher = 'best fit';
-    if (options !== undefined) {
-        options = polyfill_utils_1.toObject(options);
-        matcher = polyfill_utils_1.getOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
-    }
-    if (matcher === 'best fit') {
-        return lookupSupportedLocales(availableLocales, requestedLocales);
-    }
-    return lookupSupportedLocales(availableLocales, requestedLocales);
-}
-exports.supportedLocales = supportedLocales;
-var MissingLocaleDataError = /** @class */ (function (_super) {
-    __extends(MissingLocaleDataError, _super);
-    function MissingLocaleDataError() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.type = 'MISSING_LOCALE_DATA';
-        return _this;
-    }
-    return MissingLocaleDataError;
-}(Error));
-function isMissingLocaleDataError(e) {
-    return e.type === 'MISSING_LOCALE_DATA';
-}
-exports.isMissingLocaleDataError = isMissingLocaleDataError;
-function unpackData(locale, localeData, 
-/** By default shallow merge the dictionaries. */
-reducer) {
-    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
-    var localeHierarchy = getLocaleHierarchy(locale);
-    var dataToMerge = localeHierarchy
-        .map(function (l) { return localeData.data[l]; })
-        .filter(Boolean);
-    if (!dataToMerge.length) {
-        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
-    }
-    dataToMerge.reverse();
-    return dataToMerge.reduce(reducer, {});
-}
-exports.unpackData = unpackData;
-//# sourceMappingURL=resolve-locale.js.map
+exports.BestAvailableLocale = BestAvailableLocale;
+
 
 /***/ }),
 
-/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/units.js":
-/*!********************************************************************************************************!*\
-  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/intl-utils/dist/units.js ***!
-  \********************************************************************************************************/
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-// https://tc39.es/ecma402/#sec-issanctionedsimpleunitidentifier
+exports.BestFitMatcher = void 0;
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-bestfitmatcher
+ * @param availableLocales
+ * @param requestedLocales
+ * @param getDefaultLocale
+ */
+function BestFitMatcher(availableLocales, requestedLocales, getDefaultLocale) {
+    var result = { locale: '' };
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            result.locale = availableLocale;
+            if (locale !== noExtensionLocale) {
+                result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+            }
+            return result;
+        }
+    }
+    result.locale = getDefaultLocale();
+    return result;
+}
+exports.BestFitMatcher = BestFitMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalizeLocaleList = void 0;
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-canonicalizelocalelist
+ * @param locales
+ */
+function CanonicalizeLocaleList(locales) {
+    // TODO
+    return Intl.getCanonicalLocales(locales);
+}
+exports.CanonicalizeLocaleList = CanonicalizeLocaleList;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js":
+/*!********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js ***!
+  \********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalizeTimeZoneName = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-canonicalizetimezonename
+ * @param tz
+ */
+function CanonicalizeTimeZoneName(tz, _a) {
+    var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    var uppercasedTz = tz.toUpperCase();
+    var uppercasedZones = Object.keys(tzData).reduce(function (all, z) {
+        all[z.toUpperCase()] = z;
+        return all;
+    }, {});
+    var ianaTimeZone = uppercaseLinks[uppercasedTz] || uppercasedZones[uppercasedTz];
+    if (ianaTimeZone === 'Etc/UTC' || ianaTimeZone === 'Etc/GMT') {
+        return 'UTC';
+    }
+    return ianaTimeZone;
+}
+exports.CanonicalizeTimeZoneName = CanonicalizeTimeZoneName;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BasicFormatMatcher = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-basicformatmatcher
+ * @param options
+ * @param formats
+ */
+function BasicFormatMatcher(options, formats) {
+    var bestScore = -Infinity;
+    var bestFormat = formats[0];
+    utils_1.invariant(Array.isArray(formats), 'formats should be a list of things');
+    for (var _i = 0, formats_1 = formats; _i < formats_1.length; _i++) {
+        var format = formats_1[_i];
+        var score = 0;
+        for (var _a = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _a < DATE_TIME_PROPS_1.length; _a++) {
+            var prop = DATE_TIME_PROPS_1[_a];
+            var optionsProp = options[prop];
+            var formatProp = format[prop];
+            if (optionsProp === undefined && formatProp !== undefined) {
+                score -= utils_2.additionPenalty;
+            }
+            else if (optionsProp !== undefined && formatProp === undefined) {
+                score -= utils_2.removalPenalty;
+            }
+            else if (optionsProp !== formatProp) {
+                var values = ['2-digit', 'numeric', 'narrow', 'short', 'long'];
+                var optionsPropIndex = values.indexOf(optionsProp);
+                var formatPropIndex = values.indexOf(formatProp);
+                var delta = Math.max(-2, Math.min(formatPropIndex - optionsPropIndex, 2));
+                if (delta === 2) {
+                    score -= utils_2.longMorePenalty;
+                }
+                else if (delta === 1) {
+                    score -= utils_2.shortMorePenalty;
+                }
+                else if (delta === -1) {
+                    score -= utils_2.shortLessPenalty;
+                }
+                else if (delta === -2) {
+                    score -= utils_2.longLessPenalty;
+                }
+            }
+        }
+        if (score > bestScore) {
+            bestScore = score;
+            bestFormat = format;
+        }
+    }
+    return __assign({}, bestFormat);
+}
+exports.BasicFormatMatcher = BasicFormatMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js ***!
+  \*******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BestFitFormatMatcher = exports.bestFitFormatMatcherScore = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var skeleton_1 = __webpack_require__(/*! ./skeleton */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js");
+function isNumericType(t) {
+    return t === 'numeric' || t === '2-digit';
+}
+/**
+ * Credit: https://github.com/andyearnshaw/Intl.js/blob/0958dc1ad8153f1056653ea22b8208f0df289a4e/src/12.datetimeformat.js#L611
+ * with some modifications
+ * @param options
+ * @param format
+ */
+function bestFitFormatMatcherScore(options, format) {
+    var score = 0;
+    if (options.hour12 && !format.hour12) {
+        score -= utils_2.removalPenalty;
+    }
+    else if (!options.hour12 && format.hour12) {
+        score -= utils_2.additionPenalty;
+    }
+    for (var _i = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _i < DATE_TIME_PROPS_1.length; _i++) {
+        var prop = DATE_TIME_PROPS_1[_i];
+        var optionsProp = options[prop];
+        var formatProp = format[prop];
+        if (optionsProp === undefined && formatProp !== undefined) {
+            score -= utils_2.additionPenalty;
+        }
+        else if (optionsProp !== undefined && formatProp === undefined) {
+            score -= utils_2.removalPenalty;
+        }
+        else if (optionsProp !== formatProp) {
+            // extra penalty for numeric vs non-numeric
+            if (isNumericType(optionsProp) !==
+                isNumericType(formatProp)) {
+                score -= utils_2.differentNumericTypePenalty;
+            }
+            else {
+                var values = ['2-digit', 'numeric', 'narrow', 'short', 'long'];
+                var optionsPropIndex = values.indexOf(optionsProp);
+                var formatPropIndex = values.indexOf(formatProp);
+                var delta = Math.max(-2, Math.min(formatPropIndex - optionsPropIndex, 2));
+                if (delta === 2) {
+                    score -= utils_2.longMorePenalty;
+                }
+                else if (delta === 1) {
+                    score -= utils_2.shortMorePenalty;
+                }
+                else if (delta === -1) {
+                    score -= utils_2.shortLessPenalty;
+                }
+                else if (delta === -2) {
+                    score -= utils_2.longLessPenalty;
+                }
+            }
+        }
+    }
+    return score;
+}
+exports.bestFitFormatMatcherScore = bestFitFormatMatcherScore;
+/**
+ * https://tc39.es/ecma402/#sec-bestfitformatmatcher
+ * Just alias to basic for now
+ * @param options
+ * @param formats
+ * @param implDetails Implementation details
+ */
+function BestFitFormatMatcher(options, formats) {
+    var bestScore = -Infinity;
+    var bestFormat = formats[0];
+    utils_1.invariant(Array.isArray(formats), 'formats should be a list of things');
+    for (var _i = 0, formats_1 = formats; _i < formats_1.length; _i++) {
+        var format = formats_1[_i];
+        var score = bestFitFormatMatcherScore(options, format);
+        if (score > bestScore) {
+            bestScore = score;
+            bestFormat = format;
+        }
+    }
+    var skeletonFormat = __assign({}, bestFormat);
+    var patternFormat = skeleton_1.parseDateTimeSkeleton(bestFormat.rawPattern);
+    // Kinda following https://github.com/unicode-org/icu/blob/dd50e38f459d84e9bf1b0c618be8483d318458ad/icu4j/main/classes/core/src/com/ibm/icu/text/DateTimePatternGenerator.java
+    // Method adjustFieldTypes
+    for (var prop in patternFormat) {
+        var skeletonValue = skeletonFormat[prop];
+        var patternValue = patternFormat[prop];
+        var requestedValue = options[prop];
+        // Don't mess with minute/second or we can get in the situation of
+        // 7:0:0 which is weird
+        if (prop === 'minute' || prop === 'second') {
+            continue;
+        }
+        // Nothing to do here
+        if (!requestedValue) {
+            continue;
+        }
+        // https://unicode.org/reports/tr35/tr35-dates.html#Matching_Skeletons
+        // Looks like we should not convert numeric to alphabetic but the other way
+        // around is ok
+        if (isNumericType(patternValue) &&
+            !isNumericType(requestedValue)) {
+            continue;
+        }
+        if (skeletonValue === requestedValue) {
+            continue;
+        }
+        patternFormat[prop] = requestedValue;
+    }
+    return patternFormat;
+}
+exports.BestFitFormatMatcher = BestFitFormatMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js":
+/*!******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DateTimeStyleFormat = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function DateTimeStyleFormat(dateStyle, timeStyle, dataLocaleData) {
+    var dateFormat, timeFormat;
+    if (timeStyle !== undefined) {
+        utils_1.invariant(timeStyle === 'full' ||
+            timeStyle === 'long' ||
+            timeStyle === 'medium' ||
+            timeStyle === 'short', 'invalid timeStyle');
+        timeFormat = dataLocaleData.timeFormat[timeStyle];
+    }
+    if (dateStyle !== undefined) {
+        utils_1.invariant(dateStyle === 'full' ||
+            dateStyle === 'long' ||
+            dateStyle === 'medium' ||
+            dateStyle === 'short', 'invalid dateStyle');
+        dateFormat = dataLocaleData.dateFormat[dateStyle];
+    }
+    if (dateStyle !== undefined && timeStyle !== undefined) {
+        var format = {};
+        for (var field in dateFormat) {
+            if (field !== 'pattern') {
+                // @ts-ignore
+                format[field] = dateFormat[field];
+            }
+        }
+        for (var field in timeFormat) {
+            if (field !== 'pattern' && field !== 'pattern12') {
+                // @ts-ignore
+                format[field] = timeFormat[field];
+            }
+        }
+        var connector = dataLocaleData.dateTimeFormat[dateStyle];
+        var pattern = connector
+            .replace('{0}', timeFormat.pattern)
+            .replace('{1}', dateFormat.pattern);
+        format.pattern = pattern;
+        if ('pattern12' in timeFormat) {
+            var pattern12 = connector
+                .replace('{0}', timeFormat.pattern12)
+                .replace('{1}', dateFormat.pattern);
+            format.pattern12 = pattern12;
+        }
+        return format;
+    }
+    if (timeStyle !== undefined) {
+        return timeFormat;
+    }
+    utils_1.invariant(dateStyle !== undefined, 'dateStyle should not be undefined');
+    return dateFormat;
+}
+exports.DateTimeStyleFormat = DateTimeStyleFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js":
+/*!*************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTime.js ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatDateTime = void 0;
+var PartitionDateTimePattern_1 = __webpack_require__(/*! ./PartitionDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatdatetime
+ * @param dtf DateTimeFormat
+ * @param x
+ */
+function FormatDateTime(dtf, x, implDetails) {
+    var parts = PartitionDateTimePattern_1.PartitionDateTimePattern(dtf, x, implDetails);
+    var result = '';
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result += part.value;
+    }
+    return result;
+}
+exports.FormatDateTime = FormatDateTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js":
+/*!********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/FormatDateTimeToParts.js ***!
+  \********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatDateTimeToParts = void 0;
+var PartitionDateTimePattern_1 = __webpack_require__(/*! ./PartitionDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatdatetimetoparts
+ *
+ * @param dtf
+ * @param x
+ * @param implDetails
+ */
+function FormatDateTimeToParts(dtf, x, implDetails) {
+    var parts = PartitionDateTimePattern_1.PartitionDateTimePattern(dtf, x, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result.push({
+            type: part.type,
+            value: part.value,
+        });
+    }
+    return result;
+}
+exports.FormatDateTimeToParts = FormatDateTimeToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/InitializeDateTimeFormat.js ***!
+  \***********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeDateTimeFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var ToDateTimeOptions_1 = __webpack_require__(/*! ./ToDateTimeOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var IsValidTimeZoneName_1 = __webpack_require__(/*! ../IsValidTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js");
+var CanonicalizeTimeZoneName_1 = __webpack_require__(/*! ../CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeTimeZoneName.js");
+var BasicFormatMatcher_1 = __webpack_require__(/*! ./BasicFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BasicFormatMatcher.js");
+var BestFitFormatMatcher_1 = __webpack_require__(/*! ./BestFitFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/BestFitFormatMatcher.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var utils_2 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var DateTimeStyleFormat_1 = __webpack_require__(/*! ./DateTimeStyleFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/DateTimeStyleFormat.js");
+function isTimeRelated(opt) {
+    for (var _i = 0, _a = ['hour', 'minute', 'second']; _i < _a.length; _i++) {
+        var prop = _a[_i];
+        var value = opt[prop];
+        if (value !== undefined) {
+            return true;
+        }
+    }
+    return false;
+}
+var TYPE_REGEX = /^[a-z0-9]{3,8}$/i;
+/**
+ * https://tc39.es/ecma402/#sec-initializedatetimeformat
+ * @param dtf DateTimeFormat
+ * @param locales locales
+ * @param opts options
+ */
+function InitializeDateTimeFormat(dtf, locales, opts, _a) {
+    var getInternalSlots = _a.getInternalSlots, availableLocales = _a.availableLocales, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getDefaultTimeZone = _a.getDefaultTimeZone, relevantExtensionKeys = _a.relevantExtensionKeys, tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    // @ts-ignore
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var options = ToDateTimeOptions_1.ToDateTimeOptions(opts, 'any', 'date');
+    var opt = Object.create(null);
+    var matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    opt.localeMatcher = matcher;
+    var calendar = GetOption_1.GetOption(options, 'calendar', 'string', undefined, undefined);
+    if (calendar !== undefined && !TYPE_REGEX.test(calendar)) {
+        throw new RangeError('Malformed calendar');
+    }
+    var internalSlots = getInternalSlots(dtf);
+    opt.ca = calendar;
+    var numberingSystem = GetOption_1.GetOption(options, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined && !TYPE_REGEX.test(numberingSystem)) {
+        throw new RangeError('Malformed numbering system');
+    }
+    opt.nu = numberingSystem;
+    var hour12 = GetOption_1.GetOption(options, 'hour12', 'boolean', undefined, undefined);
+    var hourCycle = GetOption_1.GetOption(options, 'hourCycle', 'string', ['h11', 'h12', 'h23', 'h24'], undefined);
+    if (hour12 !== undefined) {
+        // @ts-ignore
+        hourCycle = null;
+    }
+    opt.hc = hourCycle;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.locale = r.locale;
+    calendar = r.ca;
+    internalSlots.calendar = calendar;
+    internalSlots.hourCycle = r.hc;
+    internalSlots.numberingSystem = r.nu;
+    var dataLocale = r.dataLocale;
+    internalSlots.dataLocale = dataLocale;
+    var timeZone = options.timeZone;
+    if (timeZone !== undefined) {
+        timeZone = String(timeZone);
+        if (!IsValidTimeZoneName_1.IsValidTimeZoneName(timeZone, { tzData: tzData, uppercaseLinks: uppercaseLinks })) {
+            throw new RangeError('Invalid timeZoneName');
+        }
+        timeZone = CanonicalizeTimeZoneName_1.CanonicalizeTimeZoneName(timeZone, { tzData: tzData, uppercaseLinks: uppercaseLinks });
+    }
+    else {
+        timeZone = getDefaultTimeZone();
+    }
+    internalSlots.timeZone = timeZone;
+    opt = Object.create(null);
+    opt.weekday = GetOption_1.GetOption(options, 'weekday', 'string', ['narrow', 'short', 'long'], undefined);
+    opt.era = GetOption_1.GetOption(options, 'era', 'string', ['narrow', 'short', 'long'], undefined);
+    opt.year = GetOption_1.GetOption(options, 'year', 'string', ['2-digit', 'numeric'], undefined);
+    opt.month = GetOption_1.GetOption(options, 'month', 'string', ['2-digit', 'numeric', 'narrow', 'short', 'long'], undefined);
+    opt.day = GetOption_1.GetOption(options, 'day', 'string', ['2-digit', 'numeric'], undefined);
+    opt.hour = GetOption_1.GetOption(options, 'hour', 'string', ['2-digit', 'numeric'], undefined);
+    opt.minute = GetOption_1.GetOption(options, 'minute', 'string', ['2-digit', 'numeric'], undefined);
+    opt.second = GetOption_1.GetOption(options, 'second', 'string', ['2-digit', 'numeric'], undefined);
+    opt.timeZoneName = GetOption_1.GetOption(options, 'timeZoneName', 'string', ['short', 'long'], undefined);
+    var dataLocaleData = localeData[dataLocale];
+    var formats = dataLocaleData.formats[calendar];
+    matcher = GetOption_1.GetOption(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
+    var dateStyle = GetOption_1.GetOption(options, 'dateStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
+    internalSlots.dateStyle = dateStyle;
+    var timeStyle = GetOption_1.GetOption(options, 'timeStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
+    internalSlots.timeStyle = timeStyle;
+    var bestFormat;
+    if (dateStyle === undefined && timeStyle === undefined) {
+        if (matcher === 'basic') {
+            bestFormat = BasicFormatMatcher_1.BasicFormatMatcher(opt, formats);
+        }
+        else {
+            if (isTimeRelated(opt)) {
+                opt.hour12 =
+                    internalSlots.hourCycle === 'h11' ||
+                        internalSlots.hourCycle === 'h12';
+            }
+            bestFormat = BestFitFormatMatcher_1.BestFitFormatMatcher(opt, formats);
+        }
+    }
+    else {
+        for (var _i = 0, DATE_TIME_PROPS_1 = utils_2.DATE_TIME_PROPS; _i < DATE_TIME_PROPS_1.length; _i++) {
+            var prop = DATE_TIME_PROPS_1[_i];
+            var p = opt[prop];
+            if (p !== undefined) {
+                throw new TypeError("Intl.DateTimeFormat can't set option " + prop + " when " + (dateStyle ? 'dateStyle' : 'timeStyle') + " is used");
+            }
+        }
+        bestFormat = DateTimeStyleFormat_1.DateTimeStyleFormat(dateStyle, timeStyle, dataLocaleData);
+    }
+    for (var prop in opt) {
+        var p = bestFormat[prop];
+        if (p !== undefined) {
+            internalSlots[prop] = p;
+        }
+    }
+    var pattern;
+    if (internalSlots.hour !== undefined) {
+        var hcDefault = dataLocaleData.hourCycle;
+        var hc = internalSlots.hourCycle;
+        if (hc == null) {
+            hc = hcDefault;
+        }
+        if (hour12 !== undefined) {
+            if (hour12) {
+                if (hcDefault === 'h11' || hcDefault === 'h23') {
+                    hc = 'h11';
+                }
+                else {
+                    hc = 'h12';
+                }
+            }
+            else {
+                utils_1.invariant(!hour12, 'hour12 must not be set');
+                if (hcDefault === 'h11' || hcDefault === 'h23') {
+                    hc = 'h23';
+                }
+                else {
+                    hc = 'h24';
+                }
+            }
+        }
+        internalSlots.hourCycle = hc;
+        if (hc === 'h11' || hc === 'h12') {
+            pattern = bestFormat.pattern12;
+        }
+        else {
+            pattern = bestFormat.pattern;
+        }
+    }
+    else {
+        // @ts-ignore
+        internalSlots.hourCycle = undefined;
+        pattern = bestFormat.pattern;
+    }
+    internalSlots.pattern = pattern;
+    return dtf;
+}
+exports.InitializeDateTimeFormat = InitializeDateTimeFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/PartitionDateTimePattern.js ***!
+  \***********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionDateTimePattern = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var PartitionPattern_1 = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js");
+var ToLocalTime_1 = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js");
+function pad(n) {
+    if (n < 10) {
+        return "0" + n;
+    }
+    return String(n);
+}
+function offsetToGmtString(gmtFormat, hourFormat, offsetInMs, style) {
+    var offsetInMinutes = Math.floor(offsetInMs / 60000);
+    var mins = Math.abs(offsetInMinutes) % 60;
+    var hours = Math.floor(Math.abs(offsetInMinutes) / 60);
+    var _a = hourFormat.split(';'), positivePattern = _a[0], negativePattern = _a[1];
+    var offsetStr = '';
+    var pattern = offsetInMs < 0 ? negativePattern : positivePattern;
+    if (style === 'long') {
+        offsetStr = pattern
+            .replace('HH', pad(hours))
+            .replace('H', String(hours))
+            .replace('mm', pad(mins))
+            .replace('m', String(mins));
+    }
+    else if (mins || hours) {
+        if (!mins) {
+            pattern = pattern.replace(/:?m+/, '');
+        }
+        offsetStr = pattern
+            .replace(/H+/, String(hours))
+            .replace(/m+/, String(mins));
+    }
+    return gmtFormat.replace('{0}', offsetStr);
+}
+/**
+ * https://tc39.es/ecma402/#sec-partitiondatetimepattern
+ * @param dtf
+ * @param x
+ */
+function PartitionDateTimePattern(dtf, x, _a) {
+    var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, getDefaultTimeZone = _a.getDefaultTimeZone, tzData = _a.tzData;
+    x = _262_1.TimeClip(x);
+    if (isNaN(x)) {
+        throw new RangeError('invalid time');
+    }
+    /** IMPL START */
+    var internalSlots = getInternalSlots(dtf);
+    var dataLocale = internalSlots.dataLocale;
+    var dataLocaleData = localeData[dataLocale];
+    /** IMPL END */
+    var locale = internalSlots.locale;
+    var nfOptions = Object.create(null);
+    nfOptions.useGrouping = false;
+    var nf = new Intl.NumberFormat(locale, nfOptions);
+    var nf2Options = Object.create(null);
+    nf2Options.minimumIntegerDigits = 2;
+    nf2Options.useGrouping = false;
+    var nf2 = new Intl.NumberFormat(locale, nf2Options);
+    var tm = ToLocalTime_1.ToLocalTime(x, 
+    // @ts-ignore
+    internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
+    var result = [];
+    var patternParts = PartitionPattern_1.PartitionPattern(internalSlots.pattern);
+    for (var _i = 0, patternParts_1 = patternParts; _i < patternParts_1.length; _i++) {
+        var patternPart = patternParts_1[_i];
+        var p = patternPart.type;
+        if (p === 'literal') {
+            result.push({
+                type: 'literal',
+                value: patternPart.value,
+            });
+        }
+        else if (utils_1.DATE_TIME_PROPS.indexOf(p) > -1) {
+            var fv = '';
+            var f = internalSlots[p];
+            // @ts-ignore
+            var v = tm[p];
+            if (p === 'year' && v <= 0) {
+                v = 1 - v;
+            }
+            if (p === 'month') {
+                v++;
+            }
+            var hourCycle = internalSlots.hourCycle;
+            if (p === 'hour' && (hourCycle === 'h11' || hourCycle === 'h12')) {
+                v = v % 12;
+                if (v === 0 && hourCycle === 'h12') {
+                    v = 12;
+                }
+            }
+            if (p === 'hour' && hourCycle === 'h24') {
+                if (v === 0) {
+                    v = 24;
+                }
+            }
+            if (f === 'numeric') {
+                fv = nf.format(v);
+            }
+            else if (f === '2-digit') {
+                fv = nf2.format(v);
+                if (fv.length > 2) {
+                    fv = fv.slice(fv.length - 2, fv.length);
+                }
+            }
+            else if (f === 'narrow' || f === 'short' || f === 'long') {
+                if (p === 'era') {
+                    fv = dataLocaleData[p][f][v];
+                }
+                else if (p === 'timeZoneName') {
+                    var timeZoneName = dataLocaleData.timeZoneName, gmtFormat = dataLocaleData.gmtFormat, hourFormat = dataLocaleData.hourFormat;
+                    var timeZone = internalSlots.timeZone || getDefaultTimeZone();
+                    var timeZoneData = timeZoneName[timeZone];
+                    if (timeZoneData && timeZoneData[f]) {
+                        fv = timeZoneData[f][+tm.inDST];
+                    }
+                    else {
+                        // Fallback to gmtFormat
+                        fv = offsetToGmtString(gmtFormat, hourFormat, tm.timeZoneOffset, f);
+                    }
+                }
+                else if (p === 'month') {
+                    fv = dataLocaleData.month[f][v - 1];
+                }
+                else {
+                    fv = dataLocaleData[p][f][v];
+                }
+            }
+            result.push({
+                type: p,
+                value: fv,
+            });
+        }
+        else if (p === 'ampm') {
+            var v = tm.hour;
+            var fv = void 0;
+            if (v >= 11) {
+                fv = dataLocaleData.pm;
+            }
+            else {
+                fv = dataLocaleData.am;
+            }
+            result.push({
+                type: 'dayPeriod',
+                value: fv,
+            });
+        }
+        else if (p === 'relatedYear') {
+            var v = tm.relatedYear;
+            // @ts-ignore
+            var fv = nf.format(v);
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'relatedYear',
+                value: fv,
+            });
+        }
+        else if (p === 'yearName') {
+            var v = tm.yearName;
+            // @ts-ignore
+            var fv = nf.format(v);
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'yearName',
+                value: fv,
+            });
+        }
+        else {
+            result.push({
+                // @ts-ignore TODO: Fix TS type
+                type: 'unknown',
+                value: String(x),
+            });
+        }
+    }
+    return result;
+}
+exports.PartitionDateTimePattern = PartitionDateTimePattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToDateTimeOptions.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToDateTimeOptions = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-todatetimeoptions
+ * @param options
+ * @param required
+ * @param defaults
+ */
+function ToDateTimeOptions(options, required, defaults) {
+    if (options === undefined) {
+        options = null;
+    }
+    else {
+        options = _262_1.ToObject(options);
+    }
+    options = Object.create(options);
+    var needDefaults = true;
+    if (required === 'date' || required === 'any') {
+        for (var _i = 0, _a = ['weekday', 'year', 'month', 'day']; _i < _a.length; _i++) {
+            var prop = _a[_i];
+            var value = options[prop];
+            if (value !== undefined) {
+                needDefaults = false;
+            }
+        }
+    }
+    if (required === 'time' || required === 'any') {
+        for (var _b = 0, _c = ['hour', 'minute', 'second']; _b < _c.length; _b++) {
+            var prop = _c[_b];
+            var value = options[prop];
+            if (value !== undefined) {
+                needDefaults = false;
+            }
+        }
+    }
+    if (options.dateStyle !== undefined || options.timeStyle !== undefined) {
+        needDefaults = false;
+    }
+    if (required === 'date' && options.timeStyle) {
+        throw new TypeError('Intl.DateTimeFormat date was required but timeStyle was included');
+    }
+    if (required === 'time' && options.dateStyle) {
+        throw new TypeError('Intl.DateTimeFormat time was required but dateStyle was included');
+    }
+    if (needDefaults && (defaults === 'date' || defaults === 'all')) {
+        for (var _d = 0, _e = ['year', 'month', 'day']; _d < _e.length; _d++) {
+            var prop = _e[_d];
+            options[prop] = 'numeric';
+        }
+    }
+    if (needDefaults && (defaults === 'time' || defaults === 'all')) {
+        for (var _f = 0, _g = ['hour', 'minute', 'second']; _f < _g.length; _f++) {
+            var prop = _g[_f];
+            options[prop] = 'numeric';
+        }
+    }
+    return options;
+}
+exports.ToDateTimeOptions = ToDateTimeOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/ToLocalTime.js ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToLocalTime = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+function getApplicableZoneData(t, timeZone, tzData) {
+    var _a;
+    var zoneData = tzData[timeZone];
+    // We don't have data for this so just say it's UTC
+    if (!zoneData) {
+        return [0, false];
+    }
+    var i = 0;
+    var offset = 0;
+    var dst = false;
+    for (; i <= zoneData.length; i++) {
+        if (i === zoneData.length || zoneData[i][0] * 1e3 >= t) {
+            _a = zoneData[i - 1], offset = _a[2], dst = _a[3];
+            break;
+        }
+    }
+    return [offset * 1e3, dst];
+}
+/**
+ * https://tc39.es/ecma402/#sec-tolocaltime
+ * @param t
+ * @param calendar
+ * @param timeZone
+ */
+function ToLocalTime(t, calendar, timeZone, _a) {
+    var tzData = _a.tzData;
+    utils_1.invariant(_262_1.Type(t) === 'Number', 'invalid time');
+    utils_1.invariant(calendar === 'gregory', 'We only support Gregory calendar right now');
+    var _b = getApplicableZoneData(t, timeZone, tzData), timeZoneOffset = _b[0], inDST = _b[1];
+    var tz = t + timeZoneOffset;
+    var year = _262_1.YearFromTime(tz);
+    return {
+        weekday: _262_1.WeekDay(tz),
+        era: year < 0 ? 'BC' : 'AD',
+        year: year,
+        relatedYear: undefined,
+        yearName: undefined,
+        month: _262_1.MonthFromTime(tz),
+        day: _262_1.DateFromTime(tz),
+        hour: _262_1.HourFromTime(tz),
+        minute: _262_1.MinFromTime(tz),
+        second: _262_1.SecFromTime(tz),
+        inDST: inDST,
+        // IMPORTANT: Not in spec
+        timeZoneOffset: timeZoneOffset,
+    };
+}
+exports.ToLocalTime = ToLocalTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js":
+/*!*******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/skeleton.js ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseDateTimeSkeleton = void 0;
+/**
+ * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * Credit: https://github.com/caridy/intl-datetimeformat-pattern/blob/master/index.js
+ * with some tweaks
+ */
+var DATE_TIME_REGEX = /(?:[Eec]{1,6}|G{1,5}|[Qq]{1,5}|(?:[yYur]+|U{1,5})|[ML]{1,5}|d{1,2}|D{1,3}|F{1}|[abB]{1,5}|[hkHK]{1,2}|w{1,2}|W{1}|m{1,2}|s{1,2}|[zZOvVxX]{1,4})(?=([^']*'[^']*')*[^']*$)/g;
+// trim patterns after transformations
+var expPatternTrimmer = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+function matchSkeletonPattern(match, result) {
+    if (result === void 0) { result = {
+        pattern: '',
+        pattern12: '',
+        skeleton: '',
+        rawPattern: '',
+    }; }
+    var len = match.length;
+    switch (match[0]) {
+        // Era
+        case 'G':
+            result.era = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
+            return '{era}';
+        // Year
+        case 'y':
+        case 'Y':
+        case 'u':
+        case 'U':
+        case 'r':
+            result.year = len === 2 ? '2-digit' : 'numeric';
+            return '{year}';
+        // Quarter
+        case 'q':
+        case 'Q':
+            throw new RangeError('`w/Q` (quarter) patterns are not supported');
+        // Month
+        case 'M':
+        case 'L':
+            result.month = ['numeric', '2-digit', 'short', 'long', 'narrow'][len - 1];
+            return '{month}';
+        // Week
+        case 'w':
+        case 'W':
+            throw new RangeError('`w/W` (week of year) patterns are not supported');
+        case 'd':
+            result.day = ['numeric', '2-digit'][len - 1];
+            return '{day}';
+        case 'D':
+        case 'F':
+        case 'g':
+            result.day = 'numeric';
+            return '{day}';
+        // Weekday
+        case 'E':
+            result.weekday = len === 4 ? 'long' : len === 5 ? 'narrow' : 'short';
+            return '{weekday}';
+        case 'e':
+            result.weekday = [
+                'numeric',
+                '2-digit',
+                'short',
+                'long',
+                'narrow',
+                'short',
+            ][len - 1];
+            return '{weekday}';
+        case 'c':
+            result.weekday = [
+                'numeric',
+                undefined,
+                'short',
+                'long',
+                'narrow',
+                'short',
+            ][len - 1];
+            return '{weekday}';
+        // Period
+        case 'a': // AM, PM
+        case 'b': // am, pm, noon, midnight
+        case 'B': // flexible day periods
+            result.hour12 = true;
+            return '{ampm}';
+        // Hour
+        case 'h':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'H':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'K':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'k':
+            result.hour = ['numeric', '2-digit'][len - 1];
+            return '{hour}';
+        case 'j':
+        case 'J':
+        case 'C':
+            throw new RangeError('`j/J/C` (hour) patterns are not supported, use `h/H/K/k` instead');
+        // Minute
+        case 'm':
+            result.minute = ['numeric', '2-digit'][len - 1];
+            return '{minute}';
+        // Second
+        case 's':
+            result.second = ['numeric', '2-digit'][len - 1];
+            return '{second}';
+        case 'S':
+        case 'A':
+            result.second = 'numeric';
+            return '{second}';
+        // Zone
+        case 'z': // 1..3, 4: specific non-location format
+        case 'Z': // 1..3, 4, 5: The ISO8601 varios formats
+        case 'O': // 1, 4: miliseconds in day short, long
+        case 'v': // 1, 4: generic non-location format
+        case 'V': // 1, 2, 3, 4: time zone ID or city
+        case 'X': // 1, 2, 3, 4: The ISO8601 varios formats
+        case 'x': // 1, 2, 3, 4: The ISO8601 varios formats
+            result.timeZoneName = len < 4 ? 'short' : 'long';
+            return '{timeZoneName}';
+    }
+    return '';
+}
+/**
+ * Parse Date time skeleton into Intl.DateTimeFormatOptions
+ * Ref: https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
+ * @public
+ * @param skeleton skeleton string
+ */
+function parseDateTimeSkeleton(skeleton, pattern) {
+    if (pattern === void 0) { pattern = skeleton; }
+    var result = {
+        pattern: '',
+        pattern12: '',
+        skeleton: skeleton,
+        rawPattern: pattern,
+    };
+    var literals = [];
+    // Use skeleton to populate result, but use mapped pattern to populate pattern
+    result.pattern12 = pattern
+        // Double apostrophe
+        .replace(/'{2}/g, '{apostrophe}')
+        // Apostrophe-escaped
+        .replace(/'(.*?)'/g, function (_, literal) {
+        literals.push(literal);
+        return "$$" + (literals.length - 1) + "$$";
+    })
+        .replace(DATE_TIME_REGEX, matchSkeletonPattern);
+    skeleton.replace(DATE_TIME_REGEX, function (m) { return matchSkeletonPattern(m, result); });
+    //Restore literals
+    if (literals.length) {
+        result.pattern12 = result.pattern12
+            .replace(/\$\$(\d+)\$\$/g, function (_, i) {
+            return literals[+i];
+        })
+            .replace(/\{apostrophe\}/g, "'");
+    }
+    // Handle apostrophe-escaped things
+    result.pattern = result.pattern12
+        .replace(/([\s\uFEFF\xA0])\{ampm\}([\s\uFEFF\xA0])/, '$1')
+        .replace('{ampm}', '')
+        .replace(expPatternTrimmer, '');
+    return result;
+}
+exports.parseDateTimeSkeleton = parseDateTimeSkeleton;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js":
+/*!****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DateTimeFormat/utils.js ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shortMorePenalty = exports.shortLessPenalty = exports.longMorePenalty = exports.longLessPenalty = exports.differentNumericTypePenalty = exports.additionPenalty = exports.removalPenalty = exports.DATE_TIME_PROPS = void 0;
+exports.DATE_TIME_PROPS = [
+    'weekday',
+    'era',
+    'year',
+    'month',
+    'day',
+    'hour',
+    'minute',
+    'second',
+    'timeZoneName',
+];
+exports.removalPenalty = 120;
+exports.additionPenalty = 20;
+exports.differentNumericTypePenalty = 15;
+exports.longLessPenalty = 8;
+exports.longMorePenalty = 6;
+exports.shortLessPenalty = 6;
+exports.shortMorePenalty = 3;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DefaultNumberOption = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-defaultnumberoption
+ * @param val
+ * @param min
+ * @param max
+ * @param fallback
+ */
+function DefaultNumberOption(val, min, max, fallback) {
+    if (val !== undefined) {
+        val = Number(val);
+        if (isNaN(val) || val < min || val > max) {
+            throw new RangeError(val + " is outside of range [" + min + ", " + max + "]");
+        }
+        return Math.floor(val);
+    }
+    return fallback;
+}
+exports.DefaultNumberOption = DefaultNumberOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js":
+/*!*************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DisplayNames/CanonicalCodeForDisplayNames.js ***!
+  \*************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CanonicalCodeForDisplayNames = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var IsWellFormedCurrencyCode_1 = __webpack_require__(/*! ../IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js");
+var UNICODE_REGION_SUBTAG_REGEX = /^([a-z]{2}|[0-9]{3})$/i;
+var ALPHA_4 = /^[a-z]{4}$/i;
+function isUnicodeRegionSubtag(region) {
+    return UNICODE_REGION_SUBTAG_REGEX.test(region);
+}
+function isUnicodeScriptSubtag(script) {
+    return ALPHA_4.test(script);
+}
+function CanonicalCodeForDisplayNames(type, code) {
+    if (type === 'language') {
+        return CanonicalizeLocaleList_1.CanonicalizeLocaleList([code])[0];
+    }
+    if (type === 'region') {
+        if (!isUnicodeRegionSubtag(code)) {
+            throw RangeError('invalid region');
+        }
+        return code.toUpperCase();
+    }
+    if (type === 'script') {
+        if (!isUnicodeScriptSubtag(code)) {
+            throw RangeError('invalid script');
+        }
+        return "" + code[0].toUpperCase() + code.slice(1);
+    }
+    utils_1.invariant(type === 'currency', 'invalid type');
+    if (!IsWellFormedCurrencyCode_1.IsWellFormedCurrencyCode(code)) {
+        throw RangeError('invalid currency');
+    }
+    return code.toUpperCase();
+}
+exports.CanonicalCodeForDisplayNames = CanonicalCodeForDisplayNames;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * https://tc39.es/ecma402/#sec-getnumberoption
+ * @param options
+ * @param property
+ * @param min
+ * @param max
+ * @param fallback
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetNumberOption = void 0;
+var DefaultNumberOption_1 = __webpack_require__(/*! ./DefaultNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js");
+function GetNumberOption(options, property, minimum, maximum, fallback) {
+    var val = options[property];
+    return DefaultNumberOption_1.DefaultNumberOption(val, minimum, maximum, fallback);
+}
+exports.GetNumberOption = GetNumberOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetOption = void 0;
+var _262_1 = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-getoption
+ * @param opts
+ * @param prop
+ * @param type
+ * @param values
+ * @param fallback
+ */
+function GetOption(opts, prop, type, values, fallback) {
+    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    var value = opts[prop];
+    if (value !== undefined) {
+        if (type !== 'boolean' && type !== 'string') {
+            throw new TypeError('invalid type');
+        }
+        if (type === 'boolean') {
+            value = Boolean(value);
+        }
+        if (type === 'string') {
+            value = _262_1.ToString(value);
+        }
+        if (values !== undefined && !values.filter(function (val) { return val == value; }).length) {
+            throw new RangeError(value + " is not within " + values.join(', '));
+        }
+        return value;
+    }
+    return fallback;
+}
+exports.GetOption = GetOption;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsSanctionedSimpleUnitIdentifier = exports.SIMPLE_UNITS = exports.removeUnitNamespace = exports.SANCTIONED_UNITS = void 0;
+/**
+ * https://tc39.es/ecma402/#table-sanctioned-simple-unit-identifiers
+ */
 exports.SANCTIONED_UNITS = [
     'angle-degree',
     'area-acre',
@@ -3395,10 +7308,2276 @@ exports.SANCTIONED_UNITS = [
 // In CLDR, the unit name always follows the form `namespace-unit` pattern.
 // For example: `digital-bit` instead of `bit`. This function removes the namespace prefix.
 function removeUnitNamespace(unit) {
-    return unit.replace(/^(.*?)-/, '');
+    return unit.slice(unit.indexOf('-') + 1);
 }
 exports.removeUnitNamespace = removeUnitNamespace;
-//# sourceMappingURL=units.js.map
+/**
+ * https://tc39.es/ecma402/#table-sanctioned-simple-unit-identifiers
+ */
+exports.SIMPLE_UNITS = exports.SANCTIONED_UNITS.map(removeUnitNamespace);
+/**
+ * https://tc39.es/ecma402/#sec-issanctionedsimpleunitidentifier
+ */
+function IsSanctionedSimpleUnitIdentifier(unitIdentifier) {
+    return exports.SIMPLE_UNITS.indexOf(unitIdentifier) > -1;
+}
+exports.IsSanctionedSimpleUnitIdentifier = IsSanctionedSimpleUnitIdentifier;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js":
+/*!***************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsValidTimeZoneName.js ***!
+  \***************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsValidTimeZoneName = void 0;
+/**
+ * https://tc39.es/ecma402/#sec-isvalidtimezonename
+ * @param tz
+ * @param implDetails implementation details
+ */
+function IsValidTimeZoneName(tz, _a) {
+    var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
+    var uppercasedTz = tz.toUpperCase();
+    var zoneNames = new Set(Object.keys(tzData).map(function (z) { return z.toUpperCase(); }));
+    return zoneNames.has(uppercasedTz) || uppercasedTz in uppercaseLinks;
+}
+exports.IsValidTimeZoneName = IsValidTimeZoneName;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js":
+/*!********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js ***!
+  \********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsWellFormedCurrencyCode = void 0;
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toUpperCase(str) {
+    return str.replace(/([a-z])/g, function (_, c) { return c.toUpperCase(); });
+}
+var NOT_A_Z_REGEX = /[^A-Z]/;
+/**
+ * https://tc39.es/ecma402/#sec-iswellformedcurrencycode
+ */
+function IsWellFormedCurrencyCode(currency) {
+    currency = toUpperCase(currency);
+    if (currency.length !== 3) {
+        return false;
+    }
+    if (NOT_A_Z_REGEX.test(currency)) {
+        return false;
+    }
+    return true;
+}
+exports.IsWellFormedCurrencyCode = IsWellFormedCurrencyCode;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js":
+/*!**********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js ***!
+  \**********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsWellFormedUnitIdentifier = void 0;
+var IsSanctionedSimpleUnitIdentifier_1 = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsSanctionedSimpleUnitIdentifier.js");
+/**
+ * This follows https://tc39.es/ecma402/#sec-case-sensitivity-and-case-mapping
+ * @param str string to convert
+ */
+function toLowerCase(str) {
+    return str.replace(/([A-Z])/g, function (_, c) { return c.toLowerCase(); });
+}
+/**
+ * https://tc39.es/ecma402/#sec-iswellformedunitidentifier
+ * @param unit
+ */
+function IsWellFormedUnitIdentifier(unit) {
+    unit = toLowerCase(unit);
+    if (IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(unit)) {
+        return true;
+    }
+    var units = unit.split('-per-');
+    if (units.length !== 2) {
+        return false;
+    }
+    var numerator = units[0], denominator = units[1];
+    if (!IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(numerator) ||
+        !IsSanctionedSimpleUnitIdentifier_1.IsSanctionedSimpleUnitIdentifier(denominator)) {
+        return false;
+    }
+    return true;
+}
+exports.IsWellFormedUnitIdentifier = IsWellFormedUnitIdentifier;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LookupMatcher = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+/**
+ * https://tc39.es/ecma402/#sec-lookupmatcher
+ * @param availableLocales
+ * @param requestedLocales
+ * @param getDefaultLocale
+ */
+function LookupMatcher(availableLocales, requestedLocales, getDefaultLocale) {
+    var result = { locale: '' };
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            result.locale = availableLocale;
+            if (locale !== noExtensionLocale) {
+                result.extension = locale.slice(noExtensionLocale.length + 1, locale.length);
+            }
+            return result;
+        }
+    }
+    result.locale = getDefaultLocale();
+    return result;
+}
+exports.LookupMatcher = LookupMatcher;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js":
+/*!******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js ***!
+  \******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LookupSupportedLocales = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var BestAvailableLocale_1 = __webpack_require__(/*! ./BestAvailableLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestAvailableLocale.js");
+/**
+ * https://tc39.es/ecma402/#sec-lookupsupportedlocales
+ * @param availableLocales
+ * @param requestedLocales
+ */
+function LookupSupportedLocales(availableLocales, requestedLocales) {
+    var subset = [];
+    for (var _i = 0, requestedLocales_1 = requestedLocales; _i < requestedLocales_1.length; _i++) {
+        var locale = requestedLocales_1[_i];
+        var noExtensionLocale = locale.replace(utils_1.UNICODE_EXTENSION_SEQUENCE_REGEX, '');
+        var availableLocale = BestAvailableLocale_1.BestAvailableLocale(availableLocales, noExtensionLocale);
+        if (availableLocale) {
+            subset.push(availableLocale);
+        }
+    }
+    return subset;
+}
+exports.LookupSupportedLocales = LookupSupportedLocales;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComputeExponent = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var ComputeExponentForMagnitude_1 = __webpack_require__(/*! ./ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js");
+var FormatNumericToString_1 = __webpack_require__(/*! ./FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+/**
+ * The abstract operation ComputeExponent computes an exponent (power of ten) by which to scale x
+ * according to the number formatting settings. It handles cases such as 999 rounding up to 1000,
+ * requiring a different exponent.
+ *
+ * NOT IN SPEC: it returns [exponent, magnitude].
+ */
+function ComputeExponent(numberFormat, x, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    if (x === 0) {
+        return [0, 0];
+    }
+    if (x < 0) {
+        x = -x;
+    }
+    var magnitude = utils_1.getMagnitude(x);
+    var exponent = ComputeExponentForMagnitude_1.ComputeExponentForMagnitude(numberFormat, magnitude, {
+        getInternalSlots: getInternalSlots,
+    });
+    // Preserve more precision by doing multiplication when exponent is negative.
+    x = exponent < 0 ? x * Math.pow(10, -exponent) : x / Math.pow(10, exponent);
+    var formatNumberResult = FormatNumericToString_1.FormatNumericToString(getInternalSlots(numberFormat), x);
+    if (formatNumberResult.roundedNumber === 0) {
+        return [exponent, magnitude];
+    }
+    var newMagnitude = utils_1.getMagnitude(formatNumberResult.roundedNumber);
+    if (newMagnitude === magnitude - exponent) {
+        return [exponent, magnitude];
+    }
+    return [
+        ComputeExponentForMagnitude_1.ComputeExponentForMagnitude(numberFormat, magnitude + 1, {
+            getInternalSlots: getInternalSlots,
+        }),
+        magnitude + 1,
+    ];
+}
+exports.ComputeExponent = ComputeExponent;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponentForMagnitude.js ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComputeExponentForMagnitude = void 0;
+/**
+ * The abstract operation ComputeExponentForMagnitude computes an exponent by which to scale a
+ * number of the given magnitude (power of ten of the most significant digit) according to the
+ * locale and the desired notation (scientific, engineering, or compact).
+ */
+function ComputeExponentForMagnitude(numberFormat, magnitude, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(numberFormat);
+    var notation = internalSlots.notation, dataLocaleData = internalSlots.dataLocaleData, numberingSystem = internalSlots.numberingSystem;
+    switch (notation) {
+        case 'standard':
+            return 0;
+        case 'scientific':
+            return magnitude;
+        case 'engineering':
+            return Math.floor(magnitude / 3) * 3;
+        default: {
+            // Let exponent be an implementation- and locale-dependent (ILD) integer by which to scale a
+            // number of the given magnitude in compact notation for the current locale.
+            var compactDisplay = internalSlots.compactDisplay, style = internalSlots.style, currencyDisplay = internalSlots.currencyDisplay;
+            var thresholdMap = void 0;
+            if (style === 'currency' && currencyDisplay !== 'name') {
+                var currency = dataLocaleData.numbers.currency[numberingSystem] ||
+                    dataLocaleData.numbers.currency[dataLocaleData.numbers.nu[0]];
+                thresholdMap = currency.short;
+            }
+            else {
+                var decimal = dataLocaleData.numbers.decimal[numberingSystem] ||
+                    dataLocaleData.numbers.decimal[dataLocaleData.numbers.nu[0]];
+                thresholdMap = compactDisplay === 'long' ? decimal.long : decimal.short;
+            }
+            if (!thresholdMap) {
+                return 0;
+            }
+            var num = String(Math.pow(10, magnitude));
+            var thresholds = Object.keys(thresholdMap); // TODO: this can be pre-processed
+            if (num < thresholds[0]) {
+                return 0;
+            }
+            if (num > thresholds[thresholds.length - 1]) {
+                return thresholds[thresholds.length - 1].length - 1;
+            }
+            var i = thresholds.indexOf(num);
+            if (i === -1) {
+                return 0;
+            }
+            // See https://unicode.org/reports/tr35/tr35-numbers.html#Compact_Number_Formats
+            // Special handling if the pattern is precisely `0`.
+            var magnitudeKey = thresholds[i];
+            // TODO: do we need to handle plural here?
+            var compactPattern = thresholdMap[magnitudeKey].other;
+            if (compactPattern === '0') {
+                return 0;
+            }
+            // Example: in zh-TW, `10000000` maps to `0000萬`. So we need to return 8 - 4 = 4 here.
+            return (magnitudeKey.length -
+                thresholdMap[magnitudeKey].other.match(/0+/)[0].length);
+        }
+    }
+}
+exports.ComputeExponentForMagnitude = ComputeExponentForMagnitude;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CurrencyDigits = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/ecma402/#sec-currencydigits
+ */
+function CurrencyDigits(c, _a) {
+    var currencyDigitsData = _a.currencyDigitsData;
+    return _262_1.HasOwnProperty(currencyDigitsData, c)
+        ? currencyDigitsData[c]
+        : 2;
+}
+exports.CurrencyDigits = CurrencyDigits;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToParts.js ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatNumericToParts = void 0;
+var PartitionNumberPattern_1 = __webpack_require__(/*! ./PartitionNumberPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+function FormatNumericToParts(nf, x, implDetails) {
+    var parts = PartitionNumberPattern_1.PartitionNumberPattern(nf, x, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result.push({
+            type: part.type,
+            value: part.value,
+        });
+    }
+    return result;
+}
+exports.FormatNumericToParts = FormatNumericToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js":
+/*!******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js ***!
+  \******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatNumericToString = void 0;
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var ToRawPrecision_1 = __webpack_require__(/*! ./ToRawPrecision */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var ToRawFixed_1 = __webpack_require__(/*! ./ToRawFixed */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js");
+/**
+ * https://tc39.es/ecma402/#sec-formatnumberstring
+ */
+function FormatNumericToString(intlObject, x) {
+    var isNegative = x < 0 || _262_1.SameValue(x, -0);
+    if (isNegative) {
+        x = -x;
+    }
+    var result;
+    var rourndingType = intlObject.roundingType;
+    switch (rourndingType) {
+        case 'significantDigits':
+            result = ToRawPrecision_1.ToRawPrecision(x, intlObject.minimumSignificantDigits, intlObject.maximumSignificantDigits);
+            break;
+        case 'fractionDigits':
+            result = ToRawFixed_1.ToRawFixed(x, intlObject.minimumFractionDigits, intlObject.maximumFractionDigits);
+            break;
+        default:
+            result = ToRawPrecision_1.ToRawPrecision(x, 1, 2);
+            if (result.integerDigitsCount > 1) {
+                result = ToRawFixed_1.ToRawFixed(x, 0, 0);
+            }
+            break;
+    }
+    x = result.roundedNumber;
+    var string = result.formattedString;
+    var int = result.integerDigitsCount;
+    var minInteger = intlObject.minimumIntegerDigits;
+    if (int < minInteger) {
+        var forwardZeros = utils_1.repeat('0', minInteger - int);
+        string = forwardZeros + string;
+    }
+    if (isNegative) {
+        x = -x;
+    }
+    return { roundedNumber: x, formattedString: string };
+}
+exports.FormatNumericToString = FormatNumericToString;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/InitializeNumberFormat.js ***!
+  \*******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeNumberFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var SetNumberFormatUnitOptions_1 = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js");
+var CurrencyDigits_1 = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/CurrencyDigits.js");
+var SetNumberFormatDigitOptions_1 = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js");
+/**
+ * Chop off the unicode extension from the locale string.
+ */
+function removeUnicodeExtensionFromLocale(canonicalLocale) {
+    var extensionIndex = canonicalLocale.indexOf('-u-');
+    return extensionIndex >= 0
+        ? canonicalLocale.slice(0, extensionIndex)
+        : canonicalLocale;
+}
+/**
+ * https://tc39.es/ecma402/#sec-initializenumberformat
+ */
+function InitializeNumberFormat(nf, locales, opts, _a) {
+    var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, availableLocales = _a.availableLocales, numberingSystemNames = _a.numberingSystemNames, getDefaultLocale = _a.getDefaultLocale, currencyDigitsData = _a.currencyDigitsData;
+    // @ts-ignore
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var options = opts === undefined ? Object.create(null) : _262_1.ToObject(opts);
+    var opt = Object.create(null);
+    var matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    opt.localeMatcher = matcher;
+    var numberingSystem = GetOption_1.GetOption(options, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined &&
+        numberingSystemNames.indexOf(numberingSystem) < 0) {
+        // 8.a. If numberingSystem does not match the Unicode Locale Identifier type nonterminal,
+        // throw a RangeError exception.
+        throw RangeError("Invalid numberingSystems: " + numberingSystem);
+    }
+    opt.nu = numberingSystem;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, 
+    // [[RelevantExtensionKeys]] slot, which is a constant
+    ['nu'], localeData, getDefaultLocale);
+    var dataLocaleData = localeData[removeUnicodeExtensionFromLocale(r.locale)];
+    var internalSlots = getInternalSlots(nf);
+    internalSlots.locale = r.locale;
+    internalSlots.dataLocale = r.dataLocale;
+    internalSlots.numberingSystem = r.nu;
+    internalSlots.dataLocaleData = dataLocaleData;
+    SetNumberFormatUnitOptions_1.SetNumberFormatUnitOptions(nf, options, { getInternalSlots: getInternalSlots });
+    var style = internalSlots.style;
+    var mnfdDefault;
+    var mxfdDefault;
+    if (style === 'currency') {
+        var currency = internalSlots.currency;
+        var cDigits = CurrencyDigits_1.CurrencyDigits(currency, { currencyDigitsData: currencyDigitsData });
+        mnfdDefault = cDigits;
+        mxfdDefault = cDigits;
+    }
+    else {
+        mnfdDefault = 0;
+        mxfdDefault = style === 'percent' ? 0 : 3;
+    }
+    var notation = GetOption_1.GetOption(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
+    internalSlots.notation = notation;
+    SetNumberFormatDigitOptions_1.SetNumberFormatDigitOptions(internalSlots, options, mnfdDefault, mxfdDefault, notation);
+    var compactDisplay = GetOption_1.GetOption(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
+    if (notation === 'compact') {
+        internalSlots.compactDisplay = compactDisplay;
+    }
+    var useGrouping = GetOption_1.GetOption(options, 'useGrouping', 'boolean', undefined, true);
+    internalSlots.useGrouping = useGrouping;
+    var signDisplay = GetOption_1.GetOption(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
+    internalSlots.signDisplay = signDisplay;
+    return nf;
+}
+exports.InitializeNumberFormat = InitializeNumberFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js":
+/*!*******************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/PartitionNumberPattern.js ***!
+  \*******************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionNumberPattern = void 0;
+var FormatNumericToString_1 = __webpack_require__(/*! ./FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var ComputeExponent_1 = __webpack_require__(/*! ./ComputeExponent */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ComputeExponent.js");
+var format_to_parts_1 = __importDefault(__webpack_require__(/*! ./format_to_parts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js"));
+/**
+ * https://tc39.es/ecma402/#sec-formatnumberstring
+ */
+function PartitionNumberPattern(numberFormat, x, _a) {
+    var _b;
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(numberFormat);
+    var pl = internalSlots.pl, dataLocaleData = internalSlots.dataLocaleData, numberingSystem = internalSlots.numberingSystem;
+    var symbols = dataLocaleData.numbers.symbols[numberingSystem] ||
+        dataLocaleData.numbers.symbols[dataLocaleData.numbers.nu[0]];
+    var magnitude = 0;
+    var exponent = 0;
+    var n;
+    if (isNaN(x)) {
+        n = symbols.nan;
+    }
+    else if (!isFinite(x)) {
+        n = symbols.infinity;
+    }
+    else {
+        if (internalSlots.style === 'percent') {
+            x *= 100;
+        }
+        _b = ComputeExponent_1.ComputeExponent(numberFormat, x, {
+            getInternalSlots: getInternalSlots,
+        }), exponent = _b[0], magnitude = _b[1];
+        // Preserve more precision by doing multiplication when exponent is negative.
+        x = exponent < 0 ? x * Math.pow(10, -exponent) : x / Math.pow(10, exponent);
+        var formatNumberResult = FormatNumericToString_1.FormatNumericToString(internalSlots, x);
+        n = formatNumberResult.formattedString;
+        x = formatNumberResult.roundedNumber;
+    }
+    // Based on https://tc39.es/ecma402/#sec-getnumberformatpattern
+    // We need to do this before `x` is rounded.
+    var sign;
+    var signDisplay = internalSlots.signDisplay;
+    switch (signDisplay) {
+        case 'never':
+            sign = 0;
+            break;
+        case 'auto':
+            if (_262_1.SameValue(x, 0) || x > 0 || isNaN(x)) {
+                sign = 0;
+            }
+            else {
+                sign = -1;
+            }
+            break;
+        case 'always':
+            if (_262_1.SameValue(x, 0) || x > 0 || isNaN(x)) {
+                sign = 1;
+            }
+            else {
+                sign = -1;
+            }
+            break;
+        default:
+            // x === 0 -> x is 0 or x is -0
+            if (x === 0 || isNaN(x)) {
+                sign = 0;
+            }
+            else if (x > 0) {
+                sign = 1;
+            }
+            else {
+                sign = -1;
+            }
+    }
+    return format_to_parts_1.default({ roundedNumber: x, formattedString: n, exponent: exponent, magnitude: magnitude, sign: sign }, internalSlots.dataLocaleData, pl, internalSlots);
+}
+exports.PartitionNumberPattern = PartitionNumberPattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js":
+/*!************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js ***!
+  \************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SetNumberFormatDigitOptions = void 0;
+var GetNumberOption_1 = __webpack_require__(/*! ../GetNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetNumberOption.js");
+var DefaultNumberOption_1 = __webpack_require__(/*! ../DefaultNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/DefaultNumberOption.js");
+/**
+ * https://tc39.es/ecma402/#sec-setnfdigitoptions
+ */
+function SetNumberFormatDigitOptions(internalSlots, opts, mnfdDefault, mxfdDefault, notation) {
+    var mnid = GetNumberOption_1.GetNumberOption(opts, 'minimumIntegerDigits', 1, 21, 1);
+    var mnfd = opts.minimumFractionDigits;
+    var mxfd = opts.maximumFractionDigits;
+    var mnsd = opts.minimumSignificantDigits;
+    var mxsd = opts.maximumSignificantDigits;
+    internalSlots.minimumIntegerDigits = mnid;
+    if (mnsd !== undefined || mxsd !== undefined) {
+        internalSlots.roundingType = 'significantDigits';
+        mnsd = DefaultNumberOption_1.DefaultNumberOption(mnsd, 1, 21, 1);
+        mxsd = DefaultNumberOption_1.DefaultNumberOption(mxsd, mnsd, 21, 21);
+        internalSlots.minimumSignificantDigits = mnsd;
+        internalSlots.maximumSignificantDigits = mxsd;
+    }
+    else if (mnfd !== undefined || mxfd !== undefined) {
+        internalSlots.roundingType = 'fractionDigits';
+        mnfd = DefaultNumberOption_1.DefaultNumberOption(mnfd, 0, 20, mnfdDefault);
+        var mxfdActualDefault = Math.max(mnfd, mxfdDefault);
+        mxfd = DefaultNumberOption_1.DefaultNumberOption(mxfd, mnfd, 20, mxfdActualDefault);
+        internalSlots.minimumFractionDigits = mnfd;
+        internalSlots.maximumFractionDigits = mxfd;
+    }
+    else if (notation === 'compact') {
+        internalSlots.roundingType = 'compactRounding';
+    }
+    else {
+        internalSlots.roundingType = 'fractionDigits';
+        internalSlots.minimumFractionDigits = mnfdDefault;
+        internalSlots.maximumFractionDigits = mxfdDefault;
+    }
+}
+exports.SetNumberFormatDigitOptions = SetNumberFormatDigitOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js":
+/*!***********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatUnitOptions.js ***!
+  \***********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SetNumberFormatUnitOptions = void 0;
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var IsWellFormedCurrencyCode_1 = __webpack_require__(/*! ../IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedCurrencyCode.js");
+var IsWellFormedUnitIdentifier_1 = __webpack_require__(/*! ../IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/IsWellFormedUnitIdentifier.js");
+/**
+ * https://tc39.es/ecma402/#sec-setnumberformatunitoptions
+ */
+function SetNumberFormatUnitOptions(nf, options, _a) {
+    if (options === void 0) { options = Object.create(null); }
+    var getInternalSlots = _a.getInternalSlots;
+    var internalSlots = getInternalSlots(nf);
+    var style = GetOption_1.GetOption(options, 'style', 'string', ['decimal', 'percent', 'currency', 'unit'], 'decimal');
+    internalSlots.style = style;
+    var currency = GetOption_1.GetOption(options, 'currency', 'string', undefined, undefined);
+    if (currency !== undefined && !IsWellFormedCurrencyCode_1.IsWellFormedCurrencyCode(currency)) {
+        throw RangeError('Malformed currency code');
+    }
+    if (style === 'currency' && currency === undefined) {
+        throw TypeError('currency cannot be undefined');
+    }
+    var currencyDisplay = GetOption_1.GetOption(options, 'currencyDisplay', 'string', ['code', 'symbol', 'narrowSymbol', 'name'], 'symbol');
+    var currencySign = GetOption_1.GetOption(options, 'currencySign', 'string', ['standard', 'accounting'], 'standard');
+    var unit = GetOption_1.GetOption(options, 'unit', 'string', undefined, undefined);
+    if (unit !== undefined && !IsWellFormedUnitIdentifier_1.IsWellFormedUnitIdentifier(unit)) {
+        throw RangeError('Invalid unit argument for Intl.NumberFormat()');
+    }
+    if (style === 'unit' && unit === undefined) {
+        throw TypeError('unit cannot be undefined');
+    }
+    var unitDisplay = GetOption_1.GetOption(options, 'unitDisplay', 'string', ['short', 'narrow', 'long'], 'short');
+    if (style === 'currency') {
+        internalSlots.currency = currency.toUpperCase();
+        internalSlots.currencyDisplay = currencyDisplay;
+        internalSlots.currencySign = currencySign;
+    }
+    if (style === 'unit') {
+        internalSlots.unit = unit;
+        internalSlots.unitDisplay = unitDisplay;
+    }
+}
+exports.SetNumberFormatUnitOptions = SetNumberFormatUnitOptions;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js":
+/*!*******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToRawFixed = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * TODO: dedup with intl-pluralrules and support BigInt
+ * https://tc39.es/ecma402/#sec-torawfixed
+ * @param x a finite non-negative Number or BigInt
+ * @param minFraction and integer between 0 and 20
+ * @param maxFraction and integer between 0 and 20
+ */
+function ToRawFixed(x, minFraction, maxFraction) {
+    var f = maxFraction;
+    var n = Math.round(x * Math.pow(10, f));
+    var xFinal = n / Math.pow(10, f);
+    // n is a positive integer, but it is possible to be greater than 1e21.
+    // In such case we will go the slow path.
+    // See also: https://tc39.es/ecma262/#sec-numeric-types-number-tostring
+    var m;
+    if (n < 1e21) {
+        m = n.toString();
+    }
+    else {
+        m = n.toString();
+        var _a = m.split('e'), mantissa = _a[0], exponent = _a[1];
+        m = mantissa.replace('.', '');
+        m = m + utils_1.repeat('0', Math.max(+exponent - m.length + 1, 0));
+    }
+    var int;
+    if (f !== 0) {
+        var k = m.length;
+        if (k <= f) {
+            var z = utils_1.repeat('0', f + 1 - k);
+            m = z + m;
+            k = f + 1;
+        }
+        var a = m.slice(0, k - f);
+        var b = m.slice(k - f);
+        m = a + "." + b;
+        int = a.length;
+    }
+    else {
+        int = m.length;
+    }
+    var cut = maxFraction - minFraction;
+    while (cut > 0 && m[m.length - 1] === '0') {
+        m = m.slice(0, -1);
+        cut--;
+    }
+    if (m[m.length - 1] === '.') {
+        m = m.slice(0, -1);
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+}
+exports.ToRawFixed = ToRawFixed;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js":
+/*!***********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawPrecision.js ***!
+  \***********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ToRawPrecision = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function ToRawPrecision(x, minPrecision, maxPrecision) {
+    var p = maxPrecision;
+    var m;
+    var e;
+    var xFinal;
+    if (x === 0) {
+        m = utils_1.repeat('0', p);
+        e = 0;
+        xFinal = 0;
+    }
+    else {
+        var xToString = x.toString();
+        // If xToString is formatted as scientific notation, the number is either very small or very
+        // large. If the precision of the formatted string is lower that requested max precision, we
+        // should still infer them from the formatted string, otherwise the formatted result might have
+        // precision loss (e.g. 1e41 will not have 0 in every trailing digits).
+        var xToStringExponentIndex = xToString.indexOf('e');
+        var _a = xToString.split('e'), xToStringMantissa = _a[0], xToStringExponent = _a[1];
+        var xToStringMantissaWithoutDecimalPoint = xToStringMantissa.replace('.', '');
+        if (xToStringExponentIndex >= 0 &&
+            xToStringMantissaWithoutDecimalPoint.length <= p) {
+            e = +xToStringExponent;
+            m =
+                xToStringMantissaWithoutDecimalPoint +
+                    utils_1.repeat('0', p - xToStringMantissaWithoutDecimalPoint.length);
+            xFinal = x;
+        }
+        else {
+            e = utils_1.getMagnitude(x);
+            var decimalPlaceOffset = e - p + 1;
+            // n is the integer containing the required precision digits. To derive the formatted string,
+            // we will adjust its decimal place in the logic below.
+            var n = Math.round(adjustDecimalPlace(x, decimalPlaceOffset));
+            // The rounding caused the change of magnitude, so we should increment `e` by 1.
+            if (adjustDecimalPlace(n, p - 1) >= 10) {
+                e = e + 1;
+                // Divide n by 10 to swallow one precision.
+                n = Math.floor(n / 10);
+            }
+            m = n.toString();
+            // Equivalent of n * 10 ** (e - p + 1)
+            xFinal = adjustDecimalPlace(n, p - 1 - e);
+        }
+    }
+    var int;
+    if (e >= p - 1) {
+        m = m + utils_1.repeat('0', e - p + 1);
+        int = e + 1;
+    }
+    else if (e >= 0) {
+        m = m.slice(0, e + 1) + "." + m.slice(e + 1);
+        int = e + 1;
+    }
+    else {
+        m = "0." + utils_1.repeat('0', -e - 1) + m;
+        int = 1;
+    }
+    if (m.indexOf('.') >= 0 && maxPrecision > minPrecision) {
+        var cut = maxPrecision - minPrecision;
+        while (cut > 0 && m[m.length - 1] === '0') {
+            m = m.slice(0, -1);
+            cut--;
+        }
+        if (m[m.length - 1] === '.') {
+            m = m.slice(0, -1);
+        }
+    }
+    return { formattedString: m, roundedNumber: xFinal, integerDigitsCount: int };
+    // x / (10 ** magnitude), but try to preserve as much floating point precision as possible.
+    function adjustDecimalPlace(x, magnitude) {
+        return magnitude < 0 ? x * Math.pow(10, -magnitude) : x / Math.pow(10, magnitude);
+    }
+}
+exports.ToRawPrecision = ToRawPrecision;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json ***!
+  \************************************************************************************************************************************/
+/*! exports provided: adlm, ahom, arab, arabext, bali, beng, bhks, brah, cakm, cham, deva, diak, fullwide, gong, gonm, gujr, guru, hanidec, hmng, hmnp, java, kali, khmr, knda, lana, lanatham, laoo, lepc, limb, mathbold, mathdbl, mathmono, mathsanb, mathsans, mlym, modi, mong, mroo, mtei, mymr, mymrshan, mymrtlng, newa, nkoo, olck, orya, osma, rohg, saur, segment, shrd, sind, sinh, sora, sund, takr, talu, tamldec, telu, thai, tibt, tirh, vaii, wara, wcho, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"adlm\":[\"𞥐\",\"𞥑\",\"𞥒\",\"𞥓\",\"𞥔\",\"𞥕\",\"𞥖\",\"𞥗\",\"𞥘\",\"𞥙\"],\"ahom\":[\"𑜰\",\"𑜱\",\"𑜲\",\"𑜳\",\"𑜴\",\"𑜵\",\"𑜶\",\"𑜷\",\"𑜸\",\"𑜹\"],\"arab\":[\"٠\",\"١\",\"٢\",\"٣\",\"٤\",\"٥\",\"٦\",\"٧\",\"٨\",\"٩\"],\"arabext\":[\"۰\",\"۱\",\"۲\",\"۳\",\"۴\",\"۵\",\"۶\",\"۷\",\"۸\",\"۹\"],\"bali\":[\"᭐\",\"᭑\",\"᭒\",\"᭓\",\"᭔\",\"᭕\",\"᭖\",\"᭗\",\"᭘\",\"᭙\"],\"beng\":[\"০\",\"১\",\"২\",\"৩\",\"৪\",\"৫\",\"৬\",\"৭\",\"৮\",\"৯\"],\"bhks\":[\"𑱐\",\"𑱑\",\"𑱒\",\"𑱓\",\"𑱔\",\"𑱕\",\"𑱖\",\"𑱗\",\"𑱘\",\"𑱙\"],\"brah\":[\"𑁦\",\"𑁧\",\"𑁨\",\"𑁩\",\"𑁪\",\"𑁫\",\"𑁬\",\"𑁭\",\"𑁮\",\"𑁯\"],\"cakm\":[\"𑄶\",\"𑄷\",\"𑄸\",\"𑄹\",\"𑄺\",\"𑄻\",\"𑄼\",\"𑄽\",\"𑄾\",\"𑄿\"],\"cham\":[\"꩐\",\"꩑\",\"꩒\",\"꩓\",\"꩔\",\"꩕\",\"꩖\",\"꩗\",\"꩘\",\"꩙\"],\"deva\":[\"०\",\"१\",\"२\",\"३\",\"४\",\"५\",\"६\",\"७\",\"८\",\"९\"],\"diak\":[\"𑥐\",\"𑥑\",\"𑥒\",\"𑥓\",\"𑥔\",\"𑥕\",\"𑥖\",\"𑥗\",\"𑥘\",\"𑥙\"],\"fullwide\":[\"０\",\"１\",\"２\",\"３\",\"４\",\"５\",\"６\",\"７\",\"８\",\"９\"],\"gong\":[\"𑶠\",\"𑶡\",\"𑶢\",\"𑶣\",\"𑶤\",\"𑶥\",\"𑶦\",\"𑶧\",\"𑶨\",\"𑶩\"],\"gonm\":[\"𑵐\",\"𑵑\",\"𑵒\",\"𑵓\",\"𑵔\",\"𑵕\",\"𑵖\",\"𑵗\",\"𑵘\",\"𑵙\"],\"gujr\":[\"૦\",\"૧\",\"૨\",\"૩\",\"૪\",\"૫\",\"૬\",\"૭\",\"૮\",\"૯\"],\"guru\":[\"੦\",\"੧\",\"੨\",\"੩\",\"੪\",\"੫\",\"੬\",\"੭\",\"੮\",\"੯\"],\"hanidec\":[\"〇\",\"一\",\"二\",\"三\",\"四\",\"五\",\"六\",\"七\",\"八\",\"九\"],\"hmng\":[\"𖭐\",\"𖭑\",\"𖭒\",\"𖭓\",\"𖭔\",\"𖭕\",\"𖭖\",\"𖭗\",\"𖭘\",\"𖭙\"],\"hmnp\":[\"𞅀\",\"𞅁\",\"𞅂\",\"𞅃\",\"𞅄\",\"𞅅\",\"𞅆\",\"𞅇\",\"𞅈\",\"𞅉\"],\"java\":[\"꧐\",\"꧑\",\"꧒\",\"꧓\",\"꧔\",\"꧕\",\"꧖\",\"꧗\",\"꧘\",\"꧙\"],\"kali\":[\"꤀\",\"꤁\",\"꤂\",\"꤃\",\"꤄\",\"꤅\",\"꤆\",\"꤇\",\"꤈\",\"꤉\"],\"khmr\":[\"០\",\"១\",\"២\",\"៣\",\"៤\",\"៥\",\"៦\",\"៧\",\"៨\",\"៩\"],\"knda\":[\"೦\",\"೧\",\"೨\",\"೩\",\"೪\",\"೫\",\"೬\",\"೭\",\"೮\",\"೯\"],\"lana\":[\"᪀\",\"᪁\",\"᪂\",\"᪃\",\"᪄\",\"᪅\",\"᪆\",\"᪇\",\"᪈\",\"᪉\"],\"lanatham\":[\"᪐\",\"᪑\",\"᪒\",\"᪓\",\"᪔\",\"᪕\",\"᪖\",\"᪗\",\"᪘\",\"᪙\"],\"laoo\":[\"໐\",\"໑\",\"໒\",\"໓\",\"໔\",\"໕\",\"໖\",\"໗\",\"໘\",\"໙\"],\"lepc\":[\"᪐\",\"᪑\",\"᪒\",\"᪓\",\"᪔\",\"᪕\",\"᪖\",\"᪗\",\"᪘\",\"᪙\"],\"limb\":[\"᥆\",\"᥇\",\"᥈\",\"᥉\",\"᥊\",\"᥋\",\"᥌\",\"᥍\",\"᥎\",\"᥏\"],\"mathbold\":[\"𝟎\",\"𝟏\",\"𝟐\",\"𝟑\",\"𝟒\",\"𝟓\",\"𝟔\",\"𝟕\",\"𝟖\",\"𝟗\"],\"mathdbl\":[\"𝟘\",\"𝟙\",\"𝟚\",\"𝟛\",\"𝟜\",\"𝟝\",\"𝟞\",\"𝟟\",\"𝟠\",\"𝟡\"],\"mathmono\":[\"𝟶\",\"𝟷\",\"𝟸\",\"𝟹\",\"𝟺\",\"𝟻\",\"𝟼\",\"𝟽\",\"𝟾\",\"𝟿\"],\"mathsanb\":[\"𝟬\",\"𝟭\",\"𝟮\",\"𝟯\",\"𝟰\",\"𝟱\",\"𝟲\",\"𝟳\",\"𝟴\",\"𝟵\"],\"mathsans\":[\"𝟢\",\"𝟣\",\"𝟤\",\"𝟥\",\"𝟦\",\"𝟧\",\"𝟨\",\"𝟩\",\"𝟪\",\"𝟫\"],\"mlym\":[\"൦\",\"൧\",\"൨\",\"൩\",\"൪\",\"൫\",\"൬\",\"൭\",\"൮\",\"൯\"],\"modi\":[\"𑙐\",\"𑙑\",\"𑙒\",\"𑙓\",\"𑙔\",\"𑙕\",\"𑙖\",\"𑙗\",\"𑙘\",\"𑙙\"],\"mong\":[\"᠐\",\"᠑\",\"᠒\",\"᠓\",\"᠔\",\"᠕\",\"᠖\",\"᠗\",\"᠘\",\"᠙\"],\"mroo\":[\"𖩠\",\"𖩡\",\"𖩢\",\"𖩣\",\"𖩤\",\"𖩥\",\"𖩦\",\"𖩧\",\"𖩨\",\"𖩩\"],\"mtei\":[\"꯰\",\"꯱\",\"꯲\",\"꯳\",\"꯴\",\"꯵\",\"꯶\",\"꯷\",\"꯸\",\"꯹\"],\"mymr\":[\"၀\",\"၁\",\"၂\",\"၃\",\"၄\",\"၅\",\"၆\",\"၇\",\"၈\",\"၉\"],\"mymrshan\":[\"႐\",\"႑\",\"႒\",\"႓\",\"႔\",\"႕\",\"႖\",\"႗\",\"႘\",\"႙\"],\"mymrtlng\":[\"꧰\",\"꧱\",\"꧲\",\"꧳\",\"꧴\",\"꧵\",\"꧶\",\"꧷\",\"꧸\",\"꧹\"],\"newa\":[\"𑑐\",\"𑑑\",\"𑑒\",\"𑑓\",\"𑑔\",\"𑑕\",\"𑑖\",\"𑑗\",\"𑑘\",\"𑑙\"],\"nkoo\":[\"߀\",\"߁\",\"߂\",\"߃\",\"߄\",\"߅\",\"߆\",\"߇\",\"߈\",\"߉\"],\"olck\":[\"᱐\",\"᱑\",\"᱒\",\"᱓\",\"᱔\",\"᱕\",\"᱖\",\"᱗\",\"᱘\",\"᱙\"],\"orya\":[\"୦\",\"୧\",\"୨\",\"୩\",\"୪\",\"୫\",\"୬\",\"୭\",\"୮\",\"୯\"],\"osma\":[\"𐒠\",\"𐒡\",\"𐒢\",\"𐒣\",\"𐒤\",\"𐒥\",\"𐒦\",\"𐒧\",\"𐒨\",\"𐒩\"],\"rohg\":[\"𐴰\",\"𐴱\",\"𐴲\",\"𐴳\",\"𐴴\",\"𐴵\",\"𐴶\",\"𐴷\",\"𐴸\",\"𐴹\"],\"saur\":[\"꣐\",\"꣑\",\"꣒\",\"꣓\",\"꣔\",\"꣕\",\"꣖\",\"꣗\",\"꣘\",\"꣙\"],\"segment\":[\"🯰\",\"🯱\",\"🯲\",\"🯳\",\"🯴\",\"🯵\",\"🯶\",\"🯷\",\"🯸\",\"🯹\"],\"shrd\":[\"𑇐\",\"𑇑\",\"𑇒\",\"𑇓\",\"𑇔\",\"𑇕\",\"𑇖\",\"𑇗\",\"𑇘\",\"𑇙\"],\"sind\":[\"𑋰\",\"𑋱\",\"𑋲\",\"𑋳\",\"𑋴\",\"𑋵\",\"𑋶\",\"𑋷\",\"𑋸\",\"𑋹\"],\"sinh\":[\"෦\",\"෧\",\"෨\",\"෩\",\"෪\",\"෫\",\"෬\",\"෭\",\"෮\",\"෯\"],\"sora\":[\"𑃰\",\"𑃱\",\"𑃲\",\"𑃳\",\"𑃴\",\"𑃵\",\"𑃶\",\"𑃷\",\"𑃸\",\"𑃹\"],\"sund\":[\"᮰\",\"᮱\",\"᮲\",\"᮳\",\"᮴\",\"᮵\",\"᮶\",\"᮷\",\"᮸\",\"᮹\"],\"takr\":[\"𑛀\",\"𑛁\",\"𑛂\",\"𑛃\",\"𑛄\",\"𑛅\",\"𑛆\",\"𑛇\",\"𑛈\",\"𑛉\"],\"talu\":[\"᧐\",\"᧑\",\"᧒\",\"᧓\",\"᧔\",\"᧕\",\"᧖\",\"᧗\",\"᧘\",\"᧙\"],\"tamldec\":[\"௦\",\"௧\",\"௨\",\"௩\",\"௪\",\"௫\",\"௬\",\"௭\",\"௮\",\"௯\"],\"telu\":[\"౦\",\"౧\",\"౨\",\"౩\",\"౪\",\"౫\",\"౬\",\"౭\",\"౮\",\"౯\"],\"thai\":[\"๐\",\"๑\",\"๒\",\"๓\",\"๔\",\"๕\",\"๖\",\"๗\",\"๘\",\"๙\"],\"tibt\":[\"༠\",\"༡\",\"༢\",\"༣\",\"༤\",\"༥\",\"༦\",\"༧\",\"༨\",\"༩\"],\"tirh\":[\"𑓐\",\"𑓑\",\"𑓒\",\"𑓓\",\"𑓔\",\"𑓕\",\"𑓖\",\"𑓗\",\"𑓘\",\"𑓙\"],\"vaii\":[\"ᘠ\",\"ᘡ\",\"ᘢ\",\"ᘣ\",\"ᘤ\",\"ᘥ\",\"ᘦ\",\"ᘧ\",\"ᘨ\",\"ᘩ\"],\"wara\":[\"𑣠\",\"𑣡\",\"𑣢\",\"𑣣\",\"𑣤\",\"𑣥\",\"𑣦\",\"𑣧\",\"𑣨\",\"𑣩\"],\"wcho\":[\"𞋰\",\"𞋱\",\"𞋲\",\"𞋳\",\"𞋴\",\"𞋵\",\"𞋶\",\"𞋷\",\"𞋸\",\"𞋹\"]}");
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js":
+/*!************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/format_to_parts.js ***!
+  \************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var ToRawFixed_1 = __webpack_require__(/*! ./ToRawFixed */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/ToRawFixed.js");
+var digitMapping = __importStar(__webpack_require__(/*! ./digit-mapping.json */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/digit-mapping.json"));
+// This is from: unicode-12.1.0/General_Category/Symbol/regex.js
+// IE11 does not support unicode flag, otherwise this is just /\p{S}/u.
+var S_UNICODE_REGEX = /[\$\+<->\^`\|~\xA2-\xA6\xA8\xA9\xAC\xAE-\xB1\xB4\xB8\xD7\xF7\u02C2-\u02C5\u02D2-\u02DF\u02E5-\u02EB\u02ED\u02EF-\u02FF\u0375\u0384\u0385\u03F6\u0482\u058D-\u058F\u0606-\u0608\u060B\u060E\u060F\u06DE\u06E9\u06FD\u06FE\u07F6\u07FE\u07FF\u09F2\u09F3\u09FA\u09FB\u0AF1\u0B70\u0BF3-\u0BFA\u0C7F\u0D4F\u0D79\u0E3F\u0F01-\u0F03\u0F13\u0F15-\u0F17\u0F1A-\u0F1F\u0F34\u0F36\u0F38\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE\u0FCF\u0FD5-\u0FD8\u109E\u109F\u1390-\u1399\u166D\u17DB\u1940\u19DE-\u19FF\u1B61-\u1B6A\u1B74-\u1B7C\u1FBD\u1FBF-\u1FC1\u1FCD-\u1FCF\u1FDD-\u1FDF\u1FED-\u1FEF\u1FFD\u1FFE\u2044\u2052\u207A-\u207C\u208A-\u208C\u20A0-\u20BF\u2100\u2101\u2103-\u2106\u2108\u2109\u2114\u2116-\u2118\u211E-\u2123\u2125\u2127\u2129\u212E\u213A\u213B\u2140-\u2144\u214A-\u214D\u214F\u218A\u218B\u2190-\u2307\u230C-\u2328\u232B-\u2426\u2440-\u244A\u249C-\u24E9\u2500-\u2767\u2794-\u27C4\u27C7-\u27E5\u27F0-\u2982\u2999-\u29D7\u29DC-\u29FB\u29FE-\u2B73\u2B76-\u2B95\u2B98-\u2BFF\u2CE5-\u2CEA\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3004\u3012\u3013\u3020\u3036\u3037\u303E\u303F\u309B\u309C\u3190\u3191\u3196-\u319F\u31C0-\u31E3\u3200-\u321E\u322A-\u3247\u3250\u3260-\u327F\u328A-\u32B0\u32C0-\u33FF\u4DC0-\u4DFF\uA490-\uA4C6\uA700-\uA716\uA720\uA721\uA789\uA78A\uA828-\uA82B\uA836-\uA839\uAA77-\uAA79\uAB5B\uFB29\uFBB2-\uFBC1\uFDFC\uFDFD\uFE62\uFE64-\uFE66\uFE69\uFF04\uFF0B\uFF1C-\uFF1E\uFF3E\uFF40\uFF5C\uFF5E\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC\uFFFD]|\uD800[\uDD37-\uDD3F\uDD79-\uDD89\uDD8C-\uDD8E\uDD90-\uDD9B\uDDA0\uDDD0-\uDDFC]|\uD802[\uDC77\uDC78\uDEC8]|\uD805\uDF3F|\uD807[\uDFD5-\uDFF1]|\uD81A[\uDF3C-\uDF3F\uDF45]|\uD82F\uDC9C|\uD834[\uDC00-\uDCF5\uDD00-\uDD26\uDD29-\uDD64\uDD6A-\uDD6C\uDD83\uDD84\uDD8C-\uDDA9\uDDAE-\uDDE8\uDE00-\uDE41\uDE45\uDF00-\uDF56]|\uD835[\uDEC1\uDEDB\uDEFB\uDF15\uDF35\uDF4F\uDF6F\uDF89\uDFA9\uDFC3]|\uD836[\uDC00-\uDDFF\uDE37-\uDE3A\uDE6D-\uDE74\uDE76-\uDE83\uDE85\uDE86]|\uD838[\uDD4F\uDEFF]|\uD83B[\uDCAC\uDCB0\uDD2E\uDEF0\uDEF1]|\uD83C[\uDC00-\uDC2B\uDC30-\uDC93\uDCA0-\uDCAE\uDCB1-\uDCBF\uDCC1-\uDCCF\uDCD1-\uDCF5\uDD10-\uDD6C\uDD70-\uDDAC\uDDE6-\uDE02\uDE10-\uDE3B\uDE40-\uDE48\uDE50\uDE51\uDE60-\uDE65\uDF00-\uDFFF]|\uD83D[\uDC00-\uDED5\uDEE0-\uDEEC\uDEF0-\uDEFA\uDF00-\uDF73\uDF80-\uDFD8\uDFE0-\uDFEB]|\uD83E[\uDC00-\uDC0B\uDC10-\uDC47\uDC50-\uDC59\uDC60-\uDC87\uDC90-\uDCAD\uDD00-\uDD0B\uDD0D-\uDD71\uDD73-\uDD76\uDD7A-\uDDA2\uDDA5-\uDDAA\uDDAE-\uDDCA\uDDCD-\uDE53\uDE60-\uDE6D\uDE70-\uDE73\uDE78-\uDE7A\uDE80-\uDE82\uDE90-\uDE95]/;
+// /^\p{S}/u
+var CARET_S_UNICODE_REGEX = new RegExp("^" + S_UNICODE_REGEX.source);
+// /\p{S}$/u
+var S_DOLLAR_UNICODE_REGEX = new RegExp(S_UNICODE_REGEX.source + "$");
+var CLDR_NUMBER_PATTERN = /[#0](?:[\.,][#0]+)*/g;
+function formatToParts(numberResult, data, pl, options) {
+    var sign = numberResult.sign, exponent = numberResult.exponent, magnitude = numberResult.magnitude;
+    var notation = options.notation, style = options.style, numberingSystem = options.numberingSystem;
+    var defaultNumberingSystem = data.numbers.nu[0];
+    // #region Part 1: partition and interpolate the CLDR number pattern.
+    // ----------------------------------------------------------
+    var compactNumberPattern = null;
+    if (notation === 'compact' && magnitude) {
+        compactNumberPattern = getCompactDisplayPattern(numberResult, pl, data, style, options.compactDisplay, options.currencyDisplay, numberingSystem);
+    }
+    // This is used multiple times
+    var nonNameCurrencyPart;
+    if (style === 'currency' && options.currencyDisplay !== 'name') {
+        var byCurrencyDisplay = data.currencies[options.currency];
+        if (byCurrencyDisplay) {
+            switch (options.currencyDisplay) {
+                case 'code':
+                    nonNameCurrencyPart = options.currency;
+                    break;
+                case 'symbol':
+                    nonNameCurrencyPart = byCurrencyDisplay.symbol;
+                    break;
+                default:
+                    nonNameCurrencyPart = byCurrencyDisplay.narrow;
+                    break;
+            }
+        }
+        else {
+            // Fallback for unknown currency
+            nonNameCurrencyPart = options.currency;
+        }
+    }
+    var numberPattern;
+    if (!compactNumberPattern) {
+        // Note: if the style is unit, or is currency and the currency display is name,
+        // its unit parts will be interpolated in part 2. So here we can fallback to decimal.
+        if (style === 'decimal' ||
+            style === 'unit' ||
+            (style === 'currency' && options.currencyDisplay === 'name')) {
+            // Shortcut for decimal
+            var decimalData = data.numbers.decimal[numberingSystem] ||
+                data.numbers.decimal[defaultNumberingSystem];
+            numberPattern = getPatternForSign(decimalData.standard, sign);
+        }
+        else if (style === 'currency') {
+            var currencyData = data.numbers.currency[numberingSystem] ||
+                data.numbers.currency[defaultNumberingSystem];
+            // We replace number pattern part with `0` for easier postprocessing.
+            numberPattern = getPatternForSign(currencyData[options.currencySign], sign);
+        }
+        else {
+            // percent
+            var percentPattern = data.numbers.percent[numberingSystem] ||
+                data.numbers.percent[defaultNumberingSystem];
+            numberPattern = getPatternForSign(percentPattern, sign);
+        }
+    }
+    else {
+        numberPattern = compactNumberPattern;
+    }
+    // Extract the decimal number pattern string. It looks like "#,##0,00", which will later be
+    // used to infer decimal group sizes.
+    var decimalNumberPattern = CLDR_NUMBER_PATTERN.exec(numberPattern)[0];
+    // Now we start to substitute patterns
+    // 1. replace strings like `0` and `#,##0.00` with `{0}`
+    // 2. unquote characters (invariant: the quoted characters does not contain the special tokens)
+    numberPattern = numberPattern
+        .replace(CLDR_NUMBER_PATTERN, '{0}')
+        .replace(/'(.)'/g, '$1');
+    // Handle currency spacing (both compact and non-compact).
+    if (style === 'currency' && options.currencyDisplay !== 'name') {
+        var currencyData = data.numbers.currency[numberingSystem] ||
+            data.numbers.currency[defaultNumberingSystem];
+        // See `currencySpacing` substitution rule in TR-35.
+        // Here we always assume the currencyMatch is "[:^S:]" and surroundingMatch is "[:digit:]".
+        //
+        // Example 1: for pattern "#,##0.00¤" with symbol "US$", we replace "¤" with the symbol,
+        // but insert an extra non-break space before the symbol, because "[:^S:]" matches "U" in
+        // "US$" and "[:digit:]" matches the latn numbering system digits.
+        //
+        // Example 2: for pattern "¤#,##0.00" with symbol "US$", there is no spacing between symbol
+        // and number, because `$` does not match "[:^S:]".
+        //
+        // Implementation note: here we do the best effort to infer the insertion.
+        // We also assume that `beforeInsertBetween` and `afterInsertBetween` will never be `;`.
+        var afterCurrency = currencyData.currencySpacing.afterInsertBetween;
+        if (afterCurrency && !S_DOLLAR_UNICODE_REGEX.test(nonNameCurrencyPart)) {
+            numberPattern = numberPattern.replace('¤{0}', "\u00A4" + afterCurrency + "{0}");
+        }
+        var beforeCurrency = currencyData.currencySpacing.beforeInsertBetween;
+        if (beforeCurrency && !CARET_S_UNICODE_REGEX.test(nonNameCurrencyPart)) {
+            numberPattern = numberPattern.replace('{0}¤', "{0}" + beforeCurrency + "\u00A4");
+        }
+    }
+    // The following tokens are special: `{0}`, `¤`, `%`, `-`, `+`, `{c:...}.
+    var numberPatternParts = numberPattern.split(/({c:[^}]+}|\{0\}|[¤%\-\+])/g);
+    var numberParts = [];
+    var symbols = data.numbers.symbols[numberingSystem] ||
+        data.numbers.symbols[defaultNumberingSystem];
+    for (var _i = 0, numberPatternParts_1 = numberPatternParts; _i < numberPatternParts_1.length; _i++) {
+        var part = numberPatternParts_1[_i];
+        if (!part) {
+            continue;
+        }
+        switch (part) {
+            case '{0}': {
+                // We only need to handle scientific and engineering notation here.
+                numberParts.push.apply(numberParts, paritionNumberIntoParts(symbols, numberResult, notation, exponent, numberingSystem, 
+                // If compact number pattern exists, do not insert group separators.
+                !compactNumberPattern && options.useGrouping, decimalNumberPattern));
+                break;
+            }
+            case '-':
+                numberParts.push({ type: 'minusSign', value: symbols.minusSign });
+                break;
+            case '+':
+                numberParts.push({ type: 'plusSign', value: symbols.plusSign });
+                break;
+            case '%':
+                numberParts.push({ type: 'percentSign', value: symbols.percentSign });
+                break;
+            case '¤':
+                // Computed above when handling currency spacing.
+                numberParts.push({ type: 'currency', value: nonNameCurrencyPart });
+                break;
+            default:
+                if (/^\{c:/.test(part)) {
+                    numberParts.push({
+                        type: 'compact',
+                        value: part.substring(3, part.length - 1),
+                    });
+                }
+                else {
+                    // literal
+                    numberParts.push({ type: 'literal', value: part });
+                }
+                break;
+        }
+    }
+    // #endregion
+    // #region Part 2: interpolate unit pattern if necessary.
+    // ----------------------------------------------
+    switch (style) {
+        case 'currency': {
+            // `currencyDisplay: 'name'` has similar pattern handling as units.
+            if (options.currencyDisplay === 'name') {
+                var unitPattern = (data.numbers.currency[numberingSystem] ||
+                    data.numbers.currency[defaultNumberingSystem]).unitPattern;
+                // Select plural
+                var unitName = void 0;
+                var currencyNameData = data.currencies[options.currency];
+                if (currencyNameData) {
+                    unitName = selectPlural(pl, 
+                    // NOTE: Google Chrome's Intl.NumberFormat uses the original number to determine the plurality,
+                    // but the mantissa for unit. We think this is a bug in ICU, but will still replicate the behavior.
+                    // TODO: use original number.
+                    numberResult.roundedNumber * Math.pow(10, exponent), currencyNameData.displayName);
+                }
+                else {
+                    // Fallback for unknown currency
+                    unitName = options.currency;
+                }
+                // Do {0} and {1} substitution
+                var unitPatternParts = unitPattern.split(/(\{[01]\})/g);
+                var result = [];
+                for (var _a = 0, unitPatternParts_1 = unitPatternParts; _a < unitPatternParts_1.length; _a++) {
+                    var part = unitPatternParts_1[_a];
+                    switch (part) {
+                        case '{0}':
+                            result.push.apply(result, numberParts);
+                            break;
+                        case '{1}':
+                            result.push({ type: 'currency', value: unitName });
+                            break;
+                        default:
+                            if (part) {
+                                result.push({ type: 'literal', value: part });
+                            }
+                            break;
+                    }
+                }
+                return result;
+            }
+            else {
+                return numberParts;
+            }
+        }
+        case 'unit': {
+            var unit = options.unit, unitDisplay = options.unitDisplay;
+            var unitData = data.units.simple[unit];
+            var unitPattern = void 0;
+            if (unitData) {
+                // Simple unit pattern
+                unitPattern = selectPlural(pl, numberResult.roundedNumber, data.units.simple[unit][unitDisplay]);
+            }
+            else {
+                // See: http://unicode.org/reports/tr35/tr35-general.html#perUnitPatterns
+                // If cannot find unit in the simple pattern, it must be "per" compound pattern.
+                // Implementation note: we are not following TR-35 here because we need to format to parts!
+                var _b = unit.split('-per-'), numeratorUnit = _b[0], denominatorUnit = _b[1];
+                unitData = data.units.simple[numeratorUnit];
+                var numeratorUnitPattern = selectPlural(pl, numberResult.roundedNumber, data.units.simple[numeratorUnit][unitDisplay]);
+                var perUnitPattern = data.units.simple[denominatorUnit].perUnit[unitDisplay];
+                if (perUnitPattern) {
+                    // perUnitPattern exists, combine it with numeratorUnitPattern
+                    unitPattern = perUnitPattern.replace('{0}', numeratorUnitPattern);
+                }
+                else {
+                    // get compoundUnit pattern (e.g. "{0} per {1}"), repalce {0} with numerator pattern and {1} with
+                    // the denominator pattern in singular form.
+                    var perPattern = data.units.compound.per[unitDisplay];
+                    var denominatorPattern = selectPlural(pl, 1, data.units.simple[denominatorUnit][unitDisplay]);
+                    unitPattern = unitPattern = perPattern
+                        .replace('{0}', numeratorUnitPattern)
+                        .replace('{1}', denominatorPattern.replace('{0}', ''));
+                }
+            }
+            var result = [];
+            // We need spacing around "{0}" because they are not treated as "unit" parts, but "literal".
+            for (var _c = 0, _d = unitPattern.split(/(\s*\{0\}\s*)/); _c < _d.length; _c++) {
+                var part = _d[_c];
+                var interpolateMatch = /^(\s*)\{0\}(\s*)$/.exec(part);
+                if (interpolateMatch) {
+                    // Space before "{0}"
+                    if (interpolateMatch[1]) {
+                        result.push({ type: 'literal', value: interpolateMatch[1] });
+                    }
+                    // "{0}" itself
+                    result.push.apply(result, numberParts);
+                    // Space after "{0}"
+                    if (interpolateMatch[2]) {
+                        result.push({ type: 'literal', value: interpolateMatch[2] });
+                    }
+                }
+                else if (part) {
+                    result.push({ type: 'unit', value: part });
+                }
+            }
+            return result;
+        }
+        default:
+            return numberParts;
+    }
+    // #endregion
+}
+exports.default = formatToParts;
+// A subset of https://tc39.es/ecma402/#sec-partitionnotationsubpattern
+// Plus the exponent parts handling.
+function paritionNumberIntoParts(symbols, numberResult, notation, exponent, numberingSystem, useGrouping, 
+/**
+ * This is the decimal number pattern without signs or symbols.
+ * It is used to infer the group size when `useGrouping` is true.
+ *
+ * A typical value looks like "#,##0.00" (primary group size is 3).
+ * Some locales like Hindi has secondary group size of 2 (e.g. "#,##,##0.00").
+ */
+decimalNumberPattern) {
+    var result = [];
+    // eslint-disable-next-line prefer-const
+    var n = numberResult.formattedString, x = numberResult.roundedNumber;
+    if (isNaN(x)) {
+        return [{ type: 'nan', value: n }];
+    }
+    else if (!isFinite(x)) {
+        return [{ type: 'infinity', value: n }];
+    }
+    var digitReplacementTable = digitMapping[numberingSystem];
+    if (digitReplacementTable) {
+        n = n.replace(/\d/g, function (digit) { return digitReplacementTable[+digit] || digit; });
+    }
+    // TODO: Else use an implementation dependent algorithm to map n to the appropriate
+    // representation of n in the given numbering system.
+    var decimalSepIndex = n.indexOf('.');
+    var integer;
+    var fraction;
+    if (decimalSepIndex > 0) {
+        integer = n.slice(0, decimalSepIndex);
+        fraction = n.slice(decimalSepIndex + 1);
+    }
+    else {
+        integer = n;
+    }
+    // #region Grouping integer digits
+    // The weird compact and x >= 10000 check is to ensure consistency with Node.js and Chrome.
+    // Note that `de` does not have compact form for thousands, but Node.js does not insert grouping separator
+    // unless the rounded number is greater than 10000:
+    //   NumberFormat('de', {notation: 'compact', compactDisplay: 'short'}).format(1234) //=> "1234"
+    //   NumberFormat('de').format(1234) //=> "1.234"
+    if (useGrouping && (notation !== 'compact' || x >= 10000)) {
+        var groupSepSymbol = symbols.group;
+        var groups = [];
+        // > There may be two different grouping sizes: The primary grouping size used for the least
+        // > significant integer group, and the secondary grouping size used for more significant groups.
+        // > If a pattern contains multiple grouping separators, the interval between the last one and the
+        // > end of the integer defines the primary grouping size, and the interval between the last two
+        // > defines the secondary grouping size. All others are ignored.
+        var integerNumberPattern = decimalNumberPattern.split('.')[0];
+        var patternGroups = integerNumberPattern.split(',');
+        var primaryGroupingSize = 3;
+        var secondaryGroupingSize = 3;
+        if (patternGroups.length > 1) {
+            primaryGroupingSize = patternGroups[patternGroups.length - 1].length;
+        }
+        if (patternGroups.length > 2) {
+            secondaryGroupingSize = patternGroups[patternGroups.length - 2].length;
+        }
+        var i = integer.length - primaryGroupingSize;
+        if (i > 0) {
+            // Slice the least significant integer group
+            groups.push(integer.slice(i, i + primaryGroupingSize));
+            // Then iteratively push the more signicant groups
+            // TODO: handle surrogate pairs in some numbering system digits
+            for (i -= secondaryGroupingSize; i > 0; i -= secondaryGroupingSize) {
+                groups.push(integer.slice(i, i + secondaryGroupingSize));
+            }
+            groups.push(integer.slice(0, i + secondaryGroupingSize));
+        }
+        else {
+            groups.push(integer);
+        }
+        while (groups.length > 0) {
+            var integerGroup = groups.pop();
+            result.push({ type: 'integer', value: integerGroup });
+            if (groups.length > 0) {
+                result.push({ type: 'group', value: groupSepSymbol });
+            }
+        }
+    }
+    else {
+        result.push({ type: 'integer', value: integer });
+    }
+    // #endregion
+    if (fraction !== undefined) {
+        result.push({ type: 'decimal', value: symbols.decimal }, { type: 'fraction', value: fraction });
+    }
+    if ((notation === 'scientific' || notation === 'engineering') &&
+        isFinite(x)) {
+        result.push({ type: 'exponentSeparator', value: symbols.exponential });
+        if (exponent < 0) {
+            result.push({ type: 'exponentMinusSign', value: symbols.minusSign });
+            exponent = -exponent;
+        }
+        var exponentResult = ToRawFixed_1.ToRawFixed(exponent, 0, 0);
+        result.push({
+            type: 'exponentInteger',
+            value: exponentResult.formattedString,
+        });
+    }
+    return result;
+}
+function getPatternForSign(pattern, sign) {
+    if (pattern.indexOf(';') < 0) {
+        pattern = pattern + ";-" + pattern;
+    }
+    var _a = pattern.split(';'), zeroPattern = _a[0], negativePattern = _a[1];
+    switch (sign) {
+        case 0:
+            return zeroPattern;
+        case -1:
+            return negativePattern;
+        default:
+            return negativePattern.indexOf('-') >= 0
+                ? negativePattern.replace(/-/g, '+')
+                : "+" + zeroPattern;
+    }
+}
+// Find the CLDR pattern for compact notation based on the magnitude of data and style.
+//
+// Example return value: "¤ {c:laki}000;¤{c:laki} -0" (`sw` locale):
+// - Notice the `{c:...}` token that wraps the compact literal.
+// - The consecutive zeros are normalized to single zero to match CLDR_NUMBER_PATTERN.
+//
+// Returning null means the compact display pattern cannot be found.
+function getCompactDisplayPattern(numberResult, pl, data, style, compactDisplay, currencyDisplay, numberingSystem) {
+    var _a;
+    var roundedNumber = numberResult.roundedNumber, sign = numberResult.sign, magnitude = numberResult.magnitude;
+    var magnitudeKey = String(Math.pow(10, magnitude));
+    var defaultNumberingSystem = data.numbers.nu[0];
+    var pattern;
+    if (style === 'currency' && currencyDisplay !== 'name') {
+        var byNumberingSystem = data.numbers.currency;
+        var currencyData = byNumberingSystem[numberingSystem] ||
+            byNumberingSystem[defaultNumberingSystem];
+        // NOTE: compact notation ignores currencySign!
+        var compactPluralRules = (_a = currencyData.short) === null || _a === void 0 ? void 0 : _a[magnitudeKey];
+        if (!compactPluralRules) {
+            return null;
+        }
+        pattern = selectPlural(pl, roundedNumber, compactPluralRules);
+    }
+    else {
+        var byNumberingSystem = data.numbers.decimal;
+        var byCompactDisplay = byNumberingSystem[numberingSystem] ||
+            byNumberingSystem[defaultNumberingSystem];
+        var compactPlaralRule = byCompactDisplay[compactDisplay][magnitudeKey];
+        if (!compactPlaralRule) {
+            return null;
+        }
+        pattern = selectPlural(pl, roundedNumber, compactPlaralRule);
+    }
+    // See https://unicode.org/reports/tr35/tr35-numbers.html#Compact_Number_Formats
+    // > If the value is precisely “0”, either explicit or defaulted, then the normal number format
+    // > pattern for that sort of object is supplied.
+    if (pattern === '0') {
+        return null;
+    }
+    pattern = getPatternForSign(pattern, sign)
+        // Extract compact literal from the pattern
+        .replace(/([^\s;\-\+\d¤]+)/g, '{c:$1}')
+        // We replace one or more zeros with a single zero so it matches `CLDR_NUMBER_PATTERN`.
+        .replace(/0+/, '0');
+    return pattern;
+}
+function selectPlural(pl, x, rules) {
+    return rules[pl.select(x)] || rules.other;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionPattern = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-partitionpattern
+ * @param pattern
+ */
+function PartitionPattern(pattern) {
+    var result = [];
+    var beginIndex = pattern.indexOf('{');
+    var endIndex = 0;
+    var nextIndex = 0;
+    var length = pattern.length;
+    while (beginIndex < pattern.length && beginIndex > -1) {
+        endIndex = pattern.indexOf('}', beginIndex);
+        utils_1.invariant(endIndex > beginIndex, "Invalid pattern " + pattern);
+        if (beginIndex > nextIndex) {
+            result.push({
+                type: 'literal',
+                value: pattern.substring(nextIndex, beginIndex),
+            });
+        }
+        result.push({
+            type: pattern.substring(beginIndex + 1, endIndex),
+            value: undefined,
+        });
+        nextIndex = endIndex + 1;
+        beginIndex = pattern.indexOf('{', nextIndex);
+    }
+    if (nextIndex < length) {
+        result.push({
+            type: 'literal',
+            value: pattern.substring(nextIndex, length),
+        });
+    }
+    return result;
+}
+exports.PartitionPattern = PartitionPattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js":
+/*!*******************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js ***!
+  \*******************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GetOperands = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-getoperands
+ * @param s
+ */
+function GetOperands(s) {
+    utils_1.invariant(typeof s === 'string', "GetOperands should have been called with a string");
+    var n = _262_1.ToNumber(s);
+    utils_1.invariant(isFinite(n), 'n should be finite');
+    var dp = s.indexOf('.');
+    var iv;
+    var f;
+    var v;
+    var fv = '';
+    if (dp === -1) {
+        iv = n;
+        f = 0;
+        v = 0;
+    }
+    else {
+        iv = s.slice(0, dp);
+        fv = s.slice(dp, s.length);
+        f = _262_1.ToNumber(fv);
+        v = fv.length;
+    }
+    var i = Math.abs(_262_1.ToNumber(iv));
+    var w;
+    var t;
+    if (f !== 0) {
+        var ft = fv.replace(/0+$/, '');
+        w = ft.length;
+        t = _262_1.ToNumber(ft);
+    }
+    else {
+        w = 0;
+        t = 0;
+    }
+    return {
+        Number: n,
+        IntegerDigits: i,
+        NumberOfFractionDigits: v,
+        NumberOfFractionDigitsWithoutTrailing: w,
+        FractionDigits: f,
+        FractionDigitsWithoutTrailing: t,
+    };
+}
+exports.GetOperands = GetOperands;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/InitializePluralRules.js ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializePluralRules = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var SetNumberFormatDigitOptions_1 = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/SetNumberFormatDigitOptions.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+function InitializePluralRules(pl, locales, options, _a) {
+    var availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getInternalSlots = _a.getInternalSlots;
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var opt = Object.create(null);
+    var opts = options === undefined ? Object.create(null) : _262_1.ToObject(options);
+    var internalSlots = getInternalSlots(pl);
+    internalSlots.initializedPluralRules = true;
+    var matcher = GetOption_1.GetOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    opt.localeMatcher = matcher;
+    internalSlots.type = GetOption_1.GetOption(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
+    SetNumberFormatDigitOptions_1.SetNumberFormatDigitOptions(internalSlots, opts, 0, 3, 'standard');
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.locale = r.locale;
+    return pl;
+}
+exports.InitializePluralRules = InitializePluralRules;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js":
+/*!*********************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/ResolvePlural.js ***!
+  \*********************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResolvePlural = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var FormatNumericToString_1 = __webpack_require__(/*! ../NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/NumberFormat/FormatNumericToString.js");
+var GetOperands_1 = __webpack_require__(/*! ./GetOperands */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PluralRules/GetOperands.js");
+/**
+ * http://ecma-international.org/ecma-402/7.0/index.html#sec-resolveplural
+ * @param pl
+ * @param n
+ * @param PluralRuleSelect Has to pass in bc it's implementation-specific
+ */
+function ResolvePlural(pl, n, _a) {
+    var getInternalSlots = _a.getInternalSlots, PluralRuleSelect = _a.PluralRuleSelect;
+    var internalSlots = getInternalSlots(pl);
+    utils_1.invariant(_262_1.Type(internalSlots) === 'Object', 'pl has to be an object');
+    utils_1.invariant('initializedPluralRules' in internalSlots, 'pluralrules must be initialized');
+    utils_1.invariant(_262_1.Type(n) === 'Number', 'n must be a number');
+    if (!isFinite(n)) {
+        return 'other';
+    }
+    var locale = internalSlots.locale, type = internalSlots.type;
+    var res = FormatNumericToString_1.FormatNumericToString(internalSlots, n);
+    var s = res.formattedString;
+    var operands = GetOperands_1.GetOperands(s);
+    return PluralRuleSelect(locale, type, n, operands);
+}
+exports.ResolvePlural = ResolvePlural;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js":
+/*!*********************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTime.js ***!
+  \*********************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatRelativeTime = void 0;
+var PartitionRelativeTimePattern_1 = __webpack_require__(/*! ./PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+function FormatRelativeTime(rtf, value, unit, implDetails) {
+    var parts = PartitionRelativeTimePattern_1.PartitionRelativeTimePattern(rtf, value, unit, implDetails);
+    var result = '';
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        result += part.value;
+    }
+    return result;
+}
+exports.FormatRelativeTime = FormatRelativeTime;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js":
+/*!****************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/FormatRelativeTimeToParts.js ***!
+  \****************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FormatRelativeTimeToParts = void 0;
+var PartitionRelativeTimePattern_1 = __webpack_require__(/*! ./PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+function FormatRelativeTimeToParts(rtf, value, unit, implDetails) {
+    var parts = PartitionRelativeTimePattern_1.PartitionRelativeTimePattern(rtf, value, unit, implDetails);
+    var result = _262_1.ArrayCreate(0);
+    for (var _i = 0, parts_1 = parts; _i < parts_1.length; _i++) {
+        var part = parts_1[_i];
+        var o = {
+            type: part.type,
+            value: part.value,
+        };
+        if ('unit' in part) {
+            o.unit = part.unit;
+        }
+        result.push(o);
+    }
+    return result;
+}
+exports.FormatRelativeTimeToParts = FormatRelativeTimeToParts;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/InitializeRelativeTimeFormat.js ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InitializeRelativeTimeFormat = void 0;
+var CanonicalizeLocaleList_1 = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/CanonicalizeLocaleList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var ResolveLocale_1 = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js");
+var NUMBERING_SYSTEM_REGEX = /^[a-z0-9]{3,8}(-[a-z0-9]{3,8})*$/i;
+function InitializeRelativeTimeFormat(rtf, locales, options, _a) {
+    var getInternalSlots = _a.getInternalSlots, availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale;
+    var internalSlots = getInternalSlots(rtf);
+    internalSlots.initializedRelativeTimeFormat = true;
+    var requestedLocales = CanonicalizeLocaleList_1.CanonicalizeLocaleList(locales);
+    var opt = Object.create(null);
+    var opts = options === undefined ? Object.create(null) : _262_1.ToObject(options);
+    var matcher = GetOption_1.GetOption(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    opt.localeMatcher = matcher;
+    var numberingSystem = GetOption_1.GetOption(opts, 'numberingSystem', 'string', undefined, undefined);
+    if (numberingSystem !== undefined) {
+        if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
+            throw new RangeError("Invalid numbering system " + numberingSystem);
+        }
+    }
+    opt.nu = numberingSystem;
+    var r = ResolveLocale_1.ResolveLocale(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    var locale = r.locale, nu = r.nu;
+    internalSlots.locale = locale;
+    internalSlots.style = GetOption_1.GetOption(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
+    internalSlots.numeric = GetOption_1.GetOption(opts, 'numeric', 'string', ['always', 'auto'], 'always');
+    internalSlots.fields = localeData[locale];
+    internalSlots.numberFormat = new Intl.NumberFormat(locales);
+    internalSlots.pluralRules = new Intl.PluralRules(locales);
+    internalSlots.numberingSystem = nu;
+    return rtf;
+}
+exports.InitializeRelativeTimeFormat = InitializeRelativeTimeFormat;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js":
+/*!****************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js ***!
+  \****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MakePartsList = void 0;
+var PartitionPattern_1 = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/PartitionPattern.js");
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+function MakePartsList(pattern, unit, parts) {
+    var patternParts = PartitionPattern_1.PartitionPattern(pattern);
+    var result = [];
+    for (var _i = 0, patternParts_1 = patternParts; _i < patternParts_1.length; _i++) {
+        var patternPart = patternParts_1[_i];
+        if (patternPart.type === 'literal') {
+            result.push({
+                type: 'literal',
+                value: patternPart.value,
+            });
+        }
+        else {
+            utils_1.invariant(patternPart.type === '0', "Malformed pattern " + pattern);
+            for (var _a = 0, parts_1 = parts; _a < parts_1.length; _a++) {
+                var part = parts_1[_a];
+                result.push({
+                    type: part.type,
+                    value: part.value,
+                    unit: unit,
+                });
+            }
+        }
+    }
+    return result;
+}
+exports.MakePartsList = MakePartsList;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/PartitionRelativeTimePattern.js ***!
+  \*******************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PartitionRelativeTimePattern = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var SingularRelativeTimeUnit_1 = __webpack_require__(/*! ./SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js");
+var MakePartsList_1 = __webpack_require__(/*! ./MakePartsList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/MakePartsList.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+function PartitionRelativeTimePattern(rtf, value, unit, _a) {
+    var getInternalSlots = _a.getInternalSlots;
+    utils_1.invariant(_262_1.Type(value) === 'Number', "value must be number, instead got " + typeof value, TypeError);
+    utils_1.invariant(_262_1.Type(unit) === 'String', "unit must be number, instead got " + typeof value, TypeError);
+    if (isNaN(value) || !isFinite(value)) {
+        throw new RangeError("Invalid value " + value);
+    }
+    var resolvedUnit = SingularRelativeTimeUnit_1.SingularRelativeTimeUnit(unit);
+    var _b = getInternalSlots(rtf), fields = _b.fields, style = _b.style, numeric = _b.numeric, pluralRules = _b.pluralRules, numberFormat = _b.numberFormat;
+    var entry = resolvedUnit;
+    if (style === 'short') {
+        entry = resolvedUnit + "-short";
+    }
+    else if (style === 'narrow') {
+        entry = resolvedUnit + "-narrow";
+    }
+    if (!(entry in fields)) {
+        entry = resolvedUnit;
+    }
+    var patterns = fields[entry];
+    if (numeric === 'auto') {
+        if (_262_1.ToString(value) in patterns) {
+            return [
+                {
+                    type: 'literal',
+                    value: patterns[_262_1.ToString(value)],
+                },
+            ];
+        }
+    }
+    var tl = 'future';
+    if (_262_1.SameValue(value, -0) || value < 0) {
+        tl = 'past';
+    }
+    var po = patterns[tl];
+    var fv = typeof numberFormat.formatToParts === 'function'
+        ? numberFormat.formatToParts(Math.abs(value))
+        : // TODO: If formatToParts is not supported, we assume the whole formatted
+            // number is a part
+            [
+                {
+                    type: 'literal',
+                    value: numberFormat.format(Math.abs(value)),
+                    unit: unit,
+                },
+            ];
+    var pr = pluralRules.select(value);
+    var pattern = po[pr];
+    return MakePartsList_1.MakePartsList(pattern, resolvedUnit, fv);
+}
+exports.PartitionRelativeTimePattern = PartitionRelativeTimePattern;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/RelativeTimeFormat/SingularRelativeTimeUnit.js ***!
+  \***************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SingularRelativeTimeUnit = void 0;
+var utils_1 = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var _262_1 = __webpack_require__(/*! ../../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+/**
+ * https://tc39.es/proposal-intl-relative-time/#sec-singularrelativetimeunit
+ * @param unit
+ */
+function SingularRelativeTimeUnit(unit) {
+    utils_1.invariant(_262_1.Type(unit) === 'String', 'unit must be a string');
+    if (unit === 'seconds')
+        return 'second';
+    if (unit === 'minutes')
+        return 'minute';
+    if (unit === 'hours')
+        return 'hour';
+    if (unit === 'days')
+        return 'day';
+    if (unit === 'weeks')
+        return 'week';
+    if (unit === 'months')
+        return 'month';
+    if (unit === 'quarters')
+        return 'quarter';
+    if (unit === 'years')
+        return 'year';
+    if (unit !== 'second' &&
+        unit !== 'minute' &&
+        unit !== 'hour' &&
+        unit !== 'day' &&
+        unit !== 'week' &&
+        unit !== 'month' &&
+        unit !== 'quarter' &&
+        unit !== 'year') {
+        throw new RangeError('invalid unit');
+    }
+    return unit;
+}
+exports.SingularRelativeTimeUnit = SingularRelativeTimeUnit;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js":
+/*!*********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/ResolveLocale.js ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ResolveLocale = void 0;
+var LookupMatcher_1 = __webpack_require__(/*! ./LookupMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupMatcher.js");
+var BestFitMatcher_1 = __webpack_require__(/*! ./BestFitMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/BestFitMatcher.js");
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+var UnicodeExtensionValue_1 = __webpack_require__(/*! ./UnicodeExtensionValue */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js");
+/**
+ * https://tc39.es/ecma402/#sec-resolvelocale
+ */
+function ResolveLocale(availableLocales, requestedLocales, options, relevantExtensionKeys, localeData, getDefaultLocale) {
+    var matcher = options.localeMatcher;
+    var r;
+    if (matcher === 'lookup') {
+        r = LookupMatcher_1.LookupMatcher(availableLocales, requestedLocales, getDefaultLocale);
+    }
+    else {
+        r = BestFitMatcher_1.BestFitMatcher(availableLocales, requestedLocales, getDefaultLocale);
+    }
+    var foundLocale = r.locale;
+    var result = { locale: '', dataLocale: foundLocale };
+    var supportedExtension = '-u';
+    for (var _i = 0, relevantExtensionKeys_1 = relevantExtensionKeys; _i < relevantExtensionKeys_1.length; _i++) {
+        var key = relevantExtensionKeys_1[_i];
+        var foundLocaleData = localeData[foundLocale];
+        utils_1.invariant(typeof foundLocaleData === 'object' && foundLocaleData !== null, "locale data " + key + " must be an object");
+        var keyLocaleData = foundLocaleData[key];
+        utils_1.invariant(Array.isArray(keyLocaleData), "keyLocaleData for " + key + " must be an array");
+        var value = keyLocaleData[0];
+        utils_1.invariant(typeof value === 'string' || value === null, "value must be string or null but got " + typeof value + " in key " + key);
+        var supportedExtensionAddition = '';
+        if (r.extension) {
+            var requestedValue = UnicodeExtensionValue_1.UnicodeExtensionValue(r.extension, key);
+            if (requestedValue !== undefined) {
+                if (requestedValue !== '') {
+                    if (~keyLocaleData.indexOf(requestedValue)) {
+                        value = requestedValue;
+                        supportedExtensionAddition = "-" + key + "-" + value;
+                    }
+                }
+                else if (~requestedValue.indexOf('true')) {
+                    value = 'true';
+                    supportedExtensionAddition = "-" + key;
+                }
+            }
+        }
+        if (key in options) {
+            var optionsValue = options[key];
+            utils_1.invariant(typeof optionsValue === 'string' ||
+                typeof optionsValue === 'undefined' ||
+                optionsValue === null, 'optionsValue must be String, Undefined or Null');
+            if (~keyLocaleData.indexOf(optionsValue)) {
+                if (optionsValue !== value) {
+                    value = optionsValue;
+                    supportedExtensionAddition = '';
+                }
+            }
+        }
+        result[key] = value;
+        supportedExtension += supportedExtensionAddition;
+    }
+    if (supportedExtension.length > 2) {
+        var privateIndex = foundLocale.indexOf('-x-');
+        if (privateIndex === -1) {
+            foundLocale = foundLocale + supportedExtension;
+        }
+        else {
+            var preExtension = foundLocale.slice(0, privateIndex);
+            var postExtension = foundLocale.slice(privateIndex, foundLocale.length);
+            foundLocale = preExtension + supportedExtension + postExtension;
+        }
+        foundLocale = Intl.getCanonicalLocales(foundLocale)[0];
+    }
+    result.locale = foundLocale;
+    return result;
+}
+exports.ResolveLocale = ResolveLocale;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/SupportedLocales.js ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SupportedLocales = void 0;
+var _262_1 = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/262.js");
+var GetOption_1 = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/GetOption.js");
+var LookupSupportedLocales_1 = __webpack_require__(/*! ./LookupSupportedLocales */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/LookupSupportedLocales.js");
+/**
+ * https://tc39.es/ecma402/#sec-supportedlocales
+ * @param availableLocales
+ * @param requestedLocales
+ * @param options
+ */
+function SupportedLocales(availableLocales, requestedLocales, options) {
+    var matcher = 'best fit';
+    if (options !== undefined) {
+        options = _262_1.ToObject(options);
+        matcher = GetOption_1.GetOption(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    }
+    if (matcher === 'best fit') {
+        return LookupSupportedLocales_1.LookupSupportedLocales(availableLocales, requestedLocales);
+    }
+    return LookupSupportedLocales_1.LookupSupportedLocales(availableLocales, requestedLocales);
+}
+exports.SupportedLocales = SupportedLocales;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/UnicodeExtensionValue.js ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnicodeExtensionValue = void 0;
+var utils_1 = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js");
+/**
+ * https://tc39.es/ecma402/#sec-unicodeextensionvalue
+ * @param extension
+ * @param key
+ */
+function UnicodeExtensionValue(extension, key) {
+    utils_1.invariant(key.length === 2, 'key must have 2 elements');
+    var size = extension.length;
+    var searchValue = "-" + key + "-";
+    var pos = extension.indexOf(searchValue);
+    if (pos !== -1) {
+        var start = pos + 4;
+        var end = start;
+        var k = start;
+        var done = false;
+        while (!done) {
+            var e = extension.indexOf('-', k);
+            var len = void 0;
+            if (e === -1) {
+                len = size - k;
+            }
+            else {
+                len = e - k;
+            }
+            if (len === 2) {
+                done = true;
+            }
+            else if (e === -1) {
+                end = size;
+                done = true;
+            }
+            else {
+                end = e;
+                k = e + 1;
+            }
+        }
+        return extension.slice(start, end);
+    }
+    searchValue = "-" + key;
+    pos = extension.indexOf(searchValue);
+    if (pos !== -1 && pos + 3 === size) {
+        return '';
+    }
+    return undefined;
+}
+exports.UnicodeExtensionValue = UnicodeExtensionValue;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/data.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/data.js ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.unpackData = exports.isMissingLocaleDataError = exports.getLocaleHierarchy = void 0;
+function getLocaleHierarchy(locale) {
+    var results = [locale];
+    var localeParts = locale.split('-');
+    for (var i = localeParts.length; i > 1; i--) {
+        results.push(localeParts.slice(0, i - 1).join('-'));
+    }
+    return results;
+}
+exports.getLocaleHierarchy = getLocaleHierarchy;
+var MissingLocaleDataError = /** @class */ (function (_super) {
+    __extends(MissingLocaleDataError, _super);
+    function MissingLocaleDataError() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'MISSING_LOCALE_DATA';
+        return _this;
+    }
+    return MissingLocaleDataError;
+}(Error));
+function isMissingLocaleDataError(e) {
+    return e.type === 'MISSING_LOCALE_DATA';
+}
+exports.isMissingLocaleDataError = isMissingLocaleDataError;
+function unpackData(locale, localeData, 
+/** By default shallow merge the dictionaries. */
+reducer) {
+    if (reducer === void 0) { reducer = function (all, d) { return (__assign(__assign({}, all), d)); }; }
+    var localeHierarchy = getLocaleHierarchy(locale);
+    var dataToMerge = localeHierarchy
+        .map(function (l) { return localeData.data[l]; })
+        .filter(Boolean);
+    if (!dataToMerge.length) {
+        throw new MissingLocaleDataError("Missing locale data for \"" + locale + "\", lookup hierarchy: " + localeHierarchy.join(', '));
+    }
+    dataToMerge.reverse();
+    return dataToMerge.reduce(reducer, {});
+}
+exports.unpackData = unpackData;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js":
+/*!*************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/src/utils.js ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.invariant = exports.UNICODE_EXTENSION_SEQUENCE_REGEX = exports.defineProperty = exports.isLiteralPart = exports.getMultiInternalSlots = exports.getInternalSlot = exports.setMultiInternalSlots = exports.setInternalSlot = exports.repeat = exports.getMagnitude = void 0;
+/**
+ * Cannot do Math.log(x) / Math.log(10) bc if IEEE floating point issue
+ * @param x number
+ */
+function getMagnitude(x) {
+    // Cannot count string length via Number.toString because it may use scientific notation
+    // for very small or very large numbers.
+    return Math.floor(Math.log(x) * Math.LOG10E);
+}
+exports.getMagnitude = getMagnitude;
+function repeat(s, times) {
+    if (typeof s.repeat === 'function') {
+        return s.repeat(times);
+    }
+    var arr = new Array(times);
+    for (var i = 0; i < arr.length; i++) {
+        arr[i] = s;
+    }
+    return arr.join('');
+}
+exports.repeat = repeat;
+function setInternalSlot(map, pl, field, value) {
+    if (!map.get(pl)) {
+        map.set(pl, Object.create(null));
+    }
+    var slots = map.get(pl);
+    slots[field] = value;
+}
+exports.setInternalSlot = setInternalSlot;
+function setMultiInternalSlots(map, pl, props) {
+    for (var _i = 0, _a = Object.keys(props); _i < _a.length; _i++) {
+        var k = _a[_i];
+        setInternalSlot(map, pl, k, props[k]);
+    }
+}
+exports.setMultiInternalSlots = setMultiInternalSlots;
+function getInternalSlot(map, pl, field) {
+    return getMultiInternalSlots(map, pl, field)[field];
+}
+exports.getInternalSlot = getInternalSlot;
+function getMultiInternalSlots(map, pl) {
+    var fields = [];
+    for (var _i = 2; _i < arguments.length; _i++) {
+        fields[_i - 2] = arguments[_i];
+    }
+    var slots = map.get(pl);
+    if (!slots) {
+        throw new TypeError(pl + " InternalSlot has not been initialized");
+    }
+    return fields.reduce(function (all, f) {
+        all[f] = slots[f];
+        return all;
+    }, Object.create(null));
+}
+exports.getMultiInternalSlots = getMultiInternalSlots;
+function isLiteralPart(patternPart) {
+    return patternPart.type === 'literal';
+}
+exports.isLiteralPart = isLiteralPart;
+/*
+  17 ECMAScript Standard Built-in Objects:
+    Every built-in Function object, including constructors, that is not
+    identified as an anonymous function has a name property whose value
+    is a String.
+
+    Unless otherwise specified, the name property of a built-in Function
+    object, if it exists, has the attributes { [[Writable]]: false,
+    [[Enumerable]]: false, [[Configurable]]: true }.
+*/
+function defineProperty(target, name, _a) {
+    var value = _a.value;
+    Object.defineProperty(target, name, {
+        configurable: true,
+        enumerable: false,
+        writable: true,
+        value: value,
+    });
+}
+exports.defineProperty = defineProperty;
+exports.UNICODE_EXTENSION_SEQUENCE_REGEX = /-u(?:-[0-9a-z]{2,8})+/gi;
+function invariant(condition, message, Err) {
+    if (Err === void 0) { Err = Error; }
+    if (!condition) {
+        throw new Err(message);
+    }
+}
+exports.invariant = invariant;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/date-time.js":
+/*!*******************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/date-time.js ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/displaynames.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/displaynames.js ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/list.js":
+/*!**************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/list.js ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/number.js":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/number.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/plural-rules.js ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/relative-time.js":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/types/relative-time.js ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+
 
 /***/ }),
 
@@ -3409,7 +9588,41 @@ exports.removeUnitNamespace = removeUnitNamespace;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./dist/polyfill */ "./node_modules/@formatjs/intl-relativetimeformat/dist/polyfill.js");
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __importDefault(__webpack_require__(/*! ./ */ "./node_modules/@formatjs/intl-relativetimeformat/index.js"));
+var should_polyfill_1 = __webpack_require__(/*! ./should-polyfill */ "./node_modules/@formatjs/intl-relativetimeformat/should-polyfill.js");
+if (should_polyfill_1.shouldPolyfill()) {
+    Object.defineProperty(Intl, 'RelativeTimeFormat', {
+        value: _1.default,
+        writable: true,
+        enumerable: false,
+        configurable: true,
+    });
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/should-polyfill.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/should-polyfill.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.shouldPolyfill = void 0;
+function shouldPolyfill() {
+    return typeof Intl === 'undefined' || !('RelativeTimeFormat' in Intl);
+}
+exports.shouldPolyfill = shouldPolyfill;
 
 
 /***/ }),
@@ -3437,6 +9650,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/li
 
 var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/utils.js");
 var settle = __webpack_require__(/*! ./../core/settle */ "./node_modules/axios/lib/core/settle.js");
+var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
 var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ "./node_modules/axios/lib/helpers/buildURL.js");
 var buildFullPath = __webpack_require__(/*! ../core/buildFullPath */ "./node_modules/axios/lib/core/buildFullPath.js");
 var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ "./node_modules/axios/lib/helpers/parseHeaders.js");
@@ -3452,12 +9666,19 @@ module.exports = function xhrAdapter(config) {
       delete requestHeaders['Content-Type']; // Let the browser set it
     }
 
+    if (
+      (utils.isBlob(requestData) || utils.isFile(requestData)) &&
+      requestData.type
+    ) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
     var request = new XMLHttpRequest();
 
     // HTTP basic authentication
     if (config.auth) {
       var username = config.auth.username || '';
-      var password = config.auth.password || '';
+      var password = unescape(encodeURIComponent(config.auth.password)) || '';
       requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
     }
 
@@ -3538,8 +9759,6 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(/*! ./../helpers/cookies */ "./node_modules/axios/lib/helpers/cookies.js");
-
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath)) && config.xsrfCookieName ?
         cookies.read(config.xsrfCookieName) :
@@ -3605,7 +9824,7 @@ module.exports = function xhrAdapter(config) {
       });
     }
 
-    if (requestData === undefined) {
+    if (!requestData) {
       requestData = null;
     }
 
@@ -3882,7 +10101,7 @@ Axios.prototype.getUri = function getUri(config) {
 utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(mergeConfig(config || {}, {
       method: method,
       url: url
     }));
@@ -3892,7 +10111,7 @@ utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData
 utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
   /*eslint func-names:0*/
   Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
+    return this.request(mergeConfig(config || {}, {
       method: method,
       url: url,
       data: data
@@ -4152,7 +10371,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
   error.response = response;
   error.isAxiosError = true;
 
-  error.toJSON = function() {
+  error.toJSON = function toJSON() {
     return {
       // Standard
       message: this.message,
@@ -4201,59 +10420,73 @@ module.exports = function mergeConfig(config1, config2) {
   config2 = config2 || {};
   var config = {};
 
-  var valueFromConfig2Keys = ['url', 'method', 'params', 'data'];
-  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy'];
+  var valueFromConfig2Keys = ['url', 'method', 'data'];
+  var mergeDeepPropertiesKeys = ['headers', 'auth', 'proxy', 'params'];
   var defaultToConfig2Keys = [
-    'baseURL', 'url', 'transformRequest', 'transformResponse', 'paramsSerializer',
-    'timeout', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
-    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress',
-    'maxContentLength', 'validateStatus', 'maxRedirects', 'httpAgent',
-    'httpsAgent', 'cancelToken', 'socketPath'
+    'baseURL', 'transformRequest', 'transformResponse', 'paramsSerializer',
+    'timeout', 'timeoutMessage', 'withCredentials', 'adapter', 'responseType', 'xsrfCookieName',
+    'xsrfHeaderName', 'onUploadProgress', 'onDownloadProgress', 'decompress',
+    'maxContentLength', 'maxBodyLength', 'maxRedirects', 'transport', 'httpAgent',
+    'httpsAgent', 'cancelToken', 'socketPath', 'responseEncoding'
   ];
+  var directMergeKeys = ['validateStatus'];
+
+  function getMergedValue(target, source) {
+    if (utils.isPlainObject(target) && utils.isPlainObject(source)) {
+      return utils.merge(target, source);
+    } else if (utils.isPlainObject(source)) {
+      return utils.merge({}, source);
+    } else if (utils.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+
+  function mergeDeepProperties(prop) {
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  }
 
   utils.forEach(valueFromConfig2Keys, function valueFromConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
     }
   });
 
-  utils.forEach(mergeDeepPropertiesKeys, function mergeDeepProperties(prop) {
-    if (utils.isObject(config2[prop])) {
-      config[prop] = utils.deepMerge(config1[prop], config2[prop]);
-    } else if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (utils.isObject(config1[prop])) {
-      config[prop] = utils.deepMerge(config1[prop]);
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
-    }
-  });
+  utils.forEach(mergeDeepPropertiesKeys, mergeDeepProperties);
 
   utils.forEach(defaultToConfig2Keys, function defaultToConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
+    if (!utils.isUndefined(config2[prop])) {
+      config[prop] = getMergedValue(undefined, config2[prop]);
+    } else if (!utils.isUndefined(config1[prop])) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
+    }
+  });
+
+  utils.forEach(directMergeKeys, function merge(prop) {
+    if (prop in config2) {
+      config[prop] = getMergedValue(config1[prop], config2[prop]);
+    } else if (prop in config1) {
+      config[prop] = getMergedValue(undefined, config1[prop]);
     }
   });
 
   var axiosKeys = valueFromConfig2Keys
     .concat(mergeDeepPropertiesKeys)
-    .concat(defaultToConfig2Keys);
+    .concat(defaultToConfig2Keys)
+    .concat(directMergeKeys);
 
   var otherKeys = Object
-    .keys(config2)
+    .keys(config1)
+    .concat(Object.keys(config2))
     .filter(function filterAxiosKeys(key) {
       return axiosKeys.indexOf(key) === -1;
     });
 
-  utils.forEach(otherKeys, function otherKeysDefaultToConfig2(prop) {
-    if (typeof config2[prop] !== 'undefined') {
-      config[prop] = config2[prop];
-    } else if (typeof config1[prop] !== 'undefined') {
-      config[prop] = config1[prop];
-    }
-  });
+  utils.forEach(otherKeys, mergeDeepProperties);
 
   return config;
 };
@@ -4282,7 +10515,7 @@ var createError = __webpack_require__(/*! ./createError */ "./node_modules/axios
  */
 module.exports = function settle(resolve, reject, response) {
   var validateStatus = response.config.validateStatus;
-  if (!validateStatus || validateStatus(response.status)) {
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
     resolve(response);
   } else {
     reject(createError(
@@ -4414,6 +10647,7 @@ var defaults = {
   xsrfHeaderName: 'X-XSRF-TOKEN',
 
   maxContentLength: -1,
+  maxBodyLength: -1,
 
   validateStatus: function validateStatus(status) {
     return status >= 200 && status < 300;
@@ -4477,7 +10711,6 @@ var utils = __webpack_require__(/*! ./../utils */ "./node_modules/axios/lib/util
 
 function encode(val) {
   return encodeURIComponent(val).
-    replace(/%40/gi, '@').
     replace(/%3A/gi, ':').
     replace(/%24/g, '$').
     replace(/%2C/gi, ',').
@@ -4987,6 +11220,21 @@ function isObject(val) {
 }
 
 /**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+
+/**
  * Determine if a value is a Date
  *
  * @param {Object} val The value to test
@@ -5142,34 +11390,12 @@ function forEach(obj, fn) {
 function merge(/* obj1, obj2, obj3, ... */) {
   var result = {};
   function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
+    if (isPlainObject(result[key]) && isPlainObject(val)) {
       result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
- * Function equal to merge with the difference being that no reference
- * to original objects is kept.
- *
- * @see merge
- * @param {Object} obj1 Object to merge
- * @returns {Object} Result of all merge properties
- */
-function deepMerge(/* obj1, obj2, obj3, ... */) {
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = deepMerge(result[key], val);
-    } else if (typeof val === 'object') {
-      result[key] = deepMerge({}, val);
+    } else if (isPlainObject(val)) {
+      result[key] = merge({}, val);
+    } else if (isArray(val)) {
+      result[key] = val.slice();
     } else {
       result[key] = val;
     }
@@ -5200,6 +11426,19 @@ function extend(a, b, thisArg) {
   return a;
 }
 
+/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */
+function stripBOM(content) {
+  if (content.charCodeAt(0) === 0xFEFF) {
+    content = content.slice(1);
+  }
+  return content;
+}
+
 module.exports = {
   isArray: isArray,
   isArrayBuffer: isArrayBuffer,
@@ -5209,6 +11448,7 @@ module.exports = {
   isString: isString,
   isNumber: isNumber,
   isObject: isObject,
+  isPlainObject: isPlainObject,
   isUndefined: isUndefined,
   isDate: isDate,
   isFile: isFile,
@@ -5219,9 +11459,9 @@ module.exports = {
   isStandardBrowserEnv: isStandardBrowserEnv,
   forEach: forEach,
   merge: merge,
-  deepMerge: deepMerge,
   extend: extend,
-  trim: trim
+  trim: trim,
+  stripBOM: stripBOM
 };
 
 
@@ -25728,17 +31968,17 @@ if (!Intl.PluralRules) {
 
   __webpack_require__(/*! @formatjs/intl-pluralrules/polyfill */ "./node_modules/@formatjs/intl-pluralrules/polyfill.js");
 
-  __webpack_require__(/*! @formatjs/intl-pluralrules/dist/locale-data/en */ "./node_modules/@formatjs/intl-pluralrules/dist/locale-data/en.js");
+  __webpack_require__(/*! @formatjs/intl-pluralrules/locale-data/en */ "./node_modules/@formatjs/intl-pluralrules/locale-data/en.js");
 
-  __webpack_require__(/*! @formatjs/intl-pluralrules/dist/locale-data/fr */ "./node_modules/@formatjs/intl-pluralrules/dist/locale-data/fr.js");
+  __webpack_require__(/*! @formatjs/intl-pluralrules/locale-data/fr */ "./node_modules/@formatjs/intl-pluralrules/locale-data/fr.js");
 }
 
 if (!Intl.RelativeTimeFormat) {
   __webpack_require__(/*! @formatjs/intl-relativetimeformat/polyfill */ "./node_modules/@formatjs/intl-relativetimeformat/polyfill.js");
 
-  __webpack_require__(/*! @formatjs/intl-relativetimeformat/dist/locale-data/en */ "./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/en.js");
+  __webpack_require__(/*! @formatjs/intl-relativetimeformat/locale-data/en */ "./node_modules/@formatjs/intl-relativetimeformat/locale-data/en.js");
 
-  __webpack_require__(/*! @formatjs/intl-relativetimeformat/dist/locale-data/fr */ "./node_modules/@formatjs/intl-relativetimeformat/dist/locale-data/fr.js");
+  __webpack_require__(/*! @formatjs/intl-relativetimeformat/locale-data/fr */ "./node_modules/@formatjs/intl-relativetimeformat/locale-data/fr.js");
 } // Add a global fetch implementation
 
 
