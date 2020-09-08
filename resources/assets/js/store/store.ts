@@ -61,6 +61,10 @@ import experienceReducer, {
   initExperienceState,
   ExperienceState,
 } from "./Experience/experienceReducer";
+import awardRecipientTypeReducer, {
+  initAwardRecipientTypeState,
+  AwardRecipientTypeState,
+} from "./AwardRecipientType/awardRecipientTypeReducer";
 
 export type AppAction =
   | JobAction
@@ -78,6 +82,7 @@ export type AppAction =
 export interface RootState {
   jobs: JobState;
   assessment: AssessmentState;
+  awardRecipientType: AwardRecipientTypeState;
   ratingGuideQuestion: RatingGuideQuestionState;
   ratingGuideAnswer: RatingGuideAnswerState;
   skill: SkillState;
@@ -95,6 +100,7 @@ export interface RootState {
 export const initState = (): RootState => ({
   jobs: initJobs(),
   assessment: initAssessment(),
+  awardRecipientType: initAwardRecipientTypeState(),
   ratingGuideQuestion: initRatingGuideQuestion(),
   ratingGuideAnswer: initRatingGuideAnswer(),
   skill: initSkill(),
@@ -113,6 +119,7 @@ export const rootReducer = (): Reducer<RootState> =>
   combineReducers({
     jobs: jobsReducer,
     assessment: assessmentReducer,
+    awardRecipientType: awardRecipientTypeReducer,
     ratingGuideQuestion: ratingGuideQuestionReducer,
     ratingGuideAnswer: ratingGuideAnswerReducer,
     skill: skillReducer,
