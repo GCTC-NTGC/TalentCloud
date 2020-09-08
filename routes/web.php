@@ -82,6 +82,9 @@ Route::group(
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
+
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -284,11 +287,38 @@ Route::group(
                 Route::get('faq', 'FaqController')->name('faq');
 
                 /* Static - Privacy Policy */
-                Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
-                    ->name('privacy');
+                Route::get(
+                    'privacy',
+                    function () {
+                        return view(
+                            'common/static_privacy',
+                            [
+                                'privacy' => Lang::get('common/privacy'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/privacy.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('privacy');
 
                 /* Static - Terms of Service */
-                Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
+                Route::get(
+                    'tos',
+                    function () {
+                        return view(
+                            'common/static_tos',
+                            [
+                                'tos' => Lang::get('common/tos'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/tos.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('tos');
 
                 /* Static - ITP */
                 Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
@@ -835,9 +865,13 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('user', '[0-9]+');
 
     // Public, not protected by policy or gate.
-    Route::get('skills', 'Api\SkillController@index');
+    Route::get('award-recipient-types', 'Api\AwardRecipientTypeController@index');
+    Route::get('award-recognition-types', 'Api\AwardRecognitionTypeController@index');
+    Route::get('education-statuses', 'Api\EducationStatusController@index');
+    Route::get('education-types', 'Api\EducationTypeController@index');
     Route::get('departments', 'Api\DepartmentController@index');
     Route::get('job-poster-statuses', 'Api\JobStatusController@index');
+    Route::get('skills', 'Api\SkillController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
@@ -1011,6 +1045,18 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('community', '[0-9]+')
         ->middleware('can:delete,community')
         ->name('experience-community.destroy');
+
+    Route::post('experience-skills', 'Api\ExperienceSkillsController@store')
+        ->middleware('can:create,App\Models\ExperienceSkill')
+        ->name('experience-skill.store');
+    Route::put('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@update')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:update,experienceSkill')
+        ->name('experience-skill.update');
+    Route::delete('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@destroy')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:delete,experienceSkill')
+        ->name('experience-skill.destroy');
 });
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')

@@ -30,8 +30,12 @@ jest.mock("../../store/Skill/skillSelector", (): object => {
   };
 });
 
-const formatMessage = (message: MessageDescriptor): string =>
-  message.defaultMessage ?? "";
+const formatMessage = (message: MessageDescriptor): string => {
+  if (message.defaultMessage && typeof message.defaultMessage === "string") {
+    return message.defaultMessage;
+  }
+  return "";
+};
 
 const someSkills: Skill[] = [
   fakeSkill(),

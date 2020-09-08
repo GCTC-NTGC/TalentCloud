@@ -38,10 +38,24 @@ export const useUrlHash = (): void => {
   }, [location.hash, hashFound]);
 };
 
+export const navigate = (url: string): void => {
+  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
+  const path = removeBaseUrl(url);
+  HISTORY.push(path);
+};
+
+export const redirect = (url: string): void => {
+  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
+  const path = removeBaseUrl(url);
+  HISTORY.replace(path);
+};
+
 export interface RouterResult {
   title: MessageDescriptor;
   component: ReactElement;
+  redirect?: string;
 }
+
 export const useRouter = (
   routes: Routes<any, RouterResult>,
   intl: IntlShape,
@@ -53,28 +67,20 @@ export const useRouter = (
   // Render the result of routing
   useEffect((): void => {
     router.resolve(path).then((result): void => {
-      // Dynamically update the page title and header on step changes
-      const title = intl.formatMessage(result.title);
-      document.title = title;
-      const h1 = document.querySelector("h1");
-      if (h1) h1.innerHTML = title;
-      setComponent(result.component);
+      if (result.redirect) {
+        redirect(result.redirect);
+      } else {
+        // Dynamically update the page title and header on step changes
+        const title = intl.formatMessage(result.title);
+        document.title = title;
+        const h1 = document.querySelector("h1");
+        if (h1) h1.innerHTML = title;
+        setComponent(result.component);
+      }
     });
   }, [intl, location, router]);
 
   return component;
-};
-
-export const navigate = (url: string): void => {
-  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
-  const path = removeBaseUrl(url);
-  HISTORY.push(path);
-};
-
-export const redirect = (url: string): void => {
-  // The history object has been initialized with the app's base url, so ensure it's not also part of the specified url.
-  const path = removeBaseUrl(url);
-  HISTORY.replace(path);
 };
 
 export const Link: React.FC<{ href: string; title: string }> = ({

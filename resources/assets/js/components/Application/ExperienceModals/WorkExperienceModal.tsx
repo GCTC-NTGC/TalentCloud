@@ -3,7 +3,6 @@ import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -36,11 +35,11 @@ interface WorkExperienceModalProps {
   modalId: string;
   experienceWork: ExperienceWork | null;
   jobId: number;
+  jobClassification: string;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperienceWork["experienceable_type"];
   parentElement: Element | null;
@@ -49,55 +48,55 @@ interface WorkExperienceModalProps {
   onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
-    id: "workExperienceModal.modalTitle",
+    id: "application.workExperienceModal.modalTitle",
     defaultMessage: "Add Work Experience",
   },
   modalDescription: {
-    id: "workExperienceModal.modalDescription",
+    id: "application.workExperienceModal.modalDescription",
     defaultMessage:
       'Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a "Community Experience".)',
   },
   jobTitleLabel: {
-    id: "workExperienceModal.jobTitleLabel",
+    id: "application.workExperienceModal.jobTitleLabel",
     defaultMessage: "My Role/Job Title",
   },
   jobTitlePlaceholder: {
-    id: "workExperienceModal.jobTitlePlaceholder",
+    id: "application.workExperienceModal.jobTitlePlaceholder",
     defaultMessage: "e.g. Front-end Development",
   },
   orgNameLabel: {
-    id: "workExperienceModal.orgNameLabel",
+    id: "application.workExperienceModal.orgNameLabel",
     defaultMessage: "Organization/Company",
   },
   orgNamePlaceholder: {
-    id: "workExperienceModal.orgNamePlaceholder",
+    id: "application.workExperienceModal.orgNamePlaceholder",
     defaultMessage: "e.g. Government of Canada",
   },
   groupLabel: {
-    id: "workExperienceModal.groupLabel",
+    id: "application.workExperienceModal.groupLabel",
     defaultMessage: "Team, Group, or Division",
   },
   groupPlaceholder: {
-    id: "workExperienceModal.groupPlaceholder",
+    id: "application.workExperienceModal.groupPlaceholder",
     defaultMessage: "e.g. Talent Cloud",
   },
   startDateLabel: {
-    id: "workExperienceModal.startDateLabel",
+    id: "application.workExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "workExperienceModal.datePlaceholder",
+    id: "application.workExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "workExperienceModal.isActiveLabel",
+    id: "application.workExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "workExperienceModal.endDateLabel",
+    id: "application.workExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
@@ -114,7 +113,7 @@ export interface WorkDetailsFormValues {
 type WorkExperienceFormValues = SkillFormValues &
   EducationFormValues &
   WorkDetailsFormValues;
-interface WorkExperienceSubmitData {
+export interface WorkExperienceSubmitData {
   experienceWork: ExperienceWork;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -221,11 +220,11 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   modalId,
   experienceWork,
   jobId,
+  jobClassification,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -357,7 +356,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform jobClassification={jobClassification} />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

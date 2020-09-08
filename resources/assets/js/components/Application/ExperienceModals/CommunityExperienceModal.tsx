@@ -3,7 +3,6 @@ import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -36,11 +35,11 @@ interface CommunityExperienceModalProps {
   modalId: string;
   experienceCommunity: ExperienceCommunity | null;
   jobId: number;
+  jobClassification: string;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperienceCommunity["experienceable_type"];
   parentElement: Element | null;
@@ -49,55 +48,55 @@ interface CommunityExperienceModalProps {
   onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
-    id: "communityExperienceModal.modalTitle",
+    id: "application.communityExperienceModal.modalTitle",
     defaultMessage: "Add Community Experience",
   },
   modalDescription: {
-    id: "communityExperienceModal.modalDescription",
+    id: "application.communityExperienceModal.modalDescription",
     defaultMessage:
       "Gained experience by being part of or giving back to a community? People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, indigenous communities, or virtual collaborations. (Here’s an opportunity to share the skills that your community has helped you develop.)",
   },
   titleLabel: {
-    id: "communityExperienceModal.titleLabel",
+    id: "application.communityExperienceModal.titleLabel",
     defaultMessage: "My Role / Job Title",
   },
   titlePlaceholder: {
-    id: "communityExperienceModal.titlePlaceholder",
+    id: "application.communityExperienceModal.titlePlaceholder",
     defaultMessage: "e.g. Front-end Development",
   },
   groupLabel: {
-    id: "communityExperienceModal.groupLabel",
+    id: "application.communityExperienceModal.groupLabel",
     defaultMessage: "Group / Organization / Community",
   },
   groupPlaceholder: {
-    id: "communityExperienceModal.groupPlaceholder",
+    id: "application.communityExperienceModal.groupPlaceholder",
     defaultMessage: "e.g. Government of Canada",
   },
   projectLabel: {
-    id: "communityExperienceModal.projectLabel",
+    id: "application.communityExperienceModal.projectLabel",
     defaultMessage: "Project / Product Name",
   },
   projectPlaceholder: {
-    id: "communityExperienceModal.projectPlaceholder",
+    id: "application.communityExperienceModal.projectPlaceholder",
     defaultMessage: "e.g. Talent Cloud",
   },
   startDateLabel: {
-    id: "communityExperienceModal.startDateLabel",
+    id: "application.communityExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "communityExperienceModal.datePlaceholder",
+    id: "application.communityExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "communityExperienceModal.isActiveLabel",
+    id: "application.communityExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "communityExperienceModal.endDateLabel",
+    id: "application.communityExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
@@ -114,7 +113,7 @@ export interface CommunityDetailsFormValues {
 type CommunityExperienceFormValues = SkillFormValues &
   EducationFormValues &
   CommunityDetailsFormValues;
-interface CommunityExperienceSubmitData {
+export interface CommunityExperienceSubmitData {
   experienceCommunity: ExperienceCommunity;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -225,11 +224,11 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   modalId,
   experienceCommunity,
   jobId,
+  jobClassification,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -362,7 +361,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform jobClassification={jobClassification} />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

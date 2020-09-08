@@ -36,4 +36,12 @@ class ApplicationTimelineController extends Controller
             ]
         );
     }
+
+    public function show(JobApplication $jobApplication)
+    {
+        return view('applicant/application-timeline-root')
+            ->with([
+                'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
+            ]);
+    }
 }

@@ -196,9 +196,7 @@ export const VeteranId = {
 };
 
 export function getKeyByValue(object, value): string {
-  return (
-    Object.keys(object).find((key) => object[key] === parseInt(value, 10)) || ""
-  );
+  return Object.keys(object).find((key) => object[key] === value) || "";
 }
 
 export function enumToIds(enumType: object): number[] {

@@ -3,7 +3,6 @@ import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -34,12 +33,12 @@ import { notEmpty } from "../../../helpers/queries";
 import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-interface EducationType {
+export interface EducationType {
   id: number;
   name: localizedFieldNonNull;
 }
 
-interface EducationStatus {
+export interface EducationStatus {
   id: number;
   name: localizedFieldNonNull;
 }
@@ -50,11 +49,11 @@ interface EducationExperienceModalProps {
   educationTypes: EducationType[];
   educationStatuses: EducationStatus[];
   jobId: number;
+  jobClassification: string;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperienceEducation["experienceable_type"];
   parentElement: Element | null;
@@ -63,81 +62,81 @@ interface EducationExperienceModalProps {
   onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
-    id: "educationExperienceModal.modalTitle",
-    defaultMessage: "Add Edcuation Experience",
+    id: "application.educationExperienceModal.modalTitle",
+    defaultMessage: "Add Education Experience",
   },
   modalDescription: {
-    id: "educationExperienceModal.modalDescription",
+    id: "application.educationExperienceModal.modalDescription",
     defaultMessage:
       'Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a "Community Experience" or "Personal Experience".)',
   },
   educationTypeLabel: {
-    id: "educationExperienceModal.educationTypeLabel",
+    id: "application.educationExperienceModal.educationTypeLabel",
     defaultMessage: "Type of Education",
   },
   educationTypeDefault: {
-    id: "educationExperienceModal.educationTypeDefault",
+    id: "application.educationExperienceModal.educationTypeDefault",
     defaultMessage: "Select an education type...",
     description: "Default selection in the Education Type dropdown menu.",
   },
   areaStudyLabel: {
-    id: "educationExperienceModal.areaStudyLabel",
+    id: "application.educationExperienceModal.areaStudyLabel",
     defaultMessage: "Area of Study",
   },
   areaStudyPlaceholder: {
-    id: "educationExperienceModal.areaStudyPlaceholder",
+    id: "application.educationExperienceModal.areaStudyPlaceholder",
     defaultMessage: "e.g. Organic Chemistry",
   },
   institutionLabel: {
-    id: "educationExperienceModal.institutionLabel",
+    id: "application.educationExperienceModal.institutionLabel",
     defaultMessage: "Institution",
   },
   institutionPlaceholder: {
-    id: "educationExperienceModal.institutionPlaceholder",
+    id: "application.educationExperienceModal.institutionPlaceholder",
     defaultMessage: "e.g. Bishop's University",
   },
   completionLabel: {
-    id: "educationExperienceModal.completionLabel",
+    id: "application.educationExperienceModal.completionLabel",
     defaultMessage: "Completion Status",
   },
   completionDefault: {
-    id: "educationExperienceModal.completionDefault",
+    id: "application.educationExperienceModal.completionDefault",
     defaultMessage: "Select a completion status...",
   },
   thesisLabel: {
-    id: "educationExperienceModal.thesisLabel",
+    id: "application.educationExperienceModal.thesisLabel",
     defaultMessage: "Thesis Title (Optional)",
   },
   thesisPlaceholder: {
-    id: "educationExperienceModal.thesisPlaceholder",
+    id: "application.educationExperienceModal.thesisPlaceholder",
     defaultMessage: "e.g. How bats navigate between each other during flight",
   },
   blockcertLabel: {
-    id: "educationExperienceModal.blockcertLabel",
+    id: "application.educationExperienceModal.blockcertLabel",
     defaultMessage: "Blockcert Link (Optional)",
   },
   blockcertInlineLabel: {
-    id: "educationExperienceModal.blockcertInlineLabel",
+    id: "application.educationExperienceModal.blockcertInlineLabel",
     defaultMessage:
       "I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
-    id: "educationExperienceModal.startDateLabel",
+    id: "application.educationExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "educationExperienceModal.datePlaceholder",
+    id: "application.educationExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "educationExperienceModal.isActiveLabel",
+    id: "application.educationExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "educationExperienceModal.endDateLabel",
+    id: "application.educationExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
@@ -157,7 +156,7 @@ export interface EducationDetailsFormValues {
 type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
   EducationDetailsFormValues;
-interface EducationExperienceSubmitData {
+export interface EducationExperienceSubmitData {
   experienceEducation: ExperienceEducation;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -268,9 +267,11 @@ const newExperienceEducation = (
 ): ExperienceEducation => ({
   id: 0,
   education_type_id: 0,
+  education_type: { en: "", fr: "" },
   area_of_study: "",
   institution: "",
   education_status_id: 0,
+  education_status: { en: "", fr: "" },
   thesis_title: "",
   has_blockcert: false,
   is_active: false,
@@ -289,11 +290,11 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   educationTypes,
   educationStatuses,
   jobId,
+  jobClassification,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -409,14 +410,15 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           label={intl.formatMessage(messages.thesisLabel)}
           placeholder={intl.formatMessage(messages.thesisPlaceholder)}
         />
-        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
-          <label>{intl.formatMessage(messages.blockcertLabel)}</label>
+        <div data-c-grid-item="base(1of1)">
           <FastField
             id="hasBlockcert"
             name="hasBlockcert"
             component={CheckboxInput}
             grid="base(1of1)"
             label={intl.formatMessage(messages.blockcertInlineLabel)}
+            checkboxBorder
+            borderLabel={intl.formatMessage(messages.blockcertLabel)}
           />
         </div>
       </div>
@@ -462,7 +464,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform jobClassification={jobClassification} />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>
