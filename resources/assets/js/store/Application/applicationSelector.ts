@@ -39,6 +39,13 @@ const constructNonNormalizedApplication = (
   };
 };
 
+export const getApplicationIsUpdating = (
+  state: RootState,
+  props: { applicationId: number },
+): boolean =>
+  hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
+  ui(state).applicationIsUpdating[props.applicationId];
+
 export const getApplication = createCachedSelector(
   getApplicationState,
   (state: RootState, ownProps: { applicationId: number }): number =>

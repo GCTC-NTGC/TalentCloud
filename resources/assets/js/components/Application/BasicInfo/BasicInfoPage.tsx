@@ -15,8 +15,12 @@ import {
 } from "../../../helpers/routes";
 import { Job, ApplicationNormalized } from "../../../models/types";
 import RootContainer from "../../RootContainer";
+import { DispatchType } from "../../../configureStore";
 import { RootState } from "../../../store/store";
-import { getApplication } from "../../../store/Application/applicationSelector";
+import {
+  getApplication,
+  getApplicationIsUpdating,
+} from "../../../store/Application/applicationSelector";
 import {
   updateApplication as updateApplicationAction,
   fetchApplicationNormalized,
@@ -33,16 +37,22 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<DispatchType>();
 
   // Load Application.
-  useEffect(() => {
-    dispatch(fetchApplicationNormalized(applicationId));
-  }, [dispatch, applicationId]);
-
-  const application = useSelector((state: RootState) =>
-    getApplication(state, { applicationId }),
+  const applicationSelector = (
+    state: RootState,
+  ): ApplicationNormalized | null => getApplication(state, { applicationId });
+  const application = useSelector(applicationSelector);
+  const applicationIsUpdating = useSelector((state: RootState) =>
+    getApplicationIsUpdating(state, { applicationId }),
   );
+
+  useEffect(() => {
+    if (application === null && !applicationIsUpdating) {
+      dispatch(fetchApplicationNormalized(applicationId));
+    }
+  }, [dispatch, applicationId, application, applicationIsUpdating]);
 
   // Load Job.
   const jobId = application?.job_poster_id;
