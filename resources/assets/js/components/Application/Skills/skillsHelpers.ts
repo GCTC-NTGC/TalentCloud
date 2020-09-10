@@ -108,7 +108,7 @@ export const statusReducer = (
     ...state,
     [action.payload.skillId]: {
       experiences: {
-        ...state[action.payload.skillId].experiences,
+        ...(state[action.payload.skillId]?.experiences ?? {}),
         [`${action.payload.experienceType}_${action.payload.experienceId}`]: action
           .payload.status,
       },
