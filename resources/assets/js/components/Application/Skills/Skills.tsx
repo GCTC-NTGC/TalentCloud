@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
       </p>
       <ul>
         {Object.keys(menuSkills).map((skillId) => (
-          <li key={skillId}>
+          <li key={`application-skills-sidebar-skill-${skillId}`}>
             <StatusIcon
               status={computeParentStatus(status, Number(skillId))}
               size=""
@@ -495,7 +495,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={skill.id}>
+                <div key={`application-skill-criterion-${criterion.id}`}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -554,10 +554,11 @@ const Skills: React.FC<SkillsProps> = ({
                             experienceSkill,
                             experiences,
                           );
-
+                          const elementKey = `experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`;
                           if (relevantExperience === null) {
                             return (
                               <div
+                                key={elementKey}
                                 data-c-background="gray(10)"
                                 data-c-radius="rounded"
                                 data-c-border="all(thin, solid, gray)"
@@ -578,7 +579,7 @@ const Skills: React.FC<SkillsProps> = ({
 
                           return (
                             <ExperienceSkillAccordion
-                              key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                              key={elementKey}
                               experience={relevantExperience}
                               experienceSkill={experienceSkill}
                               intl={intl}
