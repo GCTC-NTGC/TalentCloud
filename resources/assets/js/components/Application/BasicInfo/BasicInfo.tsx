@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { useIntl } from "react-intl";
@@ -54,11 +55,21 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   );
 
   const initialValues: BasicInfoFormValues = {
-    citizenship: "",
-    veteranStatus: "",
-    languageRequirement: false,
-    languageTest: false,
-    educationRequirement: false,
+    citizenship: application?.citizenship_declaration_id
+      ? application.citizenship_declaration_id
+      : "",
+    veteranStatus: application?.veteran_status_id
+      ? application.veteran_status_id
+      : "",
+    languageRequirement: application?.language_requirement_confirmed
+      ? application.language_requirement_confirmed
+      : false,
+    languageTest: application?.language_test_confirmed
+      ? application.language_test_confirmed
+      : false,
+    educationRequirement: application?.education_requirement_confirmed
+      ? application.education_requirement_confirmed
+      : false,
   };
 
   const validationSchema = Yup.object().shape({
@@ -103,7 +114,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   };
 
   return (
-    <div data-c-container="medium">
+    <div data-c-container="medium" data-c-padding="tb(2)">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
         {intl.formatMessage(basicInfoMessages.heading)}
       </h2>
