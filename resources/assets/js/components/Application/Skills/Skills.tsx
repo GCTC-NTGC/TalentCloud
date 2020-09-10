@@ -37,6 +37,7 @@ import {
   initialStatus,
   computeParentStatus,
   SkillStatus,
+  computeEperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
 
@@ -545,10 +546,10 @@ const Skills: React.FC<SkillsProps> = ({
                     <div data-c-accordion-group="">
                       {getExperiencesOfSkill(skill, experienceSkills).map(
                         (experienceSkill) => {
-                          const experienceStatus =
-                            status[experienceSkill.skill_id].experiences[
-                              `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
-                            ];
+                          const experienceStatus = computeEperienceStatus(
+                            status,
+                            experienceSkill,
+                          );
                           const relevantExperience = getExperienceOfExperienceSkills(
                             experienceSkill,
                             experiences,

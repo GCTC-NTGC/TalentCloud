@@ -1,5 +1,6 @@
 import { ExperienceSkill } from "../../../models/types";
 import { IconStatus } from "../../StatusIcon";
+import { hasKey } from "../../../helpers/queries";
 
 export interface SkillStatus {
   [skillId: string]: {
@@ -69,6 +70,19 @@ export const computeParentStatus = (
   }
 
   return IconStatus.DEFAULT;
+};
+
+/** Get current experienceSkill status if it's stored in status store, or return DEFAULT. */
+export const computeEperienceStatus = (
+  statusShape: SkillStatus,
+  experienceSkill: ExperienceSkill,
+): IconStatus => {
+  const skillId = experienceSkill.skill_id;
+  const experienceKey = `${experienceSkill.experience_type}_${experienceSkill.experience_id}`;
+  return hasKey(statusShape, skillId) &&
+    hasKey(statusShape[skillId].experiences, experienceKey)
+    ? statusShape[skillId].experiences[experienceKey]
+    : IconStatus.DEFAULT;
 };
 
 /**
