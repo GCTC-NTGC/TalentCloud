@@ -179,7 +179,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
 
   return (
     <div
-      data-c-accordion=""
+      data-c-accordion
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
@@ -187,7 +187,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
     >
       <button
         aria-expanded={isExpanded ? "true" : "false"}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         tabIndex={0}
         type="button"
         onClick={handleExpandClick}

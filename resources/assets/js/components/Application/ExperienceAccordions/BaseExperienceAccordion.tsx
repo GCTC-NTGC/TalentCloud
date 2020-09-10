@@ -73,7 +73,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
 
   return (
     <div
-      data-c-accordion=""
+      data-c-accordion
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
@@ -82,7 +82,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
       <button
         tabIndex={0}
         aria-expanded={isExpanded}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         type="button"
         onClick={(): void => {
           setIsExpanded(!isExpanded);
