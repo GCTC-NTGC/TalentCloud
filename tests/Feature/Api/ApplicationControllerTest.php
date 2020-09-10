@@ -86,7 +86,7 @@ class ApplicationControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($applicant->user)
-            ->json('post', "$this->baseUrl/applications/$application->id/basic", $expected);
+            ->json('put', "$this->baseUrl/applications/$application->id/basic", $expected);
         $response->assertOk();
         $response->assertJsonFragment($expected);
     }
@@ -105,7 +105,7 @@ class ApplicationControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($applicant->user)
-            ->json('post', "$this->baseUrl/applications/$application->id/basic", $invalid);
+            ->json('put', "$this->baseUrl/applications/$application->id/basic", $invalid);
         $response->assertStatus(422);
         $response->assertJsonFragment(['message' => 'The given data was invalid.']);
     }
