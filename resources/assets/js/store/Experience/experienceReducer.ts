@@ -350,7 +350,7 @@ function setExperienceSkills(
     const prevIds = acc[expSkill.experience_id] ?? [];
     return {
       ...acc,
-      [expSkill.experience_id]: [expSkill.id, ...prevIds],
+      [expSkill.experience_id]: uniq([expSkill.id, ...prevIds]),
     };
   };
   return {
