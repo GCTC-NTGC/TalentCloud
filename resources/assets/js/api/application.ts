@@ -23,6 +23,9 @@ export const parseSingleReferenceEmail = (data: any): Email => data;
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;
 
+export const getApplicationBasicEndpoint = (applicationId: number): string =>
+  `${getApplicationEndpoint(applicationId)}/basic`;
+
 export const getApplicationReviewEndpoint = (applicationId: number): string =>
   `${getApplicationEndpoint(applicationId)}/review`;
 

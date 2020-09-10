@@ -24,6 +24,7 @@ import {
   getSendReferenceEmailEndpoint,
   parseSingleReferenceEmail,
   parseApplicationNormalized,
+  getApplicationBasicEndpoint,
 } from "../../api/application";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -111,7 +112,7 @@ export const updateApplication = (
   { id: number }
 > =>
   asyncPut(
-    getApplicationEndpoint(application.id),
+    getApplicationBasicEndpoint(application.id),
     application,
     UPDATE_APPLICATION_STARTED,
     UPDATE_APPLICATION_SUCCEEDED,
