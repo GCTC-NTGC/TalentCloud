@@ -186,7 +186,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     }
     return Promise.reject(result.error);
   };
-  const closeDate = new Date(); // TODO: get from application.
+  const closeDate = job?.close_date_time ?? new Date();
 
   const handleReturn = (): void => {
     navigate(applicationExperience(locale, applicationId));
