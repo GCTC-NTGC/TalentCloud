@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import ReactDOM from "react-dom";
 import BasicInfo from "./BasicInfo";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
@@ -14,7 +13,6 @@ import {
   applicationWelcome,
 } from "../../../helpers/routes";
 import { Job, ApplicationNormalized } from "../../../models/types";
-import RootContainer from "../../RootContainer";
 import { DispatchType } from "../../../configureStore";
 import { RootState } from "../../../store/store";
 import {
@@ -122,17 +120,3 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
 };
 
 export default BasicInfoPage;
-
-if (document.getElementById("application-basic")) {
-  const container = document.getElementById("application-basic") as HTMLElement;
-  const applicationIdAttr = container.getAttribute("data-application-id");
-  const applicationId = applicationIdAttr ? Number(applicationIdAttr) : null;
-  if (applicationId) {
-    ReactDOM.render(
-      <RootContainer>
-        <BasicInfoPage applicationId={applicationId} />
-      </RootContainer>,
-      container,
-    );
-  }
-}
