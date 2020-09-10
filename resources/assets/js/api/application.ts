@@ -1,7 +1,14 @@
-import { Application, ApplicationReview, Email } from "../models/types";
+import {
+  Application,
+  ApplicationNormalized,
+  ApplicationReview,
+  Email,
+} from "../models/types";
 import { baseUrl } from "./base";
 
 export const parseApplication = (data: any): Application => data;
+export const parseApplicationNormalized = (data: any): ApplicationNormalized =>
+  data;
 export const parseApplicationReview = (data: any): ApplicationReview => data;
 export const parseApplicationsForJob = (data: any): Application[] =>
   data.map(parseApplication);

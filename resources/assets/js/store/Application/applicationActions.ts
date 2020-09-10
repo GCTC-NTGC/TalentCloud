@@ -23,6 +23,7 @@ import {
   parseReferenceEmails,
   getSendReferenceEmailEndpoint,
   parseSingleReferenceEmail,
+  parseApplicationNormalized,
 } from "../../api/application";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
@@ -84,7 +85,7 @@ export const fetchApplicationNormalized = (
     FETCH_APPLICATION_NORMALIZED_STARTED,
     FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
     FETCH_APPLICATION_NORMALIZED_FAILED,
-    parseApplication,
+    parseApplicationNormalized,
     { id },
   );
 
@@ -259,7 +260,9 @@ export const sendReferenceEmail = (
 
 export type ApplicationAction =
   | FetchApplicationAction
+  | FetchApplicationNormalizedAction
   | FetchApplicationsForJobAction
+  | UpdateApplicationAction
   | UpdateApplicationReview
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction;
