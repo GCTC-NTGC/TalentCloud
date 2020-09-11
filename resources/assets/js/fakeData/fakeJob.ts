@@ -343,19 +343,19 @@ export const fakeJobApplicationAnswers = (
   {
     id: 1,
     job_application_id: jobApplicationId,
-    job_poster_questions_id: 1,
+    job_poster_question_id: 1,
     answer: "Here is my answer.",
   },
   {
     id: 2,
     job_application_id: jobApplicationId,
-    job_poster_questions_id: 2,
+    job_poster_question_id: 2,
     answer: "Please read my answers and see that I am an excellent candidate.",
   },
   {
     id: 3,
     job_application_id: jobApplicationId,
-    job_poster_questions_id: 3,
+    job_poster_question_id: 3,
     answer: "Je pourrais ecrire ce reponse en francais si je vourrais.",
   },
 ];

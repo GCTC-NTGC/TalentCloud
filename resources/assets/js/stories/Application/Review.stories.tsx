@@ -28,13 +28,13 @@ stories.add(
         {
           id: 1,
           job_application_id: 1,
-          job_poster_questions_id: 1,
+          job_poster_question_id: 1,
           answer: "This is an excellent answer to the first question.",
         },
         {
           id: 2,
           job_application_id: 2,
-          job_poster_questions_id: 2,
+          job_poster_question_id: 2,
           answer: "This is an answer for the second question.",
         },
       ]}

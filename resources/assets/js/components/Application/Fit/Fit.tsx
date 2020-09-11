@@ -95,13 +95,12 @@ export const Fit: React.FunctionComponent<FitProps> = ({
             key={question.id}
             jobApplicationAnswer={
               jobApplicationAnswers.find(
-                (appAnswer) =>
-                  appAnswer.job_poster_questions_id === question.id,
+                (appAnswer) => appAnswer.job_poster_question_id === question.id,
               ) ?? {
                 id: 0,
                 job_application_id: 0,
                 answer: "",
-                job_poster_questions_id: 0,
+                job_poster_question_id: 0,
               }
             }
             index={index}
