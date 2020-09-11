@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useReducer, useRef } from "react";
+import React, {
+  useState,
+  useReducer,
+  useRef,
+  createRef,
+  RefObject,
+} from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
-import { Formik, Form, FastField } from "formik";
+import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import {
@@ -40,6 +46,12 @@ import {
   computeEperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
+import {
+  validateAllForms,
+  submitAllForms,
+  focusOnElement,
+} from "../../../helpers/forms";
+import { notEmpty } from "../../../helpers/queries";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -89,6 +101,7 @@ interface ExperienceSkillAccordionProps {
   intl: IntlShape;
   status: IconStatus;
   skillName: string;
+  formRef: RefObject<FormikProps<ExperienceSkillFormValues>>;
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
@@ -116,6 +129,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
   handleUpdateExperienceJustification,
   handleUpdateStatus,
   handleRemoveExperience,
+  formRef,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   let heading = "";
@@ -250,14 +264,17 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
       </button>
       {isExpanded && (
         <Formik
+          innerRef={formRef}
           initialValues={initialValues}
           validationSchema={experienceSkillSchema}
-          onSubmit={(values, { setSubmitting, resetForm }): void => {
+          onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
             const experienceSkillJustification = updateExperienceSkill(
               experienceSkill,
               values,
             );
-            handleUpdateExperienceJustification(experienceSkillJustification)
+            return handleUpdateExperienceJustification(
+              experienceSkillJustification,
+            )
               .then(() => {
                 handleUpdateStatus({
                   payload: {
@@ -291,7 +308,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                 <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
                 <div data-c-padding="lr(1)">
                   <FastField
-                    id={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                    id={`experience-skill-textarea-${experienceSkill.id}`}
                     name="justification"
                     label={label}
                     component={TextAreaInput}
@@ -325,7 +342,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                       data-c-align="base(center) tp(right)"
                     >
                       <WordCounter
-                        elementId={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                        elementId={`experience-skill-textarea-${experienceSkill.id}`}
                         maxWords={JUSTIFICATION_WORD_LIMIT}
                         minWords={0}
                         absoluteValue
@@ -342,7 +359,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                         data-c-radius="rounded"
                         type="button"
                         disabled={!dirty || isSubmitting}
-                        onClick={() => {
+                        onClick={(): void => {
                           if (!isValid) {
                             handleUpdateStatus({
                               payload: {
@@ -429,6 +446,47 @@ const Skills: React.FC<SkillsProps> = ({
     },
     [],
   );
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  /**
+   * Validate many Formik forms, and submit all of them if all are valid.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const validateAndSubmitMany = async (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values()).filter(notEmpty);
+    const formsAreValid = await validateAllForms(refs);
+    if (formsAreValid) {
+      try {
+        await submitAllForms(refs);
+        setIsSubmitting(false);
+        return Promise.resolve();
+      } catch {
+        setIsSubmitting(false);
+        return Promise.reject();
+      }
+    } else {
+      Array.from(refMap.entries()).some(([experienceSkillId, formRef]) => {
+        if (formRef.current !== null && !formRef.current.isValid) {
+          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          return true;
+        }
+        return false;
+      });
+      setIsSubmitting(false);
+      return Promise.reject();
+    }
+  };
+
+  const formRefs = React.useRef<
+    Map<number, React.RefObject<FormikProps<ExperienceSkillFormValues>>>
+  >(new Map());
 
   return (
     <div data-c-container="large" ref={modalParentRef}>
@@ -554,7 +612,7 @@ const Skills: React.FC<SkillsProps> = ({
                             experienceSkill,
                             experiences,
                           );
-                          const elementKey = `experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`;
+                          const elementKey = `experience-skill-textarea-${experienceSkill.id}`;
                           if (relevantExperience === null) {
                             return (
                               <div
@@ -577,6 +635,12 @@ const Skills: React.FC<SkillsProps> = ({
                             );
                           }
 
+                          if (!formRefs.current.has(experienceSkill.id)) {
+                            const ref = createRef<
+                              FormikProps<ExperienceSkillFormValues>
+                            >();
+                            formRefs.current.set(experienceSkill.id, ref);
+                          }
                           return (
                             <ExperienceSkillAccordion
                               key={elementKey}
@@ -586,6 +650,9 @@ const Skills: React.FC<SkillsProps> = ({
                               status={experienceStatus}
                               handleUpdateStatus={dispatchStatus}
                               skillName={skillName}
+                              formRef={
+                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, becuase if it was we just added it to map.
+                              }
                               handleUpdateExperienceJustification={
                                 handleUpdateExperienceJustification
                               }
@@ -613,7 +680,10 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="outline(c2)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={(): void => handleReturn()}
+                  disabled={isSubmitting}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current).then(handleReturn)
+                  }
                 >
                   {intl.formatMessage(navigationMessages.return)}
                 </button>
@@ -626,7 +696,10 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="outline(c2)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={(): void => handleQuit()}
+                  disabled={isSubmitting}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current).then(handleQuit)
+                  }
                 >
                   {intl.formatMessage(navigationMessages.quit)}
                 </button>
@@ -634,8 +707,11 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="solid(c1)"
                   data-c-radius="rounded"
                   data-c-margin="left(1)"
+                  disabled={isSubmitting}
                   type="button"
-                  onClick={(): void => handleContinue()}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current).then(handleContinue)
+                  }
                 >
                   {intl.formatMessage(navigationMessages.continue)}
                 </button>
