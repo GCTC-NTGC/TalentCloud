@@ -16,6 +16,10 @@ import Experience, { ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
+  AwardRecipientType,
+  AwardRecognitionType,
+  EducationStatus,
+  EducationType,
 } from "../../../models/types";
 import {
   getApplicationById,
@@ -47,13 +51,21 @@ import {
   deleteExperience,
 } from "../../../store/Experience/experienceActions";
 import { ApplicationStatusId } from "../../../models/lookupConstants";
-import { hasKey, getId } from "../../../helpers/queries";
+import { getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
 import {
   getSkills,
   getSkillsUpdating,
 } from "../../../store/Skill/skillSelector";
 import { fetchSkills } from "../../../store/Skill/skillActions";
+import { getAwardRecipientTypes as fetchAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeActions";
+import { getAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeSelector";
+import { getAwardRecognitionTypes as fetchAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeActions";
+import { getAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeSelector";
+import { getEducationTypes as fetchEducationTypes } from "../../../store/EducationType/educationTypeActions";
+import { getEducationTypes } from "../../../store/EducationType/educationTypeSelector";
+import { getEducationStatuses as fetchEducationStatuses } from "../../../store/EducationStatus/educationStatusActions";
+import { getEducationStatuses } from "../../../store/EducationStatus/educationStatusSelector";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -65,6 +77,56 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
+
+  // Load Application constants.
+  const awardRecipientTypeSelector = (state: RootState): AwardRecipientType[] =>
+    getAwardRecipientTypes(state);
+  const awardRecipientTypes = useSelector(awardRecipientTypeSelector);
+  const awardRecipientTypesLoading = useSelector(
+    (state: RootState) => state.awardRecipientType.loading,
+  );
+  useEffect(() => {
+    if (awardRecipientTypes.length === 0 && !awardRecipientTypesLoading) {
+      dispatch(fetchAwardRecipientTypes());
+    }
+  }, [awardRecipientTypes, awardRecipientTypesLoading, dispatch]);
+
+  const awardRecognitionTypeSelector = (
+    state: RootState,
+  ): AwardRecognitionType[] => getAwardRecognitionTypes(state);
+  const awardRecognitionTypes = useSelector(awardRecognitionTypeSelector);
+  const awardRecognitionTypesLoading = useSelector(
+    (state: RootState) => state.awardRecognitionType.loading,
+  );
+  useEffect(() => {
+    if (awardRecognitionTypes.length === 0 && !awardRecognitionTypesLoading) {
+      dispatch(fetchAwardRecognitionTypes());
+    }
+  }, [awardRecognitionTypes, awardRecognitionTypesLoading, dispatch]);
+
+  const educationTypeSelector = (state: RootState): EducationType[] =>
+    getEducationTypes(state);
+  const educationTypes = useSelector(educationTypeSelector);
+  const educationTypesLoading = useSelector(
+    (state: RootState) => state.educationType.loading,
+  );
+  useEffect(() => {
+    if (educationTypes.length === 0 && !educationTypesLoading) {
+      dispatch(fetchEducationTypes());
+    }
+  }, [educationTypes, educationTypesLoading, dispatch]);
+
+  const educationStatusSelector = (state: RootState): EducationStatus[] =>
+    getEducationStatuses(state);
+  const educationStatuses = useSelector(educationStatusSelector);
+  const educationStatusesLoading = useSelector(
+    (state: RootState) => state.educationStatus.loading,
+  );
+  useEffect(() => {
+    if (educationStatuses.length === 0 && !educationStatusesLoading) {
+      dispatch(fetchEducationStatuses());
+    }
+  }, [educationStatuses, educationStatusesLoading, dispatch]);
 
   const applicationSelector = (state: RootState) =>
     getApplicationById(state, { id: applicationId });
@@ -156,7 +218,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     useProfileExperience,
   ]);
 
-  // ExperienceSkills don't need to be fetched because they are returned inthe Experiences API calls.
+  // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
   const expSkillSelector = (state: RootState) =>
     useProfileExperience
       ? getExperienceSkillsByApplicant(state, { applicantId })
@@ -170,31 +232,6 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       dispatch(fetchSkills());
     }
   }, [skills.length, skillsUpdating, dispatch]);
-  // TODO: load constants from backend.
-  const educationStatuses = [
-    // TODO: Use real constants instead of dummy constants for testing.
-    { id: 1, name: { en: "Status 1", fr: "Status 1 FR" } },
-    { id: 2, name: { en: "Status 2", fr: "Status 2 FR" } },
-    { id: 3, name: { en: "Status 3", fr: "Status 3 FR" } },
-  ];
-  const educationTypes = [
-    // TODO: Use real constants instead of dummy constants for testing.
-    { id: 1, name: { en: "Education Type 1", fr: "Education Type 1 FR" } },
-    { id: 2, name: { en: "Education Type 2", fr: "Education Type 2 FR" } },
-    { id: 3, name: { en: "Education Type 3", fr: "Education Type 3 FR" } },
-  ];
-  const recipientTypes = [
-    // TODO: Use real constants instead of dummy constants for testing.
-    { id: 1, name: { en: "RECIPIENT TYPE 1", fr: "RECIPIENT TYPE 1 FR" } },
-    { id: 2, name: { en: "RECIPIENT TYPE 2", fr: "RECIPIENT TYPE 2 FR" } },
-    { id: 3, name: { en: "RECIPIENT TYPE 3", fr: "RECIPIENT TYPE 3 FR" } },
-  ];
-  const recognitionTypes = [
-    // TODO: Use real constants instead of dummy constants for testing.
-    { id: 1, name: { en: "RECOGNITION TYPE 1", fr: "RECOGNITION TYPE 1 FR" } },
-    { id: 2, name: { en: "RECOGNITION TYPE 2", fr: "RECOGNITION TYPE 2 FR" } },
-    { id: 3, name: { en: "RECOGNITION TYPE 3", fr: "RECOGNITION TYPE 3 FR" } },
-  ];
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
@@ -323,8 +360,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         skills={skills}
         jobId={job?.id ?? 1}
         jobClassificationId={job?.classification_id ?? 1}
-        recipientTypes={recipientTypes}
-        recognitionTypes={recognitionTypes}
+        recipientTypes={awardRecipientTypes}
+        recognitionTypes={awardRecognitionTypes}
         handleSubmitExperience={handleSubmit}
         handleDeleteExperience={handleDelete}
         handleContinue={handleContinue}
