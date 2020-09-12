@@ -1803,20 +1803,20 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec"
+                "reference": "fdb68d2a1f09c852e557420a1688dec038311938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/13a51715f8e066b0bfb637fd9065d7496c3579ec",
-                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/fdb68d2a1f09c852e557420a1688dec038311938",
+                "reference": "fdb68d2a1f09c852e557420a1688dec038311938",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0",
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0||^8.0",
                 "php": ">=7.1.0"
             },
             "require-dev": {
@@ -1871,7 +1871,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-03-05T15:19:05+00:00"
+            "time": "2020-09-12T14:18:37+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6404,20 +6404,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4"
+                "reference": "1d40fbb920ed7f7500c530ca047c013e6a133594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
-                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/1d40fbb920ed7f7500c530ca047c013e6a133594",
+                "reference": "1d40fbb920ed7f7500c530ca047c013e6a133594",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.8|~6.0|~7.0",
-                "php": ">=5.4.0"
+                "illuminate/support": "~6.0|~7.0|~8.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "~2.1"
+                "phpspec/phpspec": "~6.0"
             },
             "type": "library",
             "extra": {
@@ -6440,6 +6439,10 @@
                 {
                     "name": "Jeffrey Way",
                     "email": "jeffrey@laracasts.com"
+                },
+                {
+                    "name": "Cristian Tabacitu",
+                    "email": "hello@tabaciu.ro"
                 }
             ],
             "description": "Advanced Laravel generators, that include schema information.",
@@ -6447,7 +6450,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-06-13T05:41:12+00:00"
+            "time": "2020-09-10T14:09:18+00:00"
         },
         {
             "name": "maximebf/debugbar",
