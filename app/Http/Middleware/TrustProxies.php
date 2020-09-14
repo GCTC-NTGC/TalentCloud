@@ -15,7 +15,9 @@ class TrustProxies extends Middleware
 
     // For the AppSvc in the Azure environment.
     protected $proxies = [
-        '13.71.170.130',
+        '40.85.243.129',
+        '40.85.228.104',
+        '13.88.225.103'
     ];
 
     /**
