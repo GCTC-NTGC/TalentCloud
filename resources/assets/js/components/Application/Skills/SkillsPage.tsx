@@ -46,6 +46,7 @@ import {
   getSkillsUpdating,
 } from "../../../store/Skill/skillSelector";
 import { fetchSkills } from "../../../store/Skill/skillActions";
+import { loadingMessages } from "../applicationMessages";
 
 interface SkillsPageProps {
   applicationId: number;
@@ -130,12 +131,12 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
       !experiencesUpdating &&
       experiences.length === 0
     ) {
+      setExperiencesFetched(true);
       if (useProfileExperience) {
         dispatch(fetchExperienceByApplicant(applicantId));
       } else {
         dispatch(fetchExperienceByApplication(applicationId));
       }
-      setExperiencesFetched(true);
     }
   }, [
     applicantId,
@@ -162,6 +163,12 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     }
   }, [skills.length, skillsUpdating, dispatch]);
 
+  const showLoadingState =
+    application === null ||
+    job === null ||
+    experiencesUpdating ||
+    skills.length === 0;
+
   const handleUpdateExpSkill = async (
     expSkill: ExperienceSkill,
   ): Promise<ExperienceSkill> => {
@@ -186,7 +193,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     }
     return Promise.reject(result.error);
   };
-  const closeDate = job?.close_date_time ?? new Date();
+  const closeDate = job?.close_date_time ?? null;
 
   const handleReturn = (): void => {
     navigate(applicationExperience(locale, applicationId));
@@ -198,24 +205,43 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const handleContinue = (): void => {
     navigate(applicationFit(locale, applicationId));
   };
+
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(applicationId, application, intl, "skills")}
-      />
-      <Skills
-        criteria={criteria}
-        experiences={experiences}
-        experienceSkills={experienceSkills}
-        skills={skills}
-        handleUpdateExperienceJustification={handleUpdateExpSkill}
-        handleRemoveExperienceJustification={handleDeleteExpSkill}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "skills",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(3) bottom(1)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {!showLoadingState && (
+        <Skills
+          criteria={criteria}
+          experiences={experiences}
+          experienceSkills={experienceSkills}
+          skills={skills}
+          handleUpdateExperienceJustification={handleUpdateExpSkill}
+          handleRemoveExperienceJustification={handleDeleteExpSkill}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
     </>
   );
 };
