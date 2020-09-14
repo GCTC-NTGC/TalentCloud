@@ -12,7 +12,7 @@ class ApplicationTimelineController extends Controller
         return view('applicant/application-timeline-root')
             ->with([
                 'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
-                'diable_clone_js' => true,
+                'disable_clone_js' => true,
             ]);
     }
 }
