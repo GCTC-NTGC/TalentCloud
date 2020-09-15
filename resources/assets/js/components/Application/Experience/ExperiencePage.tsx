@@ -79,9 +79,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const dispatch = useDispatch<DispatchType>();
 
   // Load Application constants.
-  const awardRecipientTypeSelector = (state: RootState): AwardRecipientType[] =>
-    getAwardRecipientTypes(state);
-  const awardRecipientTypes = useSelector(awardRecipientTypeSelector);
+  const awardRecipientTypes = useSelector(getAwardRecipientTypes);
   const awardRecipientTypesLoading = useSelector(
     (state: RootState) => state.awardRecipientType.loading,
   );
@@ -91,10 +89,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [awardRecipientTypes, awardRecipientTypesLoading, dispatch]);
 
-  const awardRecognitionTypeSelector = (
-    state: RootState,
-  ): AwardRecognitionType[] => getAwardRecognitionTypes(state);
-  const awardRecognitionTypes = useSelector(awardRecognitionTypeSelector);
+  const awardRecognitionTypes = useSelector(getAwardRecognitionTypes);
   const awardRecognitionTypesLoading = useSelector(
     (state: RootState) => state.awardRecognitionType.loading,
   );
@@ -104,9 +99,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [awardRecognitionTypes, awardRecognitionTypesLoading, dispatch]);
 
-  const educationTypeSelector = (state: RootState): EducationType[] =>
-    getEducationTypes(state);
-  const educationTypes = useSelector(educationTypeSelector);
+  const educationTypes = useSelector(getEducationTypes);
   const educationTypesLoading = useSelector(
     (state: RootState) => state.educationType.loading,
   );
@@ -116,9 +109,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [educationTypes, educationTypesLoading, dispatch]);
 
-  const educationStatusSelector = (state: RootState): EducationStatus[] =>
-    getEducationStatuses(state);
-  const educationStatuses = useSelector(educationStatusSelector);
+  const educationStatuses = useSelector(getEducationStatuses);
   const educationStatusesLoading = useSelector(
     (state: RootState) => state.educationStatus.loading,
   );
