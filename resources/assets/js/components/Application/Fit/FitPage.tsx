@@ -1,23 +1,42 @@
-import React from "react";
+/* eslint-disable camelcase */
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import { useIntl } from "react-intl";
+import { useSelector, useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
   applicationIndex,
-  applicationExperienceIntro,
-  applicationWelcome,
   applicationReview,
   applicationSkills,
 } from "../../../helpers/routes";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
-import fakeJob, {
-  fakeJobQuestions,
-  fakeJobApplicationAnswers,
-} from "../../../fakeData/fakeJob";
 import Fit from "./Fit";
-import { JobApplicationAnswer } from "../../../models/types";
+import {
+  JobApplicationAnswer,
+  ApplicationNormalized,
+  Job,
+  JobPosterQuestion,
+} from "../../../models/types";
+import RootContainer from "../../RootContainer";
+import { RootState } from "../../../store/store";
+import {
+  getApplication,
+  getApplicationIsUpdating,
+  getJobApplicationAnswers,
+} from "../../../store/Application/applicationSelector";
+import {
+  getJob,
+  getJobPosterQuestionsByJob,
+  getJobIsUpdating,
+} from "../../../store/Job/jobSelector";
+import { fetchJob } from "../../../store/Job/jobActions";
+import { fetchApplicationNormalized } from "../../../store/Application/applicationActions";
+import {
+  createJobApplicationAnswer,
+  updateJobApplicationAnswer,
+} from "../../../store/JobApplicationAnswer/jobApplicationAnswerActions";
 
 interface FitPageProps {
   applicationId: number;
@@ -28,14 +47,62 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch();
 
-  const application = fakeApplication(); // TODO: get real application.
-  const job = fakeJob(); // TODO: Get real job associated with application.
-  const questions = fakeJobQuestions(); // TODO: get questions from job.
-  const answers = fakeJobApplicationAnswers(); // TODO: get answers currently saved to application.
+  // Load application.
+  const applicationSelector = (
+    state: RootState,
+  ): ApplicationNormalized | null => getApplication(state, { applicationId });
+  const application = useSelector(applicationSelector);
+  const applicationUpdatingSelector = (state: RootState): boolean =>
+    getApplicationIsUpdating(state, { applicationId });
+  const applcationIsUpdating = useSelector(applicationUpdatingSelector);
+  useEffect(() => {
+    if (application === null && !applcationIsUpdating) {
+      dispatch(fetchApplicationNormalized(applicationId));
+    }
+  }, [application, dispatch]);
+
+  // Load job.
+  const jobId = application?.job_poster_id;
+  const jobSelector = (state: RootState): Job | null =>
+    jobId ? getJob(state, { jobId }) : null;
+  const job = useSelector(jobSelector);
+  const jobUpdatingSelector = (state: RootState): boolean =>
+    jobId ? getJobIsUpdating(state, jobId) : false;
+  const jobIsUpdating = useSelector(jobUpdatingSelector);
+
+  useEffect(() => {
+    if (jobId && job === null && !jobIsUpdating) {
+      dispatch(fetchJob(jobId));
+    }
+  }, [jobId, job, jobIsUpdating, dispatch]);
+
+  // Get job poster questions.
+  const jobPosterQuestionsSelector = (
+    state: RootState,
+  ): JobPosterQuestion[] | null =>
+    jobId ? getJobPosterQuestionsByJob(state, { jobId }) : null;
+  const jobPosterQuestions = useSelector(jobPosterQuestionsSelector);
+
+  // Get job application answers.
+  const jobApplicationAnswersSelector = (
+    state: RootState,
+  ): JobApplicationAnswer[] | null => getJobApplicationAnswers(state);
+  const answers = useSelector(jobApplicationAnswersSelector);
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
-    // TODO: save answer.
+    const exists = answer.id !== -1;
+    const result = exists
+      ? await dispatch(updateJobApplicationAnswer(answer))
+      : await dispatch(createJobApplicationAnswer(answer));
+
+    if (!result.error) {
+      await dispatch(fetchApplicationNormalized(applicationId));
+      const payload = await result.payload;
+      return payload;
+    }
+    return Promise.reject(result.payload);
   };
 
   const handleContinue = (): void => {
@@ -48,7 +115,14 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const closeDate = new Date(); // TODO: get from application.
+
+  // TODO: If the close_date_time is ever null it should show an error message (talk tristan).
+  const closeDate = job?.close_date_time ?? new Date();
+
+  if (application === null || job === null) {
+    return null;
+  }
+
   return (
     <>
       <ProgressBar
@@ -57,8 +131,9 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
         steps={makeProgressBarSteps(application, intl, "fit")}
       />
       <Fit
-        jobQuestions={questions}
-        jobApplicationAnswers={answers}
+        applicationId={applicationId}
+        jobQuestions={jobPosterQuestions || []}
+        jobApplicationAnswers={answers || []}
         handleSubmit={handleSubmit}
         handleContinue={handleContinue}
         handleReturn={handleReturn}
@@ -69,3 +144,17 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
 };
 
 export default FitPage;
+
+if (document.getElementById("application-fit")) {
+  const container = document.getElementById("application-fit") as HTMLElement;
+  const applicationIdAttr = container.getAttribute("data-application-id");
+  const applicationId = applicationIdAttr ? Number(applicationIdAttr) : null;
+  if (applicationId) {
+    ReactDOM.render(
+      <RootContainer>
+        <FitPage applicationId={applicationId} />
+      </RootContainer>,
+      container,
+    );
+  }
+}
