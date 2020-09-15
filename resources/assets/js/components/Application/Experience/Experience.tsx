@@ -56,6 +56,7 @@ import {
   getDisconnectedRequiredSkills,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
+import { removeDuplicatesById } from "../../../helpers/queries";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -171,8 +172,8 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
   );
 
-  const essentialSkills = filteredSkills.essential;
-  const assetSkills = filteredSkills.asset;
+  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
+  const assetSkills = removeDuplicatesById(filteredSkills.asset);
 
   getDisconnectedRequiredSkills(experiences, experienceSkills, essentialSkills);
 
