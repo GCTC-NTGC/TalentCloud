@@ -16,10 +16,6 @@ import Experience, { ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
-  AwardRecipientType,
-  AwardRecognitionType,
-  EducationStatus,
-  EducationType,
 } from "../../../models/types";
 import {
   getApplicationById,
@@ -66,6 +62,7 @@ import { getEducationTypes as fetchEducationTypes } from "../../../store/Educati
 import { getEducationTypes } from "../../../store/EducationType/educationTypeSelector";
 import { getEducationStatuses as fetchEducationStatuses } from "../../../store/EducationStatus/educationStatusActions";
 import { getEducationStatuses } from "../../../store/EducationStatus/educationStatusSelector";
+import { loadingMessages } from "../applicationMessages";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -79,9 +76,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const dispatch = useDispatch<DispatchType>();
 
   // Load Application constants.
-  const awardRecipientTypeSelector = (state: RootState): AwardRecipientType[] =>
-    getAwardRecipientTypes(state);
-  const awardRecipientTypes = useSelector(awardRecipientTypeSelector);
+  const awardRecipientTypes = useSelector(getAwardRecipientTypes);
   const awardRecipientTypesLoading = useSelector(
     (state: RootState) => state.awardRecipientType.loading,
   );
@@ -91,10 +86,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [awardRecipientTypes, awardRecipientTypesLoading, dispatch]);
 
-  const awardRecognitionTypeSelector = (
-    state: RootState,
-  ): AwardRecognitionType[] => getAwardRecognitionTypes(state);
-  const awardRecognitionTypes = useSelector(awardRecognitionTypeSelector);
+  const awardRecognitionTypes = useSelector(getAwardRecognitionTypes);
   const awardRecognitionTypesLoading = useSelector(
     (state: RootState) => state.awardRecognitionType.loading,
   );
@@ -104,9 +96,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [awardRecognitionTypes, awardRecognitionTypesLoading, dispatch]);
 
-  const educationTypeSelector = (state: RootState): EducationType[] =>
-    getEducationTypes(state);
-  const educationTypes = useSelector(educationTypeSelector);
+  const educationTypes = useSelector(getEducationTypes);
   const educationTypesLoading = useSelector(
     (state: RootState) => state.educationType.loading,
   );
@@ -116,9 +106,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [educationTypes, educationTypesLoading, dispatch]);
 
-  const educationStatusSelector = (state: RootState): EducationStatus[] =>
-    getEducationStatuses(state);
-  const educationStatuses = useSelector(educationStatusSelector);
+  const educationStatuses = useSelector(getEducationStatuses);
   const educationStatusesLoading = useSelector(
     (state: RootState) => state.educationStatus.loading,
   );
@@ -233,6 +221,16 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [skills.length, skillsUpdating, dispatch]);
 
+  const showLoadingState =
+    application === null ||
+    job === null ||
+    experiencesUpdating ||
+    skills.length === 0 ||
+    awardRecipientTypes.length === 0 ||
+    awardRecognitionTypes.length === 0 ||
+    educationTypes.length === 0 ||
+    educationStatuses.length === 0;
+
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
     let experience: ExperienceType | null = null;
@@ -271,7 +269,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
 
     if (experience.id === 0) {
       // If the experience is brand new, it (and related experience skills) must be created on server.
-      const result = await dispatch(createExperience(experience));
+      const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
         const newExperience = (await result.payload).experience;
         const saveRequests = newLinkedSkills.map((skill) => {
@@ -341,33 +339,46 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const closeDate = new Date(); // TODO: get from application.
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(
-          applicationId,
-          application,
-          intl,
-          "experience",
-        )}
-      />
-      <Experience
-        experiences={experiences}
-        educationStatuses={educationStatuses}
-        educationTypes={educationTypes}
-        experienceSkills={experienceSkills}
-        criteria={criteria}
-        skills={skills}
-        jobId={job?.id ?? 1}
-        jobClassificationId={job?.classification_id ?? 1}
-        recipientTypes={awardRecipientTypes}
-        recognitionTypes={awardRecognitionTypes}
-        handleSubmitExperience={handleSubmit}
-        handleDeleteExperience={handleDelete}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "experience",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(2)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {!showLoadingState && (
+        <Experience
+          experiences={experiences}
+          educationStatuses={educationStatuses}
+          educationTypes={educationTypes}
+          experienceSkills={experienceSkills}
+          criteria={criteria}
+          skills={skills}
+          jobId={job?.id ?? 1}
+          jobClassificationId={job?.classification_id ?? 1}
+          recipientTypes={awardRecipientTypes}
+          recognitionTypes={awardRecognitionTypes}
+          handleSubmitExperience={handleSubmit}
+          handleDeleteExperience={handleDelete}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
       <div id="modal-root" data-clone />
     </>
   );

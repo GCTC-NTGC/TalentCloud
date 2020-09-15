@@ -264,7 +264,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="title"
+          id="award-title"
           type="text"
           name="title"
           component={TextInput}
@@ -274,7 +274,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.titlePlaceholder)}
         />
         <FastField
-          id="recipientTypeId"
+          id="award-recipientTypeId"
           name="recipientTypeId"
           label={intl.formatMessage(messages.recipientTypeLabel)}
           grid="tl(1of2)"
@@ -287,7 +287,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
           }))}
         />
         <FastField
-          id="issuedBy"
+          id="award-issuedBy"
           type="text"
           name="issuedBy"
           component={TextInput}
@@ -297,7 +297,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.issuerPlaceholder)}
         />
         <FastField
-          id="recognitionTypeId"
+          id="award-recognitionTypeId"
           name="recognitionTypeId"
           label={intl.formatMessage(messages.recognitionTypeLabel)}
           grid="tl(1of2)"
@@ -312,7 +312,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
           }))}
         />
         <FastField
-          id="awardedDate"
+          id="award-awardedDate"
           name="awardedDate"
           component={DateInput}
           required
@@ -359,11 +359,15 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               />
               {detailsSubform}
               <SkillSubform
+                keyPrefix="award"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="award"
+                jobClassification={jobClassification}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>
