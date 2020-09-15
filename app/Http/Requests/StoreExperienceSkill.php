@@ -57,7 +57,7 @@ class StoreExperienceSkill extends FormRequest
     {
         return [
             'skill_id' => 'required|exists:skills,id',
-            'justification' => 'required|nullable|string',
+            'justification' => 'nullable|string',
             'experience_type' => ['
                 required',
                 Rule::in([
