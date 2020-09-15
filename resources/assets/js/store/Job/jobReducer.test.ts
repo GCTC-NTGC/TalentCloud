@@ -195,7 +195,7 @@ describe("Job Reducer tests", (): void => {
           },
         },
         jobPosterQuestions: {
-          byJobId: {
+          byId: {
             ...mapToObject(jobPosterQuestions, getId),
           },
         },
@@ -224,7 +224,7 @@ describe("Job Reducer tests", (): void => {
         },
       },
       jobPosterQuestions: {
-        byJobId: {
+        byId: {
           ...mapToObject(jobPosterQuestions, getId),
         },
       },

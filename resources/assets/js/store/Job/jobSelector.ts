@@ -31,7 +31,7 @@ export const getCriteriaState = (
 const getJobPosterQuestionsState = (
   state: RootState,
 ): { [id: number]: JobPosterQuestion } =>
-  entities(state).jobPosterQuestions.byJobId;
+  entities(state).jobPosterQuestions.byId;
 
 const getTaskState = (
   state: RootState,

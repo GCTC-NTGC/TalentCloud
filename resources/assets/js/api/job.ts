@@ -30,9 +30,11 @@ export const parseJobResponse = (
   const criteria: Criteria[] = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
   );
-  const jobPosterQuestions: JobPosterQuestion[] = data.job_poster_questions.map(
-    (questionsData: any): JobPosterQuestion => questionsData,
-  );
+  const jobPosterQuestions: JobPosterQuestion[] = data.job_poster_questions
+    ? data.job_poster_questions.map(
+        (questionsData: any): JobPosterQuestion => questionsData,
+      )
+    : [];
   return {
     job,
     criteria,
