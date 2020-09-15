@@ -17,7 +17,11 @@ class TrustProxies extends Middleware
     protected $proxies = [
         '40.85.243.129',
         '40.85.228.104',
+<<<<<<< HEAD
         '13.88.225.103'
+=======
+        '13.88.225.103',
+>>>>>>> azure-webapp-pipeline-cometh
     ];
 
     /**
