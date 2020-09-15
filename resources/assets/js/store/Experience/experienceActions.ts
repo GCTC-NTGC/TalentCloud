@@ -24,6 +24,7 @@ import {
   getExperienceEndpoint,
   getExperienceSkillEndpoint,
   parseExperienceSkill,
+  getCreateExperienceEndpoint,
 } from "../../api/experience";
 
 export const FETCH_EXPERIENCE_BY_APPLICANT_STARTED =
@@ -114,7 +115,7 @@ export const createExperience = (
   { type: Experience["type"] }
 > =>
   asyncPost(
-    getExperienceEndpoint(null, experience.type),
+    getCreateExperienceEndpoint(experience),
     experience,
     CREATE_EXPERIENCE_STARTED,
     CREATE_EXPERIENCE_SUCCEEDED,
