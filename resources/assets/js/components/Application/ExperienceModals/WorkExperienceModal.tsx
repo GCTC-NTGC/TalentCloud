@@ -260,7 +260,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="title"
+          id="work-title"
           type="text"
           name="title"
           component={TextInput}
@@ -270,7 +270,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
         />
         <FastField
-          id="organization"
+          id="work-organization"
           type="text"
           name="organization"
           component={TextInput}
@@ -280,7 +280,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
         />
         <FastField
-          id="group"
+          id="work-group"
           type="text"
           name="group"
           component={TextInput}
@@ -290,7 +290,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.groupPlaceholder)}
         />
         <FastField
-          id="startDate"
+          id="work-startDate"
           name="startDate"
           component={DateInput}
           required
@@ -299,14 +299,14 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
         <Field
-          id="isActive"
+          id="work-isActive"
           name="isActive"
           component={CheckboxInput}
           grid="tl(1of2)"
           label={intl.formatMessage(messages.isActiveLabel)}
         />
         <Field
-          id="endDate"
+          id="work-endDate"
           name="endDate"
           component={DateInput}
           grid="base(1of2)"
@@ -352,11 +352,15 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
               />
               {detailsSubform}
               <SkillSubform
+                keyPrefix="work"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="work"
+                jobClassification={jobClassification}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

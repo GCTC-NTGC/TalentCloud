@@ -32,12 +32,14 @@ export const validationShape = {
 };
 
 export interface SkillSubformProps {
+  keyPrefix: string;
   jobId: number;
   jobRequiredSkills: string[];
   jobOptionalSkills: string[];
 }
 
 export function SkillSubform({
+  keyPrefix,
   jobId,
   jobRequiredSkills,
   jobOptionalSkills,
@@ -108,7 +110,7 @@ export function SkillSubform({
             </p>
           </div>
           <CheckboxGroup
-            id="requiredSkills"
+            id={`${keyPrefix}-requiredSkills`}
             label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
             grid="base(1of1)"
             value={requiredMeta.value}
@@ -122,7 +124,7 @@ export function SkillSubform({
                 return (
                   <Field
                     key={name}
-                    id={name}
+                    id={`${keyPrefix}-required-${name}`}
                     name={name}
                     label={name}
                     component={CheckboxInput}
@@ -146,7 +148,7 @@ export function SkillSubform({
             </p>
           </div>
           <CheckboxGroup
-            id="optionalSkills"
+            id={`${keyPrefix}-optionalSkills`}
             label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
             grid="base(1of1)"
             value={optionalMeta.value}
@@ -160,7 +162,7 @@ export function SkillSubform({
                 return (
                   <Field
                     key={name}
-                    id={name}
+                    id={`${keyPrefix}-optional-${name}`}
                     name={name}
                     label={name}
                     component={CheckboxInput}

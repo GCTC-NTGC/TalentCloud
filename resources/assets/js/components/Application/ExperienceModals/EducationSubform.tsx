@@ -15,6 +15,7 @@ export const validationShape = {
 };
 
 export interface EducationSubformProps {
+  keyPrefix: string;
   jobClassification: string;
 }
 
@@ -30,6 +31,7 @@ const messages = defineMessages({
 });
 
 export function EducationSubform({
+  keyPrefix,
   jobClassification,
 }: EducationSubformProps): React.ReactElement {
   const intl = useIntl();
@@ -64,7 +66,7 @@ export function EducationSubform({
             <div data-c-grid-item="base(1of1)">
               <FastField
                 key={checkboxKey}
-                id={checkboxKey}
+                id={`${keyPrefix}-${checkboxKey}`}
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}

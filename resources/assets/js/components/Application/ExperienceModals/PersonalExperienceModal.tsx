@@ -273,7 +273,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="title"
+          id="personal-title"
           name="title"
           type="text"
           grid="base(1of1)"
@@ -283,7 +283,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
           placeholder={intl.formatMessage(messages.titlePlaceholder)}
         />
         <FastField
-          id="description"
+          id="personal-description"
           type="text"
           name="description"
           component={TextAreaInput}
@@ -296,7 +296,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
         <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
           <label>{intl.formatMessage(messages.isShareableLabel)}</label>
           <FastField
-            id="isShareable"
+            id="personal-isShareable"
             name="isShareable"
             component={CheckboxInput}
             grid="base(1of1)"
@@ -305,7 +305,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
           />
         </div>
         <FastField
-          id="startDate"
+          id="personal-startDate"
           name="startDate"
           component={DateInput}
           required
@@ -314,14 +314,14 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
         <Field
-          id="isActive"
+          id="personal-isActive"
           name="isActive"
           component={CheckboxInput}
           grid="tl(1of2)"
           label={intl.formatMessage(messages.isActiveLabel)}
         />
         <Field
-          id="endDate"
+          id="personal-endDate"
           name="endDate"
           component={DateInput}
           grid="base(1of2)"
@@ -367,11 +367,15 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
               />
               {detailsSubform}
               <SkillSubform
+                keyPrefix="personal"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="personal"
+                jobClassification={jobClassification}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>
