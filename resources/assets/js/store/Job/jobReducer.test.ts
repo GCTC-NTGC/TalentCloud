@@ -8,7 +8,12 @@ import {
   EntityState,
 } from "./jobReducer";
 import { Job, Criteria } from "../../models/types";
-import { fakeJob, fakeJob2, fakeCriterion } from "../../fakeData/fakeJob";
+import {
+  fakeJob,
+  fakeJob2,
+  fakeCriterion,
+  fakeJobQuestions,
+} from "../../fakeData/fakeJob";
 import {
   FETCH_JOB_STARTED,
   FETCH_JOB_SUCCEEDED,
@@ -19,6 +24,7 @@ import {
   FETCH_JOB_INDEX_SUCCEEDED,
   FETCH_JOB_INDEX_FAILED,
 } from "./jobActions";
+import { mapToObject, getId } from "../../helpers/queries";
 
 describe("Job Reducer tests", (): void => {
   describe("UiReducer", (): void => {
@@ -74,6 +80,7 @@ describe("Job Reducer tests", (): void => {
     it("Sets updating to false when FETCH_JOB_SUCCEEDED or FETCH_JOB_FAILED", (): void => {
       const job: Job = fakeJob(12);
       const fakeCriteria: Criteria = fakeCriterion(12);
+      const jobPosterQuestions = fakeJobQuestions();
       const initialState = initUi();
       const expectState = {
         ...initialState,
@@ -84,6 +91,7 @@ describe("Job Reducer tests", (): void => {
         payload: {
           job,
           criteria: [fakeCriteria],
+          jobPosterQuestions,
         },
         meta: { id: 12 },
       };
@@ -135,9 +143,9 @@ describe("Job Reducer tests", (): void => {
         ...initEntities(),
         jobs: {
           byId: {
-            [oldJob.id]: oldJob
-          }
-        }
+            [oldJob.id]: oldJob,
+          },
+        },
       };
       const succeededAction: JobAction = {
         type: FETCH_JOB_INDEX_SUCCEEDED,
@@ -160,15 +168,17 @@ describe("Job Reducer tests", (): void => {
       );
     });
 
-    it("Adds new job and criteria when FETCH_JOB_SUCCEEDED", (): void => {
+    it("Adds new job, criteria, and job poster questions when FETCH_JOB_SUCCEEDED", (): void => {
       const job: Job = fakeJob(12);
       const fakeCriteria: Criteria = fakeCriterion(12);
+      const jobPosterQuestions = fakeJobQuestions();
       const initialState: EntityState = initEntities();
       const succeededAction: JobAction = {
         type: FETCH_JOB_SUCCEEDED,
         payload: {
           job,
           criteria: [fakeCriteria],
+          jobPosterQuestions,
         },
         meta: { id: job.id },
       };
@@ -184,6 +194,11 @@ describe("Job Reducer tests", (): void => {
             [fakeCriteria.id]: fakeCriteria,
           },
         },
+        jobPosterQuestions: {
+          byJobId: {
+            ...mapToObject(jobPosterQuestions, getId),
+          },
+        },
       };
       expect(entitiesReducer(initialState, succeededAction)).toEqual(
         expectState,
@@ -195,6 +210,7 @@ describe("Job Reducer tests", (): void => {
     const job: Job = fakeJob(12);
     const fakeJobUpdated: Job = fakeJob2(12);
     const fakeCriteria: Criteria = fakeCriterion(12);
+    const jobPosterQuestions = fakeJobQuestions();
     const initialState: EntityState = {
       ...initEntities(),
       jobs: {
@@ -207,12 +223,18 @@ describe("Job Reducer tests", (): void => {
           [fakeCriteria.id]: fakeCriteria,
         },
       },
+      jobPosterQuestions: {
+        byJobId: {
+          ...mapToObject(jobPosterQuestions, getId),
+        },
+      },
     };
     const succeededAction: JobAction = {
       type: FETCH_JOB_SUCCEEDED,
       payload: {
         job: fakeJobUpdated, // Job has changed, but has same id
         criteria: [fakeCriteria],
+        jobPosterQuestions,
       },
       meta: { id: job.id },
     };
