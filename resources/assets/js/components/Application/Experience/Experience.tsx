@@ -285,7 +285,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     irrelevantSkillCount: number,
     relevantSkills: ExperienceSkill[],
     handleEdit: () => void,
-    handleDelete: () => void,
+    handleDelete: () => Promise<void>,
   ): React.ReactElement => {
     switch (experience.type) {
       case "experience_education":

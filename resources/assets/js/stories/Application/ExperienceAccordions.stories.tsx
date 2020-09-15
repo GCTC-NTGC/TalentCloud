@@ -44,6 +44,14 @@ function myDateKnob(
   return new Date(stringTimestamp);
 }
 
+function sleep(ms): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+async function handleDelete() {
+  await sleep(1000);
+  return action("Delete Experience")();
+}
+
 const educationDetails = (
   <>
     <div data-c-grid-item="base(1of2) tl(1of3)">
@@ -147,7 +155,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
@@ -207,7 +215,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
@@ -257,7 +265,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
@@ -311,7 +319,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
@@ -356,7 +364,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
@@ -422,7 +430,7 @@ stories.add(
               groupIds.switches,
             )}
             showButtons={boolean("Show buttons?", false, groupIds.switches)}
-            handleDelete={action("Delete Experience")}
+            handleDelete={handleDelete}
             handleEdit={action("Edit Experience")}
           />
         </div>
