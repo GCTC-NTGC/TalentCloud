@@ -1,8 +1,14 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import createCachedSelector from "re-reselect";
+import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import { Application, Email, ApplicationNormalized } from "../../models/types";
+import {
+  Application,
+  Email,
+  ApplicationNormalized,
+  JobApplicationAnswer,
+} from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
@@ -14,6 +20,11 @@ const getApplicationState = (state: RootState) => entities(state).applications;
 
 const getApplicationReviewState = (state: RootState) =>
   entities(state).applicationReviews;
+
+const getJobApplicationAnswersState = (
+  state: RootState,
+): { [id: number]: JobApplicationAnswer } =>
+  entities(state).jobApplicationAnswers;
 
 const constructNonNormalizedApplication = (
   applications: ReturnType<typeof getApplicationState>,
@@ -55,6 +66,12 @@ export const getApplication = createCachedSelector(
       ? applicationState[applicationId]
       : null,
 )((state, ownProps): number => ownProps.applicationId);
+
+export const getJobApplicationAnswers = createSelector(
+  getJobApplicationAnswersState,
+  (jobApplicationAnswersState): JobApplicationAnswer[] =>
+    Object.values(jobApplicationAnswersState),
+);
 
 export const getApplicationById = createCachedSelector(
   getApplicationState,
