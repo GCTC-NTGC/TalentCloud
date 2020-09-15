@@ -864,8 +864,8 @@ Route::group(
                     ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
 
-                 /* View Applicant Profile */
-                 Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                /* View Applicant Profile */
+                Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
                     ->middleware('can:view,applicant')
                     ->name('admin.applicants.profile');
             }
@@ -886,9 +886,13 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('user', '[0-9]+');
 
     // Public, not protected by policy or gate.
-    Route::get('skills', 'Api\SkillController@index');
+    Route::get('award-recipient-types', 'Api\AwardRecipientTypeController@index');
+    Route::get('award-recognition-types', 'Api\AwardRecognitionTypeController@index');
+    Route::get('education-statuses', 'Api\EducationStatusController@index');
+    Route::get('education-types', 'Api\EducationTypeController@index');
     Route::get('departments', 'Api\DepartmentController@index');
     Route::get('job-poster-statuses', 'Api\JobStatusController@index');
+    Route::get('skills', 'Api\SkillController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
