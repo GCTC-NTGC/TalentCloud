@@ -15,6 +15,7 @@ stories.add(
   "Fit",
   (): React.ReactElement => (
     <Fit
+      applicationId={1}
       jobQuestions={fakeJobQuestions()}
       jobApplicationAnswers={fakeJobApplicationAnswers()}
       handleSubmit={async (x) => {
