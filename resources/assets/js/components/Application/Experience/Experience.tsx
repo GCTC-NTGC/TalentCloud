@@ -223,8 +223,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
-  const softSkills = [...assetSkills, ...essentialSkills].filter(
-    (skill) => skill.skill_type_id === SkillTypeId.Soft,
+  const softSkills = removeDuplicatesById(
+    [...assetSkills, ...essentialSkills].filter(
+      (skill) => skill.skill_type_id === SkillTypeId.Soft,
+    ),
   );
 
   const modalButtons: {
@@ -494,13 +496,13 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                     const and = " and ";
                     const lastElement = index === softSkills.length - 1;
                     return (
-                      <>
+                      <React.Fragment key={skill.id}>
                         {lastElement && softSkills.length > 1 && and}
                         <span key={skill.id} data-c-font-weight="bold">
                           {localizeFieldNonNull(locale, skill, "name")}
                         </span>
                         {!lastElement && softSkills.length > 2 && ", "}
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </>
@@ -597,7 +599,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               description="Message showing list of required skills that are not connected to a experience."
             />{" "}
             {disconnectedRequiredSkills.map((skill) => (
-              <>
+              <React.Fragment key={skill.id}>
                 <span
                   data-c-tag="stop"
                   data-c-radius="pill"
@@ -605,7 +607,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                 >
                   {localizeFieldNonNull(locale, skill, "name")}
                 </span>{" "}
-              </>
+              </React.Fragment>
             ))}
           </p>
         )}
