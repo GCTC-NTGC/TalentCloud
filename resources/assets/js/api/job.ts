@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/camelcase */
-import { Job, Criteria, JobPosterKeyTask, Comment } from "../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../models/types";
 import { baseUrl, parseDate } from "./base";
 
 const parseCriterion = (data: any): Criteria => data;
@@ -15,14 +21,22 @@ export const parseJob = (data: any): Job => ({
 
 export const parseJobResponse = (
   data: any,
-): { job: Job; criteria: Criteria[] } => {
+): {
+  job: Job;
+  criteria: Criteria[];
+  jobPosterQuestions: JobPosterQuestion[];
+} => {
   const job: Job = parseJob(data);
   const criteria: Criteria[] = data.criteria.map(
     (critData: any): Criteria => parseCriterion(critData),
   );
+  const jobPosterQuestions: JobPosterQuestion[] = data.job_poster_questions.map(
+    (questionsData: any): JobPosterQuestion => questionsData,
+  );
   return {
     job,
     criteria,
+    jobPosterQuestions,
   };
 };
 

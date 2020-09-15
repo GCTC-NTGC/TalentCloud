@@ -2,7 +2,13 @@ import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
-import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../../models/types";
 import { hasKey, getId } from "../../helpers/queries";
 import { EntityState, UiState } from "./jobReducer";
 
@@ -21,6 +27,11 @@ const getJobUpdatingState = (state: RootState): { [id: number]: boolean } =>
 export const getCriteriaState = (
   state: RootState,
 ): { [id: number]: Criteria } => entities(state).criteria.byId;
+
+const getJobPosterQuestionsState = (
+  state: RootState,
+): { [id: number]: JobPosterQuestion } =>
+  entities(state).jobPosterQuestions.byJobId;
 
 const getTaskState = (
   state: RootState,
@@ -185,3 +196,18 @@ export const getSortedFilteredComments = createCachedSelector(
 
 export const fetchingComments = (state: RootState): boolean =>
   ui(state).fetchingComments;
+
+export const getJobPosterQuestions = createSelector(
+  getJobPosterQuestionsState,
+  (jobPosterQuestionsState): JobPosterQuestion[] =>
+    Object.values(jobPosterQuestionsState),
+);
+
+export const getJobPosterQuestionsByJob = createCachedSelector(
+  getJobPosterQuestions,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (jobPosterQuestions, jobId: number): JobPosterQuestion[] =>
+    jobPosterQuestions.filter(
+      (jobPosterQuestion): boolean => jobPosterQuestion.job_poster_id === jobId,
+    ),
+)((state, ownProps): number => ownProps.jobId);
