@@ -107,6 +107,7 @@ export type CreateExperienceAction = AsyncFsaActions<
 
 export const createExperience = (
   experience: Experience,
+  applicantId: number,
 ): RSAActionTemplate<
   typeof CREATE_EXPERIENCE_STARTED,
   typeof CREATE_EXPERIENCE_SUCCEEDED,
@@ -115,7 +116,7 @@ export const createExperience = (
   { type: Experience["type"] }
 > =>
   asyncPost(
-    getCreateExperienceEndpoint(experience),
+    getCreateExperienceEndpoint(applicantId, experience.type),
     experience,
     CREATE_EXPERIENCE_STARTED,
     CREATE_EXPERIENCE_SUCCEEDED,
@@ -123,19 +124,6 @@ export const createExperience = (
     parseSingleExperience,
     { type: experience.type },
   );
-
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-export const createWorkExperience = (experience: ExperienceWork) =>
-  createExperience(experience);
-export const createEducationExperience = (experience: ExperienceEducation) =>
-  createExperience(experience);
-export const createCommunityExperience = (experience: ExperienceCommunity) =>
-  createExperience(experience);
-export const createAwardExperience = (experience: ExperienceAward) =>
-  createExperience(experience);
-export const createPersonalExperience = (experience: ExperiencePersonal) =>
-  createExperience(experience);
-/* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const UPDATE_EXPERIENCE_STARTED = "EXPERIENCE: UPDATE STARTED";
 export const UPDATE_EXPERIENCE_SUCCEEDED = "EXPERIENCE: UPDATE SUCCEEDED";

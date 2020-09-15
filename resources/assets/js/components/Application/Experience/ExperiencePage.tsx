@@ -16,10 +16,6 @@ import Experience, { ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
-  AwardRecipientType,
-  AwardRecognitionType,
-  EducationStatus,
-  EducationType,
 } from "../../../models/types";
 import {
   getApplicationById,
@@ -273,7 +269,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
 
     if (experience.id === 0) {
       // If the experience is brand new, it (and related experience skills) must be created on server.
-      const result = await dispatch(createExperience(experience));
+      const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
         const newExperience = (await result.payload).experience;
         const saveRequests = newLinkedSkills.map((skill) => {

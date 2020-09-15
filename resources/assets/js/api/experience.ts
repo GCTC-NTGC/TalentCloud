@@ -54,15 +54,11 @@ export const getExperienceEndpoint = (
 /**
  * This endpoint is used for creating (POST) new Experiences. They must be associated with an Applicant.
  */
-export const getCreateExperienceEndpoint = (experience: Experience): string => {
-  if (experience.experienceable_type === "application") {
-    throw new Error(
-      "There is no API endpoint for creating Experience directly attached to applications.",
-    );
-  }
-  return `${baseUrl()}/applicants/${
-    experience.experienceable_id
-  }/${experience.type.replace("_", "-")}`;
+export const getCreateExperienceEndpoint = (
+  applicantId: number,
+  type: Experience["type"],
+): string => {
+  return `${baseUrl()}/applicants/${applicantId}/${type.replace("_", "-")}`;
 };
 
 export const getExperienceSkillEndpoint = (id: number | null = null): string =>
