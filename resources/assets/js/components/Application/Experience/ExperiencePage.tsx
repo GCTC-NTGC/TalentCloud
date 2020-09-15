@@ -66,6 +66,7 @@ import { getEducationTypes as fetchEducationTypes } from "../../../store/Educati
 import { getEducationTypes } from "../../../store/EducationType/educationTypeSelector";
 import { getEducationStatuses as fetchEducationStatuses } from "../../../store/EducationStatus/educationStatusActions";
 import { getEducationStatuses } from "../../../store/EducationStatus/educationStatusSelector";
+import { loadingMessages } from "../applicationMessages";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -224,6 +225,16 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     }
   }, [skills.length, skillsUpdating, dispatch]);
 
+  const showLoadingState =
+    application === null ||
+    job === null ||
+    experiencesUpdating ||
+    skills.length === 0 ||
+    awardRecipientTypes.length === 0 ||
+    awardRecognitionTypes.length === 0 ||
+    educationTypes.length === 0 ||
+    educationStatuses.length === 0;
+
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
     let experience: ExperienceType | null = null;
@@ -332,33 +343,46 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const closeDate = new Date(); // TODO: get from application.
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(
-          applicationId,
-          application,
-          intl,
-          "experience",
-        )}
-      />
-      <Experience
-        experiences={experiences}
-        educationStatuses={educationStatuses}
-        educationTypes={educationTypes}
-        experienceSkills={experienceSkills}
-        criteria={criteria}
-        skills={skills}
-        jobId={job?.id ?? 1}
-        jobClassificationId={job?.classification_id ?? 1}
-        recipientTypes={awardRecipientTypes}
-        recognitionTypes={awardRecognitionTypes}
-        handleSubmitExperience={handleSubmit}
-        handleDeleteExperience={handleDelete}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "experience",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(2)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {!showLoadingState && (
+        <Experience
+          experiences={experiences}
+          educationStatuses={educationStatuses}
+          educationTypes={educationTypes}
+          experienceSkills={experienceSkills}
+          criteria={criteria}
+          skills={skills}
+          jobId={job?.id ?? 1}
+          jobClassificationId={job?.classification_id ?? 1}
+          recipientTypes={awardRecipientTypes}
+          recognitionTypes={awardRecognitionTypes}
+          handleSubmitExperience={handleSubmit}
+          handleDeleteExperience={handleDelete}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
       <div id="modal-root" data-clone />
     </>
   );
