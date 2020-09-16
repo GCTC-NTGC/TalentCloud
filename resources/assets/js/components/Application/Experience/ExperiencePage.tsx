@@ -336,7 +336,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const handleQuit = (): void => {
     window.location.href = applicationIndex(locale);
   };
-  const closeDate = new Date(); // TODO: get from application.
+  const closeDate = job?.close_date_time ?? null;
   return (
     <>
       {application !== null && (
