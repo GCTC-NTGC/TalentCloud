@@ -64,34 +64,63 @@ grant all privileges on database talentcloud to talentcloud; ### adjust access
 ```
 sudo add-apt-repository universe
 sudo apt install php-fpm php7.2-pgsql
+```
+
+
+## Configure nginx
+
+*For more detailed instructions, [go here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04)*
+
+```
 sudo vi /etc/nginx/sites-available/talent.test
 sudo ln -s /etc/nginx/sites-available/talent.test /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 sudo nginx -t ## to est new config
+sudo mkdir /var/www/talent_test ## create the folder we will copy our files to, and tell nginx to point to for root
 ```
 
 Copy in the below config into /etc/nginx/sites-available/talent.test
 
 ```
 server {
-        listen 80;
-        root /var/www/html;
-        index index.php index.html index.htm index.nginx-debian.html;
-        server_name talent.test;
+    listen 80;
+    server_name server_domain_or_IP;
+    root /var/www/travel_test/public;
 
-        location / {
-                try_files $uri $uri/ =404;
-        }
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
 
-        location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
-        }
+    index index.html index.htm index.php;
 
-        location ~ /\.ht {
-                deny all;
-        }
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
 }
+```
+
+Restart the nginx server
+
+```
+sudo service nginx restart
 ```
 
 ## Install composer
@@ -105,5 +134,33 @@ sudo apt-get install composer
 ```
 composer global require "laravel/installer=~1.1"
 sudo apt install php-mbstring php-xml php-bcmath
+```
+
+## Run Talent Cloud
+
+### Clone repo
+
+#### HTTPS
+
+```
+git clone  https://github.com/GCTC-NTGC/TalentCloud.git
+```
+
+#### SSH
+
+```
+git clone git@github.com:GCTC-NTGC/TalentCloud.git
+```
+
+### Move files to be hosted
+
+#### Setup TalentCloud directory to be hosted
+
+```
+cd TalentCloud
+composer install
+sudo cp -r ./* /var/www/talent_test
+sudo chown -R www-data.www-data /var/www/talent_test/storage
+sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
 ```
 
