@@ -295,11 +295,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           <ExperienceEducationAccordion
             key={`${experience.id}-${experience.type}`}
             areaOfStudy={experience.area_of_study}
-            educationType={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_type",
-            )}
+            educationType={
+              educationTypes.find(
+                ({ id }) => experience.education_type_id === id,
+              )?.name[locale] ||
+              intl.formatMessage(messages.educationTypeMissing)
+            }
             endDate={experience.end_date}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
@@ -312,11 +313,12 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             showButtons
             showSkillDetails
             startDate={experience.start_date}
-            status={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_status",
-            )}
+            status={
+              educationStatuses.find(
+                ({ id }) => experience.education_status_id === id,
+              )?.name[locale] ||
+              intl.formatMessage(messages.educationStatusMissing)
+            }
             thesisTitle={experience.thesis_title}
           />
         );
@@ -390,18 +392,20 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             irrelevantSkillCount={irrelevantSkillCount}
             isEducationJustification={experience.is_education_requirement}
             issuer={experience.issued_by}
-            recipient={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recipient_type",
-            )}
+            recipient={
+              recipientTypes.find(
+                ({ id }) => experience.award_recipient_type_id === id,
+              )?.name[locale] ||
+              intl.formatMessage(messages.awardRecipientMissing)
+            }
             relevantSkills={relevantSkills}
             skills={skills}
-            scope={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recognition_type",
-            )}
+            scope={
+              recognitionTypes.find(
+                ({ id }) => experience.award_recognition_type_id === id,
+              )?.name[locale] ||
+              intl.formatMessage(messages.awardRecognitionMissing)
+            }
             showButtons
             showSkillDetails
             title={experience.title}
