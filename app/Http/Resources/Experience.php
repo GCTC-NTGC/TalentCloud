@@ -19,7 +19,7 @@ class Experience extends JsonResource
         if ($type === 'experience_education') {
             $translations = [
                 'education_status' => $this->education_status->getTranslations('name'),
-                'eduation_type' => $this->education_type->getTranslations('name'),
+                'education_type' => $this->education_type->getTranslations('name'),
             ];
         } elseif ($type === 'experience_award') {
             $translations = [
