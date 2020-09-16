@@ -360,7 +360,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           {intl.formatMessage(loadingMessages.loading)}
         </h2>
       )}
-      {!showLoadingState && (
+      {/* Note: if showLoadingState is false, job must not be null, but TypeScript can't seem to infer that. */}
+      {!showLoadingState && job !== null && (
         <Experience
           experiences={experiences}
           educationStatuses={educationStatuses}
@@ -368,8 +369,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           experienceSkills={experienceSkills}
           criteria={criteria}
           skills={skills}
-          jobId={job?.id ?? 1}
-          jobClassificationId={job?.classification_id ?? 1}
+          jobId={job.id}
+          jobClassificationId={job.classification_id}
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}

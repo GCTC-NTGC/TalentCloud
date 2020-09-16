@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
+import { hasKey } from "../../../helpers/queries";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
@@ -81,7 +82,9 @@ export function EducationSubform({
             data-c-margin="bottom(1)"
           >
             {textToParagraphs(
-              intl.formatMessage(educationMessages[jobClassification]),
+              hasKey(educationMessages, jobClassification)
+                ? intl.formatMessage(educationMessages[jobClassification])
+                : "CLASSIFICATION MISSING",
               {},
               {
                 0: { "data-c-font-weight": "bold" },

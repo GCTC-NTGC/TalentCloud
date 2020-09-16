@@ -102,7 +102,7 @@ interface ExperienceProps {
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
-  jobClassificationId: number;
+  jobClassificationId: number | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
@@ -135,10 +135,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const jobClassification = getKeyByValue(
-    ClassificationId,
-    jobClassificationId,
-  );
+  const jobClassification =
+    jobClassificationId !== null
+      ? getKeyByValue(ClassificationId, jobClassificationId)
+      : "";
 
   const [experienceData, setExperienceData] = React.useState<
     | (Experience & {
