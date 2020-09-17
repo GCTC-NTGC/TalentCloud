@@ -41,7 +41,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
             <div data-c-grid-item={grid}>
               <label>
                 <Field type="checkbox" name={name} value={box.value} />
-                {box.label}
+                <span>{box.label}</span>
               </label>
             </div>
           );
