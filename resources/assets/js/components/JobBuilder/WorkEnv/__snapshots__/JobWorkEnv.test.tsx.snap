@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Job Index Page should render JobWorkEnv correctly 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <IntlContainer
+    locale=""
+  >
+    <Connect(injectIntl(ErrorToast)) />
+    <JobWorkEnv
+      handleModalCancel={[Function]}
+      handleModalConfirm={[Function]}
+      handleReturn={[Function]}
+      handleSkipToReview={[Function]}
+      handleSubmit={[Function]}
+      job={
+        Object {
+          "chosen_lang": "en",
+          "citizen_facing_vs_back_office": 4,
+          "city": Object {
+            "en": "Toronto",
+            "fr": "Toronto",
+          },
+          "classification_id": 1,
+          "classification_level": 4,
+          "close_date_time": 2019-05-30T10:59:59.000Z,
+          "collaborative_vs_independent": 3,
+          "created_at": 2019-04-20T11:00:00.000Z,
+          "culture_special": Object {
+            "en": "We're also a very informal, irreverent group.",
+            "fr": "Nous sommes également un groupe très informel et irrévérencieux.",
+          },
+          "culture_summary": Object {
+            "en": "Our deadlines are tight, we balance several tasks at the same time, and our priorities are always changing. Our work should come with running shoes!",
+            "fr": "Nos délais sont serrés, nous équilibrons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait venir avec des chaussures de course!",
+          },
+          "department_id": 1,
+          "dept_impact": Object {
+            "en": "This is a statement about all the great things you will do in this department.",
+            "fr": "Ceci est une déclaration sur toutes les grandes choses que vous ferez dans ce département.",
+          },
+          "division": Object {
+            "en": "suscipit",
+            "fr": "minima",
+          },
+          "education": Object {
+            "en": "A secondary school diploma; or 
+ 
+ Equivalent Experience: 
+ If you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum education requirement stated above.",
+            "fr": "Ut odit inventore incidunt.",
+          },
+          "experimental_vs_ongoing": 3,
+          "fast_vs_steady": 1,
+          "flexible_hours_frequency_id": 2,
+          "hire_impact": Object {
+            "en": "As a senior team member, you will be an important pillar in our movement to the cloud, especially with our case management system; Dynamics 365. Your knowledge, insights and analytical skills will be key elements in helping to build an optimal platform to support the Office’s future vision.",
+            "fr": "En tant que membre senior de l’équipe, vous serez un pilier important dans notre mouvement vers le cloud, surtout en ce qui a trait à notre système de gestion de cas; Dynamics 365. Vos connaissances, vos idées et vos capacités d’analyse seront des éléments clés qui contribueront à mettre en place une plateforme optimale supportant la vision future du commissariat.",
+          },
+          "horizontal_vs_vertical": 2,
+          "id": 1,
+          "job_poster_status_id": 1,
+          "language_requirement_id": 1,
+          "manager_id": 1,
+          "noc": 1234,
+          "open_date_time": 2019-05-20T11:00:00.000Z,
+          "overtime_requirement_id": 1,
+          "province_id": 4,
+          "remote_work_allowed": true,
+          "salary_max": 100000,
+          "salary_min": 85000,
+          "security_clearance_id": 1,
+          "start_date_time": 2019-07-01T11:00:00.000Z,
+          "team_impact": Object {
+            "en": "Internally, our primary goal is to optimize and build applications to best support our clients and ensure we are able to leverage the most of latest technologies. At the government-wide level, we want to be a model that demonstrates that privacy considerations are not an obstacle to technological progress.",
+            "fr": "À l’interne, notre but premier est d’optimiser et bâtir les applications de manière à supporter le mieux possible nos clients et de s’assurer d’être en mesure de tirer parti du meilleur des dernières technologies. À l’échelle du gouvernement, nous désirons être un modèle prouvant que les considérations liées à vie privée ne sont pas un obstacle au progrès technologique.",
+          },
+          "team_size": 15,
+          "telework_allowed_frequency_id": 1,
+          "term_qty": 12,
+          "title": Object {
+            "en": "Technical Advisor",
+            "fr": "Conseiller(ère) technique",
+          },
+          "travel_requirement_id": 1,
+          "work_env_description": Object {
+            "en": "Our office also has a couch that is so comfortable it must be hidden from view.",
+            "fr": "Notre bureau dispose également d’un canapé si confortable qu’il doit être caché de la vue.",
+          },
+          "work_env_features": Object {
+            "accessToExternal": true,
+            "assignedSeating": false,
+            "cafeteria": false,
+            "closeToTransit": true,
+            "collaboration": false,
+            "downtown": true,
+            "fileSharing": false,
+            "fitnessCenter": false,
+            "naturalLight": true,
+            "openConcept": true,
+            "parking": false,
+            "private": false,
+            "restaurants": false,
+            "smudging": true,
+            "taskManagement": false,
+            "versionControl": true,
+            "videoConferencing": true,
+            "windows": true,
+          },
+        }
+      }
+      jobIsComplete={true}
+    />
+  </IntlContainer>
+</Provider>
+`;
+
+exports[`Job Index Page should render JobWorkEnv without any a job correctly 1`] = `
+<Provider
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(observable): [Function],
+    }
+  }
+>
+  <IntlContainer
+    locale=""
+  >
+    <Connect(injectIntl(ErrorToast)) />
+    <JobWorkEnv
+      handleModalCancel={[Function]}
+      handleModalConfirm={[Function]}
+      handleReturn={[Function]}
+      handleSkipToReview={[Function]}
+      handleSubmit={[Function]}
+      job={null}
+      jobIsComplete={false}
+    />
+  </IntlContainer>
+</Provider>
+`;
