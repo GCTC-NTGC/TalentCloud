@@ -1,13 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
-import {
-  Form,
-  Formik,
-  FormikTouched,
-  FormikErrors,
-  FastField,
-  Field,
-} from "formik";
+import { Form, Formik, FormikTouched, FormikErrors, FastField } from "formik";
 import * as Yup from "yup";
 import nprogress from "nprogress";
 import {
@@ -16,7 +9,6 @@ import {
   IntlShape,
   useIntl,
 } from "react-intl";
-import CheckboxGroup from "../../Form/CheckboxGroup";
 import RadioGroup from "../../Form/RadioGroup";
 import ContextBlock from "../../ContextBlock/ContextBlock";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
@@ -24,7 +16,6 @@ import CopyToClipboardButton from "../../CopyToClipboardButton";
 import JobWorkEnvModal from "./JobWorkEnvModal";
 import RadioInput from "../../Form/RadioInput";
 import NumberInput from "../../Form/NumberInput";
-import CheckboxInput from "../../Form/CheckboxInput";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { validationMessages } from "../../Form/Messages";
 import { Job } from "../../../models/types";
@@ -493,9 +484,9 @@ const JobWorkEnv = ({
     teamSize: Yup.number()
       .min(1, intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
-    physicalEnv: Yup.array(),
-    technology: Yup.array(),
-    amenities: Yup.array(),
+    physicalEnv: Yup.array().of(Yup.string()),
+    technology: Yup.array().of(Yup.string()),
+    amenities: Yup.array().of(Yup.string()),
     envDescription: Yup.string(),
     culturePace: Yup.string()
       .oneOf(culturePaceList.map((item): string => item.id))
@@ -621,14 +612,7 @@ const JobWorkEnv = ({
             });
         }}
       >
-        {({
-          errors,
-          touched,
-          isSubmitting,
-          values,
-          setFieldValue,
-          setFieldTouched,
-        }): React.ReactElement => (
+        {({ errors, touched, isSubmitting, values }): React.ReactElement => (
           <>
             <Form id="form" data-c-margin="bottom(normal)">
               <FastField
