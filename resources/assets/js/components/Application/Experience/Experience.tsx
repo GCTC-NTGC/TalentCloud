@@ -175,17 +175,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const essentialSkills = removeDuplicatesById(filteredSkills.essential);
   const assetSkills = removeDuplicatesById(filteredSkills.asset);
 
-  getDisconnectedRequiredSkills(experiences, experienceSkills, essentialSkills);
-
-  const [
-    disconnectedRequiredSkills,
-    setDisconnectedRequiredSkills,
-  ] = React.useState<Skill[]>(
-    getDisconnectedRequiredSkills(
-      experiences,
-      experienceSkills,
-      essentialSkills,
-    ),
+  const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
+    experiences,
+    experienceSkills,
+    essentialSkills,
   );
 
   const openModal = (id: Experience["type"]): void => {
@@ -193,13 +186,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   };
 
   const closeModal = (): void => {
-    setDisconnectedRequiredSkills(
-      getDisconnectedRequiredSkills(
-        experiences,
-        experienceSkills,
-        essentialSkills,
-      ),
-    );
     setExperienceData(null);
     setIsModalVisible({ id: "", visible: false });
   };
