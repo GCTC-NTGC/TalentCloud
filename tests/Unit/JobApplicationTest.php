@@ -281,14 +281,15 @@ class JobApplicationTest extends TestCase
     public function testSaveProfileSnapshotTimeline(): void
     {
         $applicant = factory(Applicant::class)->create();
-
-        $applicant->experiences_award()->save(factory(ExperienceAward::class)->create([
+        $experience = factory(ExperienceAward::class)->create([
             'experienceable_id' => $applicant->id,
             'experienceable_type' => 'applicant',
-        ]));
+        ]);
+
+        $applicant->experiences_award()->save($experience);
 
         $experienceSkill = factory(ExperienceSkill::class)->create([
-            'experience_id' => $applicant->id,
+            'experience_id' => $experience->id,
             'experience_type' => 'experience_award',
         ]);
 
@@ -304,7 +305,7 @@ class JobApplicationTest extends TestCase
 
         $application->saveProfileSnapshotTimeline();
 
-        $this->collectionConsistsOfCopy($applicant->experiences_award->first(), $application->experiences_award);
+        $this->collectionConsistsOfCopy($applicant->experiences_award->first(), $application->fresh()->experiences_award);
 
         // Ensure copies are linked to each other just like originals are.
         $experienceAwardCopy = $application->experiences_award()->first();
@@ -323,13 +324,26 @@ class JobApplicationTest extends TestCase
      *
      * @return void
      */
-    public function testSaveProfileSnapshotTimelineResetEachTime(): void
+    public function testSaveProfileSnapshotTimelineResetsEachTime(): void
     {
         $applicant = factory(Applicant::class)->create();
-        $applicant->experiences_award()->save(factory(ExperienceAward::class)->create([
+        $experience = factory(ExperienceAward::class)->create([
             'experienceable_id' => $applicant->id,
             'experienceable_type' => 'applicant',
-        ]));
+        ]);
+
+        $applicant->experiences_award()->save($experience);
+
+        $experienceSkill = factory(ExperienceSkill::class)->create([
+            'experience_id' => $experience->id,
+            'experience_type' => 'experience_award',
+        ]);
+
+        $experienceAward = $applicant->experiences_award()->first();
+        $experienceAward->experience_skills()->save($experienceSkill);
+
+        $skill = Skill::find($experienceSkill->skill_id);
+        $experienceAward->skills()->sync($skill->id);
 
         // Create a new job application.
         $application = factory(JobApplication::class)->make();
@@ -340,12 +354,20 @@ class JobApplicationTest extends TestCase
         $this->collectionConsistsOfCopy($applicant->fresh()->experiences_award->first(), $application->fresh()->experiences_award);
 
         // Delete applicant award experience, and make sure a new snapshot deletes the award experiences as well.
-        $applicant->experiences_award()->delete();
+        $applicant->experiences_award()->first()->delete();
         $application->saveProfileSnapshotTimeline();
-        $application->refresh();
         $this->assertEquals(0, $application->fresh()->experiences_award->count());
+        // Ensure experience_skills were deleted from experience award.
+        $this->assertDatabaseMissing(
+            'experience_skills',
+            [
+                'skill_id' => $skill->id,
+                'experience_id' => $experience->id,
+                'experience_type' => 'experience_award',
+            ]
+        );
 
-        // Add new degree, make sure new snapshot matches it.
+        // Add new experience, make sure new snapshot matches it.
         $applicant->experiences_award()->save(factory(ExperienceAward::class)->create([
             'experienceable_id' => $applicant->id,
             'experienceable_type' => 'applicant',
