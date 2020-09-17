@@ -56,7 +56,7 @@ import {
   getDisconnectedRequiredSkills,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
-import { removeDuplicatesById } from "../../../helpers/queries";
+import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -515,24 +515,16 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   experience,
                   essentialSkills,
                 );
-                const relevantSkills: ExperienceSkill[] =
-                  savedRequiredSkills.map((skill) => {
-                    const experienceSkill = experienceSkills.find(
+                const relevantSkills: ExperienceSkill[] = savedRequiredSkills
+                  .map((skill) => {
+                    return experienceSkills.find(
                       ({ experience_id, experience_type, skill_id }) =>
-                        experience_id === experience.experienceable_id &&
+                        experience_id === experience.id &&
                         skill_id === skill.id &&
                         experience_type === experience.type,
                     );
-                    return {
-                      id: experienceSkill?.id ?? 0,
-                      skill_id: experienceSkill?.skill_id ?? 0,
-                      experience_id: experienceSkill?.experience_id ?? 0,
-                      experience_type: experienceSkill?.experience_type ?? "",
-                      justification: experienceSkill?.justification ?? "",
-                      created_at: experienceSkill?.created_at ?? new Date(),
-                      updated_at: experienceSkill?.updated_at ?? new Date(),
-                    };
-                  }) ?? [];
+                  })
+                  .filter(notEmpty);
 
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
                 const irrelevantSkillCount =
