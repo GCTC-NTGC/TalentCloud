@@ -21,8 +21,6 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function (): void {
-        /* Force base URL (for Azure, the pipeline cometh...) */
-        URL::forceRootUrl(env('APP_URL'));
         /* Routes used for local demos */
         /* If creating public demos, make sure to add a meta robots noindex, nofollow tag */
         Route::group(['prefix' => 'demo'], function (): void {
@@ -866,8 +864,8 @@ Route::group(
                     ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
 
-                /* View Applicant Profile */
-                Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                 /* View Applicant Profile */
+                 Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
                     ->middleware('can:view,applicant')
                     ->name('admin.applicants.profile');
             }
