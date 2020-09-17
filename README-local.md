@@ -123,6 +123,16 @@ Restart the nginx server
 sudo service nginx restart
 ```
 
+## Install npm
+
+*For more detailed instructions, please visit [here](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/)*
+
+
+```
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
 ## Install composer
 
 ```
@@ -158,10 +168,12 @@ git clone git@github.com:GCTC-NTGC/TalentCloud.git
 
 ```
 cd TalentCloud
+npm install
+npm run dev
+php artisan key:generate
 composer install
 sudo cp -r . /var/www/talent_test
 sudo chown -R www-data.www-data /var/www/talent_test/storage
 sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
-php artisan key:generate
 ```
 
