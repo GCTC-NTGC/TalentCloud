@@ -52,6 +52,7 @@ import {
   facingMessages,
   collaborativenessMessages,
 } from "./JobWorkEnvMessages";
+import CheckboxGroupField from "../../Form/CheckboxGroupField";
 
 type CulturePaceId =
   | "culturePace01"
@@ -478,12 +479,12 @@ const JobWorkEnv = ({
         moreCultureSummary: "",
       };
 
-  const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
+  const phyEnvData: { value: string; label: string }[] = phyEnvDescriptions(
     intl,
   );
-  const techData: { name: string; label: string }[] = techDescriptions(intl);
+  const techData: { value: string; label: string }[] = techDescriptions(intl);
   const amenitiesData: {
-    name: string;
+    value: string;
     label: string;
   }[] = amenitiesDescriptions(intl);
 
@@ -643,84 +644,30 @@ const JobWorkEnv = ({
                   formMessages.teamSizePlaceholder,
                 )}
               />
-              <CheckboxGroup
-                id="physicalEnv"
-                label={intl.formatMessage(formMessages.physicalEnvLabel)}
-                grid="base(1of1)"
-                value={values.physicalEnv}
-                error={errors.physicalEnv}
-                touched={touched.physicalEnv}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-              >
-                {phyEnvData &&
-                  phyEnvData.map(
-                    ({ name, label }): React.ReactElement => {
-                      return (
-                        <Field
-                          key={name}
-                          id={name}
-                          name={name}
-                          label={label}
-                          component={CheckboxInput}
-                          grid="base(1of2)"
-                        />
-                      );
-                    },
-                  )}
-              </CheckboxGroup>
-              <CheckboxGroup
-                id="technology"
-                label={intl.formatMessage(formMessages.technologyLabel)}
-                grid="base(1of1)"
-                value={values.technology}
-                error={errors.technology}
-                touched={touched.technology}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-              >
-                {techData &&
-                  techData.map(
-                    ({ name, label }): React.ReactElement => {
-                      return (
-                        <Field
-                          key={name}
-                          id={name}
-                          name={name}
-                          label={label}
-                          component={CheckboxInput}
-                          grid="base(1of2)"
-                        />
-                      );
-                    },
-                  )}
-              </CheckboxGroup>
-              <CheckboxGroup
-                id="amenities"
-                label={intl.formatMessage(formMessages.amenitiesLabel)}
-                grid="base(1of1)"
-                value={values.amenities}
-                error={errors.amenities}
-                touched={touched.amenities}
-                onChange={setFieldValue}
-                onBlur={setFieldTouched}
-              >
-                {amenitiesData &&
-                  amenitiesData.map(
-                    ({ name, label }): React.ReactElement => {
-                      return (
-                        <Field
-                          key={name}
-                          id={name}
-                          name={name}
-                          label={label}
-                          component={CheckboxInput}
-                          grid="base(1of2)"
-                        />
-                      );
-                    },
-                  )}
-              </CheckboxGroup>
+              <div data-c-grid-item="base(1of1)">
+                <CheckboxGroupField
+                  groupLabel={intl.formatMessage(formMessages.physicalEnvLabel)}
+                  name="physicalEnv"
+                  allBoxes={phyEnvData}
+                  grid="base(1of2)"
+                />
+              </div>
+              <div data-c-grid-item="base(1of1)">
+                <CheckboxGroupField
+                  groupLabel={intl.formatMessage(formMessages.technologyLabel)}
+                  name="technology"
+                  allBoxes={techData}
+                  grid="base(1of2)"
+                />
+              </div>
+              <div data-c-grid-item="base(1of1)">
+                <CheckboxGroupField
+                  groupLabel={intl.formatMessage(formMessages.amenitiesLabel)}
+                  name="amenities"
+                  allBoxes={amenitiesData}
+                  grid="base(1of2)"
+                />
+              </div>
               <p
                 data-c-margin="bottom(normal) top(normal)"
                 data-c-font-weight="bold"
