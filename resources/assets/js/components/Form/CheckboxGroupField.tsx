@@ -24,14 +24,12 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
 }) => {
   const [field, meta] = useField(name);
   return (
-    <div
+    <fieldset
       data-c-input="checkbox(group)"
       data-c-required={required || null}
       data-c-invalid={meta.touched && meta.error ? true : null}
-      role="group"
-      aria-labelledby="checkbox-group"
     >
-      <label>{groupLabel}</label>
+      <legend>{groupLabel}</legend>
       <span>
         <FormattedMessage {...inputMessages.required} />
       </span>
@@ -48,7 +46,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
         })}
       </div>
       <span>{meta.error}</span>
-    </div>
+    </fieldset>
   );
 };
 
