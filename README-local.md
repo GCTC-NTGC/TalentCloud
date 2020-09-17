@@ -159,8 +159,9 @@ git clone git@github.com:GCTC-NTGC/TalentCloud.git
 ```
 cd TalentCloud
 composer install
-sudo cp -r ./* /var/www/talent_test
+sudo cp -r . /var/www/talent_test
 sudo chown -R www-data.www-data /var/www/talent_test/storage
 sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
+php artisan key:generate
 ```
 
