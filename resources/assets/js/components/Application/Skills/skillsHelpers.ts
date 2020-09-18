@@ -1,6 +1,7 @@
 import { ExperienceSkill } from "../../../models/types";
 import { IconStatus } from "../../StatusIcon";
 import { hasKey } from "../../../helpers/queries";
+import { countNumberOfWords } from "../../WordCounter/helpers";
 
 export interface SkillStatus {
   [skillId: string]: {
@@ -15,23 +16,35 @@ export interface SkillStatus {
  * Accepts an array of experiences and creates an object of shape SkillStatus.
  *
  * @param experiences Array of ExperienceSkill.
+ * @param wordLimit Maximum number of words allowed in an ExperienceSkill justification.
  * @returns SkillStatus.
  */
-export const initialStatus = (experiences: ExperienceSkill[]): SkillStatus =>
-  experiences.reduce((status, experience: ExperienceSkill) => {
-    if (!status[experience.skill_id]) {
-      status[experience.skill_id] = {
-        experiences: {
-          [`${experience.experience_type}_${experience.experience_id}`]: IconStatus.DEFAULT,
-        },
-      };
-    }
-
-    status[experience.skill_id].experiences[
-      `${experience.experience_type}_${experience.experience_id}`
-    ] = IconStatus.DEFAULT;
-    return status;
-  }, {});
+export const initialStatus = (
+  experiences: ExperienceSkill[],
+  wordLimit: number,
+): SkillStatus =>
+  experiences.reduce(
+    (status: SkillStatus, experience: ExperienceSkill): SkillStatus => {
+      if (!hasKey(status, experience.skill_id)) {
+        status[experience.skill_id] = {
+          experiences: {},
+        };
+      }
+      // If justification is in the required range, mark it complete.
+      // If justification is null, an empty string, or too long, mark it an error.
+      const expSkillStatus =
+        experience.justification !== null &&
+        experience.justification.length > 0 &&
+        countNumberOfWords(experience.justification) <= wordLimit
+          ? IconStatus.COMPLETE
+          : IconStatus.ERROR;
+      status[experience.skill_id].experiences[
+        `${experience.experience_type}_${experience.experience_id}`
+      ] = expSkillStatus;
+      return status;
+    },
+    {},
+  );
 
 /**
  * Return the IconStatus for the Skill based on the defined statuses of all
@@ -73,7 +86,7 @@ export const computeParentStatus = (
 };
 
 /** Get current experienceSkill status if it's stored in status store, or return DEFAULT. */
-export const computeEperienceStatus = (
+export const computeExperienceStatus = (
   statusShape: SkillStatus,
   experienceSkill: ExperienceSkill,
 ): IconStatus => {

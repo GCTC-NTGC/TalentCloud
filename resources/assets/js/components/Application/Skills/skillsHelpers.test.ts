@@ -85,7 +85,7 @@ describe("Skills Helpers tests", (): void => {
           },
         },
       };
-      expect(initialStatus(fakeExperiences())).toEqual(expectState);
+      expect(initialStatus(fakeExperiences(), 100)).toEqual(expectState);
     });
   });
   describe("Sidebar Icon Status", (): void => {

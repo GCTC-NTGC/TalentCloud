@@ -43,7 +43,7 @@ import {
   initialStatus,
   computeParentStatus,
   SkillStatus,
-  computeEperienceStatus,
+  computeExperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
 import {
@@ -51,7 +51,12 @@ import {
   submitAllForms,
   focusOnElement,
 } from "../../../helpers/forms";
-import { getId, mapToObjectTrans, notEmpty } from "../../../helpers/queries";
+import {
+  find,
+  getId,
+  mapToObjectTrans,
+  notEmpty,
+} from "../../../helpers/queries";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -418,7 +423,7 @@ const Skills: React.FC<SkillsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const initial = initialStatus(experienceSkills);
+  const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
 
   const [status, dispatchStatus] = useReducer(statusReducer, initial);
 
@@ -474,6 +479,24 @@ const Skills: React.FC<SkillsProps> = ({
         return Promise.reject();
       }
     } else {
+      // Set icon status for all invalid form elements.
+      Array.from(refMap.entries()).forEach(([experienceSkillId, formRef]) => {
+        if (formRef.current !== null && !formRef.current.isValid) {
+          const experienceSkill = find(experienceSkills, experienceSkillId);
+          if (experienceSkill !== null) {
+            dispatchStatus({
+              payload: {
+                skillId: experienceSkill.skill_id,
+                experienceId: experienceSkill.experience_id,
+                experienceType: experienceSkill.experience_type,
+                status: IconStatus.ERROR,
+              },
+            });
+          }
+        }
+      });
+
+      // Expand and focus on the first invalid accordion form element.
       Array.from(refMap.entries()).some(([experienceSkillId, formRef]) => {
         if (formRef.current !== null && !formRef.current.isValid) {
           // Ensure the accordion is expanded before focussing on it.
@@ -620,7 +643,7 @@ const Skills: React.FC<SkillsProps> = ({
                     <div data-c-accordion-group="">
                       {getExperiencesOfSkill(skill, experienceSkills).map(
                         (experienceSkill) => {
-                          const experienceStatus = computeEperienceStatus(
+                          const experienceStatus = computeExperienceStatus(
                             status,
                             experienceSkill,
                           );
