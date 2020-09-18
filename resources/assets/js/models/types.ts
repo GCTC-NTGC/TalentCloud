@@ -81,6 +81,22 @@ export interface AssessmentPlanNotification {
   created_at: Date;
 }
 
+export interface AwardRecipientType {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
+export interface AwardRecognitionType {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
 export interface Classification {
   key: string;
 }
@@ -120,6 +136,22 @@ export interface Department {
   id: number;
   name: localizedFieldNonNull;
   impact: localizedFieldNonNull;
+}
+
+export interface EducationStatus {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
+export interface EducationType {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
 }
 
 export interface HrAdvisor {
