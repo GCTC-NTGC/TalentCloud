@@ -51,7 +51,7 @@ import {
   submitAllForms,
   focusOnElement,
 } from "../../../helpers/forms";
-import { notEmpty } from "../../../helpers/queries";
+import { getId, mapToObjectTrans, notEmpty } from "../../../helpers/queries";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -101,6 +101,8 @@ interface ExperienceSkillAccordionProps {
   intl: IntlShape;
   status: IconStatus;
   skillName: string;
+  isExpanded: boolean;
+  setIsExpanded: (value: boolean) => void;
   formRef: RefObject<FormikProps<ExperienceSkillFormValues>>;
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
@@ -126,12 +128,13 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
   intl,
   status,
   skillName,
+  isExpanded,
+  setIsExpanded,
   handleUpdateExperienceJustification,
   handleUpdateStatus,
   handleRemoveExperience,
   formRef,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   let heading = "";
   let subHeading = "";
   let label = "";
@@ -425,6 +428,11 @@ const Skills: React.FC<SkillsProps> = ({
   const [modalBody, setModalBody] = useState("");
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  // Maps ExperienceSkill ids to their accordion expansion state.
+  const [accordionExpansions, setAccordionExpansions] = useState<{
+    [experienceSkillId: number]: boolean;
+  }>(mapToObjectTrans(experienceSkills, getId, () => false));
+
   const menuSkills = criteria.reduce(
     (collection: { [skillId: number]: string }, criterion: Criteria) => {
       const skill = getSkillOfCriteria(criterion, skills);
@@ -468,6 +476,11 @@ const Skills: React.FC<SkillsProps> = ({
     } else {
       Array.from(refMap.entries()).some(([experienceSkillId, formRef]) => {
         if (formRef.current !== null && !formRef.current.isValid) {
+          // Ensure the accordion is expanded before focussing on it.
+          setAccordionExpansions({
+            ...accordionExpansions,
+            [experienceSkillId]: true,
+          });
           focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
           return true;
         }
@@ -478,9 +491,18 @@ const Skills: React.FC<SkillsProps> = ({
     }
   };
 
+  // formRefs holds a dictionary of experienceSkill.id to refs to Formik forms.
   const formRefs = React.useRef<
     Map<number, React.RefObject<FormikProps<ExperienceSkillFormValues>>>
   >(new Map());
+
+  // Ensure each experienceSkill has a corresponding form ref
+  experienceSkills.forEach((expSkill) => {
+    if (!formRefs.current.has(expSkill.id)) {
+      const ref = createRef<FormikProps<ExperienceSkillFormValues>>();
+      formRefs.current.set(expSkill.id, ref);
+    }
+  });
 
   return (
     <div data-c-container="large" ref={modalParentRef}>
@@ -644,6 +666,15 @@ const Skills: React.FC<SkillsProps> = ({
                               status={experienceStatus}
                               handleUpdateStatus={dispatchStatus}
                               skillName={skillName}
+                              isExpanded={
+                                accordionExpansions[experienceSkill.id]
+                              }
+                              setIsExpanded={(value: boolean): void =>
+                                setAccordionExpansions({
+                                  ...accordionExpansions,
+                                  [experienceSkill.id]: value,
+                                })
+                              }
                               formRef={
                                 formRefs.current.get(experienceSkill.id)! // Can assert this is not null, becuase if it was we just added it to map.
                               }
