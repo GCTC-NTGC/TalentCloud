@@ -229,7 +229,8 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                   data-c-grid-item="tl(1of4)"
                   data-c-align="base(left) tl(center)"
                 >
-                  {experienceSkill.justification.length === 0 && (
+                  {(experienceSkill.justification === null ||
+                    experienceSkill.justification.length === 0) && (
                     <span data-c-color="stop" className="missing-info">
                       <FormattedMessage
                         id="application.skills.justificationMissing"

@@ -370,7 +370,7 @@ export interface ExperienceSkill {
   skill_id: number;
   experience_id: number;
   experience_type: string;
-  justification: string;
+  justification: string | null;
   created_at: Date;
   updated_at: Date;
 }
