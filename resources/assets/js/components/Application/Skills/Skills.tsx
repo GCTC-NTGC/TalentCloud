@@ -263,132 +263,125 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
           />
         )}
       </button>
-      {isExpanded && (
-        <Formik
-          innerRef={formRef}
-          initialValues={initialValues}
-          validationSchema={experienceSkillSchema}
-          onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
-            const experienceSkillJustification = updateExperienceSkill(
-              experienceSkill,
-              values,
-            );
-            return handleUpdateExperienceJustification(
-              experienceSkillJustification,
-            )
-              .then(() => {
-                handleUpdateStatus({
-                  payload: {
-                    skillId: experienceSkill.skill_id,
-                    experienceId: experienceSkill.experience_id,
-                    experienceType: experienceSkill.experience_type,
-                    status: IconStatus.COMPLETE,
-                  },
-                });
-                setSubmitting(false);
-                resetForm();
-              })
-              .catch(() => {
-                setSubmitting(false);
+      <Formik
+        innerRef={formRef}
+        initialValues={initialValues}
+        validationSchema={experienceSkillSchema}
+        onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
+          const experienceSkillJustification = updateExperienceSkill(
+            experienceSkill,
+            values,
+          );
+          return handleUpdateExperienceJustification(
+            experienceSkillJustification,
+          )
+            .then(() => {
+              handleUpdateStatus({
+                payload: {
+                  skillId: experienceSkill.skill_id,
+                  experienceId: experienceSkill.experience_id,
+                  experienceType: experienceSkill.experience_type,
+                  status: IconStatus.COMPLETE,
+                },
               });
-          }}
-        >
-          {({
-            dirty,
-            isSubmitting,
-            isValid,
-            submitForm,
-          }): React.ReactElement => (
-            <div
-              aria-hidden={isExpanded ? "false" : "true"}
-              data-c-accordion-content=""
-              data-c-background="gray(10)"
-            >
-              <Form>
-                <AlertWhenUnsaved />
-                <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
-                <div data-c-padding="lr(1)">
-                  <FastField
-                    id={`experience-skill-textarea-${experienceSkill.id}`}
-                    name="justification"
-                    label={label}
-                    component={TextAreaInput}
-                    placeholder="Start writing here..."
-                    required
-                  />
-                </div>
-                <div data-c-padding="all(1)">
-                  <div data-c-grid="gutter(all, 1) middle">
-                    <div
-                      data-c-grid-item="tp(1of2)"
-                      data-c-align="base(center) tp(left)"
+              setSubmitting(false);
+              resetForm();
+            })
+            .catch(() => {
+              setSubmitting(false);
+            });
+        }}
+      >
+        {({ dirty, isSubmitting, isValid, submitForm }): React.ReactElement => (
+          <div
+            aria-hidden={isExpanded ? "false" : "true"}
+            data-c-accordion-content=""
+            data-c-background="gray(10)"
+          >
+            <Form>
+              <AlertWhenUnsaved />
+              <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
+              <div data-c-padding="lr(1)">
+                <FastField
+                  id={`experience-skill-textarea-${experienceSkill.id}`}
+                  name="justification"
+                  label={label}
+                  component={TextAreaInput}
+                  placeholder="Start writing here..."
+                  required
+                />
+              </div>
+              <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1) middle">
+                  <div
+                    data-c-grid-item="tp(1of2)"
+                    data-c-align="base(center) tp(left)"
+                  >
+                    <button
+                      data-c-button="outline(c1)"
+                      data-c-radius="rounded"
+                      type="button"
+                      onClick={handleRemoveButtonClick}
                     >
-                      <button
-                        data-c-button="outline(c1)"
-                        data-c-radius="rounded"
-                        type="button"
-                        onClick={handleRemoveButtonClick}
-                      >
-                        <span>
-                          <FormattedMessage
-                            id="application.skills.deleteExperienceButtonText"
-                            defaultMessage="Remove Experience From Skill"
-                            description="Text for the delete experience button."
-                          />
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      data-c-grid-item="tp(1of2)"
-                      data-c-align="base(center) tp(right)"
+                      <span>
+                        <FormattedMessage
+                          id="application.skills.deleteExperienceButtonText"
+                          defaultMessage="Remove Experience From Skill"
+                          description="Text for the delete experience button."
+                        />
+                      </span>
+                    </button>
+                  </div>
+                  <div
+                    data-c-grid-item="tp(1of2)"
+                    data-c-align="base(center) tp(right)"
+                  >
+                    <WordCounter
+                      elementId={`experience-skill-textarea-${experienceSkill.id}`}
+                      maxWords={JUSTIFICATION_WORD_LIMIT}
+                      minWords={0}
+                      absoluteValue
+                      dataAttributes={{ "data-c-margin": "right(1)" }}
+                      underMaxMessage={intl.formatMessage(
+                        displayMessages.wordCountUnderMax,
+                      )}
+                      overMaxMessage={intl.formatMessage(
+                        displayMessages.wordCountOverMax,
+                      )}
+                    />
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={!dirty || isSubmitting}
+                      onClick={(): void => {
+                        if (!isValid) {
+                          handleUpdateStatus({
+                            payload: {
+                              skillId: experienceSkill.skill_id,
+                              experienceId: experienceSkill.experience_id,
+                              experienceType: experienceSkill.experience_type,
+                              status: IconStatus.ERROR,
+                            },
+                          });
+                        } else {
+                          submitForm();
+                        }
+                      }}
                     >
-                      <WordCounter
-                        elementId={`experience-skill-textarea-${experienceSkill.id}`}
-                        maxWords={JUSTIFICATION_WORD_LIMIT}
-                        minWords={0}
-                        absoluteValue
-                        dataAttributes={{ "data-c-margin": "right(1)" }}
-                        underMaxMessage={intl.formatMessage(
-                          displayMessages.wordCountUnderMax,
-                        )}
-                        overMaxMessage={intl.formatMessage(
-                          displayMessages.wordCountOverMax,
-                        )}
-                      />
-                      <button
-                        data-c-button="solid(c1)"
-                        data-c-radius="rounded"
-                        type="button"
-                        disabled={!dirty || isSubmitting}
-                        onClick={(): void => {
-                          if (!isValid) {
-                            handleUpdateStatus({
-                              payload: {
-                                skillId: experienceSkill.skill_id,
-                                experienceId: experienceSkill.experience_id,
-                                experienceType: experienceSkill.experience_type,
-                                status: IconStatus.ERROR,
-                              },
-                            });
-                          } else {
-                            submitForm();
-                          }
-                        }}
-                      >
-                        <span>
-                          {dirty
-                            ? intl.formatMessage(displayMessages.save)
-                            : intl.formatMessage(displayMessages.saved)}
-                        </span>
-                      </button>
-                    </div>
+                      <span>
+                        {dirty
+                          ? intl.formatMessage(displayMessages.save)
+                          : intl.formatMessage(displayMessages.saved)}
+                      </span>
+                    </button>
                   </div>
                 </div>
-              </Form>
-            </div>
-          )}
-        </Formik>
-      )}
+              </div>
+            </Form>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };
