@@ -26,6 +26,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   return (
     <fieldset
       data-c-input="checkbox(group)"
+      className="clone-checkbox-group"
       data-c-required={required || null}
       data-c-invalid={meta.touched && meta.error ? true : null}
     >
