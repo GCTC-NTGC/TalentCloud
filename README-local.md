@@ -55,6 +55,7 @@ sudo -u postgres psql ## login to postgres
 create database talentcloud; ### create database
 create user talentcloud with encrypted password 'talentcloud'; ### create user
 grant all privileges on database talentcloud to talentcloud; ### adjust access
+ALTER ROLE talentcloud SUPERUSER;
 ```
 
 ## Install PHP
