@@ -348,6 +348,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >

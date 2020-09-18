@@ -356,6 +356,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >

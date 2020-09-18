@@ -449,6 +449,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >

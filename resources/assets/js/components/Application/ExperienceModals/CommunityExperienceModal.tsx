@@ -346,6 +346,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
