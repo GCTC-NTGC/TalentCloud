@@ -676,7 +676,11 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): Promise<void> =>
-                    validateAndSubmitMany(formRefs.current).then(handleReturn)
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleReturn)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
                   }
                 >
                   {intl.formatMessage(navigationMessages.return)}
@@ -692,7 +696,11 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): Promise<void> =>
-                    validateAndSubmitMany(formRefs.current).then(handleQuit)
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleQuit)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
                   }
                 >
                   {intl.formatMessage(navigationMessages.quit)}
@@ -704,7 +712,11 @@ const Skills: React.FC<SkillsProps> = ({
                   disabled={isSubmitting}
                   type="button"
                   onClick={(): Promise<void> =>
-                    validateAndSubmitMany(formRefs.current).then(handleContinue)
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleContinue)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
                   }
                 >
                   {intl.formatMessage(navigationMessages.continue)}
