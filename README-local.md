@@ -79,19 +79,19 @@ sudo nginx -t ## to est new config
 sudo mkdir /var/www/talent_test ## create the folder we will copy our files to, and tell nginx to point to for root
 ```
 
-Copy in the below config into /etc/nginx/sites-available/talent.test
+Copy in the below config into /etc/nginx/sites-available/talent.test (borrowed from [here](https://laravel.com/docs/7.x/deployment)). The only difference between the config from the docs and the one below is changing 'php7.4-fpm.sock' => 'php7.2-fpm.sock'
 
 ```
 server {
     listen 80;
-    server_name server_domain_or_IP;
-    root /var/www/travel_test/public;
+    server_name example.com;
+    root /var/www/talent_test/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Content-Type-Options "nosniff";
 
-    index index.html index.htm index.php;
+    index index.php;
 
     charset utf-8;
 
@@ -106,7 +106,6 @@ server {
 
     location ~ \.php$ {
         fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
-        fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
     }
@@ -175,5 +174,14 @@ composer install
 sudo cp -r . /var/www/talent_test
 sudo chown -R www-data.www-data /var/www/talent_test/storage
 sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
+sudo chgrp -R www-data /var/www/talent_test
+sudo find /var/www/talent_test -type d -exec chmod g+rx {} +
+sudo find /var/www/talent_test -type f -exec chmod g+r {} +
+sudo chown -R $USER /var/www/talent_test/
+sudo find /var/www/talent_test -type d -exec chmod u+rwx {} +
+sudo find /var/www/talent_test -type f -exec chmod u+rw {} +
+sudo find /var/www/talent_test -type d -exec chmod g+s {} +
+sudo service nginx restart
+php artisan migrate -n
 ```
 
