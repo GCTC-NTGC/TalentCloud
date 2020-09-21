@@ -204,7 +204,7 @@ export const ApplicationStatusId = {
 };
 
 export function getKeyByValue(object, value): string {
-  return Object.keys(object).find((key) => object[key] === value) || "";
+  return Object.keys(object).find((key) => object[key] === value) ?? "";
 }
 
 export function enumToIds(enumType: object): number[] {

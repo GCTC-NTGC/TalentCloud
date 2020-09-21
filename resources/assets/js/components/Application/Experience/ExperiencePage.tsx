@@ -47,8 +47,22 @@ import {
   deleteExperience,
 } from "../../../store/Experience/experienceActions";
 import { ApplicationStatusId } from "../../../models/lookupConstants";
-import { hasKey, getId } from "../../../helpers/queries";
+import { getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
+import {
+  getSkills,
+  getSkillsUpdating,
+} from "../../../store/Skill/skillSelector";
+import { fetchSkills } from "../../../store/Skill/skillActions";
+import { getAwardRecipientTypes as fetchAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeActions";
+import { getAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeSelector";
+import { getAwardRecognitionTypes as fetchAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeActions";
+import { getAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeSelector";
+import { getEducationTypes as fetchEducationTypes } from "../../../store/EducationType/educationTypeActions";
+import { getEducationTypes } from "../../../store/EducationType/educationTypeSelector";
+import { getEducationStatuses as fetchEducationStatuses } from "../../../store/EducationStatus/educationStatusActions";
+import { getEducationStatuses } from "../../../store/EducationStatus/educationStatusSelector";
+import { loadingMessages } from "../applicationMessages";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -60,6 +74,47 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
+
+  // Load Application constants.
+  const awardRecipientTypes = useSelector(getAwardRecipientTypes);
+  const awardRecipientTypesLoading = useSelector(
+    (state: RootState) => state.awardRecipientType.loading,
+  );
+  useEffect(() => {
+    if (awardRecipientTypes.length === 0 && !awardRecipientTypesLoading) {
+      dispatch(fetchAwardRecipientTypes());
+    }
+  }, [awardRecipientTypes, awardRecipientTypesLoading, dispatch]);
+
+  const awardRecognitionTypes = useSelector(getAwardRecognitionTypes);
+  const awardRecognitionTypesLoading = useSelector(
+    (state: RootState) => state.awardRecognitionType.loading,
+  );
+  useEffect(() => {
+    if (awardRecognitionTypes.length === 0 && !awardRecognitionTypesLoading) {
+      dispatch(fetchAwardRecognitionTypes());
+    }
+  }, [awardRecognitionTypes, awardRecognitionTypesLoading, dispatch]);
+
+  const educationTypes = useSelector(getEducationTypes);
+  const educationTypesLoading = useSelector(
+    (state: RootState) => state.educationType.loading,
+  );
+  useEffect(() => {
+    if (educationTypes.length === 0 && !educationTypesLoading) {
+      dispatch(fetchEducationTypes());
+    }
+  }, [educationTypes, educationTypesLoading, dispatch]);
+
+  const educationStatuses = useSelector(getEducationStatuses);
+  const educationStatusesLoading = useSelector(
+    (state: RootState) => state.educationStatus.loading,
+  );
+  useEffect(() => {
+    if (educationStatuses.length === 0 && !educationStatusesLoading) {
+      dispatch(fetchEducationStatuses());
+    }
+  }, [educationStatuses, educationStatusesLoading, dispatch]);
 
   const applicationSelector = (state: RootState) =>
     getApplicationById(state, { id: applicationId });
@@ -151,19 +206,30 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     useProfileExperience,
   ]);
 
-  // ExperienceSkills don't need to be fetched because they are returned inthe Experiences API calls.
+  // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
   const expSkillSelector = (state: RootState) =>
     useProfileExperience
       ? getExperienceSkillsByApplicant(state, { applicantId })
       : getExperienceSkillsByApplication(state, { applicationId });
   const experienceSkills = useSelector(expSkillSelector);
 
-  // TODO: load constants from backend.
-  const educationStatuses = [];
-  const educationTypes = [];
-  const skills = [];
-  const recipientTypes = [];
-  const recognitionTypes = [];
+  const skills = useSelector(getSkills);
+  const skillsUpdating = useSelector(getSkillsUpdating);
+  useEffect(() => {
+    if (skills.length === 0 && !skillsUpdating) {
+      dispatch(fetchSkills());
+    }
+  }, [skills.length, skillsUpdating, dispatch]);
+
+  const showLoadingState =
+    application === null ||
+    job === null ||
+    experiencesUpdating ||
+    skills.length === 0 ||
+    awardRecipientTypes.length === 0 ||
+    awardRecognitionTypes.length === 0 ||
+    educationTypes.length === 0 ||
+    educationStatuses.length === 0;
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
@@ -203,7 +269,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
 
     if (experience.id === 0) {
       // If the experience is brand new, it (and related experience skills) must be created on server.
-      const result = await dispatch(createExperience(experience));
+      const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
         const newExperience = (await result.payload).experience;
         const saveRequests = newLinkedSkills.map((skill) => {
@@ -270,36 +336,51 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const handleQuit = (): void => {
     window.location.href = applicationIndex(locale);
   };
-  const closeDate = new Date(); // TODO: get from application.
+  const closeDate = job?.close_date_time ?? null;
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(
-          applicationId,
-          application,
-          intl,
-          "experience",
-        )}
-      />
-      <Experience
-        experiences={experiences}
-        educationStatuses={educationStatuses}
-        educationTypes={educationTypes}
-        experienceSkills={experienceSkills}
-        criteria={criteria}
-        skills={skills}
-        jobId={job?.id ?? 1}
-        jobClassificationId={job?.classification_id ?? 1}
-        recipientTypes={recipientTypes}
-        recognitionTypes={recognitionTypes}
-        handleSubmitExperience={handleSubmit}
-        handleDeleteExperience={handleDelete}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "experience",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(2)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {/* Note: if showLoadingState is false, job must not be null, but TypeScript can't seem to infer that. */}
+      {!showLoadingState && job !== null && (
+        <Experience
+          experiences={experiences}
+          educationStatuses={educationStatuses}
+          educationTypes={educationTypes}
+          experienceSkills={experienceSkills}
+          criteria={criteria}
+          skills={skills}
+          jobId={job.id}
+          jobClassificationId={job.classification_id}
+          recipientTypes={awardRecipientTypes}
+          recognitionTypes={awardRecognitionTypes}
+          handleSubmitExperience={handleSubmit}
+          handleDeleteExperience={handleDelete}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
+      <div id="modal-root" data-clone />
     </>
   );
 };

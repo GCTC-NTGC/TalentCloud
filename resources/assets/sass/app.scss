@@ -126,20 +126,34 @@ table thead a:visited {
 
 .clone-sidebar-wrapper {
     position: relative;
-  }
-  .clone-sidebar {
-      position: sticky;
-      top: 0;
-      ul {
-          list-style: none;
-          padding: 0;
-      }
-  }
-  .clone-sidebar-content {
-    @media #{$clone-tablet-landscape} {
-      max-width: $clone-medium-layout;
+}
+.clone-sidebar {
+    position: sticky;
+    top: 0;
+    ul {
+        list-style: none;
+        padding: 0;
     }
-  }
+}
+.clone-sidebar-content {
+    @media #{$clone-tablet-landscape} {
+        max-width: $clone-medium-layout;
+    }
+}
+
+.clone-checkbox-group {
+    border: none;
+    margin: 0;
+    padding: 0;
+    legend {
+        display: block;
+        font-family: $clone-font-default;
+        font-size: $clone-font-scale-small;
+        padding-right: 8rem;
+        position: relative;
+        top: .5rem;
+    }
+}
 
 // Core Elements ===============================================================
 

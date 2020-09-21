@@ -864,8 +864,8 @@ Route::group(
                     ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
 
-                 /* View Applicant Profile */
-                 Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                /* View Applicant Profile */
+                Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
                     ->middleware('can:view,applicant')
                     ->name('admin.applicants.profile');
             }
