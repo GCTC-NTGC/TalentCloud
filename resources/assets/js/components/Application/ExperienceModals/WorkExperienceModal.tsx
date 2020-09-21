@@ -341,6 +341,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
