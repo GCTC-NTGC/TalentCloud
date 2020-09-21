@@ -296,9 +296,6 @@ class JobApplicationTest extends TestCase
         $experienceAward = $applicant->experiences_award()->first();
         $experienceAward->experience_skills()->save($experienceSkill);
 
-        $skill = Skill::find($experienceSkill->skill_id);
-        $experienceAward->skills()->sync($skill->id);
-
         // Create a new job application.
         $application = factory(JobApplication::class)->make();
         $applicant->job_applications()->save($application);
@@ -310,12 +307,10 @@ class JobApplicationTest extends TestCase
         // Ensure copies are linked to each other just like originals are.
         $experienceAwardCopy = $application->experiences_award()->first();
         $experienceSkillCopy = $experienceAwardCopy->experience_skills()->first();
-        $skillCopy = $experienceAwardCopy->skills()->first();
 
         $this->assertEquals($application->id, $experienceAwardCopy->experienceable_id);
         $this->assertEquals($experienceAwardCopy->experienceable_type, 'application');
         $this->assertEquals($experienceAwardCopy->id, $experienceSkillCopy->id);
-        $this->assertEquals($experienceSkillCopy->skill_id, $skillCopy->id);
     }
 
     /**
@@ -342,9 +337,6 @@ class JobApplicationTest extends TestCase
         $experienceAward = $applicant->experiences_award()->first();
         $experienceAward->experience_skills()->save($experienceSkill);
 
-        $skill = Skill::find($experienceSkill->skill_id);
-        $experienceAward->skills()->sync($skill->id);
-
         // Create a new job application.
         $application = factory(JobApplication::class)->make();
         $applicant->job_applications()->save($application);
@@ -361,10 +353,14 @@ class JobApplicationTest extends TestCase
         $this->assertDatabaseMissing(
             'experience_skills',
             [
-                'skill_id' => $skill->id,
+                'skill_id' => $experienceSkill->skill_id,
                 'experience_id' => $experience->id,
                 'experience_type' => 'experience_award',
             ]
+        );
+        $this->assertDatabaseMissing(
+            'experience_skills',
+            ['id' => $experienceSkill->id]
         );
 
         // Add new experience, make sure new snapshot matches it.
