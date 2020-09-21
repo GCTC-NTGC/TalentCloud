@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useState, useReducer, useRef } from "react";
+import React, {
+  useState,
+  useReducer,
+  useRef,
+  createRef,
+  RefObject,
+} from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
-import { Formik, Form, FastField } from "formik";
+import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import {
@@ -25,7 +31,7 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import { navigationMessages } from "../applicationMessages";
+import { navigationMessages, skillMessages } from "../applicationMessages";
 import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
@@ -37,8 +43,20 @@ import {
   initialStatus,
   computeParentStatus,
   SkillStatus,
+  computeExperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
+import {
+  validateAllForms,
+  submitAllForms,
+  focusOnElement,
+} from "../../../helpers/forms";
+import {
+  find,
+  getId,
+  mapToObjectTrans,
+  notEmpty,
+} from "../../../helpers/queries";
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -88,6 +106,9 @@ interface ExperienceSkillAccordionProps {
   intl: IntlShape;
   status: IconStatus;
   skillName: string;
+  isExpanded: boolean;
+  setIsExpanded: (value: boolean) => void;
+  formRef: RefObject<FormikProps<ExperienceSkillFormValues>>;
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
@@ -99,9 +120,7 @@ interface ExperienceSkillAccordionProps {
       status: IconStatus;
     };
   }) => void;
-  handleRemoveExperience: (
-    experience: ExperienceSkill,
-  ) => Promise<ExperienceSkill>;
+  handleRemoveExperience: (experience: ExperienceSkill) => Promise<void>;
 }
 
 interface ExperienceSkillFormValues {
@@ -114,11 +133,13 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
   intl,
   status,
   skillName,
+  isExpanded,
+  setIsExpanded,
   handleUpdateExperienceJustification,
   handleUpdateStatus,
   handleRemoveExperience,
+  formRef,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   let heading = "";
   let subHeading = "";
   let label = "";
@@ -180,7 +201,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
 
   return (
     <div
-      data-c-accordion=""
+      data-c-accordion
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
@@ -188,7 +209,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
     >
       <button
         aria-expanded={isExpanded ? "true" : "false"}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         tabIndex={0}
         type="button"
         onClick={handleExpandClick}
@@ -216,7 +237,8 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                   data-c-grid-item="tl(1of4)"
                   data-c-align="base(left) tl(center)"
                 >
-                  {experienceSkill.justification.length === 0 && (
+                  {(experienceSkill.justification === null ||
+                    experienceSkill.justification.length === 0) && (
                     <span data-c-color="stop" className="missing-info">
                       <FormattedMessage
                         id="application.skills.justificationMissing"
@@ -249,129 +271,127 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
           />
         )}
       </button>
-      {isExpanded && (
-        <Formik
-          initialValues={initialValues}
-          validationSchema={experienceSkillSchema}
-          onSubmit={(values, { setSubmitting, resetForm }): void => {
-            const experienceSkillJustification = updateExperienceSkill(
-              experienceSkill,
-              values,
-            );
-            handleUpdateExperienceJustification(experienceSkillJustification)
-              .then(() => {
-                handleUpdateStatus({
-                  payload: {
-                    skillId: experienceSkill.skill_id,
-                    experienceId: experienceSkill.experience_id,
-                    experienceType: experienceSkill.experience_type,
-                    status: IconStatus.COMPLETE,
-                  },
-                });
-                setSubmitting(false);
-                resetForm();
-              })
-              .catch(() => {
-                setSubmitting(false);
+      <Formik
+        innerRef={formRef}
+        initialValues={initialValues}
+        validationSchema={experienceSkillSchema}
+        onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
+          const experienceSkillJustification = updateExperienceSkill(
+            experienceSkill,
+            values,
+          );
+          return handleUpdateExperienceJustification(
+            experienceSkillJustification,
+          )
+            .then(() => {
+              handleUpdateStatus({
+                payload: {
+                  skillId: experienceSkill.skill_id,
+                  experienceId: experienceSkill.experience_id,
+                  experienceType: experienceSkill.experience_type,
+                  status: IconStatus.COMPLETE,
+                },
               });
-          }}
-        >
-          {({
-            dirty,
-            isSubmitting,
-            isValid,
-            submitForm,
-          }): React.ReactElement => (
-            <div
-              aria-hidden={isExpanded ? "false" : "true"}
-              data-c-accordion-content=""
-              data-c-background="gray(10)"
-            >
-              <Form>
-                <AlertWhenUnsaved />
-                <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
-                <div data-c-padding="lr(1)">
-                  <FastField
-                    id={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
-                    name="justification"
-                    label={label}
-                    component={TextAreaInput}
-                    placeholder="Start writing here..."
-                    required
-                  />
-                </div>
-                <div data-c-padding="all(1)">
-                  <div data-c-grid="gutter(all, 1) middle">
-                    <div
-                      data-c-grid-item="tp(1of2)"
-                      data-c-align="base(center) tp(left)"
+              setSubmitting(false);
+              resetForm();
+            })
+            .catch(() => {
+              setSubmitting(false);
+            });
+        }}
+      >
+        {({ dirty, isSubmitting, isValid, submitForm }): React.ReactElement => (
+          <div
+            aria-hidden={isExpanded ? "false" : "true"}
+            data-c-accordion-content=""
+            data-c-background="gray(10)"
+          >
+            <Form>
+              <AlertWhenUnsaved />
+              <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
+              <div data-c-padding="lr(1)">
+                <FastField
+                  id={`experience-skill-textarea-${experienceSkill.id}`}
+                  name="justification"
+                  label={label}
+                  component={TextAreaInput}
+                  placeholder={intl.formatMessage(
+                    skillMessages.experienceSkillPlaceholder,
+                  )}
+                  required
+                />
+              </div>
+              <div data-c-padding="all(1)">
+                <div data-c-grid="gutter(all, 1) middle">
+                  <div
+                    data-c-grid-item="tp(1of2)"
+                    data-c-align="base(center) tp(left)"
+                  >
+                    <button
+                      data-c-button="outline(c1)"
+                      data-c-radius="rounded"
+                      type="button"
+                      onClick={handleRemoveButtonClick}
                     >
-                      <button
-                        data-c-button="outline(c1)"
-                        data-c-radius="rounded"
-                        type="button"
-                        onClick={handleRemoveButtonClick}
-                      >
-                        <span>
-                          <FormattedMessage
-                            id="application.skills.deleteExperienceButtonText"
-                            defaultMessage="Remove Experience From Skill"
-                            description="Text for the delete experience button."
-                          />
-                        </span>
-                      </button>
-                    </div>
-                    <div
-                      data-c-grid-item="tp(1of2)"
-                      data-c-align="base(center) tp(right)"
+                      <span>
+                        <FormattedMessage
+                          id="application.skills.deleteExperienceButtonText"
+                          defaultMessage="Remove Experience From Skill"
+                          description="Text for the delete experience button."
+                        />
+                      </span>
+                    </button>
+                  </div>
+                  <div
+                    data-c-grid-item="tp(1of2)"
+                    data-c-align="base(center) tp(right)"
+                  >
+                    <WordCounter
+                      elementId={`experience-skill-textarea-${experienceSkill.id}`}
+                      maxWords={JUSTIFICATION_WORD_LIMIT}
+                      minWords={0}
+                      absoluteValue
+                      dataAttributes={{ "data-c-margin": "right(1)" }}
+                      underMaxMessage={intl.formatMessage(
+                        displayMessages.wordCountUnderMax,
+                      )}
+                      overMaxMessage={intl.formatMessage(
+                        displayMessages.wordCountOverMax,
+                      )}
+                    />
+                    <button
+                      data-c-button="solid(c1)"
+                      data-c-radius="rounded"
+                      type="button"
+                      disabled={!dirty || isSubmitting}
+                      onClick={(): void => {
+                        if (!isValid) {
+                          handleUpdateStatus({
+                            payload: {
+                              skillId: experienceSkill.skill_id,
+                              experienceId: experienceSkill.experience_id,
+                              experienceType: experienceSkill.experience_type,
+                              status: IconStatus.ERROR,
+                            },
+                          });
+                        } else {
+                          submitForm();
+                        }
+                      }}
                     >
-                      <WordCounter
-                        elementId={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
-                        maxWords={JUSTIFICATION_WORD_LIMIT}
-                        minWords={0}
-                        absoluteValue
-                        dataAttributes={{ "data-c-margin": "right(1)" }}
-                        underMaxMessage={intl.formatMessage(
-                          displayMessages.wordCountUnderMax,
-                        )}
-                        overMaxMessage={intl.formatMessage(
-                          displayMessages.wordCountOverMax,
-                        )}
-                      />
-                      <button
-                        data-c-button="solid(c1)"
-                        data-c-radius="rounded"
-                        type="button"
-                        disabled={!dirty || isSubmitting}
-                        onClick={() => {
-                          if (!isValid) {
-                            handleUpdateStatus({
-                              payload: {
-                                skillId: experienceSkill.skill_id,
-                                experienceId: experienceSkill.experience_id,
-                                experienceType: experienceSkill.experience_type,
-                                status: IconStatus.ERROR,
-                              },
-                            });
-                          } else {
-                            submitForm();
-                          }
-                        }}
-                      >
-                        <span>
-                          {dirty
-                            ? intl.formatMessage(displayMessages.save)
-                            : intl.formatMessage(displayMessages.saved)}
-                        </span>
-                      </button>
-                    </div>
+                      <span>
+                        {dirty
+                          ? intl.formatMessage(displayMessages.save)
+                          : intl.formatMessage(displayMessages.saved)}
+                      </span>
+                    </button>
                   </div>
                 </div>
-              </Form>
-            </div>
-          )}
-        </Formik>
-      )}
+              </div>
+            </Form>
+          </div>
+        )}
+      </Formik>
     </div>
   );
 };
@@ -386,7 +406,7 @@ interface SkillsProps {
   ) => Promise<ExperienceSkill>;
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
-  ) => Promise<ExperienceSkill>;
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -405,7 +425,7 @@ const Skills: React.FC<SkillsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const initial = initialStatus(experienceSkills);
+  const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
 
   const [status, dispatchStatus] = useReducer(statusReducer, initial);
 
@@ -414,6 +434,11 @@ const Skills: React.FC<SkillsProps> = ({
   const [modalHeading, setModalHeading] = useState("");
   const [modalBody, setModalBody] = useState("");
   const modalParentRef = useRef<HTMLDivElement>(null);
+
+  // Maps ExperienceSkill ids to their accordion expansion state.
+  const [accordionExpansions, setAccordionExpansions] = useState<{
+    [experienceSkillId: number]: boolean;
+  }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
   const menuSkills = criteria.reduce(
     (collection: { [skillId: number]: string }, criterion: Criteria) => {
@@ -430,6 +455,79 @@ const Skills: React.FC<SkillsProps> = ({
     },
     [],
   );
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  /**
+   * Validate many Formik forms, and submit all of them if all are valid.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const validateAndSubmitMany = async (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values()).filter(notEmpty);
+    const formsAreValid = await validateAllForms(refs);
+    if (formsAreValid) {
+      try {
+        await submitAllForms(refs);
+        setIsSubmitting(false);
+        return Promise.resolve();
+      } catch {
+        setIsSubmitting(false);
+        return Promise.reject();
+      }
+    } else {
+      // Set icon status for all invalid form elements.
+      Array.from(refMap.entries()).forEach(([experienceSkillId, formRef]) => {
+        if (formRef.current !== null && !formRef.current.isValid) {
+          const experienceSkill = find(experienceSkills, experienceSkillId);
+          if (experienceSkill !== null) {
+            dispatchStatus({
+              payload: {
+                skillId: experienceSkill.skill_id,
+                experienceId: experienceSkill.experience_id,
+                experienceType: experienceSkill.experience_type,
+                status: IconStatus.ERROR,
+              },
+            });
+          }
+        }
+      });
+
+      // Expand and focus on the first invalid accordion form element.
+      Array.from(refMap.entries()).some(([experienceSkillId, formRef]) => {
+        if (formRef.current !== null && !formRef.current.isValid) {
+          // Ensure the accordion is expanded before focussing on it.
+          setAccordionExpansions({
+            ...accordionExpansions,
+            [experienceSkillId]: true,
+          });
+          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          return true;
+        }
+        return false;
+      });
+      setIsSubmitting(false);
+      return Promise.reject();
+    }
+  };
+
+  // formRefs holds a dictionary of experienceSkill.id to refs to Formik forms.
+  const formRefs = React.useRef<
+    Map<number, React.RefObject<FormikProps<ExperienceSkillFormValues>>>
+  >(new Map());
+
+  // Ensure each experienceSkill has a corresponding form ref
+  experienceSkills.forEach((expSkill) => {
+    if (!formRefs.current.has(expSkill.id)) {
+      const ref = createRef<FormikProps<ExperienceSkillFormValues>>();
+      formRefs.current.set(expSkill.id, ref);
+    }
+  });
 
   return (
     <div data-c-container="large" ref={modalParentRef}>
@@ -496,7 +594,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={skill.id}>
+                <div key={criterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -547,18 +645,19 @@ const Skills: React.FC<SkillsProps> = ({
                     <div data-c-accordion-group="">
                       {getExperiencesOfSkill(skill, experienceSkills).map(
                         (experienceSkill) => {
-                          const experienceStatus =
-                            status[experienceSkill.skill_id].experiences[
-                              `${experienceSkill.experience_type}_${experienceSkill.experience_id}`
-                            ];
+                          const experienceStatus = computeExperienceStatus(
+                            status,
+                            experienceSkill,
+                          );
                           const relevantExperience = getExperienceOfExperienceSkills(
                             experienceSkill,
                             experiences,
                           );
-
+                          const elementKey = `experience-skill-textarea-${experienceSkill.id}`;
                           if (relevantExperience === null) {
                             return (
                               <div
+                                key={elementKey}
                                 data-c-background="gray(10)"
                                 data-c-radius="rounded"
                                 data-c-border="all(thin, solid, gray)"
@@ -577,15 +676,33 @@ const Skills: React.FC<SkillsProps> = ({
                             );
                           }
 
+                          if (!formRefs.current.has(experienceSkill.id)) {
+                            const ref = createRef<
+                              FormikProps<ExperienceSkillFormValues>
+                            >();
+                            formRefs.current.set(experienceSkill.id, ref);
+                          }
                           return (
                             <ExperienceSkillAccordion
-                              key={`experience-skill-textarea-${experienceSkill.experience_type}-${experienceSkill.skill_id}-${experienceSkill.experience_id}`}
+                              key={elementKey}
                               experience={relevantExperience}
                               experienceSkill={experienceSkill}
                               intl={intl}
                               status={experienceStatus}
                               handleUpdateStatus={dispatchStatus}
                               skillName={skillName}
+                              isExpanded={
+                                accordionExpansions[experienceSkill.id]
+                              }
+                              setIsExpanded={(value: boolean): void =>
+                                setAccordionExpansions({
+                                  ...accordionExpansions,
+                                  [experienceSkill.id]: value,
+                                })
+                              }
+                              formRef={
+                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, becuase if it was we just added it to map.
+                              }
                               handleUpdateExperienceJustification={
                                 handleUpdateExperienceJustification
                               }
@@ -613,7 +730,14 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="outline(c2)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={(): void => handleReturn()}
+                  disabled={isSubmitting}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleReturn)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
+                  }
                 >
                   {intl.formatMessage(navigationMessages.return)}
                 </button>
@@ -626,7 +750,14 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="outline(c2)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={(): void => handleQuit()}
+                  disabled={isSubmitting}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleQuit)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
+                  }
                 >
                   {intl.formatMessage(navigationMessages.quit)}
                 </button>
@@ -634,8 +765,15 @@ const Skills: React.FC<SkillsProps> = ({
                   data-c-button="solid(c1)"
                   data-c-radius="rounded"
                   data-c-margin="left(1)"
+                  disabled={isSubmitting}
                   type="button"
-                  onClick={(): void => handleContinue()}
+                  onClick={(): Promise<void> =>
+                    validateAndSubmitMany(formRefs.current)
+                      .then(handleContinue)
+                      .catch(() => {
+                        // Validation failed, do nothing.
+                      })
+                  }
                 >
                   {intl.formatMessage(navigationMessages.continue)}
                 </button>

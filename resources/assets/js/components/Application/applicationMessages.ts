@@ -212,6 +212,15 @@ export const experienceMessages = defineMessages({
   },
 });
 
+export const skillMessages = defineMessages({
+  experienceSkillPlaceholder: {
+    id: "application.skills.experienceSkillPlaceholder",
+    defaultMessage: "Start writing here...",
+    description:
+      "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
+  },
+});
+
 export const fitMessages = defineMessages({
   heading: {
     id: "application.fit.heading",

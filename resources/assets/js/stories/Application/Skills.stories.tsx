@@ -20,9 +20,9 @@ const handleUpdateExperienceJustification = (
 
 const handleRemoveExperienceJustification = (
   experience: ExperienceSkill,
-): Promise<ExperienceSkill> => {
+): Promise<void> => {
   action("Removed")();
-  return Promise.resolve(experience);
+  return Promise.resolve();
 };
 
 stories.add(
