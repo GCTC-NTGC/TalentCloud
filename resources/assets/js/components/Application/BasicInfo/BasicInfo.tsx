@@ -28,9 +28,9 @@ import textToParagraphs from "../../../helpers/textToParagraphs";
 interface BasicInfoProps {
   application: ApplicationNormalized;
   job: Job;
-  handleContinue: (values: ApplicationNormalized) => void;
-  handleReturn: (values: ApplicationNormalized) => void;
-  handleQuit: (values: ApplicationNormalized) => void;
+  handleContinue: (values: ApplicationNormalized) => Promise<void>;
+  handleReturn: (values: ApplicationNormalized) => Promise<void>;
+  handleQuit: (values: ApplicationNormalized) => Promise<void>;
 }
 
 export interface BasicInfoFormValues {
@@ -121,13 +121,17 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values): void => {
+        onSubmit={(values, { setSubmitting }): void => {
           // Save data to application object, then navigate to the next step
           const basicInfoFormValues: BasicInfoFormValues = {
             ...values,
           };
 
-          handleContinue(updateApplication(application, basicInfoFormValues));
+          handleContinue(
+            updateApplication(application, basicInfoFormValues),
+          ).finally(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, values }): React.ReactElement => (

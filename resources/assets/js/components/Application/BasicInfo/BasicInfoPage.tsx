@@ -82,16 +82,18 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     return Promise.reject(result.payload);
   };
 
-  const handleContinue = (values: ApplicationNormalized): void => {
-    updateApplication(values);
+  const handleContinue = async (
+    values: ApplicationNormalized,
+  ): Promise<void> => {
+    await updateApplication(values);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
-  const handleReturn = (values: ApplicationNormalized): void => {
-    updateApplication(values);
+  const handleReturn = async (values: ApplicationNormalized): Promise<void> => {
+    await updateApplication(values);
     navigate(applicationWelcome(locale, applicationId));
   };
-  const handleQuit = (values: ApplicationNormalized): void => {
-    updateApplication(values);
+  const handleQuit = async (values: ApplicationNormalized): Promise<void> => {
+    await updateApplication(values);
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
