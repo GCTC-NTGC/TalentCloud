@@ -332,7 +332,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="educationTypeId"
+          id="education-educationTypeId"
           name="educationTypeId"
           label={intl.formatMessage(messages.educationTypeLabel)}
           grid="tl(1of2)"
@@ -345,7 +345,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           }))}
         />
         <FastField
-          id="areaOfStudy"
+          id="education-areaOfStudy"
           type="text"
           name="areaOfStudy"
           component={TextInput}
@@ -355,7 +355,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
         />
         <FastField
-          id="institution"
+          id="education-institution"
           type="text"
           name="institution"
           component={TextInput}
@@ -365,7 +365,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           placeholder={intl.formatMessage(messages.institutionPlaceholder)}
         />
         <FastField
-          id="educationStatusId"
+          id="education-educationStatusId"
           name="educationStatusId"
           label={intl.formatMessage(messages.completionLabel)}
           grid="tl(1of2)"
@@ -378,7 +378,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           }))}
         />
         <FastField
-          id="startDate"
+          id="education-startDate"
           name="startDate"
           component={DateInput}
           required
@@ -387,14 +387,14 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
         <Field
-          id="isActive"
+          id="education-isActive"
           name="isActive"
           component={CheckboxInput}
           grid="tl(1of2)"
           label={intl.formatMessage(messages.isActiveLabel)}
         />
         <Field
-          id="endDate"
+          id="education-endDate"
           name="endDate"
           component={DateInput}
           grid="base(1of2)"
@@ -402,7 +402,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
         <FastField
-          id="thesisTitle"
+          id="education-thesisTitle"
           type="text"
           name="thesisTitle"
           component={TextInput}
@@ -412,7 +412,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
         />
         <div data-c-grid-item="base(1of1)">
           <FastField
-            id="hasBlockcert"
+            id="education-hasBlockcert"
             name="hasBlockcert"
             component={CheckboxInput}
             grid="base(1of1)"
@@ -449,6 +449,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -460,11 +461,15 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               />
               {detailsSubform}
               <SkillSubform
+                keyPrefix="education"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="education"
+                jobClassification={jobClassification}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

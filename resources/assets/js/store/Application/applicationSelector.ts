@@ -115,3 +115,10 @@ export const allIsSendingReferenceEmailByApplication = (
 ): { [applicationId: number]: boolean } => {
   return ui(state).sendingReferenceEmailForApplication;
 };
+
+export const getApplicationIsUpdating = (
+  state: RootState,
+  props: { applicationId: number },
+): boolean =>
+  hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
+  ui(state).applicationIsUpdating[props.applicationId];

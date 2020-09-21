@@ -191,16 +191,16 @@
         },
         {
             "name": "codezero/laravel-unique-translation",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codezero-be/laravel-unique-translation.git",
-                "reference": "85a826ce0de1676c3f93a3dc831599f5f70ceff9"
+                "reference": "502af5a131ff1717984c05a7e5e4845ad4aad367"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/85a826ce0de1676c3f93a3dc831599f5f70ceff9",
-                "reference": "85a826ce0de1676c3f93a3dc831599f5f70ceff9",
+                "url": "https://api.github.com/repos/codezero-be/laravel-unique-translation/zipball/502af5a131ff1717984c05a7e5e4845ad4aad367",
+                "reference": "502af5a131ff1717984c05a7e5e4845ad4aad367",
                 "shasum": ""
             },
             "require": {
@@ -209,7 +209,7 @@
             "require-dev": {
                 "orchestra/testbench": "^4.0|^5.0|^6.0",
                 "phpunit/phpunit": "^8.0|^9.0",
-                "spatie/laravel-translatable": "^4.2"
+                "spatie/laravel-translatable": "^4.4"
             },
             "type": "library",
             "extra": {
@@ -258,7 +258,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2020-09-07T14:34:12+00:00"
+            "time": "2020-09-13T11:14:47+00:00"
         },
         {
             "name": "creativeorange/gravatar",
@@ -488,16 +488,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "2.10.3",
+            "version": "2.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "03ca23afc2ee062f5d3e32426ad37c34a4770dcf"
+                "reference": "47433196b6390d14409a33885ee42b6208160643"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/03ca23afc2ee062f5d3e32426ad37c34a4770dcf",
-                "reference": "03ca23afc2ee062f5d3e32426ad37c34a4770dcf",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/47433196b6390d14409a33885ee42b6208160643",
+                "reference": "47433196b6390d14409a33885ee42b6208160643",
                 "shasum": ""
             },
             "require": {
@@ -593,7 +593,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-02T01:35:42+00:00"
+            "time": "2020-09-12T21:20:41+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -1803,20 +1803,20 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec"
+                "reference": "fdb68d2a1f09c852e557420a1688dec038311938"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/13a51715f8e066b0bfb637fd9065d7496c3579ec",
-                "reference": "13a51715f8e066b0bfb637fd9065d7496c3579ec",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/fdb68d2a1f09c852e557420a1688dec038311938",
+                "reference": "fdb68d2a1f09c852e557420a1688dec038311938",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0",
+                "laravel/framework": "~5.2.0||~5.3.0||~5.4.0||~5.5.0||~5.6.0||~5.7.0||~5.8.0||^6.0||^7.0||^8.0",
                 "php": ">=7.1.0"
             },
             "require-dev": {
@@ -1871,7 +1871,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-03-05T15:19:05+00:00"
+            "time": "2020-09-12T14:18:37+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2438,25 +2438,25 @@
         },
         {
             "name": "pragmarx/google2fa-laravel",
-            "version": "v1.3.3",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/google2fa-laravel.git",
-                "reference": "ed6e0a9ea1519550688ffb5afb4919204e46ecea"
+                "reference": "f9014fd7ea36a1f7fffa233109cf59b209469647"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/google2fa-laravel/zipball/ed6e0a9ea1519550688ffb5afb4919204e46ecea",
-                "reference": "ed6e0a9ea1519550688ffb5afb4919204e46ecea",
+                "url": "https://api.github.com/repos/antonioribeiro/google2fa-laravel/zipball/f9014fd7ea36a1f7fffa233109cf59b209469647",
+                "reference": "f9014fd7ea36a1f7fffa233109cf59b209469647",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.4.36",
+                "laravel/framework": ">=5.4.36|^8.0",
                 "php": ">=7.0",
                 "pragmarx/google2fa-qrcode": "^1.0"
             },
             "require-dev": {
-                "orchestra/testbench": "3.4.*|3.5.*|3.6.*|3.7.*|4.*",
+                "orchestra/testbench": "3.4.*|3.5.*|3.6.*|3.7.*|4.*|5.*|6.*",
                 "phpunit/phpunit": "~5|~6|~7|~8"
             },
             "suggest": {
@@ -2505,7 +2505,7 @@
                 "google2fa",
                 "laravel"
             ],
-            "time": "2020-04-05T17:39:30+00:00"
+            "time": "2020-09-20T21:01:48+00:00"
         },
         {
             "name": "pragmarx/google2fa-qrcode",
@@ -3153,25 +3153,26 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.12.1",
+            "version": "v0.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "c7e4acdfb3d55a055508b9d3cc8cf71c00329e90"
+                "reference": "a4faebbb0c18cf775fda4247c926faa6319ee611"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/c7e4acdfb3d55a055508b9d3cc8cf71c00329e90",
-                "reference": "c7e4acdfb3d55a055508b9d3cc8cf71c00329e90",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/a4faebbb0c18cf775fda4247c926faa6319ee611",
+                "reference": "a4faebbb0c18cf775fda4247c926faa6319ee611",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.5|^6|^7",
-                "illuminate/view": "^5.5|^6|^7",
+                "illuminate/support": "^5.5|^6|^7|^8",
+                "illuminate/view": "^5.5|^6|^7|^8",
                 "php": ">=7.1",
                 "twig/twig": "^2.11"
             },
             "require-dev": {
+                "ext-json": "*",
                 "laravel/framework": "5.5.*",
                 "mockery/mockery": "0.9.*",
                 "phpunit/phpunit": "~6.0",
@@ -3221,7 +3222,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2020-07-03T08:55:51+00:00"
+            "time": "2020-09-07T12:36:34+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
@@ -6404,20 +6405,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laracasts/Laravel-5-Generators-Extended.git",
-                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4"
+                "reference": "450ed1c90cb593ed815fa6a6c3da853e282cbcbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
-                "reference": "63ebe766234d71831fb3d7cf9bd3c6096f5990f4",
+                "url": "https://api.github.com/repos/laracasts/Laravel-5-Generators-Extended/zipball/450ed1c90cb593ed815fa6a6c3da853e282cbcbd",
+                "reference": "450ed1c90cb593ed815fa6a6c3da853e282cbcbd",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^5.8|~6.0|~7.0",
-                "php": ">=5.4.0"
+                "illuminate/support": "~6.0|~7.0|~8.0"
             },
             "require-dev": {
-                "phpspec/phpspec": "~2.1"
+                "phpspec/phpspec": "~6.0"
             },
             "type": "library",
             "extra": {
@@ -6440,6 +6440,10 @@
                 {
                     "name": "Jeffrey Way",
                     "email": "jeffrey@laracasts.com"
+                },
+                {
+                    "name": "Cristian Tabacitu",
+                    "email": "hello@tabaciu.ro"
                 }
             ],
             "description": "Advanced Laravel generators, that include schema information.",
@@ -6447,7 +6451,7 @@
                 "generators",
                 "laravel"
             ],
-            "time": "2020-06-13T05:41:12+00:00"
+            "time": "2020-09-14T10:46:24+00:00"
         },
         {
             "name": "maximebf/debugbar",

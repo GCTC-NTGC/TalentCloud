@@ -107,7 +107,12 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step01)}
-          steps={makeProgressBarSteps(application, intl, "basic")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "basic",
+          )}
         />
       )}
       {showLoadingState && (

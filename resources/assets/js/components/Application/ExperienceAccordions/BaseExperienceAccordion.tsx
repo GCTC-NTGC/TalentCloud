@@ -47,7 +47,7 @@ interface BaseExperienceAccordionProps {
   details: ReactElement;
   showSkillDetails: boolean;
   showButtons: boolean;
-  handleDelete: () => void;
+  handleDelete: () => Promise<void>;
   handleEdit: () => void;
 }
 
@@ -67,6 +67,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const relevantSkillCount = relevantSkills.length;
   const skillsById = mapToObject(skills, getId);
@@ -290,7 +291,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   data-c-button="outline(c1)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={handleDelete}
+                  disabled={isDeleting}
+                  onClick={(): void => {
+                    setIsDeleting(true);
+                    handleDelete().finally(() => {
+                      setIsDeleting(false);
+                    });
+                  }}
                 >
                   <FormattedMessage
                     id="application.experienceAccordion.deleteButton"
@@ -306,6 +313,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   data-c-button="solid(c1)"
                   data-c-radius="rounded"
                   type="button"
+                  disabled={isDeleting}
                   onClick={handleEdit}
                 >
                   <FormattedMessage
