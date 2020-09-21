@@ -61,27 +61,27 @@ describe("Skills Helpers tests", (): void => {
           experiences: {
             [`${fakeExperienceEducation().type}_${
               fakeExperienceEducation().id
-            }`]: IconStatus.DEFAULT,
+            }`]: IconStatus.COMPLETE,
             [`${fakeExperienceWork().type}_${
               fakeExperienceWork().id
-            }`]: IconStatus.DEFAULT,
+            }`]: IconStatus.COMPLETE,
           },
         },
         [fakeSkills()[3].id]: {
           experiences: {
             [`${fakeExperiencePersonal().type}_${
               fakeExperiencePersonal().id
-            }`]: IconStatus.DEFAULT,
+            }`]: IconStatus.ERROR,
             [`${fakeExperienceCommunity().type}_${
               fakeExperienceCommunity().id
-            }`]: IconStatus.DEFAULT,
+            }`]: IconStatus.ERROR,
           },
         },
         [fakeSkills()[2].id]: {
           experiences: {
             [`${fakeExperienceAward().type}_${
               fakeExperienceAward().id
-            }`]: IconStatus.DEFAULT,
+            }`]: IconStatus.ERROR,
           },
         },
       };
