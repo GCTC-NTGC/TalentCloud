@@ -1,6 +1,7 @@
 import { Field, useField } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
+import { focusOnElement } from "../../helpers/forms";
 import { inputMessages } from "./Messages";
 
 interface CheckboxGroupFieldProps {
@@ -23,6 +24,12 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   required,
 }) => {
   const [field, meta] = useField(name);
+  const hasError = !!meta.error && meta.touched;
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement(`${allBoxes[0].value}`);
+    }
+  });
   return (
     <fieldset
       data-c-input="checkbox(group)"
@@ -39,7 +46,12 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
           return (
             <div key={box.value} data-c-grid-item={grid}>
               <label>
-                <Field type="checkbox" name={name} value={box.value} />
+                <Field
+                  id={box.value}
+                  type="checkbox"
+                  name={name}
+                  value={box.value}
+                />
                 <span>{box.label}</span>
               </label>
             </div>
