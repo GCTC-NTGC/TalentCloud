@@ -132,7 +132,7 @@ export type ProgressBarStepStatus =
 
 export interface ProgressBarProps {
   /** The closing date of the job poster. */
-  closeDateTime: Date;
+  closeDateTime: Date | null;
   /** The current step number. This is required for the informational steps, since they do not use a list item. */
   currentTitle: string;
   /** List of the steps. */
@@ -191,7 +191,9 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
                 defaultMessage="Application Deadline: {timeLeft}"
                 description="Label for the application deadline"
                 values={{
-                  timeLeft: readableTimeFromNow(locale, closeDateTime),
+                  timeLeft: closeDateTime
+                    ? readableTimeFromNow(locale, closeDateTime)
+                    : "",
                 }}
               />
             </span>

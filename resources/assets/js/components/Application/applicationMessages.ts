@@ -245,3 +245,12 @@ export const navigationMessages = defineMessages({
       "The text displayed on the Save & Return button of the Application form.",
   },
 });
+
+export const loadingMessages = defineMessages({
+  loading: {
+    id: "application.loading",
+    defaultMessage: "Just a second...",
+    description:
+      "A message to inform the user that the page is incomplete because data is still being loaded.",
+  },
+});

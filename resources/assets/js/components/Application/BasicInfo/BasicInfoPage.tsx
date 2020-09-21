@@ -25,6 +25,7 @@ import {
 } from "../../../store/Application/applicationActions";
 import { fetchJob } from "../../../store/Job/jobActions";
 import { getJob, getJobIsUpdating } from "../../../store/Job/jobSelector";
+import { loadingMessages } from "../applicationMessages";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -41,7 +42,9 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const applicationSelector = (
     state: RootState,
   ): ApplicationNormalized | null => getApplication(state, { applicationId });
-  const application = useSelector(applicationSelector);
+  const application: ApplicationNormalized | null = useSelector(
+    applicationSelector,
+  );
   const applicationIsUpdating = useSelector((state: RootState) =>
     getApplicationIsUpdating(state, { applicationId }),
   );
@@ -68,10 +71,6 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     }
   }, [jobId, job, jobIsUpdating, dispatch]);
 
-  if (application === null || job === null) {
-    return null;
-  }
-
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
   ): Promise<ApplicationNormalized> => {
@@ -97,16 +96,27 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     window.location.href = applicationIndex(locale);
   };
 
-  const closeDate = job?.close_date_time;
-
+  const closeDate = job?.close_date_time ?? null;
+  const showLoadingState = application === null || job === null;
   return (
-    closeDate && (
-      <>
+    <>
+      {application !== null && (
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step01)}
           steps={makeProgressBarSteps(application, intl, "basic")}
         />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {application !== null && job !== null && (
         <BasicInfo
           application={application}
           job={job}
@@ -114,8 +124,8 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
           handleReturn={handleReturn}
           handleQuit={handleQuit}
         />
-      </>
-    )
+      )}
+    </>
   );
 };
 
