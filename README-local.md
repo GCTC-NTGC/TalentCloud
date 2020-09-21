@@ -77,7 +77,7 @@ sudo vi /etc/nginx/sites-available/talent.test
 sudo ln -s /etc/nginx/sites-available/talent.test /etc/nginx/sites-enabled/
 sudo unlink /etc/nginx/sites-enabled/default
 sudo nginx -t ## to est new config
-sudo mkdir /var/www/talent_test ## create the folder we will copy our files to, and tell nginx to point to for root
+sudo mkdir /var/www ## create the folder we will copy our files to, and tell nginx to point to for root
 ```
 
 Copy in the below config into /etc/nginx/sites-available/talent.test (borrowed from [here](https://laravel.com/docs/7.x/deployment)). The only difference between the config from the docs and the one below is changing 'php7.4-fpm.sock' => 'php7.2-fpm.sock'
@@ -95,7 +95,7 @@ server {
 
     ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
 
-    root /var/www/talent_test/public;
+    root /var/www/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-XSS-Protection "1; mode=block";
@@ -242,21 +242,21 @@ composer ide-helper
 
 #### Copy files over to be hosted
 ```
-sudo cp -r . /var/www/talent_test ## copy the files to be hosted by gninx (root specified in the config specified above)
+sudo cp -r . /var/www ## copy the files to be hosted by gninx (root specified in the config specified above)
 ```
 
 #### Adjust permissions
 
 ```
-sudo chown -R www-data.www-data /var/www/talent_test/storage
-sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
-sudo chgrp -R www-data /var/www/talent_test
-sudo find /var/www/talent_test -type d -exec chmod g+rx {} +
-sudo find /var/www/talent_test -type f -exec chmod g+r {} +
-sudo chown -R $USER /var/www/talent_test/
-sudo find /var/www/talent_test -type d -exec chmod u+rwx {} +
-sudo find /var/www/talent_test -type f -exec chmod u+rw {} +
-sudo find /var/www/talent_test -type d -exec chmod g+s {} +
+sudo chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache
+chmod -R 775 /var/www
+sudo chgrp -R www-data /var/www
+sudo find /var/www -type d -exec chmod g+rx {} +
+sudo find /var/www -type f -exec chmod g+r {} +
+sudo chown -R $USER /var/www/
+sudo find /var/www -type d -exec chmod u+rwx {} +
+sudo find /var/www -type f -exec chmod u+rw {} +
+sudo find /var/www -type d -exec chmod g+s {} +
 ```
 
 ##### Restart the service
