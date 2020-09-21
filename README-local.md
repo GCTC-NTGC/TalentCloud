@@ -84,14 +84,22 @@ Copy in the below config into /etc/nginx/sites-available/talent.test (borrowed f
 
 ```
 server {
+
     listen 80;
-    server_name example.com;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name talent.test;
+
+    ssl_certificate /etc/ssl/certs/localhost.crt;
+    ssl_certificate_key /etc/ssl/private/localhost.key;
+
+    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+
     root /var/www/talent_test/public;
 
     add_header X-Frame-Options "SAMEORIGIN";
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Content-Type-Options "nosniff";
-
     index index.php;
 
     charset utf-8;
@@ -162,6 +170,62 @@ git clone  https://github.com/GCTC-NTGC/TalentCloud.git
 git clone git@github.com:GCTC-NTGC/TalentCloud.git
 ```
 
+### Setup self signed cert
+
+*For more details, please visit [here](https://webscoot.io/blog/create-self-signed-certificate-ubuntu-windows-nginx/)*
+
+Paste the below config into sudo vi localhost.conf
+
+```
+[req]
+default_bits       = 2048
+default_keyfile    = localhost.key
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+x509_extensions    = v3_ca
+
+[req_distinguished_name]
+countryName                 = Country Name (2 letter code)
+countryName_default         = CA
+stateOrProvinceName         = State or Province Name (full name)
+stateOrProvinceName_default = Ontario
+localityName                = Locality Name (eg, city)
+localityName_default        = Ottawa
+organizationName            = Organization Name (eg, company)
+organizationName_default    = localhost
+organizationalUnitName      = organizationalunit
+organizationalUnitName_default = Development
+commonName                  = Common Name (e.g. server FQDN or YOUR name)
+commonName_default          = localhost
+commonName_max              = 64
+
+[req_ext]
+subjectAltName = @alt_names
+
+[v3_ca]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1   = localhost
+DNS.2   = 127.0.0.1
+DNS.2   = talent.test
+```
+
+Then run
+
+```
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -out localhost.crt -config localhost.conf
+```
+
+Enter in the appropriate information as prompted (should default to the values found in the above config)
+
+```
+sudo cp localhost.crt /etc/ssl/certs/localhost.crt
+sudo cp localhost.key /etc/ssl/private/localhost.key
+sudo apt install libnss3-tools
+certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
+```
+
 ### Move files to be hosted
 
 #### Setup TalentCloud directory to be hosted
@@ -172,7 +236,18 @@ npm install
 npm run dev
 php artisan key:generate
 composer install
-sudo cp -r . /var/www/talent_test
+php artisan migrate -n
+composer ide-helper
+```
+
+#### Copy files over to be hosted
+```
+sudo cp -r . /var/www/talent_test ## copy the files to be hosted by gninx (root specified in the config specified above)
+```
+
+#### Adjust permissions
+
+```
 sudo chown -R www-data.www-data /var/www/talent_test/storage
 sudo chown -R www-data.www-data /var/www/talent_test/bootstrap/cache
 sudo chgrp -R www-data /var/www/talent_test
@@ -182,7 +257,11 @@ sudo chown -R $USER /var/www/talent_test/
 sudo find /var/www/talent_test -type d -exec chmod u+rwx {} +
 sudo find /var/www/talent_test -type f -exec chmod u+rw {} +
 sudo find /var/www/talent_test -type d -exec chmod g+s {} +
+```
+
+##### Restart the service
+
+```
 sudo service nginx restart
-php artisan migrate -n
 ```
 
