@@ -4,6 +4,8 @@ use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\ExperienceSkill;
+use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
@@ -191,5 +193,22 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+        // Ensure applicant user has some Experience relevant to a job
+        foreach ($applicantUser->applicant->job_applications->where('application_status_id', 1) as $application) {
+            $job = $application->job_poster;
+            $criterion = $job->criteria->first();
+            if ($criterion) {
+                $work = factory(ExperienceWork::class)->create([
+                    'experienceable_id' => $application->applicant_id,
+                    'experienceable_type' => 'applicant',
+                ]);
+                factory(ExperienceSkill::class)->create([
+                    'skill_id' => $criterion->skill_id,
+                    'experience_type' => 'experience_work',
+                    'experience_id' => $work->id,
+                ]);
+            }
+        }
     }
 }
