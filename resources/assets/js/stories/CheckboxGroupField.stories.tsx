@@ -28,6 +28,7 @@ stories.add(
           <Form>
             <div data-c-grid-item="base(1of1)">
               <CheckboxGroupField
+                id="checkboxGroup"
                 groupLabel={text("Group Label", "This is a checkbox group.")}
                 grid={text("Grid styling", "base(1of2)")}
                 name="numbers"
@@ -51,6 +52,7 @@ stories.add(
           <Form>
             <div data-c-grid-item="base(1of1)">
               <CheckboxGroupField
+                id="checkboxGroup"
                 groupLabel={text("Group Label", "This is a checkbox group.")}
                 grid={text("Grid styling", "base(1of2)")}
                 name="numbers"
@@ -84,6 +86,7 @@ stories.add(
           <Form>
             <div data-c-grid-item="base(1of1)">
               <CheckboxGroupField
+                id="checkboxGroup"
                 groupLabel={text("Group Label", "This is a checkbox group.")}
                 grid={text("Grid styling", "base(1of2)")}
                 name="numbers"
@@ -91,7 +94,9 @@ stories.add(
                 required
               />
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" style={{ marginTop: "100rem" }}>
+              Submit
+            </button>
           </Form>
         </Formik>
       </div>

@@ -5,6 +5,7 @@ import { focusOnElement } from "../../helpers/forms";
 import { inputMessages } from "./Messages";
 
 interface CheckboxGroupFieldProps {
+  id: string;
   groupLabel: string;
   name: string;
   allBoxes: {
@@ -17,6 +18,7 @@ interface CheckboxGroupFieldProps {
 }
 
 export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
+  id,
   groupLabel,
   grid,
   name,
@@ -27,7 +29,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   const hasError = !!meta.error && meta.touched;
   useEffect(() => {
     if (hasError) {
-      focusOnElement(`${allBoxes[0].value}`);
+      focusOnElement(`${id}-${allBoxes[0].value}`);
     }
   });
   return (
@@ -47,7 +49,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
             <div key={box.value} data-c-grid-item={grid}>
               <label>
                 <Field
-                  id={box.value}
+                  id={`${id}-${box.value}`}
                   type="checkbox"
                   name={name}
                   value={box.value}
