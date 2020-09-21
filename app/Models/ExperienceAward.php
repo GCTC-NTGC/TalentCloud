@@ -20,6 +20,8 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \App\Models\Lookup\AwardRecipientType $award_recipient_type
+ * @property \App\Models\Lookup\AwardRecognitionType $award_recognition_type
  * @property \Illuminate\Database\Eloquent\Collection $skills
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  *

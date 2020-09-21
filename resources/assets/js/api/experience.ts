@@ -37,16 +37,29 @@ export const parseExperienceSkill = (data: any): ExperienceSkill => {
 };
 
 export const getApplicantExperienceEndpoint = (applicantId: number): string =>
-  `${baseUrl()}/applicants/${applicantId}/experience`; // FIXME: this url doesn't exist yet.
+  `${baseUrl()}/applicants/${applicantId}/experience`;
 
 export const getApplicationExperienceEndpoint = (
   applicationId: number,
-): string => `${baseUrl()}/applications/${applicationId}/experience`; // FIXME: this url doesn't exist yet.
+): string => `${baseUrl(2)}/applications/${applicationId}/experience`;
 
+/**
+ * This endpoint can be used to update (PUT) or delete (DELETE) Experiences.
+ */
 export const getExperienceEndpoint = (
-  id: number | null,
+  id: number,
   type: Experience["type"],
-): string => `${baseUrl()}/experience/${type}/${id ?? ""}`; // FIXME: this url doesn't exist yet.
+): string => `${baseUrl()}/${type.replace("_", "-")}/${id}`;
+
+/**
+ * This endpoint is used for creating (POST) new Experiences. They must be associated with an Applicant.
+ */
+export const getCreateExperienceEndpoint = (
+  applicantId: number,
+  type: Experience["type"],
+): string => {
+  return `${baseUrl()}/applicants/${applicantId}/${type.replace("_", "-")}`;
+};
 
 export const getExperienceSkillEndpoint = (id: number | null = null): string =>
   `${baseUrl()}/experience-skills/${id ?? ""}`;

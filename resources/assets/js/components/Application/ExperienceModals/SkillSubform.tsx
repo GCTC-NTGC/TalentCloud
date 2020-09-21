@@ -30,12 +30,14 @@ export const validationShape = {
 };
 
 export interface SkillSubformProps {
+  keyPrefix: string;
   jobId: number;
   jobRequiredSkills: string[];
   jobOptionalSkills: string[];
 }
 
 export function SkillSubform({
+  keyPrefix,
   jobId,
   jobRequiredSkills,
   jobOptionalSkills,

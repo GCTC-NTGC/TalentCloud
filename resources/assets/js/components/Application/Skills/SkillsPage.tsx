@@ -1,5 +1,5 @@
 import React from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { fakeApplication } from "../../../fakeData/fakeApplications";
@@ -64,7 +64,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "skills")}
+        steps={makeProgressBarSteps(applicationId, application, intl, "skills")}
       />
       <Skills
         criteria={criteria}
