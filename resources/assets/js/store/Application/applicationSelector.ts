@@ -46,15 +46,16 @@ export const getApplicationIsUpdating = (
   hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
   ui(state).applicationIsUpdating[props.applicationId];
 
-export const getApplication = createCachedSelector(
-  getApplicationState,
-  (state: RootState, ownProps: { applicationId: number }): number =>
-    ownProps.applicationId,
-  (applicationState, applicationId): ApplicationNormalized | null =>
-    hasKey(applicationState, applicationId)
-      ? applicationState[applicationId]
-      : null,
-)((state, ownProps): number => ownProps.applicationId);
+export const getApplicationNormalized = (
+  state: RootState,
+  ownProps: { applicationId: number },
+): ApplicationNormalized | null => {
+  const applicationState = getApplicationState(state);
+  const { applicationId } = ownProps;
+  return hasKey(applicationState, applicationId)
+    ? applicationState[applicationId]
+    : null;
+};
 
 export const getApplicationById = createCachedSelector(
   getApplicationState,

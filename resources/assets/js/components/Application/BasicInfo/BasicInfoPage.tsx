@@ -16,7 +16,7 @@ import { Job, ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { RootState } from "../../../store/store";
 import {
-  getApplication,
+  getApplicationNormalized,
   getApplicationIsUpdating,
 } from "../../../store/Application/applicationSelector";
 import {
@@ -41,7 +41,8 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   // Load Application.
   const applicationSelector = (
     state: RootState,
-  ): ApplicationNormalized | null => getApplication(state, { applicationId });
+  ): ApplicationNormalized | null =>
+    getApplicationNormalized(state, { applicationId });
   const application: ApplicationNormalized | null = useSelector(
     applicationSelector,
   );
