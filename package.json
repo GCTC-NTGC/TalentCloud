@@ -122,7 +122,7 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
-        "sweetalert2": "^10.3.0",
+        "sweetalert2": "^10.3.1",
         "universal-router": "^9.0.1",
         "yup": "^0.29.3"
     },
