@@ -82,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
       </p>
       <ul>
         {Object.keys(menuSkills).map((skillId) => (
-          <li key={`application-skills-sidebar-skill-${skillId}`}>
+          <li key={skillId}>
             <StatusIcon
               status={computeParentStatus(status, Number(skillId))}
               size=""
@@ -592,7 +592,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={`application-skill-criterion-${criterion.id}`}>
+                <div key={criterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
