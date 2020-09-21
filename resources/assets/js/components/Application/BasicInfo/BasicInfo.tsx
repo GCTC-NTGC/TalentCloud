@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Formik, Form, FastField } from "formik";
@@ -18,19 +20,20 @@ import {
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
-import { Job } from "../../../models/types";
+import { Job, ApplicationNormalized } from "../../../models/types";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 
 interface BasicInfoProps {
+  application: ApplicationNormalized;
   job: Job;
-  handleContinue: (values: BasicInfoFormValues) => void;
-  handleReturn: (values: BasicInfoFormValues) => void;
-  handleQuit: (values: BasicInfoFormValues) => void;
+  handleContinue: (values: ApplicationNormalized) => Promise<void>;
+  handleReturn: (values: ApplicationNormalized) => Promise<void>;
+  handleQuit: (values: ApplicationNormalized) => Promise<void>;
 }
 
-interface BasicInfoFormValues {
+export interface BasicInfoFormValues {
   citizenship: number | "";
   veteranStatus: number | "";
   languageRequirement: boolean;
@@ -39,6 +42,7 @@ interface BasicInfoFormValues {
 }
 
 export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
+  application,
   job,
   handleContinue,
   handleReturn,
@@ -51,11 +55,21 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   );
 
   const initialValues: BasicInfoFormValues = {
-    citizenship: "",
-    veteranStatus: "",
-    languageRequirement: false,
-    languageTest: false,
-    educationRequirement: false,
+    citizenship: application?.citizenship_declaration_id
+      ? application.citizenship_declaration_id
+      : "",
+    veteranStatus: application?.veteran_status_id
+      ? application.veteran_status_id
+      : "",
+    languageRequirement: application?.language_requirement_confirmed
+      ? application.language_requirement_confirmed
+      : false,
+    languageTest: application?.language_test_confirmed
+      ? application.language_test_confirmed
+      : false,
+    educationRequirement: application?.education_requirement_confirmed
+      ? application.education_requirement_confirmed
+      : false,
   };
 
   const validationSchema = Yup.object().shape({
@@ -80,21 +94,44 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
       .oneOf([true], intl.formatMessage(validationMessages.required)),
   });
 
+  const updateApplication = (
+    oldApplication: ApplicationNormalized,
+    values: BasicInfoFormValues,
+  ): ApplicationNormalized => {
+    const editedApplication: ApplicationNormalized = {
+      ...oldApplication,
+      citizenship_declaration_id: values.citizenship
+        ? Number(values.citizenship)
+        : null,
+      veteran_status_id: values.veteranStatus
+        ? Number(values.veteranStatus)
+        : null,
+      language_requirement_confirmed: values.languageRequirement,
+      language_test_confirmed: values.languageTest,
+      education_requirement_confirmed: values.educationRequirement,
+    };
+    return editedApplication;
+  };
+
   return (
-    <div data-c-container="medium">
+    <div data-c-container="medium" data-c-padding="tb(2)">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
         {intl.formatMessage(basicInfoMessages.heading)}
       </h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values): void => {
+        onSubmit={(values, { setSubmitting }): void => {
           // Save data to application object, then navigate to the next step
           const basicInfoFormValues: BasicInfoFormValues = {
             ...values,
           };
 
-          handleContinue(basicInfoFormValues);
+          handleContinue(
+            updateApplication(application, basicInfoFormValues),
+          ).finally(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, values }): React.ReactElement => (
@@ -232,7 +269,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                       ...values,
                     };
                     // Method should save the current data and return user to the previous step
-                    handleReturn(basicInfoFormValues);
+                    handleReturn(
+                      updateApplication(application, basicInfoFormValues),
+                    );
                   }}
                 >
                   {intl.formatMessage(navigationMessages.return)}
@@ -252,7 +291,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                       ...values,
                     };
                     // Method should save the current data and return user to My Applications page
-                    handleQuit(basicInfoFormValues);
+                    handleQuit(
+                      updateApplication(application, basicInfoFormValues),
+                    );
                   }}
                 >
                   {intl.formatMessage(navigationMessages.quit)}

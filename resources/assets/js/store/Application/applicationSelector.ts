@@ -2,7 +2,7 @@
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import { Application, Email } from "../../models/types";
+import { Application, Email, ApplicationNormalized } from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
@@ -39,6 +39,24 @@ const constructNonNormalizedApplication = (
   };
 };
 
+export const getApplicationIsUpdating = (
+  state: RootState,
+  props: { applicationId: number },
+): boolean =>
+  hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
+  ui(state).applicationIsUpdating[props.applicationId];
+
+export const getApplicationNormalized = (
+  state: RootState,
+  ownProps: { applicationId: number },
+): ApplicationNormalized | null => {
+  const applicationState = getApplicationState(state);
+  const { applicationId } = ownProps;
+  return hasKey(applicationState, applicationId)
+    ? applicationState[applicationId]
+    : null;
+};
+
 export const getApplicationById = createCachedSelector(
   getApplicationState,
   getApplicationReviewState,
@@ -54,7 +72,6 @@ export const getApplicationsByJob = createCachedSelector(
     const applicationIds = Object.values(applications)
       .filter((application) => application.job_poster_id === jobId)
       .map(getId);
-    console.log(applicationIds);
     return applicationIds
       .map((id) =>
         constructNonNormalizedApplication(applications, applicationReviews, id),
@@ -98,10 +115,3 @@ export const allIsSendingReferenceEmailByApplication = (
 ): { [applicationId: number]: boolean } => {
   return ui(state).sendingReferenceEmailForApplication;
 };
-
-export const getApplicationIsUpdating = (
-  state: RootState,
-  props: { applicationId: number },
-): boolean =>
-  hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
-  ui(state).applicationIsUpdating[props.applicationId];

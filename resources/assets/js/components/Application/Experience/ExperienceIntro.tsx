@@ -63,7 +63,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
         </p>
         <ul data-c-margin="bottom(1)">
           {Object.values(typesOfExperience).map((experience) => (
-            <li>{intl.formatMessage(experience)}</li>
+            <li key={experience.id}>{intl.formatMessage(experience)}</li>
           ))}
         </ul>
         <p>
