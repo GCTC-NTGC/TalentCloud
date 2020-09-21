@@ -31,7 +31,7 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import { navigationMessages } from "../applicationMessages";
+import { navigationMessages, skillMessages } from "../applicationMessages";
 import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
@@ -315,7 +315,9 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                   name="justification"
                   label={label}
                   component={TextAreaInput}
-                  placeholder="Start writing here..."
+                  placeholder={intl.formatMessage(
+                    skillMessages.experienceSkillPlaceholder,
+                  )}
                   required
                 />
               </div>
