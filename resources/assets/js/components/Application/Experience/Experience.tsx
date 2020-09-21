@@ -56,6 +56,7 @@ import {
   getDisconnectedRequiredSkills,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
+import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -101,7 +102,7 @@ interface ExperienceProps {
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
-  jobClassificationId: number;
+  jobClassificationId: number | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
@@ -134,10 +135,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const jobClassification = getKeyByValue(
-    ClassificationId,
-    jobClassificationId,
-  );
+  const jobClassification =
+    jobClassificationId !== null
+      ? getKeyByValue(ClassificationId, jobClassificationId)
+      : "";
 
   const [experienceData, setExperienceData] = React.useState<
     | (Experience & {
@@ -171,20 +172,13 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
   );
 
-  const essentialSkills = filteredSkills.essential;
-  const assetSkills = filteredSkills.asset;
+  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
+  const assetSkills = removeDuplicatesById(filteredSkills.asset);
 
-  getDisconnectedRequiredSkills(experiences, experienceSkills, essentialSkills);
-
-  const [
-    disconnectedRequiredSkills,
-    setDisconnectedRequiredSkills,
-  ] = React.useState<Skill[]>(
-    getDisconnectedRequiredSkills(
-      experiences,
-      experienceSkills,
-      essentialSkills,
-    ),
+  const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
+    experiences,
+    experienceSkills,
+    essentialSkills,
   );
 
   const openModal = (id: Experience["type"]): void => {
@@ -192,13 +186,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   };
 
   const closeModal = (): void => {
-    setDisconnectedRequiredSkills(
-      getDisconnectedRequiredSkills(
-        experiences,
-        experienceSkills,
-        essentialSkills,
-      ),
-    );
     setExperienceData(null);
     setIsModalVisible({ id: "", visible: false });
   };
@@ -222,8 +209,10 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
-  const softSkills = [...assetSkills, ...essentialSkills].filter(
-    (skill) => skill.skill_type_id === SkillTypeId.Soft,
+  const softSkills = removeDuplicatesById(
+    [...assetSkills, ...essentialSkills].filter(
+      (skill) => skill.skill_type_id === SkillTypeId.Soft,
+    ),
   );
 
   const modalButtons: {
@@ -284,7 +273,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     irrelevantSkillCount: number,
     relevantSkills: ExperienceSkill[],
     handleEdit: () => void,
-    handleDelete: () => void,
+    handleDelete: () => Promise<void>,
   ): React.ReactElement => {
     switch (experience.type) {
       case "experience_education":
@@ -493,13 +482,13 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                     const and = " and ";
                     const lastElement = index === softSkills.length - 1;
                     return (
-                      <>
+                      <React.Fragment key={skill.id}>
                         {lastElement && softSkills.length > 1 && and}
                         <span key={skill.id} data-c-font-weight="bold">
                           {localizeFieldNonNull(locale, skill, "name")}
                         </span>
                         {!lastElement && softSkills.length > 2 && ", "}
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </>
@@ -526,24 +515,16 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   experience,
                   essentialSkills,
                 );
-                const relevantSkills: ExperienceSkill[] =
-                  savedRequiredSkills.map((skill) => {
-                    const experienceSkill = experienceSkills.find(
+                const relevantSkills: ExperienceSkill[] = savedRequiredSkills
+                  .map((skill) => {
+                    return experienceSkills.find(
                       ({ experience_id, experience_type, skill_id }) =>
-                        experience_id === experience.experienceable_id &&
+                        experience_id === experience.id &&
                         skill_id === skill.id &&
                         experience_type === experience.type,
                     );
-                    return {
-                      id: experienceSkill?.id ?? 0,
-                      skill_id: experienceSkill?.skill_id ?? 0,
-                      experience_id: experienceSkill?.experience_id ?? 0,
-                      experience_type: experienceSkill?.experience_type ?? "",
-                      justification: experienceSkill?.justification ?? "",
-                      created_at: experienceSkill?.created_at ?? new Date(),
-                      updated_at: experienceSkill?.updated_at ?? new Date(),
-                    };
-                  }) ?? [];
+                  })
+                  .filter(notEmpty);
 
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
                 const irrelevantSkillCount =
@@ -596,7 +577,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
               description="Message showing list of required skills that are not connected to a experience."
             />{" "}
             {disconnectedRequiredSkills.map((skill) => (
-              <>
+              <React.Fragment key={skill.id}>
                 <span
                   data-c-tag="stop"
                   data-c-radius="pill"
@@ -604,7 +585,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                 >
                   {localizeFieldNonNull(locale, skill, "name")}
                 </span>{" "}
-              </>
+              </React.Fragment>
             ))}
           </p>
         )}

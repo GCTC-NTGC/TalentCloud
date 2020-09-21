@@ -1,11 +1,9 @@
 import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
-import { Field, useFormikContext } from "formik";
 import * as Yup from "yup";
 import { jobShow } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
-import CheckboxGroup from "../../Form/CheckboxGroup";
-import CheckboxInput from "../../Form/CheckboxInput";
+import CheckboxGroupField from "../../Form/CheckboxGroupField";
 
 const messages = defineMessages({
   linkToJobTitle: {
@@ -32,22 +30,20 @@ export const validationShape = {
 };
 
 export interface SkillSubformProps {
+  keyPrefix: string;
   jobId: number;
   jobRequiredSkills: string[];
   jobOptionalSkills: string[];
 }
 
 export function SkillSubform({
+  keyPrefix,
   jobId,
   jobRequiredSkills,
   jobOptionalSkills,
 }: SkillSubformProps): React.ReactElement {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  const formikContext = useFormikContext();
-  const requiredMeta = formikContext.getFieldMeta<string[]>("requiredSkills");
-  const optionalMeta = formikContext.getFieldMeta<string[]>("optionalSkills");
 
   const linkToJob = (text): React.ReactElement => (
     <a
@@ -107,31 +103,17 @@ export function SkillSubform({
               />
             </p>
           </div>
-          <CheckboxGroup
-            id="requiredSkills"
-            label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
-            grid="base(1of1)"
-            value={requiredMeta.value}
-            error={requiredMeta.error}
-            touched={requiredMeta.touched}
-            onChange={formikContext.setFieldValue}
-            onBlur={formikContext.setFieldTouched}
-          >
-            {jobRequiredSkills.map(
-              (name): React.ReactElement => {
-                return (
-                  <Field
-                    key={name}
-                    id={name}
-                    name={name}
-                    label={name}
-                    component={CheckboxInput}
-                    grid="base(1of1)"
-                  />
-                );
-              },
-            )}
-          </CheckboxGroup>
+          <div data-c-grid-item="base(1of1)">
+            <CheckboxGroupField
+              groupLabel={intl.formatMessage(messages.skillCheckboxGroupLabel)}
+              grid="base(1of1)"
+              name="requiredSkills"
+              allBoxes={jobRequiredSkills.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+            />
+          </div>
 
           <div data-c-grid-item="base(1of1)">
             <p data-c-font-weight="bold">
@@ -145,31 +127,17 @@ export function SkillSubform({
               />
             </p>
           </div>
-          <CheckboxGroup
-            id="optionalSkills"
-            label={intl.formatMessage(messages.skillCheckboxGroupLabel)}
-            grid="base(1of1)"
-            value={optionalMeta.value}
-            error={optionalMeta.error}
-            touched={optionalMeta.touched}
-            onChange={formikContext.setFieldValue}
-            onBlur={formikContext.setFieldTouched}
-          >
-            {jobOptionalSkills.map(
-              (name): React.ReactElement => {
-                return (
-                  <Field
-                    key={name}
-                    id={name}
-                    name={name}
-                    label={name}
-                    component={CheckboxInput}
-                    grid="base(1of1)"
-                  />
-                );
-              },
-            )}
-          </CheckboxGroup>
+          <div data-c-grid-item="base(1of1)">
+            <CheckboxGroupField
+              groupLabel={intl.formatMessage(messages.skillCheckboxGroupLabel)}
+              grid="base(1of1)"
+              name="optionalSkills"
+              allBoxes={jobOptionalSkills.map((skill) => ({
+                value: skill,
+                label: skill,
+              }))}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -117,7 +117,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
-          handleDelete={(): void => {}}
+          handleDelete={async (): Promise<void> => {}}
         />
       );
     case "experience_community":
@@ -136,7 +136,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
-          handleDelete={(): void => {}}
+          handleDelete={async (): Promise<void> => {}}
         />
       );
     case "experience_education":
@@ -160,7 +160,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
-          handleDelete={(): void => {}}
+          handleDelete={async (): Promise<void> => {}}
           handleEdit={(): void => {}}
         />
       );
@@ -180,7 +180,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
-          handleDelete={(): void => {}}
+          handleDelete={async (): Promise<void> => {}}
         />
       );
     case "experience_work":
@@ -199,7 +199,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
-          handleDelete={(): void => {}}
+          handleDelete={async (): Promise<void> => {}}
         />
       );
     default:
@@ -209,7 +209,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
 
 type ExperienceView = "experience" | "skills" | "education";
 
-interface ReviewFormValues {
+export interface ReviewFormValues {
   shareWithManagers: boolean;
 }
 
