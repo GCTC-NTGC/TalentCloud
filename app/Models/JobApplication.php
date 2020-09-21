@@ -469,4 +469,51 @@ class JobApplication extends BaseModel
             $newSample->skill_declarations()->sync($newSkillDecs);
         }
     }
+
+    /**
+     * Save copies of Experiences and its linked skills (ExperienceSkills) to this application.
+     *
+     * @return void
+     */
+    public function saveProfileSnapshotTimeline(): void
+    {
+        $this->refresh();
+        $applicant = $this->applicant->fresh();
+
+        $this->user_name = $applicant->user->full_name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
+
+        $deleteExperiences = function ($experiences) {
+            foreach ($experiences as $experience) {
+                $experience->delete();
+            }
+        };
+
+        // Delete experiences in previous snapshot.
+        $deleteExperiences($this->experiences_award);
+        $deleteExperiences($this->experiences_community);
+        $deleteExperiences($this->experiences_education);
+        $deleteExperiences($this->experiences_personal);
+        $deleteExperiences($this->experiences_work);
+
+        $replicateAndSaveExperience = function ($experiences, $experience_type) {
+            // Iterate through applicant experiences, replicate the experience, and save to the application.
+            foreach ($experiences as $experience) {
+                $experienceCopy = $experience->replicate();
+                $this->{$experience_type}()->save($experienceCopy);
+                // Iterate through original experience experienceSkills list, replicate it, and save to the new copy.
+                foreach ($experience->experience_skills as $experienceSkill) {
+                    $experienceSkillCopy = $experienceSkill->replicate();
+                    $experienceCopy->experience_skills()->save($experienceSkillCopy);
+                }
+            }
+        };
+
+        $replicateAndSaveExperience($applicant->experiences_award, 'experiences_award');
+        $replicateAndSaveExperience($applicant->experiences_community, 'experiences_community');
+        $replicateAndSaveExperience($applicant->experiences_education, 'experiences_education');
+        $replicateAndSaveExperience($applicant->experiences_personal, 'experiences_personal');
+        $replicateAndSaveExperience($applicant->experiences_work, 'experiences_work');
+    }
 }
