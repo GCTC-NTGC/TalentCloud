@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import configureMockStore from "redux-mock-store";
 import { apiMiddleware, ApiError } from "redux-api-middleware";
 import thunk from "redux-thunk";
