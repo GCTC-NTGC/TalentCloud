@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { ExperienceSkill, Experience } from "../../../models/types";
+import { ExperienceSkill } from "../../../models/types";
 import { navigate } from "../../../helpers/router";
 import {
   applicationFit,
@@ -14,38 +14,12 @@ import {
 import { getLocale } from "../../../helpers/localize";
 import { DispatchType } from "../../../configureStore";
 import { RootState } from "../../../store/store";
+import { getCriteriaByJob } from "../../../store/Job/jobSelector";
 import {
-  getApplicationById,
-  getApplicationIsUpdating,
-} from "../../../store/Application/applicationSelector";
-import { fetchApplication } from "../../../store/Application/applicationActions";
-import {
-  getJob,
-  getJobIsUpdating,
-  getCriteriaByJob,
-} from "../../../store/Job/jobSelector";
-import { fetchJob } from "../../../store/Job/jobActions";
-import {
-  getExperienceByApplicant,
-  getExperienceByApplication,
-  getUpdatingByApplicant,
-  getUpdatingByApplication,
-  getExperienceSkillsByApplication,
-  getExperienceSkillsByApplicant,
-} from "../../../store/Experience/experienceSelector";
-import {
-  fetchExperienceByApplicant,
-  fetchExperienceByApplication,
   updateExperienceSkill,
   deleteExperienceSkill,
 } from "../../../store/Experience/experienceActions";
-import { ApplicationStatusId } from "../../../models/lookupConstants";
 import Skills from "./Skills";
-import {
-  getSkills,
-  getSkillsUpdating,
-} from "../../../store/Skill/skillSelector";
-import { fetchSkills } from "../../../store/Skill/skillActions";
 import { loadingMessages } from "../applicationMessages";
 import {
   useExperienceSkills,
