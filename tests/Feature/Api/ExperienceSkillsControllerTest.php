@@ -73,8 +73,9 @@ class ExperienceSkillsControllerTest extends TestCase
             ->json('put', route('api.v1.experience-skill.update', $experienceSkill->id), $updateData);
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
+        // Note: also, the updated_at date will be now be newer
         $expectData = array_merge(
-            collect($experienceSkill->attributesToArray())->forget('justification')->all(),
+            collect($experienceSkill->attributesToArray())->forget(['justification', 'updated_at'])->all(),
             ['justification' => $updateData['justification']]
         );
         $response->assertJsonFragment($expectData);

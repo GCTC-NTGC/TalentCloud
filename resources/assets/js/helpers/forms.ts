@@ -1,6 +1,7 @@
 import { FormikProps, FormikValues } from "formik";
 import isEmpty from "lodash/isEmpty";
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
+import { notEmpty } from "./queries";
 
 /**
  * Focuses on a element with given id.
@@ -19,12 +20,15 @@ export const focusOnElement = (elementId: string): void => {
  * @param refs
  */
 export const validateAllForms = (
-  refs: MutableRefObject<FormikProps<FormikValues>>[],
+  refs: RefObject<FormikProps<FormikValues>>[],
 ): Promise<boolean> => {
   return Promise.all(
-    refs.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
-      ref.current.validateForm(),
-    ),
+    refs
+      .filter(notEmpty)
+      .map(
+        (ref: RefObject<FormikProps<FormikValues>>): Promise<any> =>
+          ref.current !== null ? ref.current.validateForm() : Promise.resolve(),
+      ),
   ).then((errors) => errors.every(isEmpty));
 };
 
@@ -33,12 +37,14 @@ export const validateAllForms = (
  * @param refs
  */
 export const submitAllForms = (
-  refs: React.MutableRefObject<FormikProps<FormikValues>>[],
+  refs: React.RefObject<FormikProps<FormikValues>>[],
 ): Promise<void[]> => {
   return Promise.all(
-    refs.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
+    refs.filter(notEmpty).map((ref: RefObject<FormikProps<FormikValues>>) => {
       // TODO: Might need to make one mass submission by combining all values into an array.
-      ref.current.submitForm(),
-    ),
+      return ref.current !== null
+        ? ref.current.submitForm()
+        : Promise.resolve();
+    }),
   );
 };

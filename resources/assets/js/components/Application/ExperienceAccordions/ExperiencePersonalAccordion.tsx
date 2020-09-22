@@ -22,7 +22,7 @@ interface ExperiencePersonalAccordionProps {
   isEducationJustification: boolean;
   showSkillDetails: boolean;
   showButtons: boolean;
-  handleDelete: () => void;
+  handleDelete: () => Promise<void>;
   handleEdit: () => void;
 }
 

@@ -20,6 +20,8 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \App\Models\Lookup\AwardRecipientType $award_recipient_type
+ * @property \App\Models\Lookup\AwardRecognitionType $award_recognition_type
  * @property \Illuminate\Database\Eloquent\Collection $skills
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  *
@@ -72,11 +74,6 @@ class ExperienceAward extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
-    }
-
-    public function skills()
-    {
-        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
     }
 
     public function experience_skills() //phpcs:ignore

@@ -128,7 +128,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "fit")}
+        steps={makeProgressBarSteps(applicationId, application, intl, "fit")}
       />
       <Fit
         applicationId={applicationId}

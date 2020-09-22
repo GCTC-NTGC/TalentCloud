@@ -212,6 +212,15 @@ export const experienceMessages = defineMessages({
   },
 });
 
+export const skillMessages = defineMessages({
+  experienceSkillPlaceholder: {
+    id: "application.skills.experienceSkillPlaceholder",
+    defaultMessage: "Start writing here...",
+    description:
+      "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
+  },
+});
+
 export const fitMessages = defineMessages({
   heading: {
     id: "application.fit.heading",
@@ -243,5 +252,14 @@ export const navigationMessages = defineMessages({
     defaultMessage: "Save & Return to Previous Step",
     description:
       "The text displayed on the Save & Return button of the Application form.",
+  },
+});
+
+export const loadingMessages = defineMessages({
+  loading: {
+    id: "application.loading",
+    defaultMessage: "Just a second...",
+    description:
+      "A message to inform the user that the page is incomplete because data is still being loaded.",
   },
 });

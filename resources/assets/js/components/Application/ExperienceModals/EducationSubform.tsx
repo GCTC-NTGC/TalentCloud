@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
+import { hasKey } from "../../../helpers/queries";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
@@ -15,6 +16,7 @@ export const validationShape = {
 };
 
 export interface EducationSubformProps {
+  keyPrefix: string;
   jobClassification: string;
 }
 
@@ -30,6 +32,7 @@ const messages = defineMessages({
 });
 
 export function EducationSubform({
+  keyPrefix,
   jobClassification,
 }: EducationSubformProps): React.ReactElement {
   const intl = useIntl();
@@ -64,7 +67,7 @@ export function EducationSubform({
             <div data-c-grid-item="base(1of1)">
               <FastField
                 key={checkboxKey}
-                id={checkboxKey}
+                id={`${keyPrefix}-${checkboxKey}`}
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}
@@ -79,7 +82,9 @@ export function EducationSubform({
             data-c-margin="bottom(1)"
           >
             {textToParagraphs(
-              intl.formatMessage(educationMessages[jobClassification]),
+              hasKey(educationMessages, jobClassification)
+                ? intl.formatMessage(educationMessages[jobClassification])
+                : "CLASSIFICATION MISSING",
               {},
               {
                 0: { "data-c-font-weight": "bold" },

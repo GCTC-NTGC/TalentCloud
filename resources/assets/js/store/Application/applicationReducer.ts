@@ -132,20 +132,19 @@ export const entitiesReducer = (
             "application_review",
           ),
         },
-        applicationReviews:
-          action.payload.application_review !== undefined
-            ? {
-                byId: {
-                  ...state.applicationReviews.byId,
-                  [action.payload.application_review.id]:
-                    action.payload.application_review,
-                },
-                idByApplicationId: {
-                  ...state.applicationReviews.idByApplicationId,
-                  [action.payload.id]: action.payload.application_review.id,
-                },
-              }
-            : state.applicationReviews,
+        applicationReviews: action.payload.application_review
+          ? {
+              byId: {
+                ...state.applicationReviews.byId,
+                [action.payload.application_review.id]:
+                  action.payload.application_review,
+              },
+              idByApplicationId: {
+                ...state.applicationReviews.idByApplicationId,
+                [action.payload.id]: action.payload.application_review.id,
+              },
+            }
+          : state.applicationReviews,
       };
     case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
       return {

@@ -16,44 +16,63 @@ import {
 import { getLocale } from "../../../helpers/localize";
 
 function basicInfoStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 function experienceStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 function skillsStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 function myFitStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 function reviewStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 function submissionStatus(
-  application: ApplicationNormalized,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 
 export function makeProgressBarSteps(
-  application: ApplicationNormalized,
+  applicationId: number,
+  application: ApplicationNormalized | null,
   intl: IntlShape,
   currentStep:
     | "welcome"
@@ -69,7 +88,7 @@ export function makeProgressBarSteps(
   return [
     {
       link: {
-        url: applicationBasic(locale, application.id),
+        url: applicationBasic(locale, applicationId),
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
@@ -78,7 +97,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationExperienceIntro(locale, application.id),
+        url: applicationExperienceIntro(locale, applicationId),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
@@ -89,7 +108,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSkills(locale, application.id),
+        url: applicationSkills(locale, applicationId),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
@@ -97,7 +116,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationFit(locale, application.id),
+        url: applicationFit(locale, applicationId),
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
@@ -105,7 +124,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationReview(locale, application.id),
+        url: applicationReview(locale, applicationId),
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
@@ -113,7 +132,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSubmission(locale, application.id),
+        url: applicationSubmission(locale, applicationId),
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
