@@ -58,7 +58,7 @@ describe("async job actions", (): void => {
       const body = {
         ...job,
         criteria: [criterion],
-        jobPosterQuestions,
+        job_poster_questions: jobPosterQuestions,
       };
 
       // We build the mock for the fetch request.
@@ -72,7 +72,11 @@ describe("async job actions", (): void => {
         { type: FETCH_JOB_STARTED, meta: { id: jobId } },
         {
           type: FETCH_JOB_SUCCEEDED,
-          payload: { job, criteria: [criterion], jobPosterQuestions },
+          payload: {
+            job,
+            criteria: [criterion],
+            jobPosterQuestions,
+          },
           meta: { id: jobId },
         },
       ];

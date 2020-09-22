@@ -116,7 +116,6 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
     window.location.href = applicationIndex(locale);
   };
 
-  // TODO: If the close_date_time is ever null it should show an error message (talk tristan).
   const closeDate = job?.close_date_time ?? null;
   const showLoadingState = application === null || job === null;
   return (
