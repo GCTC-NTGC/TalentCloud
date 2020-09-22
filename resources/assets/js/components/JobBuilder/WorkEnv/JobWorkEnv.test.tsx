@@ -35,7 +35,7 @@ describe("Job Index Page", (): void => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("should render JobWorkEnv without any a job correctly", (): void => {
+  it("should render JobWorkEnv without any job correctly", (): void => {
     const wrapper = shallow(
       <RootContainer>
         <JobWorkEnv

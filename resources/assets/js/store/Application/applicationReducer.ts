@@ -9,9 +9,15 @@ import {
   FETCH_APPLICATION_SUCCEEDED,
   FETCH_APPLICATION_FAILED,
   FETCH_APPLICATION_STARTED,
+  FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
+  FETCH_APPLICATION_NORMALIZED_FAILED,
+  FETCH_APPLICATION_NORMALIZED_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED,
   FETCH_APPLICATIONS_FOR_JOB_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_FAILED,
+  UPDATE_APPLICATION_SUCCEEDED,
+  UPDATE_APPLICATION_STARTED,
+  UPDATE_APPLICATION_FAILED,
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
@@ -131,6 +137,14 @@ export const entitiesReducer = (
             }
           : state.applicationReviews,
       };
+    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.id]: action.payload,
+        },
+      };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
         ...state,
@@ -163,6 +177,14 @@ export const entitiesReducer = (
               (review) => review.id,
             ),
           },
+        },
+      };
+    case UPDATE_APPLICATION_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.id]: action.payload,
         },
       };
     case UPDATE_APPLICATION_REVIEW_SUCCEEDED:
@@ -224,6 +246,23 @@ export const uiReducer = (
           [action.meta.id]: false,
         },
       };
+    case FETCH_APPLICATION_NORMALIZED_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
+    case FETCH_APPLICATION_NORMALIZED_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
+      };
     case FETCH_APPLICATIONS_FOR_JOB_STARTED:
       return {
         ...state,
@@ -234,6 +273,23 @@ export const uiReducer = (
       return {
         ...state,
         fetchingApplications: false,
+      };
+    case UPDATE_APPLICATION_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case UPDATE_APPLICATION_SUCCEEDED:
+    case UPDATE_APPLICATION_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
       };
     case UPDATE_APPLICATION_REVIEW_STARTED:
       return {

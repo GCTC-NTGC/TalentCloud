@@ -1,9 +1,11 @@
 import { Field, useField } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
+import { focusOnElement } from "../../helpers/forms";
 import { inputMessages } from "./Messages";
 
 interface CheckboxGroupFieldProps {
+  id: string;
   groupLabel: string;
   name: string;
   allBoxes: {
@@ -16,6 +18,7 @@ interface CheckboxGroupFieldProps {
 }
 
 export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
+  id,
   groupLabel,
   grid,
   name,
@@ -23,15 +26,20 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   required,
 }) => {
   const [field, meta] = useField(name);
+  const hasError = !!meta.error && meta.touched;
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement(`${id}-${allBoxes[0].value}`);
+    }
+  });
   return (
-    <div
+    <fieldset
       data-c-input="checkbox(group)"
+      className="clone-checkbox-group"
       data-c-required={required || null}
       data-c-invalid={meta.touched && meta.error ? true : null}
-      role="group"
-      aria-labelledby="checkbox-group"
     >
-      <label>{groupLabel}</label>
+      <legend>{groupLabel}</legend>
       <span>
         <FormattedMessage {...inputMessages.required} />
       </span>
@@ -40,7 +48,12 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
           return (
             <div key={box.value} data-c-grid-item={grid}>
               <label>
-                <Field type="checkbox" name={name} value={box.value} />
+                <Field
+                  id={`${id}-${box.value}`}
+                  type="checkbox"
+                  name={name}
+                  value={box.value}
+                />
                 <span>{box.label}</span>
               </label>
             </div>
@@ -48,7 +61,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
         })}
       </div>
       <span>{meta.error}</span>
-    </div>
+    </fieldset>
   );
 };
 
