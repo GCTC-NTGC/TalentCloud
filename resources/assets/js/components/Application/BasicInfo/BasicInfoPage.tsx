@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import BasicInfo from "./BasicInfo";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
@@ -12,20 +12,11 @@ import {
   applicationExperienceIntro,
   applicationWelcome,
 } from "../../../helpers/routes";
-import { Job, ApplicationNormalized } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
-import { RootState } from "../../../store/store";
-import {
-  getApplicationNormalized,
-  getApplicationIsUpdating,
-} from "../../../store/Application/applicationSelector";
-import {
-  updateApplication as updateApplicationAction,
-  fetchApplicationNormalized,
-} from "../../../store/Application/applicationActions";
-import { fetchJob } from "../../../store/Job/jobActions";
-import { getJob, getJobIsUpdating } from "../../../store/Job/jobSelector";
+import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
+import { useFetchApplication, useFetchJob } from "../applicationHooks";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -39,38 +30,11 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const dispatch = useDispatch<DispatchType>();
 
   // Load Application.
-  const applicationSelector = (
-    state: RootState,
-  ): ApplicationNormalized | null =>
-    getApplicationNormalized(state, { applicationId });
-  const application: ApplicationNormalized | null = useSelector(
-    applicationSelector,
-  );
-  const applicationIsUpdating = useSelector((state: RootState) =>
-    getApplicationIsUpdating(state, { applicationId }),
-  );
-
-  useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
-      dispatch(fetchApplicationNormalized(applicationId));
-    }
-  }, [dispatch, applicationId, application, applicationIsUpdating]);
+  const application = useFetchApplication(applicationId, dispatch);
 
   // Load Job.
   const jobId = application?.job_poster_id;
-  const jobSelector = (state: RootState): Job | null =>
-    jobId ? getJob(state, { jobId }) : null;
-  const job = useSelector(jobSelector);
-  const jobUpdatingSelector = (state: RootState): boolean =>
-    jobId ? getJobIsUpdating(state, jobId) : false;
-  const jobIsUpdating = useSelector(jobUpdatingSelector);
-
-  useEffect(() => {
-    // If job is null and not already updating, fetch it.
-    if (jobId && job === null && !jobIsUpdating) {
-      dispatch(fetchJob(jobId));
-    }
-  }, [jobId, job, jobIsUpdating, dispatch]);
+  const job = useFetchJob(jobId, dispatch);
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
