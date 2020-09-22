@@ -16,16 +16,17 @@ import {
   AwardRecognitionType,
   EducationType,
   EducationStatus,
-  Application,
   Job,
-  Experience as ExperienceType,, Skill, ExperienceSkill
+  Experience as ExperienceType,
+  Skill,
+  ExperienceSkill,
+  ApplicationNormalized,
 } from "../../models/types";
-import { RSAActionTemplate } from "../../store/asyncAction";
 import {
-  getApplicationById,
   getApplicationIsUpdating,
+  getApplicationNormalized,
 } from "../../store/Application/applicationSelector";
-import { fetchApplication } from "../../store/Application/applicationActions";
+import { fetchApplicationNormalized } from "../../store/Application/applicationActions";
 import { getJob, getJobIsUpdating } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
 import { ApplicationStatusId } from "../../models/lookupConstants";
@@ -44,6 +45,10 @@ import {
 import { getSkills, getSkillsUpdating } from "../../store/Skill/skillSelector";
 import { fetchSkills } from "../../store/Skill/skillActions";
 
+/**
+ * Return all skills from the redux store, and fetch the skills from backend if they are not yet in the store.
+ * @param dispatch
+ */
 export function useFetchSkills(dispatch: DispatchType): Skill[] {
   const skills = useSelector(getSkills);
   const skillsUpdating = useSelector(getSkillsUpdating);
@@ -55,6 +60,10 @@ export function useFetchSkills(dispatch: DispatchType): Skill[] {
   return skills;
 }
 
+/**
+ * Return all Experience constants from the redux store, and fetch them from backend if they are not yet in the store.
+ * @param dispatch
+ */
 export function useFetchExperienceConstants(
   dispatch: DispatchType,
 ): {
@@ -111,24 +120,38 @@ export function useFetchExperienceConstants(
   };
 }
 
+/**
+ * Return an Application (normalized, ie without Review) from the redux store, and fetch it from backend if it is not yet in the store.
+ * @param applicationId
+ * @param dispatch
+ */
 export function useFetchApplication(
   applicationId: number,
   dispatch: DispatchType,
-): Application | null {
-  const applicationSelector = (state: RootState) =>
-    getApplicationById(state, { id: applicationId });
-  const application = useSelector(applicationSelector);
+): ApplicationNormalized | null {
+  const applicationSelector = (
+    state: RootState,
+  ): ApplicationNormalized | null =>
+    getApplicationNormalized(state, { applicationId });
+  const application: ApplicationNormalized | null = useSelector(
+    applicationSelector,
+  );
   const applicationIsUpdating = useSelector((state: RootState) =>
     getApplicationIsUpdating(state, { applicationId }),
   );
   useEffect(() => {
     if (application === null && !applicationIsUpdating) {
-      dispatch(fetchApplication(applicationId));
+      dispatch(fetchApplicationNormalized(applicationId));
     }
   }, [application, applicationId, applicationIsUpdating, dispatch]);
   return application;
 }
 
+/**
+ * Return an Job from the redux store, and fetch it from backend if it is not yet in the store.
+ * @param jobId
+ * @param dispatch
+ */
 export function useFetchJob(
   jobId: number | undefined,
   dispatch: DispatchType,
@@ -148,9 +171,15 @@ export function useFetchJob(
   return job;
 }
 
+/**
+ * Return all Experience relavant to an Application from the redux store, and fetch it from backend if it is not yet in the store.
+ * @param applicationId
+ * @param application
+ * @param dispatch
+ */
 export function useFetchExperience(
   applicationId: number,
-  application: Application | null,
+  application: ApplicationNormalized | null,
   dispatch: DispatchType,
 ): {
   experiences: ExperienceType[];
@@ -224,10 +253,14 @@ export function useFetchExperience(
 }
 
 /**
+ * Return all ExperienceSkills connected to Experience relevant to an Application.
  * Unlike most other hooks in this file, this will never trigger any fetches.
  * It is assumed experience skills will be fetched when Experiences are.
  */
-export function useExperienceSkills(applicationId: number, application: Application|null): ExperienceSkill[] {
+export function useExperienceSkills(
+  applicationId: number,
+  application: ApplicationNormalized | null,
+): ExperienceSkill[] {
   // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
   const applicantId = application?.applicant_id ?? 0;
   const useProfileExperience =
