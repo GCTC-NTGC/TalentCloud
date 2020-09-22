@@ -47,6 +47,12 @@ class DepartmentCrudController extends CrudController
                 'type' => 'textarea',
                 'label' => 'Preference',
             ]);
+
+            $this->crud->addField([
+                'name' => 'indeterminate',
+                'type' => 'checkbox',
+                'label' => 'indeterminate',
+            ]);
         });
     }
 
@@ -95,6 +101,12 @@ class DepartmentCrudController extends CrudController
             'label' => 'Preference',
             'orderable' => false,
             'limit' => 70,
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'indeterminate',
+            'type' => 'check',
+            'label' => 'indeterminate',
         ]);
     }
 
