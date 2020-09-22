@@ -258,6 +258,35 @@ sudo find /var/www -type d -exec chmod u+rwx {} +
 sudo find /var/www -type f -exec chmod u+rw {} +
 sudo find /var/www -type d -exec chmod g+s {} +
 ```
+At this point, if you restart the server you should see the TC UI load, though with internal server (500) errors
+
+#### Final configurations
+
+Install magick
+
+```
+sudo apt-get install php-imagick
+php -m | grep imagick ## should print out 'imagick' to the console
+sudo apt install php7.2-dev
+php-config --extension-dir ## should print out something similar to /usr/lib/php/20170718
+ll /usr/lib/php/20170718 ## ensure imagick.so is installed here
+```
+
+Find your php.ini file. Default install location is here /etc/php/7.2/fpm/php.ini. If you cannot find it, add this line at the top of the index.php file in the /public directory
+
+```
+<?php phpinfo(); ?>
+```
+
+Then reload http://talent.test and it should display the location of your php.ini file
+
+Open the php.ini file and add this line at the bottom of the "Dynamic Extensions" section (you can put it anywhere in the file, but best to keep things clean)
+
+```
+extension=imagick
+```
+
+Reboot your computer. Upon rebooting, the application should load as expected
 
 ##### Restart the service
 
