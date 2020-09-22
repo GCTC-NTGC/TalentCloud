@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
 import { useIntl } from "react-intl";
 import { useSelector, useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
@@ -19,10 +18,9 @@ import {
   Job,
   JobPosterQuestion,
 } from "../../../models/types";
-import RootContainer from "../../RootContainer";
 import { RootState } from "../../../store/store";
 import {
-  getApplication,
+  getApplicationNormalized,
   getApplicationIsUpdating,
   getJobApplicationAnswers,
 } from "../../../store/Application/applicationSelector";
@@ -37,6 +35,7 @@ import {
   createJobApplicationAnswer,
   updateJobApplicationAnswer,
 } from "../../../store/JobApplicationAnswer/jobApplicationAnswerActions";
+import { loadingMessages } from "../applicationMessages";
 
 interface FitPageProps {
   applicationId: number;
@@ -52,16 +51,17 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   // Load application.
   const applicationSelector = (
     state: RootState,
-  ): ApplicationNormalized | null => getApplication(state, { applicationId });
+  ): ApplicationNormalized | null =>
+    getApplicationNormalized(state, { applicationId });
   const application = useSelector(applicationSelector);
   const applicationUpdatingSelector = (state: RootState): boolean =>
     getApplicationIsUpdating(state, { applicationId });
-  const applcationIsUpdating = useSelector(applicationUpdatingSelector);
+  const applicationIsUpdating = useSelector(applicationUpdatingSelector);
   useEffect(() => {
-    if (application === null && !applcationIsUpdating) {
+    if (application === null && !applicationIsUpdating) {
       dispatch(fetchApplicationNormalized(applicationId));
     }
-  }, [application, dispatch]);
+  }, [applicationId, application, applicationIsUpdating, dispatch]);
 
   // Load job.
   const jobId = application?.job_poster_id;
@@ -117,44 +117,39 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   };
 
   // TODO: If the close_date_time is ever null it should show an error message (talk tristan).
-  const closeDate = job?.close_date_time ?? new Date();
-
-  if (application === null || job === null) {
-    return null;
-  }
-
+  const closeDate = job?.close_date_time ?? null;
+  const showLoadingState = application === null || job === null;
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step04)}
-        steps={makeProgressBarSteps(applicationId, application, intl, "fit")}
-      />
-      <Fit
-        applicationId={applicationId}
-        jobQuestions={jobPosterQuestions || []}
-        jobApplicationAnswers={answers || []}
-        handleSubmit={handleSubmit}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+          steps={makeProgressBarSteps(applicationId, application, intl, "fit")}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {application !== null && job !== null && (
+        <Fit
+          applicationId={applicationId}
+          jobQuestions={jobPosterQuestions || []}
+          jobApplicationAnswers={answers || []}
+          handleSubmit={handleSubmit}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
     </>
   );
 };
 
 export default FitPage;
-
-if (document.getElementById("application-fit")) {
-  const container = document.getElementById("application-fit") as HTMLElement;
-  const applicationIdAttr = container.getAttribute("data-application-id");
-  const applicationId = applicationIdAttr ? Number(applicationIdAttr) : null;
-  if (applicationId) {
-    ReactDOM.render(
-      <RootContainer>
-        <FitPage applicationId={applicationId} />
-      </RootContainer>,
-      container,
-    );
-  }
-}
