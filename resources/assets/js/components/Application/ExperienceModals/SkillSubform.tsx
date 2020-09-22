@@ -105,6 +105,7 @@ export function SkillSubform({
           </div>
           <div data-c-grid-item="base(1of1)">
             <CheckboxGroupField
+              id={keyPrefix}
               groupLabel={intl.formatMessage(messages.skillCheckboxGroupLabel)}
               grid="base(1of1)"
               name="requiredSkills"
@@ -129,6 +130,7 @@ export function SkillSubform({
           </div>
           <div data-c-grid-item="base(1of1)">
             <CheckboxGroupField
+              id={keyPrefix}
               groupLabel={intl.formatMessage(messages.skillCheckboxGroupLabel)}
               grid="base(1of1)"
               name="optionalSkills"
