@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
@@ -17,8 +17,6 @@ import {
   Experience as ExperienceType,
   ExperienceSkill,
 } from "../../../models/types";
-import { RootState } from "../../../store/store";
-import { getCriteriaByJob } from "../../../store/Job/jobSelector";
 import {
   createExperience,
   createExperienceSkill,
@@ -31,11 +29,13 @@ import { DispatchType } from "../../../configureStore";
 import { loadingMessages } from "../applicationMessages";
 import {
   useExperienceSkills,
-  useFetchApplication,
-  useFetchExperience,
-  useFetchExperienceConstants,
-  useFetchJob,
-  useFetchSkills,
+  useFetchAllApplicationData,
+  useExperienceConstants,
+  useApplication,
+  useJob,
+  useCriteria,
+  useExperiences,
+  useSkills,
 } from "../applicationHooks";
 
 interface ExperiencePageProps {
@@ -49,42 +49,33 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
-  // Load Application constants.
+  // Fetch all un-loaded data that may be required for the Application.
+  const {
+    experiencesLoaded,
+    experienceConstantsLoaded,
+    skillsLoaded,
+  } = useFetchAllApplicationData(applicationId, dispatch);
+
+  const application = useApplication(applicationId);
+  const jobId = application?.job_poster_id;
+  const job = useJob(jobId);
+  const criteria = useCriteria(jobId);
+  const experiences = useExperiences(applicationId, application);
+  const experienceSkills = useExperienceSkills(applicationId, application);
+  const skills = useSkills();
   const {
     awardRecipientTypes,
     awardRecognitionTypes,
     educationTypes,
     educationStatuses,
-  } = useFetchExperienceConstants(dispatch);
-
-  const application = useFetchApplication(applicationId, dispatch);
-
-  const jobId = application?.job_poster_id;
-  const job = useFetchJob(jobId, dispatch);
-
-  const criteriaSelector = (state: RootState) =>
-    jobId ? getCriteriaByJob(state, { jobId }) : [];
-  const criteria = useSelector(criteriaSelector);
-
-  const { experiences, experiencesUpdating } = useFetchExperience(
-    applicationId,
-    application,
-    dispatch,
-  );
-
-  const experienceSkills = useExperienceSkills(applicationId, application);
-
-  const skills = useFetchSkills(dispatch);
+  } = useExperienceConstants();
 
   const showLoadingState =
     application === null ||
     job === null ||
-    experiencesUpdating ||
-    skills.length === 0 ||
-    awardRecipientTypes.length === 0 ||
-    awardRecognitionTypes.length === 0 ||
-    educationTypes.length === 0 ||
-    educationStatuses.length === 0;
+    !experiencesLoaded ||
+    !skillsLoaded ||
+    !experienceConstantsLoaded;
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.

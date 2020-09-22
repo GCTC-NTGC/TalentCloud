@@ -21,13 +21,18 @@ import {
   Skill,
   ExperienceSkill,
   ApplicationNormalized,
+  Criteria,
 } from "../../models/types";
 import {
   getApplicationIsUpdating,
   getApplicationNormalized,
 } from "../../store/Application/applicationSelector";
 import { fetchApplicationNormalized } from "../../store/Application/applicationActions";
-import { getJob, getJobIsUpdating } from "../../store/Job/jobSelector";
+import {
+  getCriteriaByJob,
+  getJob,
+  getJobIsUpdating,
+} from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
 import { ApplicationStatusId } from "../../models/lookupConstants";
 import {
@@ -44,6 +49,96 @@ import {
 } from "../../store/Experience/experienceActions";
 import { getSkills, getSkillsUpdating } from "../../store/Skill/skillSelector";
 import { fetchSkills } from "../../store/Skill/skillActions";
+
+export function useApplication(
+  applicationId: number,
+): ApplicationNormalized | null {
+  return useSelector((state: RootState) =>
+    getApplicationNormalized(state, { applicationId }),
+  );
+}
+
+export function useJob(jobId: number | undefined): Job | null {
+  return useSelector((state: RootState) =>
+    jobId ? getJob(state, { jobId }) : null,
+  );
+}
+
+export function useExperienceConstants(): {
+  awardRecipientTypes: AwardRecipientType[];
+  awardRecognitionTypes: AwardRecognitionType[];
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
+} {
+  const awardRecipientTypes = useSelector(getAwardRecipientTypes);
+  const awardRecognitionTypes = useSelector(getAwardRecognitionTypes);
+  const educationTypes = useSelector(getEducationTypes);
+  const educationStatuses = useSelector(getEducationStatuses);
+  return {
+    awardRecipientTypes,
+    awardRecognitionTypes,
+    educationTypes,
+    educationStatuses,
+  };
+}
+
+export function useSkills(): Skill[] {
+  return useSelector(getSkills);
+}
+
+export function useCriteria(jobId: number | undefined): Criteria[] {
+  return useSelector((state: RootState) =>
+    jobId ? getCriteriaByJob(state, { jobId }) : [],
+  );
+}
+
+export function useExperiences(
+  applicationId: number,
+  application: ApplicationNormalized | null,
+): ExperienceType[] {
+  const applicantId = application?.applicant_id ?? 0;
+
+  // When an Application is still a draft, use Experiences associated with the applicant profile.
+  // When an Application has been submitted and is no longer a draft, display Experience associated with the Application directly.
+  const useProfileExperience =
+    application === null ||
+    application.application_status_id === ApplicationStatusId.draft;
+
+  // This selector must be memoized because getExperienceByApplicant/Application uses reselect, and not re-reselect, so it needs to preserve its state.
+  const experienceSelector = useCallback(
+    (state: RootState) =>
+      useProfileExperience
+        ? getExperienceByApplicant(state, { applicantId })
+        : getExperienceByApplication(state, { applicationId }),
+    [applicationId, applicantId, useProfileExperience],
+  );
+  const experiencesByType = useSelector(experienceSelector);
+  const experiences: ExperienceType[] = [
+    ...experiencesByType.award,
+    ...experiencesByType.community,
+    ...experiencesByType.education,
+    ...experiencesByType.personal,
+    ...experiencesByType.work,
+  ];
+  return experiences;
+}
+
+export function useExperienceSkills(
+  applicationId: number,
+  application: ApplicationNormalized | null,
+): ExperienceSkill[] {
+  // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
+  const applicantId = application?.applicant_id ?? 0;
+  const useProfileExperience =
+    application === null ||
+    application.application_status_id === ApplicationStatusId.draft;
+  const expSkillSelector = (state: RootState) =>
+    useProfileExperience
+      ? getExperienceSkillsByApplicant(state, { applicantId })
+      : getExperienceSkillsByApplication(state, { applicationId });
+  const experienceSkills = useSelector(expSkillSelector);
+  return experienceSkills;
+}
 
 /**
  * Return all skills from the redux store, and fetch the skills from backend if they are not yet in the store.
@@ -156,9 +251,7 @@ export function useFetchJob(
   jobId: number | undefined,
   dispatch: DispatchType,
 ): Job | null {
-  const jobSelector = (state: RootState) =>
-    jobId ? getJob(state, { jobId }) : null;
-  const job = useSelector(jobSelector);
+  const job = useJob(jobId);
   const jobUpdatingSelector = (state: RootState) =>
     jobId ? getJobIsUpdating(state, jobId) : false;
   const jobIsUpdating = useSelector(jobUpdatingSelector);
@@ -195,22 +288,7 @@ export function useFetchExperience(
     application === null ||
     application.application_status_id === ApplicationStatusId.draft;
 
-  // This selector must be memoized because getExperienceByApplicant/Application uses reselect, and not re-reselect, so it needs to preserve its state.
-  const experienceSelector = useCallback(
-    (state: RootState) =>
-      useProfileExperience
-        ? getExperienceByApplicant(state, { applicantId })
-        : getExperienceByApplication(state, { applicationId }),
-    [applicationId, applicantId, useProfileExperience],
-  );
-  const experiencesByType = useSelector(experienceSelector);
-  const experiences: ExperienceType[] = [
-    ...experiencesByType.award,
-    ...experiencesByType.community,
-    ...experiencesByType.education,
-    ...experiencesByType.personal,
-    ...experiencesByType.work,
-  ];
+  const experiences = useExperiences(applicationId, application);
   const experiencesUpdating = useSelector((state: RootState) =>
     useProfileExperience
       ? getUpdatingByApplicant(state, { applicantId })
@@ -253,23 +331,44 @@ export function useFetchExperience(
 }
 
 /**
- * Return all ExperienceSkills connected to Experience relevant to an Application.
- * Unlike most other hooks in this file, this will never trigger any fetches.
- * It is assumed experience skills will be fetched when Experiences are.
+ * Trigger fetches for all data needed for the Application process which is not yet in the redux store, or in the process of loading.
+ * @param applicationId
  */
-export function useExperienceSkills(
+export function useFetchAllApplicationData(
   applicationId: number,
-  application: ApplicationNormalized | null,
-): ExperienceSkill[] {
-  // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
-  const applicantId = application?.applicant_id ?? 0;
-  const useProfileExperience =
-    application === null ||
-    application.application_status_id === ApplicationStatusId.draft;
-  const expSkillSelector = (state: RootState) =>
-    useProfileExperience
-      ? getExperienceSkillsByApplicant(state, { applicantId })
-      : getExperienceSkillsByApplication(state, { applicationId });
-  const experienceSkills = useSelector(expSkillSelector);
-  return experienceSkills;
+  dispatch: DispatchType,
+): {
+  applicationLoaded: boolean;
+  jobLoaded: boolean;
+  experiencesLoaded: boolean;
+  experienceConstantsLoaded: boolean;
+  skillsLoaded: boolean;
+} {
+  const application = useFetchApplication(applicationId, dispatch);
+  const jobId = application?.job_poster_id;
+  const job = useFetchJob(jobId, dispatch);
+  const { experiences, experiencesUpdating } = useFetchExperience(
+    applicationId,
+    application,
+    dispatch,
+  );
+  const {
+    awardRecipientTypes,
+    awardRecognitionTypes,
+    educationTypes,
+    educationStatuses,
+  } = useFetchExperienceConstants(dispatch);
+  const skills = useFetchSkills(dispatch);
+
+  return {
+    applicationLoaded: application !== null,
+    jobLoaded: job !== null,
+    experiencesLoaded: !experiencesUpdating || experiences.length > 0,
+    experienceConstantsLoaded:
+      awardRecipientTypes.length > 0 &&
+      awardRecognitionTypes.length > 0 &&
+      educationTypes.length > 0 &&
+      educationStatuses.length > 0,
+    skillsLoaded: skills.length > 0,
+  };
 }

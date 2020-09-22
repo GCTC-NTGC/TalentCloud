@@ -16,7 +16,11 @@ import { ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
-import { useFetchApplication, useFetchJob } from "../applicationHooks";
+import {
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
+} from "../applicationHooks";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -29,12 +33,12 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
-  // Load Application.
-  const application = useFetchApplication(applicationId, dispatch);
+  // Fetch all un-loaded data that may be required for the Application.
+  useFetchAllApplicationData(applicationId, dispatch);
 
-  // Load Job.
+  const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
-  const job = useFetchJob(jobId, dispatch);
+  const job = useJob(jobId);
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,

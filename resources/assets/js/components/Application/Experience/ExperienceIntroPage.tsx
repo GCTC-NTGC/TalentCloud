@@ -11,11 +11,9 @@ import ExperienceIntro from "./ExperienceIntro";
 import { DispatchType } from "../../../configureStore";
 import { loadingMessages } from "../applicationMessages";
 import {
-  useFetchApplication,
-  useFetchExperience,
-  useFetchExperienceConstants,
-  useFetchJob,
-  useFetchSkills,
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
 } from "../applicationHooks";
 
 interface ExperienceIntroPageProps {
@@ -27,16 +25,14 @@ export const ExperienceIntroPage: React.FunctionComponent<ExperienceIntroPagePro
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  // Begin fetching all the data which will be used on the Experience page.
   const dispatch = useDispatch<DispatchType>();
 
-  const application = useFetchApplication(applicationId, dispatch);
+  // Fetch all un-loaded data that may be required for the Application.
+  useFetchAllApplicationData(applicationId, dispatch);
+
+  const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
-  const job = useFetchJob(jobId, dispatch);
-  useFetchExperience(applicationId, application, dispatch);
-  useFetchSkills(dispatch);
-  useFetchExperienceConstants(dispatch);
+  const job = useJob(jobId);
 
   const handleStart = (): void =>
     navigate(applicationExperience(locale, applicationId));
