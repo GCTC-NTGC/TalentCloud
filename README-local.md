@@ -232,11 +232,8 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
 
 ```
 cd TalentCloud
-npm install
-npm run dev
+composer install && npm install && npm run dev && php artisan migrate:fresh && php artisan db:seed
 php artisan key:generate
-composer install
-php artisan migrate -n
 composer ide-helper
 ```
 
@@ -294,5 +291,15 @@ extension=imagick
 
 Reboot your computer. Upon rebooting, the application should load as expected
 
+### Logging in
+
+To log in locally, use one of the following test accounts
+
+- admin@test.com
+- manager@test.com
+- applicant@test.com
+- hr_advisor@test.com
+
+The password for each account is 'password'
 
 
