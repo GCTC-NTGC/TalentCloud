@@ -260,6 +260,12 @@ sudo find /var/www -type d -exec chmod g+s {} +
 ```
 At this point, if you restart the server you should see the TC UI load, though with internal server (500) errors
 
+##### Restart the service
+
+```
+sudo service nginx restart
+```
+
 #### Final configurations
 
 Install magick
@@ -288,9 +294,5 @@ extension=imagick
 
 Reboot your computer. Upon rebooting, the application should load as expected
 
-##### Restart the service
 
-```
-sudo service nginx restart
-```
 
