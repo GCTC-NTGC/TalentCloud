@@ -155,7 +155,7 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
       {application && (
         <ProgressBar
           closeDateTime={closeDate}
-          currentTitle={intl.formatMessage(stepNames.step01)}
+          currentTitle={intl.formatMessage(stepNames.step03)}
           steps={makeProgressBarSteps(
             applicationId,
             application,
