@@ -58,13 +58,16 @@ grant all privileges on database talentcloud to talentcloud; ### adjust access
 ALTER ROLE talentcloud SUPERUSER;
 ```
 
-## Install PHP
+## Install PHP and required extensions
 
 *For more detailed instructions, [go here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04)*
+
+*Laravel-specific server requirements [can be found here](https://laravel.com/docs/8.x/installation#server-requirements)*
 
 ```
 sudo add-apt-repository universe
 sudo apt install php-fpm php7.2-pgsql
+sudo apt install php-mbstring php-xml php-bcmath
 ```
 
 
@@ -145,13 +148,6 @@ sudo apt install -y nodejs
 
 ```
 sudo apt-get install composer
-```
-
-## Download Laravel Installer
-
-```
-composer global require "laravel/installer=~1.1"
-sudo apt install php-mbstring php-xml php-bcmath
 ```
 
 ## Run Talent Cloud
