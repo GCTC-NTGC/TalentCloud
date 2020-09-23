@@ -58,7 +58,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     <>
       <ProgressBar
         closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
+        currentTitle={intl.formatMessage(stepNames.step05)}
         steps={makeProgressBarSteps(applicationId, application, intl, "review")}
       />
       <Review

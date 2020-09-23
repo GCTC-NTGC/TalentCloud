@@ -342,7 +342,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       {application !== null && (
         <ProgressBar
           closeDateTime={closeDate}
-          currentTitle={intl.formatMessage(stepNames.step01)}
+          currentTitle={intl.formatMessage(stepNames.step02)}
           steps={makeProgressBarSteps(
             applicationId,
             application,

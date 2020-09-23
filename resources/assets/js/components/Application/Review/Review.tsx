@@ -608,7 +608,7 @@ const Review: React.FC<ReviewProps> = ({
       <hr data-c-hr="thin(gray)" data-c-margin="top(1)" />
       {jobQuestions.map((jobQuestion, index) => {
         const answer = jobApplicationAnswers.find(
-          (appAnswer) => appAnswer.job_poster_questions_id === jobQuestion.id,
+          (appAnswer) => appAnswer.job_poster_question_id === jobQuestion.id,
         );
         return (
           <>

@@ -12,7 +12,13 @@ import {
   parseCommentsResponse,
   parseJobIndexResponse,
 } from "../../api/job";
-import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../../models/types";
 import {
   AsyncFsaActions,
   RSAActionTemplate,
@@ -31,7 +37,7 @@ export type FetchJobAction = AsyncFsaActions<
   typeof FETCH_JOB_STARTED,
   typeof FETCH_JOB_SUCCEEDED,
   typeof FETCH_JOB_FAILED,
-  { job: Job; criteria: Criteria[] },
+  { job: Job; criteria: Criteria[]; jobPosterQuestions: JobPosterQuestion[] },
   { id: number }
 >;
 
@@ -41,7 +47,7 @@ export const fetchJob = (
   typeof FETCH_JOB_STARTED,
   typeof FETCH_JOB_SUCCEEDED,
   typeof FETCH_JOB_FAILED,
-  { job: Job; criteria: Criteria[] },
+  { job: Job; criteria: Criteria[]; jobPosterQuestions: JobPosterQuestion[] },
   { id: number }
 > =>
   asyncGet(

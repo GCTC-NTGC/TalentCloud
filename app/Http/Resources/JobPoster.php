@@ -17,6 +17,7 @@ class JobPoster extends JsonResource
         return array_merge(parent::toArray($request), [
             'manager' => new JsonResource($this->whenLoaded('manager')),
             'criteria' => JsonResource::collection($this->whenLoaded('criteria')),
+            'job_poster_questions' => new JsonResource($this->whenLoaded('job_poster_questions')),
         ]);
     }
 }
