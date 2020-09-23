@@ -14,6 +14,14 @@ import { fakeUsers } from "../../fakeData/fakeUsers";
 
 const stories = storiesOf("Application|Review", module).addDecorator(withIntl);
 
+function sleep(ms): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+const promiseAction = (text: string) => async () => {
+  sleep(1000);
+  action(text)();
+};
+
 stories.add(
   "Review Page",
   (): React.ReactElement => (
@@ -40,9 +48,10 @@ stories.add(
       ]}
       skills={fakeSkills()}
       user={fakeUsers()[1]}
-      handleContinue={action("Save and Continue")}
-      handleReturn={action("Save and Return to Previous Step")}
-      handleQuit={action("Save and Quit")}
+      handleSave={promiseAction("Save")}
+      handleContinue={action("Continue")}
+      handleReturn={action("Return to Previous Step")}
+      handleQuit={action("Quit")}
     />
   ),
 );

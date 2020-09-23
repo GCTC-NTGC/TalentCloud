@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
@@ -26,6 +27,7 @@ import {
   useSkills,
 } from "../../../hooks/applicationHooks";
 import { loadingMessages } from "../applicationMessages";
+import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 
 interface ReviewPageProps {
   applicationId: number;
@@ -57,6 +59,24 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const answers = useJobApplicationAnswers(applicationId);
   const skills = useSkills();
 
+  const handleSave = (values: ReviewFormValues): Promise<void> => {
+    if (application === null) {
+      // We shouldn't expect this to handler to trigger before application is loaded, but just to be sure.
+      return Promise.reject();
+    }
+    return dispatch(
+      updateApplicationAction({
+        ...application,
+        share_with_managers: values.shareWithManagers,
+      }),
+    )
+      .then(() => {
+        navigate(applicationSubmission(locale, applicationId));
+      })
+      .catch(() => {
+        // Do nothing on an error.
+      });
+  };
   const handleReturn = (): void => {
     navigate(applicationFit(locale, applicationId));
   };
@@ -65,7 +85,6 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = (): void => {
-    // TODO: Save ReviewFormValues.
     navigate(applicationSubmission(locale, applicationId));
   };
 
@@ -110,6 +129,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
           jobApplicationAnswers={answers}
           skills={skills}
           user={user}
+          handleSave={handleSave}
           handleContinue={handleContinue}
           handleQuit={handleQuit}
           handleReturn={handleReturn}
