@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import {
-  Application,
   User,
   Job,
   Criteria,
@@ -11,6 +10,7 @@ import {
   ExperienceSkill,
   JobPosterQuestion,
   JobApplicationAnswer,
+  ApplicationNormalized,
 } from "../../../models/types";
 import { languageRequirementDescription } from "../../../models/localizedConstants";
 import { LanguageRequirementId } from "../../../models/lookupConstants";
@@ -219,7 +219,7 @@ export interface ReviewFormValues {
 }
 
 interface ReviewProps {
-  application: Application;
+  application: ApplicationNormalized;
   criteria: Criteria[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];

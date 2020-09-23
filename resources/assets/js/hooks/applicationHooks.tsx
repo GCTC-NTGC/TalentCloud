@@ -24,6 +24,7 @@ import {
   Criteria,
   JobPosterQuestion,
   JobApplicationAnswer,
+  User,
 } from "../models/types";
 import {
   getApplicationIsUpdating,
@@ -158,6 +159,12 @@ export function useJobApplicationAnswers(
   return useSelector((state: RootState) =>
     getJobApplicationAnswers(state, { applicationId }),
   );
+}
+
+export function useApplicationUser(applicationId: number): User | null {
+  const application = useApplication(applicationId);
+  const user = application?.applicant.user ?? null;
+  return user;
 }
 
 /**
@@ -359,8 +366,13 @@ export function useFetchAllApplicationData(
   dispatch: DispatchType,
 ): {
   applicationLoaded: boolean;
+  userLoaded: boolean;
   jobLoaded: boolean;
+  criteriaLoaded: boolean;
   experiencesLoaded: boolean;
+  experienceSkillsLoaded: boolean;
+  jobQuestionsLoaded: boolean;
+  applicationAnswersLoaded: boolean;
   experienceConstantsLoaded: boolean;
   skillsLoaded: boolean;
 } {
@@ -380,15 +392,26 @@ export function useFetchAllApplicationData(
   } = useFetchExperienceConstants(dispatch);
   const skills = useFetchSkills(dispatch);
 
+  const applicationLoaded = application !== null;
+  const jobLoaded = job !== null;
+  const experiencesLoaded = !experiencesUpdating || experiences.length > 0;
+  const experienceConstantsLoaded =
+    awardRecipientTypes.length > 0 &&
+    awardRecognitionTypes.length > 0 &&
+    educationTypes.length > 0 &&
+    educationStatuses.length > 0;
+  const skillsLoaded = skills.length > 0;
+
   return {
-    applicationLoaded: application !== null,
-    jobLoaded: job !== null,
-    experiencesLoaded: !experiencesUpdating || experiences.length > 0,
-    experienceConstantsLoaded:
-      awardRecipientTypes.length > 0 &&
-      awardRecognitionTypes.length > 0 &&
-      educationTypes.length > 0 &&
-      educationStatuses.length > 0,
-    skillsLoaded: skills.length > 0,
+    applicationLoaded,
+    jobLoaded,
+    experiencesLoaded,
+    experienceConstantsLoaded,
+    skillsLoaded,
+    criteriaLoaded: jobLoaded,
+    experienceSkillsLoaded: experiencesLoaded,
+    jobQuestionsLoaded: jobLoaded,
+    applicationAnswersLoaded: applicationLoaded,
+    userLoaded: applicationLoaded,
   };
 }

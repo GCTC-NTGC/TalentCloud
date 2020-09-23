@@ -1,18 +1,10 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
-import fakeJob, {
-  fakeJobQuestions,
-  fakeJobApplicationAnswers,
-} from "../../../fakeData/fakeJob";
+import { useDispatch } from "react-redux";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { fakeCriteria } from "../../../fakeData/fakeCriteria";
-import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
-import fakeExperiences from "../../../fakeData/fakeExperience";
 import Review, { ReviewFormValues } from "./Review";
-import { fakeUser } from "../../../fakeData/fakeUsers";
-import { fakeSkills } from "../../../fakeData/fakeSkills";
 import {
   applicationIndex,
   applicationFit,
@@ -20,6 +12,20 @@ import {
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
+import { DispatchType } from "../../../configureStore";
+import {
+  useApplication,
+  useApplicationUser,
+  useCriteria,
+  useExperiences,
+  useExperienceSkills,
+  useFetchAllApplicationData,
+  useJob,
+  useJobApplicationAnswers,
+  useJobPosterQuestions,
+  useSkills,
+} from "../../../hooks/applicationHooks";
+import { loadingMessages } from "../applicationMessages";
 
 interface ReviewPageProps {
   applicationId: number;
@@ -28,18 +34,28 @@ interface ReviewPageProps {
 export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch<DispatchType>();
 
-  const application = fakeApplication(); // TODO: get real application.
-  const user = fakeUser(); // TODO: Get user base on application.
-  const job = fakeJob(); // TODO: Get real job associated with application.
-  const criteria = fakeCriteria(); // TODO: Get criteria associated with job.
-  const experiences = fakeExperiences(); // TODO: get experienciences associated with application.
-  const experienceSkills = fakeExperienceSkills(); // TODO: Get experienceSkills associated with experiences.
-  const questions = fakeJobQuestions(); // TODO: get questions from job.
-  const answers = fakeJobApplicationAnswers(); // TODO: get answers currently saved to application.
+  // Fetch all un-loaded data that may be required for the Application.
+  const {
+    experiencesLoaded,
+    skillsLoaded,
+    criteriaLoaded,
+    experienceSkillsLoaded,
+    jobQuestionsLoaded,
+    applicationAnswersLoaded,
+  } = useFetchAllApplicationData(applicationId, dispatch);
 
-  // TODO: load constants from backend.
-  const skills = fakeSkills();
+  const application = useApplication(applicationId);
+  const user = useApplicationUser(applicationId);
+  const jobId = application?.job_poster_id;
+  const job = useJob(jobId);
+  const criteria = useCriteria(jobId);
+  const experiences = useExperiences(applicationId, application);
+  const experienceSkills = useExperienceSkills(applicationId, application);
+  const questions = useJobPosterQuestions(jobId);
+  const answers = useJobApplicationAnswers(applicationId);
+  const skills = useSkills();
 
   const handleReturn = (): void => {
     navigate(applicationFit(locale, applicationId));
@@ -48,33 +64,65 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const handleContinue = (values: ReviewFormValues): void => {
+  const handleContinue = (): void => {
     // TODO: Save ReviewFormValues.
     navigate(applicationSubmission(locale, applicationId));
   };
 
-  const closeDate = new Date(); // TODO: get from application.
+  const closeDate = job?.close_date_time ?? null;
+
+  const allDataLoaded =
+    application !== null &&
+    job !== null &&
+    user !== null &&
+    criteriaLoaded &&
+    experiencesLoaded &&
+    experienceSkillsLoaded &&
+    jobQuestionsLoaded &&
+    applicationAnswersLoaded &&
+    skillsLoaded;
+
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step05)}
-        steps={makeProgressBarSteps(applicationId, application, intl, "review")}
-      />
-      <Review
-        application={application}
-        criteria={criteria}
-        experiences={experiences}
-        experienceSkills={experienceSkills}
-        job={job}
-        jobQuestions={questions}
-        jobApplicationAnswers={answers}
-        skills={skills}
-        user={user}
-        handleContinue={handleContinue}
-        handleQuit={handleQuit}
-        handleReturn={handleReturn}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step05)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "review",
+          )}
+        />
+      )}
+      {allDataLoaded &&
+      application !== null &&
+      job !== null &&
+      user !== null ? (
+        <Review
+          application={application}
+          criteria={criteria}
+          experiences={experiences}
+          experienceSkills={experienceSkills}
+          job={job}
+          jobQuestions={questions}
+          jobApplicationAnswers={answers}
+          skills={skills}
+          user={user}
+          handleContinue={handleContinue}
+          handleQuit={handleQuit}
+          handleReturn={handleReturn}
+        />
+      ) : (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
     </>
   );
 };
