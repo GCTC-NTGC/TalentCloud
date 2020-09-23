@@ -1,6 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import createCachedSelector from "re-reselect";
-import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
 import {
@@ -68,11 +67,15 @@ export const getApplicationNormalized = (
     : null;
 };
 
-export const getJobApplicationAnswers = createSelector(
+export const getJobApplicationAnswers = createCachedSelector(
   getJobApplicationAnswersState,
-  (jobApplicationAnswersState): JobApplicationAnswer[] =>
-    Object.values(jobApplicationAnswersState),
-);
+  (state, ownProps: { applicationId: number }): number =>
+    ownProps.applicationId,
+  (jobApplicationAnswersState, applicationId): JobApplicationAnswer[] =>
+    Object.values(jobApplicationAnswersState).filter(
+      (answer) => answer.job_application_id === applicationId,
+    ),
+)((state, ownProps): number => ownProps.applicationId);
 
 export const getApplicationById = createCachedSelector(
   getApplicationState,

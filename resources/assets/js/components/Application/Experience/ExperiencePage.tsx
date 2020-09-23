@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
@@ -18,51 +18,25 @@ import {
   ExperienceSkill,
 } from "../../../models/types";
 import {
-  getApplicationById,
-  getApplicationIsUpdating,
-} from "../../../store/Application/applicationSelector";
-import { RootState } from "../../../store/store";
-import { fetchApplication } from "../../../store/Application/applicationActions";
-import {
-  getJob,
-  getJobIsUpdating,
-  getCriteriaByJob,
-} from "../../../store/Job/jobSelector";
-import { fetchJob } from "../../../store/Job/jobActions";
-import {
-  getExperienceByApplication,
-  getExperienceSkillsByApplication,
-  getExperienceByApplicant,
-  getUpdatingByApplicant,
-  getUpdatingByApplication,
-  getExperienceSkillsByApplicant,
-} from "../../../store/Experience/experienceSelector";
-import {
-  fetchExperienceByApplication,
-  fetchExperienceByApplicant,
   createExperience,
   createExperienceSkill,
   updateExperience,
   deleteExperienceSkill,
   deleteExperience,
 } from "../../../store/Experience/experienceActions";
-import { ApplicationStatusId } from "../../../models/lookupConstants";
 import { getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
-import {
-  getSkills,
-  getSkillsUpdating,
-} from "../../../store/Skill/skillSelector";
-import { fetchSkills } from "../../../store/Skill/skillActions";
-import { getAwardRecipientTypes as fetchAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeActions";
-import { getAwardRecipientTypes } from "../../../store/AwardRecipientType/awardRecipientTypeSelector";
-import { getAwardRecognitionTypes as fetchAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeActions";
-import { getAwardRecognitionTypes } from "../../../store/AwardRecognitionType/awardRecognitionTypeSelector";
-import { getEducationTypes as fetchEducationTypes } from "../../../store/EducationType/educationTypeActions";
-import { getEducationTypes } from "../../../store/EducationType/educationTypeSelector";
-import { getEducationStatuses as fetchEducationStatuses } from "../../../store/EducationStatus/educationStatusActions";
-import { getEducationStatuses } from "../../../store/EducationStatus/educationStatusSelector";
 import { loadingMessages } from "../applicationMessages";
+import {
+  useExperienceSkills,
+  useFetchAllApplicationData,
+  useExperienceConstants,
+  useApplication,
+  useJob,
+  useCriteria,
+  useExperiences,
+  useSkills,
+} from "../../../hooks/applicationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -75,161 +49,33 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
-  // Load Application constants.
-  const awardRecipientTypes = useSelector(getAwardRecipientTypes);
-  const awardRecipientTypesLoading = useSelector(
-    (state: RootState) => state.awardRecipientType.loading,
-  );
-  useEffect(() => {
-    if (awardRecipientTypes.length === 0 && !awardRecipientTypesLoading) {
-      dispatch(fetchAwardRecipientTypes());
-    }
-  }, [awardRecipientTypes, awardRecipientTypesLoading, dispatch]);
+  // Fetch all un-loaded data that may be required for the Application.
+  const {
+    experiencesLoaded,
+    experienceConstantsLoaded,
+    skillsLoaded,
+  } = useFetchAllApplicationData(applicationId, dispatch);
 
-  const awardRecognitionTypes = useSelector(getAwardRecognitionTypes);
-  const awardRecognitionTypesLoading = useSelector(
-    (state: RootState) => state.awardRecognitionType.loading,
-  );
-  useEffect(() => {
-    if (awardRecognitionTypes.length === 0 && !awardRecognitionTypesLoading) {
-      dispatch(fetchAwardRecognitionTypes());
-    }
-  }, [awardRecognitionTypes, awardRecognitionTypesLoading, dispatch]);
-
-  const educationTypes = useSelector(getEducationTypes);
-  const educationTypesLoading = useSelector(
-    (state: RootState) => state.educationType.loading,
-  );
-  useEffect(() => {
-    if (educationTypes.length === 0 && !educationTypesLoading) {
-      dispatch(fetchEducationTypes());
-    }
-  }, [educationTypes, educationTypesLoading, dispatch]);
-
-  const educationStatuses = useSelector(getEducationStatuses);
-  const educationStatusesLoading = useSelector(
-    (state: RootState) => state.educationStatus.loading,
-  );
-  useEffect(() => {
-    if (educationStatuses.length === 0 && !educationStatusesLoading) {
-      dispatch(fetchEducationStatuses());
-    }
-  }, [educationStatuses, educationStatusesLoading, dispatch]);
-
-  const applicationSelector = (state: RootState) =>
-    getApplicationById(state, { id: applicationId });
-  const application = useSelector(applicationSelector);
-  const applicationIsUpdating = useSelector((state: RootState) =>
-    getApplicationIsUpdating(state, { applicationId }),
-  );
-  useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
-      dispatch(fetchApplication(applicationId));
-    }
-  }, [application, applicationId, applicationIsUpdating, dispatch]);
-
+  const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
-  const jobSelector = (state: RootState) =>
-    jobId ? getJob(state, { jobId }) : null;
-  const job = useSelector(jobSelector);
-  const jobUpdatingSelector = (state: RootState) =>
-    jobId ? getJobIsUpdating(state, jobId) : false;
-  const jobIsUpdating = useSelector(jobUpdatingSelector);
-  useEffect(() => {
-    // If job is null and not already updating, fetch it.
-    if (jobId && job === null && !jobIsUpdating) {
-      dispatch(fetchJob(jobId));
-    }
-  }, [jobId, job, jobIsUpdating, dispatch]);
-
-  const criteriaSelector = (state: RootState) =>
-    jobId ? getCriteriaByJob(state, { jobId }) : [];
-  const criteria = useSelector(criteriaSelector);
-
-  const applicantId = application?.applicant_id ?? 0;
-
-  // When an Application is still a draft, use Experiences associated with the applicant profile.
-  // When an Application has been submitted and is no longer a draft, display Experience associated with the Application directly.
-  const applicationLoaded = application !== null;
-  const useProfileExperience =
-    application === null ||
-    application.application_status_id === ApplicationStatusId.draft;
-
-  // This selector must be memoized because getExperienceByApplicant/Application uses reselect, and not re-reselect.
-  const experienceSelector = useCallback(
-    (state: RootState) =>
-      useProfileExperience
-        ? getExperienceByApplicant(state, { applicantId })
-        : getExperienceByApplication(state, { applicationId }),
-    [applicationId, applicantId, useProfileExperience],
-  );
-  const experiencesByType = useSelector(experienceSelector);
-  const experiences: ExperienceType[] = [
-    ...experiencesByType.award,
-    ...experiencesByType.community,
-    ...experiencesByType.education,
-    ...experiencesByType.personal,
-    ...experiencesByType.work,
-  ];
-  const experiencesUpdating = useSelector((state: RootState) =>
-    useProfileExperience
-      ? getUpdatingByApplicant(state, { applicantId })
-      : getUpdatingByApplication(state, { applicationId }),
-  );
-  const [experiencesFetched, setExperiencesFetched] = useState(false);
-  useEffect(() => {
-    // Only load experiences if they have never been fetched by this component (!experiencesFetched),
-    //  have never been fetched by another component (length === 0),
-    //  and are not currently being fetched (!experiencesUpdating).
-    // Also, wait until application has been loaded so the correct source can be determined.
-    if (
-      applicationLoaded &&
-      !experiencesFetched &&
-      !experiencesUpdating &&
-      experiences.length === 0
-    ) {
-      if (useProfileExperience) {
-        dispatch(fetchExperienceByApplicant(applicantId));
-      } else {
-        dispatch(fetchExperienceByApplication(applicationId));
-      }
-      setExperiencesFetched(true);
-    }
-  }, [
-    applicantId,
-    applicationId,
-    applicationLoaded,
-    dispatch,
-    experiences.length,
-    experiencesFetched,
-    experiencesUpdating,
-    useProfileExperience,
-  ]);
-
-  // ExperienceSkills don't need to be fetched because they are returned in the Experiences API calls.
-  const expSkillSelector = (state: RootState) =>
-    useProfileExperience
-      ? getExperienceSkillsByApplicant(state, { applicantId })
-      : getExperienceSkillsByApplication(state, { applicationId });
-  const experienceSkills = useSelector(expSkillSelector);
-
-  const skills = useSelector(getSkills);
-  const skillsUpdating = useSelector(getSkillsUpdating);
-  useEffect(() => {
-    if (skills.length === 0 && !skillsUpdating) {
-      dispatch(fetchSkills());
-    }
-  }, [skills.length, skillsUpdating, dispatch]);
+  const job = useJob(jobId);
+  const criteria = useCriteria(jobId);
+  const experiences = useExperiences(applicationId, application);
+  const experienceSkills = useExperienceSkills(applicationId, application);
+  const skills = useSkills();
+  const {
+    awardRecipientTypes,
+    awardRecognitionTypes,
+    educationTypes,
+    educationStatuses,
+  } = useExperienceConstants();
 
   const showLoadingState =
     application === null ||
     job === null ||
-    experiencesUpdating ||
-    skills.length === 0 ||
-    awardRecipientTypes.length === 0 ||
-    awardRecognitionTypes.length === 0 ||
-    educationTypes.length === 0 ||
-    educationStatuses.length === 0;
+    !experiencesLoaded ||
+    !skillsLoaded ||
+    !experienceConstantsLoaded;
 
   const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
     // extract the Experience object from the data.
@@ -268,6 +114,13 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     });
 
     if (experience.id === 0) {
+      const applicantId = application?.applicant_id;
+      if (applicantId === undefined) {
+        // This should never happen. By the time the Submit handler is called, application must be loaded.
+        throw new Error(
+          "Submitting new Experience before Application has loaded.",
+        );
+      }
       // If the experience is brand new, it (and related experience skills) must be created on server.
       const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
