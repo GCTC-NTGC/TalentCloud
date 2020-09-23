@@ -261,8 +261,10 @@ export function useFetchApplication(
   const applicationIsUpdating = useSelector((state: RootState) =>
     getApplicationIsUpdating(state, { applicationId }),
   );
+  const [applicationFetched, setApplicationFetched] = useState(false);
   useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
+    if (application === null && !applicationIsUpdating && !applicationFetched) {
+      setApplicationFetched(true);
       dispatch(fetchApplicationNormalized(applicationId));
     }
   }, [application, applicationId, applicationIsUpdating, dispatch]);
