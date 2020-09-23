@@ -22,16 +22,20 @@ import {
   ExperienceSkill,
   ApplicationNormalized,
   Criteria,
+  JobPosterQuestion,
+  JobApplicationAnswer,
 } from "../models/types";
 import {
   getApplicationIsUpdating,
   getApplicationNormalized,
+  getJobApplicationAnswers,
 } from "../store/Application/applicationSelector";
 import { fetchApplicationNormalized } from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
   getJobIsUpdating,
+  getJobPosterQuestionsByJob,
 } from "../store/Job/jobSelector";
 import { fetchJob } from "../store/Job/jobActions";
 import { ApplicationStatusId } from "../models/lookupConstants";
@@ -138,6 +142,22 @@ export function useExperienceSkills(
       : getExperienceSkillsByApplication(state, { applicationId });
   const experienceSkills = useSelector(expSkillSelector);
   return experienceSkills;
+}
+
+export function useJobPosterQuestions(
+  jobId: number | undefined,
+): JobPosterQuestion[] {
+  return useSelector((state: RootState) =>
+    jobId ? getJobPosterQuestionsByJob(state, { jobId }) : [],
+  );
+}
+
+export function useJobApplicationAnswers(
+  applicationId: number,
+): JobApplicationAnswer[] {
+  return useSelector((state: RootState) =>
+    getJobApplicationAnswers(state, { applicationId }),
+  );
 }
 
 /**

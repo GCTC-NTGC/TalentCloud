@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
@@ -12,30 +12,20 @@ import {
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import Fit from "./Fit";
-import {
-  JobApplicationAnswer,
-  ApplicationNormalized,
-  Job,
-  JobPosterQuestion,
-} from "../../../models/types";
-import { RootState } from "../../../store/store";
-import {
-  getApplicationNormalized,
-  getApplicationIsUpdating,
-  getJobApplicationAnswers,
-} from "../../../store/Application/applicationSelector";
-import {
-  getJob,
-  getJobPosterQuestionsByJob,
-  getJobIsUpdating,
-} from "../../../store/Job/jobSelector";
-import { fetchJob } from "../../../store/Job/jobActions";
+import { JobApplicationAnswer } from "../../../models/types";
 import { fetchApplicationNormalized } from "../../../store/Application/applicationActions";
 import {
   createJobApplicationAnswer,
   updateJobApplicationAnswer,
 } from "../../../store/JobApplicationAnswer/jobApplicationAnswerActions";
 import { loadingMessages } from "../applicationMessages";
+import {
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
+  useJobApplicationAnswers,
+  useJobPosterQuestions,
+} from "../../../hooks/applicationHooks";
 
 interface FitPageProps {
   applicationId: number;
@@ -48,48 +38,14 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
-  // Load application.
-  const applicationSelector = (
-    state: RootState,
-  ): ApplicationNormalized | null =>
-    getApplicationNormalized(state, { applicationId });
-  const application = useSelector(applicationSelector);
-  const applicationUpdatingSelector = (state: RootState): boolean =>
-    getApplicationIsUpdating(state, { applicationId });
-  const applicationIsUpdating = useSelector(applicationUpdatingSelector);
-  useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
-      dispatch(fetchApplicationNormalized(applicationId));
-    }
-  }, [applicationId, application, applicationIsUpdating, dispatch]);
+  // Fetch all un-loaded data that may be required for the Application.
+  useFetchAllApplicationData(applicationId, dispatch);
 
-  // Load job.
+  const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
-  const jobSelector = (state: RootState): Job | null =>
-    jobId ? getJob(state, { jobId }) : null;
-  const job = useSelector(jobSelector);
-  const jobUpdatingSelector = (state: RootState): boolean =>
-    jobId ? getJobIsUpdating(state, jobId) : false;
-  const jobIsUpdating = useSelector(jobUpdatingSelector);
-
-  useEffect(() => {
-    if (jobId && job === null && !jobIsUpdating) {
-      dispatch(fetchJob(jobId));
-    }
-  }, [jobId, job, jobIsUpdating, dispatch]);
-
-  // Get job poster questions.
-  const jobPosterQuestionsSelector = (
-    state: RootState,
-  ): JobPosterQuestion[] | null =>
-    jobId ? getJobPosterQuestionsByJob(state, { jobId }) : null;
-  const jobPosterQuestions = useSelector(jobPosterQuestionsSelector);
-
-  // Get job application answers.
-  const jobApplicationAnswersSelector = (
-    state: RootState,
-  ): JobApplicationAnswer[] | null => getJobApplicationAnswers(state);
-  const answers = useSelector(jobApplicationAnswersSelector);
+  const job = useJob(jobId);
+  const jobPosterQuestions = useJobPosterQuestions(jobId);
+  const answers = useJobApplicationAnswers(applicationId);
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;
