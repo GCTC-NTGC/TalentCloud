@@ -83,7 +83,7 @@ sudo nginx -t ## to est new config
 sudo mkdir /var/www ## create the folder we will copy our files to, and tell nginx to point to for root
 ```
 
-Copy in the below config into /etc/nginx/sites-available/talent.test (borrowed from [here](https://laravel.com/docs/7.x/deployment)). The only difference between the config from the docs and the one below is changing 'php7.4-fpm.sock' => 'php7.2-fpm.sock'
+Copy in the below config into `/etc/nginx/sites-available/talent.test` (borrowed from [here](https://laravel.com/docs/7.x/deployment)). The only difference between the config from the docs and the one below is changing 'php7.4-fpm.sock' => 'php7.2-fpm.sock'
 
 ```
 server {
@@ -235,7 +235,7 @@ composer ide-helper
 
 #### Copy files over to be hosted
 ```
-sudo cp -r . /var/www ## copy the files to be hosted by gninx (root specified in the config specified above)
+sudo cp -r . /var/www ## copy the files to be hosted by nginx (root specified in the config specified above)
 ```
 
 #### Adjust permissions
@@ -261,7 +261,7 @@ sudo service nginx restart
 
 #### Final configurations
 
-Install magick
+Install imagick
 
 ```
 sudo apt-get install php-imagick
@@ -271,7 +271,7 @@ php-config --extension-dir ## should print out something similar to /usr/lib/php
 ll /usr/lib/php/20170718 ## ensure imagick.so is installed here
 ```
 
-Find your php.ini file. Default install location is here /etc/php/7.2/fpm/php.ini. If you cannot find it, add this line at the top of the index.php file in the /public directory
+Find your php.ini file. Default install location is here `/etc/php/7.2/fpm/php.ini`. If you cannot find it, add this line at the top of the index.php file in the /public directory
 
 ```
 <?php phpinfo(); ?>
@@ -297,5 +297,3 @@ To log in locally, use one of the following test accounts
 - hr_advisor@test.com
 
 The password for each account is 'password'
-
-
