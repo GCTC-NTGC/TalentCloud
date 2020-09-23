@@ -27,7 +27,7 @@ import {
   useFetchAllApplicationData,
   useJob,
   useSkills,
-} from "../applicationHooks";
+} from "../../../hooks/applicationHooks";
 
 interface SkillsPageProps {
   applicationId: number;

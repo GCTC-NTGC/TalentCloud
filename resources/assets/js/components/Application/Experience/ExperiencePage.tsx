@@ -36,7 +36,7 @@ import {
   useCriteria,
   useExperiences,
   useSkills,
-} from "../applicationHooks";
+} from "../../../hooks/applicationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;

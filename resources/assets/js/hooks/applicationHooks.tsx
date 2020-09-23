@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { DispatchType } from "../../configureStore";
-import { RootState } from "../../store/store";
-import { getAwardRecipientTypes as fetchAwardRecipientTypes } from "../../store/AwardRecipientType/awardRecipientTypeActions";
-import { getAwardRecipientTypes } from "../../store/AwardRecipientType/awardRecipientTypeSelector";
-import { getAwardRecognitionTypes as fetchAwardRecognitionTypes } from "../../store/AwardRecognitionType/awardRecognitionTypeActions";
-import { getAwardRecognitionTypes } from "../../store/AwardRecognitionType/awardRecognitionTypeSelector";
-import { getEducationTypes as fetchEducationTypes } from "../../store/EducationType/educationTypeActions";
-import { getEducationTypes } from "../../store/EducationType/educationTypeSelector";
-import { getEducationStatuses as fetchEducationStatuses } from "../../store/EducationStatus/educationStatusActions";
-import { getEducationStatuses } from "../../store/EducationStatus/educationStatusSelector";
+import { DispatchType } from "../configureStore";
+import { RootState } from "../store/store";
+import { getAwardRecipientTypes as fetchAwardRecipientTypes } from "../store/AwardRecipientType/awardRecipientTypeActions";
+import { getAwardRecipientTypes } from "../store/AwardRecipientType/awardRecipientTypeSelector";
+import { getAwardRecognitionTypes as fetchAwardRecognitionTypes } from "../store/AwardRecognitionType/awardRecognitionTypeActions";
+import { getAwardRecognitionTypes } from "../store/AwardRecognitionType/awardRecognitionTypeSelector";
+import { getEducationTypes as fetchEducationTypes } from "../store/EducationType/educationTypeActions";
+import { getEducationTypes } from "../store/EducationType/educationTypeSelector";
+import { getEducationStatuses as fetchEducationStatuses } from "../store/EducationStatus/educationStatusActions";
+import { getEducationStatuses } from "../store/EducationStatus/educationStatusSelector";
 import {
   AwardRecipientType,
   AwardRecognitionType,
@@ -22,19 +22,19 @@ import {
   ExperienceSkill,
   ApplicationNormalized,
   Criteria,
-} from "../../models/types";
+} from "../models/types";
 import {
   getApplicationIsUpdating,
   getApplicationNormalized,
-} from "../../store/Application/applicationSelector";
-import { fetchApplicationNormalized } from "../../store/Application/applicationActions";
+} from "../store/Application/applicationSelector";
+import { fetchApplicationNormalized } from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
   getJobIsUpdating,
-} from "../../store/Job/jobSelector";
-import { fetchJob } from "../../store/Job/jobActions";
-import { ApplicationStatusId } from "../../models/lookupConstants";
+} from "../store/Job/jobSelector";
+import { fetchJob } from "../store/Job/jobActions";
+import { ApplicationStatusId } from "../models/lookupConstants";
 import {
   getExperienceByApplicant,
   getExperienceByApplication,
@@ -42,13 +42,13 @@ import {
   getExperienceSkillsByApplication,
   getUpdatingByApplicant,
   getUpdatingByApplication,
-} from "../../store/Experience/experienceSelector";
+} from "../store/Experience/experienceSelector";
 import {
   fetchExperienceByApplicant,
   fetchExperienceByApplication,
-} from "../../store/Experience/experienceActions";
-import { getSkills, getSkillsUpdating } from "../../store/Skill/skillSelector";
-import { fetchSkills } from "../../store/Skill/skillActions";
+} from "../store/Experience/experienceActions";
+import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
+import { fetchSkills } from "../store/Skill/skillActions";
 
 export function useApplication(
   applicationId: number,

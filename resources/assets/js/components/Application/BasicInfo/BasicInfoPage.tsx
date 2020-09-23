@@ -20,7 +20,7 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-} from "../applicationHooks";
+} from "../../../hooks/applicationHooks";
 
 interface BasicInfoPageProps {
   applicationId: number;

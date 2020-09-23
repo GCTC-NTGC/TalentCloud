@@ -14,7 +14,7 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-} from "../applicationHooks";
+} from "../../../hooks/applicationHooks";
 
 interface ExperienceIntroPageProps {
   applicationId: number;
