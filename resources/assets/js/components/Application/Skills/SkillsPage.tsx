@@ -99,7 +99,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
       {application && (
         <ProgressBar
           closeDateTime={closeDate}
-          currentTitle={intl.formatMessage(stepNames.step01)}
+          currentTitle={intl.formatMessage(stepNames.step03)}
           steps={makeProgressBarSteps(
             applicationId,
             application,

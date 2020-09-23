@@ -3,6 +3,7 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  JobApplicationAnswer,
 } from "../../models/types";
 import {
   ApplicationAction,
@@ -35,10 +36,17 @@ import {
   mapToObjectTrans,
   deleteProperty,
 } from "../../helpers/queries";
+import {
+  CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+  UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
 
 export interface EntityState {
   applications: {
     [id: number]: ApplicationNormalized;
+  };
+  jobApplicationAnswers: {
+    [id: number]: JobApplicationAnswer;
   };
   applicationReviews: {
     byId: {
@@ -82,6 +90,7 @@ export interface ApplicationState {
 
 export const initEntities = (): EntityState => ({
   applications: {},
+  jobApplicationAnswers: {},
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
@@ -142,7 +151,10 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: action.payload,
+          [action.payload.application.id]: action.payload.application,
+        },
+        jobApplicationAnswers: {
+          ...mapToObject(action.payload.jobApplicationAnswers, getId),
         },
       };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
@@ -217,6 +229,15 @@ export const entitiesReducer = (
               [action.meta.applicationId]: action.payload.secondary,
             },
           },
+        },
+      };
+    case CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+    case UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+      return {
+        ...state,
+        jobApplicationAnswers: {
+          ...state.jobApplicationAnswers,
+          [action.payload.id]: action.payload,
         },
       };
     default:

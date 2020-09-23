@@ -3,12 +3,31 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  JobApplicationAnswer,
 } from "../models/types";
 import { baseUrl } from "./base";
 
 export const parseApplication = (data: any): Application => data;
 export const parseApplicationNormalized = (data: any): ApplicationNormalized =>
   data;
+
+export const parseApplicationNormalizedResponse = (
+  data: any,
+): {
+  application: ApplicationNormalized;
+  jobApplicationAnswers: JobApplicationAnswer[];
+} => {
+  const application: ApplicationNormalized = parseApplicationNormalized(data);
+  const jobApplicationAnswers: JobApplicationAnswer[] = data.job_application_answers.map(
+    (answersData: any): JobApplicationAnswer => answersData,
+  );
+
+  return {
+    application,
+    jobApplicationAnswers,
+  };
+};
+
 export const parseApplicationReview = (data: any): ApplicationReview => data;
 export const parseApplicationsForJob = (data: any): Application[] =>
   data.map(parseApplication);

@@ -72,6 +72,7 @@ class JobController extends Controller
      */
     public function show(JobPoster $job)
     {
+        $job->loadMissing('manager', 'criteria', 'job_poster_questions');
         return new JobPosterResource($job);
     }
 

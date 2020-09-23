@@ -1057,7 +1057,16 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('experienceSkill', '[0-9]+')
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
+
+    Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
+        ->middleware('can:create,App\Models\JobApplicationAnswer')
+        ->name('job-application-answers.store');
+    Route::put('job-application-answers/{jobApplicationAnswer}', 'Api\JobApplicationAnswerController@update')
+        ->where('jobApplicationAnswer', '[0-9]+')
+        ->middleware('can:update,jobApplicationAnswer')
+        ->name('job-application-answers.update');
 });
+
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
         ->where('application', '[0-9]+')
@@ -1079,7 +1088,6 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
-
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
