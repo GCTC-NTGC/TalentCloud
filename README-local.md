@@ -228,8 +228,8 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
 
 ```
 cd TalentCloud
-composer install && npm install && npm run dev && php artisan migrate:fresh && php artisan db:seed
 php artisan key:generate
+composer install && npm install && npm run dev && php artisan migrate:fresh && php artisan db:seed
 composer ide-helper
 ```
 
