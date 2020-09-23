@@ -51,7 +51,7 @@ class DepartmentCrudController extends CrudController
             $this->crud->addField([
                 'name' => 'indeterminate',
                 'type' => 'checkbox',
-                'label' => 'indeterminate',
+                'label' => 'Indeterminate',
             ]);
         });
     }
