@@ -42,6 +42,7 @@ class UpdateJobApplicationBasic extends FormRequest
             'language_requirement_confirmed' => 'required|boolean',
             'language_test_confirmed' => 'required|boolean',
             'education_requirement_confirmed' => 'required|boolean',
+            'share_with_managers' => 'required|boolean',
         ];
     }
 }
