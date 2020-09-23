@@ -106,7 +106,7 @@ class DepartmentCrudController extends CrudController
         $this->crud->addColumn([
             'name' => 'indeterminate',
             'type' => 'check',
-            'label' => 'indeterminate',
+            'label' => 'Indeterminate',
         ]);
     }
 
