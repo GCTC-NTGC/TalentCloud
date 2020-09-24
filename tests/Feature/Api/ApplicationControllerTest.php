@@ -83,6 +83,7 @@ class ApplicationControllerTest extends TestCase
             'language_requirement_confirmed' => true,
             'language_test_confirmed' => true,
             'education_requirement_confirmed' => true,
+            'share_with_managers' => false,
         ];
 
         $response = $this->actingAs($applicant->user)
