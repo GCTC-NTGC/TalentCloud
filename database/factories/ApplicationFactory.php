@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\ExperienceEducation;
+use App\Models\ExperienceSkill;
+use App\Models\ExperienceWork;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
@@ -26,7 +29,8 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
         'submission_date' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
         'applicant_id' => function () {
             return factory(Applicant::class)->create()->id;
-        }
+        },
+        'version_id' => 1,
     ];
 });
 
@@ -88,4 +92,24 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
             'skillable_type' => $skillableType,
         ]));
     }
+
+    $criterion = $application->job_poster->criteria ->first();
+    $work = factory(ExperienceWork::class)->create([
+        'experienceable_id' => $application->applicant_id,
+        'experienceable_type' => 'application',
+    ]);
+    factory(ExperienceSkill::class)->create([
+        'skill_id' => $criterion->skill_id,
+        'experience_type' => 'experience_work',
+        'experience_id' => $work->id,
+    ]);
+    $education = factory(ExperienceEducation::class)->create([
+        'experienceable_id' => $application->id,
+        'experienceable_type' => 'application',
+    ]);
+    factory(ExperienceSkill::class)->create([
+        'skill_id' => $criterion->skill_id,
+        'experience_type' => 'experience_work',
+        'experience_id' => $education->id,
+    ]);
 });

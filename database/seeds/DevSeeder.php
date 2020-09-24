@@ -4,6 +4,7 @@ use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\ExperienceEducation;
 use App\Models\ExperienceSkill;
 use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
@@ -99,7 +100,8 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
-                ])->id
+                ])->id,
+                'version_id' => 2,
             ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
@@ -113,7 +115,8 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
-                ])->id
+                ])->id,
+                'version_id' => 2,
             ]));
         });
         factory(JobPoster::class, 3)->state('draft')->create([
@@ -207,6 +210,16 @@ class DevSeeder extends Seeder // phpcs:ignore
                     'skill_id' => $criterion->skill_id,
                     'experience_type' => 'experience_work',
                     'experience_id' => $work->id,
+                ]);
+
+                $education = factory(ExperienceEducation::class)->create([
+                    'experienceable_id' => $application->id,
+                    'experienceable_type' => 'application',
+                ]);
+                factory(ExperienceSkill::class)->create([
+                    'skill_id' => $criterion->skill_id,
+                    'experience_type' => 'experience_work',
+                    'experience_id' => $education->id,
                 ]);
             }
         }
