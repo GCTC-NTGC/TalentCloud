@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\Experience as ExperienceResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +45,7 @@ class ApplicationController extends Controller
             // If the application is version two then show new manager review application page.
             $applicationVersionTwo = JobApplicationVersion::where('version', 2)->first();
             if ($application->version_id == $applicationVersionTwo->version) {
-                return $this->showVersionTwo($jobPoster, $application);
+                return $this->showVersionTwo($application);
             }
             return $this->show($application);
         } else {
@@ -56,55 +55,17 @@ class ApplicationController extends Controller
 
     /**
      * Display version two application.
-     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function showVersionTwo(JobPoster $jobPoster, JobApplication $application)
+    public function showVersionTwo(JobApplication $application)
     {
-        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
-            // Load things required for review component.
-            $application->loadMissing([
-                'veteran_status',
-                'citizenship_declaration',
-                'application_review',
-                'applicant.user',
-                'experiences_work.experience_skills',
-                'experiences_personal.experience_skills',
-                'experiences_education.experience_skills',
-                'experiences_award.experience_skills',
-                'experiences_community.experience_skills',
-            ]);
-        }
-
-        $experiences = array_merge(
-            ExperienceResource::collection($application->experiences_award)->all(),
-            ExperienceResource::collection($application->experiences_community)->all(),
-            ExperienceResource::collection($application->experiences_education)->all(),
-            ExperienceResource::collection($application->experiences_personal)->all(),
-            ExperienceResource::collection($application->experiences_work)->all()
-        );
-
-        $experienceSkills = [];
-        foreach ($experiences as $experience) {
-            foreach ($experience->experience_skills as $experienceSkill) {
-                array_push($experienceSkills, $experienceSkill);
-            }
-        };
-
         return view(
             'manager/application_timeline_review',
             [
                 'applicant' => $application->applicant,
-                'applicant_user' => $application->applicant->user,
                 'application' => $application,
                 'application_template' => Lang::get('applicant/application_template'),
-                'criteria' => $jobPoster->criteria,
-                'experiences' => $experiences,
-                'experience_skills' => $experienceSkills,
-                'job' => $jobPoster,
-                'job_application_answers' => $application->job_application_answers,
-                'job_questions' => $jobPoster->job_poster_questions,
                 'review_statuses' => ReviewStatus::all(),
                 'show_review' => true,
                 'is_hr_portal' => WhichPortal::isHrPortal(),

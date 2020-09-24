@@ -5,82 +5,107 @@ import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { DispatchType } from "../../configureStore";
 import { getLocale } from "../../helpers/localize";
-import { useFetchSkills } from "../../hooks/applicationHooks";
-import { Portal } from "../../models/app";
 import {
-  Application,
-  Criteria,
-  Experience,
-  ExperienceSkill,
-  Job,
-  JobApplicationAnswer,
-  JobPosterQuestion,
-  ReviewStatus,
-  User,
-} from "../../models/types";
+  useCriteria,
+  useExperiences,
+  useExperienceSkills,
+  useFetchReviewApplicationData,
+  useJob,
+  useJobApplicationAnswers,
+  useJobPosterQuestions,
+  useReviewedApplication,
+  useSkills,
+  useUser,
+} from "../../hooks/applicationHooks";
+import { Portal } from "../../models/app";
+import { ReviewStatus } from "../../models/types";
+import { loadingMessages } from "../Application/applicationMessages";
 import Review from "../Application/Review/Review";
 import RootContainer from "../RootContainer";
 import ApplicationReviewNav from "./ApplicationReviewRoot";
 
 interface ApplicationTimelineReviewRootProps {
-  applicantUserData: User;
-  application: Application;
-  criteria: Criteria[];
-  experiences: Experience[];
-  experienceSkills: ExperienceSkill[];
-  job: Job;
-  jobApplicationAnswers: JobApplicationAnswer[];
-  jobQuestions: JobPosterQuestion[];
+  applicationId: number;
+  applicantUserId: number;
   reviewStatuses: ReviewStatus[];
   portal: Portal;
 }
 
 const ApplicationTimelineRootReview: React.FunctionComponent<ApplicationTimelineReviewRootProps> = ({
-  applicantUserData,
-  application,
-  criteria,
-  experiences,
-  experienceSkills,
-  job,
-  jobApplicationAnswers,
-  jobQuestions,
+  applicationId,
+  applicantUserId,
   portal,
   reviewStatuses,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
-  const skills = useFetchSkills(dispatch);
+
+  const {
+    experiencesLoaded,
+    experienceConstantsLoaded,
+    skillsLoaded,
+  } = useFetchReviewApplicationData(applicantUserId, applicationId, dispatch);
+
+  const application = useReviewedApplication(applicationId);
+  const applicantUser = useUser(applicantUserId);
+  const jobId = application?.job_poster_id;
+  const job = useJob(jobId);
+  const criteria = useCriteria(jobId);
+  const experiences = useExperiences(applicationId, application);
+  const experienceSkills = useExperienceSkills(applicationId, application);
+  const skills = useSkills();
+  const jobQuestions = useJobPosterQuestions(jobId);
+  const jobApplicationAnswers = useJobApplicationAnswers(applicationId);
   const managerView = portal === "manager" || portal === "hr";
+  const showLoadingState =
+    application === null ||
+    job === null ||
+    !experiencesLoaded ||
+    !experienceConstantsLoaded ||
+    !skillsLoaded ||
+    applicantUser === null;
 
   return (
     <div data-clone>
-      {application !== null && job !== null && applicantUserData !== null && (
-        <>
-          <ApplicationReviewNav
-            initApplication={application}
-            portal={portal}
-            reviewStatuses={reviewStatuses}
-          />
-          <Review
-            application={application}
-            criteria={criteria}
-            experiences={experiences}
-            experienceSkills={experienceSkills}
-            experienceViewState="education"
-            experienceViewButtonOrder={["education", "skills", "experience"]}
-            handleContinue={() => {}}
-            handleQuit={() => {}}
-            handleReturn={() => {}}
-            job={job}
-            jobApplicationAnswers={jobApplicationAnswers}
-            jobQuestions={jobQuestions}
-            skills={skills}
-            user={applicantUserData}
-            managerView={managerView}
-          />
-        </>
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(2)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
       )}
+      {!showLoadingState &&
+        application !== null &&
+        job !== null &&
+        applicantUser !== null && (
+          <>
+            <ApplicationReviewNav
+              initApplication={application}
+              portal={portal}
+              reviewStatuses={reviewStatuses}
+            />
+            <Review
+              application={application}
+              criteria={criteria}
+              experiences={experiences}
+              experienceSkills={experienceSkills}
+              experienceViewState="education"
+              experienceViewButtonOrder={["education", "skills", "experience"]}
+              handleContinue={() => {}}
+              handleQuit={() => {}}
+              handleReturn={() => {}}
+              job={job}
+              jobApplicationAnswers={jobApplicationAnswers}
+              jobQuestions={jobQuestions}
+              skills={skills}
+              user={applicantUser}
+              managerView={managerView}
+            />
+          </>
+        )}
     </div>
   );
 };
@@ -90,31 +115,15 @@ const renderApplicationReviewRoot = (
   portal: Portal,
 ): void => {
   if (
-    container.hasAttribute("data-application") &&
-    container.hasAttribute("data-job") &&
+    container.hasAttribute("data-applicant-user-id") &&
+    container.hasAttribute("data-application-id") &&
     container.hasAttribute("data-review-statuses")
   ) {
-    const applicantUserData = JSON.parse(
-      container.getAttribute("data-applicant-user") as string,
+    const applicantUserId = JSON.parse(
+      container.getAttribute("data-applicant-user-id") as string,
     );
-    const application = JSON.parse(
-      container.getAttribute("data-application") as string,
-    );
-    const criteria = JSON.parse(
-      container.getAttribute("data-criteria") as string,
-    );
-    const experiences = JSON.parse(
-      container.getAttribute("data-experiences") as string,
-    );
-    const experienceSkills = JSON.parse(
-      container.getAttribute("data-experience-skills") as string,
-    );
-    const job = JSON.parse(container.getAttribute("data-job") as string);
-    const jobApplicationAnswers = JSON.parse(
-      container.getAttribute("data-job-application-answers") as string,
-    );
-    const jobQuestions = JSON.parse(
-      container.getAttribute("data-job-questions") as string,
+    const applicationId = JSON.parse(
+      container.getAttribute("data-application-id") as string,
     );
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
@@ -122,14 +131,8 @@ const renderApplicationReviewRoot = (
     ReactDOM.render(
       <RootContainer>
         <ApplicationTimelineRootReview
-          applicantUserData={applicantUserData}
-          application={application}
-          criteria={criteria}
-          experiences={experiences}
-          experienceSkills={experienceSkills}
-          job={job}
-          jobApplicationAnswers={jobApplicationAnswers}
-          jobQuestions={jobQuestions}
+          applicationId={applicationId}
+          applicantUserId={applicantUserId}
           portal={portal}
           reviewStatuses={reviewStatuses}
         />

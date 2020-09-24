@@ -24,13 +24,19 @@ import {
   Criteria,
   JobPosterQuestion,
   JobApplicationAnswer,
+  Application,
+  User,
 } from "../models/types";
 import {
+  getApplicationById,
   getApplicationIsUpdating,
   getApplicationNormalized,
   getJobApplicationAnswers,
 } from "../store/Application/applicationSelector";
-import { fetchApplicationNormalized } from "../store/Application/applicationActions";
+import {
+  fetchApplication,
+  fetchApplicationNormalized,
+} from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
@@ -53,12 +59,27 @@ import {
 } from "../store/Experience/experienceActions";
 import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
 import { fetchSkills } from "../store/Skill/skillActions";
+import { getUserById } from "../store/User/userSelector";
+import { fetchUser } from "../store/User/userActions";
 
+export function useUser(userId: number | undefined): User | null {
+  return useSelector((state: RootState) =>
+    userId ? getUserById(state, { userId }) : null,
+  );
+}
 export function useApplication(
   applicationId: number,
 ): ApplicationNormalized | null {
   return useSelector((state: RootState) =>
     getApplicationNormalized(state, { applicationId }),
+  );
+}
+
+export function useReviewedApplication(
+  applicationId: number,
+): Application | null {
+  return useSelector((state: RootState) =>
+    getApplicationById(state, { id: applicationId }),
   );
 }
 
@@ -240,7 +261,7 @@ export function useFetchExperienceConstants(
  * @param applicationId
  * @param dispatch
  */
-export function useFetchApplication(
+export function useFetchNormalizedApplication(
   applicationId: number,
   dispatch: DispatchType,
 ): ApplicationNormalized | null {
@@ -257,6 +278,29 @@ export function useFetchApplication(
   useEffect(() => {
     if (application === null && !applicationIsUpdating) {
       dispatch(fetchApplicationNormalized(applicationId));
+    }
+  }, [application, applicationId, applicationIsUpdating, dispatch]);
+  return application;
+}
+
+/**
+ * Return an Application (normalized, ie without Review) from the redux store, and fetch it from backend if it is not yet in the store.
+ * @param applicationId
+ * @param dispatch
+ */
+export function useFetchApplication(
+  applicationId: number,
+  dispatch: DispatchType,
+): Application | null {
+  const applicationSelector = (state: RootState): Application | null =>
+    getApplicationById(state, { id: applicationId });
+  const application: Application | null = useSelector(applicationSelector);
+  const applicationIsUpdating = useSelector((state: RootState) =>
+    getApplicationIsUpdating(state, { applicationId }),
+  );
+  useEffect(() => {
+    if (application === null && !applicationIsUpdating) {
+      dispatch(fetchApplication(applicationId));
     }
   }, [application, applicationId, applicationIsUpdating, dispatch]);
   return application;
@@ -351,6 +395,25 @@ export function useFetchExperience(
 }
 
 /**
+ * Return an User from the redux store, and fetch it from backend if it is not yet in the store.
+ * @param jobId
+ * @param dispatch
+ */
+export function useFetchUser(
+  userId: number,
+  dispatch: DispatchType,
+): User | null {
+  const user = useUser(userId);
+  useEffect(() => {
+    // If job is null and not already updating, fetch it.
+    if (userId) {
+      dispatch(fetchUser(userId));
+    }
+  }, [userId, dispatch]);
+  return user;
+}
+
+/**
  * Trigger fetches for all data needed for the Application process which is not yet in the redux store, or in the process of loading.
  * @param applicationId
  */
@@ -364,7 +427,7 @@ export function useFetchAllApplicationData(
   experienceConstantsLoaded: boolean;
   skillsLoaded: boolean;
 } {
-  const application = useFetchApplication(applicationId, dispatch);
+  const application = useFetchNormalizedApplication(applicationId, dispatch);
   const jobId = application?.job_poster_id;
   const job = useFetchJob(jobId, dispatch);
   const { experiences, experiencesUpdating } = useFetchExperience(
@@ -390,5 +453,52 @@ export function useFetchAllApplicationData(
       educationTypes.length > 0 &&
       educationStatuses.length > 0,
     skillsLoaded: skills.length > 0,
+  };
+}
+
+/**
+ * Trigger fetches for all data needed for the Application review process which is not yet in the redux store, or in the process of loading.
+ * @param applicationId
+ */
+export function useFetchReviewApplicationData(
+  applicantUserId: number,
+  applicationId: number,
+  dispatch: DispatchType,
+): {
+  applicationLoaded: boolean;
+  jobLoaded: boolean;
+  experiencesLoaded: boolean;
+  experienceConstantsLoaded: boolean;
+  skillsLoaded: boolean;
+  userLoaded: boolean;
+} {
+  const application = useFetchApplication(applicationId, dispatch);
+  const jobId = application?.job_poster_id;
+  const job = useFetchJob(jobId, dispatch);
+  const { experiences, experiencesUpdating } = useFetchExperience(
+    applicationId,
+    application,
+    dispatch,
+  );
+  const {
+    awardRecipientTypes,
+    awardRecognitionTypes,
+    educationTypes,
+    educationStatuses,
+  } = useFetchExperienceConstants(dispatch);
+  const skills = useFetchSkills(dispatch);
+  const applicantUser = useFetchUser(applicantUserId, dispatch);
+
+  return {
+    applicationLoaded: application !== null,
+    jobLoaded: job !== null,
+    experiencesLoaded: !experiencesUpdating || experiences.length > 0,
+    experienceConstantsLoaded:
+      awardRecipientTypes.length > 0 &&
+      awardRecognitionTypes.length > 0 &&
+      educationTypes.length > 0 &&
+      educationStatuses.length > 0,
+    skillsLoaded: skills.length > 0,
+    userLoaded: applicantUser !== null,
   };
 }

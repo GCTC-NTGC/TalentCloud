@@ -19,14 +19,8 @@
             <div id="{{ is_hr_portal
                     ? "application-timeline-review-container-hr"
                     : "application-timeline-review-container" }}"
-                data-application="{{ application|json_encode() }}"
-                data-job-application-answers="{{ job_application_answers|json_encode() }}"
-                data-job="{{ job|json_encode() }}"
-                data-job-questions="{{ job_questions|json_encode() }}"
-                data-criteria="{{ criteria|json_encode() }}"
-                data-experiences="{{ experiences|json_encode() }}"
-                data-experience-skills="{{ experience_skills|json_encode() }}"
-                data-applicant-user="{{ applicant.user }}"
+                data-application-id="{{ application.id|json_encode() }}"
+                data-applicant-user-id="{{ applicant.user.id|json_encode() }}"
                 data-review-statuses="{{ review_statuses|json_encode() }}"
             >
             </div>
