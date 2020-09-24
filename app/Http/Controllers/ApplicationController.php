@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Experience as ExperienceResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
+use App\Models\JobApplicationVersion;
 use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\ReviewStatus;
@@ -50,6 +52,64 @@ class ApplicationController extends Controller
         } else {
             return abort(404);
         }
+    }
+
+    /**
+     * Display version two application.
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+     */
+    public function showVersionTwo(JobPoster $jobPoster, JobApplication $application)
+    {
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
+            // Load things required for review component.
+            $application->loadMissing([
+                'veteran_status',
+                'citizenship_declaration',
+                'application_review',
+                'applicant.user',
+                'experiences_work.experience_skills',
+                'experiences_personal.experience_skills',
+                'experiences_education.experience_skills',
+                'experiences_award.experience_skills',
+                'experiences_community.experience_skills',
+            ]);
+        }
+
+        $experiences = array_merge(
+            ExperienceResource::collection($application->experiences_award)->all(),
+            ExperienceResource::collection($application->experiences_community)->all(),
+            ExperienceResource::collection($application->experiences_education)->all(),
+            ExperienceResource::collection($application->experiences_personal)->all(),
+            ExperienceResource::collection($application->experiences_work)->all()
+        );
+
+        $experienceSkills = [];
+        foreach ($experiences as $experience) {
+            foreach ($experience->experience_skills as $experienceSkill) {
+                array_push($experienceSkills, $experienceSkill);
+            }
+        };
+
+        return view(
+            'manager/application_timeline_review',
+            [
+                'applicant' => $application->applicant,
+                'applicant_user' => $application->applicant->user,
+                'application' => $application,
+                'application_template' => Lang::get('applicant/application_template'),
+                'criteria' => $jobPoster->criteria,
+                'experiences' => $experiences,
+                'experience_skills' => $experienceSkills,
+                'job' => $jobPoster,
+                'job_application_answers' => $application->job_application_answers,
+                'job_questions' => $jobPoster->job_poster_questions,
+                'review_statuses' => ReviewStatus::all(),
+                'show_review' => true,
+                'is_hr_portal' => WhichPortal::isHrPortal(),
+            ]
+        );
     }
 
     /**
