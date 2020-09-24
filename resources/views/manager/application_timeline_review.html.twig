@@ -1,0 +1,39 @@
+{% extends "layouts/base" %}
+{% block title %}
+	{{ application_template.view_title }}:
+	{{ applicant.user.first_name }}
+	{{ applicant.user.last_name }}
+{% endblock %}
+{% block body %}
+
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+
+    {% include "common/header" with {'header': {'title': ":title: :fname :lname"|replace({':title':application_template.view_title, ':fname':applicant.user.first_name, ':lname':applicant.user.last_name, })}} %}
+
+    <a id="skipLink"></a>
+
+    <section
+        class="application__view-layout submitted">
+        {% if show_review %}
+            <div id="{{ is_hr_portal
+                    ? "application-timeline-review-container-hr"
+                    : "application-timeline-review-container" }}"
+                data-application="{{ application|json_encode() }}"
+                data-job-application-answers="{{ job_application_answers|json_encode() }}"
+                data-job="{{ job|json_encode() }}"
+                data-job-questions="{{ job_questions|json_encode() }}"
+                data-criteria="{{ criteria|json_encode() }}"
+                data-experiences="{{ experiences|json_encode() }}"
+                data-experience-skills="{{ experience_skills|json_encode() }}"
+                data-applicant-user="{{ applicant.user }}"
+                data-review-statuses="{{ review_statuses|json_encode() }}"
+            >
+            </div>
+        {% endif %}
+    </section>
+
+{% endblock %}
+{% block scripts %}
+	<script async defer src="{{ asset(mix('/js/ApplicationTimelineReviewRoot.js')) }}"></script>
+{% endblock %}
