@@ -40,6 +40,7 @@ import {
 } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
+import { Portal } from "../../../models/app";
 
 const messages = defineMessages({
   edit: {
@@ -80,6 +81,32 @@ const messages = defineMessages({
     id: "application.review.shareCheckboxLabel",
     defaultMessage:
       "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
+  },
+});
+
+const managerViewHeaders = defineMessages({
+  basicInfo: {
+    id: "application.review.basicInfoHeading",
+    defaultMessage: "Basic Information",
+    description:
+      "Manager's heading for the Basic Info section of the Application.",
+  },
+  experience: {
+    id: "application.review.experienceHeading",
+    defaultMessage: "Experience",
+    description:
+      "Manager's heading for the Experience section of the Application.",
+  },
+  fit: {
+    id: "application.review.fitHeading",
+    defaultMessage: "Fit",
+    description: "Manager's heading for the Fit section of the Application.",
+  },
+  accountSettings: {
+    id: "application.review.accountSettingsHeading",
+    defaultMessage: "Account Settings",
+    description:
+      "Manager's heading for the Account Settings section of the Application.",
   },
 });
 
@@ -223,11 +250,14 @@ interface ReviewProps {
   criteria: Criteria[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
+  experienceViewState?: ExperienceView;
+  experienceViewButtonOrder?: [ExperienceView, ExperienceView, ExperienceView];
   job: Job;
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
+  managerView?: boolean;
   handleContinue: (values: ReviewFormValues) => void;
   handleReturn: () => void;
   handleQuit: () => void;
@@ -239,6 +269,8 @@ const Review: React.FC<ReviewProps> = ({
   criteria,
   experiences,
   experienceSkills,
+  experienceViewState,
+  experienceViewButtonOrder,
   job,
   jobQuestions,
   jobApplicationAnswers,
@@ -247,11 +279,12 @@ const Review: React.FC<ReviewProps> = ({
   handleContinue,
   handleReturn,
   handleQuit,
+  managerView,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const [experienceView, setExperienceView] = useState<ExperienceView>(
-    "experience",
+    experienceViewState || "experience",
   );
 
   const handleViewClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -263,9 +296,89 @@ const Review: React.FC<ReviewProps> = ({
     }
   };
 
+  const experienceViewButtons = (
+    buttonOrder = ["experience", "skills", "education"],
+  ) => {
+    const experienceButton = (
+      <button
+        data-c-button={`${
+          experienceView === "experience" ? "solid" : "outline"
+        }(c1)`}
+        type="button"
+        data-c-radius="rounded"
+        data-c-margin="right(.5)"
+        className="gtag-application-review-all-experience"
+        data-experience-view="experience"
+        onClick={handleViewClick}
+      >
+        <FormattedMessage
+          id="application.review.experienceViewButton"
+          defaultMessage="All Experience"
+          description="Button text for the experience view of the Review page."
+        />
+      </button>
+    );
+    const skillsButton = (
+      <button
+        data-c-button={`${
+          experienceView === "skills" ? "solid" : "outline"
+        }(c1)`}
+        type="button"
+        data-c-radius="rounded"
+        data-c-margin="right(.5)"
+        className="gtag-application-review-skill-experience"
+        data-experience-view="skills"
+        onClick={handleViewClick}
+      >
+        <FormattedMessage
+          id="application.review.skillsViewButton"
+          defaultMessage="Skills for This Job"
+          description="Button text for the skills view of the Review page."
+        />
+      </button>
+    );
+    const educationButton = (
+      <button
+        data-c-button={`${
+          experienceView === "education" ? "solid" : "outline"
+        }(c1)`}
+        type="button"
+        data-c-radius="rounded"
+        data-c-margin="right(.5)"
+        className="gtag-application-review-education-experience"
+        data-experience-view="education"
+        onClick={handleViewClick}
+      >
+        <FormattedMessage
+          id="application.review.educationViewButton"
+          defaultMessage="Education Requirements for This Job"
+          description="Button text for the education view of the Review page."
+        />
+      </button>
+    );
+
+    const buttonView = buttonOrder.map((button) => {
+      switch (button) {
+        case "experience":
+          return experienceButton;
+        case "skills":
+          return skillsButton;
+        case "education":
+          return educationButton;
+        default:
+          return null;
+      }
+    });
+
+    return <>{...buttonView}</>;
+  };
+
   return (
     <div data-c-container="medium">
-      <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
+      <h2
+        data-c-heading="h2"
+        data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
+      >
         <FormattedMessage
           id="application.review.heading"
           defaultMessage="Review Your Application"
@@ -296,22 +409,27 @@ const Review: React.FC<ReviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {intl.formatMessage(basicInfoMessages.heading)}
+            {!managerView
+              ? intl.formatMessage(basicInfoMessages.heading)
+              : intl.formatMessage(managerViewHeaders.basicInfo)}
           </h3>
         </div>
-        <div
-          data-c-grid-item="tp(1of3) tl(1of5)"
-          data-c-align="base(center) tp(right)"
-        >
-          <a
-            href="https://talent.test/demo/application-02"
-            title={intl.formatMessage(messages.editTitle)}
-            data-c-color="c2"
-            data-c-font-weight="bold"
+        {!managerView && (
+          <div
+            data-c-grid-item="tp(1of3) tl(1of5)"
+            data-c-align="base(center) tp(right)"
           >
-            {intl.formatMessage(messages.edit)}
-          </a>
-        </div>
+            {/* TODO: REMOVE ON MANAGER VIEW */}
+            <a
+              href="https://talent.test/demo/application-02"
+              title={intl.formatMessage(messages.editTitle)}
+              data-c-color="c2"
+              data-c-font-weight="bold"
+            >
+              {intl.formatMessage(messages.edit)}
+            </a>
+          </div>
+        )}
       </div>
       <hr data-c-hr="thin(gray)" data-c-margin="top(1)" />
       <p
@@ -383,22 +501,27 @@ const Review: React.FC<ReviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {intl.formatMessage(experienceMessages.heading)}
+            {!managerView
+              ? intl.formatMessage(experienceMessages.heading)
+              : intl.formatMessage(managerViewHeaders.experience)}
           </h3>
         </div>
-        <div
-          data-c-grid-item="tp(1of3) tl(1of5)"
-          data-c-align="base(center) tp(right)"
-        >
-          <a
-            href="https://talent.test/demo/application-04"
-            title={intl.formatMessage(messages.editTitle)}
-            data-c-color="c2"
-            data-c-font-weight="bold"
+        {!managerView && (
+          <div
+            data-c-grid-item="tp(1of3) tl(1of5)"
+            data-c-align="base(center) tp(right)"
           >
-            {intl.formatMessage(messages.edit)}
-          </a>
-        </div>
+            {/* TODO: REMOVE ON MANAGER VIEW */}
+            <a
+              href="https://talent.test/demo/application-04"
+              title={intl.formatMessage(messages.editTitle)}
+              data-c-color="c2"
+              data-c-font-weight="bold"
+            >
+              {intl.formatMessage(messages.edit)}
+            </a>
+          </div>
+        )}
       </div>
       <hr data-c-hr="thin(gray)" data-c-margin="tb(1)" />
       <p data-c-padding="bottom(.5)" data-c-font-weight="bold">
@@ -409,54 +532,7 @@ const Review: React.FC<ReviewProps> = ({
         />
       </p>
       <div data-c-padding="bottom(1)">
-        <button
-          data-c-button={`${
-            experienceView === "experience" ? "solid" : "outline"
-          }(c1)`}
-          type="button"
-          data-c-radius="rounded"
-          className="gtag-application-review-all-experience"
-          data-experience-view="experience"
-          onClick={handleViewClick}
-        >
-          <FormattedMessage
-            id="application.review.experienceViewButton"
-            defaultMessage="All Experience"
-            description="Button text for the experience view of the Review page."
-          />
-        </button>{" "}
-        <button
-          data-c-button={`${
-            experienceView === "skills" ? "solid" : "outline"
-          }(c1)`}
-          type="button"
-          data-c-radius="rounded"
-          className="gtag-application-review-skill-experience"
-          data-experience-view="skills"
-          onClick={handleViewClick}
-        >
-          <FormattedMessage
-            id="application.review.skillsViewButton"
-            defaultMessage="Skills for This Job"
-            description="Button text for the skills view of the Review page."
-          />
-        </button>{" "}
-        <button
-          data-c-button={`${
-            experienceView === "education" ? "solid" : "outline"
-          }(c1)`}
-          type="button"
-          data-c-radius="rounded"
-          className="gtag-application-review-education-experience"
-          data-experience-view="education"
-          onClick={handleViewClick}
-        >
-          <FormattedMessage
-            id="application.review.educationViewButton"
-            defaultMessage="Education Requirements for This Job"
-            description="Button text for the education view of the Review page."
-          />
-        </button>
+        {experienceViewButtons(experienceViewButtonOrder)}
       </div>
       {experienceView === "experience" && (
         <div className="experience-list">
@@ -479,6 +555,7 @@ const Review: React.FC<ReviewProps> = ({
                   experienceSkill.experience_type === experience.type &&
                   experienceSkill.experience_id === experience.id,
               );
+              console.log(experienceSkills);
               return (
                 <ExperienceAccordion
                   key={`${experience.type}-${experience.id}`}
@@ -588,22 +665,26 @@ const Review: React.FC<ReviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {intl.formatMessage(fitMessages.heading)}
+            {!managerView
+              ? intl.formatMessage(fitMessages.heading)
+              : intl.formatMessage(managerViewHeaders.fit)}
           </h3>
         </div>
-        <div
-          data-c-grid-item="tp(1of3) tl(1of5)"
-          data-c-align="base(center) tp(right)"
-        >
-          <a
-            href="https://talent.test/demo/application-07"
-            title={intl.formatMessage(messages.editTitle)}
-            data-c-color="c2"
-            data-c-font-weight="bold"
+        {!managerView && (
+          <div
+            data-c-grid-item="tp(1of3) tl(1of5)"
+            data-c-align="base(center) tp(right)"
           >
-            {intl.formatMessage(messages.edit)}
-          </a>
-        </div>
+            <a
+              href="https://talent.test/demo/application-07"
+              title={intl.formatMessage(messages.editTitle)}
+              data-c-color="c2"
+              data-c-font-weight="bold"
+            >
+              {intl.formatMessage(messages.edit)}
+            </a>
+          </div>
+        )}
       </div>
       <hr data-c-hr="thin(gray)" data-c-margin="top(1)" />
       {jobQuestions.map((jobQuestion, index) => {
@@ -639,25 +720,32 @@ const Review: React.FC<ReviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            <FormattedMessage
-              id="application.review.accountSettingsHeading"
-              defaultMessage="Account Settings"
-            />
+            {!managerView ? (
+              <FormattedMessage
+                id="application.review.accountSettingsHeading"
+                defaultMessage="Account Settings"
+              />
+            ) : (
+              intl.formatMessage(managerViewHeaders.accountSettings)
+            )}
           </h3>
         </div>
-        <div
-          data-c-grid-item="tp(1of3) tl(1of5)"
-          data-c-align="base(center) tp(right)"
-        >
-          <a
-            href="https://talent.test/demo/application-07"
-            title={intl.formatMessage(messages.editTitle)}
-            data-c-color="c2"
-            data-c-font-weight="bold"
+        {!managerView && (
+          <div
+            data-c-grid-item="tp(1of3) tl(1of5)"
+            data-c-align="base(center) tp(right)"
           >
-            {intl.formatMessage(messages.edit)}
-          </a>
-        </div>
+            {/* TODO: REMOVE ON MANAGER VIEW */}
+            <a
+              href="https://talent.test/demo/application-07"
+              title={intl.formatMessage(messages.editTitle)}
+              data-c-color="c2"
+              data-c-font-weight="bold"
+            >
+              {intl.formatMessage(messages.edit)}
+            </a>
+          </div>
+        )}
       </div>
       <hr data-c-hr="thin(gray)" data-c-margin="top(1)" />
       <p
@@ -724,91 +812,98 @@ const Review: React.FC<ReviewProps> = ({
           />
         )}
       </p>
-      <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
-      <div data-c-grid="gutter(all, 1)">
-        <Formik
-          initialValues={{ shareWithManagers: false }}
-          onSubmit={(values): void => {
-            // Save data to application object, then navigate to the next step.
-            // TODO: This step needs to check overall Application validation status,
-            // and only proceed if the entire Application is 'valid'.
-            const reviewFormValues: ReviewFormValues = {
-              ...values,
-            };
+      {!managerView ? (
+        <>
+          {/* TODO: REMOVE ON MANAGER VIEW */}
+          <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
+          <div data-c-grid="gutter(all, 1)">
+            <Formik
+              initialValues={{ shareWithManagers: false }}
+              onSubmit={(values): void => {
+                // Save data to application object, then navigate to the next step.
+                // TODO: This step needs to check overall Application validation status,
+                // and only proceed if the entire Application is 'valid'.
+                const reviewFormValues: ReviewFormValues = {
+                  ...values,
+                };
 
-            handleContinue(reviewFormValues);
-          }}
-        >
-          {({ isSubmitting }): React.ReactElement => (
-            <Form>
-              <div data-c-grid-item="base(1of1)">
-                <p>
-                  <FormattedMessage
-                    id="application.review.shareQuestion"
-                    defaultMessage="Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?"
-                  />
-                </p>
-              </div>
-              <div data-c-grid-item="base(1of1)" data-c-margin="left(2)">
-                <FastField
-                  id="shareWithManagers"
-                  name="shareWithManagers"
-                  component={CheckboxInput}
-                  label={intl.formatMessage(messages.shareCheckboxLabel)}
-                />
-              </div>
-              <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
-              <div data-c-grid="gutter">
-                <div
-                  data-c-alignment="base(centre) tp(left)"
-                  data-c-grid-item="tp(1of2)"
-                >
-                  <button
-                    data-c-button="outline(c2)"
-                    data-c-radius="rounded"
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={(): void => {
-                      // Add saveAndReturn Method here.
-                      // Method should save the current data and return user to the previous step.
-                      handleReturn();
-                    }}
-                  >
-                    {intl.formatMessage(navigationMessages.return)}
-                  </button>
-                </div>
-                <div
-                  data-c-alignment="base(centre) tp(right)"
-                  data-c-grid-item="tp(1of2)"
-                >
-                  <button
-                    data-c-button="outline(c2)"
-                    data-c-radius="rounded"
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={(): void => {
-                      // Add saveAndQuit Method here.
-                      // Method should save the current data and return user to My Applications page.
-                      handleQuit();
-                    }}
-                  >
-                    {intl.formatMessage(navigationMessages.quit)}
-                  </button>
-                  <button
-                    data-c-button="solid(c1)"
-                    data-c-radius="rounded"
-                    data-c-margin="left(1)"
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    {intl.formatMessage(navigationMessages.continue)}
-                  </button>
-                </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+                handleContinue(reviewFormValues);
+              }}
+            >
+              {({ isSubmitting }): React.ReactElement => (
+                <Form>
+                  <div data-c-grid-item="base(1of1)">
+                    <p>
+                      <FormattedMessage
+                        id="application.review.shareQuestion"
+                        defaultMessage="Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?"
+                      />
+                    </p>
+                  </div>
+                  <div data-c-grid-item="base(1of1)" data-c-margin="left(2)">
+                    <FastField
+                      id="shareWithManagers"
+                      name="shareWithManagers"
+                      component={CheckboxInput}
+                      label={intl.formatMessage(messages.shareCheckboxLabel)}
+                    />
+                  </div>
+                  <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+                  <div data-c-grid="gutter">
+                    <div
+                      data-c-alignment="base(centre) tp(left)"
+                      data-c-grid-item="tp(1of2)"
+                    >
+                      <button
+                        data-c-button="outline(c2)"
+                        data-c-radius="rounded"
+                        type="button"
+                        disabled={isSubmitting}
+                        onClick={(): void => {
+                          // Add saveAndReturn Method here.
+                          // Method should save the current data and return user to the previous step.
+                          handleReturn();
+                        }}
+                      >
+                        {intl.formatMessage(navigationMessages.return)}
+                      </button>
+                    </div>
+                    <div
+                      data-c-alignment="base(centre) tp(right)"
+                      data-c-grid-item="tp(1of2)"
+                    >
+                      <button
+                        data-c-button="outline(c2)"
+                        data-c-radius="rounded"
+                        type="button"
+                        disabled={isSubmitting}
+                        onClick={(): void => {
+                          // Add saveAndQuit Method here.
+                          // Method should save the current data and return user to My Applications page.
+                          handleQuit();
+                        }}
+                      >
+                        {intl.formatMessage(navigationMessages.quit)}
+                      </button>
+                      <button
+                        data-c-button="solid(c1)"
+                        data-c-radius="rounded"
+                        data-c-margin="left(1)"
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        {intl.formatMessage(navigationMessages.continue)}
+                      </button>
+                    </div>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
+        </>
+      ) : (
+        <div data-c-margin="bottom(3)" />
+      )}
     </div>
   );
 };
