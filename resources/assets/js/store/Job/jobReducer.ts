@@ -1,5 +1,11 @@
 import { combineReducers } from "redux";
-import { Job, Criteria, JobPosterKeyTask, Comment } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -68,6 +74,11 @@ export interface EntityState {
   jobEdits: {
     [id: number]: Job;
   };
+  jobPosterQuestions: {
+    byId: {
+      [id: number]: JobPosterQuestion;
+    };
+  };
 }
 
 export interface UiState {
@@ -100,6 +111,7 @@ export const initEntities = (): EntityState => ({
   tasks: { byJobId: {} },
   comments: { byJobId: {} },
   jobEdits: {},
+  jobPosterQuestions: { byId: {} },
 });
 
 export const initUi = (): UiState => ({
@@ -139,6 +151,11 @@ export const entitiesReducer = (
               (criteria): boolean => criteria.job_poster_id !== action.meta.id,
             ),
             ...mapToObject(action.payload.criteria, getId),
+          },
+        },
+        jobPosterQuestions: {
+          byId: {
+            ...mapToObject(action.payload.jobPosterQuestions, getId),
           },
         },
       };

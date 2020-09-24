@@ -52,6 +52,11 @@ const messages = defineMessages({
     defaultMessage: "Edit this section.",
     description: "Link title for editing a section.",
   },
+  valueNotSet: {
+    id: "application.review.valueNotSet",
+    defaultMessage: "Not set",
+    description: "Message displayed if a user has not yet set a given value.",
+  },
   communicationEn: {
     id: "application.review.communication.english",
     defaultMessage: "I prefer to communicate in English.",
@@ -317,9 +322,11 @@ const Review: React.FC<ReviewProps> = ({
         {intl.formatMessage(basicInfoMessages.citizenshipLabel)}
       </p>
       <p>
-        {intl.formatMessage(
-          citizenshipDeclaration(application.citizenship_declaration_id),
-        )}
+        {application.citizenship_declaration_id
+          ? intl.formatMessage(
+              citizenshipDeclaration(application.citizenship_declaration_id),
+            )
+          : intl.formatMessage(messages.valueNotSet)}
       </p>
       <p
         data-c-font-weight="bold"
@@ -328,7 +335,11 @@ const Review: React.FC<ReviewProps> = ({
       >
         {intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
       </p>
-      <p>{intl.formatMessage(veteranStatus(application.veteran_status_id))}</p>
+      <p>
+        {application.veteran_status_id
+          ? intl.formatMessage(veteranStatus(application.veteran_status_id))
+          : intl.formatMessage(messages.valueNotSet)}
+      </p>
       <p
         data-c-font-weight="bold"
         data-c-color="c2"
@@ -597,7 +608,7 @@ const Review: React.FC<ReviewProps> = ({
       <hr data-c-hr="thin(gray)" data-c-margin="top(1)" />
       {jobQuestions.map((jobQuestion, index) => {
         const answer = jobApplicationAnswers.find(
-          (appAnswer) => appAnswer.job_poster_questions_id === jobQuestion.id,
+          (appAnswer) => appAnswer.job_poster_question_id === jobQuestion.id,
         );
         return (
           <>

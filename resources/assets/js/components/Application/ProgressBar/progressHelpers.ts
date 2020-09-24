@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { Application } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import {
   ProgressBarProps,
   stepNames,
@@ -16,7 +16,7 @@ import {
 import { getLocale } from "../../../helpers/localize";
 
 function basicInfoStatus(
-  application: Application | null,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
   if (application === null) {
     return "default";
@@ -25,7 +25,7 @@ function basicInfoStatus(
   return "complete";
 }
 function experienceStatus(
-  application: Application | null,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
   if (application === null) {
     return "default";
@@ -33,21 +33,27 @@ function experienceStatus(
   // TODO: implement.
   return "complete";
 }
-function skillsStatus(application: Application | null): ProgressBarStepStatus {
+function skillsStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
   if (application === null) {
     return "default";
   }
   // TODO: implement.
   return "complete";
 }
-function myFitStatus(application: Application | null): ProgressBarStepStatus {
+function myFitStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
   if (application === null) {
     return "default";
   }
   // TODO: implement.
   return "complete";
 }
-function reviewStatus(application: Application | null): ProgressBarStepStatus {
+function reviewStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
   if (application === null) {
     return "default";
   }
@@ -55,7 +61,7 @@ function reviewStatus(application: Application | null): ProgressBarStepStatus {
   return "complete";
 }
 function submissionStatus(
-  application: Application | null,
+  application: ApplicationNormalized | null,
 ): ProgressBarStepStatus {
   if (application === null) {
     return "default";
@@ -66,7 +72,7 @@ function submissionStatus(
 
 export function makeProgressBarSteps(
   applicationId: number,
-  application: Application | null,
+  application: ApplicationNormalized | null,
   intl: IntlShape,
   currentStep:
     | "welcome"

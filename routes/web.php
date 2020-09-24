@@ -81,27 +81,6 @@ Route::group(
             /* Temp Resources */
             Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
 
-            /* Application (Welcome Mat) */
-            Route::view('application-01', 'applicant/application/01-welcome')->middleware('localOnly')->name('app1');
-            /* Application (Intro Information & Education) */
-            Route::view('application-02', 'applicant/application/02-info-edu')->middleware('localOnly')->name('app2');
-            /* Application (Experience Instruction) */
-            Route::view('application-03', 'applicant/application/03-exp-instructions')->middleware('localOnly')->name('app3');
-            /* Application (Experience) */
-            Route::view('application-04', 'applicant/application/04-exp')->middleware('localOnly')->name('app4');
-            /* Application (Skills Instruction) */
-            Route::view('application-05', 'applicant/application/05-skill-instructions')->middleware('localOnly')->name('app5');
-            /* Application (Skills) */
-            Route::view('application-06', 'applicant/application/06-skill')->middleware('localOnly')->name('app6');
-            /* Application (Questions) */
-            Route::view('application-07', 'applicant/application/07-questions')->middleware('localOnly')->name('app7');
-            /* Application (Review) */
-            Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
-            /* Application (Signature & Submission) */
-            Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
-            /* Application (Congrats) */
-            Route::view('application-10', 'applicant/application/10-congrats')->middleware('localOnly')->name('app10');
-
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
             /* Response Screening */
@@ -1083,7 +1062,16 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('experienceSkill', '[0-9]+')
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
+
+    Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
+        ->middleware('can:create,App\Models\JobApplicationAnswer')
+        ->name('job-application-answers.store');
+    Route::put('job-application-answers/{jobApplicationAnswer}', 'Api\JobApplicationAnswerController@update')
+        ->where('jobApplicationAnswer', '[0-9]+')
+        ->middleware('can:update,jobApplicationAnswer')
+        ->name('job-application-answers.update');
 });
+
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
         ->where('application', '[0-9]+')
@@ -1093,7 +1081,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.basic');
-    Route::post('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
+    Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.basic.update');
@@ -1105,7 +1093,6 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
-
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')

@@ -1,5 +1,10 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
+import BasicInfo from "./BasicInfo";
+import makeProgressBarSteps from "../ProgressBar/progressHelpers";
+import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
@@ -7,52 +12,95 @@ import {
   applicationExperienceIntro,
   applicationWelcome,
 } from "../../../helpers/routes";
-import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
-import BasicInfo from "./BasicInfo";
-import fakeJob from "../../../fakeData/fakeJob";
+import { ApplicationNormalized } from "../../../models/types";
+import { DispatchType } from "../../../configureStore";
+import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
+import { loadingMessages } from "../applicationMessages";
+import {
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
+} from "../../../hooks/applicationHooks";
 
 interface BasicInfoPageProps {
   applicationId: number;
 }
 
-export const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
+const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   applicationId,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch<DispatchType>();
 
-  const application = fakeApplication(); // TODO: get real application.
-  const job = fakeJob(); // TODO: Get real job associated with application.
+  // Fetch all un-loaded data that may be required for the Application.
+  useFetchAllApplicationData(applicationId, dispatch);
 
-  const handleContinue = (values): void => {
-    // TODO: Save basic info form values.
+  const application = useApplication(applicationId);
+  const jobId = application?.job_poster_id;
+  const job = useJob(jobId);
+
+  const updateApplication = async (
+    editedApplication: ApplicationNormalized,
+  ): Promise<ApplicationNormalized> => {
+    const result = await dispatch(updateApplicationAction(editedApplication));
+    if (!result.error) {
+      const payload = await result.payload;
+      return payload;
+    }
+    return Promise.reject(result.payload);
+  };
+
+  const handleContinue = async (
+    values: ApplicationNormalized,
+  ): Promise<void> => {
+    await updateApplication(values);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
-  const handleReturn = (values): void => {
-    // TODO: Save basic info form values.
+  const handleReturn = async (values: ApplicationNormalized): Promise<void> => {
+    await updateApplication(values);
     navigate(applicationWelcome(locale, applicationId));
   };
-  const handleQuit = (values): void => {
-    // TODO: Save basic info form values.
+  const handleQuit = async (values: ApplicationNormalized): Promise<void> => {
+    await updateApplication(values);
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const closeDate = new Date(); // TODO: get from application.
+
+  const closeDate = job?.close_date_time ?? null;
+  const showLoadingState = application === null || job === null;
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(applicationId, application, intl, "basic")}
-      />
-      <BasicInfo
-        job={job}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step01)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "basic",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {application !== null && job !== null && (
+        <BasicInfo
+          application={application}
+          job={job}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
     </>
   );
 };

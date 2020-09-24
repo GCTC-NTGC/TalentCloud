@@ -20,6 +20,7 @@ class JobApplication extends JsonResource
             'application_review' => new JsonResource($this->whenLoaded('application_review')),
             'citizenship_declaration' => new JsonResource($this->whenLoaded('citizenship_declaration')),
             'veteran_status' => new JsonResource($this->whenLoaded('veteran_status')),
+            'job_application_answers' => new JsonResource($this->whenLoaded('job_application_answers')),
         ]);
     }
 }

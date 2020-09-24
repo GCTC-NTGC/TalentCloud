@@ -630,6 +630,7 @@ const JobWorkEnv = ({
               />
               <div data-c-grid-item="base(1of1)">
                 <CheckboxGroupField
+                  id="physicalEnv"
                   groupLabel={intl.formatMessage(formMessages.physicalEnvLabel)}
                   name="physicalEnv"
                   allBoxes={phyEnvData}
@@ -638,6 +639,7 @@ const JobWorkEnv = ({
               </div>
               <div data-c-grid-item="base(1of1)">
                 <CheckboxGroupField
+                  id="technology"
                   groupLabel={intl.formatMessage(formMessages.technologyLabel)}
                   name="technology"
                   allBoxes={techData}
@@ -646,6 +648,7 @@ const JobWorkEnv = ({
               </div>
               <div data-c-grid-item="base(1of1)">
                 <CheckboxGroupField
+                  id="amenities"
                   groupLabel={intl.formatMessage(formMessages.amenitiesLabel)}
                   name="amenities"
                   allBoxes={amenitiesData}

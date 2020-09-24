@@ -23,8 +23,8 @@ export type Application = {
   id: number;
   job_poster_id: number;
   application_status_id: number;
-  citizenship_declaration_id: number;
-  veteran_status_id: number;
+  citizenship_declaration_id: number | null;
+  veteran_status_id: number | null;
   preferred_language_id: number;
   applicant_id: number;
   applicant_snapshot_id: number;
@@ -207,7 +207,7 @@ export interface Job {
 
 export interface JobApplicationAnswer {
   id: number;
-  job_poster_questions_id: number;
+  job_poster_question_id: number;
   job_application_id: number;
   answer: string | null;
 }

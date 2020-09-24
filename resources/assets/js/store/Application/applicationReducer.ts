@@ -3,15 +3,22 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  JobApplicationAnswer,
 } from "../../models/types";
 import {
   ApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
   FETCH_APPLICATION_FAILED,
   FETCH_APPLICATION_STARTED,
+  FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
+  FETCH_APPLICATION_NORMALIZED_FAILED,
+  FETCH_APPLICATION_NORMALIZED_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED,
   FETCH_APPLICATIONS_FOR_JOB_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_FAILED,
+  UPDATE_APPLICATION_SUCCEEDED,
+  UPDATE_APPLICATION_STARTED,
+  UPDATE_APPLICATION_FAILED,
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
@@ -29,10 +36,17 @@ import {
   mapToObjectTrans,
   deleteProperty,
 } from "../../helpers/queries";
+import {
+  CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+  UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
 
 export interface EntityState {
   applications: {
     [id: number]: ApplicationNormalized;
+  };
+  jobApplicationAnswers: {
+    [id: number]: JobApplicationAnswer;
   };
   applicationReviews: {
     byId: {
@@ -76,6 +90,7 @@ export interface ApplicationState {
 
 export const initEntities = (): EntityState => ({
   applications: {},
+  jobApplicationAnswers: {},
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
@@ -131,6 +146,17 @@ export const entitiesReducer = (
             }
           : state.applicationReviews,
       };
+    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.application.id]: action.payload.application,
+        },
+        jobApplicationAnswers: {
+          ...mapToObject(action.payload.jobApplicationAnswers, getId),
+        },
+      };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
         ...state,
@@ -165,6 +191,14 @@ export const entitiesReducer = (
           },
         },
       };
+    case UPDATE_APPLICATION_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.id]: action.payload,
+        },
+      };
     case UPDATE_APPLICATION_REVIEW_SUCCEEDED:
       return {
         ...state,
@@ -197,6 +231,15 @@ export const entitiesReducer = (
           },
         },
       };
+    case CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+    case UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+      return {
+        ...state,
+        jobApplicationAnswers: {
+          ...state.jobApplicationAnswers,
+          [action.payload.id]: action.payload,
+        },
+      };
     default:
       return state;
   }
@@ -224,6 +267,23 @@ export const uiReducer = (
           [action.meta.id]: false,
         },
       };
+    case FETCH_APPLICATION_NORMALIZED_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
+    case FETCH_APPLICATION_NORMALIZED_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
+      };
     case FETCH_APPLICATIONS_FOR_JOB_STARTED:
       return {
         ...state,
@@ -234,6 +294,23 @@ export const uiReducer = (
       return {
         ...state,
         fetchingApplications: false,
+      };
+    case UPDATE_APPLICATION_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case UPDATE_APPLICATION_SUCCEEDED:
+    case UPDATE_APPLICATION_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
       };
     case UPDATE_APPLICATION_REVIEW_STARTED:
       return {
