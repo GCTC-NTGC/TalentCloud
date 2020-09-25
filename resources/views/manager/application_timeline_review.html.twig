@@ -21,6 +21,7 @@
                     : "application-timeline-review-container" }}"
                 data-application-id="{{ application.id|json_encode() }}"
                 data-applicant-user-id="{{ applicant.user.id|json_encode() }}"
+                data-job-id="{{ job_id|json_encode() }}"
                 data-review-statuses="{{ review_statuses|json_encode() }}"
             >
             </div>

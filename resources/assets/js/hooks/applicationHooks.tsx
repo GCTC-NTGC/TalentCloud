@@ -463,6 +463,7 @@ export function useFetchAllApplicationData(
 export function useFetchReviewApplicationData(
   applicantUserId: number,
   applicationId: number,
+  jobId: number,
   dispatch: DispatchType,
 ): {
   applicationLoaded: boolean;
@@ -473,7 +474,6 @@ export function useFetchReviewApplicationData(
   userLoaded: boolean;
 } {
   const application = useFetchApplication(applicationId, dispatch);
-  const jobId = application?.job_poster_id;
   const job = useFetchJob(jobId, dispatch);
   const { experiences, experiencesUpdating } = useFetchExperience(
     applicationId,

@@ -65,6 +65,7 @@ class ApplicationController extends Controller
                 'applicant' => $application->applicant,
                 'application' => $application,
                 'application_template' => Lang::get('applicant/application_template'),
+                'job_id' => $application->job_poster_id,
                 'review_statuses' => ReviewStatus::all(),
                 'show_review' => true,
                 'is_hr_portal' => WhichPortal::isHrPortal(),

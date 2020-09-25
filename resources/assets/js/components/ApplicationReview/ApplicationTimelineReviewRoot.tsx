@@ -27,6 +27,7 @@ import ApplicationReviewNav from "./ApplicationReviewRoot";
 interface ApplicationTimelineReviewRootProps {
   applicationId: number;
   applicantUserId: number;
+  jobId: number;
   reviewStatuses: ReviewStatus[];
   portal: Portal;
 }
@@ -34,6 +35,7 @@ interface ApplicationTimelineReviewRootProps {
 const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimelineReviewRootProps> = ({
   applicationId,
   applicantUserId,
+  jobId,
   portal,
   reviewStatuses,
 }) => {
@@ -45,11 +47,15 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
     experiencesLoaded,
     experienceConstantsLoaded,
     skillsLoaded,
-  } = useFetchReviewApplicationData(applicantUserId, applicationId, dispatch);
+  } = useFetchReviewApplicationData(
+    applicantUserId,
+    applicationId,
+    jobId,
+    dispatch,
+  );
 
   const application = useReviewedApplication(applicationId);
   const applicantUser = useUser(applicantUserId);
-  const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
@@ -117,6 +123,7 @@ const renderApplicationReviewRoot = (
   if (
     container.hasAttribute("data-applicant-user-id") &&
     container.hasAttribute("data-application-id") &&
+    container.hasAttribute("data-job-id") &&
     container.hasAttribute("data-review-statuses")
   ) {
     const applicantUserId = JSON.parse(
@@ -125,6 +132,7 @@ const renderApplicationReviewRoot = (
     const applicationId = JSON.parse(
       container.getAttribute("data-application-id") as string,
     );
+    const jobId = JSON.parse(container.getAttribute("data-job-id") as string);
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
@@ -133,6 +141,7 @@ const renderApplicationReviewRoot = (
         <ApplicationTimelineReviewRoot
           applicationId={applicationId}
           applicantUserId={applicantUserId}
+          jobId={jobId}
           portal={portal}
           reviewStatuses={reviewStatuses}
         />
