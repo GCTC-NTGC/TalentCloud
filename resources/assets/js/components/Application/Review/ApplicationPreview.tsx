@@ -361,38 +361,45 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
 
   return (
     <div data-c-container="medium">
-      <h2
-        data-c-heading="h2"
+      {!managerView && (
+        <>
+          <h2
+            data-c-heading="h2"
+            data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
+          >
+            <FormattedMessage
+              id="application.review.heading"
+              defaultMessage="Review Your Application"
+              description="Main page heading for the Review page."
+            />
+          </h2>
+          <p data-c-margin="bottom(1)">
+            <FormattedMessage
+              id="application.review.subheadingOne"
+              defaultMessage="Take one last look at your information before you submit it."
+              description="First line of the subheading for the Review page."
+            />
+          </p>
+          <p data-c-margin="bottom(1)">
+            <FormattedMessage
+              id="application.review.subheadingTwo"
+              defaultMessage="Make sure everything you've said is as honest and accurate as possible."
+              description="Second line of the subheading for the Review page."
+            />
+          </p>
+          <p>
+            <FormattedMessage
+              id="application.review.subheadingThree"
+              defaultMessage={`Ask yourself, "If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?"`}
+              description="Third line of the subheading for the Review page."
+            />
+          </p>
+        </>
+      )}
+      <div
+        data-c-grid="gutter(all, 1) middle"
         data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
       >
-        <FormattedMessage
-          id="application.review.heading"
-          defaultMessage="Review Your Application"
-          description="Main page heading for the Review page."
-        />
-      </h2>
-      <p data-c-margin="bottom(1)">
-        <FormattedMessage
-          id="application.review.subheadingOne"
-          defaultMessage="Take one last look at your information before you submit it."
-          description="First line of the subheading for the Review page."
-        />
-      </p>
-      <p data-c-margin="bottom(1)">
-        <FormattedMessage
-          id="application.review.subheadingTwo"
-          defaultMessage="Make sure everything you've said is as honest and accurate as possible."
-          description="Second line of the subheading for the Review page."
-        />
-      </p>
-      <p>
-        <FormattedMessage
-          id="application.review.subheadingThree"
-          defaultMessage={`Ask yourself, "If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?"`}
-          description="Third line of the subheading for the Review page."
-        />
-      </p>
-      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
             {!managerView
