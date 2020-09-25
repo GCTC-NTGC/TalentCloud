@@ -20,7 +20,7 @@ import {
 import { Portal } from "../../models/app";
 import { ReviewStatus } from "../../models/types";
 import { loadingMessages } from "../Application/applicationMessages";
-import Review from "../Application/Review/Review";
+import ApplicationPreview from "../Application/Review/ApplicationPreview";
 import RootContainer from "../RootContainer";
 import ApplicationReviewNav from "./ApplicationReviewRoot";
 
@@ -93,17 +93,13 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
               portal={portal}
               reviewStatuses={reviewStatuses}
             />
-            <Review
+            <ApplicationPreview
               application={application}
               criteria={criteria}
               experiences={experiences}
               experienceSkills={experienceSkills}
               experienceViewState="education"
               experienceViewButtonOrder={["education", "skills", "experience"]}
-              handleSave={async () => {}}
-              handleContinue={() => {}}
-              handleQuit={() => {}}
-              handleReturn={() => {}}
               job={job}
               jobApplicationAnswers={jobApplicationAnswers}
               jobQuestions={jobQuestions}
