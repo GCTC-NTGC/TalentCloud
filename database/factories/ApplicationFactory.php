@@ -66,6 +66,11 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
     ];
 });
 
+$factory->state(JobApplication::class, 'version2', [
+    'version_id' => 2,
+    'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
+]);
+
 $factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {
         $answer = factory(JobApplicationAnswer::class)->create([
@@ -93,23 +98,26 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
         ]));
     }
 
-    $criterion = $application->job_poster->criteria ->first();
-    $work = factory(ExperienceWork::class)->create([
-        'experienceable_id' => $application->applicant_id,
-        'experienceable_type' => 'application',
-    ]);
-    factory(ExperienceSkill::class)->create([
-        'skill_id' => $criterion->skill_id,
-        'experience_type' => 'experience_work',
-        'experience_id' => $work->id,
-    ]);
-    $education = factory(ExperienceEducation::class)->create([
-        'experienceable_id' => $application->id,
-        'experienceable_type' => 'application',
-    ]);
-    factory(ExperienceSkill::class)->create([
-        'skill_id' => $criterion->skill_id,
-        'experience_type' => 'experience_work',
-        'experience_id' => $education->id,
-    ]);
+    $submitted = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+    if ($application->version_id === 2 && $application->application_status_id === $submitted) {
+        $criterion = $application->job_poster->criteria ->first();
+        $work = factory(ExperienceWork::class)->create([
+            'experienceable_id' => $application->applicant_id,
+            'experienceable_type' => 'application',
+        ]);
+        factory(ExperienceSkill::class)->create([
+            'skill_id' => $criterion->skill_id,
+            'experience_type' => 'experience_work',
+            'experience_id' => $work->id,
+        ]);
+        $education = factory(ExperienceEducation::class)->create([
+            'experienceable_id' => $application->id,
+            'experienceable_type' => 'application',
+        ]);
+        factory(ExperienceSkill::class)->create([
+            'skill_id' => $criterion->skill_id,
+            'experience_type' => 'experience_work',
+            'experience_id' => $education->id,
+        ]);
+    }
 });
