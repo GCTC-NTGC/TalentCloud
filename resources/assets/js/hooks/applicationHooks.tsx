@@ -284,7 +284,7 @@ export function useFetchNormalizedApplication(
 }
 
 /**
- * Return an Application (normalized, ie without Review) from the redux store, and fetch it from backend if it is not yet in the store.
+ * Return an Application from the redux store, and fetch it from backend if it is not yet in the store.
  * @param applicationId
  * @param dispatch
  */
