@@ -49,9 +49,9 @@ class DepartmentCrudController extends CrudController
             ]);
 
             $this->crud->addField([
-                'name' => 'indeterminate',
+                'name' => 'allow_indeterminate',
                 'type' => 'checkbox',
-                'label' => 'Indeterminate',
+                'label' => 'Allow Indeterminate: allow Indeterminate length jobs to be created within this department.',
             ]);
         });
     }
@@ -104,9 +104,9 @@ class DepartmentCrudController extends CrudController
         ]);
 
         $this->crud->addColumn([
-            'name' => 'indeterminate',
+            'name' => 'allow_indeterminate',
             'type' => 'check',
-            'label' => 'Indeterminate',
+            'label' => 'Allow Indeterminate',
         ]);
     }
 
