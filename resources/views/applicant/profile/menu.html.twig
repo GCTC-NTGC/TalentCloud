@@ -22,7 +22,7 @@
         <ul>
             {% for item in profile_menu if item.archive %}
                 <li>
-                    <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }}</a>
+                    <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }} ({{profile_menu.read_only}})</a>
                 </li>
             {% endfor %}
         </ul>
