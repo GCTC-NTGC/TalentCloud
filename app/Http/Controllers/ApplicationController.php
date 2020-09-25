@@ -42,9 +42,8 @@ class ApplicationController extends Controller
     public function showWithJob(JobPoster $jobPoster, JobApplication $application)
     {
         if ($jobPoster->job_applications->contains($application)) {
-            // If the application is version two then show new manager review application page.
-            $applicationVersionTwo = JobApplicationVersion::where('version', 2)->first();
-            if ($application->version_id == $applicationVersionTwo->version) {
+            // If the application is version two then show the version two application review page.
+            if ($application->job_application_version !== null && $application->job_application_version->version == 2) {
                 return $this->showVersionTwo($application);
             }
             return $this->show($application);
