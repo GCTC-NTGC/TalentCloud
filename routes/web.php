@@ -85,9 +85,6 @@ Route::group(
 
             Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
             Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
-
-            Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationTimelineController@showManager')
-                ->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
