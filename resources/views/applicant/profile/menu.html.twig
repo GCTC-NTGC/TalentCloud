@@ -25,9 +25,6 @@
                     <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }}</a>
                 </li>
             {% endfor %}
-            <li>
-                <a href="{{ route('settings.edit') }}" title="{{ profile.account_settings_title }}">{{ profile.account_settings_label }}</a>
-            </li>
         </ul>
     </nav>
 </div>
