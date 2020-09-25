@@ -40,7 +40,6 @@ import {
 } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
-import { Portal } from "../../../models/app";
 
 const messages = defineMessages({
   edit: {
@@ -298,7 +297,7 @@ const Review: React.FC<ReviewProps> = ({
 
   const experienceViewButtons = (
     buttonOrder = ["experience", "skills", "education"],
-  ) => {
+  ): JSX.Element => {
     const experienceButton = (
       <button
         data-c-button={`${
@@ -553,7 +552,6 @@ const Review: React.FC<ReviewProps> = ({
                   experienceSkill.experience_type === experience.type &&
                   experienceSkill.experience_id === experience.id,
               );
-              console.log(experienceSkills);
               return (
                 <ExperienceAccordion
                   key={`${experience.type}-${experience.id}`}
