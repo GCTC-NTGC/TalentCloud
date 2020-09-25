@@ -419,7 +419,6 @@ const Review: React.FC<ReviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            {/* TODO: REMOVE ON MANAGER VIEW */}
             <a
               href="https://talent.test/demo/application-02"
               title={intl.formatMessage(messages.editTitle)}
@@ -511,7 +510,6 @@ const Review: React.FC<ReviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            {/* TODO: REMOVE ON MANAGER VIEW */}
             <a
               href="https://talent.test/demo/application-04"
               title={intl.formatMessage(messages.editTitle)}
@@ -735,7 +733,6 @@ const Review: React.FC<ReviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            {/* TODO: REMOVE ON MANAGER VIEW */}
             <a
               href="https://talent.test/demo/application-07"
               title={intl.formatMessage(messages.editTitle)}
@@ -814,7 +811,6 @@ const Review: React.FC<ReviewProps> = ({
       </p>
       {!managerView ? (
         <>
-          {/* TODO: REMOVE ON MANAGER VIEW */}
           <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
           <div data-c-grid="gutter(all, 1)">
             <Formik
