@@ -31,7 +31,7 @@ interface ApplicationTimelineReviewRootProps {
   portal: Portal;
 }
 
-const ApplicationTimelineRootReview: React.FunctionComponent<ApplicationTimelineReviewRootProps> = ({
+const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimelineReviewRootProps> = ({
   applicationId,
   applicantUserId,
   portal,
@@ -130,7 +130,7 @@ const renderApplicationReviewRoot = (
     );
     ReactDOM.render(
       <RootContainer>
-        <ApplicationTimelineRootReview
+        <ApplicationTimelineReviewRoot
           applicationId={applicationId}
           applicantUserId={applicantUserId}
           portal={portal}
@@ -156,4 +156,4 @@ if (hrContainer !== null) {
   renderApplicationReviewRoot(hrContainer, "hr");
 }
 
-export default ApplicationTimelineRootReview;
+export default ApplicationTimelineReviewRoot;
