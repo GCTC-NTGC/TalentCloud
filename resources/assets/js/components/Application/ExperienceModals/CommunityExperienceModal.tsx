@@ -36,6 +36,7 @@ interface CommunityExperienceModalProps {
   experienceCommunity: ExperienceCommunity | null;
   jobId: number;
   jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
@@ -225,6 +226,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   experienceCommunity,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -366,6 +368,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               <EducationSubform
                 keyPrefix="community"
                 jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />

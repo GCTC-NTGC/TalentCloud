@@ -24,6 +24,7 @@ import { Job, ApplicationNormalized } from "../../../models/types";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+import { getLocale, localizeField } from "../../../helpers/localize";
 
 interface BasicInfoProps {
   application: ApplicationNormalized;
@@ -49,6 +50,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   handleQuit,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const classification: string = getKeyByValue(
     ClassificationId,
     job.classification_id,
@@ -71,6 +73,25 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
       ? application.education_requirement_confirmed
       : false,
   };
+
+  const jobEducationReq = localizeField(locale, job, "education");
+  const defaultEducationReq = intl.formatMessage(
+    educationMessages[classification],
+  );
+  // If the job is using the default education requirements (for its classification) then we
+  //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
+  //  split it into paragraphs.
+  const educationRequirements =
+    jobEducationReq === null || jobEducationReq === defaultEducationReq
+      ? textToParagraphs(
+          defaultEducationReq,
+          {},
+          {
+            0: { "data-c-font-weight": "bold" },
+            5: { "data-c-font-weight": "bold" },
+          },
+        )
+      : textToParagraphs(jobEducationReq);
 
   const validationSchema = Yup.object().shape({
     citizenship: Yup.number()
@@ -235,14 +256,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
               data-c-padding="all(1)"
               data-c-margin="bottom(1)"
             >
-              {textToParagraphs(
-                intl.formatMessage(educationMessages[classification]),
-                {},
-                {
-                  0: { "data-c-font-weight": "bold" },
-                  5: { "data-c-font-weight": "bold" },
-                },
-              )}
+              {educationRequirements}
             </div>
             <div data-c-margin="left(2)">
               <FastField

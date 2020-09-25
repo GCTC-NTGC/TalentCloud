@@ -3,7 +3,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { getLocale } from "../../../helpers/localize";
+import { getLocale, localizeField } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import {
   applicationSkillsIntro,
@@ -224,6 +224,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           skills={skills}
           jobId={job.id}
           jobClassificationId={job.classification_id}
+          jobEducationRequirements={localizeField(locale, job, "education")}
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}
