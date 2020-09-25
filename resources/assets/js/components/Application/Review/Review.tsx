@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useIntl, FormattedMessage, defineMessages } from "react-intl";
 import { Formik, Form, FastField } from "formik";
 import {
-  Application,
   User,
   Job,
   Criteria,
@@ -11,6 +10,7 @@ import {
   ExperienceSkill,
   JobPosterQuestion,
   JobApplicationAnswer,
+  ApplicationNormalized,
 } from "../../../models/types";
 import { languageRequirementDescription } from "../../../models/localizedConstants";
 import { LanguageRequirementId } from "../../../models/lookupConstants";
@@ -245,7 +245,7 @@ export interface ReviewFormValues {
 }
 
 interface ReviewProps {
-  application: Application;
+  application: ApplicationNormalized;
   criteria: Criteria[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
@@ -257,7 +257,8 @@ interface ReviewProps {
   skills: Skill[];
   user: User;
   managerView?: boolean;
-  handleContinue: (values: ReviewFormValues) => void;
+  handleSave: (values: ReviewFormValues) => Promise<void>;
+  handleContinue: () => void;
   handleReturn: () => void;
   handleQuit: () => void;
 }
@@ -275,6 +276,7 @@ const Review: React.FC<ReviewProps> = ({
   jobApplicationAnswers,
   skills,
   user,
+  handleSave,
   handleContinue,
   handleReturn,
   handleQuit,
@@ -807,24 +809,25 @@ const Review: React.FC<ReviewProps> = ({
           />
         )}
       </p>
-      {!managerView ? (
+      {!managerView && (
         <>
           <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
           <div data-c-grid="gutter(all, 1)">
             <Formik
               initialValues={{ shareWithManagers: false }}
-              onSubmit={(values): void => {
+              onSubmit={(values, { setSubmitting }): void => {
                 // Save data to application object, then navigate to the next step.
                 // TODO: This step needs to check overall Application validation status,
                 // and only proceed if the entire Application is 'valid'.
-                const reviewFormValues: ReviewFormValues = {
-                  ...values,
-                };
-
-                handleContinue(reviewFormValues);
+                handleSave(values)
+                  .then(() => handleContinue())
+                  .catch(() => {
+                    // Do nothing if save fails
+                  })
+                  .finally(() => setSubmitting(false));
               }}
             >
-              {({ isSubmitting }): React.ReactElement => (
+              {({ values, isSubmitting }): React.ReactElement => (
                 <Form>
                   <div data-c-grid-item="base(1of1)">
                     <p>
@@ -854,9 +857,11 @@ const Review: React.FC<ReviewProps> = ({
                         type="button"
                         disabled={isSubmitting}
                         onClick={(): void => {
-                          // Add saveAndReturn Method here.
-                          // Method should save the current data and return user to the previous step.
-                          handleReturn();
+                          handleSave(values)
+                            .then(() => handleReturn())
+                            .catch(() => {
+                              // Do nothing if save fails
+                            });
                         }}
                       >
                         {intl.formatMessage(navigationMessages.return)}
@@ -872,9 +877,11 @@ const Review: React.FC<ReviewProps> = ({
                         type="button"
                         disabled={isSubmitting}
                         onClick={(): void => {
-                          // Add saveAndQuit Method here.
-                          // Method should save the current data and return user to My Applications page.
-                          handleQuit();
+                          handleSave(values)
+                            .then(() => handleQuit())
+                            .catch(() => {
+                              // Do nothing if save fails
+                            });
                         }}
                       >
                         {intl.formatMessage(navigationMessages.quit)}
@@ -895,8 +902,6 @@ const Review: React.FC<ReviewProps> = ({
             </Formik>
           </div>
         </>
-      ) : (
-        <div data-c-margin="bottom(3)" />
       )}
     </div>
   );

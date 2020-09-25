@@ -100,6 +100,7 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
               experienceSkills={experienceSkills}
               experienceViewState="education"
               experienceViewButtonOrder={["education", "skills", "experience"]}
+              handleSave={async () => {}}
               handleContinue={() => {}}
               handleQuit={() => {}}
               handleReturn={() => {}}

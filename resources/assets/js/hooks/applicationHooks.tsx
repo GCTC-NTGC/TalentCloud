@@ -181,6 +181,12 @@ export function useJobApplicationAnswers(
   );
 }
 
+export function useApplicationUser(applicationId: number): User | null {
+  const application = useApplication(applicationId);
+  const user = application?.applicant.user ?? null;
+  return user;
+}
+
 /**
  * Return all skills from the redux store, and fetch the skills from backend if they are not yet in the store.
  * @param dispatch
@@ -275,8 +281,10 @@ export function useFetchNormalizedApplication(
   const applicationIsUpdating = useSelector((state: RootState) =>
     getApplicationIsUpdating(state, { applicationId }),
   );
+  const [applicationFetched, setApplicationFetched] = useState(false);
   useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
+    if (application === null && !applicationIsUpdating && !applicationFetched) {
+      setApplicationFetched(true);
       dispatch(fetchApplicationNormalized(applicationId));
     }
   }, [application, applicationId, applicationIsUpdating, dispatch]);
@@ -422,8 +430,13 @@ export function useFetchAllApplicationData(
   dispatch: DispatchType,
 ): {
   applicationLoaded: boolean;
+  userLoaded: boolean;
   jobLoaded: boolean;
+  criteriaLoaded: boolean;
   experiencesLoaded: boolean;
+  experienceSkillsLoaded: boolean;
+  jobQuestionsLoaded: boolean;
+  applicationAnswersLoaded: boolean;
   experienceConstantsLoaded: boolean;
   skillsLoaded: boolean;
 } {
@@ -443,16 +456,27 @@ export function useFetchAllApplicationData(
   } = useFetchExperienceConstants(dispatch);
   const skills = useFetchSkills(dispatch);
 
+  const applicationLoaded = application !== null;
+  const jobLoaded = job !== null;
+  const experiencesLoaded = !experiencesUpdating || experiences.length > 0;
+  const experienceConstantsLoaded =
+    awardRecipientTypes.length > 0 &&
+    awardRecognitionTypes.length > 0 &&
+    educationTypes.length > 0 &&
+    educationStatuses.length > 0;
+  const skillsLoaded = skills.length > 0;
+
   return {
-    applicationLoaded: application !== null,
-    jobLoaded: job !== null,
-    experiencesLoaded: !experiencesUpdating || experiences.length > 0,
-    experienceConstantsLoaded:
-      awardRecipientTypes.length > 0 &&
-      awardRecognitionTypes.length > 0 &&
-      educationTypes.length > 0 &&
-      educationStatuses.length > 0,
-    skillsLoaded: skills.length > 0,
+    applicationLoaded,
+    jobLoaded,
+    experiencesLoaded,
+    experienceConstantsLoaded,
+    skillsLoaded,
+    criteriaLoaded: jobLoaded,
+    experienceSkillsLoaded: experiencesLoaded,
+    jobQuestionsLoaded: jobLoaded,
+    applicationAnswersLoaded: applicationLoaded,
+    userLoaded: applicationLoaded,
   };
 }
 
