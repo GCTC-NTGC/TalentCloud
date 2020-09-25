@@ -43,7 +43,7 @@ class ApplicationController extends Controller
     {
         if ($jobPoster->job_applications->contains($application)) {
             // If the application is version two then show the version two application review page.
-            if ($application->job_application_version !== null && $application->job_application_version->version == 2) {
+            if ($application->version_id !== null && $application->version_id == 2) {
                 return $this->showVersionTwo($application);
             }
             return $this->show($application);
