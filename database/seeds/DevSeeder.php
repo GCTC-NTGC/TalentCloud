@@ -96,7 +96,7 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->state('version2')->create([
+            $job->job_applications()->save(factory(JobApplication::class)->state(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
@@ -110,7 +110,7 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->state('version2')->create([
+            $job->job_applications()->save(factory(JobApplication::class)->state(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id

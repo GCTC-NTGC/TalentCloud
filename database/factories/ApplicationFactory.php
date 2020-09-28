@@ -68,7 +68,6 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
 
 $factory->state(JobApplication::class, 'version2', [
     'version_id' => 2,
-    'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
 ]);
 
 $factory->afterCreating(JobApplication::class, function ($application): void {
@@ -79,6 +78,8 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
         ]);
         $application->job_application_answers()->save($answer);
     }
+
+
     if ($application->isDraft()) {
         $skillableType = 'applicant';
         $owner = $application->applicant;
