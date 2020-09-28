@@ -18,6 +18,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property string $name
  * @property string $impact
  * @property string $preference
+ * @property string $allow_indeterminate
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -51,6 +52,7 @@ class Department extends BaseModel
         'name',
         'impact',
         'preference',
+        'allow_indeterminate',
     ];
 
     public function users() // phpcs:ignore
