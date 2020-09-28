@@ -1,7 +1,10 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\ExperienceAward;
+use App\Models\ExperienceCommunity;
 use App\Models\ExperienceEducation;
+use App\Models\ExperiencePersonal;
 use App\Models\ExperienceSkill;
 use App\Models\ExperienceWork;
 use App\Models\JobApplication;
@@ -79,46 +82,52 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
         $application->job_application_answers()->save($answer);
     }
 
-
-    if ($application->isDraft()) {
-        $skillableType = 'applicant';
-        $owner = $application->applicant;
-    } else {
-        $skillableType = 'application';
-        $owner = $application;
-
-        $application->user_name = $application->applicant->user->full_name;
-        $application->user_email = $application->applicant->user->email;
+    if ($application->version_id === null || $application->version_id === 1) {
+        // Version 1 applications need a SkillDeclaration saved to the Application profile for each job critera.
+        $applicant = $application->applicant;
+        $applicantSkillIds = $applicant->skill_declarations->pluck('skill_id');
+        foreach ($application->job_poster->criteria as $criterion) {
+            if (!$applicantSkillIds->contains($criterion->skill_id)) {
+                $applicant->skill_declarations()->save(factory(SkillDeclaration::class)->create([
+                    'skill_id' => $criterion->skill_id,
+                    'skillable_id' => $applicant->id,
+                    'skillable_type' => 'applicant',
+                ]));
+            }
+        }
     }
-    $application->save();
-    foreach ($application->job_poster->criteria as $criterion) {
-        $owner->skill_declarations()->save(factory(SkillDeclaration::class)->create([
-            'skill_id' => $criterion->skill_id,
-            'skillable_id' => $owner->id,
-            'skillable_type' => $skillableType,
-        ]));
+    if ($application->version_id === 2) {
+        // Version 2 applications need an Experience with an ExperienceSkill for each criteria.
+        $experienceTypes = [
+            ExperienceWork::class,
+            ExperiencePersonal::class,
+            ExperienceEducation::class,
+            ExperienceAward::class,
+            ExperienceCommunity::class
+        ];
+        foreach ($application->job_poster->criteria as $criterion) {
+            // $index = $faker->numberBetween(0, 4);
+            $index = rand(0, 4);
+            $experience = factory($experienceTypes[$index])->create([
+            // $experience = factory(ExperienceWork::class)->create([
+                'experienceable_id' => $application->applicant_id,
+                'experienceable_type' => 'applicant',
+            ]);
+            factory(ExperienceSkill::class)->create([
+                'skill_id' => $criterion->skill_id,
+                'experience_type' => $experience->experienceTypeName(),
+                'experience_id' => $experience->id,
+            ]);
+        }
     }
 
-    $submitted = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
-    if ($application->version_id === 2 && $application->application_status_id === $submitted) {
-        $criterion = $application->job_poster->criteria ->first();
-        $work = factory(ExperienceWork::class)->create([
-            'experienceable_id' => $application->applicant_id,
-            'experienceable_type' => 'application',
-        ]);
-        factory(ExperienceSkill::class)->create([
-            'skill_id' => $criterion->skill_id,
-            'experience_type' => 'experience_work',
-            'experience_id' => $work->id,
-        ]);
-        $education = factory(ExperienceEducation::class)->create([
-            'experienceable_id' => $application->id,
-            'experienceable_type' => 'application',
-        ]);
-        factory(ExperienceSkill::class)->create([
-            'skill_id' => $criterion->skill_id,
-            'experience_type' => 'experience_work',
-            'experience_id' => $education->id,
-        ]);
+    // If application is not a draft, it needs a snapshot of the profile.
+    // Different versions save different snapshots.
+    if (!$application->isDraft()) {
+        if ($application->version_id === 2) {
+            $application->saveProfileSnapshotTimeline();
+        } else {
+            $application->saveProfileSnapshot();
+        }
     }
 });
