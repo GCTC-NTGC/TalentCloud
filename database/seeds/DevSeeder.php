@@ -96,7 +96,7 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->state('version2')->create([
+            $job->job_applications()->save(factory(JobApplication::class)->states(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
@@ -110,7 +110,7 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->state('version2')->create([
+            $job->job_applications()->save(factory(JobApplication::class)->states(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
@@ -194,32 +194,5 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
-
-        // Ensure applicant user has some Experience relevant to a job
-        foreach ($applicantUser->applicant->job_applications->where('application_status_id', 1) as $application) {
-            $job = $application->job_poster;
-            $criterion = $job->criteria->first();
-            if ($criterion) {
-                $work = factory(ExperienceWork::class)->create([
-                    'experienceable_id' => $application->applicant_id,
-                    'experienceable_type' => 'applicant',
-                ]);
-                factory(ExperienceSkill::class)->create([
-                    'skill_id' => $criterion->skill_id,
-                    'experience_type' => 'experience_work',
-                    'experience_id' => $work->id,
-                ]);
-
-                $education = factory(ExperienceEducation::class)->create([
-                    'experienceable_id' => $application->id,
-                    'experienceable_type' => 'application',
-                ]);
-                factory(ExperienceSkill::class)->create([
-                    'skill_id' => $criterion->skill_id,
-                    'experience_type' => 'experience_work',
-                    'experience_id' => $education->id,
-                ]);
-            }
-        }
     }
 }
