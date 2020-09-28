@@ -13,19 +13,16 @@
 
     <a id="skipLink"></a>
 
-    <section
-        class="application__view-layout submitted">
-        {% if show_review %}
-            <div id="{{ is_hr_portal
-                    ? "application-timeline-review-container-hr"
-                    : "application-timeline-review-container" }}"
-                data-application-id="{{ application.id|json_encode() }}"
-                data-applicant-user-id="{{ applicant.user.id|json_encode() }}"
-                data-job-id="{{ job_id|json_encode() }}"
-                data-review-statuses="{{ review_statuses|json_encode() }}"
-            >
-            </div>
-        {% endif %}
+    <section class="application__view-layout submitted">
+        <div id="{{ is_hr_portal
+                ? "application-timeline-review-container-hr"
+                : "application-timeline-review-container" }}"
+            data-application-id="{{ application.id|json_encode() }}"
+            data-applicant-user-id="{{ applicant.user.id|json_encode() }}"
+            data-job-id="{{ job_id|json_encode() }}"
+            data-review-statuses="{{ review_statuses|json_encode() }}"
+        >
+        </div>
     </section>
 
 {% endblock %}

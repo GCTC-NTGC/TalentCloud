@@ -53,7 +53,7 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Display version two application.
+     * "Display version two of application, from Manager perspective, with review toolbar included."
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
@@ -67,7 +67,6 @@ class ApplicationController extends Controller
                 'application_template' => Lang::get('applicant/application_template'),
                 'job_id' => $application->job_poster_id,
                 'review_statuses' => ReviewStatus::all(),
-                'show_review' => true,
                 'is_hr_portal' => WhichPortal::isHrPortal(),
             ]
         );
