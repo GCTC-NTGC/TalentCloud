@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { DispatchType } from "../../configureStore";
 import { getLocale } from "../../helpers/localize";
 import {
+  useApplicationUser,
   useCriteria,
   useExperiences,
   useExperienceSkills,
@@ -15,7 +16,6 @@ import {
   useJobPosterQuestions,
   useReviewedApplication,
   useSkills,
-  useUser,
 } from "../../hooks/applicationHooks";
 import { Portal } from "../../models/app";
 import { ReviewStatus } from "../../models/types";
@@ -55,7 +55,7 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   );
 
   const application = useReviewedApplication(applicationId);
-  const applicantUser = useUser(applicantUserId);
+  const applicantUser = useApplicationUser(applicationId);
   const job = useJob(jobId);
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
@@ -69,8 +69,7 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
     job === null ||
     !experiencesLoaded ||
     !experienceConstantsLoaded ||
-    !skillsLoaded ||
-    applicantUser === null;
+    !skillsLoaded;
 
   return (
     <div data-clone>

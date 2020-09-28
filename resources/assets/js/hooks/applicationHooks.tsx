@@ -495,7 +495,6 @@ export function useFetchReviewApplicationData(
   experiencesLoaded: boolean;
   experienceConstantsLoaded: boolean;
   skillsLoaded: boolean;
-  userLoaded: boolean;
 } {
   const application = useFetchApplication(applicationId, dispatch);
   const job = useFetchJob(jobId, dispatch);
@@ -511,7 +510,6 @@ export function useFetchReviewApplicationData(
     educationStatuses,
   } = useFetchExperienceConstants(dispatch);
   const skills = useFetchSkills(dispatch);
-  const applicantUser = useFetchUser(applicantUserId, dispatch);
 
   return {
     applicationLoaded: application !== null,
@@ -523,6 +521,5 @@ export function useFetchReviewApplicationData(
       educationTypes.length > 0 &&
       educationStatuses.length > 0,
     skillsLoaded: skills.length > 0,
-    userLoaded: applicantUser !== null,
   };
 }
