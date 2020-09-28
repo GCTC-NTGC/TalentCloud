@@ -10,7 +10,11 @@ import messages, {
   languageRequirementDescription,
   languageRequirementLabel,
 } from "./basicInfoMessages";
-import { basicInfoMessages, navigationMessages } from "../applicationMessages";
+import {
+  basicInfoMessages,
+  navigationMessages,
+  educationRequirementMessages,
+} from "../applicationMessages";
 import SelectInput from "../../Form/SelectInput";
 import {
   CitizenshipId,
@@ -25,6 +29,7 @@ import CheckboxInput from "../../Form/CheckboxInput";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { getLocale, localizeField } from "../../../helpers/localize";
+import { hasKey } from "../../../helpers/queries";
 
 interface BasicInfoProps {
   application: ApplicationNormalized;
@@ -75,9 +80,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   };
 
   const jobEducationReq = localizeField(locale, job, "education");
-  const defaultEducationReq = intl.formatMessage(
-    educationMessages[classification],
-  );
+  const defaultEducationReq = hasKey(educationMessages, classification)
+    ? intl.formatMessage(educationMessages[classification])
+    : intl.formatMessage(educationRequirementMessages.missingClassification);
   // If the job is using the default education requirements (for its classification) then we
   //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
   //  split it into paragraphs.

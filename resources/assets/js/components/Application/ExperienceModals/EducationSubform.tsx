@@ -6,6 +6,7 @@ import CheckboxInput from "../../Form/CheckboxInput";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
+import { educationRequirementMessages } from "../applicationMessages";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
@@ -42,7 +43,7 @@ export function EducationSubform({
   const jobEducationReq = jobEducationRequirements;
   const defaultEducationReq = hasKey(educationMessages, jobClassification)
     ? intl.formatMessage(educationMessages[jobClassification])
-    : "CLASSIFICATION MISSING";
+    : intl.formatMessage(educationRequirementMessages.missingClassification);
   // If the job is using the default education requirements (for its classification) then we
   //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
   //  split it into paragraphs.
