@@ -1,9 +1,9 @@
 import csv
 import json
 
-fr_json_path = "C:\dev\CombinedTalentCloud\\tc\\fr copy.json"
-fr_json_out_path = "C:\dev\CombinedTalentCloud\\tc\\fr output.json"
-translations_path = "C:\dev\CombinedTalentCloud\\tc\Application_translations - Automate Translations.csv"
+fr_json_path = "C:\dev\CombinedTalentCloud\\tc\\resources\\assets\js\\translations\locales\\fr.json"
+fr_json_out_path = "C:\dev\\fr output.json"
+translations_path = "C:\dev\Application_translations - Automate Translations.csv"
 
 def get_translations(path):
     with open(translations_path, newline='') as csvfile:
