@@ -282,6 +282,11 @@
         "id": "application.experience.heading"
       },
       {
+        "defaultMessage": "Start writing here...",
+        "description": "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
+        "id": "application.skills.experienceSkillPlaceholder"
+      },
+      {
         "defaultMessage": "My Fit",
         "description": "Heading for the Fit step in the Application form.",
         "id": "application.fit.heading"
@@ -305,6 +310,11 @@
         "defaultMessage": "Save & Return to Previous Step",
         "description": "The text displayed on the Save & Return button of the Application form.",
         "id": "application.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Just a second...",
+        "description": "A message to inform the user that the page is incomplete because data is still being loaded.",
+        "id": "application.loading"
       }
     ],
     "path": "resources/assets/js/components/Application/applicationMessages.json"
@@ -1212,6 +1222,11 @@
         "id": "application.review.editTitle"
       },
       {
+        "defaultMessage": "Not set",
+        "description": "Message displayed if a user has not yet set a given value.",
+        "id": "application.review.valueNotSet"
+      },
+      {
         "defaultMessage": "I prefer to communicate in English.",
         "description": "Text displayed when a user selects 'en' in their profile for communication preference.",
         "id": "application.review.communication.english"
@@ -1390,6 +1405,36 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "How You Used Each Skill",
+        "description": "Header for the Skills Intro step.",
+        "id": "application.skills.intro.header"
+      },
+      {
+        "defaultMessage": "Now that you've shared your experiences, tell us how they connect to the skills required for the job.",
+        "description": "Opening sentence describing the Skills step.",
+        "id": "application.experience.intro.opening"
+      },
+      {
+        "defaultMessage": "For each experience <b>add a short explanation that demonstrates how you used the skill</b>. These explanations are what the manager will use to decide how strong your application is, so <b>it's important that you share your best examples</b>.",
+        "description": "Paragraphs explaining what to expect on the Skills step.",
+        "id": "application.experience.intro.explanation"
+      },
+      {
+        "defaultMessage": "Just like experience, this information is saved to your profile so that you can reuse it on other applications!",
+        "description": "Paragraph explaining that changes to Skills will be saved to profile.",
+        "id": "application.experience.intro.savedToProfile"
+      },
+      {
+        "defaultMessage": "Let's Go",
+        "description": "Button text for continuing to next step in Application Form.",
+        "id": "application.skills.intro.letsGo"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/SkillsIntroPage.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Go to this skill.",
         "description": "Title attribute for sidebar links.",
         "id": "application.skills.sidebarLinkTitle"
@@ -1440,7 +1485,7 @@
         "id": "application.skills.confirmButtonText"
       }
     ],
-    "path": "resources/assets/js/components/Application/Skills/skillsMessages.json"
+    "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"
   },
   {
     "descriptors": [
@@ -1655,12 +1700,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -3403,7 +3448,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -5556,6 +5601,11 @@
         "defaultMessage": "Error: Unknown experience type.",
         "description": "Accordion heading error when an unknown experience type is used.",
         "id": "application.skills.unknownHeading"
+      },
+      {
+        "defaultMessage": "Current",
+        "description": "Text for the end date of a current experience on the Skills page.",
+        "id": "application.skills.currentSubheading"
       },
       {
         "defaultMessage": "How I used {skillName} to achieve {title}",
