@@ -4,12 +4,32 @@
     Applicant: Profile - Page Archived Warning
 
 ============================================================================= #}
-Waffles
-
-<p><b>{{profile_menu.page_going_away}}<b></p>
-
+<!--
+<p><b><b></p>
+<br />
 <p>
-{{profile_menu.page_going_away_desc}}
-</p>
 
-<p><u>{{profile_menu.page_going_away_read_more}}<u></p>
+</p>
+<br />
+<p><u><u></p>
+-->
+
+{{profile.page_going_away}}
+<div data-clone>
+    <section data-c-alignment="base(centre)" data-c-background="c2(100)" data-c-padding="top(half) bottom(half)">
+        <div data-c-container="large">
+            <div data-c-grid="gutter">
+                <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)" data-c-color="white">
+                    <i class="fas fa-info-circle" data-c-colour="white"></i>
+                    &nbsp;&nbsp;&nbsp;<span>{{profile.page_going_away_desc}}</span>
+                </div>
+                <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)" data-c-color="whiet">
+                    <i class="fas fa-comment-alt" data-c-colour="white"></i>&nbsp;&nbsp;&nbsp;
+                    <a data-c-color="white" href="mailto:{{ alert.feedback_link }}" title="{{ alert.feedback_link_title }}">
+                        {{profile.page_going_away_read_more}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
