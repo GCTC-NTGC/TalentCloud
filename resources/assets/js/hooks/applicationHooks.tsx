@@ -33,10 +33,7 @@ import {
   getApplicationNormalized,
   getJobApplicationAnswers,
 } from "../store/Application/applicationSelector";
-import {
-  fetchApplication,
-  fetchApplicationNormalized,
-} from "../store/Application/applicationActions";
+import { fetchApplication } from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
@@ -285,7 +282,7 @@ export function useFetchNormalizedApplication(
   useEffect(() => {
     if (application === null && !applicationIsUpdating && !applicationFetched) {
       setApplicationFetched(true);
-      dispatch(fetchApplicationNormalized(applicationId));
+      dispatch(fetchApplication(applicationId));
     }
   }, [application, applicationId, applicationIsUpdating, dispatch]);
   return application;
