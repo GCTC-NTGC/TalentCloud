@@ -10,7 +10,7 @@ export default defineMessages({
   languageTestLabel: {
     id: "application.basicInfo.languageTestLabel",
     defaultMessage:
-      "I understand that my second language proficiency will be tested as part of this process.",
+      "Yes, I understand that my second language proficiency will be tested as part of this process.",
     description: "Label for language test checkbox in applicant timeline form.",
   },
   educationRequirementHeader: {
@@ -29,7 +29,7 @@ export default defineMessages({
   educationRequirementLabel: {
     id: "application.basicInfo.educationRequirementLabel",
     defaultMessage:
-      "I meet this requirement and will provide details in the application.",
+      "Yes, I meet this requirement and will provide details in the application.",
     description:
       "Label for education requirement section in applicant timeline form.",
   },

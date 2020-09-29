@@ -183,7 +183,7 @@
         "id": "application.accordion.educationHeading"
       },
       {
-        "defaultMessage": "Education Experience",
+        "defaultMessage": "Education",
         "id": "application.accordion.educationType"
       },
       {
@@ -211,7 +211,7 @@
         "id": "application.accordion.educationBlockcertLabel"
       },
       {
-        "defaultMessage": "I have a Blockcert and can provide it on request.",
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request.",
         "id": "application.accordion.educationHasBlockcert"
       },
       {
@@ -277,7 +277,7 @@
         "id": "application.basicInfo.languageRequirementsHeading"
       },
       {
-        "defaultMessage": "My Experience",
+        "defaultMessage": "Your Experience",
         "description": "Heading for the Experience section of the Application.",
         "id": "application.experience.heading"
       },
@@ -372,7 +372,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
+        "defaultMessage": "Yes, I understand that my second language proficiency will be tested as part of this process.",
         "description": "Label for language test checkbox in applicant timeline form.",
         "id": "application.basicInfo.languageTestLabel"
       },
@@ -387,7 +387,7 @@
         "id": "application.basicInfo.meetEducationRequirement"
       },
       {
-        "defaultMessage": "I meet this requirement and will provide details in the application.",
+        "defaultMessage": "Yes, I meet this requirement and will provide details in the application.",
         "description": "Label for education requirement section in applicant timeline form.",
         "id": "application.basicInfo.educationRequirementLabel"
       },
@@ -532,7 +532,7 @@
         "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "defaultMessage": "Please note that {skill} will be evaluated later in the hiring process.",
         "description": "List of soft skills that will be evaluated later.",
         "id": "application.experience.softSkillsList"
       },
@@ -552,7 +552,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Education Experience",
+        "defaultMessage": "Education",
         "description": "Type of experience: Education Experience.",
         "id": "application.experience.intro.educationExperience"
       },
@@ -762,7 +762,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Add Education Experience",
+        "defaultMessage": "Add Education",
         "id": "application.educationExperienceModal.modalTitle"
       },
       {
@@ -815,7 +815,7 @@
         "id": "application.educationExperienceModal.blockcertLabel"
       },
       {
-        "defaultMessage": "I have a Blockcert and can provide it on request. (Optional)",
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request. (Optional)",
         "id": "application.educationExperienceModal.blockcertInlineLabel"
       },
       {
@@ -909,7 +909,7 @@
         "id": "application.personalExperienceModal.isShareableLabel"
       },
       {
-        "defaultMessage": "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+        "defaultMessage": "Please acknowledge that this information is not sensitive in nature as it may be shared with the staff managing this job application.",
         "id": "application.personalExperienceModal.isShareableInlineLabel"
       },
       {
@@ -1054,11 +1054,6 @@
         "id": "application.finalSubmit.confirmCriteria.firstBullet"
       },
       {
-        "defaultMessage": "I understand that I am a part of a community of people who trust each other.",
-        "description": "Bullet point about the criteria before final submission.",
-        "id": "application.finalSubmit.confirmCriteria.secondBullet"
-      },
-      {
         "defaultMessage": "I promise that the information I've provided is true.",
         "description": "Bullet point about the criteria before final submission.",
         "id": "application.finalSubmit.confirmCriteria.thirdBullet"
@@ -1066,12 +1061,17 @@
       {
         "defaultMessage": "Final Submission",
         "description": "Heading text on the final submit step of the Application Timeline.",
-        "id": "application.finalSubmit."
+        "id": "application.finalSubmit.heading"
       },
       {
-        "defaultMessage": "You've made it! By signing your name below, you're confirming that:",
+        "defaultMessage": "<b>You've made it!</b>",
         "description": "Heading text before confirmation criteria list.",
         "id": "application.finalSubmit.confirmCriteriaHeading"
+      },
+      {
+        "defaultMessage": "I understand that I am a part of a community of people who trust each other and by signing my name below, I am confirming that:",
+        "description": "Sentence before confirmation criteria list.",
+        "id": "application.finalSubmit.confirmCriteria.firstSentence"
       },
       {
         "defaultMessage": "Submit Application",
@@ -1119,17 +1119,17 @@
         "id": "application.intro.heading"
       },
       {
-        "defaultMessage": "Before you begin we'd like to provide you with some information about what you can expect from our application process.",
+        "defaultMessage": "Before getting started, we'd like to provide you with some information about what you can expect from our application process.",
         "description": "First section of text on the intro step of the Application Timeline.",
         "id": "application.intro.preamble"
       },
       {
-        "defaultMessage": "Talent Cloud is a skills-based hiring platform, and <bold>this means that we're going to ask you about your experiences in a way that differs from a traditional resume format</bold>. The goal is to get a thorough understanding of the skills you have and how your past experiences have shaped them. This gives the manager reviewing your application a much stronger sense of your abilities.",
+        "defaultMessage": "Talent Cloud is a skills-based hiring platform, but what does that mean for you? Simply put, this means that <b>we're going to ask you about your experiences in a way that differs from a traditional resume format</b>. ",
         "description": "Paragraph explaining how TC differs from a traditional resumé.",
         "id": "application.intro.firstParagraph"
       },
       {
-        "defaultMessage": "We'll begin by asking you about your experiences, varying across academia, work, community, etc.",
+        "defaultMessage": "We'll start by asking you about your experiences, varying across academia, work, community, and more. Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position.",
         "description": "Bullet point about the beginning of the application process.",
         "id": "application.intro.firstBullet"
       },
@@ -1139,14 +1139,9 @@
         "id": "application.intro.secondBullet"
       },
       {
-        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you a ton of time.",
+        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you time and effort.",
         "description": "Paragraph explaining the time saving of the application and profile.",
         "id": "application.intro.secondParagraph"
-      },
-      {
-        "defaultMessage": "Ready to get started?",
-        "description": "Ending text to motivate the applicant to progress.",
-        "id": "application.intro.prompt"
       },
       {
         "defaultMessage": "Start My Application",
@@ -1261,7 +1256,7 @@
         "id": "application.review.subheadingTwo"
       },
       {
-        "defaultMessage": "Ask yourself, \"If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?\"",
+        "defaultMessage": "Ask yourself, If I was a manager would I think they could do a good job?",
         "description": "Third line of the subheading for the Review page.",
         "id": "application.review.subheadingThree"
       },

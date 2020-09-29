@@ -120,7 +120,7 @@ export const messages = defineMessages({
   blockcertInlineLabel: {
     id: "application.educationExperienceModal.blockcertInlineLabel",
     defaultMessage:
-      "I have a Blockcert and can provide it on request. (Optional)",
+      "Yes, I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
     id: "application.educationExperienceModal.startDateLabel",

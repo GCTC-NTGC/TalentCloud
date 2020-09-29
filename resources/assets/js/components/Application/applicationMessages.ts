@@ -207,7 +207,7 @@ export const basicInfoMessages = defineMessages({
 export const experienceMessages = defineMessages({
   heading: {
     id: "application.experience.heading",
-    defaultMessage: "My Experience",
+    defaultMessage: "Your Experience",
     description: "Heading for the Experience section of the Application.",
   },
 });

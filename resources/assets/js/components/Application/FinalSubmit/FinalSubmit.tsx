@@ -38,12 +38,12 @@ const confirmationCriteria = defineMessages({
     defaultMessage: "I've reviewed everything written in my application.",
     description: "Bullet point about the criteria before final submission.",
   },
-  secondBullet: {
-    id: "application.finalSubmit.confirmCriteria.secondBullet",
-    defaultMessage:
-      "I understand that I am a part of a community of people who trust each other.",
-    description: "Bullet point about the criteria before final submission.",
-  },
+  // secondBullet: {
+  //   id: "application.finalSubmit.confirmCriteria.secondBullet",
+  //   defaultMessage:
+  //     "I understand that I am a part of a community of people who trust each other.",
+  //   description: "Bullet point about the criteria before final submission.",
+  // },
   thirdBullet: {
     id: "application.finalSubmit.confirmCriteria.thirdBullet",
     defaultMessage: "I promise that the information I've provided is true.",
@@ -98,7 +98,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
     <div data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
         <FormattedMessage
-          id="application.finalSubmit."
+          id="application.finalSubmit.heading"
           defaultMessage="Final Submission"
           description="Heading text on the final submit step of the Application Timeline."
         />
@@ -106,8 +106,18 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
       <p data-c-margin="bottom(1)">
         <FormattedMessage
           id="application.finalSubmit.confirmCriteriaHeading"
-          defaultMessage="You've made it! By signing your name below, you're confirming that:"
+          defaultMessage="<b>You've made it!</b>"
           description="Heading text before confirmation criteria list."
+          values={{
+            b: (...chunks) => <span data-c-font-weight="bold">{chunks}</span>,
+          }}
+        />
+      </p>
+      <p data-c-margin="bottom(1)">
+        <FormattedMessage
+          id="application.finalSubmit.confirmCriteria.firstSentence"
+          defaultMessage="I understand that I am a part of a community of people who trust each other and by signing my name below, I am confirming that:"
+          description="Sentence before confirmation criteria list."
         />
       </p>
       <ul data-c-margin="bottom(2)">

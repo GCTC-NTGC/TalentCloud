@@ -291,7 +291,7 @@ const Review: React.FC<ReviewProps> = ({
       <p>
         <FormattedMessage
           id="application.review.subheadingThree"
-          defaultMessage={`Ask yourself, "If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?"`}
+          defaultMessage="Ask yourself, If I was a manager would I think they could do a good job?"
           description="Third line of the subheading for the Review page."
         />
       </p>

@@ -1,4 +1,7 @@
 [
+  "application.accordion.dateRange",
+  "application.accordion.awardHeading",
+  "application.accordion.communityHeading",
   "assessmentPlan.criteriaTitle",
   "assessmentPlan.skillDescriptionLabel",
   "ratingGuideBuilder.questionHeading",
@@ -21,8 +24,5 @@
   "province.on.abreviation",
   "province.sk.abreviation",
   "securityClearance.secret",
-  "jobBuilder.details.classificationOptions.CO",
-  "application.accordion.awardHeading",
-  "application.accordion.communityHeading",
-  "application.accordion.dateRange"
+  "jobBuilder.details.classificationOptions.CO"
 ]

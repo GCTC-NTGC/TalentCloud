@@ -83,7 +83,7 @@ export const messages = defineMessages({
   isShareableInlineLabel: {
     id: "application.personalExperienceModal.isShareableInlineLabel",
     defaultMessage:
-      "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+      "Please acknowledge that this information is not sensitive in nature as it may be shared with the staff managing this job application.",
   },
   startDateLabel: {
     id: "application.personalExperienceModal.startDateLabel",

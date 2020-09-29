@@ -473,7 +473,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         <p data-c-color="gray" data-c-margin="bottom(2)">
           <FormattedMessage
             id="application.experience.softSkillsList"
-            defaultMessage="Don't forget, {skill} will be evaluated later in the hiring process."
+            defaultMessage="Please note that {skill} will be evaluated later in the hiring process."
             description="List of soft skills that will be evaluated later."
             values={{
               skill: (

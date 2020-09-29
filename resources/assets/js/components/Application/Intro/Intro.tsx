@@ -19,17 +19,17 @@ const ApplicationIntro: React.FC<IntroProps> = ({ handleStart }) => {
         <p data-c-margin="bottom(1)">
           <FormattedMessage
             id="application.intro.preamble"
-            defaultMessage="Before you begin we'd like to provide you with some information about what you can expect from our application process."
+            defaultMessage="Before getting started, we'd like to provide you with some information about what you can expect from our application process."
             description="First section of text on the intro step of the Application Timeline."
           />
         </p>
         <p data-c-margin="bottom(1)">
           <FormattedMessage
             id="application.intro.firstParagraph"
-            defaultMessage="Talent Cloud is a skills-based hiring platform, and <bold>this means that we're going to ask you about your experiences in a way that differs from a traditional resume format</bold>. The goal is to get a thorough understanding of the skills you have and how your past experiences have shaped them. This gives the manager reviewing your application a much stronger sense of your abilities."
+            defaultMessage="Talent Cloud is a skills-based hiring platform, but what does that mean for you? Simply put, this means that <b>we're going to ask you about your experiences in a way that differs from a traditional resume format</b>. "
             description="Paragraph explaining how TC differs from a traditional resumé."
             values={{
-              bold: (...chunks): React.ReactElement => (
+              b: (...chunks): React.ReactElement => (
                 <span data-c-font-weight="bold">{chunks}</span>
               ),
             }}
@@ -39,7 +39,7 @@ const ApplicationIntro: React.FC<IntroProps> = ({ handleStart }) => {
           <li>
             <FormattedMessage
               id="application.intro.firstBullet"
-              defaultMessage="We'll begin by asking you about your experiences, varying across academia, work, community, etc."
+              defaultMessage="We'll start by asking you about your experiences, varying across academia, work, community, and more. Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position."
               description="Bullet point about the beginning of the application process."
             />
           </li>
@@ -54,20 +54,13 @@ const ApplicationIntro: React.FC<IntroProps> = ({ handleStart }) => {
         <p data-c-margin="bottom(1)">
           <FormattedMessage
             id="application.intro.secondParagraph"
-            defaultMessage="During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you a ton of time."
+            defaultMessage="During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you time and effort."
             description="Paragraph explaining the time saving of the application and profile."
             values={{
               bold: (...chunks): React.ReactElement => (
                 <span data-c-font-weight="bold">{chunks}</span>
               ),
             }}
-          />
-        </p>
-        <p>
-          <FormattedMessage
-            id="application.intro.prompt"
-            defaultMessage="Ready to get started?"
-            description="Ending text to motivate the applicant to progress."
           />
         </p>
       </div>
