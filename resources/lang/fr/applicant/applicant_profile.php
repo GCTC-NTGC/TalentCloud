@@ -15,6 +15,9 @@ return [
     'account_settings_label' => 'Paramètres du compte',
     'required_label' => 'Requis',
     'input_error' => 'Cette entrée contient une erreur.',
+    'page_going_away' => '',
+    'page_going_away_desc' => '',
+    'page_going_away_read_more' => '',
     'about_section' => [
         'about_title' => 'Mes renseignements',
         'profile_title' => 'Nuage de talents | Candidat : Profil - À propos de moi',
