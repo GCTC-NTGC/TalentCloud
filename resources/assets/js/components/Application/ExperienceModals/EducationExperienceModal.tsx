@@ -65,7 +65,7 @@ interface EducationExperienceModalProps {
 export const messages = defineMessages({
   modalTitle: {
     id: "application.educationExperienceModal.modalTitle",
-    defaultMessage: "Add Education Experience",
+    defaultMessage: "Add Education",
   },
   modalDescription: {
     id: "application.educationExperienceModal.modalDescription",

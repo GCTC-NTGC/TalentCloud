@@ -21,5 +21,8 @@
   "province.on.abreviation",
   "province.sk.abreviation",
   "securityClearance.secret",
-  "jobBuilder.details.classificationOptions.CO"
+  "jobBuilder.details.classificationOptions.CO",
+  "application.accordion.awardHeading",
+  "application.accordion.communityHeading",
+  "application.accordion.dateRange"
 ]

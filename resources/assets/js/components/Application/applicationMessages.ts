@@ -104,7 +104,7 @@ export const accordionMessages = defineMessages({
   },
   educationType: {
     id: "application.accordion.educationType",
-    defaultMessage: "Education Experience",
+    defaultMessage: "Education",
   },
   educationTypeLabel: {
     id: "application.accordion.educationTypeLabel",
@@ -132,7 +132,7 @@ export const accordionMessages = defineMessages({
   },
   educationHasBlockcert: {
     id: "application.accordion.educationHasBlockcert",
-    defaultMessage: "I have a Blockcert and can provide it on request.",
+    defaultMessage: "Yes, I have a Blockcert and can provide it on request.",
   },
   personalType: {
     id: "application.accordion.personalType",

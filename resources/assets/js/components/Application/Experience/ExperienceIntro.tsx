@@ -8,7 +8,7 @@ interface ExperienceIntroProps {
 const typesOfExperience = defineMessages({
   education: {
     id: "application.experience.intro.educationExperience",
-    defaultMessage: "Education Experience",
+    defaultMessage: "Education",
     description: "Type of experience: Education Experience.",
   },
   work: {

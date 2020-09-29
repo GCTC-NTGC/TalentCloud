@@ -62,7 +62,7 @@ const educationDetails = (
           data-c-color="c1"
           data-c-margin="right(.25)"
         />
-        Education Experience
+        Education
       </p>
     </div>
     <div data-c-grid-item="base(1of2) tl(1of3)">
