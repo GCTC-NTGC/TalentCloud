@@ -15,6 +15,9 @@ return [
     'account_settings_label' => 'Account Settings',
     'required_label' => 'Required',
     'input_error' => 'This input has an error.',
+    'page_going_away' => 'This page is going away',
+    'page_going_away_desc' => 'We\'ve learned a lot in our first year of operation. To help managers better understand your experience fits with the jobs you are applying to, this section is being replaced.',
+    'page_going_away_read_more' => 'Read more about this change here',
     'about_section' => [
         'about_title' => 'My Information',
         'profile_title' => 'Talent Cloud | Applicant: Profile - About Me',

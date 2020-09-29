@@ -1,10 +1,10 @@
 <?php
 /*
 | --------------------------------------------------------------------------
-| Applicant Profile Language Lines
+| Applicant Archived Notification Lines
 | --------------------------------------------------------------------------
 |
-| The following language lines are used in the applicant profile.
+| The following language lines are used in the notification that content has been archived.
 |
 */
 return [
