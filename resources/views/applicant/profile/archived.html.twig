@@ -4,32 +4,28 @@
     Applicant: Profile - Page Archived Warning
 
 ============================================================================= #}
-<!--
-<p><b><b></p>
-<br />
-<p>
-
-</p>
-<br />
-<p><u><u></p>
--->
-
-{{profile.page_going_away}}
-<div data-clone>
-    <section data-c-alignment="base(centre)" data-c-background="c2(100)" data-c-padding="top(half) bottom(half)">
-        <div data-c-container="large">
-            <div data-c-grid="gutter">
-                <div data-c-alignment="tp(left)" data-c-grid-item="tp(5of7)" data-c-color="white">
-                    <i class="fas fa-info-circle" data-c-colour="white"></i>
-                    &nbsp;&nbsp;&nbsp;<span>{{profile.page_going_away_desc}}</span>
-                </div>
-                <div data-c-alignment="tp(right)" data-c-grid-item="tp(2of7)" data-c-color="whiet">
-                    <i class="fas fa-comment-alt" data-c-colour="white"></i>&nbsp;&nbsp;&nbsp;
-                    <a data-c-color="white" href="mailto:{{ alert.feedback_link }}" title="{{ alert.feedback_link_title }}">
-                        {{profile.page_going_away_read_more}}
-                    </a>
+<div aria-hidden="true" aria-describedby="example-dialog-01-description" aria-labelledby="example-dialog-01-title" data-c-padding="tb(2)">
+    <div
+        data-c-background="white"
+        data-c-border="all(thin, solid, c3)"
+        data-c-radius="rounded"
+        data-c-padding="bottom(1)">
+            <div data-c-padding="tb(1) right(2) left(1)">
+                <!-- Title -->
+                <p data-c-color="c3" data-c-font-size="h4" data-c-dialog-focus><b>{{profile.page_going_away}}</b></p>
+            </div>
+            <div data-c-padding="left(1)">
+                <!-- Main content -->
+                <div id="example-dialog-01-description">
+                    <p data-c-color="c3">{{profile.page_going_away_desc}}</p>
                 </div>
             </div>
-        </div>
-    </section>
+            <div data-c-padding="left(1)">
+                <!-- For more information -->
+                <div data-c-grid="gutter(all, 1) middle">
+                    <div data-c-grid-item="base(1of2)">
+                        <p data-c-color="c3" data-c-margin="top(.5)"><u>{{profile.page_going_away_read_more}}</u></p>
+                </div>
+            </div>
+    </div>
 </div>
