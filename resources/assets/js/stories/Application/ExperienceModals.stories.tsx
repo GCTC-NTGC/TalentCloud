@@ -3,6 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { number, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
+import { useIntl } from "react-intl";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import {
   fakeExperienceWork,
@@ -23,6 +24,7 @@ import PersonalExperienceModal from "../../components/Application/ExperienceModa
 import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
 import { ClassificationId } from "../../models/lookupConstants";
 import { mapToObject } from "../../helpers/queries";
+import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
 const stories = storiesOf("Application|Experience Modals", module).addDecorator(
   withIntl,
@@ -148,12 +150,18 @@ const classificationOptions = mapToObject(
   (x) => x,
 );
 
+const jobClassification = select(
+  "Job Classification",
+  classificationOptions,
+  "CS",
+  groupIds.details,
+);
 stories.add(
   "Work Experience Modal",
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="work-modal-container">
         <div
@@ -169,11 +177,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -195,7 +201,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="education-modal-container">
         <div
@@ -213,11 +219,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -239,7 +243,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="education-modal-container">
         <div
@@ -257,11 +261,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -283,7 +285,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="community-modal-container">
         <div
@@ -299,11 +301,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -325,7 +325,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="personal-modal-container">
         <div
@@ -341,11 +341,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -367,7 +365,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
-
+    const intl = useIntl();
     return (
       <div id="award-modal-container">
         <div
@@ -385,11 +383,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"
@@ -411,6 +407,7 @@ stories.add(
   (): React.ReactElement => {
     const isModalVisible = boolean("Visible", true, groupIds.switches);
     const modalParent = document.querySelector("#modal-root");
+    const intl = useIntl();
     return (
       <div id="award-new-modal-container">
         <div
@@ -428,11 +425,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={select(
-              "Job Classification",
-              classificationOptions,
-              "CS",
-              groupIds.details,
+            jobClassification={jobClassification}
+            jobEducationRequirements={intl.formatMessage(
+              educationMessages[jobClassification],
             )}
             experienceableId={1}
             experienceableType="application"

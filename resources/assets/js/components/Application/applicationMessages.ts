@@ -212,6 +212,15 @@ export const experienceMessages = defineMessages({
   },
 });
 
+export const educationRequirementMessages = defineMessages({
+  missingClassification: {
+    id: "application.education.missingClassification",
+    defaultMessage: "UNKNOWN CLASSIFICATION",
+    description:
+      "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
+  },
+});
+
 export const skillMessages = defineMessages({
   experienceSkillPlaceholder: {
     id: "application.skills.experienceSkillPlaceholder",

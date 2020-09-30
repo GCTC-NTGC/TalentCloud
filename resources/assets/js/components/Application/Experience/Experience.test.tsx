@@ -13,6 +13,8 @@ import fakeExperiences from "../../../fakeData/fakeExperience";
 import IntlContainer from "../../../IntlContainer";
 import ExperienceIntro from "./ExperienceIntro";
 import { fakeCriteria } from "../../../fakeData/fakeCriteria";
+import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
+import { ClassificationId } from "../../../models/lookupConstants";
 
 describe("Application Timeline - My Experience", (): void => {
   it("should render MyExperience with items", (): void => {
@@ -30,7 +32,8 @@ describe("Application Timeline - My Experience", (): void => {
           handleReturn={() => {}}
           handleSubmitExperience={async () => {}}
           jobId={1}
-          jobClassificationId={1}
+          jobClassificationId={ClassificationId.CS}
+          jobEducationRequirements={educationMessages.CS.defaultMessage}
           recipientTypes={recipientTypes}
           recognitionTypes={recogntitionTypes}
           skills={fakeSkills()}
@@ -56,7 +59,8 @@ describe("Application Timeline - My Experience", (): void => {
           handleReturn={() => {}}
           handleSubmitExperience={async () => {}}
           jobId={1}
-          jobClassificationId={1}
+          jobClassificationId={ClassificationId.CS}
+          jobEducationRequirements={educationMessages.CS.defaultMessage}
           recipientTypes={recipientTypes}
           recognitionTypes={recogntitionTypes}
           skills={fakeSkills()}

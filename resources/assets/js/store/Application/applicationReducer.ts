@@ -10,9 +10,6 @@ import {
   FETCH_APPLICATION_SUCCEEDED,
   FETCH_APPLICATION_FAILED,
   FETCH_APPLICATION_STARTED,
-  FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
-  FETCH_APPLICATION_NORMALIZED_FAILED,
-  FETCH_APPLICATION_NORMALIZED_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED,
   FETCH_APPLICATIONS_FOR_JOB_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_FAILED,
@@ -127,32 +124,25 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: deleteProperty(
-            action.payload,
+          [action.payload.application.id]: deleteProperty(
+            action.payload.application,
             "application_review",
           ),
         },
-        applicationReviews: action.payload.application_review
+        applicationReviews: action.payload.application.application_review
           ? {
               byId: {
                 ...state.applicationReviews.byId,
-                [action.payload.application_review.id]:
-                  action.payload.application_review,
+                [action.payload.application.application_review.id]:
+                  action.payload.application.application_review,
               },
               idByApplicationId: {
                 ...state.applicationReviews.idByApplicationId,
-                [action.payload.id]: action.payload.application_review.id,
+                [action.payload.application.id]:
+                  action.payload.application.application_review.id,
               },
             }
           : state.applicationReviews,
-      };
-    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
-      return {
-        ...state,
-        applications: {
-          ...state.applications,
-          [action.payload.application.id]: action.payload.application,
-        },
         jobApplicationAnswers: {
           ...mapToObject(action.payload.jobApplicationAnswers, getId),
         },
@@ -260,23 +250,6 @@ export const uiReducer = (
       };
     case FETCH_APPLICATION_SUCCEEDED:
     case FETCH_APPLICATION_FAILED:
-      return {
-        ...state,
-        applicationIsUpdating: {
-          ...state.applicationIsUpdating,
-          [action.meta.id]: false,
-        },
-      };
-    case FETCH_APPLICATION_NORMALIZED_STARTED:
-      return {
-        ...state,
-        applicationIsUpdating: {
-          ...state.applicationIsUpdating,
-          [action.meta.id]: true,
-        },
-      };
-    case FETCH_APPLICATION_NORMALIZED_SUCCEEDED:
-    case FETCH_APPLICATION_NORMALIZED_FAILED:
       return {
         ...state,
         applicationIsUpdating: {
