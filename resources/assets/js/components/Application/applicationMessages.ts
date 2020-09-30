@@ -204,6 +204,14 @@ export const basicInfoMessages = defineMessages({
   },
 });
 
+export const experienceMessages = defineMessages({
+  heading: {
+    id: "application.experience.heading",
+    defaultMessage: "My Experience",
+    description: "Heading for the Experience section of the Application.",
+  },
+});
+
 export const educationRequirementMessages = defineMessages({
   missingClassification: {
     id: "application.education.missingClassification",
