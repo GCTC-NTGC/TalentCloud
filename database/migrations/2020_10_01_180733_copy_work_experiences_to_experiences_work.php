@@ -19,7 +19,6 @@ class CopyWorkExperiencesToExperiencesWork extends Migration
             DB::table('experiences_work')->insert([
                 'title' => $work->role,
                 'organization' => $work->company,
-                'group' => $work->description,
                 'start_date' => $work->start_date,
                 'end_date' => $work->end_date,
                 'experienceable_id' => $work->experienceable_id,
