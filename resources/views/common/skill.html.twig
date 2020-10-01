@@ -325,7 +325,7 @@
                         <div data-c-grid="gutter(all, 1)">
                             {% if locale != "application" %}
                                 <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
-                                    <button class="modal-trigger" data-modal-id="deleteSkill" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                                    <button class="modal-trigger" data-modal-id="deleteSkill" data-c-button="outline(stop)" data-c-radius="rounded" type="button" disabled>
                                         <span>{{ skill_template.action_01 }}</span>
                                     </button>
                                 </div>
@@ -333,7 +333,7 @@
                             {% else %}
                                 <div data-c-grid-item="base(1of1)" data-c-align="base(center) pl(right)">
                             {% endif %}
-                                <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
+                                <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}" disabled>
                                     <span>
                                         <span class="submit-default">{{ skill_template.action_02 }}</span>
                                         <span class="submit-working">{{ skill_template.action_02_working }}</span>
