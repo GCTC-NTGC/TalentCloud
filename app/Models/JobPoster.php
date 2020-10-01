@@ -7,17 +7,14 @@
 
 namespace App\Models;
 
-use Astrotomic\Translatable\Translatable;
-
+use App\Events\JobSaved;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-
-use Jenssegers\Date\Date;
-
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use Jenssegers\Date\Date;
 
-use App\Events\JobSaved;
+use Spatie\Translatable\HasTranslations;
 
 /**
  * Class JobPoster
@@ -29,8 +26,6 @@ use App\Events\JobSaved;
  * @property \Jenssegers\Date\Date $open_date_time
  * @property \Jenssegers\Date\Date $close_date_time
  * @property \Jenssegers\Date\Date $start_date_time
- * @property \Jenssegers\Date\Date $review_requested_at
- * @property \Jenssegers\Date\Date $published_at
  * @property int $department_id
  * @property int $province_id
  * @property int $salary_min
@@ -42,7 +37,7 @@ use App\Events\JobSaved;
  * @property int $language_requirement_id
  * @property boolean $remote_work_allowed
  * @property int $manager_id
- * @property boolean $published
+ * @property boolean $internal_only
  * @property int $team_size
  * @property array $work_env_features This should be an array of boolean flags for features, ie json of shape {[feature: string]: boolean}
  * @property int $fast_vs_steady
@@ -54,9 +49,13 @@ use App\Events\JobSaved;
  * @property int $flexible_hours_frequency_id
  * @property int $travel_requirement_id
  * @property int $overtime_requirement_id
- * @property int $process_number
+ * @property string $process_number
  * @property int $priority_clearance_number
+ * @property int $job_poster_status_id
  * @property \Jenssegers\Date\Date $loo_issuance_date
+ * @property int $talent_stream_id
+ * @property int $talent_stream_category_id
+ * @property int $job_skill_level_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -74,8 +73,13 @@ use App\Events\JobSaved;
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_questions
  * @property \Illuminate\Database\Eloquent\Collection $job_poster_translations
  * @property \Illuminate\Database\Eloquent\Collection $submitted_applications
+ * @property \Illuminate\Database\Eloquent\Collection $hr_advisors
  * @property \App\Models\Lookup\Frequency $telework_allowed_frequency
  * @property \App\Models\Lookup\Frequency $flexible_hours_frequency
+ * @property \App\Models\Lookup\JobPosterStatus $job_poster_status
+ * @property \App\Models\Lookup\TalentStream|null $talent_stream
+ * @property \App\Models\Lookup\TalentStreamCategory|null $talent_stream_category
+ * @property \App\Models\Lookup\JobSkillLevel|null $job_skill_level
  *
  * Localized Properties:
  * @property string $city
@@ -91,8 +95,13 @@ use App\Events\JobSaved;
  *
  * Methods
  * @method boolean isOpen()
+ * @method boolean isClosed()
+ * @method boolean isVisibleToHr()
+ * @method boolean isPublic()
+ * @method boolean isEditable()
  * @method string timeRemaining()
  * @method mixed[] toApiArray()
+ * @method boolean isInStrategicResponseDepartment()
  *
  * Computed Properties
  * @property string|null $classification_code
@@ -101,7 +110,7 @@ use App\Events\JobSaved;
 class JobPoster extends BaseModel
 {
     use CrudTrait;
-    use Translatable;
+    use HasTranslations;
     use Notifiable;
 
     const DATE_FORMAT = [
@@ -115,9 +124,9 @@ class JobPoster extends BaseModel
     const TIMEZONE = 'America/Toronto';
 
     /**
-     * @var string[] $translatedAttributes
+     * @var string[] $translatable
      */
-    public $translatedAttributes = [
+    public $translatable = [
         'city',
         'title',
         'dept_impact',
@@ -146,7 +155,7 @@ class JobPoster extends BaseModel
         'language_requirement_id' => 'int',
         'remote_work_allowed' => 'boolean',
         'manager_id' => 'int',
-        'published' => 'boolean',
+        'internal_only' => 'boolean',
         'team_size' => 'int',
         'work_env_features' => 'array',
         'fast_vs_steady' => 'int',
@@ -158,6 +167,8 @@ class JobPoster extends BaseModel
         'flexible_hours_frequency_id' => 'int',
         'travel_requirement_id' => 'int',
         'overtime_requirement_id' => 'int',
+        'process_number' => 'string',
+        'priority_clearance_number' => 'int'
     ];
 
     /**
@@ -167,8 +178,6 @@ class JobPoster extends BaseModel
         'open_date_time',
         'close_date_time',
         'start_date_time',
-        'review_requested_at',
-        'published_at',
         'loo_issuance_date',
     ];
 
@@ -190,7 +199,7 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published',
+        'internal_only',
         'team_size',
         'work_env_features',
         'fast_vs_steady',
@@ -207,6 +216,20 @@ class JobPoster extends BaseModel
         'loo_issuance_date',
         'classification_id',
         'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
+        'talent_stream_id',
+        'talent_stream_category_id',
+        'job_skill_level_id',
+        'job_poster_status_id', // This really shouldn't be mass-editable, but its necesary for the admin crud portal to set it.
     ];
 
     /**
@@ -231,9 +254,6 @@ class JobPoster extends BaseModel
         'security_clearance_id',
         'language_requirement_id',
         'remote_work_allowed',
-        'published_at',
-        'published',
-        'review_requested_at',
         'team_size',
         'work_env_features',
         'fast_vs_steady',
@@ -249,7 +269,22 @@ class JobPoster extends BaseModel
         'priority_clearance_number',
         'loo_issuance_date',
         'classification_id',
-        'classification_level'
+        'classification_level',
+        'city',
+        'title',
+        'dept_impact',
+        'team_impact',
+        'hire_impact',
+        'division',
+        'education',
+        'work_env_description',
+        'culture_summary',
+        'culture_special',
+        'job_poster_status_id',
+        'talent_stream_id',
+        'talent_stream_category_id',
+        'job_skill_level_id',
+        'created_at',
     ];
 
     /**
@@ -259,7 +294,17 @@ class JobPoster extends BaseModel
      */
     protected $appends = [
         'classification_code',
-        'classification_message'
+        'classification_message',
+    ];
+
+    /**
+     * Eager loaded relationships by default.
+     *
+     * @var string[] $with
+     */
+    protected $with = [
+        'criteria',
+        'manager'
     ];
 
     /**
@@ -305,6 +350,14 @@ class JobPoster extends BaseModel
         return $this->hasMany(\App\Models\Criteria::class);
     }
 
+    public function hr_advisors() // phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\HrAdvisor::class,
+            'claimed_jobs'
+        );
+    }
+
     public function job_applications() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplication::class);
@@ -312,17 +365,12 @@ class JobPoster extends BaseModel
 
     public function job_poster_key_tasks() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPosterKeyTask::class);
+        return $this->hasMany(\App\Models\JobPosterKeyTask::class)->orderBy('order', 'asc');
     }
 
     public function job_poster_questions() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\JobPosterQuestion::class);
-    }
-
-    public function job_poster_translations() // phpcs:ignore
-    {
-        return $this->hasMany(\App\Models\JobPosterTranslation::class);
+        return $this->hasMany(\App\Models\JobPosterQuestion::class)->orderBy('id', 'asc');
     }
 
     public function telework_allowed_frequency() // phpcs:ignore
@@ -349,6 +397,37 @@ class JobPoster extends BaseModel
     {
         return $this->belongsTo(\App\Models\Classification::class);
     }
+
+    public function comments() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\Comment::class);
+    }
+
+    public function job_poster_status() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\JobPosterStatus::class);
+    }
+
+    public function job_poster_status_histories() // phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\JobPosterStatusHistory::class);
+    }
+
+    public function talent_stream() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\TalentStream::class);
+    }
+
+    public function talent_stream_category() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\TalentStreamCategory::class);
+    }
+
+    public function job_skill_level() // phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\JobSkillLevel::class);
+    }
+
     // @codeCoverageIgnoreEnd
     /* Artificial Relations */
 
@@ -381,27 +460,6 @@ class JobPoster extends BaseModel
     public function resolveRouteBinding($value) // phpcs:ignore
     {
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
-    }
-
-    /**
-     * Intercept setting the "published" attribute, and set the
-     * "published_at" timestamp if true.
-     *
-     * @param mixed $value Incoming value for the 'published' attribute.
-     *
-     * @return void
-     */
-    public function setPublishedAttribute($value): void
-    {
-        if ($value) {
-            $this->attributes['published_at'] = new Date();
-        } else {
-            $this->attributes['published_at'] = null;
-        }
-        if ($value === null) {
-            $value = false;
-        }
-        $this->attributes['published'] = $value;
     }
 
     /* Methods */
@@ -450,11 +508,7 @@ class JobPoster extends BaseModel
      */
     public function isOpen(): bool
     {
-        return $this->published
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isFuture();
+        return $this->job_poster_status->key === 'live';
     }
 
     /**
@@ -464,11 +518,42 @@ class JobPoster extends BaseModel
      */
     public function isClosed(): bool
     {
-        return $this->published
-            && $this->open_date_time !== null
-            && $this->close_date_time !== null
-            && $this->open_date_time->isPast()
-            && $this->close_date_time->isPast();
+        return ($this->job_poster_status->key === 'assessment'
+            || $this->job_poster_status->key === 'completed');
+    }
+
+    /**
+     * Return true if this job should be visible to hr advisors.
+     * It should become visible after Manager has requested a review.
+     *
+     * @return boolean
+     */
+    public function isVisibleToHr()
+    {
+        return $this->job_poster_status->key !== 'draft';
+    }
+
+    /**
+     * Check if a Job Poster is open to public view.
+     *
+     * @return boolean
+     */
+    public function isPublic(): bool
+    {
+        return ($this->job_poster_status->key == 'live'
+            || $this->job_poster_status->key == 'assessment'
+            || $this->job_poster_status->key == 'completed');
+    }
+
+    /**
+     * Check if a Job Poster is theoretically editable.
+     *
+     * @return boolean
+     */
+    public function isEditable(): bool
+    {
+        // Admins, at least, should be able to edit the job up until the public can see it.
+        return !$this->isPublic();
     }
 
     /**
@@ -504,27 +589,6 @@ class JobPoster extends BaseModel
         return Lang::choice($key, $count);
     }
 
-    /**
-     * Return the current status for the Job Poster.
-     * Possible values are "draft", "submitted", "published" and "closed".
-     *
-     * @return string
-     */
-    public function status(): string
-    {
-        $status = 'draft';
-        if ($this->isOpen()) {
-            $status = 'published';
-        } elseif ($this->isClosed()) {
-            $status = 'closed';
-        } elseif ($this->review_requested_at !== null) {
-            $status = 'submitted';
-        } else {
-            $status = 'draft';
-        }
-
-        return $status;
-    }
 
     /**
      * The database model stores a foreign id to the classification table,
@@ -555,14 +619,13 @@ class JobPoster extends BaseModel
     }
 
     /**
-     * Return the array of values used to represent this object in an api response.
-     * This array should contain no nested objects (besides translations).
      *
-     * @return mixed[]
+     * Job Poster is from the Strategic Talent Response department
+     *
+     * @return boolean
      */
-    public function toApiArray(): array
+    public function isInStrategicResponseDepartment()
     {
-        $jobWithTranslations = array_merge($this->toArray(), $this->getTranslationsArray());
-        return $jobWithTranslations;
+        return $this->department && $this->department->id === config('app.strategic_response_department_id');
     }
 }

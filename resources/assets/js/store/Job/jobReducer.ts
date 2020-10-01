@@ -1,5 +1,11 @@
 import { combineReducers } from "redux";
-import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../../models/types";
 import {
   JobAction,
   FETCH_JOB_STARTED,
@@ -29,6 +35,13 @@ import {
   BATCH_UPDATE_JOB_TASKS_STARTED,
   FETCH_JOB_TASKS_FAILED,
   BATCH_UPDATE_JOB_TASKS_FAILED,
+  CREATE_COMMENT_SUCCEEDED,
+  FETCH_COMMENTS_SUCCEEDED,
+  FETCH_JOB_INDEX_SUCCEEDED,
+  FETCH_JOB_INDEX_STARTED,
+  FETCH_JOB_INDEX_FAILED,
+  FETCH_COMMENTS_STARTED,
+  FETCH_COMMENTS_FAILED,
 } from "./jobActions";
 import {
   mapToObject,
@@ -53,8 +66,18 @@ export interface EntityState {
       [id: number]: JobPosterKeyTask[];
     };
   };
+  comments: {
+    byJobId: {
+      [id: number]: Comment;
+    };
+  };
   jobEdits: {
     [id: number]: Job;
+  };
+  jobPosterQuestions: {
+    byId: {
+      [id: number]: JobPosterQuestion;
+    };
   };
 }
 
@@ -62,6 +85,7 @@ export interface UiState {
   jobUpdating: {
     [id: number]: boolean;
   };
+  jobIndexUpdating: boolean;
   criteriaUpdating: {
     [id: number]: boolean;
   };
@@ -73,6 +97,7 @@ export interface UiState {
   };
   creatingJob: boolean;
   selectedJobId: number | null;
+  fetchingComments: boolean;
 }
 
 export interface JobState {
@@ -84,16 +109,20 @@ export const initEntities = (): EntityState => ({
   jobs: { byId: {} },
   criteria: { byId: {} },
   tasks: { byJobId: {} },
+  comments: { byJobId: {} },
   jobEdits: {},
+  jobPosterQuestions: { byId: {} },
 });
 
 export const initUi = (): UiState => ({
   jobUpdating: {},
+  jobIndexUpdating: false,
   criteriaUpdating: {},
   criteriaUpdatingByJob: {},
   tasksUpdatingByJob: {},
   creatingJob: false,
   selectedJobId: null,
+  fetchingComments: false,
 });
 
 export const initState = (): JobState => ({
@@ -122,6 +151,21 @@ export const entitiesReducer = (
               (criteria): boolean => criteria.job_poster_id !== action.meta.id,
             ),
             ...mapToObject(action.payload.criteria, getId),
+          },
+        },
+        jobPosterQuestions: {
+          byId: {
+            ...mapToObject(action.payload.jobPosterQuestions, getId),
+          },
+        },
+      };
+    case FETCH_JOB_INDEX_SUCCEEDED:
+      return {
+        ...state,
+        jobs: {
+          byId: {
+            ...state.jobs.byId,
+            ...mapToObject(action.payload.jobs, getId),
           },
         },
       };
@@ -157,7 +201,7 @@ export const entitiesReducer = (
     case CLEAR_JOB_EDIT:
       return {
         ...state,
-        jobEdits: deleteProperty<Job>(state.jobEdits, action.payload),
+        jobEdits: deleteProperty(state.jobEdits, action.payload),
       };
     case FETCH_JOB_TASKS_SUCCEEDED:
     case BATCH_UPDATE_JOB_TASKS_SUCCEEDED:
@@ -182,6 +226,26 @@ export const entitiesReducer = (
                 criteria.job_poster_id !== action.meta.jobId,
             ),
             ...mapToObject(action.payload, getId),
+          },
+        },
+      };
+    case FETCH_COMMENTS_SUCCEEDED:
+      return {
+        ...state,
+        comments: {
+          byJobId: {
+            ...state.comments.byJobId,
+            ...mapToObject(action.payload, getId),
+          },
+        },
+      };
+    case CREATE_COMMENT_SUCCEEDED:
+      return {
+        ...state,
+        comments: {
+          byJobId: {
+            ...state.comments.byJobId,
+            [action.payload.id]: action.payload,
           },
         },
       };
@@ -217,6 +281,11 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           [action.meta.id]: true,
         },
       };
+    case FETCH_JOB_INDEX_STARTED:
+      return {
+        ...state,
+        jobIndexUpdating: true,
+      };
     case FETCH_JOB_SUCCEEDED:
     case FETCH_JOB_FAILED:
     case UPDATE_JOB_FAILED:
@@ -229,6 +298,12 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           ...state.jobUpdating,
           [action.meta.id]: false,
         },
+      };
+    case FETCH_JOB_INDEX_SUCCEEDED:
+    case FETCH_JOB_INDEX_FAILED:
+      return {
+        ...state,
+        jobIndexUpdating: false,
       };
     case SET_SELECTED_JOB:
       return {
@@ -274,6 +349,17 @@ export const uiReducer = (state = initUi(), action: JobAction): UiState => {
           ...state.criteriaUpdatingByJob,
           [action.meta.jobId]: false,
         },
+      };
+    case FETCH_COMMENTS_STARTED:
+      return {
+        ...state,
+        fetchingComments: true,
+      };
+    case FETCH_COMMENTS_SUCCEEDED:
+    case FETCH_COMMENTS_FAILED:
+      return {
+        ...state,
+        fetchingComments: false,
       };
     default:
       return state;

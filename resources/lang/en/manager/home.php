@@ -8,6 +8,7 @@ return [
      * Route: /manager/
      * View: views/manager/home.html.twig
      */
+    'home_title' => 'Talent Cloud | Manager: Home',
     'hero' => [
         'heading' => 'Talent Cloud',
         'heading_alt' => 'Canadian Maple Leaf',
@@ -15,7 +16,8 @@ return [
         'button' => [
             'text' => 'Sign Up',
             'title' => 'Sign up as a manager to demo Talent Cloud\'s manager portal.'
-        ]
+        ],
+        'pilot' => 'BETA / Pilot Project'
     ],
     'banner' => [
         'content' => 'Welcome to the Talent Cloud :open manager :close portal.',
@@ -186,7 +188,7 @@ return [
                 ]
             ],
             'content_before' => 'If you’re a member,',
-            'content_after' => 'to let us know that we should level up your account. This will allow you to post jobs on Talent Cloud, as well as provide you with all the features that come with a Partner Department Account. To be able to post a job, you’ll need to confirm that you have a classified box.',
+            'content_after' => 'to let us know that we should level up your account. This will allow you to post jobs on Talent Cloud, as well as provide you with all the features that come with a Partner Department Account. To be able to post a job, you’ll need to confirm that you have a classified position in your organisation (eg. vacant EC-04).',
             'anchor' => [
                 'href' => 'mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
                 'text' => 'contact Talent Cloud',

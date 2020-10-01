@@ -11,7 +11,7 @@ return [
      */
 
     "hero_logo_alt" => "Graphique Identifiant du Nuage de talents du GC.",
-    "hero_logo" => "/images/logo_tc_colour_fr.png",
+    "hero_logo" => asset("/images/logo_tc_colour_fr.png"),
     "hero_title" => "Nuage de Talents du GC",
     "hero_tagline" => "Votre prochain projet : Améliorer le Canada.",
 ];

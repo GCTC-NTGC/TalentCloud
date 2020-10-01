@@ -6,34 +6,10 @@ use App\Models\User;
 use App\Models\Applicant;
 use App\Models\JobPoster;
 use App\Policies\BasePolicy;
+use Illuminate\Support\Facades\Gate;
 
 class ApplicantPolicy extends BasePolicy
 {
-
-    /**
-     * Returns true if $user owns a job to which $applicant has applied.
-     *
-     * @param  \App\Models\User      $user      Generic User object for checking Manager relationship to Job Poster.
-     * @param  \App\Models\Applicant $applicant Applicant object used within applications submitted to Job Poster.
-     * @return boolean
-     */
-    protected function ownsJobApplicantAppliedTo(User $user, Applicant $applicant)
-    {
-        $applicant_id = $applicant->id;
-        $user_id = $user->id;
-        return JobPoster::whereHas(
-            'manager',
-            function ($q) use ($user_id) {
-                $q->where('user_id', $user_id);
-            }
-        )->whereHas(
-            'submitted_applications',
-            function ($q) use ($applicant_id) {
-                    $q->where('applicant_id', $applicant_id);
-            }
-        )->get()->isNotEmpty();
-    }
-
     /**
      * Determine whether the user can view the applicant.
      *
@@ -45,8 +21,9 @@ class ApplicantPolicy extends BasePolicy
     {
         $authApplicant = $user->isApplicant() &&
             $applicant->user->is($user);
-        $authManager = $user->isManager() && $this->ownsJobApplicantAppliedTo($user, $applicant);
-        return $authApplicant || $authManager;
+        $authManager = $user->isManager() && Gate::allows('owns-job-applicant-applied-to', $applicant);
+        $authHr = $user->isHrAdvisor() && Gate::allows('claims-job-applicant-applied-to', $applicant);
+        return $authApplicant || $authManager || $authHr;
     }
 
     /**
@@ -82,6 +59,8 @@ class ApplicantPolicy extends BasePolicy
      */
     public function delete(User $user, Applicant $applicant)
     {
+        return $user->isApplicant() &&
+            $applicant->user_id === $user->id;
     }
 
     /**

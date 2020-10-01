@@ -2,7 +2,13 @@ import isEqual from "lodash/isEqual";
 import { createSelector } from "reselect";
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
-import { Job, Criteria, JobPosterKeyTask } from "../../models/types";
+import {
+  Job,
+  Criteria,
+  JobPosterKeyTask,
+  Comment,
+  JobPosterQuestion,
+} from "../../models/types";
 import { hasKey, getId } from "../../helpers/queries";
 import { EntityState, UiState } from "./jobReducer";
 
@@ -22,6 +28,11 @@ export const getCriteriaState = (
   state: RootState,
 ): { [id: number]: Criteria } => entities(state).criteria.byId;
 
+const getJobPosterQuestionsState = (
+  state: RootState,
+): { [id: number]: JobPosterQuestion } =>
+  entities(state).jobPosterQuestions.byId;
+
 const getTaskState = (
   state: RootState,
 ): { [jobId: number]: JobPosterKeyTask[] } => entities(state).tasks.byJobId;
@@ -33,6 +44,18 @@ const getCriteriaForJobUpdatingState = (
 const getTasksForJobUpdatingState = (
   state: RootState,
 ): { [id: number]: boolean } => ui(state).tasksUpdatingByJob;
+
+export const getAllJobs = createSelector(getJobState, (jobState): Job[] =>
+  Object.values(jobState),
+);
+
+export const getAllJobsInDept = createCachedSelector(
+  getAllJobs,
+  (state: RootState, ownProps: { departmentId: number }): number =>
+    ownProps.departmentId,
+  (jobs, departmentId): Job[] =>
+    jobs.filter((job) => job.department_id === departmentId),
+)((state, ownProps): number => ownProps.departmentId);
 
 export const getJob = createCachedSelector(
   getJobState,
@@ -53,9 +76,16 @@ export const getEditJob = createCachedSelector(
     hasKey(jobState, jobId) ? jobState[jobId] : null,
 )((state, ownProps): number => ownProps.jobId);
 
+export const getJobIndexIsUpdating = (state: RootState): boolean => {
+  return ui(state).jobIndexUpdating;
+};
+
 export const getJobIsUpdating = (state: RootState, id: number): boolean => {
   const updating = getJobUpdatingState(state);
-  return hasKey(updating, id) ? updating[id] : false;
+  return (
+    getJobIndexIsUpdating(state) ||
+    (hasKey(updating, id) ? updating[id] : false)
+  );
 };
 
 export const getJobIsEdited = createCachedSelector(
@@ -129,4 +159,55 @@ export const getTasksByJob = createCachedSelector(
   (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
   (tasksByJob, jobId): JobPosterKeyTask[] =>
     hasKey(tasksByJob, jobId) ? tasksByJob[jobId] : [],
+)((state, ownProps): number => ownProps.jobId);
+
+export const getCommentsState = (state: RootState): { [id: number]: Comment } =>
+  state.jobs.entities.comments.byJobId;
+
+export const getComments = createSelector(
+  getCommentsState,
+  (commentsState): Comment[] => Object.values(commentsState),
+);
+
+export const sortComments = (comments: Comment[]): Comment[] => {
+  const comparator = (a: Comment, b: Comment): number => {
+    return b.created_at.getTime() - a.created_at.getTime();
+  };
+  return comments.sort(comparator);
+};
+
+export const getSortedComments = createSelector(getComments, sortComments);
+
+export const getSortedFilteredComments = createCachedSelector(
+  getSortedComments,
+  (
+    state: RootState,
+    ownProps: {
+      filterComments?: (comment: Comment) => boolean;
+      generalLocation: string;
+    },
+  ) => ownProps.filterComments,
+  (comments, filterComments): Comment[] => {
+    return filterComments !== undefined
+      ? comments.filter(filterComments)
+      : comments;
+  },
+)((state, ownProps) => ownProps.generalLocation);
+
+export const fetchingComments = (state: RootState): boolean =>
+  ui(state).fetchingComments;
+
+export const getJobPosterQuestions = createSelector(
+  getJobPosterQuestionsState,
+  (jobPosterQuestionsState): JobPosterQuestion[] =>
+    Object.values(jobPosterQuestionsState),
+);
+
+export const getJobPosterQuestionsByJob = createCachedSelector(
+  getJobPosterQuestions,
+  (state: RootState, ownProps: { jobId: number }): number => ownProps.jobId,
+  (jobPosterQuestions, jobId: number): JobPosterQuestion[] =>
+    jobPosterQuestions.filter(
+      (jobPosterQuestion): boolean => jobPosterQuestion.job_poster_id === jobId,
+    ),
 )((state, ownProps): number => ownProps.jobId);

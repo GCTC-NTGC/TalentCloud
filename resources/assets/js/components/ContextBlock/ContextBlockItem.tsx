@@ -1,9 +1,8 @@
 import * as React from "react";
-import textToParagraphs from "../../helpers/textToParagraphs";
 
 export interface ContextBlockItemProps {
   title?: string;
-  subtext?: string;
+  subtext?: string | React.ReactNode;
   active?: boolean;
   className?: string;
   contextId?: string;
@@ -53,8 +52,7 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
           {title}
         </p>
       )}
-      {subtext &&
-        textToParagraphs(subtext, { "data-c-font-size": fontSize || "small" })}
+      {subtext && <p data-c-font-size={fontSize || "small"}>{subtext}</p>}
     </div>
   );
 };

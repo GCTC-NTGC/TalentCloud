@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import {
-  WrappedComponentProps,
-  injectIntl,
   MessageDescriptor,
   FormattedMessage,
+  defineMessages,
+  useIntl,
 } from "react-intl";
 import * as Yup from "yup";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FastField } from "formik";
 import { Criteria, Skill } from "../../../models/types";
 import { validationMessages } from "../../Form/Messages";
 import TextAreaInput from "../../Form/TextAreaInput";
@@ -21,6 +21,7 @@ import {
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import ContextBlock from "../../ContextBlock/ContextBlock";
+import { localizeField, getLocale } from "../../../helpers/localize";
 
 interface CriteriaFormProps {
   // The Job Poster this criteria will belong to.
@@ -32,6 +33,25 @@ interface CriteriaFormProps {
   handleSubmit: (criteria: Criteria) => void;
   handleCancel: () => void;
 }
+
+const criteriaFormMessages = defineMessages({
+  skillSpecificityLabel: {
+    id: "criteriaForm.skillSpecificityLabel",
+    defaultMessage: "Additional skill details",
+    description: "Label for the skill specificity textarea.",
+  },
+  skillSpecificityPlaceholder: {
+    id: "criteriaForm.skillSpecificityPlaceholder",
+    defaultMessage:
+      "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+  skillLevelSelectionLabel: {
+    id: "criteriaForm.skillLevelSelectionLabel",
+    defaultMessage: "Select a skill level:",
+    description: "Placeholder for the skill specificity textarea.",
+  },
+});
 
 const essentialSkillLevels = (
   skillTypeId: number,
@@ -98,7 +118,7 @@ export const criteriaToValues = (
   criteria: Criteria,
   locale: "en" | "fr",
 ): FormValues => ({
-  specificity: criteria[locale].specificity || "",
+  specificity: localizeField(locale, criteria, "specificity") || "",
   level:
     criteria.criteria_type_id === CriteriaTypeId.Asset
       ? "asset"
@@ -107,10 +127,10 @@ export const criteriaToValues = (
 
 /* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
+  locale: "en" | "fr",
   criteria: Criteria,
   skill: Skill,
   values: FormValues,
-  locale: "en" | "fr",
 ): Criteria => {
   return {
     ...criteria,
@@ -119,15 +139,13 @@ const updateCriteriaWithValues = (
         ? CriteriaTypeId.Asset
         : CriteriaTypeId.Essential,
     skill_level_id: essentialKeyToId(values.level),
-    en: {
-      description: skill.en.description,
-      specificity:
-        locale === "en" ? values.specificity : criteria.en.specificity,
+    description: {
+      en: skill.description.en,
+      fr: skill.description.fr,
     },
-    fr: {
-      description: skill.fr.description,
-      specificity:
-        locale === "fr" ? values.specificity : criteria.fr.specificity,
+    specificity: {
+      ...criteria.specificity,
+      [locale]: values.specificity,
     },
   };
 };
@@ -138,34 +156,31 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
   job_poster_id: jobPosterId,
   skill_id: skillId,
   skill_level_id: SkillLevelId.Basic,
-  en: {
-    description: null,
-    specificity: null,
+  description: {
+    en: null,
+    fr: null,
   },
-  fr: {
-    description: null,
-    specificity: null,
+  specificity: {
+    en: null,
+    fr: null,
   },
 });
 /* eslint-enable @typescript-eslint/camelcase */
 
-export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
-  WrappedComponentProps> = ({
+export const CriteriaForm: React.FunctionComponent<CriteriaFormProps> = ({
   jobPosterId,
   criteria,
   skill,
   handleSubmit,
   handleCancel,
-  intl,
 }): React.ReactElement => {
-  const { locale } = intl;
-  if (locale !== "en" && locale !== "fr") {
-    throw new Error("Unknown intl.locale");
-  }
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const stringNotEmpty = (value: string | null): boolean =>
     value !== null && (value as string).length !== 0;
   const [showSpecificity, setShowSpecificity] = useState(
-    criteria !== undefined && stringNotEmpty(criteria[locale].specificity),
+    criteria !== undefined &&
+      stringNotEmpty(localizeField(locale, criteria, "specificity")),
   );
 
   const initialValues: FormValues =
@@ -196,15 +211,16 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
             ? criteria
             : newCriteria(jobPosterId, skill.id);
         const updatedCriteria = updateCriteriaWithValues(
+          locale,
           oldCriteria,
           skill,
           values,
-          locale,
         );
         handleSubmit(updatedCriteria);
         setSubmitting(false);
       }}
-      render={({
+    >
+      {({
         errors,
         touched,
         isSubmitting,
@@ -223,18 +239,24 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                 />
               </p>
               <div>
-                <p data-c-margin="bottom(normal)">{skill[locale].name}</p>
                 <p data-c-margin="bottom(normal)">
-                  {skill[locale].description}
+                  {localizeField(locale, skill, "name")}
+                </p>
+                <p data-c-margin="bottom(normal)">
+                  {localizeField(locale, skill, "description")}
                 </p>
                 {showSpecificity ? (
                   <>
-                    <Field
+                    <FastField
                       id="skillSpecificity"
                       type="textarea"
                       name="specificity"
-                      label="Skill Specificity"
-                      placeholder="Add specificity to the definition of this skill that will only appear on my job poster but note that this will have be approved prior to posting..."
+                      label={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityLabel,
+                      )}
+                      placeholder={intl.formatMessage(
+                        criteriaFormMessages.skillSpecificityPlaceholder,
+                      )}
                       component={TextAreaInput}
                     />
                     <button
@@ -266,8 +288,7 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
                       <i className="fas fa-plus-circle" data-c-colour="c1" />
                       <FormattedMessage
                         id="jobBuilder.criteriaForm.addSpecificity"
-                        defaultMessage="I'd like to add specificity to this definition. This will
-                          only apply to my job poster."
+                        defaultMessage="I would like to add details to this definition that are specific to this position."
                         description="Label for 'Add additional specificity' button on Add Skill modal."
                       />
                     </span>
@@ -276,96 +297,100 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
               </div>
             </div>
             {/* Skill Level */}
-            <div data-c-padding="all(normal)">
-              <div className="job-builder-culture-block">
-                <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
-                  <FormattedMessage
-                    id="jobBuilder.criteriaForm.chooseSkillLevel"
-                    defaultMessage="Choose a Skill Level"
-                    description="Label for 'Choose a Skill Level' radio group heading on Add Skill modal."
-                  />
-                </p>
-                <div data-c-grid="gutter">
-                  <RadioGroup
-                    id="skillLevelSelection"
-                    label="Select a skill level:"
-                    required
-                    touched={touched.level}
-                    error={errors.level}
-                    value={values.level}
-                    grid="base(1of1) tl(1of3)"
-                  >
-                    {Object.entries(
-                      essentialSkillLevels(skill.skill_type_id),
-                    ).map(
-                      ([key, { name }]): React.ReactElement => {
-                        return (
-                          <Field
-                            key={key}
-                            id={key}
-                            name="level"
-                            component={RadioInput}
-                            label={intl.formatMessage(name)}
-                            value={key}
-                            trigger
-                          />
-                        );
-                      },
-                    )}
-                    <div
-                      className="job-builder-skill-level-or-block"
-                      data-c-alignment="base(centre)"
-                    >
-                      {/** This empty div is required for CSS magic */}
-                      <div />
-                      <span>
-                        <FormattedMessage
-                          id="jobBuilder.criteriaForm.or"
-                          defaultMessage="or"
-                          description="Label for 'or' between essential/asset levels on Add Skill modal."
+            <div
+              className="job-builder-culture-block"
+              data-c-grid-item="base(1of1)"
+              data-c-padding="all(normal)"
+            >
+              <p data-c-font-weight="bold" data-c-margin="bottom(normal)">
+                <FormattedMessage
+                  id="jobBuilder.criteriaForm.chooseSkillLevel"
+                  defaultMessage="Choose a Skill Level"
+                  description="Label for 'Choose a Skill Level' radio group heading on Add Skill modal."
+                />
+              </p>
+              <div data-c-grid="gutter">
+                <RadioGroup
+                  id="skillLevelSelection"
+                  label={intl.formatMessage(
+                    criteriaFormMessages.skillLevelSelectionLabel,
+                  )}
+                  required
+                  touched={touched.level}
+                  error={errors.level}
+                  value={values.level}
+                  grid="base(1of1) tl(1of3)"
+                >
+                  {Object.entries(
+                    essentialSkillLevels(skill.skill_type_id),
+                  ).map(
+                    ([key, { name }]): React.ReactElement => {
+                      return (
+                        <FastField
+                          key={key}
+                          id={key}
+                          name="level"
+                          component={RadioInput}
+                          label={intl.formatMessage(name)}
+                          value={key}
+                          trigger
                         />
-                      </span>
-                    </div>
-                    <Field
-                      key="asset"
-                      id="asset"
-                      name="level"
-                      component={RadioInput}
-                      label={intl.formatMessage(assetSkillName())}
-                      value="asset"
-                      trigger
-                    />
-                  </RadioGroup>
-                  <ContextBlock
-                    className="job-builder-context-block"
-                    grid="base(1of1) tl(2of3)"
+                      );
+                    },
+                  )}
+                  <div
+                    className="job-builder-skill-level-or-block"
+                    data-c-alignment="base(centre)"
                   >
-                    {Object.entries(
-                      essentialSkillLevels(skill.skill_type_id),
-                    ).map(
-                      ([key, { name, context }]): React.ReactElement => {
-                        return (
-                          <ContextBlockItem
-                            key={key}
-                            contextId={key}
-                            title={intl.formatMessage(name)}
-                            subtext={intl.formatMessage(context)}
-                            className="job-builder-context-item"
-                            active={values.level === key}
-                          />
-                        );
-                      },
-                    )}
-                    <ContextBlockItem
-                      key="asset"
-                      contextId="asset"
-                      title={intl.formatMessage(assetSkillName())}
-                      subtext={intl.formatMessage(assetSkillDescription())}
-                      className="job-builder-context-item"
-                      active={values.level === "asset"}
-                    />
-                  </ContextBlock>
-                </div>
+                    {/** This empty div is required for CSS magic */}
+                    <div />
+                    <span>
+                      <FormattedMessage
+                        id="jobBuilder.criteriaForm.or"
+                        defaultMessage="or"
+                        description="Label for 'or' between essential/asset levels on Add Skill modal."
+                      />
+                    </span>
+                  </div>
+                  <FastField
+                    key="asset"
+                    id="asset"
+                    name="level"
+                    component={RadioInput}
+                    label={intl.formatMessage(assetSkillName())}
+                    value="asset"
+                    trigger
+                  />
+                </RadioGroup>
+                <ContextBlock
+                  className="job-builder-context-block"
+                  grid="base(1of1) tl(2of3)"
+                >
+                  {Object.entries(
+                    essentialSkillLevels(skill.skill_type_id),
+                  ).map(
+                    ([key, { name, context }]): React.ReactElement => {
+                      return (
+                        <ContextBlockItem
+                          key={key}
+                          contextId={key}
+                          title={intl.formatMessage(name)}
+                          subtext={intl.formatMessage(context)}
+                          className="job-builder-context-item"
+                          active={values.level === key}
+                        />
+                      );
+                    },
+                  )}
+                  <ContextBlockItem
+                    key="asset"
+                    contextId="asset"
+                    title={intl.formatMessage(assetSkillName())}
+                    subtext={intl.formatMessage(assetSkillDescription())}
+                    className="job-builder-context-item"
+                    active={values.level === "asset"}
+                  />
+                </ContextBlock>
               </div>
             </div>
             <div data-c-padding="normal">
@@ -407,8 +432,8 @@ export const CriteriaForm: React.FunctionComponent<CriteriaFormProps &
           </Form>
         </>
       )}
-    />
+    </Formik>
   );
 };
 
-export default injectIntl(CriteriaForm);
+export default CriteriaForm;

@@ -81,23 +81,18 @@ export const DemoSubmitJobModal: React.FC<DemoSubmitJobModalProps> = ({
               />
             </p>
             <p data-c-margin="top(normal)">
-              {intl.formatMessage(
-                managerSurveyMessages.managerSurveyExplanation,
-                {
-                  a: msg => (
-                    <a
-                      href="https://talentcloud1.typeform.com/to/MrOkgK"
-                      title={intl.formatMessage(
-                        managerSurveyMessages.managerSurveyLinkTitle,
-                      )}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >
-                      {msg}
-                    </a>
-                  ),
-                },
-              )}
+              <a
+                href="https://talentcloud1.typeform.com/to/MrOkgK"
+                title={intl.formatMessage(
+                  managerSurveyMessages.managerSurveyLinkTitle,
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {intl.formatMessage(
+                  managerSurveyMessages.managerSurveyExplanation,
+                )}
+              </a>
             </p>
           </div>
         </div>

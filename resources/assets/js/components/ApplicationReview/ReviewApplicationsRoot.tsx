@@ -18,12 +18,15 @@ import { find } from "../../helpers/queries";
 import * as routes from "../../helpers/routes";
 import { classificationString } from "../../models/jobUtil";
 import { axios } from "../../api/base";
-import IntlContainer from "../../IntlContainer";
+import RootContainer from "../RootContainer";
+import { Portal } from "../../models/app";
+import { ReviewStatusId } from "../../models/lookupConstants";
 
 interface ReviewApplicationsProps {
   job: Job;
   initApplications: Application[];
   reviewStatuses: ReviewStatus[];
+  portal: Portal;
 }
 
 interface ReviewApplicationsState {
@@ -38,12 +41,12 @@ interface ReviewSubmitForm {
 
 const localizations = defineMessages({
   oops: {
-    id: "alert.oops",
+    id: "review.applications.alert.oops",
     defaultMessage: "Save",
     description: "Dynamic Save button label",
   },
   somethingWrong: {
-    id: "apl.reviewSaveFailed",
+    id: "review.applications.reviewSaveFailed",
     defaultMessage:
       "Something went wrong while saving a review. Try again later.",
     description: "Dynamic Save button label",
@@ -202,17 +205,19 @@ class ReviewApplicationsRoot extends React.Component<
 
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
-    const { reviewStatuses, job } = this.props;
-    const { intl } = this.props;
+    const { reviewStatuses, job, portal, intl } = this.props;
 
-    const reviewStatusOptions = reviewStatuses.map(status => ({
-      value: status.id,
-      label: camelCase(status.name),
-    }));
+    const reviewStatusOptions = reviewStatuses
+      .filter(status => status.id in ReviewStatusId)
+      .map(status => ({
+        value: status.id,
+        label: camelCase(status.name),
+      }));
 
     return (
       <ReviewApplications
-        title={job[intl.locale].title}
+        jobId={job.id}
+        title={job.title[intl.locale]}
         classification={classificationString(job)}
         closeDateTime={job.close_date_time}
         applications={applications}
@@ -221,15 +226,16 @@ class ReviewApplicationsRoot extends React.Component<
         onBulkStatusChange={this.handleBulkStatusChange}
         onNotesChange={this.handleNotesChange}
         savingStatuses={savingStatuses}
+        portal={portal}
       />
     );
   }
 }
 
-if (document.getElementById("review-applications-container")) {
-  const container = document.getElementById(
-    "review-applications-container",
-  ) as HTMLElement;
+const renderReviewApplications = (
+  container: HTMLElement,
+  portal: Portal,
+): void => {
   if (
     container.hasAttribute("data-job") &&
     container.hasAttribute("data-applications") &&
@@ -243,19 +249,33 @@ if (document.getElementById("review-applications-container")) {
     const reviewStatuses = JSON.parse(
       container.getAttribute("data-review-statuses") as string,
     );
-    const language = container.getAttribute("data-locale") as string;
     const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
-      <IntlContainer locale={language}>
+      <RootContainer>
         <IntlReviewApplicationsRoot
           job={job}
           initApplications={applications}
           reviewStatuses={reviewStatuses}
+          portal={portal}
         />
-      </IntlContainer>,
+      </RootContainer>,
       container,
     );
   }
+};
+
+if (document.getElementById("review-applications-container")) {
+  const container = document.getElementById(
+    "review-applications-container",
+  ) as HTMLElement;
+  renderReviewApplications(container, "manager");
+}
+
+if (document.getElementById("review-applications-container-hr")) {
+  const hrContainer = document.getElementById(
+    "review-applications-container-hr",
+  ) as HTMLElement;
+  renderReviewApplications(hrContainer, "hr");
 }
 
 export default injectIntl(ReviewApplicationsRoot);

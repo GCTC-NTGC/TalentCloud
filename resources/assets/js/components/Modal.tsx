@@ -6,6 +6,7 @@ interface ModalProps {
   parentElement: Element | null;
   visible: boolean;
   children: React.ReactNode;
+  className?: string;
   onModalConfirm: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onModalMiddle?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onModalCancel: (
@@ -22,6 +23,7 @@ export default function Modal({
   parentElement,
   visible,
   children,
+  className,
   onModalConfirm,
   onModalMiddle,
   onModalCancel,
@@ -107,11 +109,7 @@ export default function Modal({
         data-c-padding="top(double) bottom(double)"
         role="dialog"
         ref={modalRef}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        className={className}
       >
         <div data-c-background="white(100)" data-c-radius="rounded">
           <modalContext.Provider
@@ -135,8 +133,8 @@ export default function Modal({
   return null;
 }
 
-Modal.Header = function ModalHeader(props): React.ReactElement {
-  return props.children;
+Modal.Header = function ModalHeader({ children }): React.ReactElement {
+  return <div className="dialog-header">{children}</div>;
 };
 
 Modal.Body = function ModalBody(props): React.ReactElement {

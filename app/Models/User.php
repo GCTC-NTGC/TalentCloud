@@ -7,18 +7,19 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Notifications\Notifiable;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Notifications\ResetPasswordNotification;
-use App\Traits\TalentCloudCrudTrait as CrudTrait;
 use App\Traits\RememberDeviceTrait;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 /**
  * Class User
@@ -35,14 +36,19 @@ use App\Traits\RememberDeviceTrait;
  * @property boolean $not_in_gov
  * @property string $google2fa_secret
  * @property array $recovery_codes
+ * @property int $department_id
+ * @property string $contact_language
+ * @property boolean $job_alerts
  * @property \Jenssegers\Date\Date $recovery_codes_generation_date
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant $applicant
  * @property \App\Models\Manager $manager
+ * @property \App\Models\HrAdvisor $hr_advisor
  * @property \App\Models\ProfilePic $profile_pic
  * @property \App\Models\UserRole $user_role
+ * @property \App\Models\Lookup\Department $department
  */
 class User extends BaseModel implements
     // Laravel contracts for native login.
@@ -50,8 +56,6 @@ class User extends BaseModel implements
     CanResetPasswordContract,
     // Contract for use with Gates and Policies.
     AuthorizableContract
-    // Custom contract for use with openid login.
-    // \App\Services\Auth\Contracts\OidcAuthenticatable.
 {
 
     // Traits for Laravel basic authentication.
@@ -73,6 +77,9 @@ class User extends BaseModel implements
         'email' => 'string',
         'gov_email' => 'string',
         'not_in_gov' => 'boolean',
+        'department_id' => 'int',
+        'contact_language' => 'string',
+        'job_alerts' => 'boolean',
     ];
 
     /**
@@ -90,7 +97,10 @@ class User extends BaseModel implements
         'is_priority',
         'gov_email',
         'not_in_gov',
-        'google2fa_secret'
+        'google2fa_secret',
+        'department_id',
+        'contact_language',
+        'job_alerts',
     ];
 
     protected $with = ['user_role'];
@@ -98,6 +108,8 @@ class User extends BaseModel implements
     protected $hidden = [
         'password',
         'remember_token',
+        'remember_device_token',
+        'recovery_codes_generation_date',
         'google2fa_secret',
         'recovery_codes',
     ];
@@ -122,6 +134,11 @@ class User extends BaseModel implements
         return $this->hasOne(\App\Models\Manager::class);
     }
 
+    public function hr_advisor() //phpcs:ignore
+    {
+        return $this->hasOne(\App\Models\HrAdvisor::class);
+    }
+
     public function profile_pic() //phpcs:ignore
     {
         return $this->hasOne(\App\Models\ProfilePic::class);
@@ -130,6 +147,11 @@ class User extends BaseModel implements
     public function user_role() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\UserRole::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(\App\Models\Lookup\Department::class);
     }
 
     public function setIsPriorityAttribute($value)
@@ -141,7 +163,7 @@ class User extends BaseModel implements
     }
 
     /**
-     * Ecrypt the user's google_2fa secret.
+     * Encrypt the user's google_2fa secret.
      *
      * @param  string  $value
      * @return string
@@ -166,7 +188,7 @@ class User extends BaseModel implements
     }
 
     /**
-     * Ecrypt and serialize the user's recovery codes.
+     * Encrypt and serialize the user's recovery codes.
      *
      * @param  string[]  $value
      * @return void
@@ -210,7 +232,7 @@ class User extends BaseModel implements
      */
     public function isUpgradedManager(): bool
     {
-        return $this->isAdmin() || $this->user_role->name === 'upgradedManager';
+        return $this->isAdmin() || $this->user_role->key === 'upgradedManager';
     }
 
     /**
@@ -236,18 +258,28 @@ class User extends BaseModel implements
     }
 
     /**
+     * Returns true if this user has the hr_advisor role.
+     *
+     * @return boolean
+     */
+    public function isHrAdvisor(): bool
+    {
+        return $this->user_role->key === 'hr_advisor' || $this->isAdmin();
+    }
+
+    /**
      * Returns true if this user has the Admin role.
      *
      * @return boolean
      */
     public function isAdmin(): bool
     {
-        return $this->user_role->name === 'admin';
+        return $this->user_role->key === 'admin';
     }
 
     /**
      * Check if the user has the specified role.
-     * @param string $role This may be either 'applicant', 'manager' or 'admin'.
+     * @param string $role This may be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
      * @return boolean
      */
     public function hasRole($role)
@@ -257,6 +289,8 @@ class User extends BaseModel implements
                 return $this->isApplicant();
             case 'manager':
                 return $this->isManager();
+            case 'hr_advisor':
+                return $this->isHrAdvisor();
             case 'admin':
                 return $this->isAdmin();
             default:
@@ -267,12 +301,12 @@ class User extends BaseModel implements
     /**
      * Set this user to the specified role.
      *
-     * @param string $role Must be either 'applicant', 'manager' or 'admin.
+     * @param string $role Must be either 'applicant', 'manager', 'hr_advisor' or 'admin'.
      * @return void
      */
     public function setRole(string $role): void
     {
-        $this->user_role()->associate(UserRole::where('name', $role)->firstOrFail());
+        $this->user_role()->associate(UserRole::where('key', $role)->firstOrFail());
     }
 
     /**
@@ -285,7 +319,9 @@ class User extends BaseModel implements
      */
     public function sendPasswordResetNotification($token): void
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $locale = App::getLocale();
+        $notification = new ResetPasswordNotification($token);
+        $this->notify($notification->locale($locale));
     }
 
     /**

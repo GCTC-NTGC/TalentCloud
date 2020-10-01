@@ -27,12 +27,12 @@ export const managerSurveyMessages = defineMessages({
   },
   managerSurveyLink: {
     id: "managerSurveyModal.link",
-    defaultMessage: "Take me to the survey",
+    defaultMessage: "Take me to the survey.",
     description: "Link to manager survey.",
   },
   jobPosterLink: {
     id: "managerSurveyModal.jobPosterLink",
-    defaultMessage: "Go back to <a>My Job Posters</>.",
+    defaultMessage: "Go back to My Job Posters",
     description: "Link to job poster index.",
   },
   jobPosterLinkTitle: {
@@ -80,18 +80,16 @@ export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
               )}
             </p>
             <p data-c-margin="top(normal)">
-              {intl.formatMessage(managerSurveyMessages.jobPosterLink, {
-                a: msg => (
-                  <a
-                    href={managerJobIndex(intl.locale)}
-                    title={intl.formatMessage(
-                      managerSurveyMessages.jobPosterLinkTitle,
-                    )}
-                  >
-                    {msg}
-                  </a>
-                ),
-              })}
+              <a
+                href="https://talentcloud1.typeform.com/to/MrOkgK"
+                title={intl.formatMessage(
+                  managerSurveyMessages.managerSurveyLinkTitle,
+                )}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {intl.formatMessage(managerSurveyMessages.managerSurveyLink)}
+              </a>
             </p>
           </div>
         </div>
@@ -102,14 +100,10 @@ export const ManagerSurveyModal: React.FC<ManagerSurveyModalProps> = ({
           data-c-dialog-action="close"
           data-c-radius="rounded"
           style={{ textDecoration: "none" }}
-          href="https://talentcloud1.typeform.com/to/MrOkgK"
-          title={intl.formatMessage(
-            managerSurveyMessages.managerSurveyLinkTitle,
-          )}
-          target="_blank"
-          rel="noreferrer noopener"
+          href={managerJobIndex(intl.locale)}
+          title={intl.formatMessage(managerSurveyMessages.jobPosterLinkTitle)}
         >
-          {intl.formatMessage(managerSurveyMessages.managerSurveyLink)}
+          {intl.formatMessage(managerSurveyMessages.jobPosterLink)}
         </a>
       </div>
     </Modal>

@@ -14,10 +14,10 @@ return [
     'header' => 'Login to Talent Cloud',
     'return' => "Return Home",
     'email' => 'E-Mail Address',
+    'email_placeholder' => 'e.g. email@website.com',
     'password' => 'Password',
     'register' => 'Register',
     'remember_me' => 'Remember Me',
     'forgot_password' => 'Forgot Password',
     'login' => 'Login',
-    'auth_logo' => '/images/logo_tc_colour.png'
 ];

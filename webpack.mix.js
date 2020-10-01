@@ -22,6 +22,7 @@ mix
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
+  .js("resources/assets/js/typeToDelete.js", "public/js")
   .ts("resources/assets/js/managerRegistration.ts", "public/js")
   .ts(
     "resources/assets/js/components/AssessmentPlan/AssessmentPlanRoot.tsx",
@@ -29,6 +30,10 @@ mix
   )
   .ts(
     "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/ApplicationReview/ApplicationTimelineReviewRoot.tsx",
     "public/js",
   )
   .ts(
@@ -44,9 +49,32 @@ mix
     "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.tsx",
     "public/js",
   )
+  .ts("resources/assets/js/components/HRPortal/JobIndexHrPage.tsx", "public/js")
+  .ts(
+    "resources/assets/js/components/HRPortal/JobReviewHrPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/HRPortal/JobSummaryActivityFeed.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/Application/ApplicationRoot.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
-    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    sassOptions: {
+      includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    },
   })
   .options({
     processCssUrls: false,
@@ -65,7 +93,9 @@ mix
   })
   .sass("resources/assets/sass/reliability.scss", "public/css", {
     implementation: sass,
-    includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    sassOptions: {
+      includePaths: ["node_modules/@fortawesome/fontawesome-free/scss"],
+    },
   })
   .options({
     processCssUrls: false,

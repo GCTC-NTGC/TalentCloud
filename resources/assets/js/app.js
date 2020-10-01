@@ -12,8 +12,10 @@
   };
 
   // Root
-
   var $root = $("html, body");
+
+  // Document Locale
+  const docLocale = document.documentElement.lang;
 
   // Add has attribute Function
   $.fn.hasAttr = function(name) {
@@ -125,10 +127,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "false");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .removeClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "true");
           });
@@ -140,10 +142,10 @@
           accordions.each(function() {
             $(this).attr("aria-expanded", "true");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .addClass("active");
             $(this)
-              .parent(".accordion")
+              .parent(".clone-accordion")
               .find(".accordion-content")
               .attr("aria-hidden", "false");
           });
@@ -211,7 +213,7 @@
       // .one() unbinds the event handler once it triggers
       // This is important because this modal is reused to delete
       //  different items.
-      $(".modal-delete-trigger").one("click", function(e) {
+      modal.one("click", function(e) {
         //TODO: when items are saved with ajax too, the check
         // will become more complicated than checking for a
         // delete url
@@ -232,6 +234,7 @@
               closeModal(trigger);
               $(object).remove();
               $(modal).removeClass("working");
+              profileListNullState();
             })
             .catch(function(error) {
               $(modal).removeClass("working");
@@ -244,9 +247,19 @@
         } else {
           //If item isn't saved on server yet, simply delete the
           // object and close the modal.
-
           closeModal(trigger);
           $(object).remove();
+          profileListNullState();
+        }
+      });
+    }
+
+    // Activate null state for empty profile lists
+    function profileListNullState() {
+      var elementsList = document.querySelectorAll(".profile-element-list");
+      elementsList.forEach(element => {
+        if($(element).find(".profile-element").length == 0) {
+          $(element).find(".profile-null").addClass("active");
         }
       });
     }
@@ -290,6 +303,25 @@
     }
 
     // Form Handlers =======================================================
+
+    // Honeypot check
+    if ($("section.tc-auth")) {
+      $("section.tc-auth form").on("submit", function(e) {
+        if ($("input#website").val().length !== 0) {
+          showFormErrors(
+            $("section.tc-auth form"),
+            { data:
+              { errors:
+                { "client error":
+                  ["Uh oh, your submission looks like a bot might have filled it out! Only fill out the required fields."] // TODO: Localize
+                }
+              }
+            }
+          );
+          return false;
+        }
+      });
+    }
 
     // Required Fields
 
@@ -662,16 +694,12 @@
 
     //Update ui for Skill object to reflect that it has been setItem
     function setSkillSaved(object, response) {
-      var levelRequirement =
-        $(object)
-          .find(".accordion-title span")
-          .prop("outerHTML") || "";
       $(object)
-        .find(".accordion-title")
-        .html(response.data.skill.name + levelRequirement);
+        .find(".skill-title")
+        .html(response.data.skill.name[docLocale]);
       $(object)
         .find(".skill__description")
-        .text(response.data.skill.description);
+        .text(response.data.skill.description[docLocale]);
       $(object)
         .find(".skill__status--level")
         .text(" " + response.data.skill_status.status);
@@ -680,14 +708,14 @@
     //Update ui for Reference object to reflect that it has been setItem
     function setReferenceSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".reference-title")
         .text(response.data.name);
     }
 
     //Update ui for WorkSample object to reflect that it has been setItem
     function setSampleSaved(object, response) {
       $(object)
-        .find(".accordion-title")
+        .find(".sample-title")
         .text(response.data.name);
     }
 
@@ -881,6 +909,10 @@
         .find(":input")
         .not(".template :input")
         .removeAttr("disabled");
+
+      // Set all data-required elements to required
+      template.find("[data-required]").prop("required", true);
+
       //Set ids and form names to be unique
       individualizeFormIdsAndNames(template, wrapper);
       // Add Clone to the Wrapper
@@ -987,9 +1019,9 @@
     function addProfileRelative(trigger) {
       var clone = cloneRepeatingElement(
         trigger,
-        ".profile-relative-list",
+        ".application-relative-list",
         ".profile-relative-list__wrapper",
-        ".profile-null",
+        ".profile-relative__null",
         ".profile-relative.template",
         false
       );
@@ -1327,4 +1359,15 @@
       }
     });
   });
+
+  // Disable application form submit buttons
+  function formPreventMultipleSubmit() {
+      $(".form-prevent-multiple-submit").submit(function (e) {
+          //disable the submit button
+          $(".button-prevent-multiple-submit").addClass("disabled");
+          return true;
+      });
+  }
+
+  formPreventMultipleSubmit();
 })(jQuery);

@@ -22,10 +22,12 @@ class ApplicationPolicy extends BasePolicy
     {
         $authApplicant = ($user->isApplicant() &&
             $user->applicant->id === $jobApplication->applicant_id);
-        $authManager = ($user->isManager() &&
-            $jobApplication->job_poster->manager->user->is($user));
+        $authManager = $user->isManager()
+            && $user->can('reviewApplicationsFor', $jobApplication->job_poster);
+        $authHr = $user->isHrAdvisor()
+            && $user->can('reviewApplicationsFor', $jobApplication->job_poster);
 
-        return $authApplicant || $authManager;
+        return $authApplicant || $authManager || $authHr;
     }
 
     /**
@@ -79,8 +81,9 @@ class ApplicationPolicy extends BasePolicy
     {
         // Only the manager in charge of the accompanying job can review an application,
         // and only if it has been submitted
-        return $user->isManager() &&
-            $jobApplication->job_poster->manager->user->id == $user->id &&
-            $jobApplication->application_status->name != 'draft';
+        $authManager = $user->isManager() &&
+            $jobApplication->job_poster->manager->user->id == $user->id;
+        $authHr = $user->isHrAdvisor() && $user->can('manage', $jobApplication->job_poster);
+        return !$jobApplication->isDraft() && ($authManager || $authHr);
     }
 }

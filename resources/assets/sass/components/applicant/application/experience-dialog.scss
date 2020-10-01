@@ -1,0 +1,14 @@
+.application-experience-dialog {
+    .dialog-header {
+        overflow: hidden;
+        i {
+            position: absolute;
+            color: $clone-white;
+            top: 0;
+            right: 0;
+            font-size: 7rem;
+            transform: translate(-40%, -15%) rotate(-35deg);
+            opacity: .3;
+        }
+    }
+}

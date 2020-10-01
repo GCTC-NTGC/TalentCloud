@@ -7,12 +7,14 @@
 
 namespace App\Models;
 
+use App\Events\ApplicationRetrieved;
+use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
-use Illuminate\Notifications\Notifiable;
-use App\Events\ApplicationSaved;
-use App\Events\ApplicationRetrieved;
 use App\Services\Validation\ApplicationValidator;
+use App\Services\Validation\StrategicResponseApplicationValidator;
+use Illuminate\Notifications\Notifiable;
+use App\Traits\TalentCloudCrudTrait as CrudTrait;
 
 /**
  * Class JobApplication
@@ -29,8 +31,21 @@ use App\Services\Validation\ApplicationValidator;
  * @property string $submission_date
  * @property boolean $experience_saved
  * @property boolean $language_requirement_confirmed
+ * @property boolean $language_test_confirmed
+ * @property boolean $education_requirement_confirmed
  * @property string $user_name
  * @property string $user_email
+ * @property int $version_id
+ * @property string $director_name
+ * @property string $director_title
+ * @property string $director_email
+ * @property string $reference_name
+ * @property string $reference_title
+ * @property string $reference_email
+ * @property string $gov_email
+ * @property boolean $physical_office_willing
+ * @property int $security_clearance_id
+ * @property boolean $share_with_maangers
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -50,9 +65,20 @@ use App\Services\Validation\ApplicationValidator;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ * @property \App\Models\JobApplicationVersion $job_application_version
+ * @property \App\Models\Lookup\SecurityClearance $security_clearance
+ *
+ * Version 2 application models.
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_work
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_personal
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_education
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_award
+ * @property \Illuminate\Database\Eloquent\Collection $experiences_community
  */
 class JobApplication extends BaseModel
 {
+    // Trait for Backpack.
+    use CrudTrait;
 
     use Notifiable;
 
@@ -72,16 +98,43 @@ class JobApplication extends BaseModel
         'submission_signature' => 'string',
         'submission_date' => 'string',
         'experience_saved' => 'boolean',
-        'language_requirement_confirmed' => 'boolean'
+        'language_requirement_confirmed' => 'boolean',
+        'language_test_confirmed' => 'boolean',
+        'education_requirement_confirmed' => 'boolean',
+        'version_id' => 'int',
+        'director_name' => 'string',
+        'director_title' => 'string',
+        'director_email' => 'string',
+        'reference_name' => 'string',
+        'reference_title' => 'string',
+        'reference_email' => 'string',
+        'gov_email' => 'string',
+        'physical_office_willing' => 'boolean',
+        'security_clearance_id' => 'int',
+        'share_with_managers' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
+        'veteran_status_id',
+        'preferred_language_id',
         'language_requirement_confirmed',
+        'language_test_confirmed',
+        'education_requirement_confirmed',
         'veteran_status_id',
         'preferred_language_id',
         'submission_signature',
         'submission_date',
         'experience_saved',
+        'director_name',
+        'director_title',
+        'director_email',
+        'reference_name',
+        'reference_title',
+        'reference_email',
+        'gov_email',
+        'physical_office_willing',
+        'security_clearance_id',
+        'share_with_managers',
     ];
 
     /**
@@ -103,47 +156,47 @@ class JobApplication extends BaseModel
         return $this->belongsTo(\App\Models\Applicant::class);
     }
 
-    public function applicant_snapshot()
+    public function applicant_snapshot() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Applicant::class, 'applicant_snapshot_id');
     }
 
-    public function application_status()
+    public function application_status() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\ApplicationStatus::class);
     }
 
-    public function citizenship_declaration()
+    public function citizenship_declaration() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\CitizenshipDeclaration::class);
     }
 
-    public function veteran_status()
+    public function veteran_status() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\VeteranStatus::class);
     }
 
-    public function preferred_language()
+    public function preferred_language() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\PreferredLanguage::class);
     }
 
-    public function job_poster()
+    public function job_poster() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\JobPoster::class);
     }
 
-    public function job_application_answers()
+    public function job_application_answers() //phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobApplicationAnswer::class);
     }
 
-    public function skill_declarations()
+    public function skill_declarations() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\SkillDeclaration::class, 'skillable');
     }
 
-    public function application_review()
+    public function application_review() //phpcs:ignore
     {
         return $this->hasOne(ApplicationReview::class);
     }
@@ -158,7 +211,7 @@ class JobApplication extends BaseModel
         return $this->morphMany(\App\Models\Course::class, 'courseable')->orderBy('end_date', 'desc');
     }
 
-    public function work_experiences()
+    public function work_experiences() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkExperience::class, 'experienceable')->orderBy('end_date', 'desc');
     }
@@ -173,9 +226,49 @@ class JobApplication extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
-    public function work_samples()
+    public function work_samples() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\WorkSample::class, 'work_sampleable');
+    }
+
+    public function job_application_version() //phpcs:ignore
+    {
+        return $this->hasOne(\App\Models\JobApplicationVersion::class);
+    }
+
+    public function security_clearance() //phpcs:ignore
+    {
+        return $this->belongsTo(\App\Models\Lookup\SecurityClearance::class);
+    }
+
+    // Version 2 application models.
+    public function experiences_work() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceWork::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_personal() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperiencePersonal::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_education() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceEducation::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
+    }
+
+    public function experiences_award() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceAward::class, 'experienceable');
+    }
+
+    public function experiences_community() //phpcs:ignore
+    {
+        return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
+            ->orderBy('end_date', 'desc');
     }
 
     /**
@@ -194,7 +287,10 @@ class JobApplication extends BaseModel
     public function getSectionStatus(string $section)
     {
         // TODO: determine whether sections are complete or invalid
-        $validator = new ApplicationValidator();
+        $jobPoster = $this->job_poster;
+        $validator = $jobPoster->isInStrategicResponseDepartment()
+            ? new StrategicResponseApplicationValidator()
+            : new ApplicationValidator();
         $status = 'incomplete';
         switch ($section) {
             case 'basics':
@@ -218,8 +314,7 @@ class JobApplication extends BaseModel
                 }
                 break;
             case 'preview':
-                if (
-                    $validator->basicsComplete($this) &&
+                if ($validator->basicsComplete($this) &&
                     $validator->experienceComplete($this) &&
                     $validator->essentialSkillsComplete($this) &&
                     $validator->assetSkillsComplete($this)
@@ -250,7 +345,7 @@ class JobApplication extends BaseModel
     }
 
     /**
-     * Returns true if this meets all the essential criteria.
+     * Returns true if this meets all the HARD SKILL essential criteria.
      * That means it has attached an SkillDeclaration for each essential criterion,
      * with a level at least as high as the required level.
      * NOTE: If this application is in draft status, it will use
@@ -262,14 +357,14 @@ class JobApplication extends BaseModel
     {
         $essentialCriteria = $this->job_poster->criteria->filter(
             function ($value, $key) {
-                return $value->criteria_type->name == 'essential';
+                return $value->criteria_type->name == 'essential'
+                    && $value->skill->skill_type->name == 'hard';
             }
         );
         $source = $this->isDraft() ? $this->applicant : $this;
         foreach ($essentialCriteria as $criterion) {
             $skillDeclaration = $source->skill_declarations->where('skill_id', $criterion->skill_id)->first();
-            if (
-                $skillDeclaration === null ||
+            if ($skillDeclaration === null ||
                 $skillDeclaration->skill_level_id < $criterion->skill_level_id
             ) {
                 return false;
@@ -280,7 +375,7 @@ class JobApplication extends BaseModel
 
     /**
      * Accessor for meetsEssentialCriteria function, which
-     * allows this value to be automtacially appended to array/json representation.
+     * allows this value to be automatically appended to array/json representation.
      *
      * @return boolean
      */
@@ -322,7 +417,6 @@ class JobApplication extends BaseModel
                 'new' => $model->replicate()
             ];
         };
-
 
         $projectMap = $applicant->projects->map($copyWithHistory);
         $referenceMap = $applicant->references->map($copyWithHistory);
@@ -374,5 +468,52 @@ class JobApplication extends BaseModel
             $newSkillDecs = $old->skill_declarations->map($findNewSkillDeclarationFromOld);
             $newSample->skill_declarations()->sync($newSkillDecs);
         }
+    }
+
+    /**
+     * Save copies of Experiences and its linked skills (ExperienceSkills) to this application.
+     *
+     * @return void
+     */
+    public function saveProfileSnapshotTimeline(): void
+    {
+        $this->refresh();
+        $applicant = $this->applicant->fresh();
+
+        $this->user_name = $applicant->user->full_name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
+
+        $deleteExperiences = function ($experiences) {
+            foreach ($experiences as $experience) {
+                $experience->delete();
+            }
+        };
+
+        // Delete experiences in previous snapshot.
+        $deleteExperiences($this->experiences_award);
+        $deleteExperiences($this->experiences_community);
+        $deleteExperiences($this->experiences_education);
+        $deleteExperiences($this->experiences_personal);
+        $deleteExperiences($this->experiences_work);
+
+        $replicateAndSaveExperience = function ($experiences, $experience_type) {
+            // Iterate through applicant experiences, replicate the experience, and save to the application.
+            foreach ($experiences as $experience) {
+                $experienceCopy = $experience->replicate();
+                $this->{$experience_type}()->save($experienceCopy);
+                // Iterate through original experience experienceSkills list, replicate it, and save to the new copy.
+                foreach ($experience->experience_skills as $experienceSkill) {
+                    $experienceSkillCopy = $experienceSkill->replicate();
+                    $experienceCopy->experience_skills()->save($experienceSkillCopy);
+                }
+            }
+        };
+
+        $replicateAndSaveExperience($applicant->experiences_award, 'experiences_award');
+        $replicateAndSaveExperience($applicant->experiences_community, 'experiences_community');
+        $replicateAndSaveExperience($applicant->experiences_education, 'experiences_education');
+        $replicateAndSaveExperience($applicant->experiences_personal, 'experiences_personal');
+        $replicateAndSaveExperience($applicant->experiences_work, 'experiences_work');
     }
 }

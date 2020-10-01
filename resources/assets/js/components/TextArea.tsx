@@ -1,6 +1,8 @@
-import React from "react";
-import { FormattedMessage } from "react-intl";
+import React, { ReactElement } from "react";
+import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import { inputMessages } from "./Form/Messages";
+import WordCounter from "./WordCounter/WordCounter";
+import SimpleWordCounter from "./WordCounter/SimpleWordCounter";
 
 export interface TextAreaProps {
   /** HTML id of the input element */
@@ -13,6 +15,8 @@ export interface TextAreaProps {
   className?: string;
   /** boolean indicating if input must have a value, or not */
   required?: boolean;
+  /** Holds message for right hand side, after required warning */
+  rightMessage?: string | ReactElement;
   /** Boolean that sets the select input to invalid */
   invalid?: boolean | null;
   /** Let's you specify example text that appears in input element when empty */
@@ -31,7 +35,24 @@ export interface TextAreaProps {
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   /** Event listener which fires when a input loses focus */
   onBlur?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  /** The maximum word count. If set, adds a word counter. */
+  wordLimit?: number;
 }
+
+const messages = defineMessages({
+  underLimit: {
+    id: "textArea.wordsUnderLimit",
+    defaultMessage: "words left",
+    description:
+      "Message displayed on word counter when user is under/matching the limit.",
+  },
+  overLimit: {
+    id: "textArea.wordsOverLimit",
+    defaultMessage: "words over limit",
+    description:
+      "Message displayed on word counter when user passes the limit.",
+  },
+});
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
@@ -39,6 +60,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   label,
   className,
   required,
+  rightMessage,
   invalid,
   placeholder,
   value,
@@ -48,33 +70,64 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   maxLength,
   onChange,
   onBlur,
-}): React.ReactElement => (
-  <div
-    className={className}
-    data-c-grid-item={grid}
-    data-c-input="textarea"
-    data-c-required={required || null}
-    data-c-invalid={invalid || null}
-  >
-    <label htmlFor={id}>{label}</label>
-    <span>
-      <FormattedMessage {...inputMessages.required} />
-    </span>
-    <div>
-      <textarea
-        id={id}
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        minLength={minLength}
-        maxLength={maxLength}
-        onChange={onChange}
-        onBlur={onBlur}
-        value={value}
+  wordLimit,
+}): React.ReactElement => {
+  const intl = useIntl();
+  const valueString = typeof value === "string" ? value : "";
+  const wordCounter = wordLimit ? (
+    <span data-c-color="black">
+      <SimpleWordCounter
+        wordLimit={wordLimit}
+        value={valueString}
+        absoluteValue
+        beforeText="( "
+        underMaxMessage={`${intl.formatMessage(messages.underLimit)} )`}
+        overMaxMessage={`${intl.formatMessage(messages.overLimit)} )`}
       />
+    </span>
+  ) : null;
+
+  return (
+    <div
+      className={className}
+      data-c-grid-item={grid}
+      data-c-input="textarea"
+      data-c-required={required || null}
+      data-c-invalid={invalid || null}
+    >
+      <label htmlFor={id}>{label}</label>
+      {required && (
+        <span>
+          <FormattedMessage {...inputMessages.required} /> {rightMessage}
+          {wordCounter}
+        </span>
+      )}
+      {/** rightMessage and wordCounter are repeated because if this input is not required,
+       *   the previous span will not appear - and it is required, they must be part of the
+       *   previous span to appear in the right place.
+       */}
+      {!required && (
+        <span style={{ display: "block" }}>
+          {rightMessage}
+          {wordCounter}
+        </span>
+      )}
+      <div>
+        <textarea
+          id={id}
+          name={name}
+          required={required}
+          placeholder={placeholder}
+          minLength={minLength}
+          maxLength={maxLength}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={value}
+        />
+      </div>
+      <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
     </div>
-    <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>
-  </div>
-);
+  );
+};
 
 export default TextArea;

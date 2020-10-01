@@ -8,9 +8,11 @@ use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
 use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
+use App\Models\JobPoster;
 use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 use App\Services\Validation\Rules\LinkedInUrlRule;
 use App\Services\Validation\Rules\TwitterHandleRule;
+use Facades\App\Services\WhichPortal;
 
 class ApplicantProfileController extends Controller
 {
@@ -22,12 +24,16 @@ class ApplicantProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request $request   Incoming Request object.
      * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Applicant $applicant)
+    public function profile(Applicant $applicant)
     {
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            $applicant->user->full_name => '',
+        ];
+
         return view(
             'manager/applicant_profile',
             [
@@ -36,6 +42,42 @@ class ApplicantProfileController extends Controller
                 // Applicant data.
                 'applicant' => $applicant,
                 'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                'custom_breadcrumbs' => $custom_breadcrumbs,
+            ]
+        );
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
+     * @param  \App\Models\Applicant    $applicant Incoming Applicant object.
+     * @return \Illuminate\Http\Response
+     */
+    public function showWithJob(JobPoster $jobPoster, Applicant $applicant)
+    {
+
+        // Viewing this page is only possible if the applicant has applied to the specified job.
+        if ($jobPoster->submitted_applications->firstWhere('applicant_id', '==', $applicant->id) === null) {
+            return abort(404);
+        }
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'jobs' => route(WhichPortal::prefixRoute('jobs.index')),
+            $jobPoster->title => route(WhichPortal::prefixRoute('jobs.summary'), $jobPoster),
+            'applications' =>  route(WhichPortal::prefixRoute('jobs.applications'), $jobPoster),
+            'profile' => '',
+        ];
+
+        return view(
+            'manager/applicant_profile',
+            [
+                // Localized strings.
+                'profile' => Lang::get('manager/applicant_profile'), // Change text
+                // Applicant data.
+                'applicant' => $applicant,
+                'profile_photo_url' => '/images/user.png', // TODO: get real photos.
+                'custom_breadcrumbs' => $custom_breadcrumbs,
             ]
         );
     }
@@ -85,6 +127,11 @@ class ApplicantProfileController extends Controller
         $linkedInUrlPattern = LinkedInUrlRule::PATTERN;
         $twitterHandlePattern = TwitterHandleRule::PATTERN;
 
+        $custom_breadcrumbs = [
+            'home' => route('home'),
+            'profile' => '',
+        ];
+
         return view(
             'applicant/profile_01_about',
             [
@@ -99,6 +146,7 @@ class ApplicantProfileController extends Controller
                 'form_submit_action' => route('profile.about.update', $applicant),
                 'linkedInUrlPattern' => $linkedInUrlPattern,
                 'twitterHandlePattern' => $twitterHandlePattern,
+                'custom_breadcrumbs' => $custom_breadcrumbs,
             ]
         );
     }

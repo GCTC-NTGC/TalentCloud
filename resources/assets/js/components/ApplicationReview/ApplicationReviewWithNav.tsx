@@ -3,107 +3,15 @@ import {
   injectIntl,
   WrappedComponentProps,
   FormattedMessage,
-  defineMessages,
 } from "react-intl";
 import className from "classnames";
-import Swal from "sweetalert2";
+import Swal, { SweetAlertResult } from "sweetalert2";
 import * as routes from "../../helpers/routes";
 import Select, { SelectOption } from "../Select";
 import { Application } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
-
-const messages = defineMessages({
-  veteranLogo: {
-    id: "veteranStatus.veteranLogoAlt",
-    defaultMessage: "Talent cloud veteran logo",
-    description: "Alt Text for Veteran Logo Img",
-  },
-  emailCandidate: {
-    id: "apl.emailCandidateLinkTitle",
-    defaultMessage: "Email this candidate.",
-    description: "Title, hover text, for email link.",
-  },
-  viewApplicationTitle: {
-    id: "apl.viewApplicationLinkTitle",
-    defaultMessage: "View this applicant's application.",
-    description: "Title, hover text, for View Application Link",
-  },
-  viewProfileTitle: {
-    id: "apl.viewProfileLinkTitle",
-    defaultMessage: "View this applicant's profile.",
-    description: "Title, hover text, for View Profile Link",
-  },
-  decision: {
-    id: "apl.decision",
-    defaultMessage: "Decision",
-    description: "Decision dropdown label",
-  },
-  notReviewed: {
-    id: "reviewStatus.notReviewed",
-    defaultMessage: "Not Reviewed",
-    description: "Decision dropdown label",
-  },
-  saving: {
-    id: "button.saving",
-    defaultMessage: "Saving...",
-    description: "Dynamic Save button label",
-  },
-  save: {
-    id: "button.save",
-    defaultMessage: "Save",
-    description: "Dynamic Save button label",
-  },
-  saved: {
-    id: "button.saved",
-    defaultMessage: "Saved",
-    description: "Dynamic Save button label",
-  },
-  addNote: {
-    id: "apl.addNote",
-    defaultMessage: "+ Add a Note",
-    description: "Dynamic Note button label",
-  },
-  editNote: {
-    id: "apl.editNote",
-    defaultMessage: "Edit Note",
-    description: "Dynamic Note button label",
-  },
-  screenedOut: {
-    id: "reviewStatus.screenedOut",
-    defaultMessage: "Screened Out",
-    description: "Dynamic Note button label",
-  },
-  cancelButton: {
-    id: "button.cancel",
-    defaultMessage: "Cancel",
-    description: "Cancel button label",
-  },
-  stillThinking: {
-    id: "reviewStatus.stillThinking",
-    defaultMessage: "Still Thinking",
-    description: "Dynamic Note button label",
-  },
-  stillIn: {
-    id: "reviewStatus.stillIn",
-    defaultMessage: "Still In",
-    description: "Dynamic Note button label",
-  },
-  confirmButton: {
-    id: "button.confirm",
-    defaultMessage: "Confirm",
-    description: "Confirm button for modal dialogue boxes",
-  },
-  screenOutConfirm: {
-    id: "apl.screenOutConfirm",
-    defaultMessage: "Screen out the candidate?",
-    description: "Are you sure you want to screen out the candidate warning",
-  },
-  screenInConfirm: {
-    id: "apl.screenInConfirm",
-    defaultMessage: "Screen the candidate back in?",
-    description: "Are you sure you want to screen in the candidate warning",
-  },
-});
+import { Portal } from "../../models/app";
+import { messages } from "./ApplicationReview";
 
 interface ApplicationReviewWithNavProps {
   application: Application;
@@ -114,6 +22,7 @@ interface ApplicationReviewWithNavProps {
   ) => Promise<void>;
   onNotesChange: (applicationId: number, notes: string | null) => void;
   isSaving: boolean;
+  portal: Portal;
 }
 
 interface ApplicationReviewWithNavState {
@@ -195,7 +104,7 @@ class ApplicationReviewWithNav extends React.Component<
         cancelButtonColor: "#F94D4D",
         confirmButtonText: intl.formatMessage(messages.confirmButton),
         cancelButtonText: intl.formatMessage(messages.cancelButton),
-      }).then(result => {
+      }).then((result: SweetAlertResult) => {
         if (result.value) {
           return onStatusChange(application.id, status);
         }
@@ -221,7 +130,7 @@ class ApplicationReviewWithNav extends React.Component<
       cancelButtonText: intl.formatMessage(messages.cancelButton),
       confirmButtonText: intl.formatMessage(messages.save),
       inputValue: notes,
-    }).then(result => {
+    }).then((result: SweetAlertResult) => {
       if (result && result.value !== undefined) {
         const value = result.value ? result.value : null;
         onNotesChange(application.id, value);
@@ -254,8 +163,14 @@ class ApplicationReviewWithNav extends React.Component<
   }
 
   public render(): React.ReactElement {
-    const { application, reviewStatusOptions, isSaving, intl } = this.props;
-    const l10nReviewStatusOptions = reviewStatusOptions.map(status => ({
+    const {
+      application,
+      reviewStatusOptions,
+      isSaving,
+      intl,
+      portal,
+    } = this.props;
+    const l10nReviewStatusOptions = reviewStatusOptions.map((status) => ({
       value: status.value,
       label: intl.formatMessage(messages[status.label]),
     }));
@@ -271,6 +186,45 @@ class ApplicationReviewWithNav extends React.Component<
       "fa-check-circle": reviewStatus === "still_in",
       "fa-exclamation-circle": reviewStatus === null,
     });
+    const applicantUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrApplicantShow(
+        intl.locale,
+        application.applicant_id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicantShow(
+        intl.locale,
+        application.applicant_id,
+        application.job_poster_id,
+      ),
+    };
+    const applicationUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+      manager: routes.managerApplicationShow(
+        intl.locale,
+        application.id,
+        application.job_poster_id,
+      ),
+    };
+    const jobUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrJobPreview(intl.locale, application.job_poster_id),
+      manager: routes.managerJobPreview(intl.locale, application.job_poster_id),
+    };
+    const jobApplicationsUrlMap: { [key in typeof portal]: string } = {
+      hr: routes.hrJobApplications(intl.locale, application.job_poster_id),
+      manager: routes.managerJobApplications(
+        intl.locale,
+        application.job_poster_id,
+      ),
+    };
+    const applicantUrl = applicantUrlMap[portal];
+    const applicationUrl = applicationUrlMap[portal];
+    const jobUrl = jobUrlMap[portal];
+    const jobApplicationsUrl = jobApplicationsUrlMap[portal];
 
     const getSaveButtonText = (): string => {
       if (isSaving) {
@@ -294,41 +248,28 @@ class ApplicationReviewWithNav extends React.Component<
               <button
                 className="button--blue light-bg"
                 type="button"
-                onClick={() =>
-                  this.handleLinkClicked(
-                    routes.managerJobApplications(
-                      intl.locale,
-                      application.job_poster_id,
-                    ),
-                  )
-                }
+                onClick={() => this.handleLinkClicked(jobApplicationsUrl)}
               >
+                {`< `}
                 <FormattedMessage
-                  id="apl.backToApplicantList"
-                  defaultMessage="< Save and Go Back to Applicant List"
+                  id="application.review.backToApplicantList"
+                  defaultMessage="Save and Go Back to Applicant List"
                   description="Back Button text"
                 />
               </button>
             </div>
             <div className="box small-2of3">
-              <button
+              <a
                 className="button--blue light-bg"
-                type="button"
-                onClick={() =>
-                  this.handleLinkClicked(
-                    routes.managerJobShow(
-                      intl.locale,
-                      application.job_poster_id,
-                    ),
-                  )
-                }
+                href={jobUrl}
+                style={{ marginRight: ".5rem" }}
               >
                 <FormattedMessage
-                  id="button.viewJobPoster"
+                  id="application.review.button.viewJobPoster"
                   defaultMessage="View Job Poster"
                   description="View Job Poster Button text"
                 />
-              </button>
+              </a>
               <button
                 className="button--blue light-bg"
                 data-button-type="expand-all"
@@ -338,7 +279,7 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="expand">
                   {" "}
                   <FormattedMessage
-                    id="apl.expandAllSkills"
+                    id="application.review.expandAllSkills"
                     defaultMessage="Expand All Skills"
                     description="Expand All Skills Button text"
                   />
@@ -346,7 +287,7 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="collapse">
                   {" "}
                   <FormattedMessage
-                    id="apl.collapseAllSkills"
+                    id="application.review.collapseAllSkills"
                     defaultMessage="Collapse All Skills"
                     description="Collapse All Skills Button text"
                   />
@@ -379,13 +320,9 @@ class ApplicationReviewWithNav extends React.Component<
                 <span className="veteran-status">
                   <img
                     alt={intl.formatMessage(messages.viewApplicationTitle)}
-                    src="/images/icon_veteran.svg"
+                    src={routes.imageUrl("icon_veteran.svg")}
                   />{" "}
-                  <FormattedMessage
-                    id="veteranStatus.veteran"
-                    defaultMessage="Veteran"
-                    description="Veteran"
-                  />
+                  {intl.formatMessage(messages.veteranStatus)}
                 </span>
               )}
             </div>
@@ -393,31 +330,17 @@ class ApplicationReviewWithNav extends React.Component<
             <div className="box lg-2of11 applicant-links">
               <a
                 title={intl.formatMessage(messages.viewApplicationTitle)}
-                href={routes.managerApplicationShow(
-                  intl.locale,
-                  application.id,
-                )}
+                href={applicationUrl}
               >
                 <i className="fas fa-file-alt" />
-                <FormattedMessage
-                  id="apl.viewApplication"
-                  defaultMessage="View Application"
-                  description="Button text View Application"
-                />
+                {intl.formatMessage(messages.viewApplicationText)}
               </a>
               <a
                 title={intl.formatMessage(messages.viewProfileTitle)}
-                href={routes.managerApplicantShow(
-                  intl.locale,
-                  application.applicant_id,
-                )}
+                href={applicantUrl}
               >
                 <i className="fas fa-user" />
-                <FormattedMessage
-                  id="apl.viewProfile"
-                  defaultMessage="View Profile"
-                  description="Button text View Profile"
-                />
+                {intl.formatMessage(messages.viewProfileText)}
               </a>
             </div>
 

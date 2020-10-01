@@ -23,10 +23,7 @@ describe("api/job", (): void => {
       manager_id: 1,
       created_at: "2019-05-08T14:15:04+00:00",
       updated_at: "2019-05-08T14:15:04+00:00",
-      published: false,
       remote_work_allowed: true,
-      review_requested_at: null,
-      published_at: null,
       submitted_applications_count: 0,
       city: "East Liashire",
       title: "I hadn't quite dull.",
@@ -685,6 +682,40 @@ describe("api/job", (): void => {
           fr: {
             description:
               "Vero qui id qui est. Rerum quaerat voluptate id similique minus sit quae. Est porro alias earum nam quas excepturi inventore. Ut nesciunt sit temporibus odit quibusdam aut.\n\nRerum velit libero cumque debitis temporibus. Recusandae fuga aut neque repudiandae eum sint.",
+          },
+        },
+      ],
+      job_poster_questions: [
+        {
+          id: 1,
+          job_poster_id: 1,
+          created_at: "2020-09-09T20:53:31+00:00",
+          updated_at: "2020-09-09T20:53:31+00:00",
+          question: {
+            en:
+              "Minus perspiciatis ut quo sed cumque. Est vel et iste quo et deleniti hic. Qui asperiores nulla rerum rem asperiores eaque.",
+            fr:
+              "Alias temporibus laudantium omnis ratione. Doloremque eaque libero quia exercitationem minima. Aut qui in facilis.",
+          },
+          description: {
+            en: "Nisi perspiciatis itaque laborum cumque reiciendis.",
+            fr: "Aliquam quas reiciendis tenetur labore et.",
+          },
+        },
+        {
+          id: 2,
+          job_poster_id: 1,
+          created_at: "2020-09-09T20:53:31+00:00",
+          updated_at: "2020-09-09T20:53:31+00:00",
+          question: {
+            en:
+              "Ut delectus omnis harum ut sed quo porro nobis. Qui odio voluptas quidem nam et alias. Cupiditate at dolorum labore quia.",
+            fr:
+              "Consequuntur quis porro sed modi omnis voluptas. Illo nemo est et molestiae voluptatem facere corporis. Pariatur omnis magnam est veritatis. Facere qui sapiente alias nam iste.",
+          },
+          description: {
+            en: "Fugiat voluptatum excepturi atque.",
+            fr: "Qui laudantium ea aut.",
           },
         },
       ],

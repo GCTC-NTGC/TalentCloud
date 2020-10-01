@@ -13,7 +13,7 @@ return [
     'hero' => [
         'title' => 'Nuage de talents',
         'tagline' => 'Il est désormais plus facile de postuler un emploi au gouvernement.',
-        'pilot' => 'BETA'
+        'pilot' => 'BETA / Projet pilote'
     ],
     'slogan' => [
         'copy' => 'Pas de lettre de présentation. Aucun curriculum vitae. Créez un profil de vos compétences et de votre expérience tout en gagnant du temps pour postuler des emplois gouvernementaux qui vous inspirent.',
@@ -37,6 +37,12 @@ return [
         'sign_off' => 'Au plaisir de vous voir en 2020!',
         'signature' => 'L’équipe du Nuage de talents'
     ],
+    'response' => [
+        'title' => 'Nous améliorons la plate-forme.',
+        'main_message' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
+        'sign_off' => 'Pour plus d\'opportunités, visitez le site',
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr" title="" target="_blank">Emplois GC</a>'
+    ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
         'steps' => [
@@ -52,9 +58,9 @@ return [
             ],
             '2' => [
                 'title' => 'Étape 2 : Présentez une demande',
-                'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.",
+                'copy' => "Vous constaterez qu’il n’y a aucun endroit où télécharger votre curriculum vitæ ou votre lettre de présentation dans le cadre de notre processus de demande. Ce n’est pas un pépin, nous l’avons fait intentionnellement! Au lieu de nous parler de votre expérience, nous voulons que vous nous parliez de vous-même et que vous nous disiez en quoi vous démontrez les compétences nécessaires pour le poste. Nous croyons que cela donnera aux candidats ayant un parcours de vie ou de carrière non conventionnel l’occasion de démontrer en quoi ils sont qualifiés, plutôt que d’être systématiquement éliminés parce qu’ils n’ont pas suivi le chemin le plus emprunté.\n\nCette façon de faire est probablement très différente des autres formulaires de demande d’emploi que vous avez remplis, alors veuillez consulter notre page FAQ pour en savoir plus sur la %levels%.", // TODO: fix
                 'links' => [
-                    'levels' => '<a href="' . route('faq') . ' title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
+                    'levels' => '<a href="' . route('faq') . '#levels" title="Apprenez-en davantage sur les niveaux de compétences dans le Nuage de talents." target="_blank">façon de trouver votre niveau de compétence</a>'
                 ]
             ],
             '3' => [
@@ -90,7 +96,7 @@ return [
                 'copy' => 'Le Nuage de talents du gouvernement du Canada est une initiative expérimentale qui repose uniquement sur l’aide financière des ministères fédéraux participants qui s’engagent à créer une solution de rechange au modèle traditionnel des RH.',
                 'links' => [
                     '1' => [
-                        'link' => '/faq#partners',
+                        'link' => route('faq') . '#partners',
                         'title' => 'Apprenez-en davantage sur le financement du Nuage de talents.',
                         'label' => 'Pour en savoir davantage'
                     ]
@@ -186,7 +192,7 @@ return [
     'how_step03_copy' => "Trouvez un travail significatif qui aura un impact sur la vie des Canadiens et faites partie intégrante de l'effort de conception d'une nouvelle plateforme pour le travail par projet au gouvernement.",
     'how_step04_title' => 'FR Credentialing TBD',
     'how_step04_copy' => 'FR Credentialing Copy TBD',
-    'how_step04_link' => '/fr/credentialing',
+    // 'how_step04_link' => '/fr/credentialing',
     'how_step04_link_title' => 'FR Learn more about credentialing on Talent Cloud.',
     'how_step04_link_label' => 'FR Learn More',
     'how_copy' => "Nous désirons que le Nuage de talent permette à un plus grand nombre de Canadiens d'avoir la chance de travailler au gouvernement. Nous souhaitons que la diversité des talents apporte de nouvelles idées qui façonneront les programmes et les services partout au Canada.",
@@ -204,5 +210,6 @@ return [
     'team_button_twitter_label' => 'Twitter',
     'team_button_email_link' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
     'team_button_email_title' => 'Contactez-nous par courriel.',
-    'team_button_email_label' => 'Courriel'
+    'team_button_email_label' => 'Courriel',
+    'success_title' => 'Tout va bien.'
 ];

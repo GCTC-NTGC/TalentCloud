@@ -1,61 +1,31 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { number, text } from "@storybook/addon-knobs";
+import { number, boolean, text } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
 import { withIntl } from "storybook-addon-intl";
-import WordCounterWrapper from "../../components/WordCounter/WordCounterWrapper";
-import SkillsWordCounter from "../../components/ApplicantSkills/SkillsWordCounter";
+import TextArea from "../../components/TextArea";
+import WordCounter from "../../components/WordCounter/WordCounter";
 
 const stories = storiesOf("Components|Word Counter", module).addDecorator(
   withIntl,
 );
 
-const messages = [
-  {
-    count: number("Msg Threshold Min", 1),
-    message: "This seems too short.",
-  },
-  {
-    count: number("Msg Threshold Low", 10),
-    message: "This seems a bit short.",
-  },
-  { count: number("Msg Threshold Mid", 20), message: "" },
-  {
-    count: number("Msg Threshold High", 80),
-    message: "This is starting to get a bit long.",
-  },
-  {
-    count: number("Msg Threshold Very High", 100),
-    message: "This looks too long.",
-  },
-  {
-    count: number("Msg Threshold Max", 130),
-    message: "This is way too long.",
-  },
-];
-
-stories
-  .add(
-    "Word Counter",
-    (): React.ReactElement => (
-      <div>
-        <textarea id="word-counter" cols={100} rows={10} />
-        <WordCounterWrapper
-          elementId="word-counter"
-          messages={messages}
-          wordLimit={number("Word Limit", 150)}
-          minWords={number("Min Words", 20)}
-          maxWords={number("Max Words", 80)}
-          placeholder={text("Placeholder", "Start typing your answer above.")}
-        />
-      </div>
-    ),
-  )
-  .add(
-    "Skills Word Counter",
-    (): React.ReactElement => (
-      <div>
-        <textarea id="word-counter" cols={100} rows={10} />
-        <SkillsWordCounter elementId="word-counter" />
-      </div>
-    ),
-  );
+stories.add(
+  "Word Counter",
+  (): React.ReactElement => (
+    <div data-c-margin="all(2)">
+      <TextArea
+        id="word-counter"
+        name="word-counter"
+        label="This is a textarea with a word counter"
+        required={boolean("Required", false)}
+        wordLimit={number("Max words", 100)}
+        onChange={action("Contents changed")}
+        value={text(
+          "Value",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        )}
+      />
+    </div>
+  ),
+);

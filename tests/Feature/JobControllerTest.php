@@ -14,6 +14,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use App\Mail\JobPosterReviewRequested;
+use App\Models\HrAdvisor;
 
 class JobControllerTest extends TestCase
 {
@@ -24,7 +25,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,17 +34,17 @@ class JobControllerTest extends TestCase
 
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)
-        ->create([
-            'manager_id' => $this->manager->id
-        ]);
+            ->create([
+                'manager_id' => $this->manager->id
+            ]);
 
         $this->otherManager = factory(Manager::class)->create();
         $this->otherJobPoster = factory(JobPoster::class)
-        ->create([
-            'manager_id' => $this->otherManager->id
-        ]);
+            ->create([
+                'manager_id' => $this->otherManager->id
+            ]);
 
-        $this->publishedJob = factory(JobPoster::class)->states('published')->create();
+        $this->liveJob = factory(JobPoster::class)->states('live')->create();
     }
 
     /**
@@ -51,7 +52,7 @@ class JobControllerTest extends TestCase
      *
      * @return array
      */
-    private function generateEditJobFormData() : array
+    private function generateEditJobFormData(): array
     {
         $jobForm = [
             'open_date' => $this->faker->date('Y-m-d', strtotime('+1 day')),
@@ -67,9 +68,9 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testGuestSingleView() : void
+    public function testGuestSingleView(): void
     {
-        $response = $this->get('jobs/' . $this->publishedJob->id);
+        $response = $this->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
     }
@@ -79,12 +80,12 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testApplicantSingleView() : void
+    public function testApplicantSingleView(): void
     {
         $applicant = factory(Applicant::class)->create();
 
         $response = $this->actingAs($applicant->user)
-        ->get('jobs/' . $this->publishedJob->id);
+            ->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
         $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
     }
@@ -94,10 +95,10 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testManagerIndexView() : void
+    public function testManagerIndexView(): void
     {
         $response = $this->actingAs($this->manager->user)
-        ->get('manager/jobs');
+            ->get('manager/jobs');
         $response->assertStatus(200);
 
         $response->assertSee(e($this->jobPoster->title));
@@ -109,7 +110,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testAdminEditDoesntChangeManager() : void
+    public function testAdminEditDoesntChangeManager(): void
     {
         // In order to simulate actual behaviour, the admin
         // user needs a related Manager instance. When navigating
@@ -139,7 +140,7 @@ class JobControllerTest extends TestCase
      *
      * @return void
      */
-    public function testSavedJobHasCorrectTimes() : void
+    public function testSavedJobHasCorrectTimes(): void
     {
         $localTimezone = config('app.local_timezone');
         $jobTimezone = config('app.job_timezone');
@@ -176,5 +177,23 @@ class JobControllerTest extends TestCase
         $this->assertEquals($expectedOpenDate, humanizeDate($savedJob->open_date_time));
         $this->assertEquals($expectedCloseDate, humanizeDate($savedJob->close_date_time));
         $this->assertEquals($expectedCloseTime, humanizeTime($savedJob->close_date_time));
+    }
+
+    public function testHrIndexAuth(): void
+    {
+        $guestResponse = $this->get(route('hr_advisor.jobs.index'));
+        $guestResponse->assertRedirect(route('hr_advisor.login'));
+
+        $manager = factory(Manager::class)->create();
+        $managerResponse = $this->actingAs($manager->user)->get(route('hr_advisor.jobs.index'));
+        $managerResponse->assertRedirect(route('hr_advisor.home'));
+
+        $hrAdvisor = factory(HrAdvisor::class)->create();
+        $hrResponse = $this->actingAs($hrAdvisor->user)->get(route('hr_advisor.jobs.index'));
+        $hrResponse->assertStatus(200);
+
+        $adminUser = factory(User::class)->state('admin')->create();
+        $adminResponse = $this->actingAs($adminUser)->get(route('hr_advisor.jobs.index'));
+        $adminResponse->assertRedirect(route('hr_advisor.first_visit'));
     }
 }

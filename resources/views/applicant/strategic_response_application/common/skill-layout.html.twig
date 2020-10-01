@@ -1,0 +1,34 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Submit an Application - Skills Layout
+
+============================================================================= #}
+{# Set Locale #}
+{% set locale = "application" %}
+{# Skill List #}
+<div data-c-padding="top(1)">
+    <div class="profile-element-list {{ application_step == "3" ? "step3" : "" }}">
+        {% if criteria|length == 0 %}
+            <div data-c-background="gray(20)" data-c-border="all(thin, solid, gray)" data-c-color="gray" data-c-padding="all(1)" data-c-radius="rounded" data-c-align="base(center)" data-c-margin="top(.5)">
+                <p>{{ application_template.skills_section.asset_null_text }}</p>
+            </div>
+        {% endif %}
+        {% for criterion in criteria %}
+            {# Get User Skill #}
+            {% set skill_declaration = false %}
+            {% for skillDeclaration in applicant.skill_declarations %}
+                {% if criterion.skill.id == skillDeclaration.skill_id %}
+                    {% set skill_declaration = skillDeclaration %}
+                {% endif %}
+            {% endfor %}
+            {# Get Skill Type #}
+            {% set skillType = criterion.skill.skill_type.name %}
+            {# Import Skill Template #}
+            <a aria-hidden="true" id="skill{{ criterion.skill.id }}"></a>
+            <div data-c-accordion-group>
+                {% include "applicant/strategic_response_application/common/skill-form" %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

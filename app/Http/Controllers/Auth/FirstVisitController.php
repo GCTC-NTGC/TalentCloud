@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AuthController;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Http\Request;
-use App\Models\Manager;
+use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
-use App\Services\Validation\RegistrationValidator;
+use App\Models\Manager;
+use Facades\App\Services\WhichPortal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Validation\Rule;
 
 class FirstVisitController extends AuthController
 {
@@ -17,11 +19,11 @@ class FirstVisitController extends AuthController
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function showFirstVisitManagerForm()
+    public function showFirstVisitManagerForm(Request $request)
     {
         $routes = [
-            'return' => route('home'),
-            'continue' => route('manager.finish_registration'),
+            'return' => route(WhichPortal::prefixRoute('home')),
+            'continue' => route(WhichPortal::prefixRoute('finish_registration')),
         ];
 
         return view('auth.first_visit_manager', [
@@ -29,6 +31,8 @@ class FirstVisitController extends AuthController
             'first_visit' => Lang::get('common/auth/first_manager_visit'),
             'departments' => Department::all(),
             'not_in_gov_option' => ['value' => 0, 'name' => Lang::get('common/auth/register.not_in_gov')],
+            'is_manager_view' => WhichPortal::isManagerPortal(),
+            'user' => $request->user(),
         ]);
     }
 
@@ -40,11 +44,13 @@ class FirstVisitController extends AuthController
      */
     public function finishManagerRegistration(Request $request)
     {
-        $data = $request->all();
-        $validator = RegistrationValidator::finalizeManagerValidator($data);
-        $validator->validate();
-
         $user = $request->user();
+
+        $data = $request->validate([
+            'department' => 'required|integer',
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255',
+            Rule::unique('users', 'gov_email')->ignore($user->id)
+        ]);
 
         // Save manager specific fields to user
         $managerDepartment = Department::find($data['department']);
@@ -62,12 +68,70 @@ class FirstVisitController extends AuthController
             $user->applicant()->save(new Manager());
             $user->refresh();
         }
-        $user->manager->department_id = $department_id;
-        $user->manager->save();
+        $user->department_id = $department_id;
+        $user->save();
 
         $user->refresh();
-        $expectedUrl = session()->remove('url.expected');
-        session()->remove('url.expected');
-        return redirect($expectedUrl);
+        return redirect(route(WhichPortal::prefixRoute('home')));
+    }
+
+    /**
+     * Show the form for completing HR Advisor registration on first visit.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function showFirstVisitHrForm(Request $request)
+    {
+        $routes = [
+            'return' => route(WhichPortal::prefixRoute('home')),
+            'continue' => route(WhichPortal::prefixRoute('finish_registration')),
+        ];
+
+        return view('auth.first_visit_manager', [
+            'routes' => $routes,
+            'first_visit' => Lang::get('common/auth/first_hr_visit'),
+            'departments' => Department::all(),
+            'is_manager_view' => WhichPortal::isManagerPortal(),
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Process the final data required for HR.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function finishHrRegistration(Request $request)
+    {
+        $user = $request->user();
+
+        $data = $request->validate([
+            'department' => 'required|integer',
+            'gov_email' => 'nullable|required_unless:department,0|string|email|max:255',
+            Rule::unique('users', 'gov_email')->ignore($user->id)
+        ]);
+
+        // Save manager specific fields to user
+        $hrDepartment = Department::find($data['department']);
+        $inGovernment = ($hrDepartment !== null);
+        $user->gov_email = $inGovernment ? $data['gov_email'] : null;
+
+        $user->save();
+        $user->refresh();
+
+        $department_id = $inGovernment ? $hrDepartment->id : null;
+        if ($user->hr_advisor === null) {
+            $user->hr_advisor()->save(new HrAdvisor());
+            $user->refresh();
+        }
+        $user->department_id = $department_id;
+        $user->save();
+        $user->hr_advisor->user_id === $user->id;
+        $user->hr_advisor->save();
+
+        $user->refresh();
+        return redirect(route(WhichPortal::prefixRoute('home')));
     }
 }

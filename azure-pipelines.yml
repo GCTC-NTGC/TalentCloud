@@ -1,0 +1,73 @@
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+trigger:
+  branches:
+    include:
+      # master
+      # dev
+      # - release*
+      - feature/azure-webapp-pipeline-cometh
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  phpVersion: 7.2
+
+steps:
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+- script: |
+    cp .env.azure .env
+    echo DB_HOST=$(DB_HOST) >> .env
+    echo DB_DATABASE=$(DB_DATABASE) >> .env
+    echo DB_USERNAME=$(DB_USERNAME) >> .env
+    echo DB_PASSWORD=$(DB_PASSWORD) >> .env
+  displayName: 'Copy environment variables'
+
+- script: |
+    composer install --no-interaction --prefer-dist
+    npm install
+  displayName: 'Install dependencies'
+
+- script: npm run dev
+  displayName: 'Compile assets'
+
+- script: php artisan migrate:fresh --seed
+  displayName: 'Run database migrations'
+  continueOnError: 'true'
+
+- script: mkdir -p report/
+  displayName: 'Create test report directory'
+
+- script: npm run test-azure
+  displayName: 'Run jest tests'
+  continueOnError: 'true'
+
+- script: phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --log-junit=report/phpunit/junit.phpunit.xml
+  displayName: 'Run phpunit tests'
+  continueOnError: 'true'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: JUnit
+    testResultsFiles: '**/junit.*.xml'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: './report/jest/cobertura-coverage.xml'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(system.defaultWorkingDirectory)'
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1

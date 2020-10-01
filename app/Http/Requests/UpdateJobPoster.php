@@ -26,7 +26,7 @@ class UpdateJobPoster extends FormRequest
     {
         $job = $this->route('job');
         // Published jobs cannot be updated.
-        return $job && $job->published_at === null;
+        return $job && $job->isEditable();
     }
 
     /**
@@ -42,9 +42,9 @@ class UpdateJobPoster extends FormRequest
         return [
             'chosen_lang' => ['nullable', Rule::in(['en', 'fr'])],
             'term_qty' => 'nullable|numeric',
-            'open_date_time' =>['nullable', $dateFormatRule],
+            'open_date_time' => ['nullable', $dateFormatRule],
             'close_date_time' => ['nullable', $dateFormatRule],
-            'start_date_time' =>['nullable', $dateFormatRule],
+            'start_date_time' => ['nullable', $dateFormatRule],
             'department_id' => ['nullable', new ValidIdRule(Department::class)],
             'province_id' => ['nullable', new ValidIdRule(Province::class)],
             'security_clearance_id' => ['nullable', new ValidIdRule(SecurityClearance::class)],
@@ -67,26 +67,26 @@ class UpdateJobPoster extends FormRequest
             'flexible_hours_frequency_id' => ['nullable', new ValidIdRule(Frequency::class)],
             'travel_requirement_id' => ['nullable', new ValidIdRule(TravelRequirement::class)],
             'overtime_requirement_id' => ['nullable', new ValidIdRule(OvertimeRequirement::class)],
-            'en.city' => 'nullable|string',
-            'en.title' => 'nullable|string',
-            'en.dept_impact' => 'nullable|string',
-            'en.team_impact' => 'nullable|string',
-            'en.hire_impact' => 'nullable|string',
-            'en.division' => 'nullable|string',
-            'en.education' => 'nullable|string',
-            'en.work_env_description' => 'nullable|string',
-            'en.culture_summary' => 'nullable|string',
-            'en.culture_special' => 'nullable|string',
-            'fr.city' => 'nullable|string',
-            'fr.title' => 'nullable|string',
-            'fr.dept_impact' => 'nullable|string',
-            'fr.team_impact' => 'nullable|string',
-            'fr.hire_impact' => 'nullable|string',
-            'fr.division' => 'nullable|string',
-            'fr.education' => 'nullable|string',
-            'fr.work_env_description' => 'nullable|string',
-            'fr.culture_summary' => 'nullable|string',
-            'fr.culture_special' => 'nullable|string',
+            'city.en' => 'nullable|string',
+            'city.fr' => 'nullable|string',
+            'title.en' => 'nullable|string',
+            'title.fr' => 'nullable|string',
+            'dept_impact.en' => 'nullable|string',
+            'dept_impact.fr' => 'nullable|string',
+            'team_impact.en' => 'nullable|string',
+            'team_impact.fr' => 'nullable|string',
+            'hire_impact.en' => 'nullable|string',
+            'hire_impact.fr' => 'nullable|string',
+            'division.en' => 'nullable|string',
+            'division.fr' => 'nullable|string',
+            'education.en' => 'nullable|string',
+            'education.fr' => 'nullable|string',
+            'work_env_description.en' => 'nullable|string',
+            'work_env_description.fr' => 'nullable|string',
+            'culture_summary.en' => 'nullable|string',
+            'culture_summary.fr' => 'nullable|string',
+            'culture_special.en' => 'nullable|string',
+            'culture_special.fr' => 'nullable|string',
         ];
     }
 }

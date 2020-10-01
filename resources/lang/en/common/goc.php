@@ -15,8 +15,8 @@ return [
     "logo_link" => "https://www.canada.ca/en.html",
     "logo_link_title" => "Visit Canada.ca.",
     "logo_alt" => "The Government of Canada Logo.",
-    "logo_url" => "/images/logo_goc_colour.svg",
     "talent_cloud" => "GC Talent Cloud",
     "portal" => "Applicant Portal",
     "admin_portal" => "Manager Portal",
+    "pilot" => "BETA / Pilot Project"
 ];

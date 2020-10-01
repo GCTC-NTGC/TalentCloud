@@ -4,93 +4,101 @@
     Applicant: Jobs - Post: Layout
 
 ============================================================================= #}
-<section
-    class="application-index">
-
-    <div
-        class="container--layout">
-
-        {# Applications in Progress #}
-
-            <h2
-                class="application-index__section-title">
-                {{ application_index.progress_title }}
-            </h2>
-
-            {% set draftCounter = 0 %}
-
-            {% for item in applications %}
-
-                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
-
-                    {% set draftCounter = draftCounter + 1 %}
-
-                    {% include "applicant/application_index/application" %}
-
-                {% endif %}
-
-            {% endfor %}
-
-            {% if draftCounter == 0 %}
-
-                {% include "applicant/application_index/null" %}
-
-            {% endif %}
-
-        {# Completed Applications #}
-
-            <h2
-                class="application-index__section-title">
-                {{ application_index.completed_title }}
-            </h2>
-
-            {% set completedCounter = 0 %}
-
-            {% for item in applications %}
-
-                {% if item.application_status.name != "draft" %}
-
-                    {% set completedCounter = completedCounter + 1 %}
-
-                    {% include "applicant/application_index/application" %}
-
-                {% endif %}
-
-            {% endfor %}
-
-            {% if completedCounter == 0 %}
-
-                {% include "applicant/application_index/null" %}
-
-            {% endif %}
-
-        {# Expired Applications #}
-
-            <h2
-                class="application-index__section-title">
-                {{ application_index.expired_title }}
-            </h2>
-
-            {% set expiredCounter = 0 %}
-
-            {% for item in applications %}
-
-                {% if item.application_status.name == "draft" and item.job_poster.close_date_time.isPast() %}
-
-                    {% set expiredCounter = expiredCounter + 1 %}
-
-                    {% include "applicant/application_index/application" %}
-
-                {% endif %}
-
-            {% endfor %}
-
-            {% if expiredCounter == 0 %}
-
-                {% include "applicant/application_index/null" %}
-
-            {% endif %}
-
+<section data-clone>
+    <div data-c-border="bottom(thin, solid, gray)">
+        <div data-c-container="large(center)" data-c-padding="tb(3)">
+            <div data-c-accordion-group>
+                <!-- Ongoing Applications -->
+                <div data-c-accordion class="active">
+                    <button aria-expanded="true" data-c-accordion-trigger tabindex="0" type="button">
+                        <div data-c-padding="tb(1)">
+                            <!-- Title -->
+                            {% set draftCounter = 0 %}
+                            {% for item in applications %}
+                                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
+                                    {% set draftCounter = draftCounter + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            <p data-c-font-size="h2" data-c-color="c1"><span data-c-font-style="underline">{{ application_index.progress_title }}</span> ({{ draftCounter }})</p>
+                        </div>
+                        <span data-c-visibility="invisible">Click to view...</span>
+                        <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
+                        <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
+                    </button>
+                    <div aria-hidden="false" data-c-accordion-content>
+                        <div data-c-padding="bottom(1)">
+                            {% for item in applications %}
+                                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
+                                    {% include "applicant/application_index/application" %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if draftCounter == 0 %}
+                                {% include "applicant/application_index/null" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Completed Applications -->
+                <div data-c-accordion>
+                    <button aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
+                        <div data-c-padding="tb(1)">
+                            <!-- Title -->
+                            {% set completedCounter = 0 %}
+                            {% for item in applications %}
+                                {% if item.application_status.name != "draft" %}
+                                    {% set completedCounter = completedCounter + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            <p data-c-font-size="h2" data-c-color="c1"><span data-c-font-style="underline">{{ application_index.completed_title }}</span> ({{ completedCounter }})</p>
+                        </div>
+                        <span data-c-visibility="invisible">Click to view...</span>
+                        <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
+                        <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
+                    </button>
+                    <div aria-hidden="true" data-c-accordion-content>
+                        <div data-c-padding="bottom(1)">
+                            {% for item in applications %}
+                                {% if item.application_status.name != "draft" %}
+                                    {% include "applicant/application_index/application" %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if completedCounter == 0 %}
+                                {% include "applicant/application_index/null" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Completed Applications -->
+                <div data-c-accordion>
+                    <button aria-expanded="false" data-c-accordion-trigger tabindex="0" type="button">
+                        <div data-c-padding="tb(1)">
+                            <!-- Title -->
+                            {% set expiredCounter = 0 %}
+                            {% for item in applications %}
+                                {% if item.application_status.name == "draft" and item.job_poster.close_date_time.isPast() %}
+                                    {% set expiredCounter = expiredCounter + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            <p data-c-font-size="h2" data-c-color="c1"><span data-c-font-style="underline">{{ application_index.expired_title }}</span> ({{ expiredCounter }})</p>
+                        </div>
+                        <span data-c-visibility="invisible">Click to view...</span>
+                        <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
+                        <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
+                    </button>
+                    <div aria-hidden="true" data-c-accordion-content>
+                        <div data-c-padding="bottom(1)">
+                            {% for item in applications %}
+                                {% if item.application_status.name == "draft" and item.job_poster.close_date_time.isPast() %}
+                                    {% include "applicant/application_index/application" %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if expiredCounter == 0 %}
+                                {% include "applicant/application_index/null" %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </section>

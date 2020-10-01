@@ -11,7 +11,7 @@ return [
      */
     'title' => 'Parcourir les emplois',
     'job_index_title' => 'Nuage de talents | Candidat : Parcourir les emplois',
-     'job_index_description' => 'Liste des emplois actifs publiés sur le Nuage de talents.',
+    'job_index_description' => 'Liste des emplois actifs publiés sur le Nuage de talents.',
     'index' => [
         'null_alert' => [
             'title' => 'Nous améliorons la plate-forme.',
@@ -20,6 +20,14 @@ return [
             'link' => 'https://twitter.com/GC_Talent',
             'link_title' => 'Visitez Nuage de talents sur Twitter'
         ],
+        'covid_null_alert' => [
+            'title' => 'Nous améliorons la plate-forme.',
+            'copy_01' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
+            'copy_02' => 'Pour plus d\'opportunités, visitez le site %link%.',
+            'link' => 'https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&amp;toggleLanguage=fr',
+            'link_title' => 'Emplois GC',
+        ],
+        'section_title' => 'Tous les emplois disponibles :',
         'view_title' => "Voir l'affiche de travail pour",
         'location_label' => 'Emplacement',
         'salary_label' => 'Échelle de salaire annuel',
@@ -40,6 +48,6 @@ return [
         'job_closed' => "L'affiche est fermée",
         'days_remaining_label' => ":count jour jusqu'à la date de clôture.|:count jours jusqu'à la date de clôture.",
         'applicants_label' => "Candidat Jusqu'à Présent|Candidats Jusqu'à Présent",
-        'button_label' => 'Voir le travail'
+        'button_label' => 'Voir ce travail'
     ]
 ];

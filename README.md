@@ -23,4 +23,10 @@ The Talent Cloud site uses:
 
 ## Development
 
+### Local Install
+
+To setup the application locally please reference [this README](./README-local.md) and README.
+
+### Docker Install
+
 We have improved our Docker configuration, anyone interested in setting up the application should check out our [tc-docker repository](https://github.com/GCTC-NTGC/tc-docker) and README.

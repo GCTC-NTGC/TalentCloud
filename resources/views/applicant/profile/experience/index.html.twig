@@ -1,199 +1,98 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Profile - Experience Index
+    Applicant: Profile - Education and Experience
 
 ============================================================================= #}
-<section
-    class="applicant-profile__portfolio">
-
-    <div
-        class="container--layout">
-
-        {# Profile List (Degrees) #}
-
-            <div
-                class="profile-list">
-
-                {# Profile List Header #}
-
-                    <div
-                        class="profile-list__header flex-grid middle">
-
-                        <div
-                            class="box med-1of2">
-
-                            <h2>{{ profile.experience_section.section_degree_title }}</h2>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <button
-                                class="profile-list__add-element-trigger"
-                                type="button">
-                                {{ profile.experience_section.add_degree_label }}
-                            </button>
-
-                        </div>
-
-                    </div>
-
+<section>
+    {# Degrees #}
+    <div data-c-padding="top(3)">
+        <div data-c-grid="gutter(all, 1)" class="profile-list">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                <h2 data-c-heading="h2">{{ profile.experience_section.section_degree_title }}</h2>
+            </div>
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+                    {{ profile.experience_section.add_degree_label }}
+                </button>
+            </div>
+            <div data-c-grid-item="base(1of1)">
                 {# Set Locale #}
-
-                    {% set locale = "profile" %}
-
+                {% set locale = "profile" %}
                 {# Profile Element Template #}
-
-                    {% include "common/degree" %}
-
+                {% include "common/degree" %}
                 {# Profile Element List #}
-
-                    <div
-                        class="profile-element-list">
-
-                        {% set degreeCounter = 0 %}
-
-                        {% for degree in applicant.degrees %}
-
-                            {% set degreeCounter = degreeCounter + 1 %}
-
-                            {% include "common/degree" %}
-
-                        {% endfor %}
-
-                        <div
-                            class="profile-null {% if degreeCounter == 0 %}active{% endif %}">
-
-                            <p>{{ profile.experience_section.null_degree_copy }}</p>
-
-                        </div>
-
+                <div data-c-accordion-group class="profile-element-list">
+                    {% set degreeCounter = 0 %}
+                    {% for degree in applicant.degrees %}
+                        {% set degreeCounter = degreeCounter + 1 %}
+                        {% include "common/degree" %}
+                    {% endfor %}
+                    <div class="profile-null {% if degreeCounter == 0 %}active{% endif %}" data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+                        <p>{{ profile.experience_section.null_degree_copy }}</p>
                     </div>
-
+                </div>
             </div>
-
-        {# Profile List (Courses) #}
-
-            <div
-                class="profile-list">
-
-                {# Profile List Header #}
-
-                    <div
-                        class="profile-list__header flex-grid middle">
-
-                        <div
-                            class="box med-1of2">
-
-                            <h2>{{ profile.experience_section.section_course_title }}</h2>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <button
-                                class="profile-list__add-element-trigger"
-                                type="button">
-                                {{ profile.experience_section.add_course_label }}
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                {# Profile Element Template #}
-
-                    {% include "common/course" %}
-
-                {# Profile Element List #}
-
-                    <div
-                        class="profile-element-list">
-
-                        {% set courseCounter = 0 %}
-
-                        {% for course in applicant.courses %}
-
-                            {% set courseCounter = courseCounter + 1 %}
-
-                            {% include "common/course" %}
-
-                        {% endfor %}
-
-                        <div
-                            class="profile-null {% if courseCounter == 0 %}active{% endif %}">
-
-                            <p>{{ profile.experience_section.null_course_copy }}</p>
-
-                        </div>
-
-                    </div>
-
-            </div>
-
-        {# Profile List (Work) #}
-
-            <div
-                class="profile-list">
-
-                {# Profile List Header #}
-
-                    <div
-                        class="profile-list__header flex-grid middle">
-
-                        <div
-                            class="box med-1of2">
-
-                            <h2>{{ profile.experience_section.section_work_title }}</h2>
-
-                        </div>
-
-                        <div
-                            class="box med-1of2">
-
-                            <button
-                                class="profile-list__add-element-trigger"
-                                type="button">
-                                {{ profile.experience_section.add_work_label }}
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                {# Profile Element Template #}
-
-                    {% include "common/work" %}
-
-                {# Profile Element List #}
-
-                    <div
-                        class="profile-element-list">
-
-                        {% set workCounter = 0 %}
-
-                        {% for work in applicant.work_experiences %}
-
-                            {% set workCounter = workCounter + 1 %}
-
-                            {% include "common/work" %}
-
-                        {% endfor %}
-
-                        <div
-                            class="profile-null {% if workCounter == 0 %}active{% endif %}">
-
-                            <p>{{ profile.experience_section.null_work_copy }}</p>
-
-                        </div>
-
-                    </div>
-
-            </div>
-
+        </div>
     </div>
-
+    {# Courses #}
+    <div data-c-padding="top(3)">
+        <div data-c-grid="gutter(all, 1)" class="profile-list">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                <h2 data-c-heading="h2">{{ profile.experience_section.section_course_title }}</h2>
+            </div>
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+                    {{ profile.experience_section.add_course_label }}
+                </button>
+            </div>
+            <div data-c-grid-item="base(1of1)">
+                {# Set Locale #}
+                {% set locale = "profile" %}
+                {# Profile Element Template #}
+                {% include "common/course" %}
+                {# Profile Element List #}
+                <div data-c-accordion-group class="profile-element-list">
+                    {% set courseCounter = 0 %}
+                    {% for course in applicant.courses %}
+                        {% set courseCounter = courseCounter + 1 %}
+                        {% include "common/course" %}
+                    {% endfor %}
+                    <div class="profile-null {% if courseCounter == 0 %}active{% endif %}" data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+                        <p>{{ profile.experience_section.null_course_copy }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# Work Experience #}
+    <div data-c-padding="top(3)">
+        <div data-c-grid="gutter(all, 1)" class="profile-list">
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(left)">
+                <h2 data-c-heading="h2">{{ profile.experience_section.section_work_title }}</h2>
+            </div>
+            <div data-c-grid-item="tl(1of2)" data-c-align="base(center) tl(right)">
+                <button data-c-button="outline(c1)" data-c-radius="rounded" class="profile-list__add-element-trigger" type="button">
+                    {{ profile.experience_section.add_work_label }}
+                </button>
+            </div>
+            <div data-c-grid-item="base(1of1)">
+                {# Set Locale #}
+                {% set locale = "profile" %}
+                {# Profile Element Template #}
+                {% include "common/work" %}
+                {# Profile Element List #}
+                <div data-c-accordion-group class="profile-element-list">
+                    {% set workCounter = 0 %}
+                    {% for work in applicant.work_experiences %}
+                        {% set workCounter = workCounter + 1 %}
+                        {% include "common/work" %}
+                    {% endfor %}
+                    <div class="profile-null {% if workCounter == 0 %}active{% endif %}" data-c-border="all(thin, solid, gray)" data-c-background="gray(20)" data-c-padding="all(1)" data-c-align="base(center)" data-c-color="gray" data-c-radius="rounded">
+                        <p>{{ profile.experience_section.null_work_copy }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

@@ -1,4 +1,5 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import { defineMessages, MessageDescriptor, IntlShape } from "react-intl";
 import {
   AssessmentTypeId,
   AssessmentTypeIdValues,
@@ -11,13 +12,15 @@ import {
   ProvinceId,
   SecurityClearanceId,
   LanguageRequirementId,
-  DepartmentId,
   FrequencyId,
   OvertimeRequirementId,
   TravelRequirementId,
   ClassificationId,
+  LocationId,
+  ResponseScreeningBuckets as ResponseBuckets,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
+import { Experience } from "./types";
 
 const skillLevelDescriptions = defineMessages({
   hardBasic: {
@@ -266,7 +269,7 @@ const criteriaTypes = defineMessages({
   essential: {
     id: "criteriaType.essential",
     defaultMessage: "Essential",
-    description: "Title of an esential criteria type.",
+    description: "Title of an essential criteria type.",
   },
 });
 
@@ -643,56 +646,6 @@ export const languageRequirementContext = (
   }
 };
 
-const departments = defineMessages({
-  [DepartmentId.treasuryBoard]: {
-    id: "department.treasuryBoard",
-    defaultMessage: "Treasury Board of Canada Secretariat",
-  },
-  [DepartmentId.naturalResources]: {
-    id: "department.naturalResources",
-    defaultMessage: "Natural Resources Canada",
-  },
-  [DepartmentId.transport]: {
-    id: "department.transport",
-    defaultMessage: "Transport Canada",
-  },
-  [DepartmentId.environmentAndClimateChange]: {
-    id: "department.environmentAndClimateChange",
-    defaultMessage: "Environment and Climate Change Canada",
-  },
-  [DepartmentId.employmentAndSocialDevelopment]: {
-    id: "department.employmentAndSocialDevelopment",
-    defaultMessage: "Employment and Social Development Canada",
-  },
-  [DepartmentId.globalAffairs]: {
-    id: "department.globalAffairs",
-    defaultMessage: "Global Affairs Canada",
-  },
-  [DepartmentId.borderServices]: {
-    id: "department.borderServices",
-    defaultMessage: "Canada Border Services Agency",
-  },
-  [DepartmentId.fisheriesAndOceans]: {
-    id: "department.fisheriesAndOceans",
-    defaultMessage: "Fisheries and Oceans Canada",
-  },
-  [DepartmentId.innovationScience]: {
-    id: "department.innovationScience",
-    defaultMessage: "Innovation, Science and Economic Development Canada",
-  },
-  [DepartmentId.publicServiceAndProcurement]: {
-    id: "department.publicServiceAndProcurement",
-    defaultMessage: "Public Services and Procurement Canada",
-  },
-  [DepartmentId.nationalDefence]: {
-    id: "department.nationalDefence",
-    defaultMessage: "Deparmtnet of National Defence",
-  },
-});
-
-export const departmentName = (departmentId: number): MessageDescriptor =>
-  getOrThrowError(departments, departmentId, "invalid DepartmentId");
-
 export const narrativeReviewStandardQuestion = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewQuestion;
 
@@ -723,7 +676,7 @@ const frequencyMessages = defineMessages({
   },
   [FrequencyId.never]: {
     id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Almost Never",
+    defaultMessage: "Never",
     description: "The form label displayed on 'never' frequency options.",
   },
 });
@@ -857,6 +810,16 @@ export const classificationCodes = defineMessages({
     defaultMessage: "AD - Administrative Services",
     description: "Job Classification from list of Classifications",
   },
+  [ClassificationId["EN-ENG"]]: {
+    id: "jobBuilder.details.classificationOptions.EN-ENG",
+    defaultMessage: "EN-ENG - Engineering",
+    description: "Job Classification from list of Classifications",
+  },
+  [ClassificationId.FI]: {
+    id: "jobBuilder.details.classificationOptions.FI",
+    defaultMessage: "FI - Financial Management",
+    description: "Job Classification from list of Classifications",
+  },
 });
 
 export const classificationCodeOption = (
@@ -867,3 +830,551 @@ export const classificationCodeOption = (
     classificationId,
     "invalid ClassificationId",
   );
+
+export const generalLocations = defineMessages({
+  [LocationId.jobGeneric]: {
+    id: "activityfeed.locations.review",
+    defaultMessage: "Job Poster Builder",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.summary]: {
+    id: "activityfeed.locations.hr.summary",
+    defaultMessage: "HR Summary Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.preview]: {
+    id: "activityfeed.locations.hr.preview",
+    defaultMessage: "HR Preview Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.applicantsGeneric]: {
+    id: "activityfeed.locations.applications",
+    defaultMessage: "Applicant Review Page",
+    description: "Location where the activity is located.",
+  },
+  [LocationId.screeningPlan]: {
+    id: "activityfeed.locations.screeningPlan",
+    defaultMessage: "Assessment Plan",
+    description: "Location where the activity is located.",
+  },
+  notFound: {
+    id: "activityfeed.locations.notFound",
+    defaultMessage: "Location not found",
+    description: "Error message if location id is not recognized",
+  },
+});
+
+export const generalLocationOption = (
+  locationId: string,
+): MessageDescriptor => {
+  switch (locationId) {
+    /* Job Poster Review Page */
+    case LocationId.jobGeneric:
+    case LocationId.heading:
+    case LocationId.basicInfo:
+    case LocationId.impact:
+    case LocationId.tasks:
+    case LocationId.skills:
+    case LocationId.langRequirements:
+    case LocationId.environment:
+      return generalLocations[LocationId.jobGeneric];
+    /* Applicant Review Page */
+    case LocationId.applicantsGeneric:
+    case LocationId.underConsideration:
+    case LocationId.optionalConsideration:
+    case LocationId.notUnderConsideration:
+      return generalLocations[LocationId.applicantsGeneric];
+    /* Assessment Plan */
+    case LocationId.screeningPlan:
+    case LocationId.screeningPlanBuilder:
+    case LocationId.screeningPlanSummary:
+    case LocationId.screeningPlanRatings:
+      return generalLocations[LocationId.screeningPlan];
+    /* Hr Portal */
+    case LocationId.summary:
+      return generalLocations[LocationId.summary];
+    case LocationId.preview:
+      return generalLocations[LocationId.preview];
+
+    default:
+      return generalLocations.notFound;
+  }
+};
+
+export const jobReviewLocations = defineMessages({
+  [LocationId.jobGeneric]: {
+    id: "activityfeed.locations.review.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.heading]: {
+    id: "activityfeed.locations.review.heading",
+    defaultMessage: "Job Page Heading",
+    description: "Location of the activity.",
+  },
+  [LocationId.basicInfo]: {
+    id: "activityfeed.locations.review.basicInfo",
+    defaultMessage: "Basic Information",
+    description: "Location of the activity.",
+  },
+  [LocationId.impact]: {
+    id: "activityfeed.locations.review.impact",
+    defaultMessage: "Impact",
+    description: "Location of the activity.",
+  },
+  [LocationId.tasks]: {
+    id: "activityfeed.locations.review.tasks",
+    defaultMessage: "Tasks",
+    description: "Location of the activity.",
+  },
+  [LocationId.skills]: {
+    id: "activityfeed.locations.review.skills",
+    defaultMessage: "Skills",
+    description: "Location of the activity.",
+  },
+  [LocationId.langRequirements]: {
+    id: "activityfeed.locations.review.langRequirements",
+    defaultMessage: "Language Requirements",
+    description: "Location of the activity.",
+  },
+  [LocationId.environment]: {
+    id: "activityfeed.locations.review.environment",
+    defaultMessage: "Environment",
+    description: "Location of the activity.",
+  },
+});
+
+export const applicantReviewLocations = defineMessages({
+  [LocationId.applicantsGeneric]: {
+    id: "activityfeed.locations.applicantReview.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.underConsideration]: {
+    id: "activityfeed.locations.applicantReview.underConsideration",
+    defaultMessage: "Under Consideration",
+    description: "Location of the activity.",
+  },
+  [LocationId.optionalConsideration]: {
+    id: "activityfeed.locations.applicantReview.optionalConsideration",
+    defaultMessage: "Optional Consideration",
+    description: "Location of the activity.",
+  },
+  [LocationId.notUnderConsideration]: {
+    id: "activityfeed.locations.applicantReview.notUnderConsideration",
+    defaultMessage: "No Longer Under Consideration",
+    description: "Location of the activity.",
+  },
+});
+
+export const screeningPlanLocations = defineMessages({
+  [LocationId.screeningPlan]: {
+    id: "activityfeed.locations.screeningPlan.general",
+    defaultMessage: "General",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanBuilder]: {
+    id: "activityfeed.locations.screeningPlan.builder",
+    defaultMessage: "Assessment Plan Builder",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanSummary]: {
+    id: "activityfeed.locations.screeningPlan.summary",
+    defaultMessage: "Assessment Plan Summary",
+    description: "Location of the activity.",
+  },
+  [LocationId.screeningPlanRatings]: {
+    id: "activityfeed.locations.screeningPlan.ratings",
+    defaultMessage: "Ratings Guide Builder",
+    description: "Location of the activity.",
+  },
+});
+export const hrPortalLocations = {
+  [LocationId.summary]: jobReviewLocations[LocationId.jobGeneric],
+  [LocationId.preview]: jobReviewLocations[LocationId.jobGeneric],
+};
+
+export const specificLocationOption = (locationId: string): MessageDescriptor =>
+  getOrThrowError(
+    {
+      ...jobReviewLocations,
+      ...applicantReviewLocations,
+      ...hrPortalLocations,
+      ...screeningPlanLocations,
+    },
+    locationId,
+    "Invalid LocationId",
+  );
+
+export const ResponseScreeningBuckets = {
+  [ResponseBuckets.Consideration]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.consideration.title",
+      defaultMessage: "Employees Under Consideration",
+      description:
+        "Label for the 'Under Consideration' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.consideration.description",
+      defaultMessage:
+        "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
+      description:
+        "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
+    },
+  }),
+  [ResponseBuckets.ReadyToAllocate]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.readyToAllocate.title",
+      defaultMessage: "Ready to Allocate",
+      description:
+        "Label for the 'Ready to Allocate' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.readyToAllocate.description",
+      defaultMessage:
+        "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
+      description:
+        "Descriptive text for the 'Ready to Allocate' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.Allocated]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.allocated.title",
+      defaultMessage: "Allocated",
+      description: "Label for the 'Allocated' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.allocated.description",
+      defaultMessage:
+        'Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under "Not Currently Available".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.',
+      description:
+        "Descriptive text for the 'Allocated' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.Unavailable]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.unavailable.title",
+      defaultMessage: "Currently Unavailable",
+      description: "Label for the 'Unavailable' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.unavailable.description",
+      defaultMessage:
+        "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
+      description:
+        "Descriptive text for the 'Currently Unavailable' response screening bucket.",
+    },
+  }),
+  [ResponseBuckets.DoesNotQualify]: defineMessages({
+    title: {
+      id: "responseScreening.buckets.doesNotQualify.title",
+      defaultMessage: "Does Not Qualify",
+      description:
+        "Label for the 'Does Not Qualify' response screening bucket.",
+    },
+    description: {
+      id: "responseScreening.buckets.doesNotQualify.description",
+      defaultMessage:
+        "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
+      description:
+        "Descriptive text for the 'Does Not Qualify' response screening bucket.",
+    },
+  }),
+};
+
+export const ResponseReviewStatusMessages = defineMessages({
+  screened_out: {
+    id: "responseReviewStatus.screenedOut",
+    defaultMessage: "Does Not Qualify",
+    description: "Select option text for the 'Does Not Qualify' review status.",
+  },
+  ready_for_reference: {
+    id: "responseReviewStatus.readyForReference",
+    defaultMessage: "Ready for Reference Check",
+    description:
+      "Select option text for the 'Ready for Reference Check' review status.",
+  },
+  ready_to_allocate: {
+    id: "responseReviewStatus.readyToAllocate",
+    defaultMessage: "Ready to Allocate",
+    description:
+      "Select option text for the 'Ready to Allocate' review status.",
+  },
+  assessment_required: {
+    id: "responseReviewStatus.assessmentRequired",
+    defaultMessage: "Further Assessment Required",
+    description:
+      "Select option text for the 'Further Assessment Required' review status.",
+  },
+  allocated: {
+    id: "responseReviewStatus.allocated",
+    defaultMessage: "Allocated",
+    description: "Select option text for the 'Allocated' review status.",
+  },
+  not_available: {
+    id: "responseReviewStatus.notAvailable",
+    defaultMessage: "Not Available",
+    description: "Select option text for the 'Not Available' review status.",
+  },
+});
+
+export const ResponseReviewStatuses = {
+  assessment_required: {
+    id: 6,
+    name: ResponseReviewStatusMessages.assessment_required,
+  },
+  ready_for_reference: {
+    id: 4,
+    name: ResponseReviewStatusMessages.ready_for_reference,
+  },
+  ready_to_allocate: {
+    id: 5,
+    name: ResponseReviewStatusMessages.ready_to_allocate,
+  },
+  allocated: {
+    id: 7,
+    name: ResponseReviewStatusMessages.allocated,
+  },
+  not_available: {
+    id: 8,
+    name: ResponseReviewStatusMessages.not_available,
+  },
+  screened_out: {
+    id: 1,
+    name: ResponseReviewStatusMessages.screened_out,
+  },
+};
+
+const experienceHeadings = defineMessages({
+  award: {
+    id: "application.skills.awardHeading",
+    defaultMessage: "{title} from {issuedBy}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  community: {
+    id: "application.skills.communityHeading",
+    defaultMessage: "{title} with {group}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  education: {
+    id: "application.skills.educationHeading",
+    defaultMessage: "{areaOfStudy} at {institution}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  personal: {
+    id: "application.skills.personalHeading",
+    defaultMessage: "{title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  work: {
+    id: "application.skills.workHeading",
+    defaultMessage: "{title} at {organization}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  unknown: {
+    id: "application.skills.unknownHeading",
+    defaultMessage: "Error: Unknown experience type.",
+    description:
+      "Accordion heading error when an unknown experience type is used.",
+  },
+});
+
+/**
+ * Returns a formatted localized heading for the accordion on
+ * the Skill UI page of the Job Application. Makes use of experienceHeadings
+ * messages defined above.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceHeading = (
+  experience: Experience,
+  intl: IntlShape,
+): string => {
+  let heading: string;
+
+  switch (experience.type) {
+    case "experience_award":
+      heading = intl.formatMessage(experienceHeadings.award, {
+        title: experience.title,
+        issuedBy: experience.issued_by,
+      });
+      break;
+    case "experience_community":
+      heading = intl.formatMessage(experienceHeadings.community, {
+        title: experience.title,
+        group: experience.group,
+      });
+      break;
+    case "experience_education":
+      heading = intl.formatMessage(experienceHeadings.education, {
+        areaOfStudy: experience.area_of_study,
+        institution: experience.institution,
+      });
+      break;
+    case "experience_personal":
+      heading = intl.formatMessage(experienceHeadings.personal, {
+        title: experience.title,
+      });
+      break;
+    case "experience_work":
+      heading = intl.formatMessage(experienceHeadings.work, {
+        title: experience.title,
+        organization: experience.organization,
+      });
+      break;
+    default:
+      heading = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return heading;
+};
+
+/**
+ * Returns a formatted localized subheading for the accordion on
+ * the Skill UI page of the Job Application. Makes use of date formatting
+ * to provide a range.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceSubheading = (
+  experience: Experience,
+  intl: IntlShape,
+): string => {
+  let subHeading: string;
+  let startDate: string;
+  let endDate: string;
+
+  switch (experience.type) {
+    case "experience_award":
+      subHeading = intl.formatDate(experience.awarded_date, {
+        month: "short",
+        year: "numeric",
+      });
+      break;
+    case "experience_community":
+    case "experience_education":
+    case "experience_personal":
+    case "experience_work":
+      startDate = intl.formatDate(experience.start_date, {
+        month: "short",
+        year: "numeric",
+      });
+
+      if (experience.end_date !== null && !experience.is_active) {
+        endDate = intl.formatDate(experience.end_date, {
+          month: "short",
+          year: "numeric",
+        });
+      } else {
+        endDate = intl.formatMessage({
+          id: "application.skills.currentSubheading",
+          defaultMessage: "Current",
+          description:
+            "Text for the end date of a current experience on the Skills page.",
+        });
+      }
+
+      subHeading = `${startDate} - ${endDate}`;
+      break;
+    default:
+      subHeading = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return subHeading;
+};
+
+const experienceJustificationLabels = defineMessages({
+  award: {
+    id: "application.skills.awardJustificationLabel",
+    defaultMessage: "How I used {skillName} to achieve {title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  community: {
+    id: "application.skills.communityJustificationLabel",
+    defaultMessage: "How I used {skillName} with {group}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  education: {
+    id: "application.skills.educationJustificationLabel",
+    defaultMessage: "How I used {skillName} at {institution}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  personal: {
+    id: "application.skills.personalJustificationLabel",
+    defaultMessage: "How I used {skillName} for {title}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  work: {
+    id: "application.skills.workJustificationLabel",
+    defaultMessage: "How I used {skillName} at {organization}",
+    description: "Accordion heading for experience on the Skills page.",
+  },
+  unknown: {
+    id: "application.skills.unknownJustificationLabel",
+    defaultMessage: "Error: Unknown experience type.",
+    description:
+      "Accordion heading error when an unknown experience type is used.",
+  },
+});
+
+/**
+ * Returns a formatted localized input label for the text area
+ * inside the experience accordion on the Skill UI page of the
+ * Job Application. Makes use of experienceJustificationLabels
+ * messages defined above.
+ *
+ * @param experience Given Experience of multiple types defined by the user to apply to a certain Criteria.
+ * @param intl react-intl object used in formatting messages.
+ *
+ * @returns Formatted localized string.
+ */
+export const getExperienceJustificationLabel = (
+  experience: Experience,
+  intl: IntlShape,
+  skillName: string,
+): string => {
+  let label: string;
+
+  switch (experience.type) {
+    case "experience_award":
+      label = intl.formatMessage(experienceJustificationLabels.award, {
+        skillName,
+        title: experience.title,
+      });
+      break;
+    case "experience_community":
+      label = intl.formatMessage(experienceJustificationLabels.community, {
+        skillName,
+        group: experience.group,
+      });
+      break;
+    case "experience_education":
+      label = intl.formatMessage(experienceJustificationLabels.education, {
+        skillName,
+        institution: experience.institution,
+      });
+      break;
+    case "experience_personal":
+      label = intl.formatMessage(experienceJustificationLabels.personal, {
+        skillName,
+        title: experience.title,
+      });
+      break;
+    case "experience_work":
+      label = intl.formatMessage(experienceJustificationLabels.work, {
+        skillName,
+        organization: experience.organization,
+      });
+      break;
+    default:
+      label = intl.formatMessage(experienceHeadings.unknown);
+  }
+
+  return label;
+};

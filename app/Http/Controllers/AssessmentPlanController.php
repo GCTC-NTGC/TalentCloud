@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
-use App\Models\JobPoster;
-use App\Models\Criteria;
 use App\Models\Assessment;
-use App\Models\RatingGuideQuestion;
-use App\Models\RatingGuideAnswer;
+use App\Models\Criteria;
+use App\Models\JobPoster;
 use App\Models\Lookup\AssessmentType;
+use App\Models\RatingGuideAnswer;
+use App\Models\RatingGuideQuestion;
+use Facades\App\Services\WhichPortal;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Lang;
 
 class AssessmentPlanController extends Controller
 {
@@ -22,15 +25,11 @@ class AssessmentPlanController extends Controller
      */
     public function getForJob(JobPoster $jobPoster)
     {
-        if (Gate::denies('view-assessment-plan', $jobPoster)) {
-            abort(403);
-        }
-
         $criteria = Criteria::where('job_poster_id', $jobPoster->id)->get();
         $criteriaTranslated = [];
         foreach ($criteria as $criterion) {
             // TODO: getTranslationsArray probably makes DB calls every loop. Find a way to profile & optimize.
-            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslationsArray());
+            $criteriaTranslated[] = array_merge($criterion->toArray(), $criterion->getTranslations());
         }
         $criteriaIds = $criteria->pluck('id');
         $assessments = Assessment::whereIn('criterion_id', $criteriaIds)->get();
@@ -56,5 +55,23 @@ class AssessmentPlanController extends Controller
             'rating_guide_questions' => $questions->toArray(),
             'rating_guide_answers' => $answers->toArray()
         ];
+    }
+
+    public function show(JobPoster $jobPoster)
+    {
+        // Show demo notification if the user is a demoManager and is not an hr-advisor that has claimed the job.
+        $display_demo_notification = Auth::user() !== null &&
+            Auth::user()->isDemoManager() &&
+            (!$jobPoster->hr_advisors->contains('user_id', Auth::user()->id) &&
+                Auth::user()->isHrAdvisor());
+
+        $portal = WhichPortal::isHrPortal() ? 'hr' : 'manager';
+
+        return view('manager/assessment_plan', [
+            'assessment_plan' => Lang::get('manager/assessment_plan'),
+            'job_id' => $jobPoster->id,
+            'display_demo_notification' => $display_demo_notification,
+            'portal' => $portal,
+        ]);
     }
 }

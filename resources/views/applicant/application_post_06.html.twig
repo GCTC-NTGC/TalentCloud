@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Applicant: Application Step 06
+    Applicant: Submit an Application - Integrity Signature
 
 ============================================================================= #}
 {% extends "layouts/base" %}
@@ -9,62 +9,63 @@
 	{{ application_template.complete.step_06_title }}
 {% endblock %}
 {% block body %}
-	{# Government of Canada Banner #}
 	{% include "common/goc" %}
-	{# Standard Alert #}
-	{% include "common/alert" %}{# Page Header #}
-	{# {% include "common/header" %} #}{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
-	{# Skip to Content Link #}<a id="skipLink"> </a>
-	{# Application Tracker #}
-	{% include "applicant/application_post/common/tracker-ajax" %}
-	{# Body #}
-	<form
-		action="{{ form_submit_action }}" method="post">
-		{# Builds an input field for CSRF token validation #}
-		{{ csrf_field() }}
-		{# Sections #}
-		<section class="application-06__wrapper">
-			<div class="container--copy">
-				<h3>{{ application_template.integrity.title }}</h3>
-				<p>{{ application_template.integrity.confirmation_copy }}</p>
-				<ul>
-					<li>{{ application_template.integrity.confirmation_01 }}</li>
-					<li>{{ application_template.integrity.confirmation_02 }}</li>
-					<li>{{ application_template.integrity.confirmation_03 }}</li>
-				</ul>
-				{% include "errors/form_errors" %}
-				<div class="flex-grid gutter">
-					<div class="box med-1of2">
-						<div class="form__input-wrapper--signature">
-							<label class="form__label" for="applicationReviewSignature">
-								{{ application_template.integrity.signature_label }}
-							</label>
-							<input class="form__input" id="applicationReviewSignature" name="submission_signature" required type="text"/>
-						</div>
-					</div>
-					<div class="box med-1of2">
-						<div class="form__input-wrapper--date">
-							<label class="form__label" for="applicationReviewDate">
-								{{ application_template.integrity.date_label }}
-							</label>
-							<input class="form__input" id="applicationReviewDate" name="submission_date" required type="date"/>
-						</div>
-					</div>
-				</div>
-				{# <p>{{ application_template.integrity.review }}</p> #}
-				<div class="flex-grid middle application-post__action-wrapper">
-					<div class="box med-1of2">
-						<button class="button--blue light-bg" type="submit" name="submit" value="save_and_quit">
-							{{ application_template.integrity.save_label }}
-						</button>
-					</div>
-					<div class="box med-1of2">
-						<button class="button--blue light-bg" type="submit" name="submit" value="submit">
-							{{ application_template.integrity.submit_label }}
-						</button>
-					</div>
-				</div>
-			</div>
-		</section>
-	</form>
+	{% include "common/alert" %}
+    <div data-clone>
+        {% include "applicant/application_post/common/header" %}
+        {% include "applicant/application_post/common/tracker-ajax" %}
+        <a id="skipLink"> </a>
+        <div data-c-padding="bottom(3)" data-c-border="bottom(thin, solid, gray)">
+        <form class="form-prevent-multiple-submit" action="{{ form_submit_action }}" method="post">
+            {# Builds an input field for CSRF token validation #}
+            {{ csrf_field() }}
+            <section>
+                <div data-c-container="medium(center)">
+                    <section data-c-margin="top(2)">{% include "errors/form_errors" %}</section>
+                    <h2 data-c-heading="h2" data-c-padding="top(3)" data-c-margin="bottom(1)">{{ application_template.integrity.title }}</h2>
+                    <p data-c-margin="bottom(1)">{{ application_template.integrity.confirmation_copy }}</p>
+                    <ul data-c-margin="bottom(1)">
+                        <li>{{ application_template.integrity.confirmation_01 }}</li>
+                        <li>{{ application_template.integrity.confirmation_02 }}</li>
+                        <li>{{ application_template.integrity.confirmation_03 }}</li>
+                    </ul>
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-input="text" data-c-grid-item="tl(1of2)">
+                            <label for="applicationReviewSignature">{{ application_template.integrity.signature_label }}</label>
+                            <span>{{ application_template.required_label }}</span>
+                            <div>
+                                <input id="applicationReviewSignature" name="submission_signature" required type="text" />
+                            </div>
+                            <span>{{ application_template.input_error }}</span>
+                        </div>
+                        <div data-c-input="date" data-c-grid-item="tl(1of2)">
+                            <label for="applicationReviewDate">{{ application_template.integrity.date_label }}</label>
+                            <span>{{ application_template.required_label }}</span>
+                            <div>
+                                <input id="applicationReviewDate" type="date" required name="submission_date" placeholder="yyyy-mm-dd"/>
+                            </div>
+                            <span>{{ application_template.input_error }}</span>
+                        </div>
+                    </div>
+                    <hr data-c-hr="thin(gray)" data-c-margin="top(1) bottom(2)">
+                    <div data-c-grid="gutter(all, 1)">
+                        <div data-c-grid-item="tl(1of3)" class="button-prevent-multiple-submit" data-c-align="base(center) tl(left)">
+                            <!-- Can we make sure this button functions as intended? -->
+                            <a href="{{ route('job.application.edit.5', job) }}" data-c-button="outline(c1)" data-c-radius="rounded" title="{{ application_template.save_return_button_label }}">
+                                {{ application_template.save_return_button_label|replace({":step_id": application_step - 1}) }}
+                            </a>
+                        </div>
+                        <div data-c-grid-item="tl(2of3)" class="button-prevent-multiple-submit" data-c-align="base(center) tl(right)">
+                            <button id="save_and_quit" data-c-button="outline(c1)" data-c-margin="right(half)" data-c-radius="rounded" type="submit" name="submit" value="save_and_quit">
+                                {{ application_template.save_return_to_applications }}
+                            </button>
+                            <button data-c-button="solid(go)" data-c-radius="rounded" type="submit" name="submit" value="submit">
+                                {{ application_template.integrity.submit_label }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {# =============================================================================
 
     Talent Cloud
-    Application: Success Message
+    Applicant: Submit an Application - Submission Received
 
 ============================================================================= #}
 {% extends "layouts/base" %}
@@ -9,14 +9,12 @@
 	{{ application_template.complete.step_06_title }}
 {% endblock %}
 {% block body %}
-	# Government of Canada Block #}
 	{% include "common/goc" %}
-	{# Alert #}
 	{% include "common/alert" %}
-	{
-	{# Page Header #}
-	{% include "common/header" with {'header': {'title': ":title: :job"|replace({':title': application_template.title, ':job': job.title})}} %}
-	<a id="skipLink"></a>
-	{# Page Content #}
-	{% include "applicant/application_post/complete" %}
+	<div data-clone>
+        {% include "applicant/application_post/complete-header" %}
+        <a id="skipLink"></a>
+        {# Page Content #}
+        {% include "applicant/application_post/complete" %}
+    </div>
 {% endblock %}

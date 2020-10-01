@@ -1,0 +1,57 @@
+<div
+    aria-hidden="true"
+    aria-describedby="level-description-description"
+    aria-labelledby="level-description-title"
+    data-c-dialog
+    data-c-dialog-id="level-description"
+    data-c-padding="top(double) bottom(double)"
+    role="dialog">
+    <div
+        data-c-background="white(100)"
+        data-c-radius="rounded"
+        data-c-margin="bottom(double)">
+        <div
+            data-c-padding="tb(1)"
+            data-c-border="bottom(thin, solid, black)" data-c-background="c1(100)"
+            class="dialog-header">
+            <div data-c-container="medium">
+                <h5
+                    data-c-font-size="h3" data-c-font-weight="bold"
+                    id="level-description-title"
+                    data-c-dialog-focus data-c-color="white">
+                    [LEVEL NAME]
+                </h5>
+                <button
+                    data-c-dialog-action="close"
+                    data-c-dialog-id="level-description"
+                    type="button"
+                    data-c-color="white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div data-c-border="bottom(thin, solid, black)">
+            <div id="level-description-description">
+                <div data-c-container="medium" data-c-padding="tb(1)">
+                    <p>[LEVEL DESCRIPTION]</p>
+                </div>
+            </div>
+        </div>
+        <!-- The following dialog actions can be customized depending on the dialog. -->
+        <div data-c-padding="tb(1)" data-c-container="medium">
+            <div data-c-grid="gutter middle">
+                <div
+                    data-c-grid-item="base(1of1)"
+                    data-c-alignment="base(right)">
+                    <button
+                        data-c-button="outline(c2)"
+                        data-c-radius="rounded"
+                        data-c-dialog-action="close"
+                        data-c-dialog-id="level-description">
+                        Okay
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

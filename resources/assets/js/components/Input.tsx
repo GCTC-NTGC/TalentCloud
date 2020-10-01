@@ -24,12 +24,18 @@ export interface InputProps {
   minLength?: number;
   /** Maximum length of characters the text value can be */
   maxLength?: number;
+  /** Minimum value for the input */
+  min?: number;
+  /** Maximum value for the input */
+  max?: number;
   /** The value of the input */
   value?: string | number | string[];
   /** Error text that appers underneath if error occurs (eg. required) */
   errorText?: string;
   /** data-clone-grid-item value: https://designwithclone.ca/#flexbox-grid */
   grid?: string;
+  /** The font type for the text input */
+  font?: string;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */
@@ -49,6 +55,9 @@ const Input: React.FunctionComponent<InputProps> = ({
   grid,
   minLength,
   maxLength,
+  min,
+  max,
+  font,
   onBlur,
   onChange,
 }): React.ReactElement => (
@@ -72,8 +81,11 @@ const Input: React.FunctionComponent<InputProps> = ({
         value={value}
         minLength={minLength}
         maxLength={maxLength}
+        min={min}
+        max={max}
         onChange={onChange}
         onBlur={onBlur}
+        data-c-font={font}
       />
     </div>
     <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>

@@ -525,7 +525,7 @@ return [
                     ],
                     '1' => [
                         'type' => 'text',
-                        'copy' => "Le Nuage de talents est un nouveau modèle de dotation expérimental au gouvernement du Canada. Il vise à attirer des gens talentueux très performants de l’extérieur pour remplir des fonctions axées sur les projets. Il s’agit également du premier marché du secteur public dans le monde pour l’économie à la demande, organisé autour des droits des travailleurs de la prochaine génération.\n\nLe Nuage de talents est conçu pour réduire considérablement le temps de dotation, pour optimiser l’adaptation des candidats aux équipes et pour procurer à l’utilisateur une expérience formidable pour toutes les personnes concernées.\n\nNous travaillons avec des gestionnaires responsables de l’embauche pendant notre conception de la plateforme afin de nous assurer que les choix sont intuitifs et que les politiques sont respectées sans perdre de marge de manœuvre lorsqu’il y en a.\n\nLes ministères partenaires financent le projet et le Bureau du dirigeant principal de l’information du Secrétariat du Conseil du Trésor du Canada s’occupe de l’hébergement. Pour obtenir la liste la plus récente des ministères partenaires, %link0%.\n\nMême si tout le monde peut créer un compte et accéder aux outils de gestion, seuls les gestionnaires des ministères partenaires peuvent publier des emplois et suivre les candidats dans le site du Nuage de talents."
+                        'copy' => "Le Nuage de talents est un nouveau modèle de dotation expérimental au sein du gouvernement du Canada. Il vise à attirer des gens talentueux très performants de l’extérieur pour combler des postes axés sur les projets. Il s’agit également du premier marché du secteur public au monde qui vise l’économie conformément à la demande, et il a été organisé conformément aux droits des travailleurs de la prochaine génération.\n\nLe Nuage de talents est conçu de façon à réduire considérablement le temps de dotation, afin d’optimiser l’adaptation des candidats aux équipes, et à procurer une expérience formidable à toutes les personnes concernées.\n\nNous travaillons avec des gestionnaires responsables de l’embauche pendant la conception de notre plateforme afin de veiller à ce que les choix soient intuitifs et à ce que les politiques soient respectées, sans perdre de marge de manœuvre lorsqu’il y en a une.\n\nLes ministères partenaires financent le projet et le Bureau du dirigeant principal de l’information du Secrétariat du Conseil du Trésor du Canada s’occupe de l’héberger. Pour obtenir la plus récente liste des ministères partenaires, %link0%.\n\nMême s’il est possible pour quiconque de créer un compte et d’accéder aux outils de gestion, seuls les gestionnaires des ministères partenaires peuvent publier des emplois et suivre les candidats dans le site du Nuage de talents."
                     ],
                     '2' => [
                         'type' => 'title',
@@ -534,7 +534,7 @@ return [
                     ],
                     '3' => [
                         'type' => 'text',
-                        'copy' => "L’une des principales raisons est que les gestionnaires nous disent qu’ils aiment vraiment utiliser la plateforme et que les recruteurs sont ravis de leurs candidats. Les mots « expérience agréable » reviennent assez souvent.\n\nTous les postes publiés dans le Nuage de talents sont des postes de durée déterminée annoncés à l’externe. Voici quelques raisons d’embaucher un employé pour une période déterminée :"
+                        'copy' => "L’une des principales raisons est que les gestionnaires nous disent qu’ils aiment vraiment utiliser la plateforme et que les recruteurs sont ravis des candidats qu’ils obtiennent par l’entremise de celle-ci. Les mots « expérience agréable » reviennent assez souvent.\n\nTous les postes publiés dans le Nuage de talents sont des postes de durée déterminée annoncés à l’externe. Voici quelques raisons d’embaucher un employé pour une période déterminée :"
                     ],
                     '4' => [
                         'type' => 'ul',
@@ -557,13 +557,13 @@ return [
                     '7' => [
                         'type' => 'ul',
                         'items' => [
-                            '0' => 'Répertoire des candidats plus petits et plus résilients. Conception comportementale qui renvoie de 10 à 30 demandeurs qui répondent à tous les critères essentiels. Les gestionnaires disent qu’ils sont capables de faire la présélection initiale en deux ou trois heures.',
+                            '0' => 'Bassin plus restreint et plus robuste des candidats. Conception comportementale qui renvoie de 10 à 30 demandeurs qui répondent à tous les critères essentiels. Les gestionnaires disent qu’ils sont capables de faire la présélection initiale en deux ou trois heures.',
                             '1' => [
-                                'copy' => 'Outils en ligne directement dans la plateforme',
+                                'copy' => 'Outils en ligne qui se trouvent dans la plateforme comme telle.',
                                 'items' => [
-                                    '0' => 'Concepteur d’offres d’emploi : Outil permettant aux gestionnaires de concevoir facilement une offre et un profil de gestionnaire. Processus et conception qui permettent aux gestionnaires d’obtenir une offre en direct (traduit et approuvé par les Ressources humaines [RH]) en deux jours.',
+                                    '0' => 'Concepteur d’offres d’emploi : Outil permettant aux gestionnaires de concevoir facilement une offre d’emploi et un profil de gestionnaire. Processus et conception qui permettent aux gestionnaires d’obtenir une offre en direct (traduite et approuvée par les Ressources humaines [RH]) en deux jours.',
                                     '1' => 'Créateur de plan de présélection : Conçu pour aider les gestionnaires à grandement accélérer le calendrier de l’élaboration des plans d’évaluation et des guides de cotation avec les conseillers en RH.',
-                                    '2' => 'Outil de suivi des demandeurs : Conception de suivi et de présentation qui permet aux gestionnaires de rapidement présélectionner les candidats qui passeront à l’étape suivante de la présélection. L’outil intègre et publie également des renseignements tels que les priorités et les groupes préférés pour les embauches directement dans le portail.'
+                                    '2' => 'Outil de suivi des demandeurs : Conception de suivi et de présentation qui permet aux gestionnaires de rapidement présélectionner les candidats qui passeront à l’étape suivante de la présélection. L’outil intègre et publie également des renseignements tels que les priorités et les groupes préférés pour les embauches directement dans le Portail.'
                                 ]
                             ]
                         ]
@@ -575,7 +575,7 @@ return [
                     ],
                     '9' => [
                         'type' => 'text',
-                        'copy' => "Seuls les gestionnaires des ministères partenaires peuvent publier des emplois dans le Nuage de talents. Pour obtenir la liste la plus récente des ministères partenaires, %link0%.\n\nSi vous appartenez à l’un des ministères partenaires, créez un compte sur le %link1% et envoyez-nous un courrier électronique à l’adresse suivante : %link2%. Une fois que nous avons confirmé auprès du superutilisateur RH de votre ministère, vous pourrez commencer à utiliser le Nuage de talents pour vos besoins en personnel pour une durée déterminée."
+                        'copy' => "Seuls les gestionnaires des ministères partenaires peuvent publier des emplois dans le Nuage de talents. Pour obtenir la liste la plus récente des ministères partenaires, %link0%.\n\nSi vous appartenez à l’un des ministères partenaires, veuillez créer un compte à partir du %link1% et nous envoyer un courriel à l’adresse suivante : %link2%. Une fois que nous aurons confirmé votre demande auprès du superutilisateur des RH de votre ministère, vous pourrez commencer à utiliser le Nuage de talents pour vos besoins en matière de dotation en personnel pour une durée déterminée."
                     ],
                     '10' => [
                         'type' => 'title',
@@ -584,12 +584,12 @@ return [
                     ],
                     '11' => [
                         'type' => 'text',
-                        'copy' => "À compter d’octobre, le Nuage de talents offrira un ensemble limité d’outils à tous les gestionnaires du gouvernement du Canada. Ces comptes de « démonstration » donnent accès à divers outils, comme le concepteur d’offres d’emploi et le concepteur de plans de présélection.\n\nPour créer votre propre compte de démonstration, rendez-vous sur le %link1%.\n\nLe Nuage de talents est ouvert aux nouveaux partenaires. Si votre ministère est intéressé, envoyez-nous un courriel à l’adresse suivante : %link2%."
+                        'copy' => "À compter d’octobre, le Nuage de talents offrira un ensemble limité d’outils à tous les gestionnaires du gouvernement du Canada. Ces comptes de « démonstration » leur donneront accès à divers outils, comme le Concepteur d’offres d’emploi et le Concepteur de plans de présélection.\n\nPour créer votre propre compte de démonstration, rendez-vous sur le %link1%.\n\nLe Nuage de talents est ouvert aux nouveaux partenaires. Si votre ministère est intéressé, envoyez-nous un courriel à l’adresse suivante : %link2%."
                     ]
                 ],
                 'links' => [
                     '0' => '<a href="#partners" title="Voir les ministères partenaires du Nuage des talents.">veuillez consulter la foire aux questions du site Web du Nuage de talents</a>',
-                    '1' => '<a href="talent.canada.ca/manager" title="Visitez le portail des gestionnaires du Nuage des talents.">portail des gestionnaires de Nuages de talents</a>',
+                    '1' => '<a href="' . route('manager.home') . '" title="Visitez le portail des gestionnaires du Nuage des talents.">portail des gestionnaires de Nuages de talents</a>',
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un courriel au Nuage de talents.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -614,13 +614,12 @@ return [
                             '2' => 'Affaires mondiales Canada',
                             '3' => 'Ressources naturelles Canada',
                             '4' => 'Agence des services frontaliers du Canada',
-                            '5' => 'Ministère de la Défense nationale',
-                            '6' => 'Services partagés Canada',
-                            '7' => 'Santé Canada',
-                            '8' => 'Conseil national de recherches Canada',
-                            '9' => 'Emploi et Développement social Canada',
-                            '10' => 'Gendarmerie royale du Canada',
-                            '11' => 'Services publics et Approvisionnement Canada'
+                            '5' => 'Services partagés Canada',
+                            '6' => 'Conseil national de recherches Canada',
+                            '7' => 'Emploi et Développement social Canada',
+                            '8' => 'Gendarmerie royale du Canada',
+                            '9' => 'Services publics et Approvisionnement Canada',
+                            '10' => 'Ministère de la Justice'
                         ]
                     ]
                 ]
@@ -665,7 +664,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Communiquez avec l’équipe du Nuage de talents si vous cherchez à embaucher pour de multiples postes complémentaires ou une équipe. Nous travaillerons avec vous et votre conseiller en RH pour élaborer des offres d’emploi qui comporteront tous les ensembles de compétence que vous recherchez pour doter le nombre de postes ouverts que vous avez.'
+                                'copy' => 'Veuillez communiquer avec l’Équipe du Nuage de talents si vous cherchez à embaucher pour de multiples postes complémentaires ou pour le compte d’une équipe. Nous travaillerons avec vous et votre conseiller en RH pour élaborer des offres d’emploi qui comporteront tous les ensembles de compétences que vous cherchez afin de doter le nombre de postes ouverts que vous avez.'
                             ]
                         ]
                     ],
@@ -675,7 +674,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Les gestionnaires nous ont indiqué qu’il y a un besoin croissant d’embaucher rapidement des gens talentueux pour remplir des fonctions axées sur les projets. Cependant, le processus de dotation actuel pour les postes d’une durée déterminée prend autant de temps que le processus d’embauche pour les postes d’une durée indéterminée. De nombreux gestionnaires ont eu recours à des employés occasionnels ou à des agences de recrutement, qui n’offrent aucune protection aux travailleurs.\n\nLe Nuage de talents vise à concevoir un processus d’embauche d’employés nommés pour une durée déterminée si efficace qu’il deviendra la méthode de prédilection pour les gestionnaires qui veulent embaucher quelqu’un pour une période limitée.\n\nSi, après l’embauche, l’employé s’avère être un bon choix et qu’il existe un besoin permanent, nous serons heureux de collaborer avec vous et vos conseillers en RH pour explorer des possibilités."
+                                'copy' => "Les gestionnaires nous ont indiqué qu’il y a un besoin croissant d’embaucher rapidement des gens talentueux pour combler des fonctions axées sur les projets. Cependant, le processus de dotation actuel pour les postes d’une durée déterminée prend autant de temps que le processus d’embauche pour les postes d’une durée indéterminée. De nombreux gestionnaires ont eu recours à des employés occasionnels ou à des agences de recrutement, qui n’offrent aucune protection aux travailleurs.\n\nLe Nuage de talents vise à concevoir un processus d’embauche d’employés nommés pour une période déterminée si efficace qu’il deviendra la méthode de prédilection pour les gestionnaires qui souhaitent embaucher quelqu’un pour une période limitée.\n\nSi, après l’embauche, l’employé(e) s’avère être un bon choix et qu’il existe un besoin permanent, nous serons heureux de collaborer avec vous et vos conseillers en RH pour explorer d’autres possibilités."
                             ]
                         ]
                     ],
@@ -685,17 +684,17 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Comme pour les postes de durée déterminée annoncés à l’externe, les candidatures des fonctionnaires aux postes publiés dans le Nuage de talents sont accueillies. Cependant, les employés nommés pour une durée indéterminée devront s’organiser avec les gestionnaires responsables de l’embauche s’ils deviennent les candidats choisis et s’ils souhaitent protéger leur statut d’employés nommés pour une durée indéterminée. Les gestionnaires devraient discuter avec leurs conseillers en RH pour établir les possibilités disponibles.\n\nCertains postes dans le Nuage de talents indiquent que les fonctionnaires sont leur candidat de prédilection, et, lorsque c’est le cas, des ententes d’affectation ou de détachement ont été réalisées."
+                                'copy' => "Comme pour les postes de durée déterminée annoncés à l’externe, les candidatures des fonctionnaires aux postes publiés dans le Nuage de talents sont les bienvenues. Cependant, les employés qui sont nommés pour une durée indéterminée devront prendre les dispositions nécessaires auprès des gestionnaires responsables de l’embauche s’ils sont sélectionnés et s’ils souhaitent protéger leur statut d’employés nommés pour une période indéterminée. Les gestionnaires devraient discuter avec leurs conseillers en RH pour déterminer les possibilités qui s’offrent à ces candidats.\n\nCertains postes qui figurent dans le Nuage de talents indiquent que certains fonctionnaires avaient été sélectionnés. Dans ces cas, des ententes d’affectation ou de détachement ont été définies."
                             ]
                         ]
                     ],
                     '6' => [
                         'type' => 'accordion',
-                        'label' => 'Quelle peut être la durée des postes pour une durée déterminée?',
+                        'label' => 'De quelle durée parle-t-on lorsqu’il s’agit de postes pour une période déterminée?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Les emplois publiés dans le Nuage de talents varient généralement de 6 mois à 2 ans. La durée d’un poste pour une durée déterminée peut être aussi longue que le permet la %link0%. Dans la plupart des cas, cette période peut atteindre trois ans, après quoi « le ministère ou organisme doit nommer l’employé pour une période indéterminée ».'
+                                'copy' => 'La durée des emplois publiés dans le Nuage de talents varient généralement de 6 mois à 2 ans. La durée d’un poste pour une durée déterminée peut être aussi longue que le permet la %link0%. Dans la plupart des cas, cette période peut atteindre trois ans, après quoi « le ministère ou organisme doit nommer l’employé pour une période indéterminée ».'
                             ]
                         ]
                     ],
@@ -705,7 +704,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Le Nuage de talents entreprend l’autorisation en matière de priorité au nom du ministère lorsque le poste est prêt à être publié.\n\nSi une personne ayant un droit de priorité exprime un intérêt à être prise en compte, le Nuage de talents lui demandera de prouver qu’elle est qualifiée pour le poste en répondant à l’annonce publiée dans le site Web du Nuage de talents plutôt qu’en présentant son curriculum vitae et une lettre de motivation.\n\nAprès la fermeture du poste, le Nuage de talents demandera au gestionnaire d’évaluer d’abord la personne prioritaire (et uniquement par rapport aux critères essentiels) avant d’évaluer d’autres candidats.\n\nS’il s’avère que la personne ayant un droit de priorité n’est pas qualifiée, le Nuage de talents demandera par écrit au gestionnaire les résultats de l’évaluation et soumettra des commentaires sur le Système de gestion de l’information sur les priorités.\n\nTous les documents relatifs à la priorité sont partagés avec les conseillers en RH pour leurs dossiers de dotation."
+                                'copy' => "Le Nuage de talents entreprend l’autorisation en matière de priorité au nom du ministère lorsque le poste est prêt à être publié.\n\nSi une personne ayant un droit de priorité exprime un intérêt à être prise en compte, le Nuage de talents lui demandera de prouver qu’elle est qualifiée pour le poste en répondant à l’annonce publiée dans le site Web du Nuage de talents plutôt qu’en présentant son curriculum vitae et une lettre de motivation.\n\nAprès la fermeture du poste, les responsables du Nuage de talents demanderont au gestionnaire d’évaluer d’abord la personne prioritaire (et uniquement par rapport aux critères essentiels) avant d’évaluer d’autres candidats.\n\nS’il s’avère que la personne ayant un droit de priorité n’est pas qualifiée, le Nuage de talents demandera par écrit au gestionnaire les résultats de l’évaluation et soumettra des commentaires sur le Système de gestion de l’information sur les priorités.\n\nTous les documents liés à la priorité sont partagés avec les conseillers en RH pour leurs dossiers de dotation."
                             ]
                         ]
                     ],
@@ -715,7 +714,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Oui. Afin de satisfaire aux exigences de la politique relative aux postes annoncés à l’externe, tous les emplois du Nuage de talents sont publiés dans Emplois GC, à titre d’autre annonce de recrutement.\n\nLorsque les candidats cliquent sur une autre annonce de recrutement pour des emplois au GC, ils sont redirigés vers le portail du Nuage de talents pour terminer leur candidature.\n\n%link1%."
+                                'copy' => "Oui. Afin de satisfaire aux exigences de la politique relative aux postes annoncés à l’externe, tous les emplois du Nuage de talents sont publiés dans le site Emplois GC, à titre d’autre annonce de recrutement.\n\nLorsque les candidats cliquent sur une autre annonce de recrutement pour des emplois au GC, ils sont redirigés vers le Portail du Nuage de talents pour terminer leur candidature.\n\n%link1%."
                             ]
                         ]
                     ],
@@ -725,17 +724,17 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Oui, mais les répertoires créés au moyen du Nuage de talents fonctionneront un peu différemment.\n\nNous testons actuellement un nouveau type de répertoire qui vise à offrir une meilleure expérience aux candidats et aux gestionnaires. Les candidats seront en mesure de déterminer le gestionnaire qui aura accès à leurs renseignements et ceux-ci ne seront en relation qu’avec des candidats réellement intéressés par l’opportunité.\n\nSi vous souhaitez faire l’essai de ce nouveau type de répertoire, communiquez avec l’équipe du Nuage de talents à l’adresse suivante : %link2%."
+                                'copy' => "Oui, mais les répertoires créés au moyen du Nuage de talents fonctionneront un peu différemment.\n\nNous procédons actuellement à l’essai d’un nouveau type de répertoire qui vise à offrir une meilleure expérience aux candidats et aux gestionnaires. Les candidats seront en mesure de déterminer le gestionnaire qui aura accès à leurs renseignements, et ceux-ci ne seront en relation qu’avec des candidats réellement intéressés par l’opportunité.\n\nSi vous souhaitez faire l’essai de ce nouveau type de répertoire, veuillez communiquer avec l’Équipe du Nuage de talents, à l’adresse suivante : %link2%."
                             ]
                         ]
                     ],
                     '10' => [
                         'type' => 'accordion',
-                        'label' => 'Puis-je prendre en considération des candidats dans le Nuage de talents pour des emplois autres que ceux pour lesquels ils ont postulé?',
+                        'label' => 'Puis-je tenir compte des candidats qui figurent dans le Nuage de talents pour des emplois autres que ceux pour lesquels ils ont postulé?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Oui, l’équipe du Nuage de talents peut travailler avec vous et votre conseiller en RH pour voir la manière dont cela peut être réalisé.'
+                                'copy' => 'Oui, l’Équipe du Nuage de talents peut travailler avec vous et votre conseiller en matière de RH, pour tenter de trouver une façon de réaliser ceci.'
                             ]
                         ]
                     ]
@@ -756,17 +755,17 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Le gestionnaire est responsable de la rédaction de l’offre d’emploi et le Nuage de talents dispose d’un outil pour l’aider! En utilisant le concepteur d’offres d’emploi, les gestionnaires ont pu créer une offre d’emploi adaptée à leurs besoins opérationnels, à la culture de leur équipe et à leur environnement de travail en environ une heure.\n\nUne fois l’ébauche terminée, le conseiller en RH du gestionnaire et l’équipe du Nuage de talents ont la possibilité de faire part de leurs commentaires. Compte tenu de cela, le gestionnaire met la touche finale à l’offre d’emploi.\n\nLe Nuage de talents traduira la version définitive et communiquera l’offre de poste bilingue avec le gestionnaire et le conseiller en RH pour une dernière révision avant la publication."
+                                'copy' => "Le gestionnaire est responsable de la rédaction de l’offre d’emploi, tandis que le Nuage de talents dispose d’un outil pour l’aider! En utilisant le concepteur d’offres d’emploi, les gestionnaires peuvent créer une offre d’emploi adaptée à leurs besoins opérationnels, à la culture de leur équipe et à leur environnement de travail, en environ une heure.\n\nUne fois l’ébauche terminée, le conseiller en RH du gestionnaire et l’Équipe du Nuage de talents ont la possibilité de faire part de leurs commentaires. Compte tenu de cela, le gestionnaire met la touche finale à l’offre d’emploi.\n\nLe Nuage de talents traduira la version définitive et communiquera l’offre de poste bilingue avec le gestionnaire et le conseiller en RH pour une dernière révision avant la publication."
                             ]
                         ]
                     ],
                     '1' => [
                         'type' => 'accordion',
-                        'label' => 'Pourquoi les offres d’emploi du Nuage de talents comportent-elles un énoncé des répercussions?',
+                        'label' => 'Pourquoi les offres d’emploi du Nuage de talents comportent-elles un énoncé des incidences?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Notre étude auprès des utilisateurs a montré que l’une des principales raisons pour lesquelles les candidats externes envisagent de travailler pour le gouvernement est l’effet positif qu’ils peuvent avoir sur la vie des Canadiens. De nombreux candidats externes nous ont dit qu’ils seraient disposés à accepter une réduction de salaire pour ce type de travail.\n\nLa recherche auprès des utilisateurs a également montré qu’en demandant aux gestionnaires de rédiger un énoncé des répercussions, cela les aidait à faire preuve de plus de diligence dans la manière dont les mesures de dotation serviront les Canadiens."
+                                'copy' => "Notre étude auprès des utilisateurs a révélé que l’une des principales raisons pour lesquelles les candidats externes envisagent de travailler pour le gouvernement est l’effet positif qu’ils peuvent avoir sur la vie des Canadiens. De nombreux candidats externes nous ont dit qu’ils seraient disposés à accepter une réduction de salaire pour ce type de travail.\n\nLa recherche auprès des utilisateurs a également montré qu’en demandant aux gestionnaires de rédiger un énoncé des incidences, cela les aidait à faire preuve de plus de diligence dans la manière dont les mesures de dotation serviront les Canadiens."
                             ]
                         ]
                     ],
@@ -776,7 +775,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'L’utilisation de l’exigence d’éducation minimale et de l’expérience équivalente fournie dans les %link0% permet de reconnaître que les personnes peuvent accroître leur portefeuille de compétences de nombreuses manières différentes, et permet aux gestionnaires d’accéder à un vivier de talents plus large et plus diversifié. Il donne également aux demandeurs dont le cheminement de vie ou de carrière n’est pas conventionnel la chance de démontrer la manière dont ils sont qualifiés pour le poste, au lieu d’être systématiquement exclus pour ne pas avoir suivi un cheminement conventionnel.'
+                                'copy' => 'L’utilisation de l’exigence d’éducation minimale et de l’expérience équivalente fournie dans les %link0% permet de reconnaître que les personnes peuvent accroître leur portefeuille de compétences de diverses façons, et permet aux gestionnaires d’accéder à un bassin de talents plus vaste et plus diversifié. Il donne également aux demandeurs dont le cheminement de vie ou de carrière n’est pas conventionnel la chance de démontrer la façon dont ils sont qualifiés pour le poste, au lieu d’être systématiquement exclus pour ne pas avoir suivi un cheminement conventionnel.'
                             ]
                         ]
                     ],
@@ -786,7 +785,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Il n’existe pas de %link1% pour une offre d’emploi. Ce que nous mettons à l’essai est une approche axée sur les compétences pour décrire le critère de mérite, qui accorde aux candidats plus de flexibilité pour démontrer la manière dont ils répondent aux exigences du poste.'
+                                'copy' => 'Il n’existe pas de %link1% pour une offre d’emploi. Ce que nous mettons actuellement à l’essai est une approche axée sur les compétences pour décrire le critère de mérite, qui accorde aux candidats plus de flexibilité pour démontrer la façon dont ils répondent aux exigences du poste.'
                             ]
                         ]
                     ],
@@ -796,7 +795,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "L’utilisation de l’expérience (dotation en personnel fondée sur une biographie) tend à présélectionner les candidats qui suivent les trajectoires de vie attendues et à exclure les candidats qualifiés qui ont eu une carrière ou une éducation non conventionnelle. Cela a désavantagé de manière disproportionnée les candidats des groupes sous‑représentés.\n\nAfin d’aider les gestionnaires à accéder à un répertoire de gens talentueux plus diversifié et à se concentrer sur ce que les candidats peuvent faire plutôt que sur le lieu où ils ont travaillé, le Nuage de talents teste un modèle de dotation axé sur les compétences. Cette approche demande aux gestionnaires de décrire les compétences et le niveau requis pour effectuer le travail, sans préciser la manière dont le candidat a atteint ces exigences. Cela permet aux candidats d’utiliser une grande variété d’éléments probants pour démontrer la manière dont ils satisfont à l’exigence."
+                                'copy' => "L’utilisation de l’expérience (dotation en personnel fondée sur une biographie) tend à présélectionner les candidats qui suivent les trajectoires de vie attendues et à exclure les candidats qualifiés qui ont eu une carrière ou une éducation non conventionnelle. Cela a désavantagé de manière disproportionnée les candidats des groupes sous‑représentés.\n\nAfin d’aider les gestionnaires à accéder à un répertoire de gens talentueux plus diversifié, et à miser davantage sur ce que les candidats peuvent faire plutôt que sur le lieu où ils ont travaillé, le Nuage de talents procède à la mise à l’essai d’un modèle de dotation axé sur les compétences. Cette approche demande aux gestionnaires de décrire les compétences et le niveau requis pour effectuer le travail, sans préciser la façon dont le candidat a atteint ces exigences. Cela permet aux candidats d’utiliser une grande variété d’éléments probants pour démontrer comment ils répondent à l’exigence."
                             ]
                         ]
                     ],
@@ -806,7 +805,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Cela fait partie de la conception du Nuage de talents visant à faciliter l’adéquation optimale à cinq facteurs. Les cinq facteurs sont le candidat, le poste, le gestionnaire, l’environnement opérationnel et la culture de l’équipe. Fournir des renseignements sur l’environnement de travail et le style de leadership du gestionnaire permet aux candidats d’évaluer eux-mêmes si l’emploi leur correspond bien avant d’investir du temps et des efforts pour postuler à un emploi.\n\nLes candidats ayant la possibilité de s’exclure eux-mêmes s’ils estiment qu’ils ne correspondent pas, le processus d’évaluation devient ainsi plus rapide et plus simple pour le gestionnaire en réduisant le nombre de candidats qui ne correspondent pas."
+                                'copy' => "Cela fait partie de la conception du Nuage de talents visant à faciliter l’adéquation optimale à cinq facteurs. Les cinq facteurs sont le candidat, le poste, le gestionnaire, l’environnement opérationnel et la culture de l’équipe. Le fait de fournir des renseignements sur l’environnement de travail et le style de leadership du gestionnaire permet aux candidats d’évaluer eux-mêmes si l’emploi leur correspond bien avant d’investir du temps et des efforts pour postuler à un emploi.\n\nComme les candidats ont la possibilité de s’exclure eux-mêmes s’ils estiment qu’ils ne correspondent pas aux exigences, le processus d’évaluation devient ainsi plus rapide et plus simple pour le gestionnaire, puisqu’on réduit ainsi le nombre de candidats qui ne correspondent pas."
                             ]
                         ]
                     ],
@@ -816,7 +815,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Toutes les offres sont archivées dans le portail des gestionnaires. Si vous souhaitez réutiliser les anciennes offres d’emploi, l’équipe du Nuage de talents peut les charger manuellement pour vous au cours des quelques mois suivants. Il s’agira d’une option automatisée l’année prochaine.'
+                                'copy' => 'Toutes les offres sont archivées dans le Portail des gestionnaires. Si vous souhaitez réutiliser les anciennes offres d’emploi, l’Équipe du Nuage de talents peut les charger manuellement pour vous au cours des quelques mois suivants. Il s’agira d’une option automatisée l’année prochaine.'
                             ]
                         ]
                     ]
@@ -836,7 +835,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => "Le gestionnaire, avec le soutien de son conseiller en RH, est responsable de l’élaboration des outils d’évaluation. Cela étant dit, l’équipe du Nuage de talents travaille avec la communauté des RH de l’ensemble du gouvernement du Canada pour recueillir les pratiques exemplaires. Le Nuage de talents recueille également des outils qui ont été utilisés par les gestionnaires qui embauchent au moyen de la plateforme.\n\nEn utilisant ces ressources et la sagesse collective de la communauté des RH, le Nuage de talents crée des outils qui faciliteront l’élaboration de plans de présélection et d’outils d’évaluation pour les gestionnaires."
+                                'copy' => "Le gestionnaire, avec le soutien de son conseiller en RH, est responsable de l’élaboration des outils d’évaluation. Cela étant dit, l’Équipe du Nuage de talents travaille avec la communauté des RH de l’ensemble du gouvernement du Canada pour recueillir les pratiques exemplaires. Le Nuage de talents recueille également des outils qui ont été utilisés par les gestionnaires qui embauchent au moyen de la plateforme.\n\nEn utilisant ces ressources et la sagesse collective de la collectivité des RH, le Nuage de talents crée des outils qui faciliteront l’élaboration de plans de présélection et d’outils d’évaluation pour les gestionnaires."
                             ]
                         ]
                     ],
@@ -862,7 +861,7 @@ return [
                     ],
                     '3' => [
                         'type' => 'accordion',
-                        'label' => 'Qui est responsable de l’envoi des examens à la maison et des demandes de portfolio?',
+                        'label' => 'Qui est responsable de l’envoi des examens à la maison et des demandes de portefeuille?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
@@ -886,7 +885,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Les gestionnaires devront assurer la coordination avec leurs conseillers en RH pour prévoir les évaluations de langue seconde.'
+                                'copy' => 'Les gestionnaires devront assurer la coordination avec leurs conseillers en RH pour prévoir les évaluations de la langue seconde.'
                             ]
                         ]
                     ],
@@ -906,13 +905,13 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Les demandeurs sont priés de communiquer avec le Nuage de talents s’ils ont besoin de mesures d’adaptation. Lorsque l’équipe du Nuage de talents reçoit une demande d’adaptation, nous communiquerons la demande au gestionnaire et à ses conseillers en RH afin de coordonner la mesure d’adaptation avec le candidat.'
+                                'copy' => 'Les demandeurs sont priés de communiquer avec le Nuage de talents s’ils ont besoin de mesures d’adaptation. Lorsque l’Équipe du Nuage de talents reçoit une demande d’adaptation, nous communiquerons la demande au gestionnaire et à ses conseillers en RH afin de coordonner la mesure d’adaptation avec le candidat.'
                             ]
                         ]
                     ],
                     '8' => [
                         'type' => 'text',
-                        'copy' => 'Si vous avez des questions qui ne sont pas comprises dans cette foire aux questions, veuillez l’envoyer à l’adresse suivante : %link0% ou communiquez avec nous %link1%'
+                        'copy' => 'Si vous avez des questions auxquelles on n’a pas répondu dans la présente foire aux questions, veuillez l’envoyer à l’adresse suivante : %link0% ou communiquer avec nous %link1%'
                     ]
                 ],
                 'links' => [
@@ -926,7 +925,7 @@ return [
                 'content' => [
                     '0' => [
                         'type' => 'accordion',
-                        'label' => 'Puis-je communiquer avec les candidats au moyen du portail du Nuage de talents?',
+                        'label' => 'Puis-je communiquer avec les candidats au moyen du Portail du Nuage de talents?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
@@ -936,21 +935,21 @@ return [
                     ],
                     '1' => [
                         'type' => 'accordion',
-                        'label' => 'Les candidats peuvent-ils téléverser des documents officiels (p. ex., diplômes, preuve de citoyenneté) dans le portail du Nuage de talents?',
+                        'label' => 'Les candidats peuvent-ils téléverser des documents officiels (p. ex., diplômes, preuve de citoyenneté) dans le Portail du Nuage de talents?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Pour le moment, les candidats devront continuer de présenter leurs documents officiels de la manière dont vous les demandiez précédemment (p. ex., en fournir une copie en personne ou par courriel).'
+                                'copy' => 'Pour le moment, les candidats devront continuer de présenter leurs documents officiels comme ils le faisaient auparavant (p. ex., en fournir une copie en personne ou par courriel).'
                             ]
                         ]
                     ],
                     '2' => [
                         'type' => 'accordion',
-                        'label' => 'Si le poste est publié dans d’autres sites, pouvons-nous les lier directement au Nuage de talents?',
+                        'label' => 'Si le poste est publié dans d’autres sites, pouvons-nous le lier directement au Nuage de talents?',
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'Oui, le lien vers le Nuage de talents peut être utilisé pour promouvoir les occasions d’emplois sur d’autres sites de recherche de travail.'
+                                'copy' => 'Oui, le lien vers le Nuage de talents peut être utilisé pour promouvoir les occasions d’emplois d’autres sites de recherche de travail.'
                             ]
                         ]
                     ],
@@ -960,7 +959,7 @@ return [
                         'content' => [
                             '0' => [
                                 'type' => 'text',
-                                'copy' => 'C’est possible, mais les gestionnaires auront du travail supplémentaire. Nous serons heureux d’en parler avec vous et de voir les possibilités. Communiquez avec nous par courriel à l’adresse suivante : %link0%.'
+                                'copy' => 'C’est possible, mais les gestionnaires auront du travail supplémentaire à faire. Nous serons heureux d’en discuter avec vous et d’explorer les possibilités qui s’offrent à nous. Veuillez communiquer avec nous par courriel à l’adresse suivante : %link0%.'
                             ]
                         ]
                     ],

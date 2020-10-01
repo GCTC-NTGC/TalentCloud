@@ -18,20 +18,18 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property string $name
  * @property string $impact
  * @property string $preference
+ * @property string $allow_indeterminate
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $managers
  * @property \Illuminate\Database\Eloquent\Collection $job_posters
+ * @property \Illuminate\Database\Eloquent\Collection $users
  *
  * Localized Properties:
  * @property string $name
  * @property string $impact
  * @property string $preference
- *
- * Methods
- * @method mixed[] toApiArray()
  */
 class Department extends BaseModel
 {
@@ -54,32 +52,16 @@ class Department extends BaseModel
         'name',
         'impact',
         'preference',
+        'allow_indeterminate',
     ];
 
-    public function managers() // phpcs:ignore
+    public function users() // phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Manager::class);
+        return $this->hasMany(\App\Models\User::class);
     }
 
     public function job_posters() // phpcs:ignore
     {
         return $this->hasMany(\App\Models\JobPoster::class);
-    }
-
-    /**
-     * Return the array of values used to represent this object in an api response.
-     *
-     * @return mixed[]
-     */
-    public function toApiArray()
-    {
-        $deptArray = ['id' => $this->id];
-        foreach (['en', 'fr'] as $locale) {
-            $deptArray[$locale] = [
-                'name' => $this->getTranslation('name', $locale),
-                'impact' => $this->getTranslation('impact', $locale),
-            ];
-        }
-        return $deptArray;
     }
 }

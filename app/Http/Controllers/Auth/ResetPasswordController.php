@@ -31,7 +31,13 @@ class ResetPasswordController extends AuthController
      */
     protected function redirectTo()
     {
-        $redirectTo = WhichPortal::isManagerPortal() ? route('manager.home') : route('home');
+        if (WhichPortal::isManagerPortal()) {
+            $redirectTo = route('manager.home');
+        } elseif (WhichPortal::isHrPortal()) {
+            $redirectTo = route('hr_advisor.home');
+        } else {
+            $redirectTo = route('home');
+        }
         return $redirectTo;
     }
 

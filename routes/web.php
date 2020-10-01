@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Lang;
  */
 
 /* ADD ALL LOCALIZED ROUTES INSIDE THIS GROUP */
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale(),
@@ -49,6 +50,41 @@ Route::group(
             Route::view('builder-07', 'manager/builder-07')->middleware('localOnly')->name('jpb7');
             /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
+
+            /* Application (Welcome Mat) */
+            Route::view('application-01', 'applicant/application/01-welcome')->middleware('localOnly')->name('app1');
+            /* Application (Intro Information & Education) */
+            Route::view('application-02', 'applicant/application/02-info-edu')->middleware('localOnly')->name('app2');
+            /* Application (Experience Instruction) */
+            Route::view('application-03', 'applicant/application/03-exp-instructions')->middleware('localOnly')->name('app3');
+            /* Application (Experience) */
+            Route::view('application-04', 'applicant/application/04-exp')->middleware('localOnly')->name('app4');
+            /* Application (Skills Instruction) */
+            Route::view('application-05', 'applicant/application/05-skill-instructions')->middleware('localOnly')->name('app5');
+            /* Application (Skills) */
+            Route::view('application-06', 'applicant/application/06-skill')->middleware('localOnly')->name('app6');
+            /* Application (Questions) */
+            Route::view('application-07', 'applicant/application/07-questions')->middleware('localOnly')->name('app7');
+            /* Application (Review) */
+            Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
+            /* Application (Signature & Submission) */
+            Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
+            /* Application (Congrats) */
+            Route::view('application-10', 'applicant/application/10-congrats')->middleware('localOnly')->name('app10');
+
+            /* Profile (Experience) */
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
+            /* Response Home */
+            Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
+            /* Response Screening */
+            Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
+
+            Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
+
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -60,8 +96,8 @@ Route::group(
             Route::middleware(['auth'])->group(function (): void {
 
                 /* Managers */
-                Route::get('managers/{manager}', 'ManagerProfileController@show')
-                    ->middleware('can:view,manager')
+                Route::get('jobs/{jobPoster}/manager', 'ManagerProfileController@show')
+                    ->middleware('can:view,jobPoster')
                     ->name('managers.show');
             });
 
@@ -80,7 +116,18 @@ Route::group(
 
                 Route::get('jobs/{jobPoster}', 'JobController@show')
                     ->middleware('can:view,jobPoster')
-                    ->name('jobs.show');
+                    ->name('jobs.summary');
+
+                /* Response Home */
+                // Redirect /en/response to /response so it reaches the Talent Reserve app.
+                Route::get('response', function () {
+                    return redirect(URL::to('/response'));
+                });
+
+                /* Reserve Redirect */
+                Route::get('reserve', function () {
+                    return redirect('response');
+                });
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
@@ -210,6 +257,22 @@ Route::group(
                         ->middleware('can:update,user')
                         ->name('settings.government.update');
 
+                    Route::post(
+                        'settings/{user}/contact-preferences/update',
+                        'SettingsController@updateContactPreferences'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.contact_preferences.update');
+
+                    Route::post(
+                        'settings/{user}/account/delete',
+                        'SettingsController@deleteAccount'
+                    )
+                        ->middleware('can:view,user')
+                        ->middleware('can:update,user')
+                        ->name('settings.account.delete');
+
                     /* 2FA Settings */
                     Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('two_factor.activate');
                     Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('two_factor.deactivate');
@@ -224,11 +287,38 @@ Route::group(
                 Route::get('faq', 'FaqController')->name('faq');
 
                 /* Static - Privacy Policy */
-                Route::view('privacy', 'common/static_privacy', ['privacy' => Lang::get('common/privacy')])
-                    ->name('privacy');
+                Route::get(
+                    'privacy',
+                    function () {
+                        return view(
+                            'common/static_privacy',
+                            [
+                                'privacy' => Lang::get('common/privacy'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/privacy.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('privacy');
 
                 /* Static - Terms of Service */
-                Route::view('tos', 'common/static_tos', ['tos' => Lang::get('common/tos')])->name('tos');
+                Route::get(
+                    'tos',
+                    function () {
+                        return view(
+                            'common/static_tos',
+                            [
+                                'tos' => Lang::get('common/tos'),
+                                'custom_breadcrumbs' => [
+                                    'home' => route('home'),
+                                    Lang::get('common/tos.title') => '',
+                                ],
+                            ]
+                        );
+                    }
+                )->name('tos');
 
                 /* Static - ITP */
                 Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
@@ -287,7 +377,7 @@ Route::group(
                         Route::get('profile', 'ManagerProfileController@editAuthenticated')->name('manager.profile');
 
                         /* Profile */
-                        Route::get('profile/{manager}/edit', 'ManagerProfileController@edit')
+                        Route::get('profile/{manager}', 'ManagerProfileController@edit')
                             ->middleware('can:view,manager')
                             ->middleware('can:update,manager')
                             ->name('manager.profile.edit');
@@ -304,12 +394,14 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('applications/{application}', 'ApplicationController@show')
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
 
-                        /* View Applicant Profile */
-                        Route::get('applicants/{applicant}', 'ApplicantProfileController@show')
+                        /* View Applicant Profile with Job */
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,applicant')
                             ->name('manager.applicants.show');
 
@@ -317,10 +409,16 @@ Route::group(
                         Route::get('jobs', 'JobController@managerIndex')->name('manager.jobs.index');
 
                         /* View Job Poster */
-                        Route::get('jobs/{jobPoster}', 'JobController@show')
+                        Route::get('jobs/{jobPoster}/preview', 'JobController@show')
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:view,jobPoster')
-                            ->name('manager.jobs.show');
+                            ->name('manager.jobs.preview');
+
+                        /* View Job Summary */
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
+                            ->name('manager.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
 
                         /* Job Builder */
                         Route::get(
@@ -329,44 +427,44 @@ Route::group(
                         )->name('manager.jobs.create');
 
                         Route::get(
-                            'jobs/{jobId}/builder',
+                            'jobs/{jobPoster}/builder',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.edit');
 
                         Route::get(
-                            'jobs/{jobId}/builder/intro',
+                            'jobs/{jobPoster}/builder/intro',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/details',
+                            'jobs/{jobPoster}/builder/details',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/environment',
+                            'jobs/{jobPoster}/builder/environment',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/impact',
+                            'jobs/{jobPoster}/builder/impact',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/tasks',
+                            'jobs/{jobPoster}/builder/tasks',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/skills',
+                            'jobs/{jobPoster}/builder/skills',
                             'JobBuilderController@show'
                         )->where('jobPoster', '[0-9]+');
 
                         Route::get(
-                            'jobs/{jobId}/builder/review',
+                            'jobs/{jobPoster}/builder/review',
                             'JobBuilderController@show'
                         )
                             ->where('jobPoster', '[0-9]+')
@@ -377,12 +475,20 @@ Route::group(
                             ->where('jobPoster', '[0-9]+')
                             ->middleware('can:delete,jobPoster')
                             ->name('manager.jobs.destroy');
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('manager.jobs.setJobStatus');
 
                         /* Screening Plan Builder */
-                        Route::view(
+                        Route::get(
                             'jobs/{jobPoster}/assessment-plan',
-                            'manager/assessment_plan'
+                            'AssessmentPlanController@show'
                         )
+                            ->middleware('can:viewAssessmentPlan,jobPoster')
                             ->where('jobPoster', '[0-9]+')
                             ->name('manager.jobs.screening_plan');
 
@@ -414,6 +520,26 @@ Route::group(
                             ->middleware('can:view,user')
                             ->middleware('can:update,user')
                             ->name('manager.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.contact_preferences.update');
+
+                        Route::post(
+                            'settings/{user}/account/delete',
+                            'SettingsController@deleteAccount'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('manager.settings.account.delete');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('manager.resources');
 
                         /* Two-factor Authentication */
                         Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('manager.two_factor.activate');
@@ -508,10 +634,6 @@ Route::group(
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
-
-            Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
-                ->middleware('can:review,application')
-                ->name('application_reviews.update');
         });
 
         /* Non-Backpack Admin Portal (localized pages) =========================================================== */
@@ -532,43 +654,224 @@ Route::group(
                     ->name('admin.jobs.update');
             }
         );
-    }
-);
 
-/* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
-Route::group(
-    [
-    'prefix' => 'admin',
-    'middleware' => ['auth', 'role:admin']
-    ],
-    function (): void {
-        // This page is non-localized, because the middleware that redirects to localized
-        // pages changes POSTs to GETs and messes up the request.
-        Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
-            ->middleware('can:create,App\Models\JobPoster')
-            ->name('admin.jobs.create_as_manager');
+        /* HR Advisor Portal =========================================================== */
 
-        Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
+        Route::group([
+            'prefix' => config('app.hr_prefix'),
+        ], function (): void {
 
-        Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
-        Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
-        Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('admin.two_factor.forget');
-        Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
+            Route::middleware(['finishHrRegistration'])->group(function (): void {
 
-        Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
-        Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+                Route::get('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@use')->name('hr_advisor.recovery_codes.use');
+                Route::post('two-factor/use-recovery-code', 'Auth\RecoveryCodeController@authenticate')->name('hr_advisor.recovery_codes.authenticate');
+
+                /*
+                 * IF user is logged in AND has activated 2fa, require one-time password.
+                 * This should include all routes except those related to authentication, to avoid loops.
+                 */
+                Route::middleware(['2fa'])->group(function (): void {
+
+                    Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('hr_advisor.2fa');
+
+                    Route::get('/', 'HomepageController@hr_advisor')->name('hr_advisor.home');
+
+                    Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+
+                        Route::get('jobs', 'JobController@hrIndex')->name('hr_advisor.jobs.index');
+
+                        /* Application Index */
+                        Route::get('jobs/{jobPoster}/applications', 'ApplicationByJobController@index')
+                            ->where('jobPoster', '[0-9]+')
+                            ->middleware('can:reviewApplicationsFor,jobPoster')
+                            ->name('hr_advisor.jobs.applications');
+
+                        /* View Application */
+                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
+                            ->middleware('can:view,application')
+                            ->name('hr_advisor.applications.show');
+
+                        /* View Applicant Profile */
+                        Route::get('jobs/{jobPoster}/applicants/{applicant}', 'ApplicantProfileController@showWithJob')
+                            ->middleware('can:manage,jobPoster')
+                            ->middleware('can:view,applicant')
+                            ->name('hr_advisor.applicants.show');
+
+                        Route::get('jobs/{jobPoster}', 'JobSummaryController@show')
+                            ->middleware('can:manage,jobPoster')
+                            ->name('hr_advisor.jobs.summary')
+                            ->where('jobPoster', '[0-9]+');
+
+                        Route::post('jobs/{job}/unclaim', 'JobSummaryController@unclaimJob')
+                            ->name('hr_advisor.jobs.unclaim')
+                            ->middleware('can:unClaim,job')
+                            ->where('job', '[0-9]+');
+
+                        Route::get(
+                            'jobs/{jobPoster}/assessment-plan',
+                            'AssessmentPlanController@show'
+                        )
+                            ->middleware('can:viewAssessmentPlan,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.screening_plan');
+
+                        Route::get(
+                            'jobs/{jobPoster}/review',
+                            'JobBuilderController@hrReview'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('job', '[0-9]+')
+                            ->name('hr_advisor.jobs.review');
+
+                        Route::get(
+                            'jobs/{jobPoster}/preview',
+                            'JobController@show'
+                        )
+                            ->middleware('can:view,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.preview');
+
+                        Route::post(
+                            'jobs/{jobPoster}/status/{status}',
+                            'JobStatusController@setJobStatus'
+                        )
+                            ->middleware('can:manage,jobPoster')
+                            ->where('jobPoster', '[0-9]+')
+                            ->name('hr_advisor.jobs.setJobStatus');
+
+                        /* Account Settings */
+                        Route::get('settings', 'SettingsController@editAuthenticated')
+                            // Permissions are checked in Controller.
+                            ->name('hr_advisor.settings.edit');
+
+                        Route::post(
+                            'settings/{user}/personal/update',
+                            'SettingsController@updatePersonal'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.personal.update');
+
+                        Route::post(
+                            'settings/{user}/password/update',
+                            'SettingsController@updatePassword'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.password.update');
+
+                        Route::post(
+                            'settings/{user}/government/update',
+                            'SettingsController@updateGovernment'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.government.update');
+
+                        Route::post(
+                            'settings/{user}/contact-preferences/update',
+                            'SettingsController@updateContactPreferences'
+                        )
+                            ->middleware('can:view,user')
+                            ->middleware('can:update,user')
+                            ->name('hr_advisor.settings.contact_preferences.update');
+
+                        Route::get('resources', 'ResourcesController@show')
+                            ->middleware('can:view-resources')
+                            ->name('hr_advisor.resources');
+
+                        /* Two-factor Authentication */
+                        Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('hr_advisor.two_factor.activate');
+                        Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('hr_advisor.two_factor.deactivate');
+                        Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('hr_advisor.two_factor.forget');
+                        Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('hr_advisor.two_factor.confirm');
+
+                        Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('hr_advisor.recovery_codes.generate');
+                        Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('hr_advisor.recovery_codes.show');
+                    });
+                });
+            });
+            // These routes must be excluded from the finishHrAdvisorRegistration middleware to avoid an infinite loop of redirects
+            Route::middleware(['auth', 'role:hr_advisor'])->group(function (): void {
+                Route::get('first-visit', 'Auth\FirstVisitController@showFirstVisitHrForm')
+                    ->name('hr_advisor.first_visit');
+                Route::post('finish_registration', 'Auth\FirstVisitController@finishHrRegistration')
+                    ->name('hr_advisor.finish_registration');
+            });
+
+            // Laravel default login, logout, register, and reset routes
+            Route::get('login', 'Auth\LoginController@showLoginForm')->name('hr_advisor.login');
+            Route::post('login', 'Auth\LoginController@login')->name('hr_advisor.login.post');
+            Route::post('logout', 'Auth\LoginController@logout')->name('hr_advisor.logout');
+
+            // Registration Routes...
+            Route::get('register', 'Auth\RegisterController@showHrRegistrationForm')->name('hr_advisor.register');
+            Route::post('register', 'Auth\RegisterController@registerHrAdvisor')->name('hr_advisor.register.post');
+
+            // Password Reset Routes...
+            Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('hr_advisor.password.request');
+            Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('hr_advisor.password.email');
+            Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('hr_advisor.password.reset');
+            Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('hr_advisor.password.reset.post');
+        });
+
+        /* Non-Backpack Admin Portal (non-localized pages) =========================================================== */
+        Route::group(
+            [
+                'prefix' => 'admin',
+                'middleware' => ['auth', 'role:admin']
+            ],
+            function (): void {
+                // This page is non-localized, because the middleware that redirects to localized
+                // pages changes POSTs to GETs and messes up the request.
+                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                    ->middleware('can:create,App\Models\JobPoster')
+                    ->name('admin.jobs.create_as_manager');
+
+                Route::post('/2fa', 'Auth\TwoFactorController@redirectToExpected')->name('admin.2fa');
+
+                Route::get('two-factor/activate', 'Auth\TwoFactorController@activate')->name('admin.two_factor.activate');
+                Route::post('two-factor/deactivate', 'Auth\TwoFactorController@deactivate')->name('admin.two_factor.deactivate');
+                Route::post('two-factor/forget', 'Auth\TwoFactorController@forget')->name('admin.two_factor.forget');
+                Route::post('two-factor/confirm', 'Auth\TwoFactorController@confirm')->name('admin.two_factor.confirm');
+
+                Route::post('two-factor/generate-recovery-codes', 'Auth\RecoveryCodeController@generate')->name('admin.recovery_codes.generate');
+                Route::get('two-factor/recovery-codes', 'Auth\RecoveryCodeController@show')->name('admin.recovery_codes.show');
+
+                Route::get('{jobPoster}/download-applicants', 'JobController@downloadApplicants')
+                    ->middleware('can:downloadApplicants,jobPoster')
+                    ->name('admin.jobs.download.applicants');
+
+                /* View Applicant Profile */
+                Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                    ->middleware('can:view,applicant')
+                    ->name('admin.applicants.profile');
+            }
+        );
     }
 );
 
 /* ALL NON-LOCALIZED ROUTES **/
 
 /* API routes - currently using same default http auth, but not localized */
-Route::group(['prefix' => 'api'], function (): void {
+Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     // Protected by a gate in the controller, instead of policy middleware.
-    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob');
+    Route::get('jobs/{jobPoster}/assessment-plan', 'AssessmentPlanController@getForJob')
+        ->middleware('can:viewAssessmentPlan,jobPoster')
+        ->where('jobPoster', '[0-9]+');
+    Route::get('users', 'Api\UserController@index');
+    Route::get('users/{user}', 'Api\UserController@show')
+        ->where('user', '[0-9]+');
+
     // Public, not protected by policy or gate.
-    Route::get('skills', 'Api\SkillController@index');
+    Route::get('award-recipient-types', 'Api\AwardRecipientTypeController@index');
+    Route::get('award-recognition-types', 'Api\AwardRecognitionTypeController@index');
+    Route::get('education-statuses', 'Api\EducationStatusController@index');
+    Route::get('education-types', 'Api\EducationTypeController@index');
     Route::get('departments', 'Api\DepartmentController@index');
+    Route::get('job-poster-statuses', 'Api\JobStatusController@index');
+    Route::get('skills', 'Api\SkillController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
@@ -585,11 +888,11 @@ Route::group(['prefix' => 'api'], function (): void {
     Route::resource('assessment-plan-notifications', 'AssessmentPlanNotificationController')->except([
         'store', 'create', 'edit'
     ]);
-    // TODO: add policy middleware.
-    Route::get('jobs/{jobPoster}/tasks', 'Api\JobTaskController@indexByJob')
+    // TODO: add policy middleware
+    Route::get('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@indexByJob')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:view,jobPoster');
-    Route::put('jobs/{jobPoster}/tasks', 'Api\JobTaskController@batchUpdate')
+    Route::put('jobs/{jobPoster}/tasks', 'Api\JobPosterKeyTaskController@batchUpdate')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
@@ -600,26 +903,193 @@ Route::group(['prefix' => 'api'], function (): void {
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:update,jobPoster');
 
-    Route::post('jobs/{job}/submit', 'Api\JobApiController@submitForReview')
-        ->where('job', '[0-9]+')
-        ->middleware('can:submitForReview,job')
-        ->name('api.jobs.submit');
-    Route::resource('jobs', 'Api\JobApiController')->only([
-        'show', 'store', 'update'
-    ])->names([// Specify custom names because default names collied with existing routes.
-        'show' => 'api.jobs.show',
-        'store' => 'api.jobs.store',
-        'update' => 'api.jobs.update'
+    Route::put(
+        'jobs/{jobPoster}/status/{status}',
+        'JobStatusController@setJobStatus'
+    )
+        ->middleware('can:manage,jobPoster')
+        ->where('jobPoster', '[0-9]+')
+        ->name('jobs.setJobStatus');
+    Route::resource('jobs', 'Api\JobController')->only([
+        'show', 'store', 'update', 'index'
+    ])->names([ // Specify custom names because default names collied with existing routes.
+        'show' => 'jobs.show',
+        'store' => 'jobs.store',
+        'update' => 'jobs.update',
+        'index' => 'jobs.index'
     ]);
 
-    Route::resource('managers', 'Api\ManagerApiController')->only([
+    Route::put('applications/{application}/review', 'ApplicationReviewController@updateForApplication')
+        ->middleware('can:review,application')
+        ->name('application_reviews.update');
+
+    Route::get('applications/{application}/reference-emails/', 'Api\MicroReferenceController@index')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.index');
+    Route::get('applications/{application}/reference-emails/director', 'Api\MicroReferenceController@showDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.show');
+    Route::post('applications/{application}/reference-emails/director/send', 'Api\MicroReferenceController@sendDirectorEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.director.send');
+    Route::get('applications/{application}/reference-emails/secondary', 'Api\MicroReferenceController@showSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.show');
+    Route::post('applications/{application}/reference-emails/secondary/send', 'Api\MicroReferenceController@sendSecondaryReferenceEmail')
+        ->middleware('can:review,application')
+        ->name('api.application.reference_mail.secondary.send');
+
+    Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
-    ])->names([// Specify custom names because default names collied with existing routes.
-        'show' => 'api.managers.show',
-        'update' => 'api.managers.update'
+    ])->names([ // Specify custom names because default names collied with existing routes.
+        'show' => 'managers.show',
+        'update' => 'managers.update'
     ]);
 
-    // User must be logged in to user currentuser routes.
-    Route::get('currentuser/manager', 'Api\ManagerApiController@showAuthenticated')
+    // User must be logged in to user currentuser routes
+    Route::get('currentuser/manager', 'Api\ManagerController@showAuthenticated')
         ->middleware('auth');
+
+    // Comment model routes
+    Route::get('jobs/{jobPoster}/comments', 'Api\CommentApiController@indexByJob')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:viewComments,jobPoster');
+    Route::post('jobs/{jobPoster}/comments', 'Api\CommentApiController@store')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:storeComment,jobPoster');
+
+    // Claim / unclaim job routes, HR portal
+    Route::put('jobs/{job}/claim', 'Api\ClaimJobApiController@store')
+        ->middleware('can:claim,job')
+        ->where('job', '[0-9]+');
+    Route::delete('jobs/{job}/claim', 'Api\ClaimJobApiController@destroy')
+        ->middleware('can:unClaim,job')
+        ->where('job', '[0-9]+');
+
+    Route::get('hr-advisors/{hrAdvisor}', 'Api\HrAdvisorController@show')
+        ->middleware('can:view,hrAdvisor');
+
+    Route::put('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@claimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
+    Route::delete('hr-advisors/{hrAdvisor}/claims/{job}', 'Api\ClaimJobApiController@unclaimJob')
+        ->middleware('can:update,hrAdvisor')
+        ->where('hrAdvisor', '[0-9]+')
+        ->where('job', '[0-9]+');
+
+    Route::get('applicants/{applicant}/experience', 'Api\ExperienceController@indexForApplicant')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.experience.index');
+
+    Route::post('applicants/{applicant}/experience-work', 'Api\ExperienceController@storeWork')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-work.store');
+    Route::post('applicants/{applicant}/experience-personal', 'Api\ExperienceController@storePersonal')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-personal.store');
+    Route::post('applicants/{applicant}/experience-education', 'Api\ExperienceController@storeEducation')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-education.store');
+    Route::post('applicants/{applicant}/experience-award', 'Api\ExperienceController@storeAward')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-award.store');
+    Route::post('applicants/{applicant}/experience-community', 'Api\ExperienceController@storeCommunity')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.experience-community.store');
+
+    Route::put('experience-work/{work}', 'Api\ExperienceController@updateWork')
+        ->where('work', '[0-9]+')
+        ->middleware('can:update,work')
+        ->name('experience-work.update');
+    Route::put('experience-personal/{personal}', 'Api\ExperienceController@updatePersonal')
+        ->where('personal', '[0-9]+')
+        ->middleware('can:update,personal')
+        ->name('experience-personal.update');
+    Route::put('experience-education/{education}', 'Api\ExperienceController@updateEducation')
+        ->where('education', '[0-9]+')
+        ->middleware('can:update,education')
+        ->name('experience-education.update');
+    Route::put('experience-award/{award}', 'Api\ExperienceController@updateAward')
+        ->where('award', '[0-9]+')
+        ->middleware('can:update,award')
+        ->name('experience-award.update');
+    Route::put('experience-community/{community}', 'Api\ExperienceController@updateCommunity')
+        ->where('community', '[0-9]+')
+        ->middleware('can:update,community')
+        ->name('experience-community.update');
+
+    Route::delete('experience-work/{work}', 'Api\ExperienceController@destroyWork')
+        ->where('work', '[0-9]+')
+        ->middleware('can:delete,work')
+        ->name('experience-work.destroy');
+    Route::delete('experience-personal/{personal}', 'Api\ExperienceController@destroyPersonal')
+        ->where('personal', '[0-9]+')
+        ->middleware('can:delete,personal')
+        ->name('experience-personal.destroy');
+    Route::delete('experience-education/{education}', 'Api\ExperienceController@destroyEducation')
+        ->where('education', '[0-9]+')
+        ->middleware('can:delete,education')
+        ->name('experience-education.destroy');
+    Route::delete('experience-award/{award}', 'Api\ExperienceController@destroyAward')
+        ->where('award', '[0-9]+')
+        ->middleware('can:delete,award')
+        ->name('experience-award.destroy');
+    Route::delete('experience-community/{community}', 'Api\ExperienceController@destroyCommunity')
+        ->where('community', '[0-9]+')
+        ->middleware('can:delete,community')
+        ->name('experience-community.destroy');
+
+    Route::post('experience-skills', 'Api\ExperienceSkillsController@store')
+        ->middleware('can:create,App\Models\ExperienceSkill')
+        ->name('experience-skill.store');
+    Route::put('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@update')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:update,experienceSkill')
+        ->name('experience-skill.update');
+    Route::delete('experience-skills/{experienceSkill}', 'Api\ExperienceSkillsController@destroy')
+        ->where('experienceSkill', '[0-9]+')
+        ->middleware('can:delete,experienceSkill')
+        ->name('experience-skill.destroy');
+
+    Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
+        ->middleware('can:create,App\Models\JobApplicationAnswer')
+        ->name('job-application-answers.store');
+    Route::put('job-application-answers/{jobApplicationAnswer}', 'Api\JobApplicationAnswerController@update')
+        ->where('jobApplicationAnswer', '[0-9]+')
+        ->middleware('can:update,jobApplicationAnswer')
+        ->name('job-application-answers.update');
+});
+
+Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
+    Route::get('applications/{application}', 'Api\ApplicationController@show')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.show');
+    Route::get('applications/{application}/basic', 'Api\ApplicationController@getBasic')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.basic');
+    Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.basic.update');
+    Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
+        ->where('jobPoster', '[0-9]+')
+        ->middleware('can:reviewApplicationsFor,jobPoster')
+        ->name('jobs.applications');
+    Route::put('applications/{application}/review', 'Api\ApplicationController@updateReview')
+        ->where('application', '[0-9]+')
+        ->middleware('can:review,application')
+        ->name('application.review.update');
+    Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
+        ->where('application', '[0-9]+')
+        ->middleware('can:view,application')
+        ->name('application.experience.index');
 });

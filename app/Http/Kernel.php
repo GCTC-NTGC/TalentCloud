@@ -2,8 +2,8 @@
 
 namespace App\Http;
 
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\InitializeUser;
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
@@ -21,6 +21,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
         \App\Http\Middleware\FullFrameGuard::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     ];
 
     /**
@@ -32,16 +34,15 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
+            // \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
             InitializeUser::class,
 
-            // Route Tranlslation middleware
-            // 'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+            // Route Translation middleware
             \App\Http\Middleware\DateLocale::class,
         ],
 
@@ -72,6 +73,7 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'localOnly' => \App\Http\Middleware\LocalOnly::class,
         'finishManagerRegistration' => \App\Http\Middleware\FinishManagerRegistration::class,
+        'finishHrRegistration' => \App\Http\Middleware\FinishHrRegistration::class,
 
         // Localization Middleware
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,

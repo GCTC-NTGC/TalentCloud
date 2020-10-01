@@ -11,6 +11,11 @@ return [
     */
 
     "title" => "My References",
+    'profile_sidebar_label' => 'On your profile:',
+    'account_settings_title' => 'Edit your account settings.',
+    'account_settings_label' => 'Account Settings',
+    'required_label' => 'Required',
+    'input_error' => 'This input has an error.',
     "reference_section" => [
         "reference_title" => "Talent Cloud | Applicant: Profile - My References",
         "section_title" => "My References",

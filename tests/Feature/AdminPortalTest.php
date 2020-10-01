@@ -9,6 +9,8 @@ use App\Models\Manager;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Lookup\Department;
+use App\Models\Resource;
+use Illuminate\Support\Facades\Storage;
 
 class AdminPortalTest extends TestCase
 {
@@ -28,6 +30,7 @@ class AdminPortalTest extends TestCase
         $this->jobPoster = factory(JobPoster::class)->states('draft')->create();
         $this->skillId = Skill::inRandomOrder()->first()->id;
         $this->departmentId = Department::inRandomOrder()->first()->id;
+        $this->resourceId = Resource::inRandomOrder()->create()->first()->id;
     }
 
     /**
@@ -96,7 +99,7 @@ class AdminPortalTest extends TestCase
         $response->assertStatus(200);
     }
 
-        /**
+    /**
      * Ensure an admin user can view a create page for a department.
      *
      * @return void
@@ -105,6 +108,46 @@ class AdminPortalTest extends TestCase
     {
         $response = $this->actingAs($this->admin)
             ->get('admin/department/create');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can download CSV file of applicants that applied to a job poster.
+     *
+     * @return void
+     */
+    public function testDownloadApplicants() : void
+    {
+        $expected_filename = $this->jobPoster->id . '-' . 'applicants-data.csv';
+        $response = $this->actingAs($this->admin)
+            ->get('admin/' . $this->jobPoster->id . '/download-applicants');
+        $response->assertStatus(200);
+        $this->assertTrue($response->headers->get('Content-Type') == 'text/csv');
+        $this->assertTrue($response->headers->get('Content-Disposition') == 'attachment; filename=' . $expected_filename);
+        unlink($expected_filename);
+    }
+
+    /**
+     * Ensure an admin user can view an edit page for a resource.
+     *
+     * @return void
+     */
+    public function testResourceEdit() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get("admin/resource/$this->resourceId/edit");
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can view a create page for a resource.
+     *
+     * @return void
+     */
+    public function testResourceCreate() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get('admin/resource/create');
         $response->assertStatus(200);
     }
 }

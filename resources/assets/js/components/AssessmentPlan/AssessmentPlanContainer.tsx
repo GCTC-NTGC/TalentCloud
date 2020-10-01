@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { StandardAction, ErrorAction } from "redux-api-middleware";
 import AssessmentPlan from "./AssessmentPlan";
-import { Job, AssessmentPlanNotification } from "../../models/types";
+import { Job, AssessmentPlanNotification, Skill } from "../../models/types";
 import { RootState } from "../../store/store";
 import { getJob } from "../../store/Job/jobSelector";
 import { fetchJob } from "../../store/Job/jobActions";
@@ -10,6 +11,7 @@ import { fetchSkills } from "../../store/Skill/skillActions";
 import { getUnreadNotificationsByJob } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationSelectors";
 import { fetchAssessmentPlanNotifications } from "../../store/AssessmentPlanNotification/assessmentPlanNotificationActions";
 import { DispatchType } from "../../configureStore";
+import { Portal } from "../../models/app";
 
 interface AssessmentPlanContainerProps {
   jobId: number;
@@ -40,7 +42,10 @@ const mapDispatchToProps = (
   },
   dispatchFetchAssessmentPlan: (): void =>
     dispatch(fetchAssessmentPlan(ownProps.jobId)),
-  dispatchFetchSkills: (): void => dispatch(fetchSkills()),
+  dispatchFetchSkills: (): Promise<
+    | StandardAction<"FETCH_SKILLS_SUCCEEDED", PromiseLike<Skill[]>, {}>
+    | ErrorAction<"FETCH_SKILLS_FAILED", Error, {}>
+  > => dispatch(fetchSkills()),
   dispatchFetchNotifications: (): void =>
     dispatch(fetchAssessmentPlanNotifications(ownProps.jobId)),
 });
@@ -49,6 +54,7 @@ interface AssessmentPlanFetchContainerProps {
   jobId: number;
   job: Job | null;
   notifications: AssessmentPlanNotification[];
+  portal: Portal;
   dispatchFetchJob: () => void;
   dispatchFetchAssessmentPlan: () => void;
   dispatchFetchSkills: () => void;
@@ -59,6 +65,7 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<AssessmentPlanFetchC
   jobId,
   job,
   notifications,
+  portal,
   dispatchFetchJob,
   dispatchFetchAssessmentPlan,
   dispatchFetchSkills,
@@ -77,7 +84,9 @@ const AssessmentPlanFetchContainer: React.FunctionComponent<AssessmentPlanFetchC
   useEffect((): void => {
     dispatchFetchNotifications();
   }, [dispatchFetchNotifications]);
-  return <AssessmentPlan job={job} notifications={notifications} />;
+  return (
+    <AssessmentPlan job={job} notifications={notifications} portal={portal} />
+  );
 };
 const AssessmentPlanContainer = connect(
   mapStateToProps,

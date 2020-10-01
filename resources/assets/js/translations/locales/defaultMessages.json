@@ -2,37 +2,1445 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Start typing your answer above.",
-        "description": "Placeholder text for an empty input.",
-        "id": "wordCounter.skills.placeholder"
+        "defaultMessage": "{name} ({userRole}) commented at {time}.",
+        "description": "Text with additional information on comment.",
+        "id": "activity.commentMetadata"
       },
       {
-        "defaultMessage": "This seems too short. Did you include examples or lessons learned?",
-        "description": "Message displayed to user when the word count is very low.",
-        "id": "wordCounter.skills.veryShortMessage"
+        "defaultMessage": "Comment Located",
+        "description": "The label used before the comment location.",
+        "id": "activity.commentLocation.label"
       },
       {
-        "defaultMessage": "This seems a bit short. Do you have another example or lesson learned to add?",
-        "description": "Message displayed to user when the word count is low.",
-        "id": "wordCounter.skills.shortMessage"
+        "defaultMessage": "View Comment",
+        "description": "The text displayed on the activity link to view comment.",
+        "id": "activity.viewComment.label"
+      }
+    ],
+    "path": "resources/assets/js/components/Activity.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Number of activities is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "activityfeed.loadingIconText"
       },
       {
-        "defaultMessage": "This is starting to get a bit long.",
-        "description": "Message displayed to user when the word count is a little high.",
-        "id": "wordCounter.skills.slightlyLongMessage"
+        "defaultMessage": "Click to View Comments {totalActivities}",
+        "description": "The activity feed header.",
+        "id": "activityfeed.header"
       },
       {
-        "defaultMessage": "This looks too long. Can you summarize some of your response?",
-        "description": "Message displayed to user when the word count is high.",
-        "id": "wordCounter.skills.longMessage"
+        "defaultMessage": "Click to view...",
+        "description": "The accessibility text displayed on the activity feed accordion button.",
+        "id": "activityfeed.accordionAccessibleLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ActivityFeed.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "User not found",
+        "description": "Error message displayed when a user id is unknown.",
+        "id": "activity.unknownUser"
       },
       {
-        "defaultMessage": "500 word limit reached. This is way too long. Check out one of our examples to see what a concise skill description looks like.",
-        "description": "Message displayed to user when the word count is very high.",
-        "id": "wordCounter.skills.veryLongMessage"
+        "defaultMessage": "Activities",
+        "description": "Title of activity feed.",
+        "id": "activityfeed.title"
+      },
+      {
+        "defaultMessage": "Something went wrong...",
+        "description": "Error fetching activities.",
+        "id": "activityfeed.error"
+      },
+      {
+        "defaultMessage": "Your activities are loading...",
+        "description": "Message indicating that the activity feed is still being loaded.",
+        "id": "activityfeed.loading"
+      },
+      {
+        "defaultMessage": "No activities.",
+        "description": "Message displayed when activities is empty.",
+        "id": "activityfeed.noActivities"
+      }
+    ],
+    "path": "resources/assets/js/components/ActivityList.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when users under/matching the limit.",
+        "id": "skillWordCounter.wordsLeft"
+      },
+      {
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "skillWordCounter.afterText"
       }
     ],
     "path": "resources/assets/js/components/ApplicantSkills/SkillsWordCounter.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accessible text for expanding an accordion.",
+        "id": "application.accordion.expand"
+      },
+      {
+        "defaultMessage": "{startDate} - {endDate}",
+        "description": "Shows the date range for the title bar (assuming activity has an end date).",
+        "id": "application.accordion.dateRange"
+      },
+      {
+        "defaultMessage": "{startDate} - Current",
+        "description": "Shows the date range for the title bar (assuming activity is ongoing).",
+        "id": "application.accordion.dateRangeCurrent"
+      },
+      {
+        "defaultMessage": "N/A",
+        "description": "Used for any un-set fields in experience accordions.",
+        "id": "application.accordion.notApplicable"
+      },
+      {
+        "defaultMessage": "Type of Experience:",
+        "id": "application.accordion.experienceTypeLabel"
+      },
+      {
+        "defaultMessage": "Start Date:",
+        "id": "application.accordion.startDateLabel"
+      },
+      {
+        "defaultMessage": "End Date:",
+        "id": "application.accordion.endDateLabel"
+      },
+      {
+        "defaultMessage": "Ongoing",
+        "id": "application.accordion.ongoing"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {institution}",
+        "description": "Heading of Award Experience accordion (this is the visible text when accordion is closed).",
+        "id": "application.accordion.awardHeading"
+      },
+      {
+        "defaultMessage": "Awarded on: {date}",
+        "description": "Shows the awarded date in the accordion title bar.",
+        "id": "application.accordion.awardSubheading"
+      },
+      {
+        "defaultMessage": "Award Experience",
+        "id": "application.accordion.awardType"
+      },
+      {
+        "defaultMessage": "Award Title:",
+        "id": "application.accordion.awardTitleLabel"
+      },
+      {
+        "defaultMessage": "Awarded to:",
+        "id": "application.accordion.awardRecipientLabel"
+      },
+      {
+        "defaultMessage": "Issuing Organization / Institution:",
+        "id": "application.accordion.awardIssuerLabel"
+      },
+      {
+        "defaultMessage": "Award Eligibility / Scope:",
+        "id": "application.accordion.awardScopeLabel"
+      },
+      {
+        "defaultMessage": "Date Awarded:",
+        "id": "application.accordion.awardDateLabel"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {group}",
+        "description": "Title of Community Experience accordion (this is the visible text when accordion is closed).",
+        "id": "application.accordion.communityHeading"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "id": "application.accordion.communityType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "application.accordion.communityRoleLabel"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community:",
+        "id": "application.accordion.communityOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Project / Product:",
+        "id": "application.accordion.communityProjectLabel"
+      },
+      {
+        "defaultMessage": "<b>{educationType} in {areaOfStudy}</b> - {institution}",
+        "description": "Title of education accordion (this is the visible text when accordion is closed).",
+        "id": "application.accordion.educationHeading"
+      },
+      {
+        "defaultMessage": "Education Experience",
+        "id": "application.accordion.educationType"
+      },
+      {
+        "defaultMessage": "Type of Education:",
+        "id": "application.accordion.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Area of Study:",
+        "id": "application.accordion.educationAreaOfStudyLabel"
+      },
+      {
+        "defaultMessage": "Institution:",
+        "id": "application.accordion.educationInstitutionLabel"
+      },
+      {
+        "defaultMessage": "Status:",
+        "id": "application.accordion.educationStatusLabel"
+      },
+      {
+        "defaultMessage": "Thesis Title:",
+        "id": "application.accordion.educationThesisLabel"
+      },
+      {
+        "defaultMessage": "Blockcert Link:",
+        "id": "application.accordion.educationBlockcertLabel"
+      },
+      {
+        "defaultMessage": "I have a Blockcert and can provide it on request.",
+        "id": "application.accordion.educationHasBlockcert"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "id": "application.accordion.personalType"
+      },
+      {
+        "defaultMessage": "Title of Experience:",
+        "id": "application.accordion.personalTitleLabel"
+      },
+      {
+        "defaultMessage": "Description:",
+        "id": "application.accordion.personalDescriptionLabel"
+      },
+      {
+        "defaultMessage": "Consent to Share:",
+        "id": "application.accordion.personalShareLabel"
+      },
+      {
+        "defaultMessage": "Sharing Approved",
+        "description": "Text shown when user has consented to share this experience.",
+        "id": "application.accordion.personalShareAllowed"
+      },
+      {
+        "defaultMessage": "Sharing Restricted",
+        "description": "Text shown when user has NOT consented to share this experience.",
+        "id": "application.accordion.personalShareDenied"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "id": "application.accordion.workType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "application.accordion.workRoleLabel"
+      },
+      {
+        "defaultMessage": "Organization / Company:",
+        "id": "application.accordion.workOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Team / Group:",
+        "id": "application.accordion.workTeamLabel"
+      },
+      {
+        "defaultMessage": "My Basic Information",
+        "description": "Heading for the Basic Info section of the Application.",
+        "id": "application.basicInfo.heading"
+      },
+      {
+        "defaultMessage": "Which citizenship status applies to you?",
+        "description": "Label for the citizenship status select box.",
+        "id": "application.basicInfo.citizenshipLabel"
+      },
+      {
+        "defaultMessage": "Are you a veteran or a member of the Canadian Armed Forces?",
+        "description": "Label for the veteran status select box.",
+        "id": "application.basicInfo.veteranStatusLabel"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Heading for language requirements section in Application form.",
+        "id": "application.basicInfo.languageRequirementsHeading"
+      },
+      {
+        "defaultMessage": "My Experience",
+        "description": "Heading for the Experience section of the Application.",
+        "id": "application.experience.heading"
+      },
+      {
+        "defaultMessage": "My Fit",
+        "description": "Heading for the Fit step in the Application form.",
+        "id": "application.fit.heading"
+      },
+      {
+        "defaultMessage": "Question {index}:",
+        "description": "Label for the question on the My Fit step.",
+        "id": "application.fit.questionLabel"
+      },
+      {
+        "defaultMessage": "Save & Continue",
+        "description": "The text displayed on the submit button for the Application form.",
+        "id": "application.submitButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Quit",
+        "description": "The text displayed on the Save & Quit button of the Application form.",
+        "id": "application.quitButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Return to Previous Step",
+        "description": "The text displayed on the Save & Return button of the Application form.",
+        "id": "application.returnButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/applicationMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Apply: Welcome",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.welcome.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: My Basic Information",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.basic.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Defining Your Experience",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.experienceIntro.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Experience",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.experience.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Understanding Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.skillsIntro.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Skills",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.skills.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Application Questions",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.fit.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Review Your Application",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.review.documentTitle"
+      },
+      {
+        "defaultMessage": "Apply: Submit",
+        "description": "The document's title shown in browser's title bar or tab.",
+        "id": "application.submission.documentTitle"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ApplicationRoot.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
+        "description": "Label for language test checkbox in applicant timeline form.",
+        "id": "application.basicInfo.languageTestLabel"
+      },
+      {
+        "defaultMessage": "Education Requirements",
+        "description": "Header for education requirement section in applicant timeline form.",
+        "id": "application.basicInfo.educationRequirementHeader"
+      },
+      {
+        "defaultMessage": "Based on the information outlined below, do you meet the minimum experience or education requirements for this position?",
+        "description": "Text for education requirement section in applicant timeline form.",
+        "id": "application.basicInfo.meetEducationRequirement"
+      },
+      {
+        "defaultMessage": "I meet this requirement and will provide details in the application.",
+        "description": "Label for education requirement section in applicant timeline form.",
+        "id": "application.basicInfo.educationRequirementLabel"
+      },
+      {
+        "defaultMessage": "Select from the following...",
+        "description": "The default selection option displayed on select box.",
+        "id": "application.basicInfo.nullSelectOption"
+      },
+      {
+        "defaultMessage": "Canadian Citizen",
+        "description": "Select option text for the 'Citizen' citizen declarations.",
+        "id": "application.basicInfo.citizenshipDeclaration.citizen"
+      },
+      {
+        "defaultMessage": "Permanent Resident of Canada",
+        "description": "Select option text for the 'Permanent Resident of Canada' citizen declarations.",
+        "id": "application.basicInfo.citizenshipDeclaration.permanentResident"
+      },
+      {
+        "defaultMessage": "I have a permit that allows me to work anywhere in Canada",
+        "description": "Select option text for the 'Work Permit Open' citizen declarations.",
+        "id": "application.basicInfo.citizenshipDeclaration.workPermitOpen"
+      },
+      {
+        "defaultMessage": "I have a permit that only allows me to work for a specific organization",
+        "description": "Select option text for the 'Work Permit Closed' citizen declarations.",
+        "id": "application.basicInfo.citizenshipDeclaration.workPermitClosed"
+      },
+      {
+        "defaultMessage": "I am currently not entitled to work in Canada",
+        "description": "Select option text for the 'Not Entitled' citizen declarations.",
+        "id": "application.basicInfo.citizenshipDeclaration.notEntitled"
+      },
+      {
+        "defaultMessage": "No - I am not a veteran or a member of the Canadian Armed Forces.",
+        "description": "Select option text for the 'None' veteran status.",
+        "id": "application.basicInfo.veteranStatus.none"
+      },
+      {
+        "defaultMessage": "Yes - I am currently a member of the Canadian Armed Forces.",
+        "description": "Select option text for the 'Current' veteran status.",
+        "id": "application.basicInfo.veteranStatus.current"
+      },
+      {
+        "defaultMessage": "Yes - I am a veteran.",
+        "description": "Select option text for the 'Past' veteran status.",
+        "id": "application.basicInfo.veteranStatus.past"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of English.",
+        "description": "Description for the 'English' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.english"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of French.",
+        "description": "Description for the 'French' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.french"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of either French or English.",
+        "description": "Description for the 'Bilingual Intermediate' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
+        "description": "Description for the 'Bilingual Advanced' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
+        "description": "Description for the 'English or French' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.englishOrFrench"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in English.",
+        "description": "Label for 'English' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.label.english"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in French.",
+        "description": "Text for 'French' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.label.french"
+      },
+      {
+        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
+        "description": "Text for 'Bilingual Intermediate' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.label.bilingualIntermediate"
+      },
+      {
+        "defaultMessage": "I have intermediate or better reading, writing and verbal communication skills in English and French.",
+        "description": "Text for 'Bilingual Advanced' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.label.bilingualAdvanced"
+      },
+      {
+        "defaultMessage": "I have strong reading, writing and verbal communication skills in English OR French.",
+        "description": "Text for 'English or French' language requirement on the applicant timeline form.",
+        "id": "application.basicInfo.languageRequirement.label.englishOrFrench"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/BasicInfo/basicInfoMessages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Education type not found",
+        "description": "Error message for when the education type cannot be found.",
+        "id": "application.experience.educationTypeMissing"
+      },
+      {
+        "defaultMessage": "Education status not found",
+        "description": "Error message for when the education status cannot be found.",
+        "id": "application.experience.educationStatusMissing"
+      },
+      {
+        "defaultMessage": "Award recipient not found",
+        "description": "Error message for when the award recipient cannot be found.",
+        "id": "application.experience.awardRecipientMissing"
+      },
+      {
+        "defaultMessage": "Award recognition not found",
+        "description": "Error message for when the award recognition cannot be found.",
+        "id": "application.experience.awardRecognitionMissing"
+      },
+      {
+        "defaultMessage": "Experience failed to render (experience type missing).",
+        "description": "Error message displayed when experience fails to render.",
+        "id": "application.experience.errorRenderingExperience"
+      },
+      {
+        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
+        "description": "First section of text on the experience step of the Application Timeline.",
+        "id": "application.experience.preamble"
+      },
+      {
+        "defaultMessage": "This job <span>requires</span> the following skills:",
+        "description": "Text before the list of essential skills on the experience step of the Application Timeline.",
+        "id": "application.experience.essentialSkillsListIntro"
+      },
+      {
+        "defaultMessage": "These skills are beneficial, but not required:",
+        "description": "Text before the list of asset skills on the experience step of the Application Timeline.",
+        "id": "application.experience.assetSkillsListIntro"
+      },
+      {
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "description": "List of soft skills that will be evaluated later.",
+        "id": "application.experience.softSkillsList"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
+        "description": "Message displayed when application has no experiences.",
+        "id": "application.experience.noExperiences"
+      },
+      {
+        "defaultMessage": "The following required skill(s) are not connected to your experience:",
+        "description": "Message showing list of required skills that are not connected to a experience.",
+        "id": "application.experience.unconnectedSkills"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/Experience.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Education Experience",
+        "description": "Type of experience: Education Experience.",
+        "id": "application.experience.intro.educationExperience"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "description": "Type of experience: Work Experience.",
+        "id": "application.experience.intro.workExperience"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "description": "Type of experience: Community Experience.",
+        "id": "application.experience.intro.communityExperience"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "description": "Type of experience: Personal Experience.",
+        "id": "application.experience.intro.personalExperience"
+      },
+      {
+        "defaultMessage": "Awards",
+        "description": "Type of experience: Award Experience.",
+        "id": "application.experience.intro.awards"
+      },
+      {
+        "defaultMessage": "Defining Your Experience",
+        "description": "Header for the Experience Intro step.",
+        "id": "application.experience.intro.header"
+      },
+      {
+        "defaultMessage": "The next step in your application is to tell us about the experiences you've had that make you a good fit for this job.",
+        "description": "Paragraph explaining what to expect on the Experience step.",
+        "id": "application.experience.intro.explanation"
+      },
+      {
+        "defaultMessage": "On Talent Cloud, you can add these types of experiences:",
+        "description": "Paragraph before list of possible experience types.",
+        "id": "application.experience.intro.typesOfExperiences"
+      },
+      {
+        "defaultMessage": "The best part is that as you add these experiences, the information gets saved to your profile. The next time you go to apply to a job, you'll be able to select from the work you've done to help speed up the process.",
+        "description": "Paragraph explaining how experiences will be saved to profile.",
+        "id": "application.experience.intro.saveToProfile"
+      },
+      {
+        "defaultMessage": "Let's Go",
+        "description": "Button text for continuing to next step in Application Form.",
+        "id": "application.experience.intro.letsGo"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Experience/ExperienceIntro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
+        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
+        "id": "application.experienceAccordion.skillCount"
+      },
+      {
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "application.experienceAccordion.detailsTitle"
+      },
+      {
+        "defaultMessage": "Skills for this Job",
+        "description": "Subtitle of the skills section.",
+        "id": "application.experienceAccordion.skillsTitle"
+      },
+      {
+        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
+        "description": "Say how many skills unrelated to this job are associated with this experience.",
+        "id": "application.experienceAccordion.irrelevantSkillCount"
+      },
+      {
+        "defaultMessage": "You don't have any skills attached to this experience.",
+        "description": "Message to show if experience has no associated skills at all.",
+        "id": "application.experienceAccordion.noSkills"
+      },
+      {
+        "defaultMessage": "Education Requirement",
+        "id": "application.experienceAccordion.educationRequirement"
+      },
+      {
+        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
+        "description": "Explanation of what it means that this experience meets an education requirement.",
+        "id": "application.experienceAccordion.educationRequirmentDescription"
+      },
+      {
+        "defaultMessage": "Delete Experience",
+        "id": "application.experienceAccordion.deleteButton"
+      },
+      {
+        "defaultMessage": "Edit Experience",
+        "id": "application.experienceAccordion.editButton"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceAccordions/BaseExperienceAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add an Award",
+        "id": "application.awardExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Did you get recognized for going above and beyond? There are many ways to get recognized, awards are just one of them. (Here’s an opportunity to share how you’ve been recognized.)",
+        "id": "application.awardExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Award Title",
+        "id": "application.awardExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. My Award",
+        "id": "application.awardExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Awarded to...",
+        "id": "application.awardExperienceModal.recipientTypeLabel"
+      },
+      {
+        "defaultMessage": "Select an option...",
+        "description": "Default selection in the Recipient Type dropdown menu.",
+        "id": "application.awardExperienceModal.recipientTypePlaceholder"
+      },
+      {
+        "defaultMessage": "Issuing Organization or Institution",
+        "id": "application.awardExperienceModal.issuerLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "application.awardExperienceModal.issuerPlaceholder"
+      },
+      {
+        "defaultMessage": "Scope of the Award",
+        "id": "application.awardExperienceModal.recognitionTypeLabel"
+      },
+      {
+        "defaultMessage": "Select a scope...",
+        "id": "application.awardExperienceModal.recognitionTypePlaceholder"
+      },
+      {
+        "defaultMessage": "Date Awarded",
+        "id": "application.awardExperienceModal.awardedDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "application.awardExperienceModal.datePlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/AwardExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Community Experience",
+        "id": "application.communityExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Gained experience by being part of or giving back to a community? People learn skills from a wide range of experiences like volunteering or being part of non-profit organizations, indigenous communities, or virtual collaborations. (Here’s an opportunity to share the skills that your community has helped you develop.)",
+        "id": "application.communityExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "My Role / Job Title",
+        "id": "application.communityExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Front-end Development",
+        "id": "application.communityExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community",
+        "id": "application.communityExperienceModal.groupLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "application.communityExperienceModal.groupPlaceholder"
+      },
+      {
+        "defaultMessage": "Project / Product Name",
+        "id": "application.communityExperienceModal.projectLabel"
+      },
+      {
+        "defaultMessage": "e.g. Talent Cloud",
+        "id": "application.communityExperienceModal.projectPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "application.communityExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "application.communityExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "application.communityExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "application.communityExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/CommunityExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Education Experience",
+        "id": "application.educationExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a \"Community Experience\" or \"Personal Experience\".)",
+        "id": "application.educationExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Type of Education",
+        "id": "application.educationExperienceModal.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Select an education type...",
+        "description": "Default selection in the Education Type dropdown menu.",
+        "id": "application.educationExperienceModal.educationTypeDefault"
+      },
+      {
+        "defaultMessage": "Area of Study",
+        "id": "application.educationExperienceModal.areaStudyLabel"
+      },
+      {
+        "defaultMessage": "e.g. Organic Chemistry",
+        "id": "application.educationExperienceModal.areaStudyPlaceholder"
+      },
+      {
+        "defaultMessage": "Institution",
+        "id": "application.educationExperienceModal.institutionLabel"
+      },
+      {
+        "defaultMessage": "e.g. Bishop's University",
+        "id": "application.educationExperienceModal.institutionPlaceholder"
+      },
+      {
+        "defaultMessage": "Completion Status",
+        "id": "application.educationExperienceModal.completionLabel"
+      },
+      {
+        "defaultMessage": "Select a completion status...",
+        "id": "application.educationExperienceModal.completionDefault"
+      },
+      {
+        "defaultMessage": "Thesis Title (Optional)",
+        "id": "application.educationExperienceModal.thesisLabel"
+      },
+      {
+        "defaultMessage": "e.g. How bats navigate between each other during flight",
+        "id": "application.educationExperienceModal.thesisPlaceholder"
+      },
+      {
+        "defaultMessage": "Blockcert Link (Optional)",
+        "id": "application.educationExperienceModal.blockcertLabel"
+      },
+      {
+        "defaultMessage": "I have a Blockcert and can provide it on request. (Optional)",
+        "id": "application.educationExperienceModal.blockcertInlineLabel"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "application.educationExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "application.educationExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "application.educationExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "application.educationExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/EducationExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Yes, this experience helps me meet the education requirements outlined below.",
+        "description": "Label for the checkbox that checks whether to use this experience to as education justification.",
+        "id": "application.experienceModal.educationSubform.educationJustificationLabel"
+      },
+      {
+        "defaultMessage": "Use This Experience as an Education Requirement",
+        "description": "Subtitle for the use-as-Education-Requirement section.",
+        "id": "application.experienceModal.educationSubtitle"
+      },
+      {
+        "defaultMessage": "You can select the option below if you feel that this experience helps you meet some or all of the specific education requirements for this job. We've included the requirements below to help refresh your memory.",
+        "description": "Explanation for the use-as-Education-Requirement section.",
+        "id": "application.experienceModal.educationDescription"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/EducationSubform.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Experience Details",
+        "description": "Subtitle of Experience Details section.",
+        "id": "application.experienceModal.detailsSubtitle"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button text",
+        "id": "application.experienceModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Experience",
+        "description": "Save button text",
+        "id": "application.experienceModal.save"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/ExperienceModalCommon.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Personal Experience",
+        "id": "application.personalExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "People are more than just education and work experiences. We want to make space for you to share your learning from other experiences. To protect your privacy, please don't share sensitive information about yourself or others. A good measure would be if you are comfortable with all your colleagues knowing it. (Hint: Focus on the skills for the job when you decide on what examples to share.)",
+        "id": "application.personalExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "Give this experience a title:",
+        "id": "application.personalExperienceModal.titleLabel"
+      },
+      {
+        "defaultMessage": "e.g. My Parenting Experience",
+        "id": "application.personalExperienceModal.titlePlaceholder"
+      },
+      {
+        "defaultMessage": "Describe the project or activity:",
+        "id": "application.personalExperienceModal.descriptionLabel"
+      },
+      {
+        "defaultMessage": "e.g. I have extensive experience in...",
+        "id": "application.personalExperienceModal.descriptionPlaceholder"
+      },
+      {
+        "defaultMessage": "Sharing Consent",
+        "id": "application.personalExperienceModal.isShareableLabel"
+      },
+      {
+        "defaultMessage": "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+        "id": "application.personalExperienceModal.isShareableInlineLabel"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "application.personalExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "application.personalExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "application.personalExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "application.personalExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/PersonalExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open the job poster in a new tab or window to review the definition of skills.",
+        "description": "Title attribute for the link back to the job.",
+        "id": "application.experienceModal.skillSubform.linkToJob.title"
+      },
+      {
+        "defaultMessage": "Select all that apply:",
+        "description": "Label for the Skills checkbox groups.",
+        "id": "application.experienceModal.skillSubform.skillCheckboxGroupLabel"
+      },
+      {
+        "defaultMessage": "Connect This Experience to the Job",
+        "description": "Subtitle of Connect-to-skills section.",
+        "id": "application.experienceModal.skillSubform.connectSubtitle"
+      },
+      {
+        "defaultMessage": "Below you can select which of the job skills you used during this experience. Later on, you’ll be asked to provide a few sentences to help managers understand how you used this skill. You can <a>review the definitions</a> of the skills on the job poster.",
+        "description": "Explanation for Connect-to-skills section.",
+        "id": "application.experienceModal.skillSubform.connectDescription"
+      },
+      {
+        "defaultMessage": "If none of the skills apply to this experience, feel free to save it without any skills selected.",
+        "description": "Explanation that you can save an experience without connecting it to skills yet.",
+        "id": "application.experienceModal.skillSubform.connectDescription.noSkillsOkay"
+      },
+      {
+        "defaultMessage": "Please indicate which of the following <a>required skills</a> (if any) you used in this experience.",
+        "description": "Title for the Required Skills checkbox.",
+        "id": "application.experienceModal.skillSubform.requiredSkillsSubtitle"
+      },
+      {
+        "defaultMessage": "Please indicate which of the following <a>optional skills</a> (if any) you used in this experience.",
+        "description": "Title for the Optional Skills checkbox.",
+        "id": "application.experienceModal.skillSubform.optionalSkillsSubtitle"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/SkillSubform.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Work Experience",
+        "id": "application.workExperienceModal.modalTitle"
+      },
+      {
+        "defaultMessage": "Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a \"Community Experience\".)",
+        "id": "application.workExperienceModal.modalDescription"
+      },
+      {
+        "defaultMessage": "My Role/Job Title",
+        "id": "application.workExperienceModal.jobTitleLabel"
+      },
+      {
+        "defaultMessage": "e.g. Front-end Development",
+        "id": "application.workExperienceModal.jobTitlePlaceholder"
+      },
+      {
+        "defaultMessage": "Organization/Company",
+        "id": "application.workExperienceModal.orgNameLabel"
+      },
+      {
+        "defaultMessage": "e.g. Government of Canada",
+        "id": "application.workExperienceModal.orgNamePlaceholder"
+      },
+      {
+        "defaultMessage": "Team, Group, or Division",
+        "id": "application.workExperienceModal.groupLabel"
+      },
+      {
+        "defaultMessage": "e.g. Talent Cloud",
+        "id": "application.workExperienceModal.groupPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a Start Date",
+        "id": "application.workExperienceModal.startDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "id": "application.workExperienceModal.datePlaceholder"
+      },
+      {
+        "defaultMessage": "This experience is still ongoing, or...",
+        "description": "Label for checkbox that indicates work is still ongoing.",
+        "id": "application.workExperienceModal.isActiveLabel"
+      },
+      {
+        "defaultMessage": "Select an End Date",
+        "id": "application.workExperienceModal.endDateLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceModals/WorkExperienceModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Today's Date",
+        "description": "Label for the submission date input field.",
+        "id": "application.finalSubmit.submissionDateLabel"
+      },
+      {
+        "defaultMessage": "yyyy-mm-dd",
+        "description": "Placeholder for the submission signature input field.",
+        "id": "application.finalSubmit.submissionDatePlaceholder"
+      },
+      {
+        "defaultMessage": "Sign (Type) Your Full Name",
+        "description": "Label for the submission signature input field.",
+        "id": "application.finalSubmit.submissionSignatureLabel"
+      },
+      {
+        "defaultMessage": "e.g. First Last",
+        "description": "Placeholder for the submission signature input field.",
+        "id": "application.finalSubmit.submissionSignaturePlaceholder"
+      },
+      {
+        "defaultMessage": "I've reviewed everything written in my application.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.firstBullet"
+      },
+      {
+        "defaultMessage": "I understand that I am a part of a community of people who trust each other.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.secondBullet"
+      },
+      {
+        "defaultMessage": "I promise that the information I've provided is true.",
+        "description": "Bullet point about the criteria before final submission.",
+        "id": "application.finalSubmit.confirmCriteria.thirdBullet"
+      },
+      {
+        "defaultMessage": "Final Submission",
+        "description": "Heading text on the final submit step of the Application Timeline.",
+        "id": "application.finalSubmit."
+      },
+      {
+        "defaultMessage": "You've made it! By signing your name below, you're confirming that:",
+        "description": "Heading text before confirmation criteria list.",
+        "id": "application.finalSubmit.confirmCriteriaHeading"
+      },
+      {
+        "defaultMessage": "Submit Application",
+        "description": "The text displayed on the submit button for the Job Details form.",
+        "id": "application.submitApplicationButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/FinalSubmit/FinalSubmit.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "The manager has included a few further questions that they'd like you to answer in order to be considered for this position. Questions that require an answer are marked, while all others are optional.",
+        "description": "Paragraph for the Fit step in the Application form.",
+        "id": "application.fit.firstParagraph"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Fit/Fit.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Save Answer",
+        "description": "Default message displayed on save answer button.",
+        "id": "application.fit.saveAnswerButton.default"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Message displayed on button when data is saved.",
+        "id": "application.fit.saveAnswerButton.saved"
+      },
+      {
+        "defaultMessage": "My Answer to Question {index}",
+        "description": "Label before the users answer on the My Fit step.",
+        "id": "application.fit.answerLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Fit/Question.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Start Your Application",
+        "description": "Heading text on the intro step of the Application Timeline.",
+        "id": "application.intro.heading"
+      },
+      {
+        "defaultMessage": "Before you begin we'd like to provide you with some information about what you can expect from our application process.",
+        "description": "First section of text on the intro step of the Application Timeline.",
+        "id": "application.intro.preamble"
+      },
+      {
+        "defaultMessage": "Talent Cloud is a skills-based hiring platform, and <bold>this means that we're going to ask you about your experiences in a way that differs from a traditional resume format</bold>. The goal is to get a thorough understanding of the skills you have and how your past experiences have shaped them. This gives the manager reviewing your application a much stronger sense of your abilities.",
+        "description": "Paragraph explaining how TC differs from a traditional resumé.",
+        "id": "application.intro.firstParagraph"
+      },
+      {
+        "defaultMessage": "We'll begin by asking you about your experiences, varying across academia, work, community, etc.",
+        "description": "Bullet point about the beginning of the application process.",
+        "id": "application.intro.firstBullet"
+      },
+      {
+        "defaultMessage": "Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position.",
+        "description": "Bullet point about the end of the application process.",
+        "id": "application.intro.secondBullet"
+      },
+      {
+        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you a ton of time.",
+        "description": "Paragraph explaining the time saving of the application and profile.",
+        "id": "application.intro.secondParagraph"
+      },
+      {
+        "defaultMessage": "Ready to get started?",
+        "description": "Ending text to motivate the applicant to progress.",
+        "id": "application.intro.prompt"
+      },
+      {
+        "defaultMessage": "Start My Application",
+        "description": "Button text for starting an application.",
+        "id": "application.intro.start"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Intro/Intro.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Welcome",
+        "id": "application.progressBar.welcome"
+      },
+      {
+        "defaultMessage": "Step 1/6",
+        "id": "application.progressBar.step01"
+      },
+      {
+        "defaultMessage": "Step 2/6",
+        "id": "application.progressBar.step02"
+      },
+      {
+        "defaultMessage": "Step 3/6",
+        "id": "application.progressBar.step03"
+      },
+      {
+        "defaultMessage": "Step 4/6",
+        "id": "application.progressBar.step04"
+      },
+      {
+        "defaultMessage": "Step 5/6",
+        "id": "application.progressBar.step05"
+      },
+      {
+        "defaultMessage": "Step 6/6",
+        "id": "application.progressBar.step06"
+      },
+      {
+        "defaultMessage": "Completed: ",
+        "description": "Visually hidden text used to indicate the completed steps.",
+        "id": "application.progressbar.completedStepLabel"
+      },
+      {
+        "defaultMessage": "Current: ",
+        "description": "Visually hidden text used to indicate the current steps.",
+        "id": "application.progressbar.currentStepLabel"
+      },
+      {
+        "defaultMessage": "Error: ",
+        "description": "Visually hidden text used to indicate the steps with errors.",
+        "id": "application.progressbar.errorStepLabel"
+      },
+      {
+        "defaultMessage": "Application Deadline: {timeLeft}",
+        "description": "Label for the application deadline",
+        "id": "application.progressbar.applicationDeadline"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ProgressBar/ProgressBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Edit",
+        "description": "Link text for editing a section.",
+        "id": "application.review.edit"
+      },
+      {
+        "defaultMessage": "Edit this section.",
+        "description": "Link title for editing a section.",
+        "id": "application.review.editTitle"
+      },
+      {
+        "defaultMessage": "I prefer to communicate in English.",
+        "description": "Text displayed when a user selects 'en' in their profile for communication preference.",
+        "id": "application.review.communication.english"
+      },
+      {
+        "defaultMessage": "I prefer to communicate in French.",
+        "description": "Text displayed when a user selects 'fr' in their profile for communication preference.",
+        "id": "application.review.communication.french"
+      },
+      {
+        "defaultMessage": "You haven't set a communication language preference in your profile yet.",
+        "description": "Text displayed if a user has not yet selected a communication preference in their profile.",
+        "id": "application.review.communication.notSet"
+      },
+      {
+        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
+        "id": "application.review.shareCheckboxLabel"
+      },
+      {
+        "defaultMessage": "Review Your Application",
+        "description": "Main page heading for the Review page.",
+        "id": "application.review.heading"
+      },
+      {
+        "defaultMessage": "Take one last look at your information before you submit it.",
+        "description": "First line of the subheading for the Review page.",
+        "id": "application.review.subheadingOne"
+      },
+      {
+        "defaultMessage": "Make sure everything you've said is as honest and accurate as possible.",
+        "description": "Second line of the subheading for the Review page.",
+        "id": "application.review.subheadingTwo"
+      },
+      {
+        "defaultMessage": "Ask yourself, \"If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?\"",
+        "description": "Third line of the subheading for the Review page.",
+        "id": "application.review.subheadingThree"
+      },
+      {
+        "defaultMessage": "Change Your View:",
+        "description": "Heading for the Review section with the buttons to change the layout.",
+        "id": "application.review.changeViewHeading"
+      },
+      {
+        "defaultMessage": "All Experience",
+        "description": "Button text for the experience view of the Review page.",
+        "id": "application.review.experienceViewButton"
+      },
+      {
+        "defaultMessage": "Skills for This Job",
+        "description": "Button text for the skills view of the Review page.",
+        "id": "application.review.skillsViewButton"
+      },
+      {
+        "defaultMessage": "Education Requirements for This Job",
+        "description": "Button text for the education view of the Review page.",
+        "id": "application.review.educationViewButton"
+      },
+      {
+        "defaultMessage": "This view is a summary of all the experiences you will be sending as a part of your application.",
+        "description": "Heading for the experience view section of the Review page.",
+        "id": "application.review.experienceViewHeading"
+      },
+      {
+        "defaultMessage": "This view organizes your experiences by the skills required for this job.",
+        "description": "Heading for the skills view section of the Review page.",
+        "id": "application.review.skillsViewHeading"
+      },
+      {
+        "defaultMessage": "This view is a summary of all the experiences you have selected that help you meet the education requirements outlined below.",
+        "description": "Heading for the education view section of the Review page.",
+        "id": "application.review.educationViewHeading"
+      },
+      {
+        "defaultMessage": "Not yet answered.",
+        "description": "Message displayed if the applicant did not yet answer one of the Fit questions.",
+        "id": "application.review.missingAnswer"
+      },
+      {
+        "defaultMessage": "Account Settings",
+        "id": "application.review.accountSettingsHeading"
+      },
+      {
+        "defaultMessage": "Contact & Communication",
+        "id": "application.review.contactLabel"
+      },
+      {
+        "defaultMessage": "I would like Talent Cloud to contact me at {email} about related jobs.",
+        "id": "application.review.userContact"
+      },
+      {
+        "defaultMessage": "I do not want Talent Cloud to contact me at {email} about related jobs.",
+        "id": "application.review.userNoContact"
+      },
+      {
+        "defaultMessage": "Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?",
+        "id": "application.review.shareQuestion"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Review/Review.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "You haven't written an explanation of how you used this skill during this experience.",
+        "description": "Alert displayed when no justification has been added to an Experience.",
+        "id": "application.skillAccordion.justificationMissing"
+      },
+      {
+        "defaultMessage": "You haven't attached any experiences to this skill.",
+        "description": "Alert displayed when no Experiences have been added to a particular Skill.",
+        "id": "application.skillAccordion.experiencesMissing"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Review/SkillAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "On this page:",
+        "description": "Heading for the sidebar on the Skills page.",
+        "id": "application.skills.sidebarHeading"
+      },
+      {
+        "defaultMessage": "Missing Information",
+        "description": "Accordion heading error that displays when the justification is empty.",
+        "id": "application.skills.justificationMissing"
+      },
+      {
+        "defaultMessage": "Remove Experience From Skill",
+        "description": "Text for the delete experience button.",
+        "id": "application.skills.deleteExperienceButtonText"
+      },
+      {
+        "defaultMessage": "How You Used Each Skill",
+        "description": "Heading text on the Skills step.",
+        "id": "application.skills.heading"
+      },
+      {
+        "defaultMessage": "<bold>This is the most important part of your application.</bold> Each box only needs a couple of sentences, but make them good ones!",
+        "description": "Heading for the instruction section on the Skills step.",
+        "id": "application.skills.instructionHeading"
+      },
+      {
+        "defaultMessage": "Try answering one or two of the following questions:",
+        "description": "Paragraph before the instruction list on the Skills step.",
+        "id": "application.skills.instructionListStart"
+      },
+      {
+        "defaultMessage": "<bullet>What did you accomplish, create, or deliver using this skill?</bullet><bullet>What tasks or activities did you do that relate to this skill?</bullet><bullet>Were there any special techniques or approaches that you used?</bullet><bullet>How much responsibility did you have in this role?</bullet>",
+        "description": "List of potential justification helpers on the Skills step.",
+        "id": "application.skills.instructionList"
+      },
+      {
+        "defaultMessage": "If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples.",
+        "description": "Paragraph after the instruction list on the Skills step.",
+        "id": "application.skills.instructionListEnd"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experiences linked to this skill. You can link experiences to skills in the previous step.",
+        "description": "Text displayed under a skill section with no experiences.",
+        "id": "application.skills.noLinkedExperiences"
+      },
+      {
+        "defaultMessage": "Looks like something went wrong on our end and your experience can't be displayed. Please try again later.",
+        "description": "Text displayed under a skill section with a missing linked experience.",
+        "id": "application.skills.missingExperience"
+      },
+      {
+        "defaultMessage": "Okay",
+        "id": "application.skills.modal.confirmButton"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/Skills.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Go to this skill.",
+        "description": "Title attribute for sidebar links.",
+        "id": "application.skills.sidebarLinkTitle"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Hidden accordion button text for accessibility.",
+        "id": "application.skills.accessibleAccordionButtonText"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Button text for saving an experience skill justification.",
+        "id": "application.skills.saveButtonText"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Button text for after an experience skill justification is saved.",
+        "id": "application.skills.savedButtonText"
+      },
+      {
+        "defaultMessage": " words left.",
+        "description": "Message displayed next to word counter when user is under the maximum count.",
+        "id": "application.skills.wordCountUnderMax"
+      },
+      {
+        "defaultMessage": " words over the limit.",
+        "description": "Message displayed next to word counter when user is over the maximum count.",
+        "id": "application.skills.wordCountOverMax"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Button text for cancelling the confirmation modal.",
+        "id": "application.skills.cancelButtonText"
+      },
+      {
+        "defaultMessage": "Are you sure?",
+        "description": "Heading text of the confirmation modal on the Skills page.",
+        "id": "application.skills.modalConfirmHeading"
+      },
+      {
+        "defaultMessage": "You're about to remove the link between this experience and the chosen skill. Any text you've provided for this skill will disappear from this experience everywhere on the site. Are you sure you want to remove this link?",
+        "description": "Body text of the confirmation modal on the Skills page.",
+        "id": "application.skills.modalConfirmBody"
+      },
+      {
+        "defaultMessage": "Confirm Removal",
+        "description": "Button text for confirming the confirmation modal.",
+        "id": "application.skills.confirmButtonText"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/skillsMessages.json"
   },
   {
     "descriptors": [
@@ -49,117 +1457,117 @@
       {
         "defaultMessage": "Talent cloud priority logo",
         "description": "Title for Priority Logo Img",
-        "id": "priorityStatus.priorityLogoTitle"
-      },
-      {
-        "defaultMessage": "Talent cloud veteran logo",
-        "description": "Alt Text for Veteran Logo Img",
-        "id": "veteranStatus.veteranLogoAlt"
-      },
-      {
-        "defaultMessage": "Email this candidate.",
-        "description": "Title, hover text, for email link.",
-        "id": "apl.emailCandidateLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's application.",
-        "description": "Title, hover text, for View Application Link",
-        "id": "apl.viewApplicationLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's profile.",
-        "description": "Title, hover text, for View Profile Link",
-        "id": "apl.viewProfileLinkTitle"
-      },
-      {
-        "defaultMessage": "Decision",
-        "description": "Decision dropdown label",
-        "id": "apl.decision"
-      },
-      {
-        "defaultMessage": "Not Reviewed",
-        "description": "Decision dropdown label",
-        "id": "reviewStatus.notReviewed"
-      },
-      {
-        "defaultMessage": "Saving...",
-        "description": "Dynamic Save button label",
-        "id": "button.saving"
-      },
-      {
-        "defaultMessage": "Save",
-        "description": "Dynamic Save button label",
-        "id": "button.save"
-      },
-      {
-        "defaultMessage": "Saved",
-        "description": "Dynamic Save button label",
-        "id": "button.saved"
-      },
-      {
-        "defaultMessage": "+ Add a Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.addNote"
-      },
-      {
-        "defaultMessage": "Edit Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.editNote"
-      },
-      {
-        "defaultMessage": "Screened Out",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.screenedOut"
-      },
-      {
-        "defaultMessage": "Still Thinking",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillThinking"
-      },
-      {
-        "defaultMessage": "Still In",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillIn"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button label",
-        "id": "button.cancel"
-      },
-      {
-        "defaultMessage": "Confirm",
-        "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
-      },
-      {
-        "defaultMessage": "Screen out the candidate?",
-        "description": "Are you sure you want to screen out the candidate worning",
-        "id": "apl.screenOutConfirm"
-      },
-      {
-        "defaultMessage": "Screen the candidate back in?",
-        "description": "Are you sure you want to screen in the candidate warning",
-        "id": "apl.screenInConfirm"
+        "id": "application.review.priorityStatus.priorityLogoTitle"
       },
       {
         "defaultMessage": "Priority",
         "description": "Priority",
-        "id": "priorityStatus.priority"
+        "id": "application.review.priorityStatus.priority"
+      },
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "application.review.veteranStatus.veteranLogoAlt"
       },
       {
         "defaultMessage": "Veteran",
         "description": "Veteran",
-        "id": "veteranStatus.veteran"
+        "id": "application.review.veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "application.review.emailCandidateLinkTitle"
       },
       {
         "defaultMessage": "View Application",
         "description": "Button text View Application",
-        "id": "apl.viewApplication"
+        "id": "application.review.viewApplication"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "application.review.viewApplicationLinkTitle"
       },
       {
         "defaultMessage": "View Profile",
         "description": "Button text View Profile",
-        "id": "apl.viewProfile"
+        "id": "application.review.viewProfile"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "application.review.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "application.review.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "application.review.reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "application.review.button.cancel"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "application.review.button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate warning",
+        "id": "application.review.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "application.review.screenInConfirm"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReview.json"
@@ -169,12 +1577,12 @@
       {
         "defaultMessage": "Oops...",
         "description": "Modal notification text indicating something went wrong.",
-        "id": "alert.oops"
+        "id": "application.review.alert.oops"
       },
       {
         "defaultMessage": "Something went wrong while saving a review. Try again later.",
         "description": "Error message for error while saving an application review.",
-        "id": "apl.reviewSaveFailed"
+        "id": "application.review.reviewSaveFailed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewRoot.json"
@@ -182,129 +1590,24 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Talent cloud veteran logo",
-        "description": "Alt Text for Veteran Logo Img",
-        "id": "veteranStatus.veteranLogoAlt"
-      },
-      {
-        "defaultMessage": "Email this candidate.",
-        "description": "Title, hover text, for email link.",
-        "id": "apl.emailCandidateLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's application.",
-        "description": "Title, hover text, for View Application Link",
-        "id": "apl.viewApplicationLinkTitle"
-      },
-      {
-        "defaultMessage": "View this applicant's profile.",
-        "description": "Title, hover text, for View Profile Link",
-        "id": "apl.viewProfileLinkTitle"
-      },
-      {
-        "defaultMessage": "Decision",
-        "description": "Decision dropdown label",
-        "id": "apl.decision"
-      },
-      {
-        "defaultMessage": "Not Reviewed",
-        "description": "Decision dropdown label",
-        "id": "reviewStatus.notReviewed"
-      },
-      {
-        "defaultMessage": "Saving...",
-        "description": "Dynamic Save button label",
-        "id": "button.saving"
-      },
-      {
-        "defaultMessage": "Save",
-        "description": "Dynamic Save button label",
-        "id": "button.save"
-      },
-      {
-        "defaultMessage": "Saved",
-        "description": "Dynamic Save button label",
-        "id": "button.saved"
-      },
-      {
-        "defaultMessage": "+ Add a Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.addNote"
-      },
-      {
-        "defaultMessage": "Edit Note",
-        "description": "Dynamic Note button label",
-        "id": "apl.editNote"
-      },
-      {
-        "defaultMessage": "Screened Out",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.screenedOut"
-      },
-      {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button label",
-        "id": "button.cancel"
-      },
-      {
-        "defaultMessage": "Still Thinking",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillThinking"
-      },
-      {
-        "defaultMessage": "Still In",
-        "description": "Dynamic Note button label",
-        "id": "reviewStatus.stillIn"
-      },
-      {
-        "defaultMessage": "Confirm",
-        "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
-      },
-      {
-        "defaultMessage": "Screen out the candidate?",
-        "description": "Are you sure you want to screen out the candidate warning",
-        "id": "apl.screenOutConfirm"
-      },
-      {
-        "defaultMessage": "Screen the candidate back in?",
-        "description": "Are you sure you want to screen in the candidate warning",
-        "id": "apl.screenInConfirm"
-      },
-      {
-        "defaultMessage": "< Save and Go Back to Applicant List",
+        "defaultMessage": "Save and Go Back to Applicant List",
         "description": "Back Button text",
-        "id": "apl.backToApplicantList"
+        "id": "application.review.backToApplicantList"
       },
       {
         "defaultMessage": "View Job Poster",
         "description": "View Job Poster Button text",
-        "id": "button.viewJobPoster"
+        "id": "application.review.button.viewJobPoster"
       },
       {
         "defaultMessage": "Expand All Skills",
         "description": "Expand All Skills Button text",
-        "id": "apl.expandAllSkills"
+        "id": "application.review.expandAllSkills"
       },
       {
         "defaultMessage": "Collapse All Skills",
         "description": "Collapse All Skills Button text",
-        "id": "apl.collapseAllSkills"
-      },
-      {
-        "defaultMessage": "Veteran",
-        "description": "Veteran",
-        "id": "veteranStatus.veteran"
-      },
-      {
-        "defaultMessage": "View Application",
-        "description": "Button text View Application",
-        "id": "apl.viewApplication"
-      },
-      {
-        "defaultMessage": "View Profile",
-        "description": "Button text View Profile",
-        "id": "apl.viewProfile"
+        "id": "application.review.collapseAllSkills"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ApplicationReviewWithNav.json"
@@ -312,14 +1615,54 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
-        "description": "Welcome header on Job Applications index page",
-        "id": "apl.indexPageTitle"
+        "defaultMessage": "Under Consideration",
+        "description": "Under consideration category title",
+        "id": "review.applications.underConsideration.title"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {No Days}\r\n            one {# Day}\r\n          other {# Days}\r\n        } Since Close",
-        "description": "Welcome header on app main page",
-        "id": "job.daysSinceClosed"
+        "defaultMessage": "Review the applicants in the Veterans and Canadian Citizens section. If none or very few of these applicants meet the requirements, you can still consider non-Canadian Citizen applications in the Optional Consideration section",
+        "description": "Under consideration category description",
+        "id": "review.applications.underConsideration.description"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Optional consideration category title",
+        "id": "review.applications.optionalConsideration.title"
+      },
+      {
+        "defaultMessage": "In this group you will find the applicants who are not Canadian Citizens or do not claim to meet the essential criteria.",
+        "description": "Optional consideration category description",
+        "id": "review.applications.optionalConsideration.description"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Screened out category title",
+        "id": "review.applications.screenedOut.title"
+      },
+      {
+        "defaultMessage": "These applications have already been screened out.",
+        "description": "Screened out category description",
+        "id": "review.applications.screenedOut.description"
+      },
+      {
+        "defaultMessage": "Applications for: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "review.applications.applicationsAfterClosed"
+      },
+      {
+        "defaultMessage": "Applications to date: {jobTitle} {jobClassification}",
+        "description": "Welcome header on Job Applications index page",
+        "id": "review.applications.applicationsBeforeClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
+        "description": "Shows the number of days after the job closed.",
+        "id": "job.daysAfterClosed"
+      },
+      {
+        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
+        "description": "Shows the number of days before the job closes.",
+        "id": "job.daysBeforeClosed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplications.json"
@@ -329,12 +1672,12 @@
       {
         "defaultMessage": "Save",
         "description": "Dynamic Save button label",
-        "id": "alert.oops"
+        "id": "review.applications.alert.oops"
       },
       {
         "defaultMessage": "Something went wrong while saving a review. Try again later.",
         "description": "Dynamic Save button label",
-        "id": "apl.reviewSaveFailed"
+        "id": "review.applications.reviewSaveFailed"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.json"
@@ -342,14 +1685,54 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Priority Applicants",
+        "description": "title of list of priority applicants",
+        "id": "review.applications.priorityApplicants.title"
+      },
+      {
+        "defaultMessage": "These are priority applicants for this position. They must be reviewed and considered first.",
+        "description": "description of list of priority applicants",
+        "id": "review.applications.priorityApplicants.description"
+      },
+      {
+        "defaultMessage": "Veterans and Canadian Citizens",
+        "description": "title of list of Veterans and Canadian citizens",
+        "id": "review.applications.veteransAndCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of Veterans and Canadian citizens",
+        "id": "review.applications.veteransAndCitizens.description"
+      },
+      {
+        "defaultMessage": "Non-Canadian Citizens",
+        "description": "title of list of non-citizen applicants",
+        "id": "review.applications.nonCitizens.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of non-citizen applicants",
+        "id": "review.applications.nonCitizens.description"
+      },
+      {
+        "defaultMessage": "Don't Meet Essential Criteria",
+        "description": "title of list of applicants who do not meet the essential criteria",
+        "id": "review.applications.unqualified.title"
+      },
+      {
+        "defaultMessage": " ",
+        "description": "description of list of applicants who do not meet the essential criteria",
+        "id": "review.applications.unqualified.description"
+      },
+      {
         "defaultMessage": "Confirm",
         "description": "Confirm button for modal dialogue boxes",
-        "id": "button.confirm"
+        "id": "review.applications.button.confirm"
       },
       {
         "defaultMessage": "Are you sure you want to screen out all Optional candidates?",
         "description": "Confirm dialogue text for screening out all optional candidates.",
-        "id": "apl.screenOutAll.confirm"
+        "id": "review.applications.screenOutAll.confirm"
       },
       {
         "defaultMessage": "Copied!",
@@ -364,7 +1747,7 @@
       {
         "defaultMessage": "Screen All Optional Candidates Out",
         "description": "Button to screen out all optional candidates from competition with one click",
-        "id": "apl.screenOutAll"
+        "id": "review.applications.screenOutAll"
       }
     ],
     "path": "resources/assets/js/components/ApplicationReview/ReviewCategory.json"
@@ -577,7 +1960,7 @@
         "id": "assessmentPlan.summary.title"
       },
       {
-        "defaultMessage": "This is a summary of the work you've done above. You'll find\r\n      each assessment accompanied by a consolidated list of the essential and\r\n      asset skills attached to it.",
+        "defaultMessage": "This is a summary of the work you've done above. You'll find each assessment accompanied by a consolidated list of the essential and asset skills attached to it.",
         "description": "Description of Assessment Plan Summary Section",
         "id": "assessmentPlan.summary.description"
       },
@@ -587,12 +1970,12 @@
         "id": "assessmentPlan.summary.assessmentSummary.title"
       },
       {
-        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}}\r\n            to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
+        "defaultMessage": "Your plan uses {toolCount, plural, =0 {no tools} one {# tool} other {# tools}} to assess {skillCount, plural, =0 {no skills} one {# skill} other {# skills}}.",
         "description": "Describes how many tools and skills your assessment plan involves.",
         "id": "assessmentPlan.summary.assessmentSummary.toolSkillCount"
       },
       {
-        "defaultMessage": "You have no assessments selected for this job poster. Add them\r\n              above.",
+        "defaultMessage": "You have no assessments selected for this job poster. Add them above.",
         "description": "Place holder text for when there are no assessment summary details",
         "id": "assessmentPlan.summary.assessmentSummary.noAssessments"
       }
@@ -737,6 +2120,81 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Interview Question",
+        "description": "Label for the rating guide question.",
+        "id": "ratingGuideQuestion.questionLabel"
+      },
+      {
+        "defaultMessage": "Write your interview question here...",
+        "description": "Placeholder for the rating guide question.",
+        "id": "ratingGuideQuestion.questionPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/AssessmentPlan/RatingGuideQuestion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add a Comment",
+        "description": "The label displayed for the comment input field.",
+        "id": "commentForm.comment.label"
+      },
+      {
+        "defaultMessage": "eg. Enter your question, recommendation, etc.",
+        "description": "The placeholder displayed for the comment input field.",
+        "id": "commentForm.comment.placeholder"
+      },
+      {
+        "defaultMessage": "Type of Comment",
+        "description": "The label displayed for the comment type select box.",
+        "id": "commentForm.commentType.label"
+      },
+      {
+        "defaultMessage": "Select a comment type...",
+        "description": "Null selection from list of comment types",
+        "id": "commentForm.commentType.nullSelection"
+      },
+      {
+        "defaultMessage": "Location of Comment",
+        "description": "The label displayed for the location select box.",
+        "id": "commentForm.commentLocation.label"
+      },
+      {
+        "defaultMessage": "Select a location...",
+        "description": "Null selection from list of comment locations",
+        "id": "commentForm.commentLocation.nullSelection"
+      },
+      {
+        "defaultMessage": "Question",
+        "description": "Comment type from list of comment types",
+        "id": "commentType.question"
+      },
+      {
+        "defaultMessage": "Recommendation",
+        "description": "Comment type from list of comment types",
+        "id": "commentType.recommendation"
+      },
+      {
+        "defaultMessage": "Required Action",
+        "description": "Comment type from list of comment types",
+        "id": "commentType.requiredAction"
+      },
+      {
+        "defaultMessage": "Comment",
+        "description": "Comment type from list of comment types",
+        "id": "commentType.comment"
+      },
+      {
+        "defaultMessage": "Submit Comment",
+        "description": "The text displayed on the submit button in the comment form.",
+        "id": "commentForm.submitButton.label"
+      }
+    ],
+    "path": "resources/assets/js/components/CommentForm.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"
@@ -772,6 +2230,26 @@
         "id": "formValidation.checkboxRequired"
       },
       {
+        "defaultMessage": "If activity is not ongoing, End Date is required.",
+        "description": "Error message displayed when a date is required due to activity no longer being ongoing.",
+        "id": "formValidation.endDateRequiredIfNotOngoing"
+      },
+      {
+        "defaultMessage": "Please select a date in the past.",
+        "description": "Error message displayed when selected date is in the future.",
+        "id": "formValidation.dateMustBePast"
+      },
+      {
+        "defaultMessage": "Please select an End Date that is after the Start Date",
+        "description": "Error message displayed when a selected End Date is earlier than the Start date.",
+        "id": "formValidation.endDateAfterStart"
+      },
+      {
+        "defaultMessage": "Must be under {numberOfWords} words",
+        "description": "Error message displayed when surpassing the maximum words allowed.",
+        "id": "formValidation.overMaxWords"
+      },
+      {
         "defaultMessage": "Something went wrong.",
         "description": "Generic error message for inputs.",
         "id": "formInput.error"
@@ -783,6 +2261,136 @@
       }
     ],
     "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "My Completed Job Actions",
+        "description": "Header for completed jobs accordion section.",
+        "id": "hrPortal.jobPageIndex.completedJobsHeader"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accordion trigger message for screen readers.",
+        "id": "hrPortal.jobPageIndex.clickToView"
+      },
+      {
+        "defaultMessage": "Show",
+        "description": "Accordion trigger message to show items.",
+        "id": "hrPortal.jobPageIndex.showAccordion"
+      },
+      {
+        "defaultMessage": "Hide",
+        "description": "Accordion trigger message to hide items.",
+        "id": "hrPortal.jobPageIndex.hideAccordion"
+      },
+      {
+        "defaultMessage": "No jobs completed yet!",
+        "description": "Message displayed if the completed jobs list is empty.",
+        "id": "hrPortal.jobPageIndex.noJobsCompleted"
+      },
+      {
+        "defaultMessage": "My Job Actions",
+        "description": "Header for my job actions section.",
+        "id": "hrPortal.jobPageIndex.jobActionsHeader"
+      },
+      {
+        "defaultMessage": "This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs.",
+        "description": "Message before list of users job actions.",
+        "id": "hrPortal.jobPageIndex.jobActionsMessage"
+      },
+      {
+        "defaultMessage": "Claim a job below!",
+        "description": "Message displayed if the jobs actions list is empty.",
+        "id": "hrPortal.jobPageIndex.jobActionsEmpty"
+      },
+      {
+        "defaultMessage": "All Jobs in",
+        "description": "Message before department name.",
+        "id": "hrPortal.jobPageIndex.preDepartmentName"
+      },
+      {
+        "defaultMessage": "This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button.",
+        "description": "Message before list of unclaimed jobs.",
+        "id": "hrPortal.jobPageIndex.unclaimedJobsMessage"
+      },
+      {
+        "defaultMessage": "There are currently no active jobs available.",
+        "description": "Message displayed if the unclaimed jobs list is empty.",
+        "id": "hrPortal.jobPageIndex.unclaimedJobsEmpty"
+      }
+    ],
+    "path": "resources/assets/js/components/HRPortal/JobIndexHr.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Review Draft",
+        "description": "Text for the link to review job draft.",
+        "id": "hrJobIndex.reviewDraft"
+      },
+      {
+        "defaultMessage": "Preview Poster",
+        "description": "Text for the link to preview the job poster.",
+        "id": "hrJobIndex.preview"
+      },
+      {
+        "defaultMessage": "View Assessment Plan",
+        "description": "Text for the link to view the Screening Plan.",
+        "id": "hrJobIndex.viewScreeningPlan"
+      },
+      {
+        "defaultMessage": "View Activity",
+        "description": "Text for the link to view new entries in the activity feed.",
+        "id": "hrJobIndex.viewActivity"
+      },
+      {
+        "defaultMessage": "View Summary",
+        "description": "Text for the link to the Job Summary page.",
+        "id": "hrJobIndex.viewSummary"
+      },
+      {
+        "defaultMessage": "Loading...",
+        "description": "Placehold text for a manager's name, while data is loading.",
+        "id": "hrJobIndex.managerLoading"
+      },
+      {
+        "defaultMessage": "Title Missing",
+        "description": "Placeholder text for a missing Job title.",
+        "id": "hrJobIndex.jobTitleMissing"
+      },
+      {
+        "defaultMessage": "[Department loading]",
+        "description": "Placeholder for department name while it hasn't been loaded.",
+        "id": "hrJobIndex.departmentPlaceholder"
+      }
+    ],
+    "path": "resources/assets/js/components/HRPortal/JobIndexHrPage.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Data is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "jobReviewHr.loadingIconText"
+      },
+      {
+        "defaultMessage": "Review Your Job Poster for:",
+        "description": "Title for Review Job Poster section.",
+        "id": "jobReviewHr.reviewYourPoster"
+      },
+      {
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you understand how an applicant will see it once published.",
+        "description": "Description under primary title of review section",
+        "id": "jobReviewHr.headsUp"
+      },
+      {
+        "defaultMessage": "Return to Summary",
+        "description": "Text for the Return to Summary link.",
+        "id": "jobReviewHr.summaryLink"
+      }
+    ],
+    "path": "resources/assets/js/components/HRPortal/JobReviewHrPage.json"
   },
   {
     "descriptors": [
@@ -1042,7 +2650,7 @@
         "id": "jobBuilder.details.educationRequirementPlaceholder"
       },
       {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.\n    ",
+        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.AS"
       },
@@ -1077,7 +2685,7 @@
         "id": "jobBuilder.details.educationMessages.EX"
       },
       {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
+        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nEquivalent experience:\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.FO"
       },
@@ -1105,6 +2713,16 @@
         "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.AD"
+      },
+      {
+        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.EN-ENG"
+      },
+      {
+        "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
+        "description": "Job Classification message from list of Classifications",
+        "id": "jobBuilder.details.educationMessages.FI"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -1175,7 +2793,7 @@
         "id": "jobBuilder.impact.teamHeader"
       },
       {
-        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians.\r\n              It doesn’t matter if your work is direct to citizens or back office,\r\n              innovative or maintenance, top priority or ongoing. Describe how it\r\n              contributes to making Canada better the way you would to someone who\r\n              knows nothing about your work.",
+        "defaultMessage": "Describe the value your team/service/initiative brings to Canadians. It doesn’t matter if your work is direct to citizens or back office, innovative or maintenance, top priority or ongoing. Describe how it contributes to making Canada better the way you would to someone who knows nothing about your work.",
         "description": "Body of Job Poster Builder Team Impact Section",
         "id": "jobBuilder.impact.teamBody"
       },
@@ -1185,7 +2803,7 @@
         "id": "jobBuilder.impact.hireHeader"
       },
       {
-        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the\r\n              value they’ll bring, not on specific tasks (you’ll provide these\r\n              later on). For example “In this role, you’ll contribute to…” or, “As\r\n              a member of this team, you’ll be responsible for helping us…”",
+        "defaultMessage": "Describe how the new hire will contribute in this role. Focus on the value they’ll bring, not on specific tasks (you’ll provide these later on). For example “In this role, you’ll contribute to…” or, “As a member of this team, you’ll be responsible for helping us…”",
         "description": "Body of Job Poster Builder Hire Impact Section",
         "id": "jobBuilder.impact.hireBody"
       },
@@ -1205,9 +2823,14 @@
         "id": "jobBuilder.impact.modalTitle"
       },
       {
-        "defaultMessage": "Here's a preview of the Impact Statement you just\r\n                        entered. Feel free to go back and edit things or move to\r\n                        the next step if you're happy with it.",
+        "defaultMessage": "Here's a preview of the Impact Statement you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Description of modal dialog for Impact review.",
         "id": "jobBuilder.impact.modalDescription"
+      },
+      {
+        "defaultMessage": "Impact",
+        "description": "Heading for Impact preview on modal dialog.",
+        "id": "jobBuilder.impactPreview.title"
       },
       {
         "defaultMessage": "Go Back",
@@ -1225,17 +2848,7 @@
         "id": "jobBuilder.impact.button.nextStep"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Impact/JobBuilderImpact.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Impact",
-        "description": "Heading for Impact preview on modal dialog.",
-        "id": "jobBuilder.impactPreview.title"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpactPreview.json"
+    "path": "resources/assets/js/components/JobBuilder/Impact/JobImpact.json"
   },
   {
     "descriptors": [
@@ -1344,7 +2957,7 @@
         "id": "jobBuilder.intro.changeDepartment"
       },
       {
-        "defaultMessage": "Complete the job poster in the language of your choice. We will\r\n                  handle translation.",
+        "defaultMessage": "Complete the job poster in the language of your choice. We will handle translation.",
         "description": "Instructions at bottom of form on language choice for job poster builder.",
         "id": "jobBuilder.intro.completeInLanguage"
       },
@@ -1364,7 +2977,7 @@
         "id": "jobBuilder.intro.continueButtonLabelFR"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Intro/IntroForm.json"
+    "path": "resources/assets/js/components/JobBuilder/Intro/JobIntro.json"
   },
   {
     "descriptors": [
@@ -1374,47 +2987,7 @@
         "id": "jobBuilder.intro.managerLoading"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Intro/JobBuilderIntro.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "{termMonths, plural, =0 {no months} one {# month} other {# months}}",
-        "description": "Calculated term length in months",
-        "id": "jobBuilder.preview.termLength"
-      },
-      {
-        "defaultMessage": "Job Title",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.jobTitle"
-      },
-      {
-        "defaultMessage": "Length of the Term",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.lengthOfTheTerm"
-      },
-      {
-        "defaultMessage": "Security Clearance",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.securityClearance"
-      },
-      {
-        "defaultMessage": "Language Profile",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.languageProfile"
-      },
-      {
-        "defaultMessage": "City",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.city"
-      },
-      {
-        "defaultMessage": "Province",
-        "description": "Job Poster Card Information Label",
-        "id": "jobBuilder.preview.province"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/JobBasicInfo.json"
+    "path": "resources/assets/js/components/JobBuilder/Intro/JobIntroPage.json"
   },
   {
     "descriptors": [
@@ -1605,121 +3178,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Open Concept",
-        "description": "Physical Environment checkbox group 'open concept' option.",
-        "id": "jobBuilder.workEnv.physEnv.openConcept"
-      },
-      {
-        "defaultMessage": "Private",
-        "description": "Physical Environment checkbox group 'private' option.",
-        "id": "jobBuilder.workEnv.physEnv.private"
-      },
-      {
-        "defaultMessage": "Assigned Seating",
-        "description": "Physical Environment checkbox group 'assigned seating' option.",
-        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
-      },
-      {
-        "defaultMessage": "Lots of Windows",
-        "description": "Physical Environment checkbox group 'windows' option.",
-        "id": "jobBuilder.workEnv.physEnv.windows"
-      },
-      {
-        "defaultMessage": "Natural Light",
-        "description": "Physical Environment checkbox group 'natural light' option.",
-        "id": "jobBuilder.workEnv.physEnv.naturalLight"
-      },
-      {
-        "defaultMessage": "Suitable for Smudging",
-        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
-        "id": "jobBuilder.workEnv.physEnv.smudging"
-      },
-      {
-        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
-        "description": "Technology checkbox group 'video conferencing' option.",
-        "id": "jobBuilder.workEnv.technology.videoConferencing"
-      },
-      {
-        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
-        "description": "Technology checkbox group 'collaboration' option.",
-        "id": "jobBuilder.workEnv.technology.collaboration"
-      },
-      {
-        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
-        "description": "Technology checkbox group 'file sharing' option.",
-        "id": "jobBuilder.workEnv.technology.fileSharing"
-      },
-      {
-        "defaultMessage": "Task Management (e.g. Trello, Asana)",
-        "description": "Technology checkbox group 'task management' option.",
-        "id": "jobBuilder.workEnv.technology.taskManagement"
-      },
-      {
-        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
-        "description": "Technology checkbox group 'version control' option.",
-        "id": "jobBuilder.workEnv.technology.versionControl"
-      },
-      {
-        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
-        "description": "Technology checkbox group 'access to external' option.",
-        "id": "jobBuilder.workEnv.technology.accessToExternal"
-      },
-      {
-        "defaultMessage": "Cafeteria On-site",
-        "description": "Amenities checkbox group 'cafeteria' option.",
-        "id": "jobBuilder.workEnv.amenities.cafeteria"
-      },
-      {
-        "defaultMessage": "Close to Transit",
-        "description": "Amenities checkbox group 'close to transit' option.",
-        "id": "jobBuilder.workEnv.amenities.closeToTransit"
-      },
-      {
-        "defaultMessage": "Walking Distance to Restaurants/Malls",
-        "description": "Amenities checkbox group 'restaurants' option.",
-        "id": "jobBuilder.workEnv.amenities.restaurants"
-      },
-      {
-        "defaultMessage": "Downtown",
-        "description": "Amenities checkbox group 'downtown' option.",
-        "id": "jobBuilder.workEnv.amenities.downtown"
-      },
-      {
-        "defaultMessage": "Nearby Fitness Centre",
-        "description": "Amenities checkbox group 'nearby fitness centre' option.",
-        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
-      },
-      {
-        "defaultMessage": "Easy Access to Parking",
-        "description": "Amenities checkbox group 'parking' option.",
-        "id": "jobBuilder.workEnv.amenities.parking"
-      },
-      {
-        "defaultMessage": "Team Size",
-        "description": "Title for Team size section.",
-        "id": "jobBuilder.workEnvModal.teamSize"
-      },
-      {
-        "defaultMessage": "Our Physical Environment",
-        "description": "The label displayed on the physical environment checkbox group.",
-        "id": "jobBuilder.workEnvModal.physicalEnvLabel"
-      },
-      {
-        "defaultMessage": "Technology",
-        "description": "The label displayed on the technology checkbox group.",
-        "id": "jobBuilder.workEnvModal.technologyLabel"
-      },
-      {
-        "defaultMessage": "Amenities",
-        "description": "The label displayed on the amenities checkbox group.",
-        "id": "jobBuilder.workEnvModal.amenitiesLabel"
-      }
-    ],
-    "path": "resources/assets/js/components/JobBuilder/JobWorkEnv.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Find out how to access Job Poster review and publishing features.",
         "description": "Title of link to further information.",
         "id": "demoSubmitJobModal.link.title"
@@ -1880,16 +3338,6 @@
         "id": "jobBuilder.review.managerIncomplete"
       },
       {
-        "defaultMessage": "Review Your Job Poster for:",
-        "description": "Title for Review Job Poster section.",
-        "id": "jobBuilder.review.reviewYourPoster"
-      },
-      {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
-        "description": "Description under primary title of review section",
-        "id": "jobBuilder.review.headsUp"
-      },
-      {
         "defaultMessage": "Remote Work Allowed",
         "description": "Text displayed when remote work is allowed.",
         "id": "jobBuilder.review.remoteAllowed"
@@ -1950,6 +3398,16 @@
         "id": "jobBuilder.review.skills.nullState"
       },
       {
+        "defaultMessage": "Review Your Job Poster for:",
+        "description": "Title for Review Job Poster section.",
+        "id": "jobBuilder.review.reviewYourPoster"
+      },
+      {
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "description": "Description under primary title of review section",
+        "id": "jobBuilder.review.headsUp"
+      },
+      {
         "defaultMessage": "Save & Return to Skills",
         "description": "Label of 'Previous Step' button.",
         "id": "jobBuilder.review.button.return"
@@ -1967,11 +3425,11 @@
       {
         "defaultMessage": "If you're ready to submit your poster, click the Submit button below.",
         "description": "Instructions on how to submit",
-        "id": "jobBuilder.review.readyTosubmit"
+        "id": "jobBuilder.review.readyToSubmit"
       },
       {
         "defaultMessage": "What happens next?",
-        "description": "Rhtorical question",
+        "description": "Rhetorical question",
         "id": "jobBuilder.review.whatHappens"
       },
       {
@@ -2000,6 +3458,66 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Generic",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.generic"
+      },
+      {
+        "defaultMessage": "Job Page Heading",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.heading"
+      },
+      {
+        "defaultMessage": "Basic Information",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.basicInfo"
+      },
+      {
+        "defaultMessage": "Impact",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.impact"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.tasks"
+      },
+      {
+        "defaultMessage": "Criteria",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.skills"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.langRequirements"
+      },
+      {
+        "defaultMessage": "Work Environment",
+        "description": "Location where the activity is located.",
+        "id": "reviewLocations.jpb.environment"
+      },
+      {
+        "defaultMessage": "Data is loading...",
+        "description": "Accessible text for the loading icon",
+        "id": "activityfeed.review.loadingIconText"
+      },
+      {
+        "defaultMessage": "Click to View Comments {totalActivities}",
+        "description": "The activity feed header.",
+        "id": "activityfeed.review.header"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The accessibility text displayed on the activity feed accordion button.",
+        "id": "activityfeed.review.accordionAccessibleLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/Review/JobReviewActivityFeed.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Your job poster has been submitted!",
         "description": "Title of modal explaining managers job has been submitted.",
         "id": "managerSurveyModal.title"
@@ -2015,12 +3533,12 @@
         "id": "managerSurveyModal.managerSurveyLinkTitle"
       },
       {
-        "defaultMessage": "Take me to the survey",
+        "defaultMessage": "Take me to the survey.",
         "description": "Link to manager survey.",
         "id": "managerSurveyModal.link"
       },
       {
-        "defaultMessage": "Go back to <a>My Job Posters</>.",
+        "defaultMessage": "Go back to My Job Posters",
         "description": "Link to job poster index.",
         "id": "managerSurveyModal.jobPosterLink"
       },
@@ -2035,6 +3553,21 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Additional skill details",
+        "description": "Label for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityLabel"
+      },
+      {
+        "defaultMessage": "Add context or specifics to the definition of this skill that will only appear on your job poster. This will be reviewed by your human resources advisor.",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillSpecificityPlaceholder"
+      },
+      {
+        "defaultMessage": "Select a skill level:",
+        "description": "Placeholder for the skill specificity textarea.",
+        "id": "criteriaForm.skillLevelSelectionLabel"
+      },
+      {
         "defaultMessage": "Skill Definition",
         "description": "Label for Skill Definition heading on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.skillDefinition"
@@ -2045,7 +3578,7 @@
         "id": "jobBuilder.criteriaForm.removeSpecificity"
       },
       {
-        "defaultMessage": "I'd like to add specificity to this definition. This will\r\n                          only apply to my job poster.",
+        "defaultMessage": "I would like to add details to this definition that are specific to this position.",
         "description": "Label for 'Add additional specificity' button on Add Skill modal.",
         "id": "jobBuilder.criteriaForm.addSpecificity"
       },
@@ -2155,7 +3688,7 @@
         "id": "jobBuilder.skills.title"
       },
       {
-        "defaultMessage": "This is where you'll select the criteria that are required to do\r\n            this job effectively. Below are two bars that indicate a measurement\r\n            of your current skill selection.",
+        "defaultMessage": "This is where you'll select the criteria that are required to do this job effectively. Below are two bars that indicate a measurement of your current skill selection.",
         "description": "section description under title",
         "id": "jobBuilder.skills.description"
       },
@@ -2285,7 +3818,7 @@
         "id": "jobBuilder.skills.title.missingSkill"
       },
       {
-        "defaultMessage": "Building a skills list is a huge endeavour, and it's not\r\n  surprising that Talent Cloud's list doesn't have the skill\r\n  you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to\r\n  kick-off the discussion.",
+        "defaultMessage": "Building a skills list is a huge endeavour, and it's not surprising that Talent Cloud's list doesn't have the skill you're looking for. To help us expand our skill list, please {link}. Provide the skill's name, as well as a short description to kick-off the discussion.",
         "id": "jobBuilder.skills.instructions.missingSkills"
       },
       {
@@ -2334,7 +3867,7 @@
         "id": "jobBuilder.skills.title.keepItUp"
       },
       {
-        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to\r\n                go back and edit things or move to the next step if you're\r\n                happy with it.",
+        "defaultMessage": "Here's a preview of the Skills you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Body text of Keep it up! Modal",
         "id": "jobBuilder.skills.description.keepItUp"
       },
@@ -2369,7 +3902,7 @@
         "id": "jobBuilder.skills.previewModalConfirmLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/Skills/JobBuilderSkills.json"
+    "path": "resources/assets/js/components/JobBuilder/Skills/JobSkills.json"
   },
   {
     "descriptors": [
@@ -2419,7 +3952,7 @@
         "id": "jobBuilder.tasks.intro.fourth"
       },
       {
-        "defaultMessage": "You have {taskCount, plural,\r\n                      one {# task}\r\n                      other {# tasks}\r\n                    } added.",
+        "defaultMessage": "You have {taskCount, plural, one {# task} other {# tasks}} added.",
         "description": "Indicates how many tasks are present on the page.",
         "id": "jobBuilder.tasks.taskCount.some"
       },
@@ -2489,6 +4022,51 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Work Environment",
+        "description": "Header of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.title"
+      },
+      {
+        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
+        "description": "Description of job poster builder work environment step.",
+        "id": "jobBuilder.workEnv.stepDescription"
+      },
+      {
+        "defaultMessage": "Our Work Environment",
+        "description": "Section 1 of Job Poster Builder Work Environment Step",
+        "id": "jobBuilder.workEnv.ourWorkEnv"
+      },
+      {
+        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
+        "description": "Subtext 1 displayed of the our culture section.",
+        "id": "jobBuilder.workEnv.cultureSubtext1"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "button.copyToClipboard"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "button.copied"
+      },
+      {
+        "defaultMessage": "Save & Return to Job Details",
+        "description": "Label for Save & Return button on Work Environment form.",
+        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
+      },
+      {
+        "defaultMessage": "Save & Preview",
+        "description": "Label for work environment submit button.",
+        "id": "jobBuilder.workEnv.submitButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnv.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Share a little about your physical space, the technology used by your team, and the amenities close to your office. Check all that apply.",
         "description": "Section 1 description of Job Poster Builder Work Environment Step",
         "id": "jobBuilder.workEnv.ourWorkEnvDesc"
@@ -2497,6 +4075,11 @@
         "defaultMessage": "Team Size",
         "description": "The label displayed on the team size input.",
         "id": "jobBuilder.workEnv.teamSizeLabel"
+      },
+      {
+        "defaultMessage": "e.g. 10",
+        "description": "The placeholder displayed on the team size input.",
+        "id": "jobBuilder.workEnv.teamSizePlaceholder"
       },
       {
         "defaultMessage": "Our Physical Environment",
@@ -2772,49 +4355,9 @@
       {
         "defaultMessage": "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
         "id": "jobBuilder.collaborativeness.04.description"
-      },
-      {
-        "defaultMessage": "Work Environment",
-        "description": "Header of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.title"
-      },
-      {
-        "defaultMessage": "Applicants care a lot about the team they'll be working with and the physical workspace as well. Sharing information about these things help applicants determine if they'll be a good fit, and can reduce the number of \"wishful thinking\" applications that slow down the screening process.",
-        "description": "Description of job poster builder work environment step.",
-        "id": "jobBuilder.workEnv.stepDescription"
-      },
-      {
-        "defaultMessage": "Our Work Environment",
-        "description": "Section 1 of Job Poster Builder Work Environment Step",
-        "id": "jobBuilder.workEnv.ourWorkEnv"
-      },
-      {
-        "defaultMessage": "Now let applicants know more about the personality of your team and the type of work that you usually do.",
-        "description": "Subtext 1 displayed of the our culture section.",
-        "id": "jobBuilder.workEnv.cultureSubtext1"
-      },
-      {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
-        "defaultMessage": "Save & Return to Job Details",
-        "description": "Label for Save & Return button on Work Environment form.",
-        "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
-      },
-      {
-        "defaultMessage": "Save & Preview",
-        "description": "Label for work environment submit button.",
-        "id": "jobBuilder.workEnv.submitButtonLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvForm.json"
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.json"
   },
   {
     "descriptors": [
@@ -2824,7 +4367,7 @@
         "id": "jobBuilder.workEnv.greatStart"
       },
       {
-        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel\r\n                free to go back and edit things or move to the next step if\r\n                you're happy with it.",
+        "defaultMessage": "Here's a preview of the Job Information you just entered. Feel free to go back and edit things or move to the next step if you're happy with it.",
         "description": "Opening sentence for modal.",
         "id": "jobBuilder.workEnv.openingSentence"
       },
@@ -2854,7 +4397,127 @@
         "id": "jobBuilder.workEnvModal.confirmLabel"
       }
     ],
-    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvModal.json"
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvModal.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Open Concept",
+        "description": "Physical Environment checkbox group 'open concept' option.",
+        "id": "jobBuilder.workEnv.physEnv.openConcept"
+      },
+      {
+        "defaultMessage": "Private",
+        "description": "Physical Environment checkbox group 'private' option.",
+        "id": "jobBuilder.workEnv.physEnv.private"
+      },
+      {
+        "defaultMessage": "Assigned Seating",
+        "description": "Physical Environment checkbox group 'assigned seating' option.",
+        "id": "jobBuilder.workEnv.physEnv.assignedSeating"
+      },
+      {
+        "defaultMessage": "Lots of Windows",
+        "description": "Physical Environment checkbox group 'windows' option.",
+        "id": "jobBuilder.workEnv.physEnv.windows"
+      },
+      {
+        "defaultMessage": "Natural Light",
+        "description": "Physical Environment checkbox group 'natural light' option.",
+        "id": "jobBuilder.workEnv.physEnv.naturalLight"
+      },
+      {
+        "defaultMessage": "Suitable for Smudging",
+        "description": "Physical Environment checkbox group 'suitable for smudging' option.",
+        "id": "jobBuilder.workEnv.physEnv.smudging"
+      },
+      {
+        "defaultMessage": "Video Conferencing (e.g. Skype, Zoom)",
+        "description": "Technology checkbox group 'video conferencing' option.",
+        "id": "jobBuilder.workEnv.technology.videoConferencing"
+      },
+      {
+        "defaultMessage": "Collaboration (e.g. Slack, Hangouts)",
+        "description": "Technology checkbox group 'collaboration' option.",
+        "id": "jobBuilder.workEnv.technology.collaboration"
+      },
+      {
+        "defaultMessage": "File Sharing (e.g. Google Drive, Dropbox)",
+        "description": "Technology checkbox group 'file sharing' option.",
+        "id": "jobBuilder.workEnv.technology.fileSharing"
+      },
+      {
+        "defaultMessage": "Task Management (e.g. Trello, Asana)",
+        "description": "Technology checkbox group 'task management' option.",
+        "id": "jobBuilder.workEnv.technology.taskManagement"
+      },
+      {
+        "defaultMessage": "Version Control (e.g. Github, Gitlab)",
+        "description": "Technology checkbox group 'version control' option.",
+        "id": "jobBuilder.workEnv.technology.versionControl"
+      },
+      {
+        "defaultMessage": "Access to external, unfiltered Wi-Fi.",
+        "description": "Technology checkbox group 'access to external' option.",
+        "id": "jobBuilder.workEnv.technology.accessToExternal"
+      },
+      {
+        "defaultMessage": "Cafeteria On-site",
+        "description": "Amenities checkbox group 'cafeteria' option.",
+        "id": "jobBuilder.workEnv.amenities.cafeteria"
+      },
+      {
+        "defaultMessage": "Close to Transit",
+        "description": "Amenities checkbox group 'close to transit' option.",
+        "id": "jobBuilder.workEnv.amenities.closeToTransit"
+      },
+      {
+        "defaultMessage": "Walking Distance to Restaurants/Malls",
+        "description": "Amenities checkbox group 'restaurants' option.",
+        "id": "jobBuilder.workEnv.amenities.restaurants"
+      },
+      {
+        "defaultMessage": "Downtown",
+        "description": "Amenities checkbox group 'downtown' option.",
+        "id": "jobBuilder.workEnv.amenities.downtown"
+      },
+      {
+        "defaultMessage": "Nearby Fitness Centre",
+        "description": "Amenities checkbox group 'nearby fitness centre' option.",
+        "id": "jobBuilder.workEnv.amenities.fitnessCenter"
+      },
+      {
+        "defaultMessage": "Easy Access to Parking",
+        "description": "Amenities checkbox group 'parking' option.",
+        "id": "jobBuilder.workEnv.amenities.parking"
+      }
+    ],
+    "path": "resources/assets/js/components/JobBuilder/WorkEnv/WorkEnvFeatures.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }",
+        "description": "Text displaying how many applicants have applied to this Job.",
+        "id": "jobCard.applicants"
+      },
+      {
+        "defaultMessage": "Time with Manager: {managerTime, plural, one {# day} other {# days}}",
+        "description": "Text displaying how long a job post has been claimed by a manager.",
+        "id": "jobCard.managerTime"
+      },
+      {
+        "defaultMessage": "Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>",
+        "description": "Text displaying how long a job has been claimed by the current user.",
+        "id": "jobCard.userTime"
+      },
+      {
+        "defaultMessage": "No New Activity",
+        "description": "Fallback text for no new activity on a Job.",
+        "id": "jobCard.noActivity"
+      }
+    ],
+    "path": "resources/assets/js/components/JobCard.json"
   },
   {
     "descriptors": [
@@ -2960,6 +4623,203 @@
       }
     ],
     "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "View Application",
+        "description": "Label for 'View Application' link.",
+        "id": "responseScreening.bucket.viewApplicationLabel"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Label for 'View Profile' link.",
+        "id": "responseScreening.bucket.viewProfileLabel"
+      },
+      {
+        "defaultMessage": "Add/Edit Notes",
+        "description": "Label for 'Add/Edit Notes' button.",
+        "id": "responseScreening.bucket.notesLabel"
+      },
+      {
+        "defaultMessage": "Save Changes",
+        "description": "Label for 'Save Changes' button when changes are unsaved.",
+        "id": "responseScreening.bucket.saveLabel"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Label for 'Save Changes' button when form submission is in progress.",
+        "id": "responseScreening.bucket.savingLabel"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Label for 'Save Changes' button when form submission succeeded.",
+        "id": "responseScreening.bucket.savedLabel"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Label for 'Cancel' button.",
+        "id": "responseScreening.bucket.cancelLabel"
+      },
+      {
+        "defaultMessage": "Select a status...",
+        "description": "Default option text for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusDefault"
+      },
+      {
+        "defaultMessage": "Review Status",
+        "description": "Label for the Status dropdown.",
+        "id": "responseScreening.bucket.selectStatusLabel"
+      },
+      {
+        "defaultMessage": "Select a department...",
+        "description": "Default option text for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentDefault"
+      },
+      {
+        "defaultMessage": "Department Allocation",
+        "description": "Label for the Department dropdown.",
+        "id": "responseScreening.bucket.selectDepartmentLabel"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "Accessible text for screen reading accordion elements.",
+        "id": "responseScreening.bucket.accessibleViewLabel"
+      },
+      {
+        "defaultMessage": "There are currently no applicants in this bucket.",
+        "description": "Fallback label for a bucket with no applicants.",
+        "id": "responseScreening.bucket.noApplicants"
+      },
+      {
+        "defaultMessage": "Setting this candidate to allocated will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Allocated.",
+        "id": "responseScreening.bucket.confirmSetAllocated"
+      },
+      {
+        "defaultMessage": "Setting this candidate to not available will mark them as currently unavailable for all other streams. Are you sure you want to continue?",
+        "description": "Confirmation text when attempting to set a candidate as Not Available.",
+        "id": "responseScreening.bucket.confirmSetUnavailable"
+      },
+      {
+        "defaultMessage": "Please confirm this action",
+        "description": "Title for the confirmation dialog when making changes with side effects.",
+        "id": "responseScreening.bucket.confirmAction"
+      },
+      {
+        "defaultMessage": "Yes",
+        "description": "Confirmation button text for dialog",
+        "id": "responseScreening.bucket.yes"
+      },
+      {
+        "defaultMessage": "Email for Reference Check",
+        "description": "Text displayed on the title of the MicroReference Email modal.",
+        "id": "referenceEmailModal.title"
+      },
+      {
+        "defaultMessage": "To:",
+        "id": "referenceEmailModal.toLabel"
+      },
+      {
+        "defaultMessage": "From:",
+        "id": "referenceEmailModal.fromLabel"
+      },
+      {
+        "defaultMessage": "CC:",
+        "id": "referenceEmailModal.ccLabel"
+      },
+      {
+        "defaultMessage": "BCC:",
+        "id": "referenceEmailModal.bccLabel"
+      },
+      {
+        "defaultMessage": "Subject:",
+        "id": "referenceEmailModal.subjectLabel"
+      },
+      {
+        "defaultMessage": "Loading reference email...",
+        "id": "referenceEmailModal.nullState"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "referenceEmailModal.cancel"
+      },
+      {
+        "defaultMessage": "No Delivery Address",
+        "id": "referenceEmailModal.noDeliveryAddress"
+      },
+      {
+        "defaultMessage": "Send Email",
+        "id": "referenceEmailModal.confirm"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.directorEmailSending"
+      },
+      {
+        "defaultMessage": "Director email.",
+        "id": "responseScreening.applicant.directorEmailButton"
+      },
+      {
+        "defaultMessage": "Sending email...",
+        "id": "responseScreening.applicant.secondaryEmailSending"
+      },
+      {
+        "defaultMessage": "Reference email.",
+        "id": "responseScreening.applicant.secondaryEmailButton"
+      }
+    ],
+    "path": "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ApplicantBucket.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "words left",
+        "description": "Message displayed on word counter when user is under/matching the limit.",
+        "id": "textArea.wordsUnderLimit"
+      },
+      {
+        "defaultMessage": "words over limit",
+        "description": "Message displayed on word counter when user passes the limit.",
+        "id": "textArea.wordsOverLimit"
+      }
+    ],
+    "path": "resources/assets/js/components/TextArea.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Received: ",
+        "description": "Header for when Job Poster was created.",
+        "id": "openJobCard.reviewRequested"
+      },
+      {
+        "defaultMessage": "Date Unavailable.",
+        "description": "Error getting time review was requested.",
+        "id": "openJobCard.error"
+      },
+      {
+        "defaultMessage": "Hiring Managers: ",
+        "description": "Header before list of hiring managers.",
+        "id": "openJobCard.hiringManager"
+      },
+      {
+        "defaultMessage": "HR Advisors: ",
+        "description": "Header before list of HR advisors.",
+        "id": "openJobCard.hrAdvisors"
+      },
+      {
+        "defaultMessage": "Unclaimed",
+        "description": "Message displayed if not HR managers have claimed a job.",
+        "id": "openJobCard.unclaimed"
+      },
+      {
+        "defaultMessage": "Claim This Job",
+        "description": "Message indicating the event of clicking on the job card.",
+        "id": "openJobCard.claimJob"
+      }
+    ],
+    "path": "resources/assets/js/components/UnclaimedJobCard.json"
   },
   {
     "descriptors": [
@@ -3115,7 +4975,7 @@
       },
       {
         "defaultMessage": "Essential",
-        "description": "Title of an esential criteria type.",
+        "description": "Title of an essential criteria type.",
         "id": "criteriaType.essential"
       },
       {
@@ -3348,50 +5208,6 @@
         "id": "languageRequirement.context.expanded"
       },
       {
-        "defaultMessage": "Treasury Board of Canada Secretariat",
-        "id": "department.treasuryBoard"
-      },
-      {
-        "defaultMessage": "Natural Resources Canada",
-        "id": "department.naturalResources"
-      },
-      {
-        "defaultMessage": "Transport Canada",
-        "id": "department.transport"
-      },
-      {
-        "defaultMessage": "Environment and Climate Change Canada",
-        "id": "department.environmentAndClimateChange"
-      },
-      {
-        "defaultMessage": "Employment and Social Development Canada",
-        "id": "department.employmentAndSocialDevelopment"
-      },
-      {
-        "defaultMessage": "Global Affairs Canada",
-        "id": "department.globalAffairs"
-      },
-      {
-        "defaultMessage": "Canada Border Services Agency",
-        "id": "department.borderServices"
-      },
-      {
-        "defaultMessage": "Fisheries and Oceans Canada",
-        "id": "department.fisheriesAndOceans"
-      },
-      {
-        "defaultMessage": "Innovation, Science and Economic Development Canada",
-        "id": "department.innovationScience"
-      },
-      {
-        "defaultMessage": "Public Services and Procurement Canada",
-        "id": "department.publicServiceAndProcurement"
-      },
-      {
-        "defaultMessage": "Deparmtnet of National Defence",
-        "id": "department.nationalDefence"
-      },
-      {
         "defaultMessage": "Almost Always",
         "description": "The form label displayed on 'always' frequency options.",
         "id": "jobBuilder.details.frequencyAlwaysLabel"
@@ -3412,7 +5228,7 @@
         "id": "jobBuilder.details.frequencyOccasionallyLabel"
       },
       {
-        "defaultMessage": "Almost Never",
+        "defaultMessage": "Never",
         "description": "The form label displayed on 'never' frequency options.",
         "id": "jobBuilder.details.frequencyNeverLabel"
       },
@@ -3510,6 +5326,266 @@
         "defaultMessage": "AD - Administrative Services",
         "description": "Job Classification from list of Classifications",
         "id": "jobBuilder.details.classificationOptions.AD"
+      },
+      {
+        "defaultMessage": "EN-ENG - Engineering",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.EN-ENG"
+      },
+      {
+        "defaultMessage": "FI - Financial Management",
+        "description": "Job Classification from list of Classifications",
+        "id": "jobBuilder.details.classificationOptions.FI"
+      },
+      {
+        "defaultMessage": "Job Poster Builder",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.review"
+      },
+      {
+        "defaultMessage": "HR Summary Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.summary"
+      },
+      {
+        "defaultMessage": "HR Preview Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.hr.preview"
+      },
+      {
+        "defaultMessage": "Applicant Review Page",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.applications"
+      },
+      {
+        "defaultMessage": "Assessment Plan",
+        "description": "Location where the activity is located.",
+        "id": "activityfeed.locations.screeningPlan"
+      },
+      {
+        "defaultMessage": "Location not found",
+        "description": "Error message if location id is not recognized",
+        "id": "activityfeed.locations.notFound"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.general"
+      },
+      {
+        "defaultMessage": "Job Page Heading",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.heading"
+      },
+      {
+        "defaultMessage": "Basic Information",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.basicInfo"
+      },
+      {
+        "defaultMessage": "Impact",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.impact"
+      },
+      {
+        "defaultMessage": "Tasks",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.tasks"
+      },
+      {
+        "defaultMessage": "Skills",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.skills"
+      },
+      {
+        "defaultMessage": "Language Requirements",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.langRequirements"
+      },
+      {
+        "defaultMessage": "Environment",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.review.environment"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.general"
+      },
+      {
+        "defaultMessage": "Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.underConsideration"
+      },
+      {
+        "defaultMessage": "Optional Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.optionalConsideration"
+      },
+      {
+        "defaultMessage": "No Longer Under Consideration",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.applicantReview.notUnderConsideration"
+      },
+      {
+        "defaultMessage": "General",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.general"
+      },
+      {
+        "defaultMessage": "Assessment Plan Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.builder"
+      },
+      {
+        "defaultMessage": "Assessment Plan Summary",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.summary"
+      },
+      {
+        "defaultMessage": "Ratings Guide Builder",
+        "description": "Location of the activity.",
+        "id": "activityfeed.locations.screeningPlan.ratings"
+      },
+      {
+        "defaultMessage": "Employees Under Consideration",
+        "description": "Label for the 'Under Consideration' response screening bucket.",
+        "id": "responseScreening.buckets.consideration.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have volunteered to be placed in a team with a critical needs shortage. Employees in this category are: Pending initial application review ({iconReceived}), indicating that a submission has been received, but it has not yet been assessed by a member of the review team; Ready for reference checks and home-department approval ({iconReady}), indicating that the employee is heading to the Ready to Allocate category if references and approval are in order; and Further Assessment Required ({iconAssessment}), indicating that the review team is unsure of their qualifications for this role and is undertaking further assessment.",
+        "description": "Descriptive text for the 'Under Consideration' response screening bucket. Takes three icons (iconReceived, iconReady, and iconAssessment) as input.",
+        "id": "responseScreening.buckets.consideration.description"
+      },
+      {
+        "defaultMessage": "Ready to Allocate",
+        "description": "Label for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have the necessary skills for this stream of work, have successfully completed reference checks and have been given preliminary authorization to participate by a member of their management team. They are currently working in their substantive position, awaiting a request from a department with a critical talent gap.",
+        "description": "Descriptive text for the 'Ready to Allocate' response screening bucket.",
+        "id": "responseScreening.buckets.readyToAllocate.description"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Label for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have been allocated to a department. Their name has been removed from all other GC Reserve processes to which they have applied (and will appear in those processes under \"Not Currently Available\".) Following the completion of an allocation, employees may elect to be placed back in the Ready to Allocate category, should they be needed again.",
+        "description": "Descriptive text for the 'Allocated' response screening bucket.",
+        "id": "responseScreening.buckets.allocated.description"
+      },
+      {
+        "defaultMessage": "Currently Unavailable",
+        "description": "Label for the 'Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.title"
+      },
+      {
+        "defaultMessage": "Employees in this stream have been allocated to a department in need or have temporarily removed their names from consideration for a specific period of time (e.g. illness, family care needs), and wish to be considered for allocation at a later date. Employees in this category have been qualified for this talent stream, and will be placed back into the Ready to Allocate when they become available again. (If an employee permanently withdraws their name, their submission will be removed from the GC Talent Reserve.)",
+        "description": "Descriptive text for the 'Currently Unavailable' response screening bucket.",
+        "id": "responseScreening.buckets.unavailable.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Label for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.title"
+      },
+      {
+        "defaultMessage": "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
+        "description": "Descriptive text for the 'Does Not Qualify' response screening bucket.",
+        "id": "responseScreening.buckets.doesNotQualify.description"
+      },
+      {
+        "defaultMessage": "Does Not Qualify",
+        "description": "Select option text for the 'Does Not Qualify' review status.",
+        "id": "responseReviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Ready for Reference Check",
+        "description": "Select option text for the 'Ready for Reference Check' review status.",
+        "id": "responseReviewStatus.readyForReference"
+      },
+      {
+        "defaultMessage": "Ready to Allocate",
+        "description": "Select option text for the 'Ready to Allocate' review status.",
+        "id": "responseReviewStatus.readyToAllocate"
+      },
+      {
+        "defaultMessage": "Further Assessment Required",
+        "description": "Select option text for the 'Further Assessment Required' review status.",
+        "id": "responseReviewStatus.assessmentRequired"
+      },
+      {
+        "defaultMessage": "Allocated",
+        "description": "Select option text for the 'Allocated' review status.",
+        "id": "responseReviewStatus.allocated"
+      },
+      {
+        "defaultMessage": "Not Available",
+        "description": "Select option text for the 'Not Available' review status.",
+        "id": "responseReviewStatus.notAvailable"
+      },
+      {
+        "defaultMessage": "{title} from {issuedBy}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.awardHeading"
+      },
+      {
+        "defaultMessage": "{title} with {group}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.communityHeading"
+      },
+      {
+        "defaultMessage": "{areaOfStudy} at {institution}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.educationHeading"
+      },
+      {
+        "defaultMessage": "{title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.personalHeading"
+      },
+      {
+        "defaultMessage": "{title} at {organization}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.workHeading"
+      },
+      {
+        "defaultMessage": "Error: Unknown experience type.",
+        "description": "Accordion heading error when an unknown experience type is used.",
+        "id": "application.skills.unknownHeading"
+      },
+      {
+        "defaultMessage": "How I used {skillName} to achieve {title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.awardJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} with {group}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.communityJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} at {institution}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.educationJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} for {title}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.personalJustificationLabel"
+      },
+      {
+        "defaultMessage": "How I used {skillName} at {organization}",
+        "description": "Accordion heading for experience on the Skills page.",
+        "id": "application.skills.workJustificationLabel"
+      },
+      {
+        "defaultMessage": "Error: Unknown experience type.",
+        "description": "Accordion heading error when an unknown experience type is used.",
+        "id": "application.skills.unknownJustificationLabel"
       }
     ],
     "path": "resources/assets/js/models/localizedConstants.json"

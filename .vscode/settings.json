@@ -15,5 +15,5 @@
     "source.fixAll.eslint": true
   },
   "editor.formatOnSave": false,
-  "editor.codeActionsOnSaveTimeout": 1000
+  "editor.codeActionsOnSaveTimeout": 1500
 }

@@ -1,0 +1,66 @@
+<form action="{{ button.url }}" method="POST" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-form">
+    {{ csrf_field() }}
+    <button
+    {% if is_unclaim_job %}
+        type="submit"
+    {% else %}
+        type="button"
+        data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}"
+    {% endif %}
+    {% if button.style == "stop" %}
+        data-c-button="outline(stop)"
+    {% elseif button.style == "go" %}
+        data-c-button="solid(go)"
+    {% else %}
+        data-c-button="solid(c1)"
+    {% endif %}
+        data-c-radius="rounded"
+        data-c-margin="bottom(1)"
+    {% if button.disabled %}
+        disabled
+    {% endif %}
+    >
+        {{ button.text }}
+    </button>
+
+    </form>
+
+    {% if not is_unclaim_job %}
+    <div aria-hidden="true" aria-labelledby="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title" data-c-dialog data-c-dialog-escapable data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}" data-c-padding="top(double) bottom(double)" role="dialog">
+        <div data-c-background="white(100)" data-c-radius="rounded">
+            <div data-c-background="c1(100)" data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                <h5 data-c-colour="white" data-c-font-size="h4" id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-title">{{ button.text }}</h5>
+            </div>
+            <div data-c-border="bottom(thin, solid, black)" data-c-padding="normal">
+                    <p data-c-font-size="h4">{{ confirmation_modal.change_job_status }}</p>
+                    <p data-c-grid="gutter middle" data-c-padding="normal">
+                        <span data-c-alignment="base(right)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.from_status }}</span>
+                        <i data-c-grid-item="base(1of5)" aria-hidden="true" class="fas fa-arrow-right" title="to"></i>
+                        <span data-c-visibility="invisible">{{ confirmation_modal.to }}</span>
+                        <span data-c-alignment="base(left)" data-c-grid-item="base(2of5)" data-c-font-size="h4" data-c-font-weight="bold">{{ button.to_status }}</span>
+                    </p>
+
+            </div>
+            <div data-c-padding="normal">
+                <div data-c-grid="gutter middle">
+                    <div data-c-grid-item="base(1of2)">
+                        <div>
+                            <button type="button" data-c-button="solid(c1)" data-c-radius="rounded" data-c-dialog-action="close" data-c-dialog-id="{{ button.text|replace({' & ': '-', ' ': '-'}) }}">
+                                    {{ confirmation_modal.cancel }}
+                            </button>
+                        </div>
+                    </div>
+                    <div data-c-grid-item="base(1of2)">
+                        <div data-c-alignment="base(right)">
+                            <button type="submit" form="{{ button.text|replace({' & ': '-', ' ': '-'}) }}-form" data-c-button="solid(go)" data-c-radius="rounded" data-c-dialog-action="close">
+                                    {{ confirmation_modal.confirm }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+

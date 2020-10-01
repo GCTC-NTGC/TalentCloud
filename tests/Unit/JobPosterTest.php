@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Comment;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Lang;
 use Jenssegers\Date\Date;
 
 use App\Models\JobPoster;
+use App\Models\Lookup\JobPosterStatus;
 
 class JobPosterTest extends TestCase
 {
@@ -20,15 +22,16 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsOpen() : void
+    public function testJobPosterIsOpen(): void
     {
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $jobPoster = factory(JobPoster::class)->states('live')->create();
         $this->assertTrue($jobPoster->isOpen());
 
-        $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', 'now');
-        $this->assertFalse($jobPoster->isOpen());
+        $jobPoster->job_poster_status_id = JobPosterStatus::where('key', 'assessment')->first()->id;
+        $jobPoster->save();
+        $this->assertFalse($jobPoster->fresh()->isOpen());
 
-        $jobPoster = factory(JobPoster::class)->states('draft')->make();
+        $jobPoster = factory(JobPoster::class)->states('draft')->create();
         $this->assertFalse($jobPoster->isOpen());
     }
 
@@ -37,47 +40,27 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterIsClosed() : void
+    public function testJobPosterIsClosed(): void
     {
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
+        $jobPoster = factory(JobPoster::class)->states('live')->create();
         $this->assertFalse($jobPoster->isClosed());
 
-        $jobPoster->close_date_time = $this->faker->dateTimeBetween('-1 weeks', '-5 minutes');
-        $this->assertTrue($jobPoster->isClosed());
+        $jobPoster->job_poster_status_id = JobPosterStatus::where('key', 'assessment')->first()->id;
+        $jobPoster->save();
+        $this->assertTrue($jobPoster->fresh()->isClosed());
 
-        $jobPoster = factory(JobPoster::class)->states('draft')->make();
-        $this->assertFalse($jobPoster->isClosed());
+        $jobPoster = factory(JobPoster::class)->states('draft')->create();
+        $this->assertFalse($jobPoster->fresh()->isClosed());
     }
-
-    /**
-     * Test that JobPoster->status() behaves properly
-     *
-     * @return void
-     */
-    public function testJobPosterStatus() : void
-    {
-        $jobPoster = factory(JobPoster::class)->states('draft')->make();
-        $this->assertEquals('draft', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('published')->make();
-        $this->assertEquals('published', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('closed')->make();
-        $this->assertEquals('closed', $jobPoster->status());
-
-        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
-        $this->assertEquals('submitted', $jobPoster->status());
-    }
-
 
     /**
      * Test that JobPoster->timeRemaining() behaves properly
      *
      * @return void
      */
-    public function testJobPosterTimeRemaining() : void
+    public function testJobPosterTimeRemaining(): void
     {
-        $jobPoster = factory(JobPoster::class)->make(
+        $jobPoster = factory(JobPoster::class)->create(
             [
                 'close_date_time' => date('Y-m-d H:i:s', strtotime('-1 hour'))
             ]
@@ -98,9 +81,9 @@ class JobPosterTest extends TestCase
      *
      * @return void
      */
-    public function testJobPosterApplyBy() : void
+    public function testJobPosterApplyBy(): void
     {
-        $jobPoster = factory(JobPoster::class)->make();
+        $jobPoster = factory(JobPoster::class)->create();
         $date = new Date($jobPoster->close_date_time);
         $date->setTimezone(JobPoster::TIMEZONE);
         $this->assertEquals(
@@ -108,34 +91,16 @@ class JobPosterTest extends TestCase
             $jobPoster->applyBy()['date'] . $jobPoster->applyBy()['time']
         );
     }
-
     /**
-     * Ensure the published mutator functions correctly.
+     * Test one-to-many relationship between Job Poster and comments
      *
      * @return void
      */
-    public function testJobPosterPublishedMutator() : void
+    public function testJobPosterHasManyComments()
     {
-        // Open but not yet published.
-        $jobPoster = factory(JobPoster::class)->make();
-        $this->assertEquals(null, $jobPoster->published_at);
+        $job_poster = factory(JobPoster::class)->create();
+        $comment = factory(Comment::class)->create(['job_poster_id' => $job_poster->id]);
 
-        $jobPoster->published = true;
-        $jobPoster->save();
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
-
-        $this->assertNotEquals($jobPoster->open_date_time, $jobPoster->published_at);
-
-        // Not yet open and not yet published.
-        $jobPoster = factory(JobPoster::class)->states('review_requested')->make();
-        $this->assertEquals(null, $jobPoster->published_at);
-
-        $jobPoster->published = true;
-        $jobPoster->save();
-        $jobPoster->refresh();
-
-        $this->assertInstanceOf(Date::class, $jobPoster->published_at);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $job_poster->comments);
     }
 }
