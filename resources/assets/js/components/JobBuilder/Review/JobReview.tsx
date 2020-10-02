@@ -752,8 +752,9 @@ interface JobReviewProps {
   handleReturn: () => void;
 }
 
-export const JobReview: React.FunctionComponent<JobReviewProps &
-  WrappedComponentProps> = ({
+export const JobReview: React.FunctionComponent<
+  JobReviewProps & WrappedComponentProps
+> = ({
   job,
   manager,
   tasks,
@@ -860,7 +861,7 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             >
               <FormattedMessage
                 id="jobBuilder.review.button.submit"
-                defaultMessage="Looks good!"
+                defaultMessage="Save and Return to Summary"
                 description="Label of Job Review Submission Button"
               />
             </button>
