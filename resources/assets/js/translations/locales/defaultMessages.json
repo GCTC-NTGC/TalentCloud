@@ -3413,7 +3413,7 @@
         "id": "jobBuilder.review.button.return"
       },
       {
-        "defaultMessage": "Looks good!",
+        "defaultMessage": "Save and Return to Summary",
         "description": "Label of Job Review Submission Button",
         "id": "jobBuilder.review.button.submit"
       },

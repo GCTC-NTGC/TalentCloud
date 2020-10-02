@@ -132,12 +132,10 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
         </div>
       )}
       <div data-c-grid="gutter">
-        <div data-c-grid-item="base(1of1)">
-          <hr data-c-margin="top(normal) bottom(normal)" />
-        </div>
         <div
           data-c-alignment="base(centre) tp(left)"
           data-c-grid-item="tp(1of2)"
+          data-c-margin="top(normal) bottom(normal)"
         >
           <a href={hrJobSummary(locale, jobId)} title="">
             <FormattedMessage
