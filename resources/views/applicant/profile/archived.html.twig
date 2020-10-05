@@ -4,7 +4,7 @@
     Applicant: Profile - Page Archived Warning
 
 ============================================================================= #}
-<div aria-hidden="true" aria-describedby="example-dialog-01-description" aria-labelledby="example-dialog-01-title" data-c-padding="tb(2)">
+<div aria-hidden="true" aria-describedby="dialog-01-description" aria-labelledby="dialog-01-title" data-c-padding="tb(2)">
     <div
         data-c-background="white"
         data-c-border="all(thin, solid, c3)"
@@ -14,19 +14,42 @@
             <!-- Title -->
             <p data-c-color="c3" data-c-font-size="h4" data-c-dialog-focus><b>{{archived.page_going_away}}</b></p>
         </div>
-        <div data-c-padding="left(1)">
+        <div data-c-padding="left(1)" data-c-grid="gutter">
             <!-- Main content -->
-            <div id="example-dialog-01-description">
-                <p data-c-color="c3">{{archived.page_going_away_desc}}</p>
+            <div data-c-grid-item="tp(1of1) tl(1of8)" id="archived-icon-div">
+                <img id="archived-icon"
+                    alt="A computer and keyboard with a spider crawling in from the top right of the screen"
+                    src="/images/icon-archived-laptop-old.svg">
+                </img>
             </div>
+            <div data-c-grid-item="tp(1of1) tl(7of8)" id="archived-message-div">
+                <p id="archived-message" data-c-color="c3">{{archived.page_going_away_desc}}</p>
+            </div>
+
         </div>
+        <!--
         <div data-c-padding="left(1)">
-            <!-- For more information -->
             <div data-c-grid="gutter(all, 1) middle">
                 <div data-c-grid-item="base(1of2)">
                     <p data-c-color="c3" data-c-margin="top(.5)"><u>{{archived.page_going_away_read_more}}</u></p>
             </div>
         </div>
+        -->
     </div>
 </div>
 <br />
+
+<style>
+    img#archived-icon {
+        height: 90px;
+        width: 90px;
+        filter: invert(11%) sepia(97%) saturate(5013%) hue-rotate(335deg) brightness(87%) contrast(107%);
+        display: inline-block;
+    }
+    p#archived-message {
+        display: inline;
+    }
+    div#archived-message-div {
+        margin-top: 15px;
+    }
+</style>
