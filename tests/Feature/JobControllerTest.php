@@ -2,19 +2,19 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Mail\JobPosterReviewRequested;
+use App\Models\Applicant;
+use App\Models\HrAdvisor;
+use App\Models\JobPoster;
+
+use App\Models\Manager;
+
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
-
 use Jenssegers\Date\Date;
-
-use App\Models\Applicant;
-use App\Models\JobPoster;
-use App\Models\Manager;
-use App\Models\User;
-use App\Mail\JobPosterReviewRequested;
-use App\Models\HrAdvisor;
+use Tests\TestCase;
 
 class JobControllerTest extends TestCase
 {
@@ -101,8 +101,8 @@ class JobControllerTest extends TestCase
             ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee(e($this->jobPoster->title));
-        $response->assertDontSeeText(e($this->otherJobPoster->title));
+        $response->assertSee($this->jobPoster->title);
+        $response->assertDontSeeText($this->otherJobPoster->title);
     }
 
     /**
