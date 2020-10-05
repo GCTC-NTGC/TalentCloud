@@ -4,7 +4,7 @@
     Applicant: Profile - Page Archived Warning
 
 ============================================================================= #}
-<div aria-hidden="true" aria-describedby="dialog-01-description" aria-labelledby="dialog-01-title" data-c-padding="tb(2)">
+<div aria-hidden="true" id="archived-component" aria-describedby="dialog-01-description" aria-labelledby="dialog-01-title" data-c-padding="tb(2)">
     <div
         data-c-background="white"
         data-c-border="all(thin, solid, c3)"
@@ -40,16 +40,8 @@
 <br />
 
 <style>
+    /* Most of the styling is in archived.html.twig, but scss compile breaks due to this line */
     img#archived-icon {
-        height: 90px;
-        width: 90px;
         filter: invert(11%) sepia(97%) saturate(5013%) hue-rotate(335deg) brightness(87%) contrast(107%);
-        display: inline-block;
-    }
-    p#archived-message {
-        display: inline;
-    }
-    div#archived-message-div {
-        margin-top: 15px;
     }
 </style>
