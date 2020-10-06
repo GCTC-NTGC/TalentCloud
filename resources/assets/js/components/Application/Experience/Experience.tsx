@@ -111,12 +111,9 @@ interface ExperienceProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleContinue: () => void;
-  handleQuit: () => void;
-  handleReturn: () => void;
 }
 
-const MyExperience: React.FunctionComponent<ExperienceProps> = ({
+export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
   educationStatuses,
   educationTypes,
@@ -130,9 +127,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
-  handleContinue,
-  handleQuit,
-  handleReturn,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -592,46 +586,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           </p>
         )}
       </div>
-      <div data-c-container="medium" data-c-padding="tb(2)">
-        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
-        <div data-c-grid="gutter">
-          <div
-            data-c-alignment="base(centre) tp(left)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleReturn()}
-            >
-              {intl.formatMessage(navigationMessages.return)}
-            </button>
-          </div>
-          <div
-            data-c-alignment="base(centre) tp(right)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleQuit()}
-            >
-              {intl.formatMessage(navigationMessages.quit)}
-            </button>
-            <button
-              data-c-button="solid(c1)"
-              data-c-radius="rounded"
-              data-c-margin="left(1)"
-              type="button"
-              onClick={(): void => handleContinue()}
-            >
-              {intl.formatMessage(navigationMessages.continue)}
-            </button>
-          </div>
-        </div>
-      </div>
 
       <div data-c-dialog-overlay={isModalVisible.visible ? "active" : ""} />
       <EducationExperienceModal
@@ -750,4 +704,90 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   );
 };
 
-export default MyExperience;
+interface ExperienceStepProps extends ExperienceProps {
+  handleContinue: () => void;
+  handleQuit: () => void;
+  handleReturn: () => void;
+}
+
+export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
+  experiences,
+  educationStatuses,
+  educationTypes,
+  experienceSkills,
+  criteria,
+  skills,
+  handleSubmitExperience,
+  handleDeleteExperience,
+  jobId,
+  jobClassificationId,
+  jobEducationRequirements,
+  recipientTypes,
+  recognitionTypes,
+  handleContinue,
+  handleQuit,
+  handleReturn,
+}) => {
+  const intl = useIntl();
+  return (
+    <>
+      <MyExperience
+        experiences={experiences}
+        educationStatuses={educationStatuses}
+        educationTypes={educationTypes}
+        experienceSkills={experienceSkills}
+        criteria={criteria}
+        skills={skills}
+        jobId={jobId}
+        jobClassificationId={jobClassificationId}
+        jobEducationRequirements={jobEducationRequirements}
+        recipientTypes={recipientTypes}
+        recognitionTypes={recognitionTypes}
+        handleSubmitExperience={handleSubmitExperience}
+        handleDeleteExperience={handleDeleteExperience}
+      />
+      <div data-c-container="medium" data-c-padding="tb(2)">
+        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+        <div data-c-grid="gutter">
+          <div
+            data-c-alignment="base(centre) tp(left)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleReturn()}
+            >
+              {intl.formatMessage(navigationMessages.return)}
+            </button>
+          </div>
+          <div
+            data-c-alignment="base(centre) tp(right)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleQuit()}
+            >
+              {intl.formatMessage(navigationMessages.quit)}
+            </button>
+            <button
+              data-c-button="solid(c1)"
+              data-c-radius="rounded"
+              data-c-margin="left(1)"
+              type="button"
+              onClick={(): void => handleContinue()}
+            >
+              {intl.formatMessage(navigationMessages.continue)}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ExperienceStep;

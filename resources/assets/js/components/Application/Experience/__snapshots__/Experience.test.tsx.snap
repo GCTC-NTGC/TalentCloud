@@ -16,7 +16,7 @@ exports[`Application Timeline - My Experience should render Experience Intro 1`]
 </IntlProvider>
 `;
 
-exports[`Application Timeline - My Experience should render MyExperience with items 1`] = `
+exports[`Application Timeline - My Experience should render ExperienceStep with items 1`] = `
 <IntlProvider
   defaultFormats={Object {}}
   defaultLocale="en"
@@ -26,7 +26,7 @@ exports[`Application Timeline - My Experience should render MyExperience with it
   onError={[Function]}
   textComponent={Symbol(react.fragment)}
 >
-  <MyExperience
+  <Component
     criteria={
       Array [
         Object {
@@ -574,7 +574,7 @@ If you have on-the-job learning or other non-conventional training that you beli
 </IntlProvider>
 `;
 
-exports[`Application Timeline - My Experience should render MyExperience without any experiences 1`] = `
+exports[`Application Timeline - My Experience should render ExperienceStep without any experiences 1`] = `
 <IntlProvider
   defaultFormats={Object {}}
   defaultLocale="en"
@@ -584,7 +584,7 @@ exports[`Application Timeline - My Experience should render MyExperience without
   onError={[Function]}
   textComponent={Symbol(react.fragment)}
 >
-  <MyExperience
+  <Component
     criteria={
       Array [
         Object {

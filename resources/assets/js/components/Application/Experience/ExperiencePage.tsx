@@ -12,7 +12,7 @@ import {
 } from "../../../helpers/routes";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import Experience, { ExperienceSubmitData } from "./Experience";
+import { ExperienceStep, ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
@@ -215,7 +215,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       )}
       {/* Note: if showLoadingState is false, job must not be null, but TypeScript can't seem to infer that. */}
       {!showLoadingState && job !== null && (
-        <Experience
+        <ExperienceStep
           experiences={experiences}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
