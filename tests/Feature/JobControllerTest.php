@@ -72,7 +72,7 @@ class JobControllerTest extends TestCase
     {
         $response = $this->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['login_link_title']);
     }
 
     /**
@@ -87,7 +87,7 @@ class JobControllerTest extends TestCase
         $response = $this->actingAs($applicant->user)
             ->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['apply_link_title']);
     }
 
     /**
