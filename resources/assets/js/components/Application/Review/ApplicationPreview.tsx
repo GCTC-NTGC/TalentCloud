@@ -296,6 +296,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-all-experience"
         data-experience-view="experience"
         onClick={handleViewClick}
+        key="experienceButton"
       >
         <FormattedMessage
           id="application.review.experienceViewButton"
@@ -315,6 +316,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-skill-experience"
         data-experience-view="skills"
         onClick={handleViewClick}
+        key="skillsButton"
       >
         <FormattedMessage
           id="application.review.skillsViewButton"
@@ -334,6 +336,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-education-experience"
         data-experience-view="education"
         onClick={handleViewClick}
+        key="educationButton"
       >
         <FormattedMessage
           id="application.review.educationViewButton"
@@ -356,7 +359,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       }
     });
 
-    return <>{...buttonView}</>;
+    return <>{buttonView}</>;
   };
 
   return (
@@ -710,14 +713,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView ? (
-              <FormattedMessage
-                id="application.review.accountSettingsHeading"
-                defaultMessage="Account Settings"
-              />
-            ) : (
-              intl.formatMessage(managerViewHeaders.accountSettings)
-            )}
+            {intl.formatMessage(managerViewHeaders.accountSettings)}
           </h3>
         </div>
         {!managerView && (
