@@ -531,7 +531,9 @@ const JobWorkEnv = ({
       .filter(notEmpty)
       .map((item): string => intl.formatMessage(item.subtext))
       .join(" ");
-    return cultureSummary;
+    return cultureSummary !== ""
+      ? cultureSummary
+      : intl.formatMessage(formMessages.cultureSummaryDefault); // needs to be translated
   };
 
   const updateValuesAndReturn = (values: JobWorkEnvValues): void => {
