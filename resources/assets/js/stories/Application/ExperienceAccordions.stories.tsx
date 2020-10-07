@@ -336,15 +336,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceAwardAccordion
-            title={text("Award Title", experience.title, groupIds.details)}
-            recipient={text("Recipient", "Individual", groupIds.details)}
-            issuer={text("Issuer", experience.issued_by, groupIds.details)}
-            scope={text("Scope", "International", groupIds.details)}
-            awardedDate={myDateKnob(
-              "Awarded Date",
-              experience.awarded_date,
-              groupIds.details,
-            )}
+            experience={experience}
             relevantSkills={[fakeExperienceSkill1(), fakeExperienceSkill5()]}
             skills={fakeSkills()}
             irrelevantSkillCount={number(

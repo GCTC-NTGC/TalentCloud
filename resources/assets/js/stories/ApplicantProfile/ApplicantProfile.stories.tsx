@@ -22,15 +22,9 @@ import {
 import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
-const stories = storiesOf("Applicant|Profile", module).addDecorator(withIntl);
-
-function sleep(ms): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const promiseAction = (text: string) => async () => {
-  sleep(1000);
-  action(text)();
-};
+const stories = storiesOf("Applicant Profile|Experience", module).addDecorator(
+  withIntl,
+);
 
 const experiences = fakeExperiences();
 const experienceSkills = fakeExperienceSkills();
@@ -90,7 +84,7 @@ const handleDeleteExperience = async (
 };
 
 stories.add(
-  "Profile",
+  "Basic",
   (): React.ReactElement => (
     <ApplicantProfile
       experiences={experiences}

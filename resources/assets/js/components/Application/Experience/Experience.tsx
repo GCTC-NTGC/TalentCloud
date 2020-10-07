@@ -366,27 +366,15 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         return (
           <ExperienceAwardAccordion
             key={`${experience.id}-${experience.type}`}
-            awardedDate={experience.awarded_date}
+            experience={experience}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
             isEducationJustification={experience.is_education_requirement}
-            issuer={experience.issued_by}
-            recipient={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recipient_type",
-            )}
             relevantSkills={relevantSkills}
             skills={skills}
-            scope={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recognition_type",
-            )}
             showButtons
             showSkillDetails
-            title={experience.title}
           />
         );
       default:

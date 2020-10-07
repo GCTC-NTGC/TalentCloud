@@ -125,19 +125,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_award":
       return (
         <ExperienceAwardAccordion
-          title={experience.title}
-          recipient={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recipient_type",
-          )}
-          issuer={experience.issued_by}
-          scope={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recognition_type",
-          )}
-          awardedDate={experience.awarded_date}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
