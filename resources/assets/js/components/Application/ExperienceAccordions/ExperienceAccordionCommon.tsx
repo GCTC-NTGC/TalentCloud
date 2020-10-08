@@ -8,7 +8,7 @@ import {
 } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 import { ExperienceSkill, Skill } from "../../../models/types";
-import { hasKey } from "../../../helpers/queries";
+import { getId, hasKey, mapToObject } from "../../../helpers/queries";
 
 export const titleBarDateRange = (
   startDate: Date,
@@ -342,5 +342,106 @@ export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
         <div data-c-padding="lr(2)">{children}</div>
       </div>
     </div>
+  );
+};
+
+interface ApplicationExperienceAccordionProps {
+  title: ReactNode | string;
+  subtitle: string;
+  iconClass: string;
+  relevantSkills: ExperienceSkill[];
+  skills: Skill[];
+  irrelevantSkillCount: number;
+  isEducationJustification: boolean;
+  showSkillDetails: boolean;
+  showButtons: boolean;
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+}
+
+export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccordionProps> = ({
+  title,
+  subtitle,
+  iconClass,
+  relevantSkills,
+  skills,
+  irrelevantSkillCount,
+  isEducationJustification,
+  showSkillDetails,
+  showButtons,
+  handleDelete,
+  handleEdit,
+  children,
+}) => {
+  return (
+    <ExperienceAccordionWrapper
+      title={title}
+      subtitle={subtitle}
+      relatedSkillCount={relevantSkills.length}
+      isEducationJustification={isEducationJustification}
+      iconClass={iconClass}
+    >
+      {children}
+      <ExperienceAccordionSkills
+        relevantSkills={relevantSkills}
+        irrelevantSkillCount={irrelevantSkillCount}
+        skillsById={mapToObject(skills, getId)}
+        showSkillDetails={showSkillDetails}
+      />
+      {isEducationJustification && <ExperienceAccordionEducation />}
+      {showButtons && (
+        <ExperienceAccordionButtons
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      )}
+    </ExperienceAccordionWrapper>
+  );
+};
+
+interface ProfileExperienceAccordionProps {
+  title: ReactNode | string;
+  subtitle: string;
+  iconClass: string;
+  relevantSkills: ExperienceSkill[];
+  skillsById: { [id: number]: Skill };
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+  handleEditSkill: (experienceSkillId: number) => void;
+}
+
+export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperienceAccordionProps> = ({
+  title,
+  subtitle,
+  iconClass,
+  relevantSkills,
+  skillsById,
+  handleDelete,
+  handleEdit,
+  handleEditSkill,
+  children,
+}) => {
+  return (
+    <ExperienceAccordionWrapper
+      title={title}
+      subtitle={subtitle}
+      relatedSkillCount={relevantSkills.length}
+      isEducationJustification={false}
+      iconClass={iconClass}
+    >
+      {children}
+      <ExperienceAccordionButtons
+        handleEdit={handleEdit}
+        handleDelete={handleDelete}
+      />
+      <hr data-c-hr="thin(gray)" data-c-margin="bottom(1) top(1)" />
+      <ExperienceAccordionSkills
+        relevantSkills={relevantSkills}
+        irrelevantSkillCount={0}
+        skillsById={skillsById}
+        showSkillDetails
+        handleEditSkill={handleEditSkill}
+      />
+    </ExperienceAccordionWrapper>
   );
 };

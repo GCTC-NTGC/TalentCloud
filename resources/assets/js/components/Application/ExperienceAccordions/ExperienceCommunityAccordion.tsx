@@ -8,13 +8,10 @@ import {
   ExperienceSkill,
   Skill,
 } from "../../../models/types";
-import { mapToObject, getId } from "../../../helpers/queries";
 import {
-  ExperienceAccordionWrapper,
-  ExperienceAccordionSkills,
-  ExperienceAccordionEducation,
-  ExperienceAccordionButtons,
   titleBarDateRange,
+  ApplicationExperienceAccordion,
+  ProfileExperienceAccordion,
 } from "./ExperienceAccordionCommon";
 
 const ExperienceCommunityDetails: React.FC<{
@@ -98,12 +95,61 @@ const ExperienceCommunityDetails: React.FC<{
   );
 };
 
+interface ProfileCommunityAccordionProps {
+  experience: ExperienceCommunity;
+  relevantSkills: ExperienceSkill[];
+  skillsById: { [id: number]: Skill };
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+  handleEditSkill: (experieSkillId: number) => void;
+}
+
+export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps> = ({
+  experience,
+  relevantSkills,
+  skillsById,
+  handleDelete,
+  handleEdit,
+  handleEditSkill,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  const accordionTitle = intl.formatMessage(
+    accordionMessages.communityHeading,
+    {
+      title: experience.title,
+      group: experience.group,
+      b: (value) => <span data-c-font-weight="bold">{value}</span>,
+    },
+  );
+  const subtitle = titleBarDateRange(
+    experience.start_date,
+    experience.end_date,
+    experience.is_active,
+    intl,
+    locale,
+  );
+  return (
+    <ProfileExperienceAccordion
+      title={accordionTitle}
+      subtitle={subtitle}
+      iconClass="fa-people-carry"
+      relevantSkills={relevantSkills}
+      skillsById={skillsById}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
+      handleEditSkill={handleEditSkill}
+    >
+      <ExperienceCommunityDetails experience={experience} />
+    </ProfileExperienceAccordion>
+  );
+};
+
 interface ExperienceCommunityAccordionProps {
   experience: ExperienceCommunity;
   relevantSkills: ExperienceSkill[];
   skills: Skill[];
   irrelevantSkillCount: number;
-  isEducationJustification: boolean;
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
@@ -115,7 +161,6 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   relevantSkills,
   skills,
   irrelevantSkillCount,
-  isEducationJustification,
   showSkillDetails,
   showButtons,
   handleDelete,
@@ -139,28 +184,21 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
     locale,
   );
   return (
-    <ExperienceAccordionWrapper
+    <ApplicationExperienceAccordion
       title={accordionTitle}
       subtitle={subtitle}
-      relatedSkillCount={relevantSkills.length}
-      isEducationJustification={isEducationJustification}
       iconClass="fa-people-carry"
+      relevantSkills={relevantSkills}
+      skills={skills}
+      irrelevantSkillCount={irrelevantSkillCount}
+      isEducationJustification={experience.is_education_requirement}
+      showSkillDetails={showSkillDetails}
+      showButtons={showButtons}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
     >
       <ExperienceCommunityDetails experience={experience} />
-      <ExperienceAccordionSkills
-        relevantSkills={relevantSkills}
-        irrelevantSkillCount={irrelevantSkillCount}
-        skillsById={mapToObject(skills, getId)}
-        showSkillDetails={showSkillDetails}
-      />
-      {isEducationJustification && <ExperienceAccordionEducation />}
-      {showButtons && (
-        <ExperienceAccordionButtons
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
-      )}
-    </ExperienceAccordionWrapper>
+    </ApplicationExperienceAccordion>
   );
 };
 

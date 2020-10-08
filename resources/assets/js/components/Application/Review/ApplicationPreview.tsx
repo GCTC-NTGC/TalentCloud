@@ -143,7 +143,6 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}

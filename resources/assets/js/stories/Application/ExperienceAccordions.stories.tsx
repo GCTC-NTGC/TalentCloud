@@ -291,11 +291,6 @@ stories.add(
               {},
               groupIds.details,
             )}
-            isEducationJustification={boolean(
-              "Is Education Justification?",
-              false,
-              groupIds.switches,
-            )}
             showSkillDetails={boolean(
               "Show skill details?",
               false,
