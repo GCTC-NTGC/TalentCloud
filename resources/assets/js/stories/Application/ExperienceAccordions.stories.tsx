@@ -282,24 +282,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceCommunityAccordion
-            title={text("Job Title / Role", community.title, groupIds.details)}
-            group={text("Group", community.group, groupIds.details)}
-            project={text("Project", community.project, groupIds.details)}
-            startDate={myDateKnob(
-              "Start Date",
-              community.start_date,
-              groupIds.details,
-            )}
-            endDate={myDateKnob(
-              "End Date",
-              community.end_date,
-              groupIds.details,
-            )}
-            isActive={boolean(
-              "Is Active",
-              community.is_active,
-              groupIds.details,
-            )}
+            experience={community}
             relevantSkills={[fakeExperienceSkill5()]}
             skills={fakeSkills()}
             irrelevantSkillCount={number(

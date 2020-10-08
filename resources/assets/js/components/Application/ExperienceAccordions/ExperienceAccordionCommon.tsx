@@ -16,25 +16,16 @@ export const titleBarDateRange = (
   isActive: boolean,
   intl: IntlShape,
   locale: Locales,
-): React.ReactElement => {
-  let dateRange;
-
+): string => {
   if (isActive || endDate === null) {
-    dateRange = intl.formatMessage(accordionMessages.dateRangeCurrent, {
+    return intl.formatMessage(accordionMessages.dateRangeCurrent, {
       startDate: readableDate(locale, startDate),
-    });
-  } else {
-    dateRange = intl.formatMessage(accordionMessages.dateRange, {
-      startDate: readableDate(locale, startDate),
-      endDate: readableDate(locale, endDate),
     });
   }
-
-  return (
-    <p data-c-margin="top(quarter)" data-c-colour="c1" data-c-font-size="small">
-      {dateRange}
-    </p>
-  );
+  return intl.formatMessage(accordionMessages.dateRange, {
+    startDate: readableDate(locale, startDate),
+    endDate: readableDate(locale, endDate),
+  });
 };
 
 interface ExperienceAccordionSkillsProps {

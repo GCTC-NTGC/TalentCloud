@@ -1,50 +1,33 @@
 import React from "react";
-import { useIntl, IntlShape } from "react-intl";
-import {
-  BaseExperienceAccordion,
-  titleBarDateRange,
-} from "./BaseExperienceAccordion";
+import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
-import { Locales, getLocale } from "../../../helpers/localize";
+import { getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
-import { ExperienceSkill, Skill } from "../../../models/types";
+import {
+  ExperienceCommunity,
+  ExperienceSkill,
+  Skill,
+} from "../../../models/types";
+import { mapToObject, getId } from "../../../helpers/queries";
+import {
+  ExperienceAccordionWrapper,
+  ExperienceAccordionSkills,
+  ExperienceAccordionEducation,
+  ExperienceAccordionButtons,
+  titleBarDateRange,
+} from "./ExperienceAccordionCommon";
 
-interface ExperienceCommunityAccordionProps {
-  title: string;
-  group: string;
-  project: string;
-  startDate: Date;
-  endDate: Date | null;
-  isActive: boolean;
-  relevantSkills: ExperienceSkill[];
-  skills: Skill[];
-  irrelevantSkillCount: number;
-  isEducationJustification: boolean;
-  showSkillDetails: boolean;
-  showButtons: boolean;
-  handleDelete: () => Promise<void>;
-  handleEdit: () => void;
-}
+const ExperienceCommunityDetails: React.FC<{
+  experience: ExperienceCommunity;
+}> = ({ experience }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
 
-const experienceCommunityDetails = ({
-  locale,
-  intl,
-  title,
-  group,
-  project,
-  startDate,
-  endDate,
-  isActive,
-}: {
-  locale: Locales;
-  intl: IntlShape;
-  title: string;
-  group: string;
-  project: string;
-  startDate: Date;
-  endDate: Date | null;
-  isActive: boolean;
-}): React.ReactElement => {
+  const { title, group, project } = experience;
+  const startDate = experience.start_date;
+  const endDate = experience.end_date;
+  const isActive = experience.is_active;
+
   const notApplicable = (
     <p data-c-color="gray">
       {intl.formatMessage(accordionMessages.notApplicable)}
@@ -56,65 +39,79 @@ const experienceCommunityDetails = ({
     notApplicable
   );
   return (
-    <>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
-        </p>
-        <p>
-          <i
-            className="fas fa-people-carry"
-            data-c-color="c1"
-            data-c-margin="right(.25)"
-          />
-          {intl.formatMessage(accordionMessages.communityType)}
-        </p>
+    <div data-c-grid-item="base(1of1)">
+      <div data-c-grid="gutter(all, 1)">
+        <div data-c-grid-item="base(1of1)">
+          <h4 data-c-color="c2" data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.detailsTitle)}
+          </h4>
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.experienceTypeLabel)}
+          </p>
+          <p>
+            <i
+              className="fas fa-people-carry"
+              data-c-color="c1"
+              data-c-margin="right(.25)"
+            />
+            {intl.formatMessage(accordionMessages.communityType)}
+          </p>
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.communityRoleLabel)}
+          </p>
+          {title ? <p>{title}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.communityOrganizationLabel)}
+          </p>
+          {group ? <p>{group}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.communityProjectLabel)}
+          </p>
+          {project ? <p>{project}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.startDateLabel)}
+          </p>
+          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.endDateLabel)}
+          </p>
+          {isActive ? (
+            <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
+          ) : (
+            endDateOrNa
+          )}
+        </div>
       </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.communityRoleLabel)}
-        </p>
-        {title ? <p>{title}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.communityOrganizationLabel)}
-        </p>
-        {group ? <p>{group}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.communityProjectLabel)}
-        </p>
-        {project ? <p>{project}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.startDateLabel)}
-        </p>
-        {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.endDateLabel)}
-        </p>
-        {isActive ? (
-          <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
-        ) : (
-          endDateOrNa
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 
+interface ExperienceCommunityAccordionProps {
+  experience: ExperienceCommunity;
+  relevantSkills: ExperienceSkill[];
+  skills: Skill[];
+  irrelevantSkillCount: number;
+  isEducationJustification: boolean;
+  showSkillDetails: boolean;
+  showButtons: boolean;
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+}
+
 export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordionProps> = ({
-  title,
-  group,
-  project,
-  startDate,
-  endDate,
-  isActive,
+  experience,
   relevantSkills,
   skills,
   irrelevantSkillCount,
@@ -126,41 +123,44 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const accordionTitle = (
-    <>
-      <p>
-        {intl.formatMessage(accordionMessages.communityHeading, {
-          title,
-          group,
-          b: (value) => <span data-c-font-weight="bold">{value}</span>,
-        })}
-      </p>
-      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
-    </>
+  const accordionTitle = intl.formatMessage(
+    accordionMessages.communityHeading,
+    {
+      title: experience.title,
+      group: experience.group,
+      b: (value) => <span data-c-font-weight="bold">{value}</span>,
+    },
+  );
+  const subtitle = titleBarDateRange(
+    experience.start_date,
+    experience.end_date,
+    experience.is_active,
+    intl,
+    locale,
   );
   return (
-    <BaseExperienceAccordion
+    <ExperienceAccordionWrapper
       title={accordionTitle}
-      iconClass="fa-people-carry"
-      relevantSkills={relevantSkills}
-      skills={skills}
-      irrelevantSkillCount={irrelevantSkillCount}
+      subtitle={subtitle}
+      relatedSkillCount={relevantSkills.length}
       isEducationJustification={isEducationJustification}
-      details={experienceCommunityDetails({
-        locale,
-        intl,
-        title,
-        group,
-        project,
-        startDate,
-        endDate,
-        isActive,
-      })}
-      showSkillDetails={showSkillDetails}
-      showButtons={showButtons}
-      handleDelete={handleDelete}
-      handleEdit={handleEdit}
-    />
+      iconClass="fa-people-carry"
+    >
+      <ExperienceCommunityDetails experience={experience} />
+      <ExperienceAccordionSkills
+        relevantSkills={relevantSkills}
+        irrelevantSkillCount={irrelevantSkillCount}
+        skillsById={mapToObject(skills, getId)}
+        showSkillDetails={showSkillDetails}
+      />
+      {isEducationJustification && <ExperienceAccordionEducation />}
+      {showButtons && (
+        <ExperienceAccordionButtons
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+        />
+      )}
+    </ExperienceAccordionWrapper>
   );
 };
 

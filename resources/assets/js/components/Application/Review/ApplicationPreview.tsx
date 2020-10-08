@@ -139,12 +139,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_community":
       return (
         <ExperienceCommunityAccordion
-          title={experience.title}
-          group={experience.group}
-          project={experience.project}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
@@ -344,7 +339,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       }
     });
 
-    return <>{...buttonView}</>;
+    return <>{buttonView}</>;
   };
 
   return (
@@ -714,7 +709,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-align="base(center) tp(right)"
           >
             <a
-              href="https://talent.test/demo/application-07"
+              href="https://talent.test/demo/application-07" // To
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
