@@ -348,7 +348,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isEducationJustification={experience.is_education_requirement}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons

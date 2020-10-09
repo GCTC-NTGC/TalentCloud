@@ -42,7 +42,7 @@ stories
       <ProfileAwardAccordion
         experience={fakeExperienceAward()}
         relevantSkills={fakeExperienceSkills().slice(0, 2)}
-        skills={fakeSkills()}
+        skillsById={mapToObject(fakeSkills(), getId)}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
         handleEditSkill={action("Edit ExperienceSkill")}

@@ -5,10 +5,11 @@ import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 import { ExperienceAward, ExperienceSkill, Skill } from "../../../models/types";
 import {
+  ApplicationExperienceAccordion,
   ExperienceAccordionButtons,
-  ExperienceAccordionEducation,
   ExperienceAccordionSkills,
   ExperienceAccordionWrapper,
+  ProfileExperienceAccordion,
 } from "./ExperienceAccordionCommon";
 import { getId, mapToObject } from "../../../helpers/queries";
 
@@ -100,7 +101,7 @@ const ExperienceAwardDetails: React.FC<{
 interface ProfileAwardAccordionProps {
   experience: ExperienceAward;
   relevantSkills: ExperienceSkill[];
-  skills: Skill[];
+  skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
   handleEditSkill: (experienceSkillId: number) => void;
@@ -109,7 +110,7 @@ interface ProfileAwardAccordionProps {
 export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
   experience,
   relevantSkills,
-  skills,
+  skillsById,
   handleDelete,
   handleEdit,
   handleEditSkill,
@@ -126,27 +127,18 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
     date: readableDate(locale, experience.awarded_date),
   });
   return (
-    <ExperienceAccordionWrapper
+    <ProfileExperienceAccordion
       title={accordionTitle}
       subtitle={subtitle}
-      relatedSkillCount={relevantSkills.length}
-      isEducationJustification={false}
       iconClass="fa-trophy"
+      relevantSkills={relevantSkills}
+      skillsById={skillsById}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
+      handleEditSkill={handleEditSkill}
     >
       <ExperienceAwardDetails experience={experience} />
-      <ExperienceAccordionButtons
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-      <hr data-c-hr="thin(gray)" data-c-margin="bottom(1) top(1)" />
-      <ExperienceAccordionSkills
-        relevantSkills={relevantSkills}
-        irrelevantSkillCount={0}
-        skillsById={mapToObject(skills, getId)}
-        showSkillDetails
-        handleEditSkill={handleEditSkill}
-      />
-    </ExperienceAccordionWrapper>
+    </ProfileExperienceAccordion>
   );
 };
 
@@ -155,7 +147,6 @@ interface ExperienceAwardAccordionProps {
   relevantSkills: ExperienceSkill[];
   skills: Skill[];
   irrelevantSkillCount: number;
-  isEducationJustification: boolean;
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
@@ -167,7 +158,6 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
   relevantSkills,
   skills,
   irrelevantSkillCount,
-  isEducationJustification,
   showSkillDetails,
   showButtons,
   handleDelete,
@@ -185,28 +175,21 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
     date: readableDate(locale, experience.awarded_date),
   });
   return (
-    <ExperienceAccordionWrapper
+    <ApplicationExperienceAccordion
       title={accordionTitle}
       subtitle={subtitle}
-      relatedSkillCount={relevantSkills.length}
-      isEducationJustification={isEducationJustification}
       iconClass="fa-trophy"
+      relevantSkills={relevantSkills}
+      skills={skills}
+      irrelevantSkillCount={irrelevantSkillCount}
+      isEducationJustification={experience.is_education_requirement}
+      showSkillDetails={showSkillDetails}
+      showButtons={showButtons}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
     >
       <ExperienceAwardDetails experience={experience} />
-      <ExperienceAccordionSkills
-        relevantSkills={relevantSkills}
-        irrelevantSkillCount={irrelevantSkillCount}
-        skillsById={mapToObject(skills, getId)}
-        showSkillDetails={showSkillDetails}
-      />
-      {isEducationJustification && <ExperienceAccordionEducation />}
-      {showButtons && (
-        <ExperienceAccordionButtons
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-        />
-      )}
-    </ExperienceAccordionWrapper>
+    </ApplicationExperienceAccordion>
   );
 };
 
