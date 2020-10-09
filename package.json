@@ -98,7 +98,7 @@
         "axios": "^0.20.0",
         "babel-plugin-react-intl": "^7.9.4",
         "classnames": "^2.2.6",
-        "cldr-core": "^36.0.0",
+        "cldr-core": "^37.0.0",
         "clone-framework": "^2.4.18",
         "core-js": "^3.6.5",
         "formik": "^2.1.7",
