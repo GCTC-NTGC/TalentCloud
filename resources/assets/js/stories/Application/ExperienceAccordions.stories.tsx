@@ -172,30 +172,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperienceEducationAccordion
-            educationType={text(
-              "Education Type",
-              "Bachelors Degree",
-              groupIds.details,
-            )}
-            areaOfStudy={text(
-              "Area of Study",
-              education.area_of_study,
-              groupIds.details,
-            )}
-            institution={text("Institution", education.institution, "details")}
-            status={text("Education Status", "Complete", "details")}
-            startDate={myDateKnob(
-              "Start date",
-              education.start_date,
-              groupIds.details,
-            )}
-            endDate={myDateKnob("End date", education.end_date, "details")}
-            isActive={boolean("Is Active", education.is_active, "details")}
-            thesisTitle={text(
-              "Thesis Title",
-              education.thesis_title || "",
-              groupIds.details,
-            )}
+            experience={education}
             relevantSkills={[fakeExperienceSkill1()]}
             skills={fakeSkills()}
             irrelevantSkillCount={number(
@@ -203,11 +180,6 @@ stories.add(
               0,
               {},
               groupIds.details,
-            )}
-            isEducationJustification={boolean(
-              "Is Education Justification?",
-              false,
-              groupIds.switches,
             )}
             showSkillDetails={boolean(
               "Show skill details?",

@@ -152,22 +152,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_education":
       return (
         <ExperienceEducationAccordion
-          educationType={localizeFieldNonNull(
-            locale,
-            experience,
-            "education_type",
-          )}
-          areaOfStudy={experience.area_of_study}
-          institution={experience.institution}
-          status={localizeFieldNonNull(locale, experience, "education_status")}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
-          thesisTitle={experience.thesis_title}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleDelete={async (): Promise<void> => {}}

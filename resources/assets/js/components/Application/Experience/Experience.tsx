@@ -276,30 +276,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         return (
           <ExperienceEducationAccordion
             key={`${experience.id}-${experience.type}`}
-            areaOfStudy={experience.area_of_study}
-            educationType={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_type",
-            )}
-            endDate={experience.end_date}
+            experience={experience}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
-            institution={experience.institution}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={experience.start_date}
-            status={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_status",
-            )}
-            thesisTitle={experience.thesis_title}
           />
         );
       case "experience_work":
