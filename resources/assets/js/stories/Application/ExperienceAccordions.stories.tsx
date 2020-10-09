@@ -318,32 +318,7 @@ stories.add(
       <div className="experience-list">
         <div data-c-accordion-group="">
           <ExperiencePersonalAccordion
-            title={text("Experience Title", experience.title, groupIds.details)}
-            description={text(
-              "Description",
-              experience.description,
-              groupIds.details,
-            )}
-            isShareable={boolean(
-              "Consent to Share",
-              experience.is_shareable,
-              groupIds.details,
-            )}
-            startDate={myDateKnob(
-              "Start Date",
-              experience.start_date,
-              groupIds.details,
-            )}
-            endDate={myDateKnob(
-              "End Date",
-              experience.end_date,
-              groupIds.details,
-            )}
-            isActive={boolean(
-              "Is Active",
-              experience.is_active,
-              groupIds.details,
-            )}
+            experience={experience}
             relevantSkills={[
               fakeExperienceSkill1(),
               fakeExperienceSkill3(),
@@ -355,11 +330,6 @@ stories.add(
               0,
               {},
               groupIds.details,
-            )}
-            isEducationJustification={boolean(
-              "Is Education Justification?",
-              false,
-              groupIds.switches,
             )}
             showSkillDetails={boolean(
               "Show skill details?",

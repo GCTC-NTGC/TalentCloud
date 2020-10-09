@@ -1,50 +1,29 @@
-import React from "react";
-import { useIntl, IntlShape } from "react-intl";
-import {
-  BaseExperienceAccordion,
-  titleBarDateRange,
-} from "./BaseExperienceAccordion";
+import React, { FunctionComponent } from "react";
+import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
-import { Locales, getLocale } from "../../../helpers/localize";
+import { getLocale } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
-import { ExperienceSkill, Skill } from "../../../models/types";
+import {
+  ExperiencePersonal,
+  ExperienceSkill,
+  Skill,
+} from "../../../models/types";
+import {
+  ApplicationExperienceAccordion,
+  titleBarDateRange,
+} from "./ExperienceAccordionCommon";
 
-interface ExperiencePersonalAccordionProps {
-  title: string;
-  description: string;
-  isShareable: boolean;
-  startDate: Date;
-  endDate: Date | null;
-  isActive: boolean;
-  relevantSkills: ExperienceSkill[];
-  skills: Skill[];
-  irrelevantSkillCount: number;
-  isEducationJustification: boolean;
-  showSkillDetails: boolean;
-  showButtons: boolean;
-  handleDelete: () => Promise<void>;
-  handleEdit: () => void;
-}
+const ExperiencePersonalDetails: FunctionComponent<{
+  experience: ExperiencePersonal;
+}> = ({ experience }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  const { title, description } = experience;
+  const isShareable = experience.is_shareable;
+  const startDate = experience.start_date;
+  const endDate = experience.end_date;
+  const isActive = experience.is_active;
 
-const experiencePersonalDetails = ({
-  locale,
-  intl,
-  title,
-  description,
-  isShareable,
-  startDate,
-  endDate,
-  isActive,
-}: {
-  locale: Locales;
-  intl: IntlShape;
-  title: string;
-  description: string;
-  isShareable: boolean;
-  startDate: Date;
-  endDate: Date | null;
-  isActive: boolean;
-}): React.ReactElement => {
   const notApplicable = (
     <p data-c-color="gray">
       {intl.formatMessage(accordionMessages.notApplicable)}
@@ -56,87 +35,99 @@ const experiencePersonalDetails = ({
     notApplicable
   );
   return (
-    <>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.experienceTypeLabel)}
-        </p>
-        <p>
-          <i
-            className="fas fa-trophy"
-            data-c-color="c1"
-            data-c-margin="right(.25)"
-          />
-          {intl.formatMessage(accordionMessages.personalType)}
-        </p>
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.personalTitleLabel)}
-        </p>
-        {title ? <p>{title}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of1)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.personalDescriptionLabel)}
-        </p>
-        {description ? <p>{description}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.personalShareLabel)}
-        </p>
-        {isShareable ? (
+    <div data-c-grid-item="base(1of1)">
+      <div data-c-grid="gutter(all, 1)">
+        <div data-c-grid-item="base(1of1)">
+          <h4 data-c-color="c2" data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.detailsTitle)}
+          </h4>
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.experienceTypeLabel)}
+          </p>
           <p>
             <i
-              className="fas fa-check-circle"
-              data-c-color="go"
+              className="fas fa-trophy"
+              data-c-color="c1"
               data-c-margin="right(.25)"
             />
-            {intl.formatMessage(accordionMessages.personalShareAllowed)}
+            {intl.formatMessage(accordionMessages.personalType)}
           </p>
-        ) : (
-          <p>
-            <i
-              className="fas fa-check-circle"
-              data-c-color="stop"
-              data-c-margin="right(.25)"
-            />
-            {intl.formatMessage(accordionMessages.personalShareDenied)}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.personalTitleLabel)}
           </p>
-        )}
+          {title ? <p>{title}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of1)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.personalDescriptionLabel)}
+          </p>
+          {description ? <p>{description}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.personalShareLabel)}
+          </p>
+          {isShareable ? (
+            <p>
+              <i
+                className="fas fa-check-circle"
+                data-c-color="go"
+                data-c-margin="right(.25)"
+              />
+              {intl.formatMessage(accordionMessages.personalShareAllowed)}
+            </p>
+          ) : (
+            <p>
+              <i
+                className="fas fa-check-circle"
+                data-c-color="stop"
+                data-c-margin="right(.25)"
+              />
+              {intl.formatMessage(accordionMessages.personalShareDenied)}
+            </p>
+          )}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.startDateLabel)}
+          </p>
+          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+        </div>
+        <div data-c-grid-item="base(1of2) tl(1of3)">
+          <p data-c-font-weight="bold">
+            {intl.formatMessage(accordionMessages.endDateLabel)}
+          </p>
+          {isActive ? (
+            <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
+          ) : (
+            endDateOrNa
+          )}
+        </div>
       </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.startDateLabel)}
-        </p>
-        {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
-      </div>
-      <div data-c-grid-item="base(1of2) tl(1of3)">
-        <p data-c-font-weight="bold">
-          {intl.formatMessage(accordionMessages.endDateLabel)}
-        </p>
-        {isActive ? (
-          <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
-        ) : (
-          endDateOrNa
-        )}
-      </div>
-    </>
+    </div>
   );
 };
 
+interface ExperiencePersonalAccordionProps {
+  experience: ExperiencePersonal;
+  relevantSkills: ExperienceSkill[];
+  skills: Skill[];
+  irrelevantSkillCount: number;
+  showSkillDetails: boolean;
+  showButtons: boolean;
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+}
+
 export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionProps> = ({
-  title,
-  description,
-  isShareable,
-  startDate,
-  endDate,
-  isActive,
+  experience,
   relevantSkills,
   skills,
   irrelevantSkillCount,
-  isEducationJustification,
   showSkillDetails,
   showButtons,
   handleDelete,
@@ -145,36 +136,31 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const accordionTitle = (
-    <>
-      <p>
-        <span data-c-font-weight="bold">{title}</span>
-      </p>
-      {titleBarDateRange(startDate, endDate, isActive, intl, locale)}
-    </>
+    <span data-c-font-weight="bold">{experience.title}</span>
+  );
+  const subtitle = titleBarDateRange(
+    experience.start_date,
+    experience.end_date,
+    experience.is_active,
+    intl,
+    locale,
   );
   return (
-    <BaseExperienceAccordion
+    <ApplicationExperienceAccordion
       title={accordionTitle}
+      subtitle={subtitle}
       iconClass="fa-mountain"
       relevantSkills={relevantSkills}
       skills={skills}
       irrelevantSkillCount={irrelevantSkillCount}
-      isEducationJustification={isEducationJustification}
-      details={experiencePersonalDetails({
-        locale,
-        intl,
-        title,
-        description,
-        isShareable,
-        startDate,
-        endDate,
-        isActive,
-      })}
+      isEducationJustification={experience.is_education_requirement}
       showSkillDetails={showSkillDetails}
       showButtons={showButtons}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-    />
+    >
+      <ExperiencePersonalDetails experience={experience} />
+    </ApplicationExperienceAccordion>
   );
 };
 

@@ -164,16 +164,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_personal":
       return (
         <ExperiencePersonalAccordion
-          title={experience.title}
-          description={experience.description}
-          isShareable={experience.is_shareable}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
