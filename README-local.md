@@ -315,33 +315,23 @@ These instructions were written using macOS High Sierra (Version 10.13.6)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-## Install nginx
+## Install composer
 
 ```
-brew install nginx
-brew services start nginx
-sudo ufw allow 'Nginx HTTP'
+sudo brew install composer
 ```
 
-## Install PostGres
+## Install laravel/valet
+
+*Further instructions available [here](https://laravel.com/docs/6.x/valet)*
 
 ```
-brew services start postgresql
-```
-
-### Configure postgres
-
-```
-psql -d postgres ## login to postgres
-create database talentcloud; ### create database
-create user talentcloud with encrypted password 'talentcloud'; ### create user
-grant all privileges on database talentcloud to talentcloud; ### adjust access
-ALTER ROLE talentcloud SUPERUSER;
+composer global require laravel/valet
 ```
 
 ## Install PHP and required extensions
 
-*Laravel-specific server requirements available [here](https://laravel.com/docs/8.x/installation#server-requirements)*
+*Laravel-specific server requirements available [here](https://laravel.com/docs/6.x/installation#server-requirements)*
 
 ```
 brew install php@7.2 --without-apache --with-postgresql
@@ -349,16 +339,27 @@ brew install pkg-config imagemagick
 pecl install imagick
 ```
 
+## Install PostGres
+
+```
+brew install postgresql
+```
+
+### Configure postgres
+
+```
+brew services start postgresql
+psql -d postgres ## login to postgres
+create database talentcloud; ### create database
+create user talentcloud with encrypted password 'talentcloud'; ### create user
+grant all privileges on database talentcloud to talentcloud; ### adjust access
+ALTER ROLE talentcloud SUPERUSER;
+```
+
 ## Install node
 
 ```
 brew install node@12
-```
-
-## Install composer
-
-```
-sudo brew install composer
 ```
 
 ## Run Talent Cloud
@@ -371,6 +372,8 @@ sudo brew install composer
 git clone https://github.com/GCTC-NTGC/TalentCloud.git
 ```
 
+or
+
 #### SSH
 
 ```
@@ -379,10 +382,11 @@ git clone git@github.com:GCTC-NTGC/TalentCloud.git
 
 #### Setup TalentCloud directory to be hosted
 
-*For more details, please visit [here](https://laravel.com/docs/8.x/valet#securing-sites)*
+*Further instructions available [here](https://laravel.com/docs/6.x/valet#securing-sites)*
 
 ```
 cd TalentCloud
+valet use php@7.2
 valet secure talent
 valet link talent
 valet restart
