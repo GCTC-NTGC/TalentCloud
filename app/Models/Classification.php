@@ -9,6 +9,7 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
  *
  * @property int $id
  * @property string $key
+ * @property string $education_requirements
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  * @property \Illuminate\Database\Eloquent\Collection $skills
@@ -22,7 +23,8 @@ class Classification extends BaseModel
      * @var string
      */
     protected $fillable = [
-        'key'
+        'key',
+        'education_requirements',
     ];
 
     public function skills()
