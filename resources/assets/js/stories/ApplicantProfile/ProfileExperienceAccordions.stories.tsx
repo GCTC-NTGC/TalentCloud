@@ -7,6 +7,7 @@ import {
   fakeExperienceAward,
   fakeExperienceCommunity,
   fakeExperienceEducation,
+  fakeExperiencePersonal,
 } from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -14,6 +15,7 @@ import { ProfileAwardAccordion } from "../../components/Application/ExperienceAc
 import { ProfileCommunityAccordion } from "../../components/Application/ExperienceAccordions/ExperienceCommunityAccordion";
 import { getId, mapToObject } from "../../helpers/queries";
 import { ProfileEducationAccordion } from "../../components/Application/ExperienceAccordions/ExperienceEducationAccordion";
+import { ProfilePersonalAccordion } from "../../components/Application/ExperienceAccordions/ExperiencePersonalAccordion";
 
 const stories = storiesOf("Applicant Profile|Experience Accordions", module)
   .addDecorator(withIntl)
@@ -67,6 +69,19 @@ stories
     (): React.ReactElement => (
       <ProfileEducationAccordion
         experience={fakeExperienceEducation()}
+        relevantSkills={fakeExperienceSkills().slice(0, 2)}
+        skillsById={skillsById}
+        handleDelete={promiseAction("Delete")}
+        handleEdit={action("Edit")}
+        handleEditSkill={action("Edit ExperienceSkill")}
+      />
+    ),
+  )
+  .add(
+    "Personal Accordion",
+    (): React.ReactElement => (
+      <ProfilePersonalAccordion
+        experience={fakeExperiencePersonal()}
         relevantSkills={fakeExperienceSkills().slice(0, 2)}
         skillsById={skillsById}
         handleDelete={promiseAction("Delete")}
