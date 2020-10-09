@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 
 /**
  * Class UserRole.
@@ -18,12 +19,17 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 class Classification extends BaseModel
 {
     use CrudTrait;
+    use HasTranslations;
 
     /**
      * @var string
      */
     protected $fillable = [
         'key',
+        'education_requirements',
+    ];
+
+    public $translatable = [
         'education_requirements',
     ];
 
