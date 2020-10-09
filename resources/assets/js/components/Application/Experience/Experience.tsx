@@ -290,20 +290,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         return (
           <ExperienceWorkAccordion
             key={`${experience.id}-${experience.type}`}
-            endDate={experience.end_date}
-            group={experience.group}
+            experience={experience}
             handleDelete={handleDelete}
             handleEdit={handleEdit}
             irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
-            organization={experience.organization}
             relevantSkills={relevantSkills}
             skills={skills}
             showButtons
             showSkillDetails
-            startDate={experience.start_date}
-            title={experience.title}
           />
         );
       case "experience_community":
