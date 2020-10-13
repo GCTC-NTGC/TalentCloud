@@ -9,7 +9,7 @@ import {
   localizeFieldNonNull,
   getLocale,
 } from "../../../helpers/localize";
-import { titleBarDateRange } from "../ExperienceAccordions/BaseExperienceAccordion";
+import { titleBarDateRange } from "../ExperienceAccordions/ExperienceAccordionCommon";
 
 const skillAccordionMessages = defineMessages({
   justificationMissing: {
