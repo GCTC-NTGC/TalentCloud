@@ -94,7 +94,7 @@
     "dependencies": {
         "@formatjs/intl-getcanonicallocales": "^1.4.6",
         "@formatjs/intl-pluralrules": "^3.4.10",
-        "@formatjs/intl-relativetimeformat": "^7.2.9",
+        "@formatjs/intl-relativetimeformat": "^7.2.10",
         "axios": "^0.20.0",
         "babel-plugin-react-intl": "^7.9.4",
         "classnames": "^2.2.6",
