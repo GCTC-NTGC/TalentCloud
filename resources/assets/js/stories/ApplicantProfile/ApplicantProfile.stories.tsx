@@ -9,7 +9,7 @@ import fakeExperienceSkills, {
   createFakeExperienceSkill,
 } from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
-import ApplicantProfile from "../../components/ApplicantProfile/ApplicantProfile";
+import ProfileExperience from "../../components/ApplicantProfile/ProfileExperience";
 import { Experience, Skill } from "../../models/types";
 import { ExperienceSubmitData } from "../../components/Application/Experience/Experience";
 import { EducationExperienceSubmitData } from "../../components/Application/ExperienceModals/EducationExperienceModal";
@@ -86,7 +86,7 @@ const handleDeleteExperience = async (
 stories.add(
   "Basic",
   (): React.ReactElement => (
-    <ApplicantProfile
+    <ProfileExperience
       experiences={experiences}
       experienceSkills={experienceSkills}
       criteria={fakeCriteria()}

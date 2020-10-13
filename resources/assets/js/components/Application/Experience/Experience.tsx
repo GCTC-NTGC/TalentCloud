@@ -45,18 +45,38 @@ import AwardExperienceModal, {
   AwardRecognitionType,
   AwardExperienceSubmitData,
 } from "../ExperienceModals/AwardExperienceModal";
-import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEducationAccordion";
-import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
-import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
-import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
-import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
+import {
+  ExperienceEducationAccordion,
+  ProfileEducationAccordion,
+} from "../ExperienceAccordions/ExperienceEducationAccordion";
+import {
+  ExperienceWorkAccordion,
+  ProfileWorkAccordion,
+} from "../ExperienceAccordions/ExperienceWorkAccordion";
+import {
+  ExperienceCommunityAccordion,
+  ProfileCommunityAccordion,
+} from "../ExperienceAccordions/ExperienceCommunityAccordion";
+import {
+  ExperiencePersonalAccordion,
+  ProfilePersonalAccordion,
+} from "../ExperienceAccordions/ExperiencePersonalAccordion";
+import {
+  ExperienceAwardAccordion,
+  ProfileAwardAccordion,
+} from "../ExperienceAccordions/ExperienceAwardAccordion";
 import {
   getSkillOfCriteria,
   getSkillsOfExperience,
   getDisconnectedRequiredSkills,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
-import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
+import {
+  getId,
+  mapToObject,
+  notEmpty,
+  removeDuplicatesById,
+} from "../../../helpers/queries";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -87,6 +107,164 @@ const messages = defineMessages({
   },
 });
 
+const profileExperienceAccordion = (
+  experience: Experience,
+  relevantSkills: ExperienceSkill[],
+  skillsById: { [id: number]: Skill },
+  handleEdit: () => void,
+  handleDelete: () => Promise<void>,
+  handleEditSkill: (experienceSkillId: number) => void,
+): React.ReactElement | null => {
+  switch (experience.type) {
+    case "experience_education":
+      return (
+        <ProfileEducationAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleEditSkill={handleEditSkill}
+          relevantSkills={relevantSkills}
+          skillsById={skillsById}
+        />
+      );
+    case "experience_work":
+      return (
+        <ProfileWorkAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleEditSkill={handleEditSkill}
+          relevantSkills={relevantSkills}
+          skillsById={skillsById}
+        />
+      );
+    case "experience_community":
+      return (
+        <ProfileCommunityAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleEditSkill={handleEditSkill}
+          relevantSkills={relevantSkills}
+          skillsById={skillsById}
+        />
+      );
+    case "experience_personal":
+      return (
+        <ProfilePersonalAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleEditSkill={handleEditSkill}
+          relevantSkills={relevantSkills}
+          skillsById={skillsById}
+        />
+      );
+    case "experience_award":
+      return (
+        <ProfileAwardAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          handleEditSkill={handleEditSkill}
+          relevantSkills={relevantSkills}
+          skillsById={skillsById}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+const applicationExperienceAccordion = (
+  experience: Experience,
+  irrelevantSkillCount: number,
+  relevantSkills: ExperienceSkill[],
+  skills: Skill[],
+  handleEdit: () => void,
+  handleDelete: () => Promise<void>,
+): React.ReactElement | null => {
+  switch (experience.type) {
+    case "experience_education":
+      return (
+        <ExperienceEducationAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_work":
+      return (
+        <ExperienceWorkAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_community":
+      return (
+        <ExperienceCommunityAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_personal":
+      return (
+        <ExperiencePersonalAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_award":
+      return (
+        <ExperienceAwardAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    default:
+      return null;
+  }
+};
+
 export type ExperienceSubmitData =
   | EducationExperienceSubmitData
   | WorkExperienceSubmitData
@@ -111,6 +289,7 @@ interface ExperienceProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
+  context: "application" | "profile";
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
@@ -127,6 +306,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
+  context,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -205,6 +385,8 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
+  const skillsById = mapToObject(skills, getId);
+
   const softSkills = removeDuplicatesById(
     [...assetSkills, ...essentialSkills].filter(
       (skill) => skill.skill_type_id === SkillTypeId.Soft,
@@ -263,103 +445,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   );
 
   const modalRoot = document.getElementById("modal-root");
-
-  const experienceAccordion = (
-    experience: Experience,
-    irrelevantSkillCount: number,
-    relevantSkills: ExperienceSkill[],
-    handleEdit: () => void,
-    handleDelete: () => Promise<void>,
-  ): React.ReactElement => {
-    switch (experience.type) {
-      case "experience_education":
-        return (
-          <ExperienceEducationAccordion
-            key={`${experience.id}-${experience.type}`}
-            experience={experience}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-          />
-        );
-      case "experience_work":
-        return (
-          <ExperienceWorkAccordion
-            key={`${experience.id}-${experience.type}`}
-            experience={experience}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-          />
-        );
-      case "experience_community":
-        return (
-          <ExperienceCommunityAccordion
-            key={`${experience.id}-${experience.type}`}
-            experience={experience}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-          />
-        );
-      case "experience_personal":
-        return (
-          <ExperiencePersonalAccordion
-            key={`${experience.id}-${experience.type}`}
-            experience={experience}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-            irrelevantSkillCount={irrelevantSkillCount}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-          />
-        );
-      case "experience_award":
-        return (
-          <ExperienceAwardAccordion
-            key={`${experience.id}-${experience.type}`}
-            experience={experience}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-          />
-        );
-      default:
-        return (
-          <div
-            data-c-background="gray(10)"
-            data-c-radius="rounded"
-            data-c-border="all(thin, solid, gray)"
-            data-c-margin="top(1)"
-            data-c-padding="all(1)"
-          >
-            <div data-c-align="base(center)">
-              <p data-c-color="stop">
-                {intl.formatMessage(messages.errorRenderingExperience)}
-              </p>
-            </div>
-          </div>
-        );
-    }
-  };
 
   return (
     <>
@@ -475,6 +560,47 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   })
                   .filter(notEmpty);
 
+                const handleEdit = () =>
+                  editExperience(
+                    experience,
+                    savedOptionalSkills,
+                    savedRequiredSkills,
+                  );
+                const handleDelete = () => deleteExperience(experience);
+
+                const errorAccordion = () => (
+                  <div
+                    data-c-background="gray(10)"
+                    data-c-radius="rounded"
+                    data-c-border="all(thin, solid, gray)"
+                    data-c-margin="top(1)"
+                    data-c-padding="all(1)"
+                  >
+                    <div data-c-align="base(center)">
+                      <p data-c-color="stop">
+                        {intl.formatMessage(messages.errorRenderingExperience)}
+                      </p>
+                    </div>
+                  </div>
+                );
+
+                if (context === "profile") {
+                  const handleEditSkill = (experienceSkillId: number) => {
+                    throw Error("Not implemented");
+                  }; // TODO: Implement
+
+                  return (
+                    profileExperienceAccordion(
+                      experience,
+                      relevantSkills,
+                      skillsById,
+                      handleEdit,
+                      handleDelete,
+                      handleEditSkill,
+                    ) ?? errorAccordion()
+                  );
+                }
+
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
                 const irrelevantSkillCount =
                   experienceSkills.filter(
@@ -484,17 +610,15 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   ).length -
                   (savedOptionalSkills.length + savedRequiredSkills.length);
 
-                return experienceAccordion(
-                  experience,
-                  irrelevantSkillCount,
-                  relevantSkills,
-                  () =>
-                    editExperience(
-                      experience,
-                      savedOptionalSkills,
-                      savedRequiredSkills,
-                    ),
-                  () => deleteExperience(experience),
+                return (
+                  applicationExperienceAccordion(
+                    experience,
+                    irrelevantSkillCount,
+                    relevantSkills,
+                    skills,
+                    handleEdit,
+                    handleDelete,
+                  ) ?? errorAccordion()
                 );
               })}
             </div>
@@ -657,7 +781,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   );
 };
 
-interface ExperienceStepProps extends ExperienceProps {
+interface ExperienceStepProps extends Omit<ExperienceProps, "context"> {
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -698,6 +822,7 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmitExperience}
         handleDeleteExperience={handleDeleteExperience}
+        context="application"
       />
       <div data-c-container="medium" data-c-padding="tb(2)">
         <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />

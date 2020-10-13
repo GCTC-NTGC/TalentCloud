@@ -18,7 +18,7 @@ import {
   EducationType,
 } from "../Application/ExperienceModals/EducationExperienceModal";
 
-export interface ApplicantProfileProps {
+export interface ProfileExperienceProps {
   experiences: Experience[];
   educationStatuses: EducationStatus[];
   educationTypes: EducationType[];
@@ -37,7 +37,7 @@ export interface ApplicantProfileProps {
   ) => Promise<void>;
 }
 
-export const ApplicantProfile: React.FC<ApplicantProfileProps> = ({
+export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   experiences,
   educationStatuses,
   educationTypes,
@@ -67,8 +67,9 @@ export const ApplicantProfile: React.FC<ApplicantProfileProps> = ({
       recognitionTypes={recognitionTypes}
       handleSubmitExperience={handleSubmitExperience}
       handleDeleteExperience={handleDeleteExperience}
+      context="profile"
     />
   );
 };
 
-export default ApplicantProfile;
+export default ProfileExperience;
