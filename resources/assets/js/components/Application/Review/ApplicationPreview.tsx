@@ -29,12 +29,7 @@ import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEduc
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
-import {
-  Locales,
-  localizeFieldNonNull,
-  getLocale,
-  localizeField,
-} from "../../../helpers/localize";
+import { Locales, getLocale, localizeField } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
 
@@ -111,7 +106,6 @@ interface ExperienceAccordionProps {
   experienceSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   skills: Skill[];
-  locale: Locales;
 }
 
 const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
@@ -119,7 +113,6 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   experienceSkills,
   irrelevantSkillCount,
   skills,
-  locale,
 }) => {
   switch (experience.type) {
     case "experience_award":
@@ -510,7 +503,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                   experienceSkills={relevantSkills}
                   skills={skills}
                   irrelevantSkillCount={irrelevantSkillCount}
-                  locale={locale}
                 />
               );
             })}
@@ -602,7 +594,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                     experienceSkills={relevantSkills}
                     skills={skills}
                     irrelevantSkillCount={irrelevantSkillCount}
-                    locale={locale}
                   />
                 );
               })}
