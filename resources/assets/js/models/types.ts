@@ -98,6 +98,7 @@ export interface AwardRecognitionType {
 }
 
 export interface Classification {
+  id: number;
   key: string;
 }
 

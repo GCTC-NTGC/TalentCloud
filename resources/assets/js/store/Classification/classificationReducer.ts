@@ -5,13 +5,17 @@ import {
   GET_CLASSIFICATIONS_SUCCEEDED,
   GET_CLASSIFICATIONS_FAILED,
 } from "./classificationActions";
-//import { mapToObject, getId, hasKey } from "../../helpers/queries";
+import { mapToObject, getId } from "../../helpers/queries";
 
 export interface ClassificationState {
+  byId: {
+    [id: number]: Classification;
+  };
   loading: boolean;
 }
 
 export const initClassificationState = (): ClassificationState => ({
+  byId: [],
   loading: false,
 });
 
@@ -21,11 +25,11 @@ const classificationReducer = (
 ): ClassificationState => {
   switch (action.type) {
     case GET_CLASSIFICATIONS_STARTED:
-      return { /*...state,*/ loading: true };
+      return { ...state, loading: true };
     case GET_CLASSIFICATIONS_SUCCEEDED:
-      return { /*...state,*/ loading: false };
+      return { byId: mapToObject(action.payload, getId), loading: false };
     case GET_CLASSIFICATIONS_FAILED:
-      return { /*...state,*/ loading: false };
+      return { ...state, loading: false };
     default:
       return state;
   }
