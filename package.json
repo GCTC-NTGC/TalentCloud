@@ -101,7 +101,7 @@
         "cldr-core": "^37.0.0",
         "clone-framework": "^2.4.18",
         "core-js": "^3.6.5",
-        "formik": "^2.1.7",
+        "formik": "^2.2.0",
         "history": "^5.0.0",
         "intl": "^1.2.5",
         "isomorphic-fetch": "^3.0.0",
