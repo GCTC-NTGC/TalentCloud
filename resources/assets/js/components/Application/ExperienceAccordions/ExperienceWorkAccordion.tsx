@@ -6,6 +6,7 @@ import { readableDate } from "../../../helpers/dates";
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
 import {
   ApplicationExperienceAccordion,
+  ProfileExperienceAccordion,
   titleBarDateRange,
 } from "./ExperienceAccordionCommon";
 
@@ -84,6 +85,53 @@ const ExperienceWorkDetails: FunctionComponent<{
   );
 };
 
+interface ProfileWorkAccordionProps {
+  experience: ExperienceWork;
+  relevantSkills: ExperienceSkill[];
+  skillsById: { [id: number]: Skill };
+  handleDelete: () => Promise<void>;
+  handleEdit: () => void;
+  handleEditSkill: (experieSkillId: number) => void;
+}
+
+export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
+  experience,
+  relevantSkills,
+  skillsById,
+  handleDelete,
+  handleEdit,
+  handleEditSkill,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  const accordionTitle = (
+    <span>
+      <span data-c-font-weight="bold">{experience.title}</span> -{" "}
+      {experience.organization}
+    </span>
+  );
+  const subtitle = titleBarDateRange(
+    experience.start_date,
+    experience.end_date,
+    experience.is_active,
+    intl,
+    locale,
+  );
+  return (
+    <ProfileExperienceAccordion
+      title={accordionTitle}
+      subtitle={subtitle}
+      iconClass="fa-briefcase"
+      relevantSkills={relevantSkills}
+      skillsById={skillsById}
+      handleDelete={handleDelete}
+      handleEdit={handleEdit}
+      handleEditSkill={handleEditSkill}
+    >
+      <ExperienceWorkDetails experience={experience} />
+    </ProfileExperienceAccordion>
+  );
+};
 interface ExperienceWorkAccordionProps {
   experience: ExperienceWork;
   relevantSkills: ExperienceSkill[];
