@@ -15,7 +15,7 @@ class ApplicationByJobControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testIndexViewFailsForPublic() : void
+    public function testIndexViewFailsForPublic(): void
     {
         $manager = factory(Manager::class)->create();
         $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $manager->id]);
@@ -26,7 +26,7 @@ class ApplicationByJobControllerTest extends TestCase
         $response->assertRedirect(route('manager.login'));
     }
 
-    public function testIndexViewFailsForOtherManager() : void
+    public function testIndexViewFailsForOtherManager(): void
     {
         $manager = factory(Manager::class)->create();
         $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $manager->id]);
@@ -39,7 +39,7 @@ class ApplicationByJobControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testIndexView() : void
+    public function testIndexView(): void
     {
         $manager = factory(Manager::class)->create();
         $job = factory(JobPoster::class)->state('closed')->create(['manager_id' => $manager->id]);
@@ -50,12 +50,12 @@ class ApplicationByJobControllerTest extends TestCase
             ->get(route('manager.jobs.applications', $job->id));
         $response->assertOk();
         foreach ($job->job_applications as $application) {
-            $response->assertSee(e($application->applicant->user->first_name));
-            $response->assertSee(e($application->applicant->user->last_name));
+            $response->assertSee($application->applicant->user->first_name);
+            $response->assertSee($application->applicant->user->last_name);
         }
     }
 
-    public function testSubmit() : void
+    public function testSubmit(): void
     {
         $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
@@ -74,7 +74,7 @@ class ApplicationByJobControllerTest extends TestCase
         $this->assertEquals('submitted', $application->fresh()->application_status->name);
     }
 
-    public function testSubmitFailsForIncompleteApplication() : void
+    public function testSubmitFailsForIncompleteApplication(): void
     {
         $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
@@ -94,7 +94,7 @@ class ApplicationByJobControllerTest extends TestCase
         $this->assertEquals('draft', $application->fresh()->application_status->name);
     }
 
-    public function testSubmitCopiesProfileData() : void
+    public function testSubmitCopiesProfileData(): void
     {
         $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();
@@ -129,7 +129,7 @@ class ApplicationByJobControllerTest extends TestCase
         $this->assertEquals($originalData, $copyData);
     }
 
-    public function testSubmitDoesntCopyForInvalidApplication() : void
+    public function testSubmitDoesntCopyForInvalidApplication(): void
     {
         $job = factory(JobPoster::class)->state('live')->create();
         $applicant = factory(Applicant::class)->create();

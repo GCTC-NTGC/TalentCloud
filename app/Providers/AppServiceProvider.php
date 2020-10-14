@@ -12,7 +12,6 @@ use App\Models\JobApplication;
 use App\Services\WhichPortal;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,7 +28,6 @@ class AppServiceProvider extends ServiceProvider
         // level 'data' key.
         // https://laravel.com/docs/eloquent-resources#data-wrapping.
         JsonResource::withoutWrapping();
-        Resource::withoutWrapping();
 
         // A lower default string length for migrations is required for
         // versions of MySQL < 5.7.7.
