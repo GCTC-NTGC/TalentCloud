@@ -18,8 +18,10 @@ import {
   SkillTypeId,
   CriteriaTypeId,
   getKeyByValue,
-  ClassificationId,
+  //ClassificationId,
 } from "../../../models/lookupConstants";
+import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
+import { getClassifications } from "../../../../../assets/js/store/Classification/classificationActions";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
@@ -57,6 +59,8 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const messages = defineMessages({
   educationTypeMissing: {
@@ -137,9 +141,13 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
+  const classification = useSelector((state: RootState) => {
+    return getClassificationState(state);
+  });
+
   const jobClassification =
     jobClassificationId !== null
-      ? getKeyByValue(ClassificationId, jobClassificationId)
+      ? getKeyByValue(classification?.id, jobClassificationId)
       : "";
 
   const [experienceData, setExperienceData] = React.useState<

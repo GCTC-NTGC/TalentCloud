@@ -20,7 +20,6 @@ import {
   CitizenshipId,
   VeteranId,
   LanguageRequirementId,
-  ClassificationId,
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
@@ -30,6 +29,9 @@ import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { getLocale, localizeField } from "../../../helpers/localize";
 import { hasKey } from "../../../helpers/queries";
+import {
+  getClassifications
+} from "../../../store/Classification/classificationActions";
 
 interface BasicInfoProps {
   application: ApplicationNormalized;

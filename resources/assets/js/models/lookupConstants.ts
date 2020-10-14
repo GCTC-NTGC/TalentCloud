@@ -113,24 +113,6 @@ export const OvertimeRequirementId = {
   none: 3,
 };
 
-export const ClassificationId = {
-  AS: 1,
-  BI: 2,
-  CO: 3,
-  CR: 4,
-  CS: 5,
-  EC: 6,
-  EX: 7,
-  FO: 8,
-  IS: 9,
-  PC: 10,
-  PE: 11,
-  PM: 12,
-  AD: 13,
-  "EN-ENG": 14,
-  FI: 15,
-};
-
 export const CommentTypeId = {
   question: 1,
   recommendation: 2,
