@@ -12,6 +12,7 @@ use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Lookup\Step;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Validation\Rule;
@@ -157,5 +158,19 @@ class ApplicationController extends Controller
                 ['applicant_id', $application->applicant->id]
             ]);
         })->update(['review_status_id' => $unavailableStatusId]);
+    }
+
+    /**
+     * Update the job application step
+     *
+     * @param Step $step Incoming Job Application Step
+     * @return bool
+     */
+    public function stepIsTouched(Request $request)
+    {
+        $application = JobApplication::where('id', $request->applicationId)->first();
+        $application->job_application_steps()->updateExistingPivot($request->stepId, ['touched' => true]);
+
+        return new JsonResource($application->applicationTimelineSteps());
     }
 }

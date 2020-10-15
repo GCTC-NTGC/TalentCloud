@@ -1065,6 +1065,11 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+
+    Route::put('applications/{application}/steps/{step}', 'Api\ApplicationController@stepIsTouched')
+        // ->middleware('can:update,application')
+        ->name('job-application-step.update');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
