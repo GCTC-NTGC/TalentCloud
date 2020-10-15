@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import Intro from "./Intro";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
 import { navigate } from "../../../helpers/router";
 import { getLocale } from "../../../helpers/localize";
 import { applicationBasic } from "../../../helpers/routes";
@@ -14,7 +13,10 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
+  useSteps,
 } from "../../../hooks/applicationHooks";
+import { updateApplicationStep } from "../../../store/Application/applicationActions";
+import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface IntroPageProps {
   applicationId: number;
@@ -32,22 +34,23 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
 
   const application = useApplication(applicationId);
   const job = useJob(application?.job_poster_id);
+  const steps = useSteps();
 
-  const handleContinue = (): void =>
-    navigate(applicationBasic(locale, applicationId));
+  const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      updateApplicationStep(applicationId, ApplicationStepId.basic),
+    );
+    return navigate(applicationBasic(locale, applicationId));
+  };
   const closeDate = job?.close_date_time ?? null;
+
   return (
     <>
       {application !== null && (
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.welcome)}
-          steps={makeProgressBarSteps(
-            applicationId,
-            application,
-            intl,
-            "other",
-          )}
+          steps={makeProgressBarSteps(applicationId, steps, intl, "other")}
         />
       )}
       <Intro handleStart={handleContinue} />

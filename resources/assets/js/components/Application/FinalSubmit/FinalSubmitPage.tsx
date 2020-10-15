@@ -12,6 +12,7 @@ import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import { fakeApplication } from "../../../fakeData/fakeApplications";
 import { Application } from "../../../models/types";
 import FinalSubmit from "./FinalSubmit";
+import { useSteps } from "../../../hooks/applicationHooks";
 
 interface FinalSubmitPageProps {
   applicationId: number;
@@ -24,6 +25,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const locale = getLocale(intl.locale);
 
   const application = fakeApplication(); // TODO: get real application.
+  const steps = useSteps();
 
   const handleSubmit = async (application: Application): Promise<void> => {
     // TODO: Submit application.
@@ -43,12 +45,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
       <ProgressBar
         closeDateTime={closeDate}
         currentTitle={intl.formatMessage(stepNames.step06)}
-        steps={makeProgressBarSteps(
-          applicationId,
-          application,
-          intl,
-          "submission",
-        )}
+        steps={makeProgressBarSteps(applicationId, steps, intl, "submission")}
       />
       <FinalSubmit
         application={application}

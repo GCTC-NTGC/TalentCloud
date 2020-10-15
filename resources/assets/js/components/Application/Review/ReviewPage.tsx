@@ -25,9 +25,14 @@ import {
   useJobApplicationAnswers,
   useJobPosterQuestions,
   useSkills,
+  useSteps,
 } from "../../../hooks/applicationHooks";
 import { loadingMessages } from "../applicationMessages";
-import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
+import {
+  updateApplication as updateApplicationAction,
+  updateApplicationStep,
+} from "../../../store/Application/applicationActions";
+import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface ReviewPageProps {
   applicationId: number;
@@ -58,6 +63,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const questions = useJobPosterQuestions(jobId);
   const answers = useJobApplicationAnswers(applicationId);
   const skills = useSkills();
+  const steps = useSteps();
 
   const handleSave = (values: ReviewFormValues): Promise<void> => {
     if (application === null) {
@@ -84,7 +90,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      updateApplicationStep(applicationId, ApplicationStepId.submission),
+    );
     navigate(applicationSubmission(locale, applicationId));
   };
 
@@ -107,12 +116,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step05)}
-          steps={makeProgressBarSteps(
-            applicationId,
-            application,
-            intl,
-            "review",
-          )}
+          steps={makeProgressBarSteps(applicationId, steps, intl, "review")}
         />
       )}
       {allDataLoaded &&

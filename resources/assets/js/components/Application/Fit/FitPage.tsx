@@ -13,7 +13,10 @@ import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import Fit from "./Fit";
 import { JobApplicationAnswer } from "../../../models/types";
-import { fetchApplication } from "../../../store/Application/applicationActions";
+import {
+  fetchApplication,
+  updateApplicationStep,
+} from "../../../store/Application/applicationActions";
 import {
   createJobApplicationAnswer,
   updateJobApplicationAnswer,
@@ -25,7 +28,9 @@ import {
   useJob,
   useJobApplicationAnswers,
   useJobPosterQuestions,
+  useSteps,
 } from "../../../hooks/applicationHooks";
+import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface FitPageProps {
   applicationId: number;
@@ -46,6 +51,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const job = useJob(jobId);
   const jobPosterQuestions = useJobPosterQuestions(jobId);
   const answers = useJobApplicationAnswers(applicationId);
+  const steps = useSteps();
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;
@@ -61,7 +67,8 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
     return Promise.reject(result.payload);
   };
 
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
+    await updateApplicationStep(applicationId, ApplicationStepId.review);
     navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {
@@ -80,7 +87,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step04)}
-          steps={makeProgressBarSteps(applicationId, application, intl, "fit")}
+          steps={makeProgressBarSteps(applicationId, steps, intl, "fit")}
         />
       )}
       {showLoadingState && (

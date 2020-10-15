@@ -14,13 +14,18 @@ import {
 } from "../../../helpers/routes";
 import { ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
-import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
+import {
+  updateApplication as updateApplicationAction,
+  updateApplicationStep,
+} from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
 import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
+  useSteps,
 } from "../../../hooks/applicationHooks";
+import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -39,6 +44,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const steps = useSteps();
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
@@ -55,6 +61,9 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     values: ApplicationNormalized,
   ): Promise<void> => {
     await updateApplication(values);
+    await dispatch(
+      updateApplicationStep(applicationId, ApplicationStepId.experience),
+    );
     navigate(applicationExperienceIntro(locale, applicationId));
   };
   const handleReturn = async (values: ApplicationNormalized): Promise<void> => {
@@ -75,12 +84,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step01)}
-          steps={makeProgressBarSteps(
-            applicationId,
-            application,
-            intl,
-            "basic",
-          )}
+          steps={makeProgressBarSteps(applicationId, steps, intl, "basic")}
         />
       )}
       {showLoadingState && (

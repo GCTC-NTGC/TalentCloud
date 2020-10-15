@@ -36,7 +36,10 @@ import {
   useCriteria,
   useExperiences,
   useSkills,
+  useSteps,
 } from "../../../hooks/applicationHooks";
+import { updateApplicationStep } from "../../../store/Application/applicationActions";
+import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -69,6 +72,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     educationTypes,
     educationStatuses,
   } = useExperienceConstants();
+  const steps = useSteps();
 
   const showLoadingState =
     application === null ||
@@ -180,7 +184,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     await dispatch(deleteExperience(id, type));
   };
 
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      updateApplicationStep(applicationId, ApplicationStepId.skills),
+    );
     navigate(applicationSkillsIntro(locale, applicationId));
   };
   const handleReturn = (): void => {
@@ -196,12 +203,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step02)}
-          steps={makeProgressBarSteps(
-            applicationId,
-            application,
-            intl,
-            "experience",
-          )}
+          steps={makeProgressBarSteps(applicationId, steps, intl, "experience")}
         />
       )}
       {showLoadingState && (
