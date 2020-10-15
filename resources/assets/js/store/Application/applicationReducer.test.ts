@@ -41,10 +41,12 @@ describe("applicationReducer tests", (): void => {
         jobApplicationAnswers: {
           ...mapToObject(jobApplicationAnswers, getId),
         },
+        // TODO: Add fake data
+        steps: {},
       };
       const action: FetchApplicationAction = {
         type: FETCH_APPLICATION_SUCCEEDED,
-        payload: { application, jobApplicationAnswers },
+        payload: { application, jobApplicationAnswers, steps: {} },
         meta: { id: application.id },
       };
       expect(entitiesReducer(initialState, action)).toEqual(expectState);

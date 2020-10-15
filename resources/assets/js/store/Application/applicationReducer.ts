@@ -25,6 +25,7 @@ import {
   SEND_REFERENCE_EMAIL_STARTED,
   SEND_REFERENCE_EMAIL_SUCCEEDED,
   SEND_REFERENCE_EMAIL_FAILED,
+  UPDATE_APPLICATION_STEP_SUCCEEDED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -37,6 +38,7 @@ import {
   CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
   UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import { ProgressBarStatus } from "../../models/lookupConstants";
 
 export interface EntityState {
   applications: {
@@ -45,6 +47,7 @@ export interface EntityState {
   jobApplicationAnswers: {
     [id: number]: JobApplicationAnswer;
   };
+  steps: { [key in string]: ProgressBarStatus };
   applicationReviews: {
     byId: {
       [id: number]: ApplicationReview;
@@ -88,6 +91,7 @@ export interface ApplicationState {
 export const initEntities = (): EntityState => ({
   applications: {},
   jobApplicationAnswers: {},
+  steps: {},
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
@@ -146,6 +150,7 @@ export const entitiesReducer = (
         jobApplicationAnswers: {
           ...mapToObject(action.payload.jobApplicationAnswers, getId),
         },
+        steps: action.payload.steps,
       };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
@@ -228,6 +233,14 @@ export const entitiesReducer = (
         jobApplicationAnswers: {
           ...state.jobApplicationAnswers,
           [action.payload.id]: action.payload,
+        },
+      };
+    case UPDATE_APPLICATION_STEP_SUCCEEDED:
+      return {
+        ...state,
+        steps: {
+          ...state.steps,
+          ...action.payload,
         },
       };
     default:

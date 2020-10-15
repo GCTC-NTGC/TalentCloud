@@ -32,6 +32,7 @@ import {
   getApplicationIsUpdating,
   getApplicationNormalized,
   getJobApplicationAnswers,
+  getSteps,
 } from "../store/Application/applicationSelector";
 import { fetchApplication } from "../store/Application/applicationActions";
 import {
@@ -41,7 +42,10 @@ import {
   getJobPosterQuestionsByJob,
 } from "../store/Job/jobSelector";
 import { fetchJob } from "../store/Job/jobActions";
-import { ApplicationStatusId } from "../models/lookupConstants";
+import {
+  ApplicationStatusId,
+  ProgressBarStatus,
+} from "../models/lookupConstants";
 import {
   getExperienceByApplicant,
   getExperienceByApplication,
@@ -180,7 +184,7 @@ export function useJobApplicationAnswers(
 
 export function useApplicationUser(applicationId: number): User | null {
   const application = useApplication(applicationId);
-  const user = application?.applicant.user ?? null;
+  const user = application?.applicant?.user ?? null;
   return user;
 }
 
@@ -257,6 +261,10 @@ export function useFetchExperienceConstants(
     educationTypes,
     educationStatuses,
   };
+}
+
+export function useSteps(): { [key in string]: ProgressBarStatus } {
+  return useSelector(getSteps);
 }
 
 /**

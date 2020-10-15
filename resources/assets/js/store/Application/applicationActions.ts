@@ -26,11 +26,14 @@ import {
   parseSingleReferenceEmail,
   getApplicationBasicEndpoint,
   parseApplicationResponse,
+  getUpdateApplicationStepEndpoint,
+  parseApplicationStep,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
   UpdateJobApplicationAnswerAction,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import { ProgressBarStatus } from "../../models/lookupConstants";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -43,6 +46,7 @@ export type FetchApplicationAction = AsyncFsaActions<
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    steps: { [key in string]: ProgressBarStatus };
   },
   { id: number }
 >;
@@ -56,6 +60,7 @@ export const fetchApplication = (
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    steps: { [key in string]: ProgressBarStatus };
   },
   { id: number }
 > =>
@@ -237,6 +242,40 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
+export const UPDATE_APPLICATION_STEP_STARTED =
+  "APPLICATION: UPDATE STEP STARTED";
+export const UPDATE_APPLICATION_STEP_SUCCEEDED =
+  "APPLICATION: UPDATE STEP SUCCEEDED";
+export const UPDATE_APPLICATION_STEP_FAILED = "APPLICATION: UPDATE STEP FAILED";
+
+export type UpdateApplicationStepAction = AsyncFsaActions<
+  typeof UPDATE_APPLICATION_STEP_STARTED,
+  typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
+  typeof UPDATE_APPLICATION_STEP_FAILED,
+  { [key in string]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+>;
+
+export const updateApplicationStep = (
+  applicationId: number,
+  stepId: number,
+): RSAActionTemplate<
+  typeof UPDATE_APPLICATION_STEP_STARTED,
+  typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
+  typeof UPDATE_APPLICATION_STEP_FAILED,
+  { [key in string]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+> =>
+  asyncPut(
+    getUpdateApplicationStepEndpoint(applicationId, stepId),
+    { applicationId, stepId },
+    UPDATE_APPLICATION_STEP_STARTED,
+    UPDATE_APPLICATION_STEP_SUCCEEDED,
+    UPDATE_APPLICATION_STEP_FAILED,
+    parseApplicationStep,
+    { applicationId, stepId },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
@@ -245,4 +284,5 @@ export type ApplicationAction =
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction
-  | UpdateJobApplicationAnswerAction;
+  | UpdateJobApplicationAnswerAction
+  | UpdateApplicationStepAction;

@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
+import { ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
@@ -16,15 +19,18 @@ export const parseApplicationResponse = (
 ): {
   application: Application;
   jobApplicationAnswers: JobApplicationAnswer[];
+  steps: { [key in string]: ProgressBarStatus };
 } => {
+  const { steps, job_application_answers } = data;
   const application: Application = parseApplication(data);
-  const jobApplicationAnswers: JobApplicationAnswer[] = data.job_application_answers.map(
+  const jobApplicationAnswers: JobApplicationAnswer[] = job_application_answers.map(
     (answersData: any): JobApplicationAnswer => answersData,
   );
 
   return {
     application,
     jobApplicationAnswers,
+    steps,
   };
 };
 
@@ -38,6 +44,10 @@ export interface ReferenceEmailResponse {
 }
 export const parseReferenceEmails = (data: any): ReferenceEmailResponse => data;
 export const parseSingleReferenceEmail = (data: any): Email => data;
+
+export const parseApplicationStep = (
+  data: any,
+): { [key in string]: ProgressBarStatus } => data;
 
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;
@@ -59,3 +69,8 @@ export const getSendReferenceEmailEndpoint = (
   referenceType: "director" | "secondary",
 ): string =>
   `${baseUrl()}/applications/${applicationId}/reference-emails/${referenceType}/send`;
+
+export const getUpdateApplicationStepEndpoint = (
+  applicationId: number,
+  stepId: number,
+): string => `${baseUrl()}/applications/${applicationId}/steps/${stepId}`;

@@ -203,6 +203,8 @@ export const ApplicationStatusId = {
   rejected: 5,
 };
 
+export type ProgressBarStatus = "default" | "complete" | "error" | "current";
+
 export function getKeyByValue(object, value): string {
   return Object.keys(object).find((key) => object[key] === value) ?? "";
 }
