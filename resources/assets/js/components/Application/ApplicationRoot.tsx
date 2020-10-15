@@ -16,6 +16,7 @@ import FitPage from "./Fit/FitPage";
 import ReviewPage from "./Review/ReviewPage";
 import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
 import SkillsIntroPage from "./Skills/SkillsIntroPage";
+import RedirectStep from "./RedirectToLastTouchedStep";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -137,11 +138,7 @@ const routes: Routes<{}, RouterResult> = [
         path: "(.*)",
         action: ({ params }) => ({
           title: pageTitles.welcomeTitle,
-          component: <div />,
-          redirect: applicationWelcome(
-            params.locale as Locales,
-            Number(params.id),
-          ),
+          component: <RedirectStep applicationId={Number(params.id)} />,
         }),
       },
     ],
