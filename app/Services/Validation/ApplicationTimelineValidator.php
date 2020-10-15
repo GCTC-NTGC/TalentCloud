@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Validator;
 
 class ApplicationTimelineValidator
 {
+    /**
+     * @var mixed $backendRules Rule array shared by validator()
+     * and detailedValidationErrors(). Requires a Job Poster ID,
+     * an Application Status ID, and an Applicant ID
+     */
+    public $backendRules = [
+        'job_poster_id' => 'required',
+        'application_status_id' => 'required',
+        'applicant_id' => 'required',
+    ];
+
+    /* Step 1 ------------------------------------------------------------------------------------------------------- */
 
     /**
      * Validation rules for the Basic Info step.
@@ -78,37 +90,9 @@ class ApplicationTimelineValidator
         return $validator->passes();
     }
 
-    public function fitValidator(JobApplication $application)
-    {
-        // Load application answers so they are included in application->toArray().
-        $application->load('job_application_answers');
+    /* End Step 1 --------------------------------------------------------------------------------------------------- */
 
-        // Start with Answer rules, that ensure each answer is complete.
-        $answerValidator = new JobApplicationAnswerValidator($application);
-
-        $rules = $this->addNestedValidatorRules(
-            'job_application_answers.*',
-            $answerValidator->rules(),
-            []
-        );
-
-        // Validate that each question has been answered.
-        $jobPosterQuestionRules = [];
-        foreach ($application->job_poster->job_poster_questions as $question) {
-            $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
-        }
-        $rules['job_application_answers'] = $jobPosterQuestionRules;
-
-        $validator = Validator::make($application->toArray(), $rules);
-
-        return $validator;
-    }
-
-    public function fitComplete(JobApplication $application)
-    {
-        $validator = $this->fitValidator($application);
-        return $validator->passes();
-    }
+    /* Step 2 ------------------------------------------------------------------------------------------------------- */
 
     /**
      * Validator instance for the Experience step.
@@ -168,6 +152,10 @@ class ApplicationTimelineValidator
         $validator = $this->experienceValidator($application);
         return $validator->passes();
     }
+
+    /* End Step 2 --------------------------------------------------------------------------------------------------- */
+
+    /* Step 3 ------------------------------------------------------------------------------------------------------- */
 
     /**
      * Validator instance for the Skills step.
@@ -229,6 +217,110 @@ class ApplicationTimelineValidator
         return $validator->passes();
     }
 
+    /* End Step 3 --------------------------------------------------------------------------------------------------- */
+
+    /* Step 4 ------------------------------------------------------------------------------------------------------- */
+
+    /**
+     * Validator instance for the Fit step.
+     *
+     * @param JobApplication $application Job Application object.
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function fitValidator(JobApplication $application)
+    {
+        // Load application answers so they are included in application->toArray().
+        $application->load('job_application_answers');
+
+        // Start with Answer rules, that ensure each answer is complete.
+        $answerValidator = new JobApplicationAnswerValidator($application);
+
+        $rules = $this->addNestedValidatorRules(
+            'job_application_answers.*',
+            $answerValidator->rules(),
+            []
+        );
+
+        // Validate that each question has been answered.
+        $jobPosterQuestionRules = [];
+        foreach ($application->job_poster->job_poster_questions as $question) {
+            $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
+        }
+        $rules['job_application_answers'] = $jobPosterQuestionRules;
+
+        $validator = Validator::make($application->toArray(), $rules);
+
+        return $validator;
+    }
+
+    /**
+     * Helper function to return completeness for the Fit step.
+     *
+     * @param JobApplication $application Job Application object.
+     *
+     * @return boolean
+     */
+    public function fitComplete(JobApplication $application)
+    {
+        $validator = $this->fitValidator($application);
+        return $validator->passes();
+    }
+
+    /* End Step 4 --------------------------------------------------------------------------------------------------- */
+
+    /* Step 5 ------------------------------------------------------------------------------------------------------- */
+
+    /**
+     * Validator instance for the entire Application process.
+     *
+     * @param JobApplication $application Job Application object.
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function validator(JobApplication $application)
+    {
+        $data = $application->toArray();
+
+        $rules = $this->backendRules;
+
+        // Combining and simplifying error messages.
+        $rules = array_merge(
+            $rules,
+            ['timeline_step_1' => 'required|boolean|accepted'],
+            ['timeline_step_2' => 'required|boolean|accepted'],
+            ['timeline_step_3' => 'required|boolean|accepted'],
+            ['timeline_step_4' => 'required|boolean|accepted'],
+            ['timeline_step_5' => 'required|boolean|accepted']
+        );
+        $data = array_merge(
+            $data,
+            ['timeline_step_1' => $this->basicsComplete($application)],
+            ['timeline_step_2' => $this->experienceComplete($application)],
+            ['timeline_step_3' => $this->skillsComplete($application)],
+            ['timeline_step_4' => $this->fitComplete($application)],
+            ['timeline_step_5' => $this->affirmationComplete($application)]
+        );
+
+        // Validate basic data is filled in.
+        return Validator::make($data, $rules);
+    }
+
+    public function validate(JobApplication $application)
+    {
+        $this->validator($application)->validate();
+    }
+
+    public function validateComplete(JobApplication $application)
+    {
+        $validator = $this->validator($application);
+        return $validator->passes();
+    }
+
+    /* End Step 5 --------------------------------------------------------------------------------------------------- */
+
+    /* Step 6 ------------------------------------------------------------------------------------------------------- */
+
     /**
      * Validator instance for the Final Submit step.
      *
@@ -264,11 +356,34 @@ class ApplicationTimelineValidator
         return $this->affirmationValidator($application)->passes();
     }
 
+    /* End Step 6 --------------------------------------------------------------------------------------------------- */
+
+    /* Helpers ------------------------------------------------------------------------------------------------------ */
+
+    /**
+     * Helper function to return detailed error messages for each step.
+     *
+     * @param JobApplication $application Job Application object.
+     *
+     * @return mixed
+     */
+    public function detailedValidatorErrors(JobApplication $application)
+    {
+        return array_merge(
+            Validator::make($application->toArray(), $this->backendRules)->errors()->all(),
+            $this->basicsValidator($application)->errors()->all(),
+            $this->experienceValidator($application)->errors()->all(),
+            $this->skillsValidator($application)->errors()->all(),
+            $this->fitValidator($application)->errors()->all(),
+            $this->affirmationValidator($application)->errors()->all()
+        );
+    }
+
     /**
      * Return a copy of $array, with function $fn applied to each key, but values left unchanged.
      *
      * @param function $fn    Function applied to each key.
-     * @param array    $array Array to operate on.
+     * @param mixed    $array Array to operate on.
      * @return array
      */
     protected function arrayMapKeys($fn, $array): array
@@ -280,6 +395,15 @@ class ApplicationTimelineValidator
         return $newArray;
     }
 
+    /**
+     * Return a copy of $array, with function $fn applied to each key, but values left unchanged.
+     *
+     * @param string $nestedAttribute Attribute name to apply to each rule.
+     * @param mixed  $validatorRules  Rules array that requires an attribute name to be prepended.
+     * @param mixed  $rules           Optional existing validation rules to merge with.
+     *
+     * @return array
+     */
     protected function addNestedValidatorRules($nestedAttribute, $validatorRules, $rules = [])
     {
         // Prepend the attribute name of each validator rule with the nested attribute name.
@@ -293,32 +417,5 @@ class ApplicationTimelineValidator
         $rules = array_merge($rules, $newRules);
         return $rules;
     }
-
-    /**
-     * Helper function to return validation rules for Job Question Answers.
-     *
-     * @param JobApplication $application Job Application object.
-     *
-     * @return mixed
-     */
-    protected function questionAnswerRules(JobApplication $application)
-    {
-        // Start with Answer rules, that ensure each answer is complete.
-        $answerValidator = new JobApplicationAnswerValidator($application);
-
-        $rules = $this->addNestedValidatorRules(
-            'job_application_answers.*',
-            $answerValidator->rules(),
-            []
-        );
-
-        // Validate that each question has been answered.
-        $jobPosterQuestionRules = [];
-        foreach ($application->job_poster->job_poster_questions as $question) {
-            $jobPosterQuestionRules[] = new ContainsObjectWithAttributeRule('job_poster_question_id', $question->id);
-        }
-        $rules['job_application_answers'] = $jobPosterQuestionRules;
-
-        return $rules;
-    }
+    /* End Helpers -------------------------------------------------------------------------------------------------- */
 }

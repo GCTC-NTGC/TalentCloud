@@ -12,6 +12,7 @@ use App\Models\ExperienceWork;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
+use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\LanguageRequirement;
 use App\Services\Validation\ApplicationTimelineValidator;
@@ -231,8 +232,45 @@ class ApplicationTimelineValidatorTest extends TestCase
         $this->assertFalse($validator->affirmationComplete($application));
 
         $completeApp = factory(JobApplication::class)->create([
-
+            'submission_signature' => $this->faker->name(),
+            'submission_date' => '2019-06-06',
         ]);
         $this->assertTrue($validator->affirmationComplete($completeApp));
+    }
+
+    public function testCombinedValidator(): void
+    {
+        $validator = new ApplicationTimelineValidator();
+        $submitted = ApplicationStatus::where('name', 'submitted')->first()->id;
+        // A completed draft application should validate.
+        $this->application->language_test_confirmed = true;
+        $this->application->submission_signature = $this->faker->name();
+        $this->application->submission_date = '2019-06-06';
+        $this->application->save();
+
+        $this->assertTrue($validator->validateComplete($this->application));
+
+        // A completed submitted application should validate.
+        $this->application->application_status_id = $submitted;
+        $this->application->save();
+        $this->assertTrue($validator->validateComplete($this->application));
+
+
+        // Having any of the steps incomplete should invalidate the whole app.
+        $veteranStatus = $this->application->veteran_status_id;
+        $this->application->veteran_status_id = null;
+        $this->application->save();
+        $this->assertFalse($validator->validateComplete($this->application));
+
+        $this->application->veteran_status_id = $veteranStatus;
+        $this->application->save();
+        $experience = $this->experienceSkills[0];
+        $this->experienceSkills[0]->delete();
+        $this->assertFalse($validator->validateComplete($this->application));
+
+        $experience->save();
+        $this->application->submission_signature = '';
+        $this->application->save();
+        $this->assertFalse($validator->validateComplete($this->application));
     }
 }
