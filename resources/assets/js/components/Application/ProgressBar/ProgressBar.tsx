@@ -4,6 +4,7 @@ import { Link } from "../../../models/app";
 import { getLocale } from "../../../helpers/localize";
 import { navigate } from "../../../helpers/router";
 import { readableTimeFromNow } from "../../../helpers/dates";
+import { ProgressBarStatus } from "../../../models/lookupConstants";
 
 export const stepNames = defineMessages({
   welcome: {
@@ -39,9 +40,9 @@ export const stepNames = defineMessages({
 // Returns the list item element that corresponds to the steps status.
 const createStep = (
   link: Link,
-  status: ProgressBarStepStatus,
+  status: ProgressBarStatus,
   icons: {
-    [key in ProgressBarStepStatus]: { className: string; color: string };
+    [key in ProgressBarStatus]: { className: string; color: string };
   },
 ): React.ReactElement => {
   const isComplete: boolean = status === "complete";
@@ -124,19 +125,13 @@ const createStep = (
   );
 };
 
-export type ProgressBarStepStatus =
-  | "default"
-  | "complete"
-  | "error"
-  | "current";
-
 export interface ProgressBarProps {
   /** The closing date of the job poster. */
   closeDateTime: Date | null;
   /** The current step number. This is required for the informational steps, since they do not use a list item. */
   currentTitle: string;
   /** List of the steps. */
-  steps: { link: Link; status: ProgressBarStepStatus }[];
+  steps: { link: Link; status: ProgressBarStatus }[];
 }
 
 export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
@@ -148,7 +143,7 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   const locale = getLocale(intl.locale);
 
   const icons: {
-    [key in ProgressBarStepStatus]: { className: string; color: string };
+    [key in ProgressBarStatus]: { className: string; color: string };
   } = {
     default: {
       className: "fas fa-circle",

@@ -1,10 +1,6 @@
 import { IntlShape } from "react-intl";
 import { ApplicationNormalized } from "../../../models/types";
-import {
-  ProgressBarProps,
-  stepNames,
-  ProgressBarStepStatus,
-} from "./ProgressBar";
+import { ProgressBarProps, stepNames } from "./ProgressBar";
 import {
   applicationBasic,
   applicationExperienceIntro,
@@ -14,65 +10,11 @@ import {
   applicationSubmission,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
-
-function basicInfoStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function experienceStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function skillsStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function myFitStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function reviewStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function submissionStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
+import { ProgressBarStatus } from "../../../models/lookupConstants";
 
 export function makeProgressBarSteps(
   applicationId: number,
-  application: ApplicationNormalized | null,
+  steps: { [key in string]: ProgressBarStatus },
   intl: IntlShape,
   currentStep:
     | "welcome"
@@ -92,8 +34,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
-      status:
-        currentStep === "basic" ? "current" : basicInfoStatus(application),
+      status: currentStep === "basic" ? "current" : steps.basic,
     },
     {
       link: {
@@ -101,10 +42,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
-      status:
-        currentStep === "experience"
-          ? "current"
-          : experienceStatus(application),
+      status: currentStep === "experience" ? "current" : steps.experience,
     },
     {
       link: {
@@ -112,7 +50,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
-      status: currentStep === "skills" ? "current" : skillsStatus(application),
+      status: currentStep === "skills" ? "current" : steps.skills,
     },
     {
       link: {
@@ -120,7 +58,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
-      status: currentStep === "fit" ? "current" : myFitStatus(application),
+      status: currentStep === "fit" ? "current" : steps.fit,
     },
     {
       link: {
@@ -128,7 +66,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
-      status: currentStep === "review" ? "current" : reviewStatus(application),
+      status: currentStep === "review" ? "current" : steps.review,
     },
     {
       link: {
@@ -136,10 +74,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
-      status:
-        currentStep === "submission"
-          ? "current"
-          : submissionStatus(application),
+      status: currentStep === "submission" ? "current" : steps.submission,
     },
   ];
 }
