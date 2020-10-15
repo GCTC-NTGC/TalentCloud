@@ -46,7 +46,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $gov_email
  * @property boolean $physical_office_willing
  * @property int $security_clearance_id
- * @property boolean $share_with_maangers
+ * @property boolean $share_with_mangers
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -527,5 +527,29 @@ class JobApplication extends BaseModel
         $replicateAndSaveExperience($applicant->experiences_education, 'experiences_education');
         $replicateAndSaveExperience($applicant->experiences_personal, 'experiences_personal');
         $replicateAndSaveExperience($applicant->experiences_work, 'experiences_work');
+    }
+
+    /**
+     * Attach steps to new application (version 2).
+     *
+     * @return void
+    */
+    public function attachSteps(): void
+    {
+        $basicStep = Step::where('name', 'basic')->first();
+        $experienceStep = Step::where('name', 'experience')->first();
+        $skillsStep = Step::where('name', 'skills')->first();
+        $fitStep = Step::where('name', 'fit')->first();
+        $reviewStep = Step::where('name', 'review')->first();
+        $submissionStep = Step::where('name', 'submission')->first();
+
+        if ($this->job_application_answers->isEmpty()) {
+            $this->job_application_steps()->attach($basicStep);
+            $this->job_application_steps()->attach($experienceStep);
+            $this->job_application_steps()->attach($skillsStep);
+            $this->job_application_steps()->attach($fitStep);
+            $this->job_application_steps()->attach($reviewStep);
+            $this->job_application_steps()->attach($submissionStep);
+        };
     }
 }

@@ -98,6 +98,7 @@ class ApplicationByJobController extends Controller
             $application->applicant_id = Auth::user()->applicant->id;
             $application->application_status_id = ApplicationStatus::where('name', 'draft')->firstOrFail()->id;
             $application->save();
+            $application->attachSteps();
         }
         return $application;
     }
