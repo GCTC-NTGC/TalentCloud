@@ -11,6 +11,7 @@ use App\Events\ApplicationRetrieved;
 use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
+use App\Models\Lookup\Step;
 use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
@@ -74,6 +75,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $experiences_education
  * @property \Illuminate\Database\Eloquent\Collection $experiences_award
  * @property \Illuminate\Database\Eloquent\Collection $experiences_community
+ * @property \Illuminate\Database\Eloquent\Collection $job_application_steps
  */
 class JobApplication extends BaseModel
 {
@@ -269,6 +271,16 @@ class JobApplication extends BaseModel
     {
         return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
             ->orderBy('end_date', 'desc');
+    }
+
+    public function job_application_steps() //phpcs:ignore
+    {
+        return $this->belongsToMany(
+            \App\Models\Lookup\Step::class,
+            'job_application_steps',
+            'job_application_id',
+            'step_id'
+        )->withPivot('touched');
     }
 
     /**
