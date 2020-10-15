@@ -552,4 +552,43 @@ class JobApplication extends BaseModel
             $this->job_application_steps()->attach($submissionStep);
         };
     }
+
+    /**
+     * Calculates and returns an associative array of application steps (version 2) with the value equal
+     * to it's status ('default', 'complete', 'error').
+     *
+     * @return string $steps
+     */
+    public function applicationTimelineSteps(): array
+    {
+        $setState = function (bool $touched, bool $isValid) {
+            return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
+        };
+
+        // TODO: Replace with validator.
+        $basicValidator = true;
+        $experienceValidator = true;
+        $skillsValidator = true;
+        $fitValidator = true;
+        $reviewValidator = true;
+        $submissionValidator = true;
+
+        $basicTouched = $this->job_application_steps->where('name', 'basic')->first()->pivot->touched;
+        $experienceTouched = $this->job_application_steps->where('name', 'experience')->first()->pivot->touched;
+        $skillsTouched = $this->job_application_steps->where('name', 'skills')->first()->pivot->touched;
+        $fitTouched = $this->job_application_steps->where('name', 'fit')->first()->pivot->touched;
+        $reviewTouched = $this->job_application_steps->where('name', 'review')->first()->pivot->touched;
+        $submissionTouched = $this->job_application_steps->where('name', 'submission')->first()->pivot->touched;
+
+        $steps = [
+            'basic' => $setState($basicTouched, $basicValidator),
+            'experience' => $setState($experienceTouched, $experienceValidator),
+            'skills' => $setState($skillsTouched, $skillsValidator),
+            'fit' => $setState($fitTouched, $fitValidator),
+            'review' => $setState($reviewTouched, $reviewValidator),
+            'submission' => $setState($submissionTouched, $submissionValidator)
+        ];
+
+        return $steps;
+    }
 }
