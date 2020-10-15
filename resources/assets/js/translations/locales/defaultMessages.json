@@ -1291,7 +1291,7 @@
         "id": "application.review.missingAnswer"
       },
       {
-        "defaultMessage": "Account Settings",
+        "defaultMessage": "My Account Settings",
         "id": "application.review.accountSettingsHeading"
       },
       {
@@ -2723,6 +2723,11 @@
         "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
         "description": "Job Classification message from list of Classifications",
         "id": "jobBuilder.details.educationMessages.FI"
+      },
+      {
+        "defaultMessage": "Classification not found.",
+        "description": "Job Classification message when the classification id is incorrect.",
+        "id": "jobBuilder.details.educationMessages.classificationNotFound"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -4125,6 +4130,11 @@
         "defaultMessage": "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
         "description": "Subtext 2 displayed of the our culture section.",
         "id": "jobBuilder.workEnv.cultureSubtext2"
+      },
+      {
+        "defaultMessage": "Please make selections above...",
+        "description": "Displayed in culture summary before radio inputs are selected.",
+        "id": "jobBuilder.workEnv.cultureSummaryDefault"
       },
       {
         "defaultMessage": "Fast-paced vs. Steady:",
