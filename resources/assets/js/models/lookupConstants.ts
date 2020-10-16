@@ -223,7 +223,9 @@ export type ApplicationStep =
 export type ProgressBarStatus = "default" | "complete" | "error" | "current";
 
 export function getKeyByValue(object, value): string {
-  return Object.keys(object).find((key) => object[key] === value) ?? "";
+  return (
+    Object.keys(object).find((key) => object[key] === value) ?? "key not found."
+  );
 }
 
 export function enumToIds(enumType: object): number[] {

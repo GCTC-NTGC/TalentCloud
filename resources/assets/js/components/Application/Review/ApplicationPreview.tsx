@@ -296,6 +296,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-all-experience"
         data-experience-view="experience"
         onClick={handleViewClick}
+        key="experienceButton"
       >
         <FormattedMessage
           id="application.review.experienceViewButton"
@@ -315,6 +316,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-skill-experience"
         data-experience-view="skills"
         onClick={handleViewClick}
+        key="skillsButton"
       >
         <FormattedMessage
           id="application.review.skillsViewButton"
@@ -334,6 +336,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-education-experience"
         data-experience-view="education"
         onClick={handleViewClick}
+        key="educationButton"
       >
         <FormattedMessage
           id="application.review.educationViewButton"
@@ -356,7 +359,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       }
     });
 
-    return <>{...buttonView}</>;
+    return <>{buttonView}</>;
   };
 
   return (
@@ -713,7 +716,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             {!managerView ? (
               <FormattedMessage
                 id="application.review.accountSettingsHeading"
-                defaultMessage="Account Settings"
+                defaultMessage="My Account Settings"
               />
             ) : (
               intl.formatMessage(managerViewHeaders.accountSettings)
