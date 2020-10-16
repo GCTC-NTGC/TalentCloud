@@ -1067,8 +1067,8 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->name('job-application-answers.update');
 
 
-    Route::put('applications/{application}/steps/{step}', 'Api\ApplicationController@stepIsTouched')
-        // ->middleware('can:update,application')
+    Route::put('applications/{application}/steps/{step}', 'Api\ApplicationController@updateStep')
+        ->middleware('can:view,application')
         ->name('job-application-step.update');
 });
 

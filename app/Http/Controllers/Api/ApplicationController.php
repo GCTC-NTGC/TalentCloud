@@ -166,10 +166,9 @@ class ApplicationController extends Controller
      * @param Step $step Incoming Job Application Step
      * @return bool
      */
-    public function stepIsTouched(Request $request)
+    public function updateStep(Request $request, JobApplication $application, Step $step)
     {
-        $application = JobApplication::where('id', $request->applicationId)->first();
-        $application->job_application_steps()->updateExistingPivot($request->stepId, ['touched' => true]);
+        $application->job_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
 
         return new JsonResource($application->applicationTimelineSteps());
     }
