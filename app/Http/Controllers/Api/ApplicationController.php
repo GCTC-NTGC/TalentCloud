@@ -164,7 +164,7 @@ class ApplicationController extends Controller
      * Update the job application step
      *
      * @param Step $step Incoming Job Application Step
-     * @return bool
+     * @return mixed
      */
     public function updateStep(Request $request, JobApplication $application, Step $step)
     {

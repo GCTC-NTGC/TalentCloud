@@ -73,4 +73,4 @@ export const getSendReferenceEmailEndpoint = (
 export const getUpdateApplicationStepEndpoint = (
   applicationId: number,
   stepId: number,
-): string => `${baseUrl()}/applications/${applicationId}/steps/${stepId}`;
+): string => `${getApplicationEndpoint(applicationId)}/steps/${stepId}`;
