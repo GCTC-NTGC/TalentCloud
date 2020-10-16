@@ -289,6 +289,7 @@ interface ExperienceProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
+  handleEditSkill?: (experienceSkillId: number) => void;
   context: "application" | "profile";
 }
 
@@ -306,6 +307,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
+  handleEditSkill,
   context,
 }) => {
   const intl = useIntl();
@@ -585,9 +587,11 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                 );
 
                 if (context === "profile") {
-                  const handleEditSkill = (experienceSkillId: number) => {
-                    throw Error("Not implemented");
-                  }; // TODO: Implement
+                  const accordionHandleEditSkill =
+                    handleEditSkill ??
+                    (() => {
+                      // Do nothing.
+                    });
 
                   return (
                     profileExperienceAccordion(
@@ -596,7 +600,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                       skillsById,
                       handleEdit,
                       handleDelete,
-                      handleEditSkill,
+                      accordionHandleEditSkill,
                     ) ?? errorAccordion()
                   );
                 }
