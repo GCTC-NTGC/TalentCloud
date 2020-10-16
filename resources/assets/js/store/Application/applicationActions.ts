@@ -33,7 +33,10 @@ import {
   CreateJobApplicationAnswerAction,
   UpdateJobApplicationAnswerAction,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
-import { ProgressBarStatus } from "../../models/lookupConstants";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -46,7 +49,7 @@ export type FetchApplicationAction = AsyncFsaActions<
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
-    steps: { [key in string]: ProgressBarStatus };
+    steps: { [step in ApplicationStep]: ProgressBarStatus };
   },
   { id: number }
 >;
@@ -252,7 +255,7 @@ export type UpdateApplicationStepAction = AsyncFsaActions<
   typeof UPDATE_APPLICATION_STEP_STARTED,
   typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
   typeof UPDATE_APPLICATION_STEP_FAILED,
-  { [key in string]: ProgressBarStatus },
+  { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 >;
 
@@ -263,7 +266,7 @@ export const updateApplicationStep = (
   typeof UPDATE_APPLICATION_STEP_STARTED,
   typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
   typeof UPDATE_APPLICATION_STEP_FAILED,
-  { [key in string]: ProgressBarStatus },
+  { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 > =>
   asyncPut(

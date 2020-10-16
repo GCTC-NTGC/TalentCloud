@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
-import { ProgressBarStatus } from "../models/lookupConstants";
+import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
@@ -19,7 +19,7 @@ export const parseApplicationResponse = (
 ): {
   application: Application;
   jobApplicationAnswers: JobApplicationAnswer[];
-  steps: { [key in string]: ProgressBarStatus };
+  steps: { [step in ApplicationStep]: ProgressBarStatus };
 } => {
   const { steps, job_application_answers } = data;
   const application: Application = parseApplication(data);
@@ -47,7 +47,7 @@ export const parseSingleReferenceEmail = (data: any): Email => data;
 
 export const parseApplicationStep = (
   data: any,
-): { [key in string]: ProgressBarStatus } => data;
+): { [step in ApplicationStep]: ProgressBarStatus } => data;
 
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;

@@ -38,7 +38,10 @@ import {
   CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
   UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
-import { ProgressBarStatus } from "../../models/lookupConstants";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export interface EntityState {
   applications: {
@@ -47,7 +50,7 @@ export interface EntityState {
   jobApplicationAnswers: {
     [id: number]: JobApplicationAnswer;
   };
-  steps: { [key in string]: ProgressBarStatus };
+  steps: { [step in ApplicationStep]: ProgressBarStatus };
   applicationReviews: {
     byId: {
       [id: number]: ApplicationReview;
@@ -91,7 +94,14 @@ export interface ApplicationState {
 export const initEntities = (): EntityState => ({
   applications: {},
   jobApplicationAnswers: {},
-  steps: {},
+  steps: {
+    basic: "default",
+    experience: "default",
+    skills: "default",
+    fit: "default",
+    review: "default",
+    submission: "default",
+  },
   applicationReviews: {
     byId: {},
     idByApplicationId: {},

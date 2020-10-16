@@ -3,7 +3,10 @@ import {
   entitiesReducer,
   EntityState,
 } from "./applicationReducer";
-import { fakeApplication } from "../../fakeData/fakeApplications";
+import {
+  fakeApplication,
+  fakeApplicationSteps,
+} from "../../fakeData/fakeApplications";
 import {
   FetchApplicationAction,
   FETCH_APPLICATION_SUCCEEDED,
@@ -18,6 +21,7 @@ describe("applicationReducer tests", (): void => {
         id: 100,
       });
       const jobApplicationAnswers = fakeJobApplicationAnswers();
+      const steps = fakeApplicationSteps();
       const initialState = initEntities();
       const expectState: EntityState = {
         ...initEntities(),
@@ -41,12 +45,11 @@ describe("applicationReducer tests", (): void => {
         jobApplicationAnswers: {
           ...mapToObject(jobApplicationAnswers, getId),
         },
-        // TODO: Add fake data
-        steps: {},
+        steps,
       };
       const action: FetchApplicationAction = {
         type: FETCH_APPLICATION_SUCCEEDED,
-        payload: { application, jobApplicationAnswers, steps: {} },
+        payload: { application, jobApplicationAnswers, steps },
         meta: { id: application.id },
       };
       expect(entitiesReducer(initialState, action)).toEqual(expectState);

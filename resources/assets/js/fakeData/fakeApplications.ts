@@ -1,4 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
@@ -226,6 +227,22 @@ export const fakeReferenceEmail = (overrides: Partial<Email>): Email => ({
   subject: "Reference Requested - GC Talent Reserve",
   body: defaultEmailBody,
   ...overrides,
+});
+
+export const fakeApplicationSteps = (
+  basic: ProgressBarStatus = "default",
+  experience: ProgressBarStatus = "default",
+  fit: ProgressBarStatus = "default",
+  skills: ProgressBarStatus = "default",
+  review: ProgressBarStatus = "default",
+  submission: ProgressBarStatus = "default",
+): { [step in ApplicationStep]: ProgressBarStatus } => ({
+  basic,
+  experience,
+  fit,
+  skills,
+  review,
+  submission,
 });
 
 export default fakeApplications;
