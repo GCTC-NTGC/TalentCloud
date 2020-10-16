@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
@@ -142,195 +143,13 @@ export const messages = defineMessages({
   },
 });
 
-export interface EducationDetailsFormValues {
-  educationTypeId: number | "";
-  areaOfStudy: string;
-  institution: string;
-  educationStatusId: number | "";
-  thesisTitle: string;
-  startDate: string;
-  isActive: boolean;
-  endDate: string;
-  hasBlockcert: boolean;
-}
-
-type EducationExperienceFormValues = SkillFormValues &
-  EducationFormValues &
-  EducationDetailsFormValues;
-export interface EducationExperienceSubmitData {
-  experienceEducation: ExperienceEducation;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
-  const requiredMsg = intl.formatMessage(validationMessages.required);
-  const conditionalRequiredMsg = intl.formatMessage(
-    validationMessages.endDateRequiredIfNotOngoing,
-  );
-  const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
-  const afterStartDateMsg = intl.formatMessage(
-    validationMessages.endDateAfterStart,
-  );
-  return {
-    educationTypeId: Yup.number().required(requiredMsg),
-    areaOfStudy: Yup.string().required(requiredMsg),
-    institution: Yup.string().required(requiredMsg),
-    educationStatusId: Yup.number().required(requiredMsg),
-    thesisTitle: Yup.string(),
-    hasBlockcert: Yup.boolean(),
-    startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
-    isActive: Yup.boolean(),
-    endDate: Yup.date().when("isActive", {
-      is: false,
-      then: Yup.date()
-        .required(conditionalRequiredMsg)
-        .min(Yup.ref("startDate"), afterStartDateMsg),
-      otherwise: Yup.date().min(Yup.ref("startDate"), afterStartDateMsg),
-    }),
-  };
-};
-
-const dataToFormValues = (
-  data: EducationExperienceSubmitData,
-  locale: Locales,
-  creatingNew: boolean,
-): EducationExperienceFormValues => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data;
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
-  return {
-    requiredSkills: savedRequiredSkills.map(skillToName),
-    optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceEducation.is_education_requirement,
-    educationTypeId: creatingNew ? "" : experienceEducation.education_type_id,
-    areaOfStudy: experienceEducation.area_of_study,
-    institution: experienceEducation.institution,
-    educationStatusId: creatingNew
-      ? ""
-      : experienceEducation.education_status_id,
-    thesisTitle: experienceEducation.thesis_title ?? "",
-    hasBlockcert: experienceEducation.has_blockcert,
-    startDate: toInputDateString(experienceEducation.start_date),
-    isActive: experienceEducation.is_active,
-    endDate: experienceEducation.end_date
-      ? toInputDateString(experienceEducation.end_date)
-      : "",
-  };
-};
-
-/* eslint-disable @typescript-eslint/camelcase */
-const formValuesToData = (
-  formValues: EducationExperienceFormValues,
-  originalExperience: ExperienceEducation,
-  locale: Locales,
-  skills: Skill[],
-): EducationExperienceSubmitData => {
-  const nameToSkill = (name: string): Skill | null =>
-    matchValueToModel(locale, "name", name, skills);
-  return {
-    experienceEducation: {
-      ...originalExperience,
-      education_type_id: formValues.educationTypeId
-        ? Number(formValues.educationTypeId)
-        : 1,
-      area_of_study: formValues.areaOfStudy,
-      institution: formValues.institution,
-      education_status_id: formValues.educationStatusId
-        ? Number(formValues.educationStatusId)
-        : 1,
-      thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
-      has_blockcert: formValues.hasBlockcert,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
-      is_education_requirement: formValues.useAsEducationRequirement,
-    },
-    savedRequiredSkills: formValues.requiredSkills
-      .map(nameToSkill)
-      .filter(notEmpty),
-    savedOptionalSkills: formValues.optionalSkills
-      .map(nameToSkill)
-      .filter(notEmpty),
-  };
-};
-
-const newExperienceEducation = (
-  experienceableId: number,
-  experienceableType: ExperienceEducation["experienceable_type"],
-): ExperienceEducation => ({
-  id: 0,
-  education_type_id: 0,
-  education_type: { en: "", fr: "" },
-  area_of_study: "",
-  institution: "",
-  education_status_id: 0,
-  education_status: { en: "", fr: "" },
-  thesis_title: "",
-  has_blockcert: false,
-  is_active: false,
-  start_date: new Date(),
-  end_date: null,
-  is_education_requirement: false,
-  experienceable_id: experienceableId,
-  experienceable_type: experienceableType,
-  type: "experience_education",
-});
-/* eslint-enable @typescript-eslint/camelcase */
-
-export const EducationExperienceModal: React.FC<EducationExperienceModalProps> = ({
-  modalId,
-  experienceEducation,
-  educationTypes,
-  educationStatuses,
-  jobId,
-  jobClassification,
-  jobEducationRequirements,
-  requiredSkills,
-  savedRequiredSkills,
-  optionalSkills,
-  savedOptionalSkills,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
+const DetailsSubform: FunctionComponent<{
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
+}> = ({ educationTypes, educationStatuses }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  const originalExperience =
-    experienceEducation ??
-    newExperienceEducation(experienceableId, experienceableType);
-
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
-
-  const initialFormValues = dataToFormValues(
-    {
-      experienceEducation: originalExperience,
-      savedRequiredSkills,
-      savedOptionalSkills,
-    },
-    locale,
-    experienceEducation === null,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...skillValidationShape,
-    ...educationValidationShape,
-    ...validationShape(intl),
-  });
-
-  const detailsSubform = (
+  return (
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
@@ -426,6 +245,286 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
       </div>
     </div>
   );
+};
+
+export interface EducationDetailsFormValues {
+  educationTypeId: number | "";
+  areaOfStudy: string;
+  institution: string;
+  educationStatusId: number | "";
+  thesisTitle: string;
+  startDate: string;
+  isActive: boolean;
+  endDate: string;
+  hasBlockcert: boolean;
+}
+
+const experienceToDetails = (
+  experience: ExperienceEducation,
+  creatingNew: boolean,
+): EducationDetailsFormValues => {
+  return {
+    educationTypeId: creatingNew ? "" : experience.education_type_id,
+    areaOfStudy: experience.area_of_study,
+    institution: experience.institution,
+    educationStatusId: creatingNew ? "" : experience.education_status_id,
+    thesisTitle: experience.thesis_title ?? "",
+    hasBlockcert: experience.has_blockcert,
+    startDate: toInputDateString(experience.start_date),
+    isActive: experience.is_active,
+    endDate: experience.end_date ? toInputDateString(experience.end_date) : "",
+  };
+};
+
+const detailsToExperience = (
+  formValues: EducationDetailsFormValues,
+  originalExperience: ExperienceEducation,
+): ExperienceEducation => {
+  return {
+    ...originalExperience,
+    education_type_id: formValues.educationTypeId
+      ? Number(formValues.educationTypeId)
+      : 1,
+    area_of_study: formValues.areaOfStudy,
+    institution: formValues.institution,
+    education_status_id: formValues.educationStatusId
+      ? Number(formValues.educationStatusId)
+      : 1,
+    thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
+    has_blockcert: formValues.hasBlockcert,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const validationShape = (intl: IntlShape) => {
+  const requiredMsg = intl.formatMessage(validationMessages.required);
+  const conditionalRequiredMsg = intl.formatMessage(
+    validationMessages.endDateRequiredIfNotOngoing,
+  );
+  const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
+  const afterStartDateMsg = intl.formatMessage(
+    validationMessages.endDateAfterStart,
+  );
+  return {
+    educationTypeId: Yup.number().required(requiredMsg),
+    areaOfStudy: Yup.string().required(requiredMsg),
+    institution: Yup.string().required(requiredMsg),
+    educationStatusId: Yup.number().required(requiredMsg),
+    thesisTitle: Yup.string(),
+    hasBlockcert: Yup.boolean(),
+    startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
+    isActive: Yup.boolean(),
+    endDate: Yup.date().when("isActive", {
+      is: false,
+      then: Yup.date()
+        .required(conditionalRequiredMsg)
+        .min(Yup.ref("startDate"), afterStartDateMsg),
+      otherwise: Yup.date().min(Yup.ref("startDate"), afterStartDateMsg),
+    }),
+  };
+};
+
+const newExperienceEducation = (
+  experienceableId: number,
+  experienceableType: ExperienceEducation["experienceable_type"],
+): ExperienceEducation => ({
+  id: 0,
+  education_type_id: 0,
+  education_type: { en: "", fr: "" },
+  area_of_study: "",
+  institution: "",
+  education_status_id: 0,
+  education_status: { en: "", fr: "" },
+  thesis_title: "",
+  has_blockcert: false,
+  is_active: false,
+  start_date: new Date(),
+  end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
+  type: "experience_education",
+});
+
+interface ProfileEducationModalProps {
+  modalId: string;
+  experienceEducation: ExperienceEducation | null;
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
+  experienceableId: number;
+  experienceableType: ExperienceEducation["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (experience: ExperienceEducation) => Promise<void>;
+}
+
+export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps> = ({
+  modalId,
+  experienceEducation,
+  educationTypes,
+  educationStatuses,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experienceEducation ??
+    newExperienceEducation(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(
+    originalExperience,
+    experienceEducation === null,
+  );
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-book"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform
+                educationTypes={educationTypes}
+                educationStatuses={educationStatuses}
+              />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
+type EducationExperienceFormValues = SkillFormValues &
+  EducationFormValues &
+  EducationDetailsFormValues;
+export interface EducationExperienceSubmitData {
+  experienceEducation: ExperienceEducation;
+  savedRequiredSkills: Skill[];
+  savedOptionalSkills: Skill[];
+}
+
+const dataToFormValues = (
+  data: EducationExperienceSubmitData,
+  locale: Locales,
+  creatingNew: boolean,
+): EducationExperienceFormValues => {
+  const {
+    experienceEducation,
+    savedRequiredSkills,
+    savedOptionalSkills,
+  } = data;
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+  return {
+    requiredSkills: savedRequiredSkills.map(skillToName),
+    optionalSkills: savedOptionalSkills.map(skillToName),
+    useAsEducationRequirement: experienceEducation.is_education_requirement,
+    ...experienceToDetails(data.experienceEducation, creatingNew),
+  };
+};
+
+const formValuesToData = (
+  formValues: EducationExperienceFormValues,
+  originalExperience: ExperienceEducation,
+  locale: Locales,
+  skills: Skill[],
+): EducationExperienceSubmitData => {
+  const nameToSkill = (name: string): Skill | null =>
+    matchValueToModel(locale, "name", name, skills);
+  return {
+    experienceEducation: detailsToExperience(formValues, originalExperience),
+    savedRequiredSkills: formValues.requiredSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+    savedOptionalSkills: formValues.optionalSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+  };
+};
+
+export const EducationExperienceModal: React.FC<EducationExperienceModalProps> = ({
+  modalId,
+  experienceEducation,
+  educationTypes,
+  educationStatuses,
+  jobId,
+  jobClassification,
+  jobEducationRequirements,
+  requiredSkills,
+  savedRequiredSkills,
+  optionalSkills,
+  savedOptionalSkills,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+
+  const originalExperience =
+    experienceEducation ??
+    newExperienceEducation(experienceableId, experienceableType);
+
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+
+  const initialFormValues = dataToFormValues(
+    {
+      experienceEducation: originalExperience,
+      savedRequiredSkills,
+      savedOptionalSkills,
+    },
+    locale,
+    experienceEducation === null,
+  );
+
+  const validationSchema = Yup.object().shape({
+    ...skillValidationShape,
+    ...educationValidationShape,
+    ...validationShape(intl),
+  });
 
   return (
     <Modal
@@ -461,7 +560,10 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform
+                educationTypes={educationTypes}
+                educationStatuses={educationStatuses}
+              />
               <SkillSubform
                 keyPrefix="education"
                 jobId={jobId}
