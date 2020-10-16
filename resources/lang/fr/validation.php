@@ -121,6 +121,7 @@ return [
     | Here you may specify validation messages for custom rules and validtors.
     */
     'applicant_has_relation' => 'le candidat doit posséder cet :attribute',
+    'contains_array_with_attribute' => 'Missing required :relation equal to :attributeValue',
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
     'user_skill_unique' => 'cette compétence est déjà ajoutée',
     'password_correct' => 'Le mot de passe actuel n\'est pas correct',
@@ -149,6 +150,21 @@ return [
         ],
         'application_step_3' => [
             'accepted' => 'L\'étape 3 doit être complet. Si l\'étape 3 semble complet, veuillez consulter la page de compétences de votre profil pour les compétences en double. Des copies multiples d\'une compétence sur votre profil peut également provoquer cette erreur. Nous travaillons pour résoudre ce problème.',
+        ],
+        'timeline_step_1' => [
+            'accepted' => 'Step 1 must be completed',
+        ],
+        'timeline_step_2' => [
+            'accepted' => 'Step 2 must be completed',
+        ],
+        'timeline_step_3' => [
+            'accepted' => 'Step 3 must be completed',
+        ],
+        'timeline_step_4' => [
+            'accepted' => 'Step 4 must be completed',
+        ],
+        'timeline_step_5' => [
+            'accepted' => 'Step 5 must be completed',
         ],
         'twitter_handle' => 'Ce n\'est pas une poignée Twitter valide.',
         'linkedin_url' => 'Ce n\'est pas une url linkedIn valide.',

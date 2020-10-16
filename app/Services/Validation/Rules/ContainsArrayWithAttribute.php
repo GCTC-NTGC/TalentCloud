@@ -5,7 +5,7 @@ namespace App\Services\Validation\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Lang;
 
-class ContainsObjectWithAttributeRule implements Rule
+class ContainsArrayWithAttributeRule implements Rule
 {
 
     protected $attributeName;
@@ -24,32 +24,26 @@ class ContainsObjectWithAttributeRule implements Rule
         $this->attributeValue = $attributeValue;
     }
 
-    protected function arrayAny(array $array, callable $fn)
-    {
-        foreach ($array as $value) {
-            if ($fn($value)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
-     * This check passes if the $value is an array which contains an object
-     *  with a attributeName relation equal to attributeValue
+     * This check passes if the $value is an array which contains an
+     * attributeName relation equal to attributeValue.
      * @param  mixed $attribute
      * @param  mixed $value
      * @return boolean
      */
     public function passes($attribute, $value)
     {
-        return $this->arrayAny($value, function ($object) {
-            return $object[$this->attributeName] == $this->attributeValue;
-        });
+        return $value[$this->attributeName] == $this->attributeValue;
     }
 
     public function message()
     {
-        return Lang::get('validation.contains_object_with_attribute', ['relation' => $this->attributeName, 'attributeValue' => $this->attributeValue]);
+        return Lang::get(
+            'validation.contains_array_with_attribute',
+            [
+                'relation' => $this->attributeName,
+                'attributeValue' => $this->attributeValue
+            ]
+        );
     }
 }
