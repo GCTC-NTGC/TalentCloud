@@ -543,7 +543,7 @@ class JobApplication extends BaseModel
         $reviewStep = Step::where('name', 'review')->first();
         $submissionStep = Step::where('name', 'submission')->first();
 
-        if ($this->job_application_answers->isEmpty()) {
+        if ($this->job_application_steps->isEmpty()) {
             $this->job_application_steps()->attach($basicStep);
             $this->job_application_steps()->attach($experienceStep);
             $this->job_application_steps()->attach($skillsStep);
