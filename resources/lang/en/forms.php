@@ -10,6 +10,6 @@ return [
     */
     'required' => 'Required',
     'error' => 'This input has an error.',
-    'alert' => 'Uh oh, something doesn\'t look right.',
+    'alert' => "Uh oh, something doesn't look right.",
     'alert_copy' => 'Please check the following:',
 ];

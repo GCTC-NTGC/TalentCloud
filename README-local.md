@@ -1,8 +1,12 @@
 # Local Installation Instructions
 
+  * [Linux](#Linux)
+  * [macOS](#macOS)
+
+## Linux
 These instructions were written using Ubuntu 18.04 LTS
 
-## Install nginx
+### Install nginx
 
 *Detailed instructions available [here](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)*
 
@@ -40,7 +44,7 @@ Example Expected output
 ... Started A high performance web server and a reverse proxy server.
 ```
 
-## Install PostGres
+### Install PostGres
 
 *For more detailed instructions, go [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)*
 
@@ -58,7 +62,7 @@ grant all privileges on database talentcloud to talentcloud; ### adjust access
 ALTER ROLE talentcloud SUPERUSER;
 ```
 
-## Install PHP and required extensions
+### Install PHP and required extensions
 
 *For more detailed instructions, [go here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04)*
 
@@ -71,7 +75,7 @@ sudo apt install php-mbstring php-xml php-bcmath
 ```
 
 
-## Configure nginx
+### Configure nginx
 
 *For more detailed instructions, [go here](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-ubuntu-18-04)*
 
@@ -134,7 +138,7 @@ Restart the nginx server
 sudo service nginx restart
 ```
 
-## Install npm
+### Install npm
 
 *For more detailed instructions, please visit [here](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/)*
 
@@ -144,23 +148,23 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt install -y nodejs
 ```
 
-## Install composer
+### Install composer
 
 ```
 sudo apt-get install composer
 ```
 
-## Run Talent Cloud
+### Run Talent Cloud
 
-### Clone repo
+#### Clone repo
 
-#### HTTPS
+###### HTTPS
 
 ```
 git clone  https://github.com/GCTC-NTGC/TalentCloud.git
 ```
 
-#### SSH
+##### SSH
 
 ```
 git clone git@github.com:GCTC-NTGC/TalentCloud.git
@@ -222,9 +226,9 @@ sudo apt install libnss3-tools
 certutil -d sql:$HOME/.pki/nssdb -A -t "P,," -n "localhost" -i localhost.crt
 ```
 
-### Move files to be hosted
+#### Move files to be hosted
 
-#### Setup TalentCloud directory to be hosted
+##### Setup TalentCloud directory to be hosted
 
 ```
 cd TalentCloud
@@ -233,12 +237,12 @@ composer install && npm install && npm run dev && php artisan migrate:fresh && p
 composer ide-helper
 ```
 
-#### Copy files over to be hosted
+##### Copy files over to be hosted
 ```
 sudo cp -r . /var/www ## copy the files to be hosted by nginx (root specified in the config specified above)
 ```
 
-#### Adjust permissions
+##### Adjust permissions
 
 ```
 sudo chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache
@@ -253,13 +257,13 @@ sudo find /var/www -type d -exec chmod g+s {} +
 ```
 At this point, if you restart the server you should see the TC UI load, though with internal server (500) errors
 
-##### Restart the service
+###### Restart the service
 
 ```
 sudo service nginx restart
 ```
 
-#### Final configurations
+##### Final configurations
 
 Install imagick
 
@@ -286,6 +290,127 @@ extension=imagick
 ```
 
 Reboot your computer. Upon rebooting, the application should load as expected
+
+#### Logging in
+
+To log in locally, use one of the following test accounts
+
+- admin@test.com
+- manager@test.com
+- applicant@test.com
+- hr_advisor@test.com
+
+The password for each account is 'password'
+
+---
+
+## macOS
+These instructions were written using macOS High Sierra (Version 10.13.6)
+
+## Install homebrew
+
+*Further instructions available [here](https://brew.sh/)*
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+## Install composer
+
+```
+sudo brew install composer
+```
+
+## Install laravel/valet
+
+*Further instructions available [here](https://laravel.com/docs/6.x/valet)*
+
+```
+composer global require laravel/valet
+```
+
+## Install PHP and required extensions
+
+*Laravel-specific server requirements available [here](https://laravel.com/docs/6.x/installation#server-requirements)*
+
+```
+brew install php@7.2 --without-apache --with-postgresql
+brew install pkg-config imagemagick
+pecl install imagick
+```
+
+## Install PostGres
+
+```
+brew install postgresql
+```
+
+### Configure postgres
+
+```
+brew services start postgresql
+psql -d postgres ## login to postgres
+create database talentcloud; ### create database
+create user talentcloud with encrypted password 'talentcloud'; ### create user
+grant all privileges on database talentcloud to talentcloud; ### adjust access
+ALTER ROLE talentcloud SUPERUSER;
+```
+
+## Install node
+
+```
+brew install node@12
+```
+
+## Run Talent Cloud
+
+### Clone repo
+
+#### HTTPS
+
+```
+git clone https://github.com/GCTC-NTGC/TalentCloud.git
+```
+
+or
+
+#### SSH
+
+```
+git clone git@github.com:GCTC-NTGC/TalentCloud.git
+```
+
+#### Setup TalentCloud directory to be hosted
+
+*Further instructions available [here](https://laravel.com/docs/6.x/valet#securing-sites)*
+
+```
+cd TalentCloud
+valet use php@7.2
+valet secure talent
+valet link talent
+valet restart
+cp .env.example .env
+php artisan key:generate
+composer install && npm install && npm run dev && php artisan migrate:fresh && php artisan db:seed
+brew services restart nginx
+```
+
+### Add Git post-checkout hook
+
+Create post-checkout hook file if it does not already exist
+```
+cd TalentCloud
+touch `.git/hooks/post-checkout`
+```
+
+Add the following to post-checkout hook file
+```
+composer install && \
+composer ide-helper && \
+npm install && \
+php artisan migrate:fresh -n --seed
+```
 
 ### Logging in
 
