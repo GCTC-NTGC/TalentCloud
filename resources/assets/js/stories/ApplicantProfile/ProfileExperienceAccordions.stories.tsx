@@ -18,6 +18,7 @@ import { getId, mapToObject } from "../../helpers/queries";
 import { ProfileEducationAccordion } from "../../components/Application/ExperienceAccordions/ExperienceEducationAccordion";
 import { ProfilePersonalAccordion } from "../../components/Application/ExperienceAccordions/ExperiencePersonalAccordion";
 import { ProfileWorkAccordion } from "../../components/Application/ExperienceAccordions/ExperienceWorkAccordion";
+import { promiseAction } from "../helpers";
 
 const stories = storiesOf("Applicant Profile|Experience Accordions", module)
   .addDecorator(withIntl)
@@ -28,14 +29,6 @@ const stories = storiesOf("Applicant Profile|Experience Accordions", module)
       </div>
     </div>
   ));
-
-function sleep(ms): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-const promiseAction = (text: string) => async () => {
-  sleep(1000);
-  action(text)();
-};
 
 const skillsById = mapToObject(fakeSkills(), getId);
 

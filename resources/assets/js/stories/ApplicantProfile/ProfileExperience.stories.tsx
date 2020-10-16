@@ -21,6 +21,7 @@ import {
 } from "../Application/ExperienceModals.stories";
 import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import { sleep } from "../helpers";
 
 const stories = storiesOf("Applicant Profile|Experience", module).addDecorator(
   withIntl,
@@ -64,6 +65,9 @@ const handleSubmitExperience = async (
     savedRequiredSkills,
     savedOptionalSkills,
   } = data as EducationExperienceSubmitData;
+
+  await sleep(1000);
+
   submitExperience(experienceEducation, [
     ...savedRequiredSkills,
     ...savedOptionalSkills,
@@ -74,6 +78,8 @@ const handleDeleteExperience = async (
   id: number,
   type: string,
 ): Promise<void> => {
+  await sleep(1000);
+
   const index = experiences.findIndex(
     (experience) => experience.id === id && experience.type === type,
   );
