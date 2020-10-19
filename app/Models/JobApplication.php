@@ -12,10 +12,12 @@ use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
 use App\Models\Lookup\Step;
+use App\Services\Validation\ApplicationTimelineValidator;
 use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class JobApplication
@@ -566,13 +568,14 @@ class JobApplication extends BaseModel
             return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
         };
 
-        // TODO: Replace with validator.
-        $basicValidator = true;
-        $experienceValidator = true;
-        $skillsValidator = true;
-        $fitValidator = true;
-        $reviewValidator = true;
-        $submissionValidator = true;
+        $validator = new ApplicationTimelineValidator();
+
+        $basicValidator = $validator->basicsComplete($this);
+        $experienceValidator = $validator->experienceComplete($this);
+        $skillsValidator = $validator->skillsComplete($this);
+        $fitValidator = $validator->fitComplete($this);
+        $reviewValidator = $validator->validateComplete($this);
+        $submissionValidator = $validator->affirmationComplete($this);
 
         $basicTouched = $this->job_application_steps->where('name', 'basic')->first()->pivot->touched;
         $experienceTouched = $this->job_application_steps->where('name', 'experience')->first()->pivot->touched;
