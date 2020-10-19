@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
@@ -32,24 +33,6 @@ import {
 import { notEmpty } from "../../../helpers/queries";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-
-interface PersonalExperienceModalProps {
-  modalId: string;
-  experiencePersonal: ExperiencePersonal | null;
-  jobId: number;
-  jobClassification: string;
-  jobEducationRequirements: string | null;
-  requiredSkills: Skill[];
-  savedRequiredSkills: Skill[];
-  optionalSkills: Skill[];
-  savedOptionalSkills: Skill[];
-  experienceableId: number;
-  experienceableType: ExperiencePersonal["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
-}
 
 export const messages = defineMessages({
   modalTitle: {
@@ -105,173 +88,11 @@ export const messages = defineMessages({
   },
 });
 
-export interface PersonalDetailsFormValues {
-  title: string;
-  description: string;
-  isShareable: boolean;
-  startDate: string;
-  isActive: boolean;
-  endDate: string;
-}
-
-type PersonalExperienceFormValues = SkillFormValues &
-  EducationFormValues &
-  PersonalDetailsFormValues;
-export interface PersonalExperienceSubmitData {
-  experiencePersonal: ExperiencePersonal;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
-
 const DESCRIPTION_WORD_LIMIT = 100;
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
-  const requiredMsg = intl.formatMessage(validationMessages.required);
-  const conditionalRequiredMsg = intl.formatMessage(
-    validationMessages.endDateRequiredIfNotOngoing,
-  );
-  const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
-  const afterStartDateMsg = intl.formatMessage(
-    validationMessages.endDateAfterStart,
-  );
-  const tooLong = intl.formatMessage(validationMessages.tooLong);
-  return {
-    title: Yup.string().required(requiredMsg),
-    description: Yup.string()
-      .required(requiredMsg)
-      .test(
-        "under-word-limit",
-        tooLong,
-        (value: string) => countNumberOfWords(value) <= DESCRIPTION_WORD_LIMIT,
-      ),
-    isShareable: Yup.boolean(),
-    startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
-    isActive: Yup.boolean(),
-    endDate: Yup.date().when("isActive", {
-      is: false,
-      then: Yup.date()
-        .required(conditionalRequiredMsg)
-        .min(Yup.ref("startDate"), afterStartDateMsg),
-      otherwise: Yup.date().min(Yup.ref("startDate"), afterStartDateMsg),
-    }),
-  };
-};
-
-const dataToFormValues = (
-  data: PersonalExperienceSubmitData,
-  locale: Locales,
-): PersonalExperienceFormValues => {
-  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
-  return {
-    requiredSkills: savedRequiredSkills.map(skillToName),
-    optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experiencePersonal.is_education_requirement,
-    title: experiencePersonal.title,
-    description: experiencePersonal.description,
-    isShareable: experiencePersonal.is_shareable,
-    startDate: toInputDateString(experiencePersonal.start_date),
-    isActive: experiencePersonal.is_active,
-    endDate: experiencePersonal.end_date
-      ? toInputDateString(experiencePersonal.end_date)
-      : "",
-  };
-};
-
-/* eslint-disable @typescript-eslint/camelcase */
-const formValuesToData = (
-  formValues: PersonalExperienceFormValues,
-  originalExperience: ExperiencePersonal,
-  locale: Locales,
-  skills: Skill[],
-): PersonalExperienceSubmitData => {
-  const nameToSkill = (name: string): Skill | null =>
-    matchValueToModel(locale, "name", name, skills);
-  return {
-    experiencePersonal: {
-      ...originalExperience,
-      title: formValues.title,
-      description: formValues.description,
-      is_shareable: formValues.isShareable,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
-      is_education_requirement: formValues.useAsEducationRequirement,
-    },
-    savedRequiredSkills: formValues.requiredSkills
-      .map(nameToSkill)
-      .filter(notEmpty),
-    savedOptionalSkills: formValues.optionalSkills
-      .map(nameToSkill)
-      .filter(notEmpty),
-  };
-};
-
-const newPersonalExperience = (
-  experienceableId: number,
-  experienceableType: ExperiencePersonal["experienceable_type"],
-): ExperiencePersonal => ({
-  id: 0,
-  title: "",
-  description: "",
-  is_shareable: false,
-  is_active: false,
-  start_date: new Date(),
-  end_date: null,
-  is_education_requirement: false,
-  experienceable_id: experienceableId,
-  experienceable_type: experienceableType,
-  type: "experience_personal",
-});
-/* eslint-enable @typescript-eslint/camelcase */
-
-export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = ({
-  modalId,
-  experiencePersonal,
-  jobId,
-  jobClassification,
-  jobEducationRequirements,
-  requiredSkills,
-  savedRequiredSkills,
-  optionalSkills,
-  savedOptionalSkills,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
+const DetailsSubform: FunctionComponent = () => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
-
-  const originalExperience =
-    experiencePersonal ??
-    newPersonalExperience(experienceableId, experienceableType);
-
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
-
-  const initialFormValues = dataToFormValues(
-    {
-      experiencePersonal: originalExperience,
-      savedRequiredSkills,
-      savedOptionalSkills,
-    },
-    locale,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...skillValidationShape,
-    ...educationValidationShape,
-    ...validationShape(intl),
-  });
-
-  const detailsSubform = (
+  return (
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
@@ -333,6 +154,276 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
       </div>
     </div>
   );
+};
+
+export interface PersonalDetailsFormValues {
+  title: string;
+  description: string;
+  isShareable: boolean;
+  startDate: string;
+  isActive: boolean;
+  endDate: string;
+}
+
+type PersonalExperienceFormValues = SkillFormValues &
+  EducationFormValues &
+  PersonalDetailsFormValues;
+export interface PersonalExperienceSubmitData {
+  experiencePersonal: ExperiencePersonal;
+  savedRequiredSkills: Skill[];
+  savedOptionalSkills: Skill[];
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export const validationShape = (intl: IntlShape) => {
+  const requiredMsg = intl.formatMessage(validationMessages.required);
+  const conditionalRequiredMsg = intl.formatMessage(
+    validationMessages.endDateRequiredIfNotOngoing,
+  );
+  const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
+  const afterStartDateMsg = intl.formatMessage(
+    validationMessages.endDateAfterStart,
+  );
+  const tooLong = intl.formatMessage(validationMessages.tooLong);
+  return {
+    title: Yup.string().required(requiredMsg),
+    description: Yup.string()
+      .required(requiredMsg)
+      .test(
+        "under-word-limit",
+        tooLong,
+        (value: string) => countNumberOfWords(value) <= DESCRIPTION_WORD_LIMIT,
+      ),
+    isShareable: Yup.boolean(),
+    startDate: Yup.date().required(requiredMsg).max(new Date(), inPastMsg),
+    isActive: Yup.boolean(),
+    endDate: Yup.date().when("isActive", {
+      is: false,
+      then: Yup.date()
+        .required(conditionalRequiredMsg)
+        .min(Yup.ref("startDate"), afterStartDateMsg),
+      otherwise: Yup.date().min(Yup.ref("startDate"), afterStartDateMsg),
+    }),
+  };
+};
+
+const experienceToDetails = (
+  experiencePersonal: ExperiencePersonal,
+): PersonalDetailsFormValues => {
+  return {
+    title: experiencePersonal.title,
+    description: experiencePersonal.description,
+    isShareable: experiencePersonal.is_shareable,
+    startDate: toInputDateString(experiencePersonal.start_date),
+    isActive: experiencePersonal.is_active,
+    endDate: experiencePersonal.end_date
+      ? toInputDateString(experiencePersonal.end_date)
+      : "",
+  };
+};
+
+const dataToFormValues = (
+  data: PersonalExperienceSubmitData,
+  locale: Locales,
+): PersonalExperienceFormValues => {
+  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+  return {
+    ...experienceToDetails(data.experiencePersonal),
+    requiredSkills: savedRequiredSkills.map(skillToName),
+    optionalSkills: savedOptionalSkills.map(skillToName),
+    useAsEducationRequirement: experiencePersonal.is_education_requirement,
+  };
+};
+
+const detailsToExperience = (
+  formValues: PersonalDetailsFormValues,
+  originalExperience: ExperiencePersonal,
+): ExperiencePersonal => {
+  return {
+    ...originalExperience,
+    title: formValues.title,
+    description: formValues.description,
+    is_shareable: formValues.isShareable,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
+
+const formValuesToData = (
+  formValues: PersonalExperienceFormValues,
+  originalExperience: ExperiencePersonal,
+  locale: Locales,
+  skills: Skill[],
+): PersonalExperienceSubmitData => {
+  const nameToSkill = (name: string): Skill | null =>
+    matchValueToModel(locale, "name", name, skills);
+  return {
+    experiencePersonal: {
+      ...detailsToExperience(formValues, originalExperience),
+      is_education_requirement: formValues.useAsEducationRequirement,
+    },
+    savedRequiredSkills: formValues.requiredSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+    savedOptionalSkills: formValues.optionalSkills
+      .map(nameToSkill)
+      .filter(notEmpty),
+  };
+};
+
+const newPersonalExperience = (
+  experienceableId: number,
+  experienceableType: ExperiencePersonal["experienceable_type"],
+): ExperiencePersonal => ({
+  id: 0,
+  title: "",
+  description: "",
+  is_shareable: false,
+  is_active: false,
+  start_date: new Date(),
+  end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
+  type: "experience_personal",
+});
+
+interface ProfilePersonalModalProps {
+  modalId: string;
+  experiencePersonal: ExperiencePersonal | null;
+  experienceableId: number;
+  experienceableType: ExperiencePersonal["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: ExperiencePersonal) => Promise<void>;
+}
+
+export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> = ({
+  modalId,
+  experiencePersonal,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experiencePersonal ??
+    newPersonalExperience(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(originalExperience);
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-book"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
+interface PersonalExperienceModalProps {
+  modalId: string;
+  experiencePersonal: ExperiencePersonal | null;
+  jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  experienceableId: number;
+  experienceableType: ExperiencePersonal["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
+}
+
+export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = ({
+  modalId,
+  experiencePersonal,
+  jobId,
+  jobClassification,
+  jobEducationRequirements,
+  requiredSkills,
+  savedRequiredSkills,
+  optionalSkills,
+  savedOptionalSkills,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+
+  const originalExperience =
+    experiencePersonal ??
+    newPersonalExperience(experienceableId, experienceableType);
+
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+
+  const initialFormValues = dataToFormValues(
+    {
+      experiencePersonal: originalExperience,
+      savedRequiredSkills,
+      savedOptionalSkills,
+    },
+    locale,
+  );
+
+  const validationSchema = Yup.object().shape({
+    ...skillValidationShape,
+    ...educationValidationShape,
+    ...validationShape(intl),
+  });
 
   return (
     <Modal
@@ -368,7 +459,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform />
               <SkillSubform
                 keyPrefix="personal"
                 jobId={jobId}
