@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\Step;
 use App\Models\Lookup\VeteranStatus;
 
 class ApplicationControllerTest extends TestCase
@@ -109,5 +110,29 @@ class ApplicationControllerTest extends TestCase
             ->json('put', "$this->baseUrl/applications/$application->id/basic", $invalid);
         $response->assertStatus(422);
         $response->assertJsonFragment(['message' => 'The given data was invalid.']);
+    }
+
+    public function testUpdateApplicationStep(): void
+    {
+        $applicant = factory(Applicant::class)->create();
+        $application = factory(JobApplication::class)->states('draft')->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $step = Step::where('name', 'basic')->first();
+        $application->attachSteps();
+        $application->refresh();
+
+
+        $data = [
+            'applicationId' => $application->id,
+            'stepId' => $step->id,
+        ];
+
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/steps/$step->id", $data);
+        $response->assertOk();
+
+        $application->refresh();
+        $response->assertJsonFragment($application->applicationTimelineSteps());
     }
 }
