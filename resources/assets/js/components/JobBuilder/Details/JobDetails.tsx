@@ -30,7 +30,7 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
-  ClassificationId,
+  //ClassificationId,
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { emptyJob } from "../../../models/jobUtil";
@@ -50,6 +50,9 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+
+import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
+import { useSelector } from "react-redux";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -174,9 +177,14 @@ interface DetailsFormValues {
   travel: TravelOptionType;
   overtime: OvertimeOptionType;
 }
+const classification = useSelector((state: RootState) => {
+  return getClassificationState(state);
+});
 
 const classificationCode = (classification: number | string): string =>
-  getKeyByValue(ClassificationId, classification);
+  getKeyByValue(useSelector((state: RootState) => {
+    return getClassificationState(state);
+  })?.id, classification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
@@ -338,7 +346,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.number()
       .oneOf(
-        Object.values(ClassificationId),
+        Object.values(classification.id),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -511,7 +519,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={Object.values(ClassificationId).map((id: number): {
+                  options={Object.values(classification.id).map((id: number): {
                     value: number;
                     label: string;
                   } => ({
@@ -1029,7 +1037,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        ClassificationId,
+                        classification.id,
                         values.classification,
                       )}
                       level={String(values.level)}

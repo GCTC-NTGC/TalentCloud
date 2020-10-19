@@ -32,6 +32,7 @@ import { hasKey } from "../../../helpers/queries";
 import {
   getClassifications
 } from "../../../store/Classification/classificationActions";
+import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
 
 interface BasicInfoProps {
   application: ApplicationNormalized;

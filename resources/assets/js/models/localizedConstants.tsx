@@ -743,6 +743,16 @@ export const travelRequirementDescription = (
     "invalid TravelRequirementId",
   );
 
+  export const classificationCodeOption = (
+    classificationId: number,
+  ): MessageDescriptor =>
+    getOrThrowError(
+      classificationCodes,
+      classificationId,
+      "invalid ClassificationId",
+    );
+
+
 export const generalLocations = defineMessages({
   [LocationId.jobGeneric]: {
     id: "activityfeed.locations.review",
