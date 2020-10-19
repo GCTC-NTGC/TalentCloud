@@ -471,7 +471,10 @@ const formValuesToData = (
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceEducation: detailsToExperience(formValues, originalExperience),
+    experienceEducation: {
+      ...detailsToExperience(formValues, originalExperience),
+      is_education_requirement: formValues.useAsEducationRequirement,
+    },
     savedRequiredSkills: formValues.requiredSkills
       .map(nameToSkill)
       .filter(notEmpty),
