@@ -21,6 +21,7 @@ import {
   //ClassificationId,
 } from "../../../models/lookupConstants";
 import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
+import { getClassifications } from "../../../../../assets/js/store/Classification/classificationActions";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
