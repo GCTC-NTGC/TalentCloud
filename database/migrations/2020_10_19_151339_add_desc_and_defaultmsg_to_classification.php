@@ -15,10 +15,8 @@ class AddDescAndDefaultmsgToClassification extends Migration
     {
         Schema::table('classifications', function (Blueprint $table) {
             $table->string('defaultMessage')->nullable();;
-            #$table->string('defaultMessage')
 
             $table->string('description')->nullable();
-            #$table->string('description')->nullable();
         });
 
         DB::table('classifications')->where('key', 'AS')->update(
