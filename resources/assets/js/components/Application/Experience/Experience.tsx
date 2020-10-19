@@ -25,25 +25,30 @@ import EducationExperienceModal, {
   EducationType,
   EducationStatus,
   EducationExperienceSubmitData,
+  ProfileEducationModal,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
   messages as workMessages,
+  ProfileWorkModal,
   WorkExperienceSubmitData,
 } from "../ExperienceModals/WorkExperienceModal";
 import CommunityExperienceModal, {
   messages as communityMessages,
   CommunityExperienceSubmitData,
+  ProfileCommunityModal,
 } from "../ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal, {
   messages as personalMessages,
   PersonalExperienceSubmitData,
+  ProfilePersonalModal,
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
   AwardRecipientType,
   AwardRecognitionType,
   AwardExperienceSubmitData,
+  ProfileAwardModal,
 } from "../ExperienceModals/AwardExperienceModal";
 import {
   ExperienceEducationAccordion,
@@ -272,7 +277,7 @@ export type ExperienceSubmitData =
   | PersonalExperienceSubmitData
   | AwardExperienceSubmitData;
 
-interface ExperienceProps {
+type ExperienceProps = {
   experiences: Experience[];
   educationStatuses: EducationStatus[];
   educationTypes: EducationType[];
@@ -284,14 +289,22 @@ interface ExperienceProps {
   jobEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleEditSkill?: (experienceSkillId: number) => void;
-  context: "application" | "profile";
-}
+} & (
+  | {
+      context: "application";
+      handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+      handleEditSkill?: undefined;
+    }
+  | {
+      context: "profile";
+      handleSubmitExperience: (data: Experience) => Promise<void>;
+      handleEditSkill: (experienceSkillId: number) => void;
+    }
+);
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
@@ -368,7 +381,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     setIsModalVisible({ id: "", visible: false });
   };
 
-  const submitExperience = (data: ExperienceSubmitData): Promise<void> =>
+  const submitExperience = (data) =>
     handleSubmitExperience(data).then(closeModal);
 
   const editExperience = (
@@ -669,123 +682,228 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       </div>
 
       <div data-c-dialog-overlay={isModalVisible.visible ? "active" : ""} />
-      <EducationExperienceModal
-        educationStatuses={educationStatuses}
-        educationTypes={educationTypes}
-        experienceEducation={experienceData as ExperienceEducation}
-        experienceableId={experienceData?.experienceable_id ?? 0}
-        experienceableType={
-          experienceData?.experienceable_type ?? "application"
-        }
-        jobId={jobId}
-        jobClassification={jobClassification}
-        jobEducationRequirements={jobEducationRequirements}
-        modalId={modalButtons.education.id}
-        onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
-        optionalSkills={assetSkills}
-        parentElement={modalRoot}
-        requiredSkills={essentialSkills}
-        savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
-        savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
-        visible={
-          isModalVisible.visible &&
-          isModalVisible.id === modalButtons.education.id
-        }
-      />
-      <WorkExperienceModal
-        experienceWork={experienceData as ExperienceWork}
-        experienceableId={experienceData?.experienceable_id ?? 0}
-        experienceableType={
-          experienceData?.experienceable_type ?? "application"
-        }
-        jobId={jobId}
-        jobClassification={jobClassification}
-        jobEducationRequirements={jobEducationRequirements}
-        modalId={modalButtons.work.id}
-        onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
-        optionalSkills={assetSkills}
-        parentElement={modalRoot}
-        requiredSkills={essentialSkills}
-        savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
-        savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
-        visible={
-          isModalVisible.visible && isModalVisible.id === modalButtons.work.id
-        }
-      />
-      <CommunityExperienceModal
-        experienceCommunity={experienceData as ExperienceCommunity}
-        experienceableId={experienceData?.experienceable_id ?? 0}
-        experienceableType={
-          experienceData?.experienceable_type ?? "application"
-        }
-        jobId={jobId}
-        jobClassification={jobClassification}
-        jobEducationRequirements={jobEducationRequirements}
-        modalId={modalButtons.community.id}
-        onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
-        optionalSkills={assetSkills}
-        parentElement={modalRoot}
-        requiredSkills={essentialSkills}
-        savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
-        savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
-        visible={
-          isModalVisible.visible &&
-          isModalVisible.id === modalButtons.community.id
-        }
-      />
-      <PersonalExperienceModal
-        experiencePersonal={experienceData as ExperiencePersonal}
-        experienceableId={experienceData?.experienceable_id ?? 0}
-        experienceableType={
-          experienceData?.experienceable_type ?? "application"
-        }
-        jobId={jobId}
-        jobClassification={jobClassification}
-        jobEducationRequirements={jobEducationRequirements}
-        modalId={modalButtons.personal.id}
-        onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
-        optionalSkills={assetSkills}
-        parentElement={modalRoot}
-        requiredSkills={essentialSkills}
-        savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
-        savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
-        visible={
-          isModalVisible.visible &&
-          isModalVisible.id === modalButtons.personal.id
-        }
-      />
-      <AwardExperienceModal
-        experienceAward={experienceData as ExperienceAward}
-        experienceableId={experienceData?.experienceable_id ?? 0}
-        experienceableType={
-          experienceData?.experienceable_type ?? "application"
-        }
-        jobId={jobId}
-        jobClassification={jobClassification}
-        jobEducationRequirements={jobEducationRequirements}
-        modalId={modalButtons.award.id}
-        onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
-        optionalSkills={assetSkills}
-        parentElement={modalRoot}
-        recipientTypes={recipientTypes}
-        recognitionTypes={recognitionTypes}
-        requiredSkills={essentialSkills}
-        savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
-        savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
-        visible={
-          isModalVisible.visible && isModalVisible.id === modalButtons.award.id
-        }
-      />
+      {context === "application" && (
+        <>
+          <EducationExperienceModal
+            educationStatuses={educationStatuses}
+            educationTypes={educationTypes}
+            experienceEducation={experienceData as ExperienceEducation}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            jobId={jobId}
+            jobClassification={jobClassification}
+            jobEducationRequirements={jobEducationRequirements}
+            modalId={modalButtons.education.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            optionalSkills={assetSkills}
+            parentElement={modalRoot}
+            requiredSkills={essentialSkills}
+            savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
+            savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.education.id
+            }
+          />
+          <WorkExperienceModal
+            experienceWork={experienceData as ExperienceWork}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            jobId={jobId}
+            jobClassification={jobClassification}
+            jobEducationRequirements={jobEducationRequirements}
+            modalId={modalButtons.work.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            optionalSkills={assetSkills}
+            parentElement={modalRoot}
+            requiredSkills={essentialSkills}
+            savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
+            savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.work.id
+            }
+          />
+          <CommunityExperienceModal
+            experienceCommunity={experienceData as ExperienceCommunity}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            jobId={jobId}
+            jobClassification={jobClassification}
+            jobEducationRequirements={jobEducationRequirements}
+            modalId={modalButtons.community.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            optionalSkills={assetSkills}
+            parentElement={modalRoot}
+            requiredSkills={essentialSkills}
+            savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
+            savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.community.id
+            }
+          />
+          <PersonalExperienceModal
+            experiencePersonal={experienceData as ExperiencePersonal}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            jobId={jobId}
+            jobClassification={jobClassification}
+            jobEducationRequirements={jobEducationRequirements}
+            modalId={modalButtons.personal.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            optionalSkills={assetSkills}
+            parentElement={modalRoot}
+            requiredSkills={essentialSkills}
+            savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
+            savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.personal.id
+            }
+          />
+          <AwardExperienceModal
+            experienceAward={experienceData as ExperienceAward}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            jobId={jobId}
+            jobClassification={jobClassification}
+            jobEducationRequirements={jobEducationRequirements}
+            modalId={modalButtons.award.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            optionalSkills={assetSkills}
+            parentElement={modalRoot}
+            recipientTypes={recipientTypes}
+            recognitionTypes={recognitionTypes}
+            requiredSkills={essentialSkills}
+            savedOptionalSkills={experienceData?.savedOptionalSkills ?? []}
+            savedRequiredSkills={experienceData?.savedRequiredSkills ?? []}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.award.id
+            }
+          />
+        </>
+      )}
+      {context === "profile" && (
+        <>
+          <ProfileEducationModal
+            educationStatuses={educationStatuses}
+            educationTypes={educationTypes}
+            experienceEducation={experienceData as ExperienceEducation}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            modalId={modalButtons.education.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            parentElement={modalRoot}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.education.id
+            }
+          />
+          <ProfileWorkModal
+            experienceWork={experienceData as ExperienceWork}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            modalId={modalButtons.work.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            parentElement={modalRoot}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.work.id
+            }
+          />
+          <ProfileCommunityModal
+            experienceCommunity={experienceData as ExperienceCommunity}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            modalId={modalButtons.community.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            parentElement={modalRoot}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.community.id
+            }
+          />
+          <ProfilePersonalModal
+            experiencePersonal={experienceData as ExperiencePersonal}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            modalId={modalButtons.personal.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            parentElement={modalRoot}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.personal.id
+            }
+          />
+          <ProfileAwardModal
+            experienceAward={experienceData as ExperienceAward}
+            experienceableId={experienceData?.experienceable_id ?? 0}
+            experienceableType={
+              experienceData?.experienceable_type ?? "application"
+            }
+            modalId={modalButtons.award.id}
+            onModalCancel={closeModal}
+            onModalConfirm={submitExperience}
+            parentElement={modalRoot}
+            recipientTypes={recipientTypes}
+            recognitionTypes={recognitionTypes}
+            visible={
+              isModalVisible.visible &&
+              isModalVisible.id === modalButtons.award.id
+            }
+          />
+        </>
+      )}
     </>
   );
 };
 
-interface ExperienceStepProps extends Omit<ExperienceProps, "context"> {
+interface ExperienceStepProps {
+  experiences: Experience[];
+  educationStatuses: EducationStatus[];
+  educationTypes: EducationType[];
+  experienceSkills: ExperienceSkill[];
+  criteria: Criteria[];
+  skills: Skill[];
+  jobId: number;
+  jobClassificationId: number | null;
+  jobEducationRequirements: string | null;
+  recipientTypes: AwardRecipientType[];
+  recognitionTypes: AwardRecognitionType[];
+  handleDeleteExperience: (
+    id: number,
+    type: Experience["type"],
+  ) => Promise<void>;
+  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;

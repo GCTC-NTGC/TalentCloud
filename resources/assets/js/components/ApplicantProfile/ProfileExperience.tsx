@@ -8,10 +8,7 @@ import {
   Skill,
   ExperienceSkill,
 } from "../../models/types";
-import {
-  ExperienceSubmitData,
-  MyExperience,
-} from "../Application/Experience/Experience";
+import { MyExperience } from "../Application/Experience/Experience";
 import {
   AwardRecipientType,
   AwardRecognitionType,
@@ -231,7 +228,7 @@ export interface ProfileExperienceProps {
   jobEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (data: Experience) => Promise<void>;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],

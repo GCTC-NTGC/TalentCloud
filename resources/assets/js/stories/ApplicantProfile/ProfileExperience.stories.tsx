@@ -5,14 +5,10 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import fakeExperiences from "../../fakeData/fakeExperience";
-import fakeExperienceSkills, {
-  createFakeExperienceSkill,
-} from "../../fakeData/fakeExperienceSkills";
+import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import ProfileExperience from "../../components/ApplicantProfile/ProfileExperience";
-import { Experience, Skill } from "../../models/types";
-import { ExperienceSubmitData } from "../../components/Application/Experience/Experience";
-import { EducationExperienceSubmitData } from "../../components/Application/ExperienceModals/EducationExperienceModal";
+import { Experience } from "../../models/types";
 import {
   educationStatuses,
   educationTypes,
@@ -30,48 +26,24 @@ const stories = storiesOf("Applicant Profile|Experience", module).addDecorator(
 const experiences = fakeExperiences();
 const experienceSkills = fakeExperienceSkills();
 
-const submitExperience = (
-  experienceSubmitData: Experience,
-  skills: Skill[],
-) => {
-  const index = experiences.findIndex(
-    (experience) =>
-      experience.id === experienceSubmitData.id &&
-      experience.type === experienceSubmitData.type,
-  );
-  if (
-    experiences.some(
-      (experience) =>
-        experience.id === experienceSubmitData.id &&
-        experience.type === experienceSubmitData.type,
-    )
-  ) {
-    experiences[index] = experienceSubmitData;
-  } else {
+const submitExperience = (experienceSubmitData: Experience): void => {
+  const isSameExperience = (original: Experience) => (
+    match: Experience,
+  ): boolean => {
+    return original.id === match.id && original.type === match.type;
+  };
+  const matchesSubmitted = isSameExperience(experienceSubmitData);
+  const index = experiences.findIndex(matchesSubmitted);
+  if (index === -1) {
     experiences.push(experienceSubmitData);
-    skills.forEach((skill) => {
-      experienceSkills.push(
-        createFakeExperienceSkill(experienceSubmitData, skill),
-      );
-    });
+  } else {
+    experiences[index] = experienceSubmitData;
   }
 };
 
-const handleSubmitExperience = async (
-  data: ExperienceSubmitData,
-): Promise<void> => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data as EducationExperienceSubmitData;
-
+const handleSubmitExperience = async (data: Experience): Promise<void> => {
   await sleep(1000);
-
-  submitExperience(experienceEducation, [
-    ...savedRequiredSkills,
-    ...savedOptionalSkills,
-  ]);
+  submitExperience(data);
 };
 
 const handleDeleteExperience = async (
