@@ -40,16 +40,20 @@ const SkillExperienceModal: FunctionComponent<{
   experiences: Experience[];
   skillsById: { [id: number]: Skill };
   handleCancel: () => void;
-  handleConfirm: () => void;
+  handleConfirm: (data: ExperienceSkill) => Promise<void>;
+  handleDelete: () => Promise<void>;
 }> = ({
   experienceSkill,
   handleCancel,
   handleConfirm,
+  handleDelete,
   skillsById,
   experiences,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const initialValues = {
     justification: experienceSkill?.justification ?? "",
@@ -97,7 +101,7 @@ const SkillExperienceModal: FunctionComponent<{
       id="profile-experience-skill-modal"
       parentElement={document.getElementById("modal-root")}
       visible={experienceSkill !== null}
-      onModalConfirm={handleConfirm}
+      onModalConfirm={handleCancel}
       onModalCancel={handleCancel}
     >
       <div
@@ -129,16 +133,21 @@ const SkillExperienceModal: FunctionComponent<{
           initialValues={initialValues}
           validationSchema={experienceSkillSchema}
           onSubmit={(values, { setSubmitting, resetForm }): void => {
-            handleConfirm();
-            setSubmitting(false);
+            handleConfirm({
+              ...experienceSkill,
+              justification: values.justification,
+            })
+              .then(() => {
+                setSubmitting(false);
+                resetForm();
+              })
+              .catch(() => {
+                // If there is an error, don't reset the form, allowing user to retry.
+                setSubmitting(false);
+              });
           }}
         >
-          {({
-            dirty,
-            isSubmitting,
-            isValid,
-            submitForm,
-          }): React.ReactElement => (
+          {({ dirty, isSubmitting, resetForm }): React.ReactElement => (
             <Form>
               <AlertWhenUnsaved />
               <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
@@ -163,15 +172,41 @@ const SkillExperienceModal: FunctionComponent<{
                     <button
                       data-c-button="outline(c1)"
                       data-c-radius="rounded"
+                      data-c-margin="right(1)"
                       type="button"
                       onClick={handleCancel}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isDeleting}
                     >
                       <span>
                         <FormattedMessage
                           id="profileExperience.skillExperienceModal.cancel"
                           defaultMessage="Cancel"
                           description="Cancel button text"
+                        />
+                      </span>
+                    </button>
+                    <button
+                      data-c-button="outline(stop)"
+                      data-c-radius="rounded"
+                      type="button"
+                      onClick={() => {
+                        setIsDeleting(true);
+                        handleDelete()
+                          .then(() => {
+                            setIsDeleting(false);
+                            resetForm();
+                          })
+                          .catch(() => {
+                            setIsDeleting(false);
+                          });
+                      }}
+                      disabled={isSubmitting || isDeleting}
+                    >
+                      <span>
+                        <FormattedMessage
+                          id="profileExperience.skillExperienceModal.delete"
+                          defaultMessage="Delete"
+                          description="Delete button text"
                         />
                       </span>
                     </button>
@@ -197,7 +232,7 @@ const SkillExperienceModal: FunctionComponent<{
                       data-c-button="solid(c1)"
                       data-c-radius="rounded"
                       type="submit"
-                      disabled={!dirty || isSubmitting}
+                      disabled={!dirty || isSubmitting || isDeleting}
                     >
                       <span>
                         {dirty
@@ -233,6 +268,8 @@ export interface ProfileExperienceProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
+  handleUpdateExperienceSkill: (expSkill: ExperienceSkill) => Promise<void>;
+  handleDeleteExperienceSkill: (id: number) => Promise<void>;
 }
 
 export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
@@ -244,6 +281,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   skills,
   handleSubmitExperience,
   handleDeleteExperience,
+  handleUpdateExperienceSkill,
+  handleDeleteExperienceSkill,
   jobId,
   jobClassificationId,
   jobEducationRequirements,
@@ -253,6 +292,10 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   const [editedExperienceSkillId, setEditedExperienceSkillId] = useState<
     number | null
   >(null);
+  const editedExpSkill =
+    editedExperienceSkillId !== null
+      ? find(experienceSkills, editedExperienceSkillId)
+      : null;
 
   const skillsById = mapToObject(skills, getId);
 
@@ -279,13 +322,22 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         data-c-dialog-overlay={editedExperienceSkillId !== null ? "active" : ""}
       />
       <SkillExperienceModal
-        experienceSkill={
-          editedExperienceSkillId !== null
-            ? find(experienceSkills, editedExperienceSkillId)
-            : null
-        }
+        experienceSkill={editedExpSkill}
         handleCancel={() => setEditedExperienceSkillId(null)}
-        handleConfirm={() => setEditedExperienceSkillId(null)}
+        handleConfirm={async (expSkill): Promise<void> => {
+          return handleUpdateExperienceSkill(expSkill).then(() => {
+            setEditedExperienceSkillId(null);
+          });
+        }}
+        handleDelete={async (): Promise<void> => {
+          if (editedExperienceSkillId !== null) {
+            return handleDeleteExperienceSkill(editedExperienceSkillId).then(
+              () => {
+                setEditedExperienceSkillId(null);
+              },
+            );
+          }
+        }}
         experiences={experiences}
         skillsById={skillsById}
       />
