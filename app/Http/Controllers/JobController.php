@@ -166,6 +166,24 @@ class JobController extends Controller
 
         $jobLang = Lang::get('applicant/job_post');
 
+        $skillsLang = Lang::get('common/skills');
+
+        $skillsArray = [];
+        foreach ($essential as $criterion_type => $criterion) {
+            $skillsArray[] = [
+                'skill' => $criterion['skill']['name'],
+                'level' => $skillsLang['skill_levels'][$criterion
+                ->skill->skill_type->name][$criterion->skill_level->name],
+            ];
+        }
+        foreach ($asset as $criterion_type => $criterion) {
+            $skillsArray[] = [
+                'skill' => $criterion['skill']['name'],
+                'level' => $skillsLang['skill_levels'][$criterion
+                ->skill->skill_type->name][$criterion->skill_level->name],
+            ];
+        }
+
         $applyButton = [];
         if (WhichPortal::isManagerPortal()) {
             $applyButton = [
@@ -238,7 +256,7 @@ class JobController extends Controller
                 [
                     'job_post' => $jobLang,
                     'frequencies' => Lang::get('common/lookup/frequency'),
-                    'skill_template' => Lang::get('common/skills'),
+                    'skill_template' => $skillsLang,
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
@@ -253,12 +271,14 @@ class JobController extends Controller
                 [
                     'job_post' => $jobLang,
                     'frequencies' => Lang::get('common/lookup/frequency'),
-                    'skill_template' => Lang::get('common/skills'),
+                    'skill_template' => $skillsLang,
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
                     'custom_breadcrumbs' => $custom_breadcrumbs,
+                    'skills' => $skillsArray,
+                    'goc' => Lang::get('common/goc'),
                 ]
             );
         } else {
