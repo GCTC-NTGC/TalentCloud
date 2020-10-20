@@ -39,7 +39,6 @@ class ApplicationTimelineValidator
             'language_requirement_confirmed' => ['required', 'boolean', 'accepted'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
-            'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
             'education_requirement_confirmed' => ['required', 'boolean', 'accepted'],
         ];
     }
