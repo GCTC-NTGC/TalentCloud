@@ -322,7 +322,7 @@ class JobController extends Controller
         $jobPoster = new JobPoster();
         $jobPoster->manager_id = $manager->id;
 
-        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
+        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB.
         $divisionEn = $manager->getTranslation('division', 'en');
         $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
