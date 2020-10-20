@@ -100,6 +100,8 @@ export interface AwardRecognitionType {
 export interface Classification {
   id: number;
   key: string;
+  defaultMessage: string;
+  description: string;
 }
 
 type CitizenshipDeclarationName =
