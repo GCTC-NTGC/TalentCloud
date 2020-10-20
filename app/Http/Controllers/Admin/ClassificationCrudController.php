@@ -33,6 +33,11 @@ class ClassificationCrudController extends CrudController
                 'type' => 'text',
                 'label' => 'Key',
             ]);
+            $this->crud->addField([
+                'name' => 'education_requirements',
+                'type' => 'textarea',
+                'label' => 'Education Requirements',
+            ]);
         });
     }
 
@@ -49,6 +54,13 @@ class ClassificationCrudController extends CrudController
             'type' => 'text',
             'label' => 'Key',
         ]);
+
+        $this->crud->addColumn([
+            'name' => 'education_requirements',
+            'type' => 'text',
+            'label' => 'Education Requirements',
+        ]);
+
     }
 
     public function setupCreateOperation()

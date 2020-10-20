@@ -49,6 +49,7 @@ interface AwardExperienceModalProps {
   recognitionTypes: AwardRecognitionType[];
   jobId: number;
   jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
@@ -224,6 +225,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   recognitionTypes,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -368,6 +370,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               <EducationSubform
                 keyPrefix="award"
                 jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
