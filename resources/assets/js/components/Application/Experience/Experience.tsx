@@ -103,6 +103,7 @@ interface ExperienceProps {
   skills: Skill[];
   jobId: number;
   jobClassificationId: number | null;
+  jobEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
@@ -126,6 +127,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   handleDeleteExperience,
   jobId,
   jobClassificationId,
+  jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
   handleContinue,
@@ -642,6 +644,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
         jobId={jobId}
         jobClassification={jobClassification}
+        jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -663,6 +666,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
         jobId={jobId}
         jobClassification={jobClassification}
+        jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -683,6 +687,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
         jobId={jobId}
         jobClassification={jobClassification}
+        jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -704,6 +709,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
         jobId={jobId}
         jobClassification={jobClassification}
+        jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}
@@ -725,6 +731,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         }
         jobId={jobId}
         jobClassification={jobClassification}
+        jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
         onModalConfirm={submitExperience}

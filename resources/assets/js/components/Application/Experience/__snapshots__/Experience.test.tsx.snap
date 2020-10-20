@@ -354,7 +354,14 @@ exports[`Application Timeline - My Experience should render MyExperience with it
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
-    jobClassificationId={1}
+    jobClassificationId={5}
+    jobEducationRequirements="2 years post-secondary, or equivalent:
+Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.
+
+or
+
+Equivalent experience:
+If you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
     jobId={1}
     recipientTypes={
       Array [
@@ -771,7 +778,14 @@ exports[`Application Timeline - My Experience should render MyExperience without
     handleQuit={[Function]}
     handleReturn={[Function]}
     handleSubmitExperience={[Function]}
-    jobClassificationId={1}
+    jobClassificationId={5}
+    jobEducationRequirements="2 years post-secondary, or equivalent:
+Successful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.
+
+or
+
+Equivalent experience:
+If you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above."
     jobId={1}
     recipientTypes={
       Array [

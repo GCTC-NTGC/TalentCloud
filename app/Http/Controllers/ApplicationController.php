@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Auth;
 use App\Models\JobApplication;
+use App\Models\JobApplicationVersion;
 use App\Models\JobPoster;
 use App\Models\Skill;
 use App\Models\Lookup\ReviewStatus;
@@ -41,10 +42,34 @@ class ApplicationController extends Controller
     public function showWithJob(JobPoster $jobPoster, JobApplication $application)
     {
         if ($jobPoster->job_applications->contains($application)) {
+            // If the application is version two then show the version two application review page.
+            if ($application->version_id !== null && $application->version_id == 2) {
+                return $this->showVersionTwo($application);
+            }
             return $this->show($application);
         } else {
             return abort(404);
         }
+    }
+
+    /**
+     * "Display version two of application, from Manager perspective, with review toolbar included."
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+     */
+    public function showVersionTwo(JobApplication $application)
+    {
+        return view(
+            'manager/application_timeline_review',
+            [
+                'applicant' => $application->applicant,
+                'application' => $application,
+                'application_template' => Lang::get('applicant/application_template'),
+                'job_id' => $application->job_poster_id,
+                'review_statuses' => ReviewStatus::all(),
+                'is_hr_portal' => WhichPortal::isHrPortal(),
+            ]
+        );
     }
 
     /**
