@@ -22,7 +22,7 @@ class SkillCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         // Eloquent model to associate with this collection
         // of views and controller actions.
@@ -85,8 +85,8 @@ class SkillCrudController extends CrudController
         // Workaround for how the unique_translation validation
         // works in App\Http\Requests\SkillCrudRequest.
         $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
+        if (null !== $this->crud->getRequest()->input('locale')) {
+            $locale = $this->crud->getRequest()->input('locale');
         }
         App::setLocale($locale);
 
@@ -105,7 +105,7 @@ class SkillCrudController extends CrudController
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
             },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {
@@ -117,7 +117,7 @@ class SkillCrudController extends CrudController
             'name' => 'description',
             'type' => 'text',
             'label' => 'Description',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('description->' . $locale, 'like', "%$searchTerm%");
             },
             'orderable' => false,
@@ -180,7 +180,7 @@ class SkillCrudController extends CrudController
             [
                 'type' => 'simple',
                 'name' => 'noClassification',
-                'label'=> 'No classification'
+                'label' => 'No classification'
             ],
             false,
             function () {

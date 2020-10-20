@@ -17,7 +17,7 @@ class UserRoleCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         // Eloquent model to associate with this collection
         // of views and controller actions.
@@ -43,8 +43,8 @@ class UserRoleCrudController extends CrudController
         // Workaround for how the unique_translation validation
         // works in App\Http\Requests\UserRoleCrudRequest.
         $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
+        if (null !== $this->crud->getRequest()->input('locale')) {
+            $locale = $this->crud->getRequest()->input('locale');
         }
         App::setLocale($locale);
 
@@ -71,7 +71,7 @@ class UserRoleCrudController extends CrudController
             'name' => 'name',
             'type' => 'text',
             'label' => 'Name',
-            'searchLogic' => function ($query, $column, $searchTerm) use ($locale) : void {
+            'searchLogic' => function ($query, $column, $searchTerm) use ($locale): void {
                 $query->orWhere('name->' . $locale, 'like', "%$searchTerm%");
             },
             'orderLogic' => function ($query, $column, $columnDirection) use ($locale) {

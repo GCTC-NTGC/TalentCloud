@@ -1670,16 +1670,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.11.0",
+            "version": "v8.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "243b376c0d80da12bcf7d21ea857c0a609b21f7a"
+                "reference": "8d1f25fb8d124d5a24df9714ed8d481c43f9efe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/243b376c0d80da12bcf7d21ea857c0a609b21f7a",
-                "reference": "243b376c0d80da12bcf7d21ea857c0a609b21f7a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/8d1f25fb8d124d5a24df9714ed8d481c43f9efe6",
+                "reference": "8d1f25fb8d124d5a24df9714ed8d481c43f9efe6",
                 "shasum": ""
             },
             "require": {
@@ -1829,7 +1829,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-10-20T14:10:54+00:00"
+            "time": "2020-10-20T20:12:53+00:00"
         },
         {
             "name": "laravel/legacy-factories",

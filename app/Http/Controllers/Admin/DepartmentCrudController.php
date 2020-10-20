@@ -20,7 +20,7 @@ class DepartmentCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         // Eloquent model to associate with this collection of views and controller actions.
         $this->crud->setModel('App\Models\Lookup\Department');
@@ -60,8 +60,8 @@ class DepartmentCrudController extends CrudController
     {
         // Required for order logic.
         $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
+        if (null !== $this->crud->getRequest()->input('locale')) {
+            $locale = $this->crud->getRequest()->input('locale');
         }
         App::setLocale($locale);
 

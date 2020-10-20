@@ -27,7 +27,7 @@ class JobPosterCrudController extends CrudController
         $this->crud->setRoute('admin/job-poster');
         $this->crud->setEntityNameStrings('Job Poster', 'Job Posters');
 
-        if (!$this->request->has('order')) {
+        if (!$this->crud->getRequest()->has('order')) {
             $this->crud->orderBy('close_date_time', 'desc');
         }
     }
@@ -36,8 +36,8 @@ class JobPosterCrudController extends CrudController
     {
         // Required for order logic.
         $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
+        if (null !== $this->crud->getRequest()->input('locale')) {
+            $locale = $this->crud->getRequest()->input('locale');
         }
         App::setLocale($locale);
 
@@ -290,15 +290,15 @@ class JobPosterCrudController extends CrudController
 
     public function update()
     {
-        $open_date = $this->crud->request->request->get('open_date_time');
-        $close_date = $this->crud->request->request->get('close_date_time');
-        $start_date = $this->crud->request->request->get('start_date_time');
-        $this->crud->request->request->remove('open_date_time');
-        $this->crud->request->request->remove('close_date_time');
-        $this->crud->request->request->remove('start_date_time');
+        $open_date = $this->crud->getRequest()->request->get('open_date_time');
+        $close_date = $this->crud->getRequest()->request->get('close_date_time');
+        $start_date = $this->crud->getRequest()->request->get('start_date_time');
+        $this->crud->getRequest()->request->remove('open_date_time');
+        $this->crud->getRequest()->request->remove('close_date_time');
+        $this->crud->getRequest()->request->remove('start_date_time');
         // Manipulates the input fields to save the "end of day" timestamp for
         // open/close/start dates.
-        $this->crud->request->request->add([
+        $this->crud->getRequest()->request->add([
             'open_date_time' => $open_date !== null ? ptDayStartToUtcTime($open_date) : null,
             'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
             'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,

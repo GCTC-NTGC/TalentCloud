@@ -39,8 +39,8 @@ class ApplicantCrudController extends CrudController
             'label' => 'Full Name',
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhereHas('user', function ($q) use ($searchTerm) {
-                    $q->where('first_name', 'ilike', '%'.$searchTerm.'%')
-                      ->orWhere('last_name', 'ilike', '%'.$searchTerm.'%');
+                    $q->where('first_name', 'ilike', '%' . $searchTerm . '%')
+                        ->orWhere('last_name', 'ilike', '%' . $searchTerm . '%');
                 });
             }
         ]);
@@ -51,7 +51,7 @@ class ApplicantCrudController extends CrudController
             'label' => 'Email',
             'searchLogic' => function ($query, $column, $searchTerm) {
                 $query->orWhereHas('user', function ($q) use ($searchTerm) {
-                    $q->where('email', 'ilike', '%'.$searchTerm.'%');
+                    $q->where('email', 'ilike', '%' . $searchTerm . '%');
                 });
             }
         ]);

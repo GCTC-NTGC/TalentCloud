@@ -1,5 +1,12 @@
-(function () {
-var tabfocus = (function (domGlobals) {
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
+(function (domGlobals) {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
@@ -22,7 +29,6 @@ var tabfocus = (function (domGlobals) {
     var getTabFocus = function (editor) {
       return editor.getParam('tab_focus', getTabFocusElements(editor));
     };
-    var Settings = { getTabFocus: getTabFocus };
 
     var DOM = global$1.DOM;
     var tabCancel = function (e) {
@@ -32,7 +38,7 @@ var tabfocus = (function (domGlobals) {
     };
     var setup = function (editor) {
       function tabHandler(e) {
-        var x, el, v, i;
+        var x, el, i;
         if (e.keyCode !== global$6.TAB || e.ctrlKey || e.altKey || e.metaKey || e.isDefaultPrevented()) {
           return;
         }
@@ -65,7 +71,7 @@ var tabfocus = (function (domGlobals) {
           }
           return null;
         }
-        v = global$5.explode(Settings.getTabFocus(editor));
+        var v = global$5.explode(getTabFocus(editor));
         if (v.length === 1) {
           v[1] = v[0];
           v[0] = ':prev';
@@ -110,15 +116,13 @@ var tabfocus = (function (domGlobals) {
         }
       });
     };
-    var Keyboard = { setup: setup };
 
-    global.add('tabfocus', function (editor) {
-      Keyboard.setup(editor);
-    });
     function Plugin () {
+      global.add('tabfocus', function (editor) {
+        setup(editor);
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }(window));
-})();

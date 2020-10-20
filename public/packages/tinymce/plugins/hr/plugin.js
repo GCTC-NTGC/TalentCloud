@@ -1,5 +1,12 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
 (function () {
-var hr = (function () {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
@@ -9,31 +16,31 @@ var hr = (function () {
         editor.execCommand('mceInsertContent', false, '<hr />');
       });
     };
-    var Commands = { register: register };
 
     var register$1 = function (editor) {
-      editor.addButton('hr', {
-        icon: 'hr',
+      editor.ui.registry.addButton('hr', {
+        icon: 'horizontal-rule',
         tooltip: 'Horizontal line',
-        cmd: 'InsertHorizontalRule'
+        onAction: function () {
+          return editor.execCommand('InsertHorizontalRule');
+        }
       });
-      editor.addMenuItem('hr', {
-        icon: 'hr',
+      editor.ui.registry.addMenuItem('hr', {
+        icon: 'horizontal-rule',
         text: 'Horizontal line',
-        cmd: 'InsertHorizontalRule',
-        context: 'insert'
+        onAction: function () {
+          return editor.execCommand('InsertHorizontalRule');
+        }
       });
     };
-    var Buttons = { register: register$1 };
 
-    global.add('hr', function (editor) {
-      Commands.register(editor);
-      Buttons.register(editor);
-    });
     function Plugin () {
+      global.add('hr', function (editor) {
+        register(editor);
+        register$1(editor);
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }());
-})();

@@ -50,8 +50,8 @@ class JobPosterStatusCrudController extends CrudController
     {
         // Required for order logic.
         $locale = 'en';
-        if (null !== $this->request->input('locale')) {
-            $locale = $this->request->input('locale');
+        if (null !== $this->crud->getRequest()->input('locale')) {
+            $locale = $this->crud->getRequest()->input('locale');
         }
         App::setLocale($locale);
 

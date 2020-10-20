@@ -1,20 +1,20 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="nav-icon fa fa-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon fa fa-users"></i> <span>Users</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user-role') }}"><i class="nav-icon fa fa-shield"></i> <span>User Roles</span></a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('applicant') }}'><i class='nav-icon fa fa-user'></i> Applicants</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('manager') }}"><i class="nav-icon fa fa-user-plus"></i> <span>Managers</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster') }}"><i class="nav-icon fa fa-edit"></i> <span>Job Posters</span></a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('job-application') }}'><i class='nav-icon fa fa-file'></i>Job Applications</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('skill') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Skills</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Departments</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('classification') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Classifications</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status-transition') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Status Transitions</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Talent Streams</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream-category') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Talent Stream Categories</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-skill-level') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Skill Levels</span></a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('resource') }}"><i class="nav-icon fa fa-folder"></i> <span>Resources</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="nav-icon la la-dashboard"></i> <span>{{ trans('backpack::base.dashboard') }}</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-users"></i> <span>Users</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('user-role') }}"><i class="nav-icon la la-shield"></i> <span>User Roles</span></a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('applicant') }}'><i class='nav-icon la la-user'></i> Applicants</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('manager') }}"><i class="nav-icon la la-user-plus"></i> <span>Managers</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster') }}"><i class="nav-icon la la-edit"></i> <span>Job Posters</span></a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('job-application') }}'><i class='nav-icon la la-file'></i>Job Applications</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('skill') }}"><i class="nav-icon la la-list-alt"></i> <span>Skills</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('department') }}"><i class="nav-icon la la-list-alt"></i> <span>Departments</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('classification') }}"><i class="nav-icon la la-list-alt"></i> <span>Classifications</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status') }}"><i class="nav-icon la la-list-alt"></i> <span>Job Status</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-poster-status-transition') }}"><i class="nav-icon la la-list-alt"></i> <span>Job Status Transitions</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream') }}"><i class="nav-icon la la-list-alt"></i> <span>Talent Streams</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talent-stream-category') }}"><i class="nav-icon la la-list-alt"></i> <span>Talent Stream Categories</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-skill-level') }}"><i class="nav-icon la la-list-alt"></i> <span>Job Skill Levels</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('resource') }}"><i class="nav-icon la la-folder"></i> <span>Resources</span></a></li>
 <br />
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon fa fa-lock"></i> <span>Manage 2FA</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon la la-lock"></i> <span>Manage 2FA</span></a></li>
 <br />
