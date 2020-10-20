@@ -256,7 +256,7 @@ exports[`Application Timeline - My Experience should render ExperienceStep with 
           "experience_id": 1,
           "experience_type": "experience_award",
           "id": 5,
-          "justification": "",
+          "justification": null,
           "skill_id": 15,
           "updated_at": 2016-04-30T14:47:29.000Z,
         },
