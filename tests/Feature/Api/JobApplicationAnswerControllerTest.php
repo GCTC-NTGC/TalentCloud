@@ -5,8 +5,8 @@ namespace Tests\Feature\Api;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPosterQuestion;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class JobApplicationAnswerControllerTest extends TestCase
 {
@@ -25,7 +25,7 @@ class JobApplicationAnswerControllerTest extends TestCase
             ->json('post', route('api.v1.job-application-answers.store'), $jobApplicationAnswerData);
         $response->assertOk();
         $response->assertJsonFragment($jobApplicationAnswerData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertDatabaseHas(
             'job_application_answers',
             array_merge(
@@ -52,7 +52,7 @@ class JobApplicationAnswerControllerTest extends TestCase
             'answer' => 'new answer',
         ];
         $response = $this->actingAs($application->applicant->user)
-        ->json('put', route('api.v1.job-application-answers.update', $jobApplicationAnswer->id), $updateData);
+            ->json('put', route('api.v1.job-application-answers.update', $jobApplicationAnswer->id), $updateData);
         $response->assertOk();
         $response->assertJsonFragment($updateData);
         $this->assertDatabaseHas('job_application_answers', $updateData);

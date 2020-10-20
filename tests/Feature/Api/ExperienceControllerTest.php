@@ -2,20 +2,20 @@
 
 namespace Tests\Feature\Api;
 
+use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\Applicant;
 use App\Models\ExperienceAward;
 use App\Models\ExperienceCommunity;
 use App\Models\ExperienceEducation;
 use App\Models\ExperiencePersonal;
 use App\Models\ExperienceWork;
-use App\Http\Resources\Experience as ExperienceResource;
 use App\Models\JobApplication;
 use App\Models\Lookup\AwardRecipientType;
 use App\Models\Lookup\AwardRecognitionType;
 use App\Models\Lookup\EducationStatus;
 use App\Models\Lookup\EducationType;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ExperienceControllerTest extends TestCase
 {
@@ -162,11 +162,11 @@ class ExperienceControllerTest extends TestCase
         // Sanity check to ensure our ExperienceResource class does a reasonable transformation,
         // in particular checking that it adds the 'type'=>'experience_work' field.
         $response->assertJsonFragment([
-            'id'=>$work->id,
+            'id' => $work->id,
             'type' => 'experience_work',
             'title' => $work->title,
             'organization' => $work->organization,
-            ]);
+        ]);
 
         // Ensure all the experiences are present in the response.
         $response->assertJsonFragment((new ExperienceResource($work))->resolve());
@@ -222,7 +222,7 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertNotNull(ExperienceWork::find($id));
     }
 
@@ -245,7 +245,7 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertNotNull(ExperiencePersonal::find($id));
     }
 
@@ -268,7 +268,7 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertNotNull(ExperienceEducation::find($id));
     }
 
@@ -291,7 +291,7 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertNotNull(ExperienceAward::find($id));
     }
 
@@ -314,7 +314,7 @@ class ExperienceControllerTest extends TestCase
                 'experienceable_type' => 'applicant',
             ])->all();
         $response->assertJsonFragment($expectData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertNotNull(ExperienceCommunity::find($id));
     }
 

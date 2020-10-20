@@ -34,7 +34,7 @@ class ExperienceSkillsControllerTest extends TestCase
             ->json('post', route('api.v1.experience-skill.store'), $workSkillData);
         $response->assertOk();
         $response->assertJsonFragment($workSkillData);
-        $id = $response->decodeResponseJson('id');
+        $id = $response->json('id');
         $this->assertDatabaseHas(
             'experience_skills',
             array_merge(
