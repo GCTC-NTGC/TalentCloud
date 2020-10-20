@@ -97,6 +97,7 @@ class JobController extends Controller
     /**
      * Display a listing of a hr advisor's JobPosters.
      *
+     * @param  \Illuminate\Http\Request $request Incoming request object.
      * @return \Illuminate\Http\Response
      */
     public function hrIndex(Request $request)
