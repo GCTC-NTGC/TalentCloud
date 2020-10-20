@@ -53,9 +53,9 @@ install:
   - travis_retry npm install # install dependencies
   - travis_retry make docker-start # initialize containers
   - travis_retry make gen-certs # ssl certificates
-  - travis_retry make create-symlink # create symlink
   - travis_retry make build-db # database / data
   - travis_retry make set-perms # file permissions
+  - travis_retry make create-symlink # create symlink
   - travis_retry npm run dev # compiled assets
 
 before_script:
