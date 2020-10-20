@@ -30,7 +30,7 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
-  ClassificationId,
+  //ClassificationId,
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { emptyJob } from "../../../models/jobUtil";
@@ -41,7 +41,7 @@ import {
   frequencyName,
   travelRequirementDescription,
   overtimeRequirementDescription,
-  classificationCodeOption,
+  //classificationCodeOption,
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
@@ -50,6 +50,8 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+import { useSelector } from "react-redux";
+import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -175,8 +177,12 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = (classification: number | string): string =>
-  getKeyByValue(ClassificationId, classification);
+const classification = useSelector((state: RootState) => {
+  return getClassificationState(state);
+});
+
+const classificationCode = (lClassification: number | string): string =>
+  getKeyByValue(classification?.id, lClassification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
@@ -340,7 +346,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.number()
       .oneOf(
-        Object.values(ClassificationId),
+        Object.values(classification.id),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -513,12 +519,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={Object.values(ClassificationId).map((id: number): {
+                  options={Object.values(classification.id).map((id: number): {
                     value: number;
                     label: string;
                   } => ({
                     value: id,
-                    label: intl.formatMessage(classificationCodeOption(id)),
+                    label: classification[id].key,
                   }))}
                 />
                 <FastField
@@ -1031,7 +1037,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        ClassificationId,
+                        classification?.id,
                         values.classification,
                       )}
                       level={String(values.level)}
