@@ -14,7 +14,6 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/date": "^4.0",
         "laravel/framework": "^8.0",
-        "laravel/helpers": "^1.1",
         "laravel/legacy-factories": "^1.0",
         "laravel/tinker": "^2.4",
         "laravel/ui": "^3.0",

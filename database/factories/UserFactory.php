@@ -1,15 +1,16 @@
 <?php
 
 use App\Models\Applicant;
-use App\Models\User;
-use App\Models\UserRole;
-use App\Models\Manager;
 use App\Models\HrAdvisor;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
+use App\Models\Manager;
 use App\Models\TeamCulture;
+use App\Models\User;
+use App\Models\UserRole;
 use App\Models\WorkEnvironment;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'password' => $password ?: $password = Hash::make('password'),
         'is_confirmed' => 1,
         'user_role_id' => UserRole::where('key', 'basic')->first()->id, // Users should default to basic user role.
-        'remember_token' => str_random(10),
+        'remember_token' => Str::random(10),
         'is_priority' => $faker->boolean(10), // 10% chance of true
         'department_id' => Department::inRandomOrder()->first()->id,
         'contact_language' => $faker->randomElement(['en', 'fr']),
@@ -158,7 +159,7 @@ $factory->state(Manager::class, 'demo', [
     },
 ]);
 
-$factory->afterCreating(Manager::class, function ($manager) : void {
+$factory->afterCreating(Manager::class, function ($manager): void {
     $manager->team_culture()->save(factory(TeamCulture::class)->create([
         'manager_id' => $manager->id,
     ]));
