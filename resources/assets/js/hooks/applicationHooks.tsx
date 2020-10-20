@@ -44,6 +44,7 @@ import {
 import { fetchJob } from "../store/Job/jobActions";
 import {
   ApplicationStatusId,
+  ApplicationStep,
   ProgressBarStatus,
 } from "../models/lookupConstants";
 import {
@@ -263,7 +264,7 @@ export function useFetchExperienceConstants(
   };
 }
 
-export function useSteps(): { [key in string]: ProgressBarStatus } {
+export function useSteps(): { [step in ApplicationStep]: ProgressBarStatus } {
   return useSelector(getSteps);
 }
 

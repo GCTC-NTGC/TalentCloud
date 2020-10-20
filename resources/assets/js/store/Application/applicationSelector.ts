@@ -11,7 +11,10 @@ import {
 } from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
-import { ProgressBarStatus } from "../../models/lookupConstants";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 const entities = (state: RootState): EntityState => state.applications.entities;
 // eslint-disable-next-line
@@ -140,4 +143,4 @@ export const allIsSendingReferenceEmailByApplication = (
 
 export const getSteps = (
   state: RootState,
-): { [key in string]: ProgressBarStatus } => entities(state).steps;
+): { [step in ApplicationStep]: ProgressBarStatus } => entities(state).steps;

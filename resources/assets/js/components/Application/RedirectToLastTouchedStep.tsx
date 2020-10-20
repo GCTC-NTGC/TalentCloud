@@ -1,43 +1,35 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { getLocale } from "../../helpers/localize";
-import { redirect } from "../../helpers/router";
-import {
-  applicationBasic,
-  applicationExperience,
-  applicationFit,
-  applicationReview,
-  applicationSkills,
-  applicationSubmission,
-  applicationWelcome,
-} from "../../helpers/routes";
 import {
   useApplication,
   useFetchAllApplicationData,
-  useFetchNormalizedApplication,
   useJob,
   useSteps,
 } from "../../hooks/applicationHooks";
-import {
-  ApplicationStepId,
-  ApplicationStep,
-} from "../../models/lookupConstants";
+import { ApplicationStep } from "../../models/lookupConstants";
 import { loadingMessages } from "./applicationMessages";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";
+import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 import ExperiencePage from "./Experience/ExperiencePage";
 import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
 import FitPage from "./Fit/FitPage";
 import IntroPage from "./Intro/IntroPage";
 import ReviewPage from "./Review/ReviewPage";
+import SkillsIntroPage from "./Skills/SkillsIntroPage";
 import SkillsPage from "./Skills/SkillsPage";
 
 interface RedirectToLastTouchedStepProps {
   applicationId: number;
+  requestedStep?: ApplicationStep;
+  introStep?: boolean;
 }
 
 const RedirectToLastTouchedStep: React.FunctionComponent<RedirectToLastTouchedStepProps> = ({
   applicationId,
+  requestedStep,
+  introStep,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -62,9 +54,17 @@ const RedirectToLastTouchedStep: React.FunctionComponent<RedirectToLastTouchedSt
       case "basic":
         return <BasicInfoPage applicationId={applicationId} />;
       case "experience":
-        return <ExperiencePage applicationId={applicationId} />;
+        return introStep ? (
+          <ExperienceIntroPage applicationId={applicationId} />
+        ) : (
+          <ExperiencePage applicationId={applicationId} />
+        );
       case "skills":
-        return <SkillsPage applicationId={applicationId} />;
+        return introStep ? (
+          <SkillsIntroPage applicationId={applicationId} />
+        ) : (
+          <SkillsPage applicationId={applicationId} />
+        );
       case "fit":
         return <FitPage applicationId={applicationId} />;
       case "review":
@@ -77,6 +77,15 @@ const RedirectToLastTouchedStep: React.FunctionComponent<RedirectToLastTouchedSt
   };
 
   const lastTouchedStep = (): React.ReactElement => {
+    // If the step requested in the has been touched, then return to step.
+    if (
+      requestedStep &&
+      (steps[requestedStep] === "complete" || steps[requestedStep] === "error")
+    ) {
+      return getStepComponent(requestedStep);
+    }
+
+    // Iterate through steps, and return the last touched step.
     const reversedStepOrder = stepOrder.reverse();
     for (let i = 0; i <= reversedStepOrder.length; i += 1) {
       const step = reversedStepOrder[i];

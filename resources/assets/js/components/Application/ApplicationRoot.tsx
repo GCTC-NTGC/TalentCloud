@@ -3,19 +3,9 @@ import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { useIntl, defineMessages } from "react-intl";
 import RootContainer from "../RootContainer";
-import { RouterResult, useRouter, Link } from "../../helpers/router";
+import { RouterResult, useRouter } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
-import BasicInfoPage from "./BasicInfo/BasicInfoPage";
-import { applicationWelcome } from "../../helpers/routes";
-import { Locales } from "../../helpers/localize";
-import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
-import ExperiencePage from "./Experience/ExperiencePage";
-import SkillsPage from "./Skills/SkillsPage";
-import FitPage from "./Fit/FitPage";
-import ReviewPage from "./Review/ReviewPage";
-import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
-import SkillsIntroPage from "./Skills/SkillsIntroPage";
 import RedirectStep from "./RedirectToLastTouchedStep";
 
 const pageTitles = defineMessages({
@@ -81,56 +71,98 @@ const routes: Routes<{}, RouterResult> = [
         path: "/basic",
         action: ({ params }) => ({
           title: pageTitles.basicTitle,
-          component: <BasicInfoPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="basic"
+            />
+          ),
         }),
       },
       {
         path: "/experience-intro",
         action: ({ params }) => ({
           title: pageTitles.experienceIntroTitle,
-          component: <ExperienceIntroPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="experience"
+              introStep
+            />
+          ),
         }),
       },
       {
         path: "/experience",
         action: ({ params }) => ({
           title: pageTitles.experienceTitle,
-          component: <ExperiencePage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="experience"
+            />
+          ),
         }),
       },
       {
         path: "/skills-intro",
         action: ({ params }) => ({
           title: pageTitles.skillsIntroTitle,
-          component: <SkillsIntroPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="skills"
+              introStep
+            />
+          ),
         }),
       },
       {
         path: "/skills",
         action: ({ params }) => ({
           title: pageTitles.skillsTitle,
-          component: <SkillsPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="skills"
+            />
+          ),
         }),
       },
       {
         path: "/fit",
         action: ({ params }) => ({
           title: pageTitles.fitTitle,
-          component: <FitPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="fit"
+            />
+          ),
         }),
       },
       {
         path: "/review",
         action: ({ params }) => ({
           title: pageTitles.reviewTitle,
-          component: <ReviewPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="review"
+            />
+          ),
         }),
       },
       {
         path: "/submission",
         action: ({ params }) => ({
           title: pageTitles.submissionTitle,
-          component: <FinalSubmitPage applicationId={Number(params.id)} />,
+          component: (
+            <RedirectStep
+              applicationId={Number(params.id)}
+              requestedStep="submission"
+            />
+          ),
         }),
       },
       {
