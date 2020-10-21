@@ -155,12 +155,30 @@ return [
         'view_link_label'  => 'View Application',
     ],
     'no_info' => 'No information provided.',
-
     'strategic_response' => [
         'various_departments' => 'GC - Various Departments',
         'various' => 'Various',
         'current_employee_alert' => 'You must be a current employee of the Government of Canada, with a valid security clearance.',
         'management_approval_alert' => 'Your home department\'s management team will need to approve your temporary placement with another department or team.',
         'heads_up' => 'Just a heads up!'
+    ],
+    'structured_data' => [
+        'parent_organization' => 'Government of Canada',
+        'industry' => 'Government',
+        'special_commitments' => 'Preference will be given to veterans and to Canadian citizens, in that order.',
+        'employer_overview' => 'Opportunities to work for the federal government.',
+        'employment_type' => 'Full-time, temporary',
+        'security_clearance_requirement_level' => 'Security clearance level required',
+        'security_clearance_requirement_description' => 'You do not need a valid security clearance to apply. A security clearance request will be made for you as part of the hiring process.',
+        'benefits' => [
+            'Paid Holidays',
+            'Paid Leave',
+            'Health Care',
+            'Dental Care',
+            'Pension Plan',
+            'Disability Insurance',
+            'Long-Term Disability (LTD)',
+            'Exceptions for Returning Employees',
+        ],
     ]
 ];

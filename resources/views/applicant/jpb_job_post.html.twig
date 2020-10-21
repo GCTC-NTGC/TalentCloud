@@ -8,6 +8,74 @@
 {% block title %}
 	{{ job_post.job_post_title|replace({':title': job.title, ':id': job.id}) }}
 {% endblock %}
+{% block structuredData %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    "@id": "{{ url_current() }}",
+    "url": "{{ url('/') }}",
+    "inLanguage": "{{ appLocale }}",
+    "applicantLocationRequirements": {
+        "@type": "Country",
+        "sameAs": "https://www.wikidata.org/wiki/Q16",
+        "name": "Canada"
+    },
+    "applicationContact": {
+        "@type": "ContactPoint",
+        "email": "talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+    },
+    "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "CAD",
+        "minValue": "{{ job.salary_min }}",
+        "maxValue": "{{ job.salary_max }}"
+    },
+    "datePosted": "{{ job.open_date_time }}",
+    "employerOverview": "{{ job_post.structured_data.employer_overview }}",
+    "employmentType": "{{ job_post.structured_data.employment_type }}",
+    "estimatedSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "CAD",
+        "minValue": "{{ job.salary_min }}",
+        "maxValue": "{{ job.salary_max }}"
+    },
+    "hiringOrganization": {
+        "@type": "GovernmentOrganization",
+        "name": "{{ manager.user.department.name }}",
+        "parentOrganization": {
+            "@type": "GovernmentOrganization",
+            "name": "{{ job_post.structured_data.parent_organization }}",
+            "url": "{{ goc.logo_link }}",
+            "logo": "{{ asset('/images/logo_canada_colour.png') }}"
+        }
+    },
+    "industry": "{{ job_post.structured_data.industry }}",
+    "jobBenefits": "{% for benefit in job_post.structured_data.benefits %}{{ benefit }}{{ loop.last ? '.' : ', ' }}{% endfor %}",
+    "jobLocation": {
+        "@type": "Place",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "{{ job.city }}",
+            "addressRegion": "{{ job.province.value }}",
+            "addressCountry": "CA"
+        }
+    },
+{% if job.remote_work_allowed == true %}"jobLocationType": "TELECOMMUTE",{% endif %}
+    "jobStartDate": "{{ job.start_date_time }}",
+    "qualifications": "{{ job.education }}",
+    "responsibilities": "{% if job.job_poster_key_tasks is defined and job.job_poster_key_tasks is not empty %}{% for task in job.job_poster_key_tasks %}{{ task.description }}{{ loop.last ? '' : ' | ' }}{% endfor %}{% else %}{{ noInfo }}{% endif %}",
+    "salaryCurrency": "CAD",
+    "securityClearanceRequirement": "{{ job_post.structured_data.security_clearance_requirement_level ? job_post.structured_data.security_clearance_requirement_level : noInfo }}: {{ job.security_clearance_id ? job.security_clearance.value : noInfo }}. {{ job_post.structured_data.security_clearance_requirement_description }}",
+    "skills": "{% if skills is defined and skills is not empty %}{% for skillItem in skills %}{{ skillItem.skill }} - {{ skillItem.level }}{{ loop.last ? '.' : ', ' }}{% endfor %}{% else %}{{ noInfo }}{% endif %}",
+    "specialCommitments": "{{ job_post.structured_data.special_commitments }}",
+    "title": "{{ job.title }}",
+    "totalJobOpenings": "1",
+    "validThrough": "{{ job.close_date_time }}",
+    "description": "{{ job.hire_impact ? job.hire_impact|nl2br : noInfo }}"
+}
+</script>
+{% endblock %}
 {% block socialMeta %}
 	{% set socialTitle = job_post.job_post_title|replace({':title': job.title, ':id': job.id}) %}
 	{% set socialDescription = job.hire_impact ? job.hire_impact|nl2br : noInfo %}

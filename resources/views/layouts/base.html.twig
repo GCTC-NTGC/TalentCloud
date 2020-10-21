@@ -9,6 +9,7 @@
     file due to Google Tag Manager being required on all pages. #}
     <head>
         <title>{% block title %}{% endblock %}</title>
+        {% block structuredData %}{% endblock %}
         {% block socialMeta %}{% endblock %}
         {% include "common/head" %}
     {# /head #}
