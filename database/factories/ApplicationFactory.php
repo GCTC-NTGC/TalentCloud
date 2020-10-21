@@ -108,10 +108,8 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
             ExperienceCommunity::class
         ];
         foreach ($application->job_poster->criteria as $criterion) {
-            // $index = $faker->numberBetween(0, 4);
             $index = rand(0, 4);
             $experience = factory($experienceTypes[$index])->create([
-            // $experience = factory(ExperienceWork::class)->create([
                 'experienceable_id' => $application->applicant_id,
                 'experienceable_type' => 'applicant',
             ]);

@@ -3,12 +3,7 @@
 namespace Tests\Unit\Validators;
 
 use App\Models\Applicant;
-use App\Models\ExperienceAward;
-use App\Models\ExperienceCommunity;
-use App\Models\ExperienceEducation;
-use App\Models\ExperiencePersonal;
 use App\Models\ExperienceSkill;
-use App\Models\ExperienceWork;
 use App\Models\JobApplication;
 use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
@@ -24,80 +19,6 @@ class ApplicationTimelineValidatorTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
-
-    /**
-     * Run parent setup and provide reusable factories.
-     *
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Live posters required to apply to.
-        $this->livePoster = factory(JobPoster::class)
-            ->states('live')
-            ->create();
-
-        // New Applications should be using version 2.
-        $this->application = factory(JobApplication::class)
-            ->states('draft')
-            ->create([
-                'job_poster_id' => $this->livePoster->id,
-                'version_id' => 2,
-            ]);
-
-        // Generate some experiences to test against.
-        $this->experiences = array(
-            factory(ExperienceWork::class)
-                ->create([
-                    'experienceable_id' => $this->application->id,
-                    'experienceable_type' => 'application',
-                ]),
-            factory(ExperiencePersonal::class)
-                ->create([
-                    'experienceable_id' => $this->application->id,
-                    'experienceable_type' => 'application',
-                ]),
-            factory(ExperienceEducation::class)
-                ->create([
-                    'experienceable_id' => $this->application->id,
-                    'experienceable_type' => 'application',
-                ]),
-            factory(ExperienceCommunity::class)
-                ->create([
-                    'experienceable_id' => $this->application->id,
-                    'experienceable_type' => 'application',
-                ]),
-            factory(ExperienceAward::class)
-                ->create([
-                    'experienceable_id' => $this->application->id,
-                    'experienceable_type' => 'application',
-                ]),
-        );
-
-        // Get the essential criteria from the generated Job Poster.
-        // Validation currently only applies to essential Criteria.
-        $essentialType = CriteriaType::where('name', 'essential')->first()->id;
-
-        $criteria = $this->livePoster->criteria;
-        $essentialCriteria = $criteria->filter(function ($criterion) use ($essentialType) {
-            return $criterion->criteria_type_id === $essentialType;
-        });
-
-        $this->experienceSkills = array();
-
-        foreach ($essentialCriteria as $essentialCriterion) {
-            // Grab a random experience from the factories above.
-            $experienceIndex = rand(0, count($this->experiences) - 1);
-            // Create a new ExperienceSkill record against each essential Job Criterion.
-            $this->experienceSkills[] = factory(ExperienceSkill::class)->create([
-                'skill_id' => $essentialCriterion->skill_id,
-                'experience_type' => $this->experiences[$experienceIndex]->experienceTypeName(),
-                'experience_id' => $this->experiences[$experienceIndex]->id,
-            ]);
-        }
-    }
 
     public function testBasicsComplete(): void
     {
@@ -147,26 +68,35 @@ class ApplicationTimelineValidatorTest extends TestCase
         $applicant = factory(Applicant::class)->create();
         $validator = new ApplicationTimelineValidator();
 
-        // Factory should create a basics-complete application.
+        // Factory should create a-complete application.
         $completeApplication = factory(JobApplication::class)->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
         $this->assertTrue($validator->fitComplete($completeApplication));
 
-        // Removing Answers should invalidate basic step.
+        // Removing Answers should invalidate fit step.
         $incompleteApplication = factory(JobApplication::class)->create([
             'applicant_id' => $applicant->id
         ]);
         $incompleteApplication->job_application_answers()->delete();
         $this->assertFalse($validator->fitComplete($incompleteApplication));
 
-        // Having one answer empty should invalidate basic step.
+        // Having one answer empty should invalidate fit step.
         $wrongApp1 = factory(JobApplication::class)->create([
             'applicant_id' => $applicant->id
         ]);
         $answer = $wrongApp1->job_application_answers->first();
         $answer->answer = '';
+        $answer->save();
+        $this->assertFalse($validator->fitComplete($wrongApp1));
+
+        // Having one answer over word count should invalidate fit step.
+        $wrongApp1 = factory(JobApplication::class)->create([
+            'applicant_id' => $applicant->id
+        ]);
+        $answer = $wrongApp1->job_application_answers->first();
+        $answer->answer = $this->faker->words(255, true);
         $answer->save();
         $this->assertFalse($validator->fitComplete($wrongApp1));
 
@@ -184,41 +114,86 @@ class ApplicationTimelineValidatorTest extends TestCase
 
     public function testExperienceComplete(): void
     {
+
         $validator = new ApplicationTimelineValidator();
+        // Draft Application
+        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
         // Every essential criterion has an assigned experience above, this should
         // validate.
-        $this->assertTrue($validator->experienceComplete($this->application));
+        $this->assertTrue($validator->experienceComplete($draftApplication));
         // Removing one or more experiences from a required criterion should fail
         // validation.
-        $this->experienceSkills[0]->delete();
-        $this->assertFalse($validator->experienceComplete(($this->application)));
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $requiredSkill = $draftApplication->job_poster->criteria
+            ->firstWhere('criteria_type_id', $essentialCriteriaType);
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
+        $this->assertFalse($validator->experienceComplete(($draftApplication)));
+
+        // Submitted Application
+        $submittedApplication = factory(JobApplication::class)->states('submitted')->create(['version_id' => 2]);
+        // Every essential criterion has an assigned experience above, this should
+        // validate.
+        $this->assertTrue($validator->experienceComplete($submittedApplication));
+        // Removing one or more experiences from a required criterion should fail
+        // validation.
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $requiredSkill = $submittedApplication->job_poster->criteria
+            ->firstWhere('criteria_type_id', $essentialCriteriaType);
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
+        $this->assertFalse($validator->experienceComplete(($submittedApplication)));
     }
 
     public function testSkillsComplete(): void
     {
         $validator = new ApplicationTimelineValidator();
-        // Add a justification to each experience above.
-        foreach ($this->experienceSkills as $experience) {
-            $experience->justification = $this->faker->text(99);
-            $experience->save();
-        }
-        // Every essential criterion has an assigned experience above, this should
+
+        // Draft Application
+        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
+        // Every essential criterion has an assigned experience, this should
         // validate.
-        $this->assertTrue($validator->skillsComplete($this->application));
+        $this->assertTrue($validator->skillsComplete($draftApplication));
+
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $requiredSkill = $draftApplication->job_poster->criteria
+        ->firstWhere('criteria_type_id', $essentialCriteriaType);
 
         // An empty justification should fail validation.
-        $this->experienceSkills[0]->justification = null;
-        $this->experienceSkills[0]->save();
-        $this->assertFalse($validator->skillsComplete($this->application));
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
+        ->update(['justification' => '']);
+        $this->assertFalse($validator->skillsComplete($draftApplication));
 
         // A justification over 100 characters should fail validation.
-        $this->experienceSkills[0]->justification = $this->faker->words(50, true);
-        $this->experienceSkills[0]->save();
-        $this->assertFalse($validator->skillsComplete($this->application));
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
+        ->update(['justification' => $this->faker->words(105, true)]);
+        $this->assertFalse($validator->skillsComplete($draftApplication));
 
         // Removing an experience from a required skill should fail validation.
-        $this->experienceSkills[0]->delete();
-        $this->assertFalse($validator->skillsComplete($this->application));
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
+        $this->assertFalse($validator->skillsComplete($draftApplication));
+
+        // Submitted Application
+        $submittedApplication = factory(JobApplication::class)->states('submitted')->create(['version_id' => 2]);
+        // Every essential criterion has an assigned experience, this should
+        // validate.
+        $this->assertTrue($validator->skillsComplete($submittedApplication));
+
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $requiredSkill = $submittedApplication->job_poster->criteria
+        ->firstWhere('criteria_type_id', $essentialCriteriaType);
+
+        // An empty justification should fail validation.
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
+        ->update(['justification' => '']);
+        $this->assertFalse($validator->skillsComplete($submittedApplication));
+
+        // A justification over 100 characters should fail validation.
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
+        ->update(['justification' => $this->faker->words(105, true)]);
+        $this->assertFalse($validator->skillsComplete($submittedApplication));
+
+        // Removing an experience from a required skill should fail validation.
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
+        $this->assertFalse($validator->skillsComplete($submittedApplication));
     }
 
     public function testAffirmationComplete(): void
@@ -241,36 +216,38 @@ class ApplicationTimelineValidatorTest extends TestCase
     public function testCombinedValidator(): void
     {
         $validator = new ApplicationTimelineValidator();
+        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
         $submitted = ApplicationStatus::where('name', 'submitted')->first()->id;
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $requiredSkill = $draftApplication->job_poster->criteria
+        ->firstWhere('criteria_type_id', $essentialCriteriaType);
         // A completed draft application should validate.
-        $this->application->language_test_confirmed = true;
-        $this->application->submission_signature = $this->faker->name();
-        $this->application->submission_date = '2019-06-06';
-        $this->application->save();
+        $draftApplication->language_test_confirmed = true;
+        $draftApplication->submission_signature = $this->faker->name();
+        $draftApplication->submission_date = '2019-06-06';
+        $draftApplication->save();
 
-        $this->assertTrue($validator->validateComplete($this->application));
+        $this->assertTrue($validator->validateComplete($draftApplication));
 
         // A completed submitted application should validate.
-        $this->application->application_status_id = $submitted;
-        $this->application->save();
-        $this->assertTrue($validator->validateComplete($this->application));
+        $draftApplication->application_status_id = $submitted;
+        $draftApplication->save();
+        $this->assertTrue($validator->validateComplete($draftApplication));
 
 
         // Having any of the steps incomplete should invalidate the whole app.
-        $veteranStatus = $this->application->veteran_status_id;
-        $this->application->veteran_status_id = null;
-        $this->application->save();
-        $this->assertFalse($validator->validateComplete($this->application));
+        $veteranStatus = $draftApplication->veteran_status_id;
+        $draftApplication->veteran_status_id = null;
+        $draftApplication->save();
+        $this->assertFalse($validator->validateComplete($draftApplication));
 
-        $this->application->veteran_status_id = $veteranStatus;
-        $this->application->save();
-        $experience = $this->experienceSkills[0];
-        $this->experienceSkills[0]->delete();
-        $this->assertFalse($validator->validateComplete($this->application));
+        $draftApplication->veteran_status_id = $veteranStatus;
+        $draftApplication->save();
+        ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
+        $this->assertFalse($validator->validateComplete($draftApplication));
 
-        $experience->save();
-        $this->application->submission_signature = '';
-        $this->application->save();
-        $this->assertFalse($validator->validateComplete($this->application));
+        $draftApplication->submission_signature = '';
+        $draftApplication->save();
+        $this->assertFalse($validator->validateComplete($draftApplication));
     }
 }
