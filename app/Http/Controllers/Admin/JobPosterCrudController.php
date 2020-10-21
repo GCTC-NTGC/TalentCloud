@@ -81,8 +81,8 @@ class JobPosterCrudController extends CrudController
             'orderable' => false,
             'function' => function ($entry) {
                 return $entry->isOpen() ?
-                    '<span><i class="fa fa-check-circle"></i></span>' :
-                    '<span><i class="fa fa-circle"></i></span>';
+                    '<span><i class="la la-check-circle"></i></span>' :
+                    '<span><i class="la la-circle"></i></span>';
             }
         ]);
         $this->crud->addColumn([
@@ -92,8 +92,8 @@ class JobPosterCrudController extends CrudController
             'orderable' => false,
             'function' => function ($entry) {
                 return $entry->isClosed() ?
-                    '<span><i class="fa fa-check-circle"></i></span>' :
-                    '<span><i class="fa fa-circle"></i></span>';
+                    '<span><i class="la la-check-circle"></i></span>' :
+                    '<span><i class="la la-circle"></i></span>';
             }
         ]);
 
@@ -124,7 +124,7 @@ class JobPosterCrudController extends CrudController
             'function' =>
             function ($entry) {
                 return $entry->submitted_applications_count() > 0 ?
-                    '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="fa fa-external-link"></i>)</a>' :
+                    '<a target="_blank" href="' . route('manager.jobs.applications', $entry->id) . '">' . $entry->submitted_applications_count() . ' (View <i class="la la-external-link"></i>)</a>' :
                     $entry->submitted_applications_count();
             }
         ]);
