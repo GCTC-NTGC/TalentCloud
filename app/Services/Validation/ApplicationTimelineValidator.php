@@ -22,9 +22,9 @@ class ApplicationTimelineValidator
      * an Application Status ID, and an Applicant ID
      */
     public $backendRules = [
-        'job_poster_id' => 'required',
-        'application_status_id' => 'required',
-        'applicant_id' => 'required',
+        'job_poster_id' => 'required|integer',
+        'application_status_id' => 'required|integer',
+        'applicant_id' => 'required|integer',
     ];
 
     /* Step 1 ------------------------------------------------------------------------------------------------------- */
