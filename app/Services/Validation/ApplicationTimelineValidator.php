@@ -6,10 +6,13 @@ use App\Models\ExperienceSkill;
 use App\Models\JobApplication;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\Lookup\SkillType;
 use App\Services\Validation\JobApplicationAnswerValidator;
 use App\Services\Validation\Rules\ContainsArrayWithAttributeRule;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
+use App\Services\Validation\Rules\WordLimitRule;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationTimelineValidator
@@ -20,9 +23,9 @@ class ApplicationTimelineValidator
      * an Application Status ID, and an Applicant ID
      */
     public $backendRules = [
-        'job_poster_id' => 'required',
-        'application_status_id' => 'required',
-        'applicant_id' => 'required',
+        'job_poster_id' => 'required|integer',
+        'application_status_id' => 'required|integer',
+        'applicant_id' => 'required|integer',
     ];
 
     /* Step 1 ------------------------------------------------------------------------------------------------------- */
@@ -39,7 +42,6 @@ class ApplicationTimelineValidator
             'language_requirement_confirmed' => ['required', 'boolean', 'accepted'],
             'citizenship_declaration_id' => ['required', 'exists:citizenship_declarations,id'],
             'veteran_status_id' => ['required', 'exists:veteran_statuses,id'],
-            'preferred_language_id' => ['required', 'exists:preferred_languages,id'],
             'education_requirement_confirmed' => ['required', 'boolean', 'accepted'],
         ];
     }
@@ -106,36 +108,40 @@ class ApplicationTimelineValidator
         $application->loadMissing('job_poster', 'job_poster.criteria');
 
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteria = $jobCriteria->filter(function ($criterion) use ($essentialCriteriaType) {
-            return $criterion->criteria_type_id === $essentialCriteriaType;
-        });
+        $requiredCriteria = $jobCriteria
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            });
 
         $experienceSkillRules = array();
 
         foreach ($requiredCriteria as $criterion) {
             // Validate that every essential skill has a corresponding experience.
-            $experienceSkillRules[] = [
-                'skill_id' => new ContainsArrayWithAttributeRule('skill_id', $criterion->skill_id)
-            ];
+            $experienceSkillRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
         }
 
-        // Get all Experiences belonging to the current application, that are assigned to required Criteria.
+        // Get all Experiences belonging to the application, or applicant (if draft), that are assigned to required Criteria.
         $experiences = ExperienceSkill::whereHasMorph(
             'experience',
             '*',
             function (Builder $query) use ($application): void {
                 $query->where([
-                    ['experienceable_type', 'application'],
-                    ['experienceable_id', $application->id]
+                    ['experienceable_type', $application->isDraft() ? 'applicant' : 'application'],
+                    ['experienceable_id', $application->isDraft() ? $application->applicant->id : $application->id]
                 ]);
             }
         )
         ->whereIn('skill_id', $requiredCriteria->pluck('skill_id')->all())
         ->get();
 
-        $validator = Validator::make($experiences->toArray(), $experienceSkillRules);
+        $validator = Validator::make(
+            ['experiences' => $experiences->toArray()],
+            ['experiences' => $experienceSkillRules]
+        );
 
         return $validator;
     }
@@ -169,37 +175,47 @@ class ApplicationTimelineValidator
         $application->loadMissing('job_poster', 'job_poster.criteria');
 
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteria = $jobCriteria->filter(function ($criterion) use ($essentialCriteriaType) {
-            return $criterion->criteria_type_id === $essentialCriteriaType;
-        });
+        $requiredCriteria = $jobCriteria
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            });
 
-        // Validate that every experience has a justification.
-        $experienceSkillRules = array('*.justification' => 'required|max:100');
+        $experienceSkillRules = array();
 
         foreach ($requiredCriteria as $criterion) {
             // Validate that every essential skill has a corresponding experience.
-            $experienceSkillRules[] = [
-                'skill_id' => new ContainsArrayWithAttributeRule('skill_id', $criterion->skill_id),
-            ];
+            $experienceSkillRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
         }
 
-        // Get all Experiences belonging to the current application, that are assigned to required Criteria.
+        // Get all Experiences belonging to the application, or applicant (if draft), that are assigned to required Criteria.
         $experiences = ExperienceSkill::whereHasMorph(
             'experience',
             '*',
             function (Builder $query) use ($application): void {
                 $query->where([
-                    ['experienceable_type', 'application'],
-                    ['experienceable_id', $application->id]
+                    ['experienceable_type', $application->isDraft() ? 'applicant' : 'application'],
+                    ['experienceable_id', $application->isDraft() ? $application->applicant->id : $application->id]
                 ]);
             }
         )
         ->whereIn('skill_id', $requiredCriteria->pluck('skill_id')->all())
         ->get();
 
-        $validator = Validator::make($experiences->toArray(), $experienceSkillRules);
+        $validator = Validator::make(
+            [
+                'experiences' => $experiences->toArray()
+            ],
+            [
+                'experiences' => 'required',
+                'experiences' => $experienceSkillRules,
+                'experiences.*.justification' => ['required', 'string', new WordLimitRule(100)],
+            ]
+        );
+
 
         return $validator;
     }
@@ -239,7 +255,7 @@ class ApplicationTimelineValidator
         $rules = $this->addNestedValidatorRules(
             'job_application_answers.*',
             $answerValidator->rules(),
-            []
+            [ 'job_application_answers.*.answer' => ['required', 'string', new WordLimitRule(250)]]
         );
 
         // Validate that each question has been answered.
@@ -414,7 +430,7 @@ class ApplicationTimelineValidator
             $validatorRules
         );
         // Merge new rules with old rules.
-        $rules = array_merge($rules, $newRules);
+        $rules = array_merge($newRules, $rules);
         return $rules;
     }
     /* End Helpers -------------------------------------------------------------------------------------------------- */
