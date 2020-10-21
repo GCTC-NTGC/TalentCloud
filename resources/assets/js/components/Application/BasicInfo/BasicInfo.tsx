@@ -29,9 +29,7 @@ import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { getLocale, localizeField } from "../../../helpers/localize";
 import { hasKey } from "../../../helpers/queries";
-import {
-  getClassifications
-} from "../../../store/Classification/classificationActions";
+
 
 interface BasicInfoProps {
   application: ApplicationNormalized;

@@ -3,7 +3,7 @@ import { RootState } from "../store";
 import { Classification } from "../../models/types";
 import { hasKey } from "../../helpers/queries";
 
-export const getClassificationState = (state: RootState): { [key: string]: Classification } =>
+const getClassificationState = (state: RootState): { [key: string]: Classification } =>
  state.classification.byId;
 
 export const getClassifications = createSelector(
@@ -14,6 +14,9 @@ export const getClassifications = createSelector(
 export const getClassificationById = (
   state: RootState,
   id: number,
-): Classification | null =>
-  hasKey(getClassificationState(state), id) ? getClassificationState(state)[id] : null;
+): Classification  =>
+  getClassificationState(state)[id]
+
+
+
 
