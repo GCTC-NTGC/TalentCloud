@@ -6,6 +6,7 @@ use App\Models\ExperienceSkill;
 use App\Models\JobApplication;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\Lookup\SkillType;
 use App\Services\Validation\JobApplicationAnswerValidator;
 use App\Services\Validation\Rules\ContainsArrayWithAttributeRule;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
@@ -107,11 +108,13 @@ class ApplicationTimelineValidator
         $application->loadMissing('job_poster', 'job_poster.criteria');
 
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
         $requiredCriteria = $jobCriteria
-            ->filter(function ($criterion) use ($essentialCriteriaType) {
-                return $criterion->criteria_type_id === $essentialCriteriaType;
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
             });
 
         $experienceSkillRules = array();
@@ -172,11 +175,14 @@ class ApplicationTimelineValidator
         $application->loadMissing('job_poster', 'job_poster.criteria');
 
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteria = $jobCriteria->filter(function ($criterion) use ($essentialCriteriaType) {
-            return $criterion->criteria_type_id === $essentialCriteriaType;
-        });
+        $requiredCriteria = $jobCriteria
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            });
 
         $experienceSkillRules = array();
 
