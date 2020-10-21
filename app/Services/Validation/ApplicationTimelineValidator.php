@@ -8,11 +8,11 @@ use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\LanguageRequirement;
 use App\Models\Lookup\SkillType;
 use App\Services\Validation\JobApplicationAnswerValidator;
-use App\Services\Validation\Rules\ContainsArrayWithAttributeRule;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
+use App\Services\Validation\Rules\IncludeAllRule;
+use App\Services\Validation\Rules\IncludesAllRule;
 use App\Services\Validation\Rules\WordLimitRule;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationTimelineValidator
@@ -115,16 +115,12 @@ class ApplicationTimelineValidator
             ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
                 return $criterion->criteria_type_id === $essentialCriteriaType
                     && $criterion->skill->skill_type_id === $hardSkillType;
-            });
+            })
+            ->pluck('skill_id')
+            ->all();
 
-        $experienceSkillRules = array();
-
-        foreach ($requiredCriteria as $criterion) {
-            // Validate that every essential skill has a corresponding experience.
-            $experienceSkillRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
-        }
-
-        // Get all Experiences belonging to the application, or applicant (if draft), that are assigned to required Criteria.
+        // Get all Experiences belonging to the application, or applicant (if draft),
+        // that are assigned to required Criteria.
         $experiences = ExperienceSkill::whereHasMorph(
             'experience',
             '*',
@@ -135,12 +131,13 @@ class ApplicationTimelineValidator
                 ]);
             }
         )
-        ->whereIn('skill_id', $requiredCriteria->pluck('skill_id')->all())
-        ->get();
+        ->whereIn('skill_id', $requiredCriteria)
+        ->pluck('skill_id')
+        ->all();
 
         $validator = Validator::make(
-            ['experiences' => $experiences->toArray()],
-            ['experiences' => $experienceSkillRules]
+            ['experiences' => $experiences],
+            ['experiences' => new IncludesAllRule($requiredCriteria)]
         );
 
         return $validator;
@@ -182,16 +179,12 @@ class ApplicationTimelineValidator
             ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
                 return $criterion->criteria_type_id === $essentialCriteriaType
                     && $criterion->skill->skill_type_id === $hardSkillType;
-            });
+            })
+            ->pluck('skill_id')
+            ->all();
 
-        $experienceSkillRules = array();
-
-        foreach ($requiredCriteria as $criterion) {
-            // Validate that every essential skill has a corresponding experience.
-            $experienceSkillRules[] = new ContainsObjectWithAttributeRule('skill_id', $criterion->skill_id);
-        }
-
-        // Get all Experiences belonging to the application, or applicant (if draft), that are assigned to required Criteria.
+        // Get all Experiences belonging to the application, or applicant (if draft),
+        // that are assigned to required Criteria.
         $experiences = ExperienceSkill::whereHasMorph(
             'experience',
             '*',
@@ -202,16 +195,17 @@ class ApplicationTimelineValidator
                 ]);
             }
         )
-        ->whereIn('skill_id', $requiredCriteria->pluck('skill_id')->all())
+        ->whereIn('skill_id', $requiredCriteria)
         ->get();
 
         $validator = Validator::make(
             [
-                'experiences' => $experiences->toArray()
+                'experiences' => $experiences->toArray(),
+                'skill_ids' => $experiences->pluck('skill_id')->all()
             ],
             [
                 'experiences' => 'required',
-                'experiences' => $experienceSkillRules,
+                'skill_ids' => new IncludesAllRule(($requiredCriteria)),
                 'experiences.*.justification' => ['required', 'string', new WordLimitRule(100)],
             ]
         );
