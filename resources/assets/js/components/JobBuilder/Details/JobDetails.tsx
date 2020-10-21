@@ -18,7 +18,7 @@ import JobPreview from "../../JobPreview";
 import Modal from "../../Modal";
 import { RootState } from "../../../store/store";
 import { getJob as selectJob } from "../../../store/Job/jobSelector";
-import { Job } from "../../../models/types";
+import { Classification, Job } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { updateJob, createJob } from "../../../store/Job/jobActions";
 import { validationMessages } from "../../Form/Messages";
@@ -30,7 +30,6 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
-  //ClassificationId,
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { emptyJob } from "../../../models/jobUtil";
@@ -41,7 +40,6 @@ import {
   frequencyName,
   travelRequirementDescription,
   overtimeRequirementDescription,
-  //classificationCodeOption,
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
@@ -51,7 +49,7 @@ import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { useSelector } from "react-redux";
-import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
+import { getClassificationById } from "../../../../../assets/js/store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -177,12 +175,14 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classification = useSelector((state: RootState) => {
-  return getClassificationState(state);
-});
+// Store a list of classifications in the state
+// Use the ID to get the classification based on the ID
+// classificationId (from lookupConstants is actually a list of IDs)
 
-const classificationCode = (lClassification: number | string): string =>
-  getKeyByValue(classification?.id, lClassification);
+
+const classificationCode = (state : RootState, classificationId: number): string =>
+  getClassificationById(state, classificationId).key
+
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
