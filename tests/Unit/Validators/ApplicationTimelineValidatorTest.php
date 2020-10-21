@@ -69,14 +69,14 @@ class ApplicationTimelineValidatorTest extends TestCase
         $validator = new ApplicationTimelineValidator();
 
         // Factory should create a-complete application.
-        $completeApplication = factory(JobApplication::class)->create([
+        $completeApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
         $this->assertTrue($validator->fitComplete($completeApplication));
 
         // Removing Answers should invalidate fit step.
-        $incompleteApplication = factory(JobApplication::class)->create([
+        $incompleteApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create([
             'applicant_id' => $applicant->id
         ]);
         $incompleteApplication->job_application_answers()->delete();
@@ -117,7 +117,7 @@ class ApplicationTimelineValidatorTest extends TestCase
 
         $validator = new ApplicationTimelineValidator();
         // Draft Application
-        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
+        $draftApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create();
         // Every essential criterion has an assigned experience above, this should
         // validate.
         $this->assertTrue($validator->experienceComplete($draftApplication));
@@ -130,7 +130,7 @@ class ApplicationTimelineValidatorTest extends TestCase
         $this->assertFalse($validator->experienceComplete(($draftApplication)));
 
         // Submitted Application
-        $submittedApplication = factory(JobApplication::class)->states('submitted')->create(['version_id' => 2]);
+        $submittedApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience above, this should
         // validate.
         $this->assertTrue($validator->experienceComplete($submittedApplication));
@@ -148,7 +148,7 @@ class ApplicationTimelineValidatorTest extends TestCase
         $validator = new ApplicationTimelineValidator();
 
         // Draft Application
-        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
+        $draftApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience, this should
         // validate.
         $this->assertTrue($validator->skillsComplete($draftApplication));
@@ -172,7 +172,7 @@ class ApplicationTimelineValidatorTest extends TestCase
         $this->assertFalse($validator->skillsComplete($draftApplication));
 
         // Submitted Application
-        $submittedApplication = factory(JobApplication::class)->states('submitted')->create(['version_id' => 2]);
+        $submittedApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience, this should
         // validate.
         $this->assertTrue($validator->skillsComplete($submittedApplication));
@@ -200,13 +200,13 @@ class ApplicationTimelineValidatorTest extends TestCase
     {
         $validator = new ApplicationTimelineValidator();
 
-        $application = factory(JobApplication::class)->create([
+        $application = factory(JobApplication::class)->states(['draft', 'version2'])->create([
             'submission_signature' => '',
             'submission_date' => '2019-11-19'
         ]);
         $this->assertFalse($validator->affirmationComplete($application));
 
-        $completeApp = factory(JobApplication::class)->create([
+        $completeApp = factory(JobApplication::class)->states(['submitted', 'version2'])->create([
             'submission_signature' => $this->faker->name(),
             'submission_date' => '2019-06-06',
         ]);
@@ -216,7 +216,7 @@ class ApplicationTimelineValidatorTest extends TestCase
     public function testCombinedValidator(): void
     {
         $validator = new ApplicationTimelineValidator();
-        $draftApplication = factory(JobApplication::class)->states('draft')->create(['version_id' => 2]);
+        $draftApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create();
         $submitted = ApplicationStatus::where('name', 'submitted')->first()->id;
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
         $requiredSkill = $draftApplication->job_poster->criteria
