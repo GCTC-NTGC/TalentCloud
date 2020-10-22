@@ -1,13 +1,12 @@
 import { IntlShape } from "react-intl";
-import { ApplicationNormalized } from "../../../models/types";
 import { ProgressBarProps, stepNames } from "./ProgressBar";
 import {
   applicationBasic,
   applicationExperienceIntro,
-  applicationSkills,
   applicationFit,
   applicationReview,
   applicationSubmission,
+  applicationSkillsIntro,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import { ProgressBarStatus } from "../../../models/lookupConstants";
@@ -46,7 +45,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSkills(locale, applicationId),
+        url: applicationSkillsIntro(locale, applicationId),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },

@@ -41,88 +41,76 @@ export const stepNames = defineMessages({
 const createStep = (
   link: Link,
   status: ProgressBarStatus,
-  icons: {
-    [key in ProgressBarStatus]: { className: string; color: string };
-  },
 ): React.ReactElement => {
-  const isComplete: boolean = status === "complete";
-  const isCurrent: boolean = status === "current";
-  const hasError: boolean = status === "error";
-
-  if (isComplete) {
-    return (
-      <li key={link.title}>
-        <span data-c-visibility="invisible">
-          <FormattedMessage
-            id="application.progressbar.completedStepLabel"
-            defaultMessage="Completed: "
-            description="Visually hidden text used to indicate the completed steps."
-          />
-        </span>
-        <a
-          href={link.url}
-          title={link.title}
-          onClick={(e) => {
-            e.preventDefault();
-            navigate(link.url);
-          }}
-        >
+  switch (status) {
+    case "complete":
+      return (
+        <li key={link.title}>
+          <span data-c-visibility="invisible">
+            <FormattedMessage
+              id="application.progressbar.completedStepLabel"
+              defaultMessage="Completed: "
+              description="Visually hidden text used to indicate the completed steps."
+            />
+          </span>
+          <a
+            href={link.url}
+            title={link.title}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(link.url);
+            }}
+          >
+            <span data-c-visibility="invisible">{link.text}</span>
+            <i className="fas fa-check-circle" data-c-color="go" />
+          </a>
+        </li>
+      );
+    case "current":
+      return (
+        <li key={link.title} title={link.title}>
+          <span data-c-visibility="invisible">
+            <FormattedMessage
+              id="application.progressbar.currentStepLabel"
+              defaultMessage="Current: "
+              description="Visually hidden text used to indicate the current steps."
+            />
+          </span>
           <span data-c-visibility="invisible">{link.text}</span>
-          <i
-            className={icons[status].className}
-            data-c-color={icons[status].color}
-          />
-        </a>
-      </li>
-    );
-  }
-  if (isCurrent) {
-    return (
-      <li key={link.title} title={link.title}>
-        <span data-c-visibility="invisible">
-          <FormattedMessage
-            id="application.progressbar.currentStepLabel"
-            defaultMessage="Current: "
-            description="Visually hidden text used to indicate the current steps."
-          />
-        </span>
-        <span data-c-visibility="invisible">{link.text}</span>
-        <i
-          className={icons[status].className}
-          data-c-color={icons[status].color}
-        />
-      </li>
-    );
-  }
-  if (hasError) {
-    return (
-      <li key={link.title}>
-        <span data-c-visibility="invisible">
-          <FormattedMessage
-            id="application.progressbar.errorStepLabel"
-            defaultMessage="Error: "
-            description="Visually hidden text used to indicate the steps with errors."
-          />
-        </span>
-        <a href={link.url} title={link.title}>
+          <i className="far fa-circle" data-c-color="grey" />
+        </li>
+      );
+    case "error":
+      return (
+        <li key={link.title}>
+          <span data-c-visibility="invisible">
+            <FormattedMessage
+              id="application.progressbar.errorStepLabel"
+              defaultMessage="Error: "
+              description="Visually hidden text used to indicate the steps with errors."
+            />
+          </span>
+          <a
+            href={link.url}
+            title={link.title}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(link.url);
+            }}
+          >
+            <span data-c-visibility="invisible">{link.text}</span>
+            <i className="fas fa-exclamation-circle" data-c-color="stop" />
+          </a>
+        </li>
+      );
+    default:
+      return (
+        <li key={link.title} title={link.title}>
           <span data-c-visibility="invisible">{link.text}</span>
-          <i
-            className={icons[status].className}
-            data-c-color={icons[status].color}
-          />
-        </a>
-      </li>
-    );
+          <i className="far fa-circle" data-c-color="white" />
+        </li>
+      );
   }
-  return (
-    <li key={link.title} title={link.title}>
-      <span data-c-visibility="invisible">{link.text}</span>
-      <i
-        className={icons[status].className}
-        data-c-color={icons[status].color}
-      />
-    </li>
-  );
 };
 
 export interface ProgressBarProps {
@@ -142,27 +130,6 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const icons: {
-    [key in ProgressBarStatus]: { className: string; color: string };
-  } = {
-    default: {
-      className: "fas fa-circle",
-      color: "grey",
-    },
-    complete: {
-      className: "fas fa-check-circle",
-      color: "go",
-    },
-    error: {
-      className: "fas fa-exclamation-circle",
-      color: "stop",
-    },
-    current: {
-      className: "far fa-circle",
-      color: "white",
-    },
-  };
-
   return (
     <div data-c-background="black(100)" data-c-padding="tb(1)">
       <div data-c-container="large">
@@ -172,7 +139,7 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
             <ol className="applicant-application-progress-bar">
               {steps.map(
                 ({ link, status }): React.ReactElement =>
-                  createStep(link, status, icons),
+                  createStep(link, status),
               )}
             </ol>
           </div>
