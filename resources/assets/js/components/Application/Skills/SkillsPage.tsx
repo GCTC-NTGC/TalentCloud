@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
@@ -29,7 +29,7 @@ import {
   useSkills,
   useSteps,
 } from "../../../hooks/applicationHooks";
-import { updateApplicationStep } from "../../../store/Application/applicationActions";
+import { touchApplicationStep } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface SkillsPageProps {
@@ -42,6 +42,10 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
+
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId.skills));
+  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   const { experiencesLoaded, skillsLoaded } = useFetchAllApplicationData(
@@ -95,7 +99,6 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = async (): Promise<void> => {
-    await dispatch(updateApplicationStep(applicationId, ApplicationStepId.fit));
     navigate(applicationFit(locale, applicationId));
   };
 

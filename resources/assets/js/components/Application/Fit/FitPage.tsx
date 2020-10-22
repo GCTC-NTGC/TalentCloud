@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
@@ -15,7 +15,7 @@ import Fit from "./Fit";
 import { JobApplicationAnswer } from "../../../models/types";
 import {
   fetchApplication,
-  updateApplicationStep,
+  touchApplicationStep,
 } from "../../../store/Application/applicationActions";
 import {
   createJobApplicationAnswer,
@@ -43,6 +43,10 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId.fit));
+  }, [applicationId, dispatch]);
+
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
 
@@ -68,7 +72,6 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   };
 
   const handleContinue = async (): Promise<void> => {
-    await updateApplicationStep(applicationId, ApplicationStepId.review);
     navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {

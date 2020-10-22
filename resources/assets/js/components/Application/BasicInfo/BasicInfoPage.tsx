@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import BasicInfo from "./BasicInfo";
@@ -16,7 +16,7 @@ import { ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import {
   updateApplication as updateApplicationAction,
-  updateApplicationStep,
+  touchApplicationStep,
 } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
 import {
@@ -37,6 +37,10 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
+
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId.basic));
+  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
@@ -61,9 +65,6 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     values: ApplicationNormalized,
   ): Promise<void> => {
     await updateApplication(values);
-    await dispatch(
-      updateApplicationStep(applicationId, ApplicationStepId.experience),
-    );
     navigate(applicationExperienceIntro(locale, applicationId));
   };
   const handleReturn = async (values: ApplicationNormalized): Promise<void> => {

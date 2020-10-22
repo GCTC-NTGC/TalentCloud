@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
-import React from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
@@ -30,7 +30,7 @@ import {
 import { loadingMessages } from "../applicationMessages";
 import {
   updateApplication as updateApplicationAction,
-  updateApplicationStep,
+  touchApplicationStep,
 } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 
@@ -42,6 +42,10 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
+
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId.review));
+  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   const {
@@ -91,9 +95,6 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = async (): Promise<void> => {
-    await dispatch(
-      updateApplicationStep(applicationId, ApplicationStepId.submission),
-    );
     navigate(applicationSubmission(locale, applicationId));
   };
 

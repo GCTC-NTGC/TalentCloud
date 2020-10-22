@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
+import { useEffect } from "@storybook/addons";
 import Intro from "./Intro";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
@@ -15,7 +16,7 @@ import {
   useJob,
   useSteps,
 } from "../../../hooks/applicationHooks";
-import { updateApplicationStep } from "../../../store/Application/applicationActions";
+import { touchApplicationStep } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface IntroPageProps {
@@ -38,7 +39,7 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
 
   const handleContinue = async (): Promise<void> => {
     await dispatch(
-      updateApplicationStep(applicationId, ApplicationStepId.basic),
+      touchApplicationStep(applicationId, ApplicationStepId.basic),
     );
     return navigate(applicationBasic(locale, applicationId));
   };
