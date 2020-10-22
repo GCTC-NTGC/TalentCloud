@@ -26,7 +26,7 @@ class ApplicationTimelineValidatorTest extends TestCase
         $validator = new ApplicationTimelineValidator();
 
         // Factory should create a basics-complete application.
-        $completeApplication = factory(JobApplication::class)->create([
+        $completeApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
