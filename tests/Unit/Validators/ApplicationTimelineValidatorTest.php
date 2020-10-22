@@ -10,6 +10,7 @@ use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\LanguageRequirement;
+use App\Models\Lookup\SkillType;
 use App\Services\Validation\ApplicationTimelineValidator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -26,7 +27,7 @@ class ApplicationTimelineValidatorTest extends TestCase
         $validator = new ApplicationTimelineValidator();
 
         // Factory should create a basics-complete application.
-        $completeApplication = factory(JobApplication::class)->create([
+        $completeApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create([
             'applicant_id' => $applicant->id
         ]);
         $applicant->job_applications()->save($completeApplication);
@@ -116,7 +117,7 @@ class ApplicationTimelineValidatorTest extends TestCase
     {
 
         $validator = new ApplicationTimelineValidator();
-        // Draft Application
+        // Draft Application.
         $draftApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create();
         // Every essential criterion has an assigned experience above, this should
         // validate.
@@ -124,21 +125,29 @@ class ApplicationTimelineValidatorTest extends TestCase
         // Removing one or more experiences from a required criterion should fail
         // validation.
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
         $requiredSkill = $draftApplication->job_poster->criteria
-            ->firstWhere('criteria_type_id', $essentialCriteriaType);
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->first();
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
         $this->assertFalse($validator->experienceComplete(($draftApplication)));
 
-        // Submitted Application
+        // Submitted Application.
         $submittedApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience above, this should
         // validate.
         $this->assertTrue($validator->experienceComplete($submittedApplication));
         // Removing one or more experiences from a required criterion should fail
         // validation.
-        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
         $requiredSkill = $submittedApplication->job_poster->criteria
-            ->firstWhere('criteria_type_id', $essentialCriteriaType);
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->first();
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
         $this->assertFalse($validator->experienceComplete(($submittedApplication)));
     }
@@ -147,48 +156,56 @@ class ApplicationTimelineValidatorTest extends TestCase
     {
         $validator = new ApplicationTimelineValidator();
 
-        // Draft Application
+        // Draft Application.
         $draftApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience, this should
         // validate.
         $this->assertTrue($validator->skillsComplete($draftApplication));
 
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
         $requiredSkill = $draftApplication->job_poster->criteria
-        ->firstWhere('criteria_type_id', $essentialCriteriaType);
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->first();
 
         // An empty justification should fail validation.
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
-        ->update(['justification' => '']);
+            ->update(['justification' => '']);
         $this->assertFalse($validator->skillsComplete($draftApplication));
 
         // A justification over 100 characters should fail validation.
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
-        ->update(['justification' => $this->faker->words(105, true)]);
+            ->update(['justification' => $this->faker->words(105, true)]);
         $this->assertFalse($validator->skillsComplete($draftApplication));
 
         // Removing an experience from a required skill should fail validation.
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)->delete();
         $this->assertFalse($validator->skillsComplete($draftApplication));
 
-        // Submitted Application
+        // Submitted Application.
         $submittedApplication = factory(JobApplication::class)->states(['submitted', 'version2'])->create();
         // Every essential criterion has an assigned experience, this should
         // validate.
         $this->assertTrue($validator->skillsComplete($submittedApplication));
 
-        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
         $requiredSkill = $submittedApplication->job_poster->criteria
-        ->firstWhere('criteria_type_id', $essentialCriteriaType);
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->first();
 
         // An empty justification should fail validation.
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
-        ->update(['justification' => '']);
+            ->update(['justification' => '']);
         $this->assertFalse($validator->skillsComplete($submittedApplication));
 
         // A justification over 100 characters should fail validation.
         ExperienceSkill::where('skill_id', $requiredSkill->skill_id)
-        ->update(['justification' => $this->faker->words(105, true)]);
+            ->update(['justification' => $this->faker->words(105, true)]);
         $this->assertFalse($validator->skillsComplete($submittedApplication));
 
         // Removing an experience from a required skill should fail validation.
@@ -219,8 +236,13 @@ class ApplicationTimelineValidatorTest extends TestCase
         $draftApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create();
         $submitted = ApplicationStatus::where('name', 'submitted')->first()->id;
         $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
         $requiredSkill = $draftApplication->job_poster->criteria
-        ->firstWhere('criteria_type_id', $essentialCriteriaType);
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->first();
         // A completed draft application should validate.
         $draftApplication->language_test_confirmed = true;
         $draftApplication->submission_signature = $this->faker->name();

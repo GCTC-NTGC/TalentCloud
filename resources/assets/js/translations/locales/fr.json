@@ -480,7 +480,7 @@
   "jobBuilder.criteriaForm.or": "ou",
   "jobBuilder.criteriaForm.removeSpecificity": "Supprimer la particularité supplémentaire.",
   "jobBuilder.criteriaForm.skillDefinition": "Définition de la compétence",
-  "jobBuilder.criterion.requiredSkill": "Compétence requise :",
+  "jobBuilder.criterion.requiredSkill": "Compétence requise : ",
   "jobBuilder.culturePace.01.description": "Nos échéances sont serrées, nous traitons plusieurs tâches en même temps et nos priorités changent constamment. Notre travail devrait être effectué en portant des chaussures de courses!",
   "jobBuilder.culturePace.01.title": "Un rythme très rapide",
   "jobBuilder.culturePace.02.description": "Nos échéances sont habituellement rapprochées, nous traitons plusieurs tâches en même temps et nos priorités changent régulièrement. Notre travail nous force à rester sur le qui-vive!",
