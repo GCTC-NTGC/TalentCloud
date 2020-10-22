@@ -23,6 +23,8 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
             return factory(JobPoster::class)->states('live')->create()->id;
         },
         'language_requirement_confirmed' => true,
+        'education_requirement_confirmed' => true,
+        'language_test_confirmed' => false,
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
         'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
         'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
@@ -106,10 +108,8 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
             ExperienceCommunity::class
         ];
         foreach ($application->job_poster->criteria as $criterion) {
-            // $index = $faker->numberBetween(0, 4);
             $index = rand(0, 4);
             $experience = factory($experienceTypes[$index])->create([
-            // $experience = factory(ExperienceWork::class)->create([
                 'experienceable_id' => $application->applicant_id,
                 'experienceable_type' => 'applicant',
             ]);
