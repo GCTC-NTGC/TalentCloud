@@ -111,7 +111,7 @@ class ApplicationTimelineValidator
         $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteria = $jobCriteria
+        $requiredCriteriaSkillIds = $jobCriteria
             ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
                 return $criterion->criteria_type_id === $essentialCriteriaType
                     && $criterion->skill->skill_type_id === $hardSkillType;
@@ -131,13 +131,11 @@ class ApplicationTimelineValidator
                 ]);
             }
         )
-        ->whereIn('skill_id', $requiredCriteria)
-        ->pluck('skill_id')
-        ->all();
+        ->whereIn('skill_id', $requiredCriteriaSkillIds);
 
         $validator = Validator::make(
-            ['experiences' => $experiences],
-            ['experiences' => new IncludesAllRule($requiredCriteria)]
+            ['skill_ids' => $experiences->pluck('skill_id')->all()],
+            ['skill_ids' => new IncludesAllRule($requiredCriteriaSkillIds)]
         );
 
         return $validator;
@@ -175,7 +173,7 @@ class ApplicationTimelineValidator
         $hardSkillType = SkillType::where('name', 'hard')->first()->id;
 
         $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteria = $jobCriteria
+        $requiredCriteriaSkillIds = $jobCriteria
             ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
                 return $criterion->criteria_type_id === $essentialCriteriaType
                     && $criterion->skill->skill_type_id === $hardSkillType;
@@ -195,7 +193,7 @@ class ApplicationTimelineValidator
                 ]);
             }
         )
-        ->whereIn('skill_id', $requiredCriteria)
+        ->whereIn('skill_id', $requiredCriteriaSkillIds)
         ->get();
 
         $validator = Validator::make(
@@ -205,7 +203,7 @@ class ApplicationTimelineValidator
             ],
             [
                 'experiences' => 'required',
-                'skill_ids' => new IncludesAllRule(($requiredCriteria)),
+                'skill_ids' => new IncludesAllRule(($requiredCriteriaSkillIds)),
                 'experiences.*.justification' => ['required', 'string', new WordLimitRule(100)],
             ]
         );
