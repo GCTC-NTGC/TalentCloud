@@ -18,7 +18,7 @@ export type GetClassificationAction = AsyncFsaActions<
 >;
 
 // Call to initialize classifications into state
-export const getClassifications = (): RSAActionTemplate<
+export const loadClassificationsIntoState = (): RSAActionTemplate<
   typeof GET_CLASSIFICATIONS_STARTED,
   typeof GET_CLASSIFICATIONS_SUCCEEDED,
   typeof GET_CLASSIFICATIONS_FAILED,

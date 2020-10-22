@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { WrappedComponentProps, injectIntl } from "react-intl";
-import { Job, JobPosterKeyTask, Criteria } from "../../../models/types";
+import { Job, JobPosterKeyTask, Criteria, Classification } from "../../../models/types";
 import { JobDetails } from "./JobDetails";
 import { RootState } from "../../../store/store";
 import { DispatchType } from "../../../configureStore";
@@ -21,6 +21,9 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
+import { useDispatch, useSelector } from "react-redux";
+import { loadClassificationsIntoState } from "../../../../js/store/Classification/classificationActions"
+import { getClassifications, getClassificationById } from "../../../../js/store/Classification/classificationSelector"
 
 interface JobDetailsPageProps {
   jobId: number;
@@ -32,6 +35,8 @@ interface JobDetailsPageProps {
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
+
+
 const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   WrappedComponentProps> = ({
   jobId,
@@ -41,6 +46,9 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   criteria,
   intl,
 }): React.ReactElement => {
+
+  const dispatch = useDispatch();
+
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -60,6 +68,13 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
       navigate(jobBuilderReview(locale, jobId));
     }
   };
+
+  useEffect(() => {
+    dispatch(loadClassificationsIntoState());
+  }, [dispatch]);
+  const classification = useSelector((state: RootState) =>
+    job !== null ? getClassificationById(state, job?.classification_id || 0) : null,
+  );
 
   const jobIsComplete =
     job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
