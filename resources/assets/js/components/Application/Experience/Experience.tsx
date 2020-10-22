@@ -474,77 +474,83 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             description="First section of text on the experience step of the Application Timeline."
           />
         </p>
-        <div data-c-grid="gutter(all, 1)">
-          {essentialSkills.length > 0 && (
-            <div data-c-grid-item="tl(1of2)">
-              <p data-c-margin="bottom(.5)">
+        {context === "application" && (
+          <>
+            <div data-c-grid="gutter(all, 1)">
+              {essentialSkills.length > 0 && (
+                <div data-c-grid-item="tl(1of2)">
+                  <p data-c-margin="bottom(.5)">
+                    <FormattedMessage
+                      id="application.experience.essentialSkillsListIntro"
+                      description="Text before the list of essential skills on the experience step of the Application Timeline."
+                      defaultMessage="This job <span>requires</span> the following skills:"
+                      values={{
+                        span: (chunks): React.ReactElement => (
+                          <span data-c-font-weight="bold" data-c-color="c2">
+                            {chunks}
+                          </span>
+                        ),
+                      }}
+                    />
+                  </p>
+                  <ul data-c-margin="bottom(1)">
+                    {essentialSkills.map((skill) => (
+                      <li key={skill.id}>
+                        {localizeFieldNonNull(locale, skill, "name")}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {assetSkills.length > 0 && (
+                <div data-c-grid-item="tl(1of2)">
+                  <p data-c-margin="bottom(.5)">
+                    <FormattedMessage
+                      id="application.experience.assetSkillsListIntro"
+                      defaultMessage="These skills are beneficial, but not required:"
+                      description="Text before the list of asset skills on the experience step of the Application Timeline."
+                    />
+                  </p>
+                  <ul data-c-margin="bottom(1)">
+                    {assetSkills.map((skill) => (
+                      <li key={skill.id}>
+                        {localizeFieldNonNull(locale, skill, "name")}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+            {context === "application" && (
+              <p data-c-color="gray" data-c-margin="bottom(2)">
                 <FormattedMessage
-                  id="application.experience.essentialSkillsListIntro"
-                  description="Text before the list of essential skills on the experience step of the Application Timeline."
-                  defaultMessage="This job <span>requires</span> the following skills:"
+                  id="application.experience.softSkillsList"
+                  defaultMessage="Don't forget, {skill} will be evaluated later in the hiring process."
+                  description="List of soft skills that will be evaluated later."
                   values={{
-                    span: (chunks): React.ReactElement => (
-                      <span data-c-font-weight="bold" data-c-color="c2">
-                        {chunks}
-                      </span>
+                    skill: (
+                      <>
+                        {softSkills.map((skill, index) => {
+                          const and = " and ";
+                          const lastElement = index === softSkills.length - 1;
+                          return (
+                            <React.Fragment key={skill.id}>
+                              {lastElement && softSkills.length > 1 && and}
+                              <span key={skill.id} data-c-font-weight="bold">
+                                {localizeFieldNonNull(locale, skill, "name")}
+                              </span>
+                              {!lastElement && softSkills.length > 2 && ", "}
+                            </React.Fragment>
+                          );
+                        })}
+                      </>
                     ),
                   }}
                 />
               </p>
-              <ul data-c-margin="bottom(1)">
-                {essentialSkills.map((skill) => (
-                  <li key={skill.id}>
-                    {localizeFieldNonNull(locale, skill, "name")}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {assetSkills.length > 0 && (
-            <div data-c-grid-item="tl(1of2)">
-              <p data-c-margin="bottom(.5)">
-                <FormattedMessage
-                  id="application.experience.assetSkillsListIntro"
-                  defaultMessage="These skills are beneficial, but not required:"
-                  description="Text before the list of asset skills on the experience step of the Application Timeline."
-                />
-              </p>
-              <ul data-c-margin="bottom(1)">
-                {assetSkills.map((skill) => (
-                  <li key={skill.id}>
-                    {localizeFieldNonNull(locale, skill, "name")}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-        <p data-c-color="gray" data-c-margin="bottom(2)">
-          <FormattedMessage
-            id="application.experience.softSkillsList"
-            defaultMessage="Don't forget, {skill} will be evaluated later in the hiring process."
-            description="List of soft skills that will be evaluated later."
-            values={{
-              skill: (
-                <>
-                  {softSkills.map((skill, index) => {
-                    const and = " and ";
-                    const lastElement = index === softSkills.length - 1;
-                    return (
-                      <React.Fragment key={skill.id}>
-                        {lastElement && softSkills.length > 1 && and}
-                        <span key={skill.id} data-c-font-weight="bold">
-                          {localizeFieldNonNull(locale, skill, "name")}
-                        </span>
-                        {!lastElement && softSkills.length > 2 && ", "}
-                      </React.Fragment>
-                    );
-                  })}
-                </>
-              ),
-            }}
-          />
-        </p>
+            )}
+          </>
+        )}
         {/* Experience Modal Buttons */}
         <div data-c-grid="gutter(all, 1)">
           {Object.keys(modalButtons).map((id) => modalButton(modalButtons[id]))}
