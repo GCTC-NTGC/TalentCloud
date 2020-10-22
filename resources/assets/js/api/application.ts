@@ -70,7 +70,7 @@ export const getSendReferenceEmailEndpoint = (
 ): string =>
   `${baseUrl()}/applications/${applicationId}/reference-emails/${referenceType}/send`;
 
-export const getUpdateApplicationStepEndpoint = (
+export const getTouchApplicationStepEndpoint = (
   applicationId: number,
   stepId: number,
 ): string => `${getApplicationEndpoint(applicationId)}/steps/${stepId}`;

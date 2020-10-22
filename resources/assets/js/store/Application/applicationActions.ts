@@ -26,7 +26,7 @@ import {
   parseSingleReferenceEmail,
   getApplicationBasicEndpoint,
   parseApplicationResponse,
-  getUpdateApplicationStepEndpoint,
+  getTouchApplicationStepEndpoint,
   parseApplicationStep,
 } from "../../api/application";
 import {
@@ -245,36 +245,36 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
-export const UPDATE_APPLICATION_STEP_STARTED =
+export const TOUCH_APPLICATION_STEP_STARTED =
   "APPLICATION: UPDATE STEP STARTED";
-export const UPDATE_APPLICATION_STEP_SUCCEEDED =
-  "APPLICATION: UPDATE STEP SUCCEEDED";
-export const UPDATE_APPLICATION_STEP_FAILED = "APPLICATION: UPDATE STEP FAILED";
+export const TOUCH_APPLICATION_STEP_SUCCEEDED =
+  "APPLICATION: TOUCH STEP SUCCEEDED";
+export const TOUCH_APPLICATION_STEP_FAILED = "APPLICATION: TOUCH STEP FAILED";
 
-export type UpdateApplicationStepAction = AsyncFsaActions<
-  typeof UPDATE_APPLICATION_STEP_STARTED,
-  typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
-  typeof UPDATE_APPLICATION_STEP_FAILED,
+export type TouchApplicationStepAction = AsyncFsaActions<
+  typeof TOUCH_APPLICATION_STEP_STARTED,
+  typeof TOUCH_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_APPLICATION_STEP_FAILED,
   { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 >;
 
-export const updateApplicationStep = (
+export const touchApplicationStep = (
   applicationId: number,
   stepId: number,
 ): RSAActionTemplate<
-  typeof UPDATE_APPLICATION_STEP_STARTED,
-  typeof UPDATE_APPLICATION_STEP_SUCCEEDED,
-  typeof UPDATE_APPLICATION_STEP_FAILED,
+  typeof TOUCH_APPLICATION_STEP_STARTED,
+  typeof TOUCH_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_APPLICATION_STEP_FAILED,
   { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 > =>
   asyncPut(
-    getUpdateApplicationStepEndpoint(applicationId, stepId),
-    { applicationId, stepId },
-    UPDATE_APPLICATION_STEP_STARTED,
-    UPDATE_APPLICATION_STEP_SUCCEEDED,
-    UPDATE_APPLICATION_STEP_FAILED,
+    getTouchApplicationStepEndpoint(applicationId, stepId),
+    [],
+    TOUCH_APPLICATION_STEP_STARTED,
+    TOUCH_APPLICATION_STEP_SUCCEEDED,
+    TOUCH_APPLICATION_STEP_FAILED,
     parseApplicationStep,
     { applicationId, stepId },
   );
@@ -288,4 +288,4 @@ export type ApplicationAction =
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction
   | UpdateJobApplicationAnswerAction
-  | UpdateApplicationStepAction;
+  | TouchApplicationStepAction;

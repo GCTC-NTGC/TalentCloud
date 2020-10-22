@@ -25,7 +25,7 @@ import {
   SEND_REFERENCE_EMAIL_STARTED,
   SEND_REFERENCE_EMAIL_SUCCEEDED,
   SEND_REFERENCE_EMAIL_FAILED,
-  UPDATE_APPLICATION_STEP_SUCCEEDED,
+  TOUCH_APPLICATION_STEP_SUCCEEDED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -245,7 +245,7 @@ export const entitiesReducer = (
           [action.payload.id]: action.payload,
         },
       };
-    case UPDATE_APPLICATION_STEP_SUCCEEDED:
+    case TOUCH_APPLICATION_STEP_SUCCEEDED:
       return {
         ...state,
         steps: {
