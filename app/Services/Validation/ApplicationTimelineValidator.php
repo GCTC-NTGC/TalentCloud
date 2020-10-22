@@ -131,7 +131,8 @@ class ApplicationTimelineValidator
                 ]);
             }
         )
-        ->whereIn('skill_id', $requiredCriteriaSkillIds);
+        ->whereIn('skill_id', $requiredCriteriaSkillIds)
+        ->get();
 
         $validator = Validator::make(
             ['skill_ids' => $experiences->pluck('skill_id')->all()],
