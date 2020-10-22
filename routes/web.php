@@ -1080,7 +1080,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::put('applications/{application}/steps/{step}', 'Api\ApplicationController@updateStep')
+    Route::put('applications/{application}/steps/{step}', 'Api\ApplicationController@touchStep')
         ->middleware('can:view,application')
         ->name('job-application-step.update');
 });

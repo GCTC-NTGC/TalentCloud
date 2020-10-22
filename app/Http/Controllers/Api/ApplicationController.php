@@ -166,7 +166,7 @@ class ApplicationController extends Controller
      * @param Step $step Incoming Job Application Step
      * @return mixed
      */
-    public function updateStep(Request $request, JobApplication $application, Step $step)
+    public function touchStep(Request $request, JobApplication $application, Step $step)
     {
         $application->job_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
 
