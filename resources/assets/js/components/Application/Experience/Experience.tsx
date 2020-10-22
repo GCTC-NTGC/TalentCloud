@@ -18,10 +18,9 @@ import {
   SkillTypeId,
   CriteriaTypeId,
   getKeyByValue,
+  ClassificationId,
   //ClassificationId,
 } from "../../../models/lookupConstants";
-import { getClassificationState } from "../../../../../assets/js/store/Classification/classificationSelector";
-import { getClassifications } from "../../../../../assets/js/store/Classification/classificationActions";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
@@ -141,13 +140,9 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
-  const classification = useSelector((state: RootState) => {
-    return getClassificationState(state);
-  });
-
   const jobClassification =
     jobClassificationId !== null
-      ? getKeyByValue(classification?.id, jobClassificationId)
+      ? getKeyByValue(ClassificationId, jobClassificationId)
       : "";
 
   const [experienceData, setExperienceData] = React.useState<

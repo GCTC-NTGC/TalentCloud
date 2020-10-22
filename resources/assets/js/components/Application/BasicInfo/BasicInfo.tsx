@@ -21,6 +21,7 @@ import {
   VeteranId,
   LanguageRequirementId,
   getKeyByValue,
+  ClassificationId
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
 import { Job, ApplicationNormalized } from "../../../models/types";
