@@ -45,11 +45,11 @@ import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { formMessages, educationMessages } from "./JobDetailsMessages";
-import { hasKey } from "../../../helpers/queries";
+import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { useSelector } from "react-redux";
-import { getClassificationById } from "../../../../../assets/js/store/Classification/classificationSelector";
+import { getClassifications } from "../../../../../assets/js/store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -179,10 +179,10 @@ interface DetailsFormValues {
 // Use the ID to get the classification based on the ID
 // classificationId (from lookupConstants is actually a list of IDs)
 
+const classifications = useSelector(getClassifications);
 
-const classificationCode = (state : RootState, classificationId: number): string =>
-  getClassificationById(state, classificationId).key
-
+const classificationCode = (classification: number | string): string =>
+  getKeyByValue(classifications, classification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
@@ -346,7 +346,9 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .required(intl.formatMessage(validationMessages.required)),
     classification: Yup.number()
       .oneOf(
-        Object.values(classification.id),
+        Object.values(
+          classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })
+        ),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -519,12 +521,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={Object.values(classification.id).map((id: number): {
+                  options={Object.values(classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })).map((id: number): {
                     value: number;
                     label: string;
                   } => ({
                     value: id,
-                    label: classification[id].key,
+                    label: classifications[id].key,
                   }))}
                 />
                 <FastField
@@ -1037,7 +1039,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        classification?.id,
+                        classifications.reduce(function(a, b) {return a[b.key] = a[b.id] }),
                         values.classification,
                       )}
                       level={String(values.level)}
