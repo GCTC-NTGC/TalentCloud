@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import TextInput from "../../Form/TextInput";
 import DateInput from "../../Form/DateInput";
 import { validationMessages } from "../../Form/Messages";
-import { Application } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import { navigationMessages } from "../applicationMessages";
 
 const messages = defineMessages({
@@ -52,8 +52,8 @@ const confirmationCriteria = defineMessages({
 });
 
 interface FinalSubmitProps {
-  application: Application;
-  submitApplication: (application: Application) => Promise<void>;
+  application: ApplicationNormalized;
+  submitApplication: (application: ApplicationNormalized) => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
 }
@@ -73,8 +73,8 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
 
   const formValuesToData = (
     formValues: FinalSubmitFormValues,
-    initialApplication: Application,
-  ): Application => ({
+    initialApplication: ApplicationNormalized,
+  ): ApplicationNormalized => ({
     ...initialApplication,
     submission_signature: formValues.submissionSignature,
     submission_date: formValues.submissionDate,
