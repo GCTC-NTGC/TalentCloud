@@ -166,9 +166,9 @@ class ApplicationController extends Controller
      * @param Step $step Incoming Job Application Step
      * @return mixed
      */
-    public function touchStep(Request $request, JobApplication $application, JobApplicationStep $step)
+    public function touchStep(Request $request, JobApplication $application, JobApplicationStep $jobApplicationStep)
     {
-        $application->touched_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
+        $application->touched_application_steps()->updateExistingPivot($jobApplicationStep->id, ['touched' => true]);
 
         return new JsonResource($application->jobApplicationSteps());
     }
