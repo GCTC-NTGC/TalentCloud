@@ -104,6 +104,24 @@ export const getIrrelevantSkillCount = (
 };
 
 /**
+ * Returns list of ExperienceSkills attached to an Experience.
+ *
+ * @param experienceSkills Array of all ExperienceSkill objects.
+ * @param experience Experience object.
+ * @returns A filtered array of ExperienceSkill objects attached to experience.
+ */
+export const getExperienceSkillsOfExperience = (
+  experienceSkills: ExperienceSkill[],
+  experience: Experience,
+): ExperienceSkill[] => {
+  return experienceSkills.filter(
+    (experienceSkill) =>
+      experience.type === experienceSkill.experience_type &&
+      experience.id === experienceSkill.experience_id,
+  );
+};
+
+/**
  * Returns list of Skills attached to an Experience.
  *
  * @param experienceSkills Array of ExperienceSkill objects.
@@ -116,10 +134,9 @@ export const getSkillsOfExperience = (
   experience: Experience,
   skills: Skill[],
 ): Skill[] => {
-  const experienceSkillsByType = experienceSkills.filter(
-    (experienceSkill) =>
-      experience.type === experienceSkill.experience_type &&
-      experience.id === experienceSkill.experience_id,
+  const experienceSkillsByType = getExperienceSkillsOfExperience(
+    experienceSkills,
+    experience,
   );
 
   const experiencesBySkillId = mapToObject(

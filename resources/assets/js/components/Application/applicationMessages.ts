@@ -215,6 +215,32 @@ export const experienceMessages = defineMessages({
     defaultMessage: "My Experience",
     description: "Heading for the Experience section of the Application.",
   },
+  educationTypeMissing: {
+    id: "application.experience.educationTypeMissing",
+    defaultMessage: "Education type not found",
+    description: "Error message for when the education type cannot be found.",
+  },
+  educationStatusMissing: {
+    id: "application.experience.educationStatusMissing",
+    defaultMessage: "Education status not found",
+    description: "Error message for when the education status cannot be found.",
+  },
+  awardRecipientMissing: {
+    id: "application.experience.awardRecipientMissing",
+    defaultMessage: "Award recipient not found",
+    description: "Error message for when the award recipient cannot be found.",
+  },
+  awardRecognitionMissing: {
+    id: "application.experience.awardRecognitionMissing",
+    defaultMessage: "Award recognition not found",
+    description:
+      "Error message for when the award recognition cannot be found.",
+  },
+  errorRenderingExperience: {
+    id: "application.experience.errorRenderingExperience",
+    defaultMessage: "Experience failed to render (experience type missing).",
+    description: "Error message displayed when experience fails to render.",
+  },
 });
 
 export const educationRequirementMessages = defineMessages({
