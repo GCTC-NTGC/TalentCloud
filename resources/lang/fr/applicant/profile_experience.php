@@ -11,9 +11,6 @@ return [
     */
 
     "title" => "Mon expérience",
-    'profile_sidebar_label' => 'Sur votre profil :',
-    'account_settings_title' => 'Modifiez les paramètres de votre compte.',
-    'account_settings_label' => 'Paramètres du compte',
     'required_label' => 'Requis',
     'input_error' => 'Cette entrée contient une erreur.',
     "experience_section" => [

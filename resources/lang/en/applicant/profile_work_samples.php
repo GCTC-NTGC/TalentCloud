@@ -11,9 +11,6 @@ return [
     */
 
     "title" => "My Work Samples",
-    'profile_sidebar_label' => 'On your profile:',
-    'account_settings_title' => 'Edit your account settings.',
-    'account_settings_label' => 'Account Settings',
     'required_label' => 'Required',
     'input_error' => 'This input has an error.',
     "sample_section" => [
