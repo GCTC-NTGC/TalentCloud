@@ -279,6 +279,7 @@ class JobController extends Controller
                     'custom_breadcrumbs' => $custom_breadcrumbs,
                     'skills' => $skillsArray,
                     'goc' => Lang::get('common/goc'),
+                    'jpb_job_post' => true,
                 ]
             );
         } else {
