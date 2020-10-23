@@ -84,7 +84,7 @@ Route::group(
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
             Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
