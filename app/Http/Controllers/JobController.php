@@ -166,23 +166,120 @@ class JobController extends Controller
 
         $jobLang = Lang::get('applicant/job_post');
 
+        $gocLang = Lang::get('common/goc');
+
         $skillsLang = Lang::get('common/skills');
 
         $skillsArray = [];
-        foreach ($essential as $criterion_type => $criterion) {
+        foreach ($essential as $criterion) {
             $skillsArray[] = [
                 'skill' => $criterion['skill']['name'],
                 'level' => $skillsLang['skill_levels'][$criterion
                 ->skill->skill_type->name][$criterion->skill_level->name],
             ];
         }
-        foreach ($asset as $criterion_type => $criterion) {
+        foreach ($asset as $criterion) {
             $skillsArray[] = [
                 'skill' => $criterion['skill']['name'],
                 'level' => $skillsLang['skill_levels'][$criterion
                 ->skill->skill_type->name][$criterion->skill_level->name],
             ];
         }
+
+        $skillsString = '';
+        if (!empty($skillsArray)) {
+            $lastSkill = end($skillsArray);
+            foreach ($skillsArray as $skillItem) {
+                $skillsString .= $skillItem['skill'].' - '.$skillItem['level'].($skillItem == $lastSkill ? '.' : ', ');
+            }
+        }
+
+        $benefitsString = '';
+        if (is_array($jobLang['structured_data']['benefits'])) {
+            foreach ($jobLang['structured_data']['benefits'] as $benefit) {
+                $benefitsString .= $benefit.' ';
+            }
+        }
+
+        $tasksString = '';
+        if (is_array($jobPoster['job_poster_key_tasks'])) {
+            $lastTask = end($jobPoster['job_poster_key_tasks']);
+            foreach ($jobPoster['job_poster_key_tasks'] as $task) {
+                $tasksString .= $task['description'].' '.($skillItem == $lastSkill ? '' : ' | ');
+            }
+        }
+
+        $securityClearanceString = $jobLang['structured_data']['security_clearance_requirement_level'].': '
+        .$jobPoster['security_clearance']['value'].'. '
+        .$jobLang['structured_data']['security_clearance_requirement_description'];
+
+        $structuredData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'JobPosting',
+            '@id' => url()->current(),
+            'url' => url('/'),
+            'inLanguage' => app()->getLocale(),
+            'applicantLocationRequirements' => [
+                '@type' => 'Country',
+                'sameAs' => 'https://www.wikidata.org/wiki/Q16',
+                'name' => 'Canada'
+            ],
+            'applicationContact' => [
+                '@type' => 'ContactPoint',
+                'email' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca'
+            ],
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'CAD',
+                'minValue' => $jobPoster['salary_min'],
+                'maxValue' => $jobPoster['salary_max'],
+            ],
+            'datePosted' => $jobPoster['open_date_time'],
+            'employerOverview' => $jobLang['structured_data']['employer_overview'],
+            'employmentType' => $jobLang['structured_data']['employment_type'],
+            'estimatedSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'CAD',
+                'minValue' => $jobPoster['salary_min'],
+                'maxValue' => $jobPoster['salary_max']
+            ],
+            'hiringOrganization' => [
+                '@type' => 'GovernmentOrganization',
+                'name' => $jobPoster['manager']['user']['department']['name'],
+                'parentOrganization' => [
+                    '@type' => 'GovernmentOrganization',
+                    'name' => $jobLang['structured_data']['parent_organization'],
+                    'url' => $gocLang['logo_link'],
+                    'logo' => asset('/images/logo_canada_colour.png'),
+                ]
+            ],
+            'industry' => $jobLang['structured_data']['industry'],
+            'jobBenefits' => $benefitsString,
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressLocality' => $jobPoster['city'],
+                    'addressRegion' => $jobPoster['province']['value'],
+                    'addressCountry' => 'CA'
+                ]
+            ],
+            'jobStartDate' => $jobPoster['start_date_time'],
+            'qualifications' => $jobPoster['education'],
+            'responsibilities' => $tasksString,
+            'salaryCurrency' => 'CAD',
+            'securityClearanceRequirement' => $securityClearanceString,
+            'skills' => $skillsString,
+            'specialCommitments' => $jobLang['structured_data']['special_commitments'],
+            'title' => $jobPoster['title'],
+            'totalJobOpenings' => '1',
+            'validThrough' => $jobPoster['close_date_time'],
+            'description' => $jobPoster['hire_impact'] ? nl2br($jobPoster['hire_impact']) : '',
+        ];
+
+        if ($jobPoster['remote_work_allowed'] == true) {
+            $structuredData['jobLocationType'] = 'TELECOMMUTE';
+        };
 
         $applyButton = [];
         if (WhichPortal::isManagerPortal()) {
@@ -277,9 +374,7 @@ class JobController extends Controller
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
                     'custom_breadcrumbs' => $custom_breadcrumbs,
-                    'skills' => $skillsArray,
-                    'goc' => Lang::get('common/goc'),
-                    'jpb_job_post' => true,
+                    'structured_data' => $structuredData,
                 ]
             );
         } else {
