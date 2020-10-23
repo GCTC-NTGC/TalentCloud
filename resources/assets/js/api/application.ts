@@ -21,11 +21,14 @@ export const parseApplicationResponse = (
   jobApplicationAnswers: JobApplicationAnswer[];
   jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
 } => {
-  const { jobApplicationSteps, job_application_answers } = data;
+  const { job_application_steps, job_application_answers } = data;
   const application: Application = parseApplication(data);
   const jobApplicationAnswers: JobApplicationAnswer[] = job_application_answers.map(
     (answersData: any): JobApplicationAnswer => answersData,
   );
+  const jobApplicationSteps: {
+    [step in ApplicationStep]: ProgressBarStatus;
+  } = job_application_steps;
 
   return {
     application,

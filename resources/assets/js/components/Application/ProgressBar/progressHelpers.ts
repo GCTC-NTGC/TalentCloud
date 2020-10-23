@@ -9,11 +9,14 @@ import {
   applicationSkillsIntro,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
-import { ProgressBarStatus } from "../../../models/lookupConstants";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../../models/lookupConstants";
 
 export function makeProgressBarSteps(
   applicationId: number,
-  steps: { [key in string]: ProgressBarStatus },
+  steps: { [step in ApplicationStep]: ProgressBarStatus },
   intl: IntlShape,
   currentStep:
     | "welcome"
