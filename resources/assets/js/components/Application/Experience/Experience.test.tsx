@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { ExperienceStep } from "./Experience";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
 import {
@@ -18,7 +18,7 @@ import { ClassificationId } from "../../../models/lookupConstants";
 
 describe("Application Timeline - My Experience", (): void => {
   it("should render ExperienceStep with items", (): void => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <IntlContainer locale="en">
         <ExperienceStep
           criteria={fakeCriteria()}
@@ -45,7 +45,7 @@ describe("Application Timeline - My Experience", (): void => {
   });
 
   it("should render ExperienceStep without any experiences", (): void => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <IntlContainer locale="en">
         <ExperienceStep
           criteria={fakeCriteria()}
@@ -71,7 +71,7 @@ describe("Application Timeline - My Experience", (): void => {
   });
 
   it("should render Experience Intro", (): void => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <IntlContainer locale="en">
         <ExperienceIntro handleStart={() => {}} />
       </IntlContainer>,
