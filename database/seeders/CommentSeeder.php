@@ -1,8 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Comment;
 use App\Models\JobPoster;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class CommentSeeder extends Seeder // phpcs:ignore

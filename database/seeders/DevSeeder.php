@@ -1,12 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
-use App\Models\ExperienceEducation;
-use App\Models\ExperienceSkill;
-use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
 use App\Models\JobApplication;
 use App\Models\JobPoster;

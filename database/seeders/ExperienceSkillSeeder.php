@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\Skill;
 use App\Models\ExperienceWork;
 use App\Models\ExperienceAward;
