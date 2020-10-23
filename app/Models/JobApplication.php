@@ -553,9 +553,9 @@ class JobApplication extends BaseModel
      * Calculates and returns an associative array of application steps (version 2) with the value equal
      * to it's status ('default', 'complete', 'error').
      *
-     * @return string $steps
+     * @return string $jobApplicationSteps
      */
-    public function applicationTimelineSteps(): array
+    public function jobApplicationSteps(): array
     {
         $setState = function (bool $touched, bool $isValid) {
             return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
@@ -577,7 +577,7 @@ class JobApplication extends BaseModel
         $reviewTouched = $this->touched_application_steps->where('name', 'review')->first()->pivot->touched;
         $submissionTouched = $this->touched_application_steps->where('name', 'submission')->first()->pivot->touched;
 
-        $steps = [
+        $jobApplicationSteps = [
             'basic' => $setState($basicTouched, $basicValidator),
             'experience' => $setState($experienceTouched, $experienceValidator),
             'skills' => $setState($skillsTouched, $skillsValidator),
@@ -586,6 +586,6 @@ class JobApplication extends BaseModel
             'submission' => $setState($submissionTouched, $submissionValidator)
         ];
 
-        return $steps;
+        return $jobApplicationSteps;
     }
 }

@@ -6,7 +6,16 @@ import RootContainer from "../RootContainer";
 import { RouterResult, useRouter } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
-import RedirectStep from "./RedirectToLastTouchedStep";
+import BasicInfoPage from "./BasicInfo/BasicInfoPage";
+import { applicationWelcome } from "../../helpers/routes";
+import { Locales } from "../../helpers/localize";
+import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
+import ExperiencePage from "./Experience/ExperiencePage";
+import SkillsPage from "./Skills/SkillsPage";
+import FitPage from "./Fit/FitPage";
+import ReviewPage from "./Review/ReviewPage";
+import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
+import SkillsIntroPage from "./Skills/SkillsIntroPage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -71,98 +80,56 @@ const routes: Routes<{}, RouterResult> = [
         path: "/basic",
         action: ({ params }) => ({
           title: pageTitles.basicTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="basic"
-            />
-          ),
+          component: <BasicInfoPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/experience-intro",
         action: ({ params }) => ({
           title: pageTitles.experienceIntroTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="experience"
-              introStep
-            />
-          ),
+          component: <ExperienceIntroPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/experience",
         action: ({ params }) => ({
           title: pageTitles.experienceTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="experience"
-            />
-          ),
+          component: <ExperiencePage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/skills-intro",
         action: ({ params }) => ({
           title: pageTitles.skillsIntroTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="skills"
-              introStep
-            />
-          ),
+          component: <SkillsIntroPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/skills",
         action: ({ params }) => ({
           title: pageTitles.skillsTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="skills"
-            />
-          ),
+          component: <SkillsPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/fit",
         action: ({ params }) => ({
           title: pageTitles.fitTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="fit"
-            />
-          ),
+          component: <FitPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/review",
         action: ({ params }) => ({
           title: pageTitles.reviewTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="review"
-            />
-          ),
+          component: <ReviewPage applicationId={Number(params.id)} />,
         }),
       },
       {
         path: "/submission",
         action: ({ params }) => ({
           title: pageTitles.submissionTitle,
-          component: (
-            <RedirectStep
-              applicationId={Number(params.id)}
-              requestedStep="submission"
-            />
-          ),
+          component: <FinalSubmitPage applicationId={Number(params.id)} />,
         }),
       },
       {
@@ -170,7 +137,11 @@ const routes: Routes<{}, RouterResult> = [
         path: "(.*)",
         action: ({ params }) => ({
           title: pageTitles.welcomeTitle,
-          component: <RedirectStep applicationId={Number(params.id)} />,
+          component: <div />,
+          redirect: applicationWelcome(
+            params.locale as Locales,
+            Number(params.id),
+          ),
         }),
       },
     ],

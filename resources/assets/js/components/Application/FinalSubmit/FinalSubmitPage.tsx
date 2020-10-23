@@ -17,7 +17,7 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 import {
@@ -47,7 +47,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const handleSubmit = async (
     completeApplication: ApplicationNormalized,

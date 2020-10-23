@@ -19,9 +19,9 @@ export const parseApplicationResponse = (
 ): {
   application: Application;
   jobApplicationAnswers: JobApplicationAnswer[];
-  steps: { [step in ApplicationStep]: ProgressBarStatus };
+  jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
 } => {
-  const { steps, job_application_answers } = data;
+  const { jobApplicationSteps, job_application_answers } = data;
   const application: Application = parseApplication(data);
   const jobApplicationAnswers: JobApplicationAnswer[] = job_application_answers.map(
     (answersData: any): JobApplicationAnswer => answersData,
@@ -30,7 +30,7 @@ export const parseApplicationResponse = (
   return {
     application,
     jobApplicationAnswers,
-    steps,
+    jobApplicationSteps,
   };
 };
 
@@ -73,4 +73,5 @@ export const getSendReferenceEmailEndpoint = (
 export const getTouchApplicationStepEndpoint = (
   applicationId: number,
   stepId: number,
-): string => `${getApplicationEndpoint(applicationId)}/steps/${stepId}`;
+): string =>
+  `${getApplicationEndpoint(applicationId)}/job-application-steps/${stepId}`;

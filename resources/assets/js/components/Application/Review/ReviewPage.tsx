@@ -25,7 +25,7 @@ import {
   useJobApplicationAnswers,
   useJobPosterQuestions,
   useSkills,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { loadingMessages } from "../applicationMessages";
 import {
@@ -67,7 +67,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const questions = useJobPosterQuestions(jobId);
   const answers = useJobApplicationAnswers(applicationId);
   const skills = useSkills();
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const handleSave = (values: ReviewFormValues): Promise<void> => {
     if (application === null) {

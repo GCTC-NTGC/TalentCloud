@@ -170,6 +170,6 @@ class ApplicationController extends Controller
     {
         $application->touched_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
 
-        return new JsonResource($application->applicationTimelineSteps());
+        return new JsonResource($application->jobApplicationSteps());
     }
 }

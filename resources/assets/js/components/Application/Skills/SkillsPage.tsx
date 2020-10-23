@@ -27,7 +27,7 @@ import {
   useFetchAllApplicationData,
   useJob,
   useSkills,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { touchApplicationStep } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
@@ -60,7 +60,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
   const skills = useSkills();
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const showLoadingState =
     application === null || job === null || !experiencesLoaded || !skillsLoaded;

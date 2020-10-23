@@ -229,7 +229,7 @@ export const fakeReferenceEmail = (overrides: Partial<Email>): Email => ({
   ...overrides,
 });
 
-export const fakeApplicationSteps = (
+export const fakeJobApplicationSteps = (
   basic: ProgressBarStatus = "default",
   experience: ProgressBarStatus = "default",
   fit: ProgressBarStatus = "default",

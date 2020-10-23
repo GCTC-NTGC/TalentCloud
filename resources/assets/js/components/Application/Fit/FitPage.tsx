@@ -28,7 +28,7 @@ import {
   useJob,
   useJobApplicationAnswers,
   useJobPosterQuestions,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 
@@ -55,7 +55,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const job = useJob(jobId);
   const jobPosterQuestions = useJobPosterQuestions(jobId);
   const answers = useJobApplicationAnswers(applicationId);
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;

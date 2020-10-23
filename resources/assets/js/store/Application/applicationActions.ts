@@ -49,7 +49,7 @@ export type FetchApplicationAction = AsyncFsaActions<
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
-    steps: { [step in ApplicationStep]: ProgressBarStatus };
+    jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
   },
   { id: number }
 >;
@@ -63,7 +63,7 @@ export const fetchApplication = (
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
-    steps: { [key in string]: ProgressBarStatus };
+    jobApplicationSteps: { [key in string]: ProgressBarStatus };
   },
   { id: number }
 > =>
@@ -245,16 +245,17 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
-export const TOUCH_APPLICATION_STEP_STARTED =
+export const TOUCH_JOB_APPLICATION_STEP_STARTED =
   "APPLICATION: UPDATE STEP STARTED";
-export const TOUCH_APPLICATION_STEP_SUCCEEDED =
+export const TOUCH_JOB_APPLICATION_STEP_SUCCEEDED =
   "APPLICATION: TOUCH STEP SUCCEEDED";
-export const TOUCH_APPLICATION_STEP_FAILED = "APPLICATION: TOUCH STEP FAILED";
+export const TOUCH_JOB_APPLICATION_STEP_FAILED =
+  "APPLICATION: TOUCH STEP FAILED";
 
-export type TouchApplicationStepAction = AsyncFsaActions<
-  typeof TOUCH_APPLICATION_STEP_STARTED,
-  typeof TOUCH_APPLICATION_STEP_SUCCEEDED,
-  typeof TOUCH_APPLICATION_STEP_FAILED,
+export type TouchJobApplicationStepAction = AsyncFsaActions<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
   { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 >;
@@ -263,18 +264,18 @@ export const touchApplicationStep = (
   applicationId: number,
   stepId: number,
 ): RSAActionTemplate<
-  typeof TOUCH_APPLICATION_STEP_STARTED,
-  typeof TOUCH_APPLICATION_STEP_SUCCEEDED,
-  typeof TOUCH_APPLICATION_STEP_FAILED,
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
   { [step in ApplicationStep]: ProgressBarStatus },
   { applicationId: number; stepId: number }
 > =>
   asyncPut(
     getTouchApplicationStepEndpoint(applicationId, stepId),
     [],
-    TOUCH_APPLICATION_STEP_STARTED,
-    TOUCH_APPLICATION_STEP_SUCCEEDED,
-    TOUCH_APPLICATION_STEP_FAILED,
+    TOUCH_JOB_APPLICATION_STEP_STARTED,
+    TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+    TOUCH_JOB_APPLICATION_STEP_FAILED,
     parseApplicationStep,
     { applicationId, stepId },
   );
@@ -288,4 +289,4 @@ export type ApplicationAction =
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction
   | UpdateJobApplicationAnswerAction
-  | TouchApplicationStepAction;
+  | TouchJobApplicationStepAction;

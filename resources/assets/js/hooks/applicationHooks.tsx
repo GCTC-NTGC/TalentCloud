@@ -32,7 +32,7 @@ import {
   getApplicationIsUpdating,
   getApplicationNormalized,
   getJobApplicationAnswers,
-  getSteps,
+  getJobApplicationSteps,
 } from "../store/Application/applicationSelector";
 import { fetchApplication } from "../store/Application/applicationActions";
 import {
@@ -264,8 +264,10 @@ export function useFetchExperienceConstants(
   };
 }
 
-export function useSteps(): { [step in ApplicationStep]: ProgressBarStatus } {
-  return useSelector(getSteps);
+export function useJobApplicationSteps(): {
+  [step in ApplicationStep]: ProgressBarStatus;
+} {
+  return useSelector(getJobApplicationSteps);
 }
 
 /**

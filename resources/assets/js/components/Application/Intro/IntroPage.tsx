@@ -14,10 +14,11 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { touchApplicationStep } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
+import { loadingMessages } from "../applicationMessages";
 
 interface IntroPageProps {
   applicationId: number;
@@ -35,7 +36,7 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
 
   const application = useApplication(applicationId);
   const job = useJob(application?.job_poster_id);
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const handleContinue = async (): Promise<void> => {
     await dispatch(
@@ -44,7 +45,7 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
     return navigate(applicationBasic(locale, applicationId));
   };
   const closeDate = job?.close_date_time ?? null;
-
+  const showLoadingState = application === null || job === null;
   return (
     <>
       {application !== null && (
@@ -54,7 +55,18 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
           steps={makeProgressBarSteps(applicationId, steps, intl, "other")}
         />
       )}
-      <Intro handleStart={handleContinue} />
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {application !== null && job !== null && (
+        <Intro handleStart={handleContinue} />
+      )}
     </>
   );
 };

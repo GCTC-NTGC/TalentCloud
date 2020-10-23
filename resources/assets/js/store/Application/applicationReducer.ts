@@ -25,7 +25,7 @@ import {
   SEND_REFERENCE_EMAIL_STARTED,
   SEND_REFERENCE_EMAIL_SUCCEEDED,
   SEND_REFERENCE_EMAIL_FAILED,
-  TOUCH_APPLICATION_STEP_SUCCEEDED,
+  TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -50,7 +50,7 @@ export interface EntityState {
   jobApplicationAnswers: {
     [id: number]: JobApplicationAnswer;
   };
-  steps: { [step in ApplicationStep]: ProgressBarStatus };
+  jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
   applicationReviews: {
     byId: {
       [id: number]: ApplicationReview;
@@ -94,7 +94,7 @@ export interface ApplicationState {
 export const initEntities = (): EntityState => ({
   applications: {},
   jobApplicationAnswers: {},
-  steps: {
+  jobApplicationSteps: {
     basic: "default",
     experience: "default",
     skills: "default",
@@ -160,7 +160,7 @@ export const entitiesReducer = (
         jobApplicationAnswers: {
           ...mapToObject(action.payload.jobApplicationAnswers, getId),
         },
-        steps: action.payload.steps,
+        jobApplicationSteps: action.payload.jobApplicationSteps,
       };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
@@ -245,11 +245,11 @@ export const entitiesReducer = (
           [action.payload.id]: action.payload,
         },
       };
-    case TOUCH_APPLICATION_STEP_SUCCEEDED:
+    case TOUCH_JOB_APPLICATION_STEP_SUCCEEDED:
       return {
         ...state,
-        steps: {
-          ...state.steps,
+        jobApplicationSteps: {
+          ...state.jobApplicationSteps,
           ...action.payload,
         },
       };

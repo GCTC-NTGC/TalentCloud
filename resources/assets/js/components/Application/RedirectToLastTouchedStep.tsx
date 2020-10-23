@@ -6,7 +6,7 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../hooks/applicationHooks";
 import { ApplicationStep } from "../../models/lookupConstants";
 import { loadingMessages } from "./applicationMessages";
@@ -38,7 +38,7 @@ const RedirectToLastTouchedStep: React.FunctionComponent<RedirectToLastTouchedSt
   useFetchAllApplicationData(applicationId, dispatch);
   const application = useApplication(applicationId);
   const job = useJob(application?.job_poster_id);
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const stepOrder: ApplicationStep[] = [
     "basic",

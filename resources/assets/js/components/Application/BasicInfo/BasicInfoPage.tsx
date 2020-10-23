@@ -23,7 +23,7 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { ApplicationStepId } from "../../../models/lookupConstants";
 
@@ -38,17 +38,13 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
-  useEffect(() => {
-    dispatch(touchApplicationStep(applicationId, ApplicationStepId.basic));
-  }, [applicationId, dispatch]);
-
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
 
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
@@ -76,6 +72,15 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
+
+  useEffect(() => {
+    const touchApplication = async () => {
+      await dispatch(
+        touchApplicationStep(applicationId, ApplicationStepId.basic),
+      );
+    };
+    touchApplication();
+  }, [applicationId, dispatch]);
 
   const closeDate = job?.close_date_time ?? null;
   const showLoadingState = application === null || job === null;

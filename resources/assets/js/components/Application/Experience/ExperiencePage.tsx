@@ -36,7 +36,7 @@ import {
   useCriteria,
   useExperiences,
   useSkills,
-  useSteps,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
 import { touchApplicationStep } from "../../../store/Application/applicationActions";
 import { ApplicationStepId } from "../../../models/lookupConstants";
@@ -76,7 +76,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     educationTypes,
     educationStatuses,
   } = useExperienceConstants();
-  const steps = useSteps();
+  const steps = useJobApplicationSteps();
 
   const showLoadingState =
     application === null ||

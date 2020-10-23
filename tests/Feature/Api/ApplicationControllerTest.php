@@ -112,7 +112,7 @@ class ApplicationControllerTest extends TestCase
         $response->assertJsonFragment(['message' => 'The given data was invalid.']);
     }
 
-    public function testTouchApplicationStep(): void
+    public function testTouchJobApplicationStep(): void
     {
         $applicant = factory(Applicant::class)->create();
         $application = factory(JobApplication::class)->states('draft')->create([
@@ -123,10 +123,10 @@ class ApplicationControllerTest extends TestCase
         $application->refresh();
 
         $response = $this->actingAs($applicant->user)
-        ->json('put', "$this->baseUrl/applications/$application->id/steps/$step->id", []);
+        ->json('put', "$this->baseUrl/applications/$application->id/job-application-steps/$step->id", []);
         $response->assertOk();
 
         $application->refresh();
-        $response->assertJsonFragment($application->applicationTimelineSteps());
+        $response->assertJsonFragment($application->jobApplicationSteps());
     }
 }

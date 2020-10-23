@@ -141,6 +141,7 @@ export const allIsSendingReferenceEmailByApplication = (
   return ui(state).sendingReferenceEmailForApplication;
 };
 
-export const getSteps = (
+export const getJobApplicationSteps = (
   state: RootState,
-): { [step in ApplicationStep]: ProgressBarStatus } => entities(state).steps;
+): { [step in ApplicationStep]: ProgressBarStatus } =>
+  entities(state).jobApplicationSteps;
