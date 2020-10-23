@@ -446,6 +446,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
             const { id, title, icon } = buttonProps;
             return (
               <ModalButton
+                key={id}
                 id={id}
                 title={title}
                 icon={icon}

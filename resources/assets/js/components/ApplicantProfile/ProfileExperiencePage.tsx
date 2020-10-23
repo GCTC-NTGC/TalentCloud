@@ -39,24 +39,27 @@ const ProfileExperiencePage: FunctionComponent = () => {
   const handleDeleteExperienceSkill = async () => {};
 
   return (
-    <ProfileExperience
-      experiences={experiences}
-      experienceSkills={experienceSkills}
-      skills={skills}
-      educationStatuses={educationStatuses}
-      educationTypes={educationTypes}
-      handleSubmitExperience={handleSubmitExperience}
-      handleDeleteExperience={handleDeleteExperience}
-      handleUpdateExperienceSkill={handleUpdateExperienceSkill}
-      handleDeleteExperienceSkill={handleDeleteExperienceSkill}
-      recipientTypes={recipientTypes}
-      recognitionTypes={recognitionTypes}
-    />
+    <>
+      <ProfileExperience
+        experiences={experiences}
+        experienceSkills={experienceSkills}
+        skills={skills}
+        educationStatuses={educationStatuses}
+        educationTypes={educationTypes}
+        handleSubmitExperience={handleSubmitExperience}
+        handleDeleteExperience={handleDeleteExperience}
+        handleUpdateExperienceSkill={handleUpdateExperienceSkill}
+        handleDeleteExperienceSkill={handleDeleteExperienceSkill}
+        recipientTypes={recipientTypes}
+        recognitionTypes={recognitionTypes}
+      />
+      <div id="modal-root" data-clone />
+    </>
   );
 };
 
-if (document.getElementById("application-root")) {
-  const root = document.getElementById("application-root");
+if (document.getElementById("profile-experience")) {
+  const root = document.getElementById("profile-experience");
   ReactDOM.render(
     <RootContainer>
       <ProfileExperiencePage />

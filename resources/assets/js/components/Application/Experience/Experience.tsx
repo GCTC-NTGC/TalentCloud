@@ -421,6 +421,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             const { id, title, icon } = buttonProps;
             return (
               <ModalButton
+                key={id}
                 id={id}
                 title={title}
                 icon={icon}
