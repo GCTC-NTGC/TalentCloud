@@ -169,8 +169,8 @@ return [
         'special_commitments' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens dans cet ordre.',
         'employer_overview' => 'Possibilités d\'emploi au gouvernement du Canada.',
         'employment_type' => 'Temporaire à temps plein',
-        'security_clearance_requirement_level' => '',
-        'security_clearance_requirement_description' => '',
+        'security_clearance_requirement_level' => 'Cote de sécurité requise ',
+        'security_clearance_requirement_description' => 'Vous n’avez pas besoin d’une cote de sécurité valide pour poser votre candidature. Une demande de cote de sécurité sera soumise en votre nom dans le cadre du processus d’embauche.',
         'benefits' => [
             'Jours fériés payés',
             'Congés payés',
