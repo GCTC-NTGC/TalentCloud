@@ -77,7 +77,7 @@ const createStep = (
             />
           </span>
           <span data-c-visibility="invisible">{link.text}</span>
-          <i className="far fa-circle" data-c-color="grey" />
+          <i className="far fa-circle" data-c-color="white" />
         </li>
       );
     case "error":
@@ -107,7 +107,7 @@ const createStep = (
       return (
         <li key={link.title} title={link.title}>
           <span data-c-visibility="invisible">{link.text}</span>
-          <i className="far fa-circle" data-c-color="white" />
+          <i className="fas fa-circle" data-c-color="white" />
         </li>
       );
   }
