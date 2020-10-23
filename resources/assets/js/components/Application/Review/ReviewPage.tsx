@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
@@ -42,10 +42,6 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
-
-  useEffect(() => {
-    dispatch(touchApplicationStep(applicationId, ApplicationStepId.review));
-  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   const {
@@ -95,6 +91,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      touchApplicationStep(applicationId, ApplicationStepId.submission),
+    );
     navigate(applicationSubmission(locale, applicationId));
   };
 

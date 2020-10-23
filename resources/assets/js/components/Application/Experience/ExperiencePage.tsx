@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { getLocale, localizeField } from "../../../helpers/localize";
@@ -51,10 +51,6 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
-
-  useEffect(() => {
-    dispatch(touchApplicationStep(applicationId, ApplicationStepId.experience));
-  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   const {
@@ -189,6 +185,9 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   };
 
   const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      touchApplicationStep(applicationId, ApplicationStepId.skills),
+    );
     navigate(applicationSkillsIntro(locale, applicationId));
   };
   const handleReturn = (): void => {

@@ -19,10 +19,13 @@ stories.add(
       jobQuestions={fakeJobQuestions()}
       jobApplicationAnswers={fakeJobApplicationAnswers()}
       handleSubmit={async (x) => {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        action("Confirmed")(x);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Submit Answer(s)")(x);
       }}
-      handleContinue={action("Save and Continue")}
+      handleContinue={async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Save and Continue");
+      }}
       handleQuit={action("Save and Quit")}
       handleReturn={action("Save and Return")}
     />

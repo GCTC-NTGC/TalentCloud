@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import BasicInfo from "./BasicInfo";
@@ -60,7 +60,12 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const handleContinue = async (
     values: ApplicationNormalized,
   ): Promise<void> => {
-    await updateApplication(values);
+    Promise.all([
+      await updateApplication(values),
+      await dispatch(
+        touchApplicationStep(applicationId, ApplicationStepId.experience),
+      ),
+    ]);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
   const handleReturn = async (values: ApplicationNormalized): Promise<void> => {
@@ -72,15 +77,6 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-
-  useEffect(() => {
-    const touchApplication = async () => {
-      await dispatch(
-        touchApplicationStep(applicationId, ApplicationStepId.basic),
-      );
-    };
-    touchApplication();
-  }, [applicationId, dispatch]);
 
   const closeDate = job?.close_date_time ?? null;
   const showLoadingState = application === null || job === null;

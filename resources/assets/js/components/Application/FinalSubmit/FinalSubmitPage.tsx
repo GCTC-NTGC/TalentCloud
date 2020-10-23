@@ -19,11 +19,7 @@ import {
   useJob,
   useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
-import { ApplicationStepId } from "../../../models/lookupConstants";
-import {
-  touchApplicationStep,
-  updateApplication,
-} from "../../../store/Application/applicationActions";
+import { updateApplication } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
 
 interface FinalSubmitPageProps {
@@ -36,10 +32,6 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(touchApplicationStep(applicationId, ApplicationStepId.submission));
-  }, [applicationId, dispatch]);
 
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);

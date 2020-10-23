@@ -16,7 +16,7 @@ interface FitProps {
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
-  handleContinue: () => void;
+  handleContinue: () => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
 }

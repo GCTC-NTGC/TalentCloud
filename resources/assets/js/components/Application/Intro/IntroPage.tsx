@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { useEffect } from "@storybook/addons";
 import Intro from "./Intro";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";

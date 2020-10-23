@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
@@ -43,10 +43,6 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(touchApplicationStep(applicationId, ApplicationStepId.fit));
-  }, [applicationId, dispatch]);
-
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
 
@@ -72,6 +68,9 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   };
 
   const handleContinue = async (): Promise<void> => {
+    await dispatch(
+      touchApplicationStep(applicationId, ApplicationStepId.review),
+    );
     navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {
