@@ -4,7 +4,6 @@ import { defineMessages, useIntl } from "react-intl";
 import UpdatingInput from "../UpdatingInput";
 import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
-import { defineMessages, useIntl } from "react-intl";
 import {
   ratingGuideQuestionIsEdited,
   ratingGuideQuestionIsUpdating,
