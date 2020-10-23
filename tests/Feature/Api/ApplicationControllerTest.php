@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\Step;
+use App\Models\Lookup\JobApplicationStep;
 use App\Models\Lookup\VeteranStatus;
 
 class ApplicationControllerTest extends TestCase
@@ -118,7 +118,7 @@ class ApplicationControllerTest extends TestCase
         $application = factory(JobApplication::class)->states('draft')->create([
             'applicant_id' => $applicant->id
         ]);
-        $step = Step::where('name', 'basic')->first();
+        $step = JobApplicationStep::where('name', 'basic')->first();
         $application->attachSteps();
         $application->refresh();
 

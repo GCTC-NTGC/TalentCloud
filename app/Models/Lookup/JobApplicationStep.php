@@ -12,15 +12,15 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $job_application_steps
+ * @property \Illuminate\Database\Eloquent\Collection $job_applications
  */
-class Step extends BaseModel
+class JobApplicationStep extends BaseModel
 {
     public function job_applications() //phpcs:ignore
     {
         return $this->belongsToMany(
             \App\Models\JobApplication::class,
-            'job_application_steps',
+            'touched_application_steps',
             'step_id',
             'job_application_id'
         )->withPivot('touched');

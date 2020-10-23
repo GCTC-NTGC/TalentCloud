@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobApplicationStepsTable extends Migration
+class CreateTouchedApplicationStepsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateJobApplicationStepsTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_application_steps', function (Blueprint $table) {
+        Schema::create('touched_application_steps', function (Blueprint $table) {
             $table->integer('job_application_id');
             $table->integer('step_id');
             $table->boolean('touched')->default(false);
+            $table->timestamps();
         });
 
-        Schema::table('job_application_steps', function (Blueprint $table) {
+        Schema::table('touched_application_steps', function (Blueprint $table) {
             $table->foreign('job_application_id')
             ->references('id')
             ->on('job_applications')
@@ -27,7 +28,7 @@ class CreateJobApplicationStepsTable extends Migration
 
         $table->foreign('step_id')
             ->references('id')
-            ->on('steps')
+            ->on('job_application_steps')
             ->onDelete('CASCADE');
         });
     }
@@ -39,6 +40,6 @@ class CreateJobApplicationStepsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_application_steps');
+        Schema::dropIfExists('touched_application_steps');
     }
 }

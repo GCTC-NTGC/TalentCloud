@@ -12,7 +12,7 @@ use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\ReviewStatus;
-use App\Models\Lookup\Step;
+use App\Models\Lookup\JobApplicationStep;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Validation\Rule;
@@ -166,9 +166,9 @@ class ApplicationController extends Controller
      * @param Step $step Incoming Job Application Step
      * @return mixed
      */
-    public function touchStep(Request $request, JobApplication $application, Step $step)
+    public function touchStep(Request $request, JobApplication $application, JobApplicationStep $step)
     {
-        $application->job_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
+        $application->touched_application_steps()->updateExistingPivot($step->id, ['touched' => true]);
 
         return new JsonResource($application->applicationTimelineSteps());
     }
