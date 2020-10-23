@@ -3,7 +3,7 @@
     "description": "Codebase for talent.canada.ca",
     "license": "MIT",
     "require": {
-        "php": "7.3.*",
+        "php": "^7.3|^7.4",
         "backpack/crud": "4.1.*",
         "bacon/bacon-qr-code": "^2.0",
         "calebporzio/parental": "^0.11.0",
