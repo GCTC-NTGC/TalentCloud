@@ -19,7 +19,7 @@ $factory->define(ExperienceSkill::class, function (Faker $faker) {
     ]);
     return [
         'skill_id' => Skill::inRandomOrder()->first()->id,
-        'justification' => $faker->paragraph(),
+        'justification' => $faker->text(100),
         'experience_type' => $experience_type,
         'experience_id' => function () use ($experience_type) {
             switch ($experience_type) {
