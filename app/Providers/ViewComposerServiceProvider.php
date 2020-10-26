@@ -141,6 +141,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             'applicant/profile/archived',
             'App\Http\ViewComposers\ArchivedComposer'
         );
+
+        View::composer(
+            'applicant/profile/updated',
+            'App\Http\ViewComposers\UpdatedComposer'
+        );
     }
 
     /**

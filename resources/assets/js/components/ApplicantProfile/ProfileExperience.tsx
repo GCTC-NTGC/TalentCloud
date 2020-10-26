@@ -433,8 +433,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
 
   return (
     <>
-      <div data-c-container="medium">
-        <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
+      <div>
+        <h2 data-c-heading="h2" data-c-margin="bottom(1)">
           {intl.formatMessage(experienceMessages.heading)}
         </h2>
         <p data-c-margin="bottom(1)">

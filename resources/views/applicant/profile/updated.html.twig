@@ -1,0 +1,46 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant: Profile - Page Archived Warning
+
+============================================================================= #}
+<div aria-hidden="true" id="updated-component" aria-describedby="dialog-01-description" aria-labelledby="dialog-01-title" data-c-padding="tb(2)">
+    <div
+        data-c-background="white"
+        data-c-border="all(thin, solid, c4)"
+        data-c-radius="rounded"
+        data-c-padding="bottom(1)">
+        <div data-c-padding="tb(1) right(2) left(1)">
+            <!-- Title -->
+            <p data-c-color="c4" data-c-font-size="h4" data-c-dialog-focus><b>{{updated.page_updated_header}}</b></p>
+        </div>
+        <div data-c-padding="left(1)" data-c-grid="gutter">
+            <!-- Main content -->
+            <div data-c-grid-item="tp(1of1) tl(1of8)" id="updated-icon-div">
+                <img id="updated-icon"
+                    alt="A computer and keyboard with fireworks flying out."
+                    src="/images/icon-updated-laptop.svg">
+                </img>
+            </div>
+            <div data-c-grid-item="tp(1of1) tl(7of8)" id="updated-message-div">
+                <p id="updated-message" data-c-color="c4">{{updated.page_updated_description}}</p>
+            </div>
+
+        </div>
+        <!--
+        <div data-c-padding="left(1)">
+            <div data-c-grid="gutter(all, 1) middle">
+                <div data-c-grid-item="base(1of2)">
+                    <p data-c-color="c4" data-c-margin="top(.5)"><u>{{updated.page_updated_read_more}}</u></p>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+
+<style>
+    /* Most of the styling is in updated.html.twig, but scss compile breaks due to this line */
+    img#updated-icon {
+        filter: invert(27%) sepia(89%) saturate(1620%) hue-rotate(189deg) brightness(94%) contrast(92%);
+    }
+</style>
