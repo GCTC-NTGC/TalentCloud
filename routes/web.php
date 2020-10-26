@@ -322,6 +322,10 @@ Route::group(
 
                 /* Static - ITP */
                 Route::view('indigenous', 'common/static-itp', ['itp' => Lang::get('common/itp')])->name('itp');
+
+                /* Static - Application Update */
+                Route::view('application-update', 'common/application-update', ['appup' => Lang::get('common/application-update')])->name('application-update');
+
             });
 
             /* Authentication =========================================================== */

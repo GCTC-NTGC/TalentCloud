@@ -1,0 +1,6 @@
+@use "../../../node_modules/@hydrogen-design-system/system/dist/import/core/defaults" with (
+    $theme-color-1: red,
+    $layout-small: 50rem,
+    $layout-large: 90rem
+);
+@use "../../../node_modules/@hydrogen-design-system/system/dist/import/h2-system.scss";

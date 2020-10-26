@@ -3,6 +3,7 @@ const sass = require("node-sass");
 const cssnano = require("cssnano");
 const autoprefixer = require("autoprefixer");
 const path = require("path");
+const dartSass = require("sass");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -100,6 +101,27 @@ mix
   .options({
     processCssUrls: false,
     postCss: [
+      cssnano({
+        preset: [
+          "default",
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
+      }),
+    ],
+  })
+  .sass("resources/assets/sass/h2.scss", "public/css", {
+    implementation: dartSass
+  })
+  .options({
+    processCssUrls: false,
+    postCss: [
+      autoprefixer({
+        browsers: ['last 3 versions', '> 1%']
+      }),
       cssnano({
         preset: [
           "default",

@@ -50,6 +50,13 @@
         rel="stylesheet"
         type="text/css"/>
 
+    {% if hydrogen == true %}
+      <link
+        href="{{ asset(mix('/css/h2.css')) }}"
+        rel="stylesheet"
+        type="text/css"/>
+    {% endif %}
+
 {# Google Fonts #}
 {#
     NOTE: Google Fonts does not support Subresource Integrity (SRI).

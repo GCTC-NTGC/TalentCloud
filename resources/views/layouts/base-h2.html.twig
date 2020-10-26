@@ -1,0 +1,30 @@
+{# =============================================================================
+
+    Talent Cloud / Base Layout
+
+============================================================================= #}
+<!DOCTYPE html>
+<html lang="{{ appLocale }}">
+    {# Note that the </head> and <body> tags are located inside the common/head
+    file due to Google Tag Manager being required on all pages. #}
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        {% block socialMeta %}{% endblock %}
+        {% include "common/head" with {"hydrogen": true} %}
+    {# /head #}
+    {# Page Body #}
+    {% block body %}{% endblock %}
+    {# Footer #}
+    {% include "common/footer" %}
+    {# Scripts #}
+    {% include "common/scripts" %}
+    {% block scripts %}{% endblock %}
+    {# Hydrogen Scripts #}
+    <script async defer
+        src="https://cdn.jsdelivr.net/gh/hydrogen-design-system/system/dist/cdn/cash/cash.min.js">
+    </script>
+    <script async defer
+        src="https://cdn.jsdelivr.net/gh/hydrogen-design-system/system/dist/cdn/h2-system.min.js">
+    </script>
+    </body>
+</html>

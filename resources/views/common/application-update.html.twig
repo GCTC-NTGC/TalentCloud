@@ -1,0 +1,166 @@
+{# =============================================================================
+
+    Talent Cloud
+    Static: Application Update Message
+
+============================================================================= #}
+{% extends "layouts/base-h2" %}
+{% block title %}{{ appup.title }}{% endblock %}
+{% block body %}
+
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+    {% include "common/header" with {"header": appup} %}
+
+    {# Application Update Message #}
+    <div data-h2-core data-h2-props>
+
+        <div data-h2-container="mqb(center, large)">
+
+            <div data-h2-grid="mqb(stretch, expanded, flush, 3)">
+
+                <div data-h2-grid-item="mqb(1of1) mqm(1of4)">
+                    <div data-h2-position="mqm(sticky)">
+                        <p
+                            data-h2-padding="mqb(top, 3)"
+                            data-h2-font-size="mqb(h5)"
+                            data-h2-margin="mqb(bottom, 1)"
+                            data-h2-font-weight="mqb(bold)">{{ appup.sidebarLabel }}</p>
+                        <ul>
+                            {% for item in appup.0 %}
+                                <li>
+                                    <a href="#{{ item.id }}" title="{{ item.title }}">{{ item.title }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for item in appup.1 %}
+                                <li>
+                                    <a href="#{{ item.id }}" title="{{ item.title }}">{{ item.title }}</a>
+                                </li>
+                            {% endfor %}
+                            {% for item in appup.2 %}
+                                <li>
+                                    <a href="#{{ item.id }}" title="{{ item.title }}">{{ item.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div data-h2-grid-item="mqb(1of1) mqm(3of4)">
+
+                    <div>
+
+                        <div
+                            data-h2-container="mqb(center, small) mqm(left, small)"
+                            data-h2-padding="mqb(bottom, 1)">
+                            <h2
+                                data-h2-font-size="mqb(h3)"
+                                data-h2-padding="mqb(top, 3)"
+                                data-h2-margin="mqb(bottom, 1)">{{ appup.intro.title }}</h2>
+                            <p data-h2-margin="mqb(top, .5)">{{ appup.intro.p1 }}</p>
+                            <p data-h2-margin="mqb(top, .5)">{{ appup.intro.p2 }}</p>
+                            {% for item in appup.0 %}
+                                <h3
+                                    data-h2-font-size="mqb(h4)"
+                                    data-h2-padding="mqb(top, 3)"
+                                    data-h2-margin="mqb(bottom, 1)"
+                                    id="{{ item.id }}">{{ item.title }}</h3>
+                                {% for content in item.content %}
+                                    {% if content is iterable %}
+                                        <ul>
+                                            {% for listItem in content %}
+                                                <li>{{ listItem }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p data-h2-margin="mqb(top, .5)">{{ content }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                        <div data-h2-container="mqb(center, medium) mqm(left, large)">
+                            <div data-h2-grid="mqb(top, expanded, flush, 1)">
+                                {% for image in appup.uiPreview %}
+                                    <div data-h2-grid-item="mqb(1of1) mqm(1of2)">
+                                        <a href="{{ asset(image.src) }}" title="{{ image.linkTitle }}" target="_blank" rel="noreferrer">
+                                            <img
+                                                alt=""
+                                                src="{{ asset(image.src) }}"/>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div
+                            data-h2-container="mqb(center, small) mqm(left, small)"
+                            data-h2-padding="mqb(bottom, 3)">
+                            {% for item in appup.1 %}
+                                <h3
+                                    data-h2-font-size="mqb(h4)"
+                                    data-h2-padding="mqb(top, 3)"
+                                    data-h2-margin="mqb(bottom, 1)"
+                                    id="{{ item.id }}">{{ item.title }}</h3>
+                                {% for content in item.content %}
+                                    {% if content is iterable %}
+                                        <ul>
+                                            {% for listItem in content %}
+                                                <li>{{ listItem }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p data-h2-margin="mqb(top, .5)">{{ content }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                        <div data-h2-container="mqb(center, medium) mqm(left, large)">
+                            <div data-h2-grid="mqb(top, expanded, flush, 1)">
+                                {% for image in appup.uiAlerts %}
+                                    <div data-h2-grid-item="mqb(1of1) mqm(1of2)">
+                                        <a href="{{ asset(image.src) }}" title="{{ image.linkTitle }}" target="_blank" rel="noreferrer">
+                                            <img
+                                                alt=""
+                                                src="{{ asset(image.src) }}"/>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div
+                            data-h2-container="mqb(center, small) mqm(left, small)"
+                            data-h2-padding="mqb(bottom, 3)">
+                            {% for item in appup.2 %}
+                                <h3
+                                    data-h2-font-size="mqb(h4)"
+                                    data-h2-padding="mqb(top, 3)"
+                                    data-h2-margin="mqb(bottom, 1)"
+                                    id="{{ item.id }}">{{ item.title }}</h3>
+                                {% for content in item.content %}
+                                    {% if content is iterable %}
+                                        <ul>
+                                            {% for listItem in content %}
+                                                <li>{{ listItem }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p data-h2-margin="mqb(top, .5)">{{ content|raw }}</p>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
