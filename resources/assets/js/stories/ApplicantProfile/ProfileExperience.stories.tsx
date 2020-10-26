@@ -41,12 +41,19 @@ const submitExperience = (experiences, setExperiences) => (
   }
 };
 
-const handleSubmitExperience = (experiences, setExperiences) => async (
+const handleCreateExperience = (experiences, setExperiences) => async (
   data: Experience,
 ): Promise<void> => {
   await sleep(1000);
   submitExperience(experiences, setExperiences)(data);
-  action("Experience Submitted")(data);
+  action("Experience Created")(data);
+};
+const handleUpdateExperience = (experiences, setExperiences) => async (
+  data: Experience,
+): Promise<void> => {
+  await sleep(1000);
+  submitExperience(experiences, setExperiences)(data);
+  action("Experience Updated")(data);
 };
 
 const handleDeleteExperience = (experiences, setExperiences) => async (
@@ -79,9 +86,9 @@ const handleUpdateExpSkill = (experienceSkills, setExperienceSkills) => async (
   action("Experience Skill updated")(expSkill);
 };
 
-const handleDeleteExpSkill = (experienceSkills, setExperienceSkills) => async (
-  id: number,
-): Promise<void> => {
+const handleDeleteExpSkill = (experienceSkills, setExperienceSkills) => async ({
+  id,
+}: ExperienceSkill): Promise<void> => {
   await sleep(1000);
   setExperienceSkills(
     experienceSkills.filter((expSkill) => expSkill.id !== id),
@@ -104,7 +111,11 @@ stories.add(
         skills={fakeSkills()}
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
-        handleSubmitExperience={handleSubmitExperience(
+        handleCreateExperience={handleCreateExperience(
+          experiences,
+          setExperiences,
+        )}
+        handleUpdateExperience={handleUpdateExperience(
           experiences,
           setExperiences,
         )}
@@ -141,7 +152,11 @@ stories.add(
         skills={fakeSkills()}
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
-        handleSubmitExperience={handleSubmitExperience(
+        handleCreateExperience={handleCreateExperience(
+          experiences,
+          setExperiences,
+        )}
+        handleUpdateExperience={handleUpdateExperience(
           experiences,
           setExperiences,
         )}

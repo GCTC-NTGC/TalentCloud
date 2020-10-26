@@ -357,13 +357,14 @@ export interface ProfileExperienceProps {
   skills: Skill[];
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
-  handleSubmitExperience: (data: Experience) => Promise<void>;
+  handleCreateExperience: (data: Experience) => Promise<void>;
+  handleUpdateExperience: (data: Experience) => Promise<void>;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
   handleUpdateExperienceSkill: (expSkill: ExperienceSkill) => Promise<void>;
-  handleDeleteExperienceSkill: (id: number) => Promise<void>;
+  handleDeleteExperienceSkill: (expSkill: ExperienceSkill) => Promise<void>;
 }
 
 export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
@@ -372,7 +373,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   educationTypes,
   experienceSkills,
   skills,
-  handleSubmitExperience,
+  handleCreateExperience,
+  handleUpdateExperience,
   handleDeleteExperience,
   handleUpdateExperienceSkill,
   handleDeleteExperienceSkill,
@@ -404,8 +406,10 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
     setIsModalVisible({ id: "", visible: false });
   };
 
-  const submitExperience = (data) =>
-    handleSubmitExperience(data).then(closeModal);
+  const updateExperience = (data) =>
+    handleUpdateExperience(data).then(closeModal);
+  const createExperience = (data) =>
+    handleCreateExperience(data).then(closeModal);
 
   const editExperience = (experience: Experience): void => {
     setExperienceData(experience);
@@ -533,7 +537,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
+        onModalConfirm={
+          experienceData === null ? createExperience : updateExperience
+        }
         parentElement={modalRoot}
         visible={
           isModalVisible.visible &&
@@ -548,7 +554,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
+        onModalConfirm={
+          experienceData === null ? createExperience : updateExperience
+        }
         parentElement={modalRoot}
         visible={
           isModalVisible.visible && isModalVisible.id === modalButtons.work.id
@@ -562,7 +570,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
+        onModalConfirm={
+          experienceData === null ? createExperience : updateExperience
+        }
         parentElement={modalRoot}
         visible={
           isModalVisible.visible &&
@@ -577,7 +587,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
+        onModalConfirm={
+          experienceData === null ? createExperience : updateExperience
+        }
         parentElement={modalRoot}
         visible={
           isModalVisible.visible &&
@@ -592,7 +604,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
-        onModalConfirm={submitExperience}
+        onModalConfirm={
+          experienceData === null ? createExperience : updateExperience
+        }
         parentElement={modalRoot}
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
@@ -610,11 +624,12 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         }}
         handleDelete={async (): Promise<void> => {
           if (editedExperienceSkillId !== null) {
-            return handleDeleteExperienceSkill(editedExperienceSkillId).then(
-              () => {
+            const expSkill = find(experienceSkills, editedExperienceSkillId);
+            if (expSkill) {
+              return handleDeleteExperienceSkill(expSkill).then(() => {
                 setEditedExperienceSkillId(null);
-              },
-            );
+              });
+            }
           }
         }}
         experiences={experiences}
