@@ -13,8 +13,7 @@ export const formMessages = defineMessages({
   },
   termLengthLabel: {
     id: "jobBuilder.details.termLengthLabel",
-    //defaultMessage: "How long is the term (in months)?",
-    defaultMessage: "Waffles",
+    defaultMessage: "How long is the term (in months)?",
     description: "The form label displayed on the term length input.",
   },
   termLengthPlaceholder: {

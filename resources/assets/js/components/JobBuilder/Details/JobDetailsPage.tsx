@@ -32,15 +32,16 @@ interface JobDetailsPageProps {
   keyTasks: JobPosterKeyTask[];
   // Criteria associated with the job, used to determine if its complete
   criteria: Criteria[];
+  //classifications: Classification[];
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
-
 
 
 const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   WrappedComponentProps> = ({
   jobId,
   job,
+  //classifications,
   handleUpdateJob,
   keyTasks,
   criteria,
@@ -69,9 +70,18 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
     }
   };
 
+  // Load list of classifications into state
   useEffect(() => {
     dispatch(loadClassificationsIntoState());
   }, [dispatch]);
+
+  // Load classifications from state into variable
+  const classifications = useSelector(getClassifications);
+
+  console.log("JobDetailsPage START Classifications")
+  console.dir(classifications)
+  console.log("JobDetailsPage END Classifications")
+
   const classification = useSelector((state: RootState) =>
     job !== null ? getClassificationById(state, job?.classification_id || 0) : null,
   );
@@ -83,6 +93,7 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
       {job !== null && (
         <JobDetails
           job={job}
+          classifications={classifications}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
@@ -102,10 +113,12 @@ const mapStateToPropsPage = (
   job: Job | null;
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
+  //classifications: Classification[]
 } => ({
   job: getJob(state, ownProps),
   keyTasks: getTasksByJob(state, ownProps),
   criteria: getCriteriaByJob(state, ownProps),
+  //classifications: getClassifications(state),
 });
 
 const mapDispatchToPropsPage = (

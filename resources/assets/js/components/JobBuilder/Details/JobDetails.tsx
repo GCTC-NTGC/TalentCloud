@@ -48,12 +48,11 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { useSelector } from "react-redux";
-import { getClassifications } from "../../../../../assets/js/store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
+  classifications : Classification[];
   // Function to run after successful form validation.
   // It must return true if the submission was successful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
@@ -179,9 +178,10 @@ interface DetailsFormValues {
 // Use the ID to get the classification based on the ID
 // classificationId (from lookupConstants is actually a list of IDs)
 
-const classifications = useSelector(getClassifications);
+// Sent from JobDetailsPage. Retreive to populate classifications.
 
-const classificationCode = (classification: number | string): string =>
+
+const classificationCode = (classifications, classification: number | string): string =>
   getKeyByValue(classifications, classification);
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
@@ -189,18 +189,20 @@ const isClassificationSet = (values: DetailsFormValues): boolean => {
 };
 
 const getEducationMsgForClassification = (
+  classifications : Classification[],
   classification: number | string,
   intl: IntlShape,
 ): string => {
-  return hasKey(educationMessages, classificationCode(Number(classification)))
+  return hasKey(educationMessages, classificationCode(classifications, Number(classification)))
     ? intl.formatMessage(
-        educationMessages[classificationCode(Number(classification))],
+        educationMessages[classificationCode(classifications, Number(classification))],
       )
     : intl.formatMessage(educationMessages.classificationNotFound);
 };
 
 const jobToValues = (
   job: Job | null,
+  classifications : Classification[],
   locale: "en" | "fr",
   intl: IntlShape,
 ): DetailsFormValues => {
@@ -252,7 +254,7 @@ const jobToValues = (
   if (
     values.classification &&
     values.educationRequirements ===
-      getEducationMsgForClassification(values.classification, intl)
+      getEducationMsgForClassification(classifications, values.classification, intl)
   ) {
     return {
       ...values,
@@ -310,6 +312,7 @@ const updateJobWithValues = (
 
 export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   job,
+  classifications,
   handleSubmit,
   handleReturn,
   handleModalCancel,
@@ -324,8 +327,14 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+
+  console.log("START classifications = " + classifications)
+  console.dir(classifications)
+  console.log("END classifications = " + classifications)
+
   const initialValues: DetailsFormValues = jobToValues(
     job || null,
+    classifications,
     locale,
     intl,
   );
@@ -414,7 +423,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   const handleEducationRequirements = (values: DetailsFormValues): string => {
     return values.educationRequirements.length > 0
       ? values.educationRequirements
-      : getEducationMsgForClassification(values.classification, intl);
+      : getEducationMsgForClassification(classifications, values.classification, intl);
   };
 
   const updateValuesAndReturn = (values: DetailsFormValues): void => {
@@ -521,7 +530,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={Object.values(classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })).map((id: number): {
+                    options={Object.values(classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })).map((id: number): {
                     value: number;
                     label: string;
                   } => ({
@@ -585,6 +594,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                           wrapperMargin="bottom(normal)"
                           subtext={textToParagraphs(
                             getEducationMsgForClassification(
+                              classifications,
                               values.classification,
                               intl,
                             ),
@@ -635,6 +645,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               />
                             }
                             textToCopy={getEducationMsgForClassification(
+                              classifications,
                               values.classification,
                               intl,
                             )}
@@ -1016,6 +1027,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                         values.educationRequirements.length > 0
                           ? values.educationRequirements
                           : getEducationMsgForClassification(
+                              classifications,
                               values.classification,
                               intl,
                             )
