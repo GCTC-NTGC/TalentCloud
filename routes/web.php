@@ -120,14 +120,10 @@ Route::group(
 
                 /* Response Home */
                 // Redirect /en/response to /response so it reaches the Talent Reserve app.
-                Route::get('response', function () {
-                    return redirect(URL::to('/response'));
-                });
+                Route::redirect('response', URL::to('/response'));
 
                 /* Reserve Redirect */
-                Route::get('reserve', function () {
-                    return redirect('response');
-                });
+                Route::redirect('reserve', URL::to('/response'));
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
@@ -287,37 +283,29 @@ Route::group(
                 Route::get('faq', 'FaqController')->name('faq');
 
                 /* Static - Privacy Policy */
-                Route::get(
+                Route::view(
                     'privacy',
-                    function () {
-                        return view(
-                            'common/static_privacy',
-                            [
-                                'privacy' => Lang::get('common/privacy'),
-                                'custom_breadcrumbs' => [
-                                    'home' => route('home'),
-                                    Lang::get('common/privacy.title') => '',
-                                ],
-                            ]
-                        );
-                    }
+                    'common/static_privacy',
+                    [
+                        'privacy' => Lang::get('common/privacy'),
+                        'custom_breadcrumbs' => [
+                            'home' => LaravelLocalization::localizeUrl('/'),
+                            Lang::get('common/privacy.title') => '',
+                        ],
+                    ]
                 )->name('privacy');
 
                 /* Static - Terms of Service */
-                Route::get(
+                Route::view(
                     'tos',
-                    function () {
-                        return view(
-                            'common/static_tos',
-                            [
-                                'tos' => Lang::get('common/tos'),
-                                'custom_breadcrumbs' => [
-                                    'home' => route('home'),
-                                    Lang::get('common/tos.title') => '',
-                                ],
-                            ]
-                        );
-                    }
+                    'common/static_tos',
+                    [
+                        'tos' => Lang::get('common/tos'),
+                        'custom_breadcrumbs' => [
+                            'home' => LaravelLocalization::localizeUrl('/'),
+                            Lang::get('common/tos.title') => '',
+                        ],
+                    ]
                 )->name('tos');
 
                 /* Static - ITP */
@@ -843,8 +831,8 @@ Route::group(
                     ->middleware('can:downloadApplicants,jobPoster')
                     ->name('admin.jobs.download.applicants');
 
-                 /* View Applicant Profile */
-                 Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
+                /* View Applicant Profile */
+                Route::get('applicants/{applicant}', 'ApplicantProfileController@profile')
                     ->middleware('can:view,applicant')
                     ->name('admin.applicants.profile');
             }
@@ -1057,7 +1045,16 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('experienceSkill', '[0-9]+')
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
+
+    Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
+        ->middleware('can:create,App\Models\JobApplicationAnswer')
+        ->name('job-application-answers.store');
+    Route::put('job-application-answers/{jobApplicationAnswer}', 'Api\JobApplicationAnswerController@update')
+        ->where('jobApplicationAnswer', '[0-9]+')
+        ->middleware('can:update,jobApplicationAnswer')
+        ->name('job-application-answers.update');
 });
+
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     Route::get('applications/{application}', 'Api\ApplicationController@show')
         ->where('application', '[0-9]+')
@@ -1067,7 +1064,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.basic');
-    Route::post('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
+    Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.basic.update');
@@ -1079,7 +1076,6 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
-
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')

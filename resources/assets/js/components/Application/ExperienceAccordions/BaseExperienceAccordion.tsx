@@ -47,7 +47,7 @@ interface BaseExperienceAccordionProps {
   details: ReactElement;
   showSkillDetails: boolean;
   showButtons: boolean;
-  handleDelete: () => void;
+  handleDelete: () => Promise<void>;
   handleEdit: () => void;
 }
 
@@ -67,13 +67,14 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const relevantSkillCount = relevantSkills.length;
   const skillsById = mapToObject(skills, getId);
 
   return (
     <div
-      data-c-accordion=""
+      data-c-accordion
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
@@ -82,7 +83,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
       <button
         tabIndex={0}
         aria-expanded={isExpanded}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         type="button"
         onClick={(): void => {
           setIsExpanded(!isExpanded);
@@ -290,7 +291,13 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   data-c-button="outline(c1)"
                   data-c-radius="rounded"
                   type="button"
-                  onClick={handleDelete}
+                  disabled={isDeleting}
+                  onClick={(): void => {
+                    setIsDeleting(true);
+                    handleDelete().finally(() => {
+                      setIsDeleting(false);
+                    });
+                  }}
                 >
                   <FormattedMessage
                     id="application.experienceAccordion.deleteButton"
@@ -306,6 +313,7 @@ export const BaseExperienceAccordion: React.FC<BaseExperienceAccordionProps> = (
                   data-c-button="solid(c1)"
                   data-c-radius="rounded"
                   type="button"
+                  disabled={isDeleting}
                   onClick={handleEdit}
                 >
                   <FormattedMessage

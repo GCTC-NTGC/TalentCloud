@@ -1,14 +1,10 @@
+/* eslint-disable camelcase */
 import React from "react";
-import { useIntl, FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
-import Skills from "./Skills";
 import { ExperienceSkill } from "../../../models/types";
-import { fakeCriteria } from "../../../fakeData/fakeCriteria";
-import fakeExperiences from "../../../fakeData/fakeExperience";
-import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
-import { fakeSkills } from "../../../fakeData/fakeSkills";
 import { navigate } from "../../../helpers/router";
 import {
   applicationFit,
@@ -16,6 +12,22 @@ import {
   applicationExperience,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
+import { DispatchType } from "../../../configureStore";
+import {
+  updateExperienceSkill,
+  deleteExperienceSkill,
+} from "../../../store/Experience/experienceActions";
+import Skills from "./Skills";
+import { loadingMessages } from "../applicationMessages";
+import {
+  useApplication,
+  useCriteria,
+  useExperiences,
+  useExperienceSkills,
+  useFetchAllApplicationData,
+  useJob,
+  useSkills,
+} from "../../../hooks/applicationHooks";
 
 interface SkillsPageProps {
   applicationId: number;
@@ -26,28 +38,50 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch<DispatchType>();
 
-  const application = fakeApplication(); // TODO: get real application.
-  const criteria = fakeCriteria(); // TODO: Get criteria associated with job.
-  const experiences = fakeExperiences(); // TODO: get experienciences associated with application.
-  const experienceSkills = fakeExperienceSkills(); // TODO: Get experienceSkills associated with experiences.
+  // Fetch all un-loaded data that may be required for the Application.
+  const { experiencesLoaded, skillsLoaded } = useFetchAllApplicationData(
+    applicationId,
+    dispatch,
+  );
 
-  // TODO: load constants from backend.
-  const skills = fakeSkills();
+  const application = useApplication(applicationId);
+  const jobId = application?.job_poster_id;
+  const job = useJob(jobId);
+  const criteria = useCriteria(jobId);
+  const experiences = useExperiences(applicationId, application);
+  const experienceSkills = useExperienceSkills(applicationId, application);
+  const skills = useSkills();
+
+  const showLoadingState =
+    application === null || job === null || !experiencesLoaded || !skillsLoaded;
 
   const handleUpdateExpSkill = async (
-    experience: ExperienceSkill,
+    expSkill: ExperienceSkill,
   ): Promise<ExperienceSkill> => {
-    // TODO: Save experience skill to server.
-    return experience;
+    const result = await dispatch(updateExperienceSkill(expSkill));
+    if (!result.error) {
+      return result.payload;
+    }
+    return Promise.reject(result.error);
   };
   const handleDeleteExpSkill = async (
-    experience: ExperienceSkill,
-  ): Promise<ExperienceSkill> => {
-    // TODO: Delete experience skill
-    return experience;
+    expSkill: ExperienceSkill,
+  ): Promise<void> => {
+    const result = await dispatch(
+      deleteExperienceSkill(
+        expSkill.id,
+        expSkill.experience_id,
+        expSkill.experience_type,
+      ),
+    );
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
   };
-  const closeDate = new Date(); // TODO: get from application.
+  const closeDate = job?.close_date_time ?? null;
 
   const handleReturn = (): void => {
     navigate(applicationExperience(locale, applicationId));
@@ -59,24 +93,43 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const handleContinue = (): void => {
     navigate(applicationFit(locale, applicationId));
   };
+
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "skills")}
-      />
-      <Skills
-        criteria={criteria}
-        experiences={experiences}
-        experienceSkills={experienceSkills}
-        skills={skills}
-        handleUpdateExperienceJustification={handleUpdateExpSkill}
-        handleRemoveExperienceJustification={handleDeleteExpSkill}
-        handleContinue={handleContinue}
-        handleReturn={handleReturn}
-        handleQuit={handleQuit}
-      />
+      {application && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.step03)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            application,
+            intl,
+            "skills",
+          )}
+        />
+      )}
+      {showLoadingState && (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(3)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      )}
+      {!showLoadingState && (
+        <Skills
+          criteria={criteria}
+          experiences={experiences}
+          experienceSkills={experienceSkills}
+          skills={skills}
+          handleUpdateExperienceJustification={handleUpdateExpSkill}
+          handleRemoveExperienceJustification={handleDeleteExpSkill}
+          handleContinue={handleContinue}
+          handleReturn={handleReturn}
+          handleQuit={handleQuit}
+        />
+      )}
     </>
   );
 };

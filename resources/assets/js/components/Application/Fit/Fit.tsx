@@ -12,7 +12,7 @@ import {
 import { fitMessages, navigationMessages } from "../applicationMessages";
 
 interface FitProps {
-  /** List of job poster questions. */
+  applicationId: number;
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
@@ -22,6 +22,7 @@ interface FitProps {
 }
 
 export const Fit: React.FunctionComponent<FitProps> = ({
+  applicationId,
   jobQuestions,
   jobApplicationAnswers,
   handleSubmit,
@@ -90,20 +91,21 @@ export const Fit: React.FunctionComponent<FitProps> = ({
           formRefs.current.set(question.id, ref);
         }
 
+        const jobApplicationAnswer = jobApplicationAnswers.find(
+          (appAnswer) => appAnswer.job_poster_question_id === question.id,
+        );
+
+        const draftAnswer = {
+          id: -1,
+          job_application_id: applicationId,
+          answer: "",
+          job_poster_question_id: question.id,
+        };
+
         return (
           <Question
             key={question.id}
-            jobApplicationAnswer={
-              jobApplicationAnswers.find(
-                (appAnswer) =>
-                  appAnswer.job_poster_questions_id === question.id,
-              ) ?? {
-                id: 0,
-                job_application_id: 0,
-                answer: "",
-                job_poster_questions_id: 0,
-              }
-            }
+            jobApplicationAnswer={jobApplicationAnswer ?? draftAnswer}
             index={index}
             question={question}
             handleSubmit={handleSubmit}

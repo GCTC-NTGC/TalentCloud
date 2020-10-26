@@ -8,7 +8,7 @@
     <nav>
         <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ profile.profile_sidebar_label }}</p>
         <ul>
-            {% for item in profile_menu %}
+            {% for item in profile_menu if (not item.archive) %}
                 <li>
                     <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }}</a>
                 </li>
@@ -16,6 +16,15 @@
             <li>
                 <a href="{{ route('settings.edit') }}" title="{{ profile.account_settings_title }}">{{ profile.account_settings_label }}</a>
             </li>
+        </ul>
+        <br />
+        <p data-c-font-weight="bold" data-c-font-size="h4" data-c-margin="bottom(1)">{{ profile.profile_sidebar_archived }}</p>
+        <ul>
+            {% for item in profile_menu if item.archive %}
+                <li>
+                    <a href="{{ item.link }}" title="{{ item.title }}" {% if item.active == true %}data-c-font-weight="bold" data-c-color="c2"{% endif %}>{{ item.label }} ({{profile_menu.read_only}})</a>
+                </li>
+            {% endfor %}
         </ul>
     </nav>
 </div>

@@ -40,14 +40,8 @@ class ApplicationController extends Controller
      */
     public function updateBasic(UpdateJobApplicationBasic $request, JobApplication $application)
     {
-        $request->validated();
-        $application->fill([
-            'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
-            'veteran_status_id' => $request->input('veteran_status_id'),
-            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
-            'language_test_confirmed' => $request->input('language_test_confirmed', false),
-            'education_requirement_confirmed' => $request->input('education_requirement_confirmed', false),
-        ]);
+        $data = $request->validated();
+        $application->fill($data);
         $application->save();
 
         return new JobApplicationBasicResource($application);
@@ -62,7 +56,7 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
-        $application->loadMissing('applicant', 'application_review', 'citizenship_declaration', 'veteran_status');
+        $application->loadMissing('applicant', 'application_review', 'citizenship_declaration', 'veteran_status', 'job_application_answers');
         return new JobApplicationResource($application);
     }
 

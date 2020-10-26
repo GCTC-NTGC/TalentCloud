@@ -9,6 +9,7 @@ import { validationMessages } from "../../Form/Messages";
 import { fitMessages } from "../applicationMessages";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import TextAreaInput from "../../Form/TextAreaInput";
+import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 
 const saveButtonMessages = defineMessages({
   save: {
@@ -95,6 +96,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
     >
       {({ dirty, isSubmitting }): React.ReactElement => (
         <Form>
+          <AlertWhenUnsaved />
           <div key={question.id}>
             <p
               data-c-margin="top(3) bottom(1)"

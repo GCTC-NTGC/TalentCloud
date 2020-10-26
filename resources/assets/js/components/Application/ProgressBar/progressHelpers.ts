@@ -1,5 +1,5 @@
 import { IntlShape } from "react-intl";
-import { Application } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import {
   ProgressBarProps,
   stepNames,
@@ -15,33 +15,64 @@ import {
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 
-function basicInfoStatus(application: Application): ProgressBarStepStatus {
+function basicInfoStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
-function experienceStatus(application: Application): ProgressBarStepStatus {
+function experienceStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
-function skillsStatus(application: Application): ProgressBarStepStatus {
+function skillsStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
-function myFitStatus(application: Application): ProgressBarStepStatus {
+function myFitStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
-function reviewStatus(application: Application): ProgressBarStepStatus {
+function reviewStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
-function submissionStatus(application: Application): ProgressBarStepStatus {
+function submissionStatus(
+  application: ApplicationNormalized | null,
+): ProgressBarStepStatus {
+  if (application === null) {
+    return "default";
+  }
   // TODO: implement.
   return "complete";
 }
 
 export function makeProgressBarSteps(
-  application: Application,
+  applicationId: number,
+  application: ApplicationNormalized | null,
   intl: IntlShape,
   currentStep:
     | "welcome"
@@ -57,7 +88,7 @@ export function makeProgressBarSteps(
   return [
     {
       link: {
-        url: applicationBasic(locale, application.id),
+        url: applicationBasic(locale, applicationId),
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
@@ -66,7 +97,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationExperienceIntro(locale, application.id),
+        url: applicationExperienceIntro(locale, applicationId),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
@@ -77,7 +108,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSkills(locale, application.id),
+        url: applicationSkills(locale, applicationId),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
@@ -85,7 +116,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationFit(locale, application.id),
+        url: applicationFit(locale, applicationId),
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
@@ -93,7 +124,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationReview(locale, application.id),
+        url: applicationReview(locale, applicationId),
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
@@ -101,7 +132,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSubmission(locale, application.id),
+        url: applicationSubmission(locale, applicationId),
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },

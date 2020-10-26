@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Formik, Form, FastField } from "formik";
@@ -8,7 +10,11 @@ import messages, {
   languageRequirementDescription,
   languageRequirementLabel,
 } from "./basicInfoMessages";
-import { basicInfoMessages, navigationMessages } from "../applicationMessages";
+import {
+  basicInfoMessages,
+  navigationMessages,
+  educationRequirementMessages,
+} from "../applicationMessages";
 import SelectInput from "../../Form/SelectInput";
 import {
   CitizenshipId,
@@ -18,19 +24,22 @@ import {
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
-import { Job } from "../../../models/types";
+import { Job, ApplicationNormalized } from "../../../models/types";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+import { getLocale, localizeField } from "../../../helpers/localize";
+import { hasKey } from "../../../helpers/queries";
 
 interface BasicInfoProps {
+  application: ApplicationNormalized;
   job: Job;
-  handleContinue: (values: BasicInfoFormValues) => void;
-  handleReturn: (values: BasicInfoFormValues) => void;
-  handleQuit: (values: BasicInfoFormValues) => void;
+  handleContinue: (values: ApplicationNormalized) => Promise<void>;
+  handleReturn: (values: ApplicationNormalized) => Promise<void>;
+  handleQuit: (values: ApplicationNormalized) => Promise<void>;
 }
 
-interface BasicInfoFormValues {
+export interface BasicInfoFormValues {
   citizenship: number | "";
   veteranStatus: number | "";
   languageRequirement: boolean;
@@ -39,24 +48,55 @@ interface BasicInfoFormValues {
 }
 
 export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
+  application,
   job,
   handleContinue,
   handleReturn,
   handleQuit,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const classification: string = getKeyByValue(
     ClassificationId,
     job.classification_id,
   );
 
   const initialValues: BasicInfoFormValues = {
-    citizenship: "",
-    veteranStatus: "",
-    languageRequirement: false,
-    languageTest: false,
-    educationRequirement: false,
+    citizenship: application?.citizenship_declaration_id
+      ? application.citizenship_declaration_id
+      : "",
+    veteranStatus: application?.veteran_status_id
+      ? application.veteran_status_id
+      : "",
+    languageRequirement: application?.language_requirement_confirmed
+      ? application.language_requirement_confirmed
+      : false,
+    languageTest: application?.language_test_confirmed
+      ? application.language_test_confirmed
+      : false,
+    educationRequirement: application?.education_requirement_confirmed
+      ? application.education_requirement_confirmed
+      : false,
   };
+
+  const jobEducationReq = localizeField(locale, job, "education");
+  const defaultEducationReq = hasKey(educationMessages, classification)
+    ? intl.formatMessage(educationMessages[classification])
+    : intl.formatMessage(educationRequirementMessages.missingClassification);
+  // If the job is using the default education requirements (for its classification) then we
+  //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
+  //  split it into paragraphs.
+  const educationRequirements =
+    jobEducationReq === null || jobEducationReq === defaultEducationReq
+      ? textToParagraphs(
+          defaultEducationReq,
+          {},
+          {
+            0: { "data-c-font-weight": "bold" },
+            5: { "data-c-font-weight": "bold" },
+          },
+        )
+      : textToParagraphs(jobEducationReq);
 
   const validationSchema = Yup.object().shape({
     citizenship: Yup.number()
@@ -80,21 +120,44 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
       .oneOf([true], intl.formatMessage(validationMessages.required)),
   });
 
+  const updateApplication = (
+    oldApplication: ApplicationNormalized,
+    values: BasicInfoFormValues,
+  ): ApplicationNormalized => {
+    const editedApplication: ApplicationNormalized = {
+      ...oldApplication,
+      citizenship_declaration_id: values.citizenship
+        ? Number(values.citizenship)
+        : null,
+      veteran_status_id: values.veteranStatus
+        ? Number(values.veteranStatus)
+        : null,
+      language_requirement_confirmed: values.languageRequirement,
+      language_test_confirmed: values.languageTest,
+      education_requirement_confirmed: values.educationRequirement,
+    };
+    return editedApplication;
+  };
+
   return (
-    <div data-c-container="medium">
+    <div data-c-container="medium" data-c-padding="tb(2)">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
         {intl.formatMessage(basicInfoMessages.heading)}
       </h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values): void => {
+        onSubmit={(values, { setSubmitting }): void => {
           // Save data to application object, then navigate to the next step
           const basicInfoFormValues: BasicInfoFormValues = {
             ...values,
           };
 
-          handleContinue(basicInfoFormValues);
+          handleContinue(
+            updateApplication(application, basicInfoFormValues),
+          ).finally(() => {
+            setSubmitting(false);
+          });
         }}
       >
         {({ isSubmitting, values }): React.ReactElement => (
@@ -198,14 +261,7 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
               data-c-padding="all(1)"
               data-c-margin="bottom(1)"
             >
-              {textToParagraphs(
-                intl.formatMessage(educationMessages[classification]),
-                {},
-                {
-                  0: { "data-c-font-weight": "bold" },
-                  5: { "data-c-font-weight": "bold" },
-                },
-              )}
+              {educationRequirements}
             </div>
             <div data-c-margin="left(2)">
               <FastField
@@ -232,7 +288,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                       ...values,
                     };
                     // Method should save the current data and return user to the previous step
-                    handleReturn(basicInfoFormValues);
+                    handleReturn(
+                      updateApplication(application, basicInfoFormValues),
+                    );
                   }}
                 >
                   {intl.formatMessage(navigationMessages.return)}
@@ -252,7 +310,9 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
                       ...values,
                     };
                     // Method should save the current data and return user to My Applications page
-                    handleQuit(basicInfoFormValues);
+                    handleQuit(
+                      updateApplication(application, basicInfoFormValues),
+                    );
                   }}
                 >
                   {intl.formatMessage(navigationMessages.quit)}

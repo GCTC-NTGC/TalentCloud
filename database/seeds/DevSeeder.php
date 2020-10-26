@@ -4,6 +4,9 @@ use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\ExperienceEducation;
+use App\Models\ExperienceSkill;
+use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
@@ -93,11 +96,11 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->create([
+            $job->job_applications()->save(factory(JobApplication::class)->states(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
-                ])->id
+                ])->id,
             ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
@@ -107,11 +110,11 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'job_poster_id' => $job->id
             ]);
             // Then create one application with a priority user.
-            $job->job_applications()->save(factory(JobApplication::class)->create([
+            $job->job_applications()->save(factory(JobApplication::class)->states(['version2', 'submitted'])->create([
                 'job_poster_id' => $job->id,
                 'applicant_id' => factory(Applicant::class)->create([
                     'user_id' => factory(User::class)->state('priority')->create()->id
-                ])->id
+                ])->id,
             ]));
         });
         factory(JobPoster::class, 3)->state('draft')->create([

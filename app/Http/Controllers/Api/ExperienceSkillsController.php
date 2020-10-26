@@ -24,7 +24,7 @@ class ExperienceSkillsController extends Controller
     public function update(Request $request, ExperienceSkill $experienceSkill)
     {
         $validatedData = $request->validate([
-            'justification' => 'required|nullable|string',
+            'justification' => 'nullable|string',
         ]);
         $experienceSkill->fill($validatedData);
         $experienceSkill->save();

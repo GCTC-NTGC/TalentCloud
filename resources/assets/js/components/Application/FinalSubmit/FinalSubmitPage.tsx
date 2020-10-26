@@ -42,8 +42,13 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
     <>
       <ProgressBar
         closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.step01)}
-        steps={makeProgressBarSteps(application, intl, "submission")}
+        currentTitle={intl.formatMessage(stepNames.step06)}
+        steps={makeProgressBarSteps(
+          applicationId,
+          application,
+          intl,
+          "submission",
+        )}
       />
       <FinalSubmit
         application={application}

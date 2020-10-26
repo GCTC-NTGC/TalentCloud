@@ -14,3 +14,6 @@ export const getSkillById = (state: RootState, id: number): Skill | null =>
   hasKey(state.skill.entities.skills.byId, id)
     ? state.skill.entities.skills.byId[id]
     : null;
+
+export const getSkillsUpdating = (state: RootState): boolean =>
+  state.skill.ui.updating;

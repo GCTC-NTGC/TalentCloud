@@ -2,7 +2,12 @@
 import createCachedSelector from "re-reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
-import { Application, Email } from "../../models/types";
+import {
+  Application,
+  Email,
+  ApplicationNormalized,
+  JobApplicationAnswer,
+} from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
 
@@ -14,6 +19,11 @@ const getApplicationState = (state: RootState) => entities(state).applications;
 
 const getApplicationReviewState = (state: RootState) =>
   entities(state).applicationReviews;
+
+const getJobApplicationAnswersState = (
+  state: RootState,
+): { [id: number]: JobApplicationAnswer } =>
+  entities(state).jobApplicationAnswers;
 
 const constructNonNormalizedApplication = (
   applications: ReturnType<typeof getApplicationState>,
@@ -39,6 +49,34 @@ const constructNonNormalizedApplication = (
   };
 };
 
+export const getApplicationIsUpdating = (
+  state: RootState,
+  props: { applicationId: number },
+): boolean =>
+  hasKey(ui(state).applicationIsUpdating, props.applicationId) &&
+  ui(state).applicationIsUpdating[props.applicationId];
+
+export const getApplicationNormalized = (
+  state: RootState,
+  ownProps: { applicationId: number },
+): ApplicationNormalized | null => {
+  const applicationState = getApplicationState(state);
+  const { applicationId } = ownProps;
+  return hasKey(applicationState, applicationId)
+    ? applicationState[applicationId]
+    : null;
+};
+
+export const getJobApplicationAnswers = createCachedSelector(
+  getJobApplicationAnswersState,
+  (state, ownProps: { applicationId: number }): number =>
+    ownProps.applicationId,
+  (jobApplicationAnswersState, applicationId): JobApplicationAnswer[] =>
+    Object.values(jobApplicationAnswersState).filter(
+      (answer) => answer.job_application_id === applicationId,
+    ),
+)((state, ownProps): number => ownProps.applicationId);
+
 export const getApplicationById = createCachedSelector(
   getApplicationState,
   getApplicationReviewState,
@@ -54,7 +92,6 @@ export const getApplicationsByJob = createCachedSelector(
     const applicationIds = Object.values(applications)
       .filter((application) => application.job_poster_id === jobId)
       .map(getId);
-    console.log(applicationIds);
     return applicationIds
       .map((id) =>
         constructNonNormalizedApplication(applications, applicationReviews, id),

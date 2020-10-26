@@ -26,6 +26,7 @@ use App\Models\ExperiencePersonal;
 use App\Models\ExperienceSkill;
 use App\Models\ExperienceWork;
 use App\Models\HrAdvisor;
+use App\Models\JobApplicationAnswer;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Policies\JobPolicy;
@@ -45,6 +46,7 @@ use App\Policies\AssessmentPlanNotificationPolicy;
 use App\Policies\ExperiencePolicy;
 use App\Policies\ExperienceSkillPolicy;
 use App\Policies\HrAdvisorPolicy;
+use App\Policies\JobApplicationAnswerPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -75,7 +77,8 @@ class AuthServiceProvider extends ServiceProvider
         ExperiencePersonal::class => ExperiencePolicy::class,
         ExperienceCommunity::class => ExperiencePolicy::class,
         ExperienceEducation::class => ExperiencePolicy::class,
-        ExperienceSkill::class => ExperienceSkillPolicy::class
+        ExperienceSkill::class => ExperienceSkillPolicy::class,
+        JobApplicationAnswer::class => JobApplicationAnswerPolicy::class
     ];
 
     /**

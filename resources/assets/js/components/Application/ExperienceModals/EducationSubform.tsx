@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
+import { hasKey } from "../../../helpers/queries";
+import { educationRequirementMessages } from "../applicationMessages";
 
 export interface EducationFormValues {
   useAsEducationRequirement: boolean;
@@ -15,7 +17,9 @@ export const validationShape = {
 };
 
 export interface EducationSubformProps {
+  keyPrefix: string;
   jobClassification: string;
+  jobEducationRequirements: string | null;
 }
 
 const messages = defineMessages({
@@ -30,9 +34,30 @@ const messages = defineMessages({
 });
 
 export function EducationSubform({
+  keyPrefix,
   jobClassification,
+  jobEducationRequirements,
 }: EducationSubformProps): React.ReactElement {
   const intl = useIntl();
+
+  const jobEducationReq = jobEducationRequirements;
+  const defaultEducationReq = hasKey(educationMessages, jobClassification)
+    ? intl.formatMessage(educationMessages[jobClassification])
+    : intl.formatMessage(educationRequirementMessages.missingClassification);
+  // If the job is using the default education requirements (for its classification) then we
+  //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
+  //  split it into paragraphs.
+  const educationRequirements =
+    jobEducationReq === null || jobEducationReq === defaultEducationReq
+      ? textToParagraphs(
+          defaultEducationReq,
+          {},
+          {
+            0: { "data-c-font-weight": "bold" },
+            5: { "data-c-font-weight": "bold" },
+          },
+        )
+      : textToParagraphs(jobEducationReq);
 
   const checkboxKey = "useAsEducationRequirement";
   return (
@@ -64,7 +89,7 @@ export function EducationSubform({
             <div data-c-grid-item="base(1of1)">
               <FastField
                 key={checkboxKey}
-                id={checkboxKey}
+                id={`${keyPrefix}-${checkboxKey}`}
                 name={checkboxKey}
                 label={intl.formatMessage(messages.educationJustificationLabel)}
                 component={CheckboxInput}
@@ -78,14 +103,7 @@ export function EducationSubform({
             data-c-padding="all(1)"
             data-c-margin="bottom(1)"
           >
-            {textToParagraphs(
-              intl.formatMessage(educationMessages[jobClassification]),
-              {},
-              {
-                0: { "data-c-font-weight": "bold" },
-                5: { "data-c-font-weight": "bold" },
-              },
-            )}
+            {educationRequirements}
           </div>
         </div>
       </div>

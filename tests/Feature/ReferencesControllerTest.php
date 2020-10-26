@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Models\Applicant;
+use App\Models\Lookup\Relationship;
+use App\Models\Reference;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
-use App\Models\Applicant;
-use App\Models\Reference;
-use App\Models\Lookup\Relationship;
+use Tests\TestCase;
 
 class ReferencesControllerTest extends TestCase
 {
@@ -38,10 +38,10 @@ class ReferencesControllerTest extends TestCase
         $response = $this->actingAs($this->applicant->user)
             ->get(route('profile.references.edit', $this->applicant->id));
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/profile_references.reference_section.section_description')));
+        $response->assertSee(Lang::get('applicant/profile_references.reference_section.section_description'));
 
         foreach ($this->applicant->references as $reference) {
-            $response->assertSee(e($reference->name));
+            $response->assertSee($reference->name);
         }
     }
 
@@ -89,7 +89,7 @@ class ReferencesControllerTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $projects = [];
-        for ($i=0; $i<3; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $projects[] = [
                 'name' => $faker->sentence(),
                 'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')->format('Y-m-d'),

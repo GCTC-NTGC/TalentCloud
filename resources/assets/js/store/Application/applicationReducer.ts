@@ -3,6 +3,7 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  JobApplicationAnswer,
 } from "../../models/types";
 import {
   ApplicationAction,
@@ -12,6 +13,9 @@ import {
   FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED,
   FETCH_APPLICATIONS_FOR_JOB_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_FAILED,
+  UPDATE_APPLICATION_SUCCEEDED,
+  UPDATE_APPLICATION_STARTED,
+  UPDATE_APPLICATION_FAILED,
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
@@ -29,10 +33,17 @@ import {
   mapToObjectTrans,
   deleteProperty,
 } from "../../helpers/queries";
+import {
+  CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+  UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
 
 export interface EntityState {
   applications: {
     [id: number]: ApplicationNormalized;
+  };
+  jobApplicationAnswers: {
+    [id: number]: JobApplicationAnswer;
   };
   applicationReviews: {
     byId: {
@@ -76,6 +87,7 @@ export interface ApplicationState {
 
 export const initEntities = (): EntityState => ({
   applications: {},
+  jobApplicationAnswers: {},
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
@@ -112,25 +124,28 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: deleteProperty(
-            action.payload,
+          [action.payload.application.id]: deleteProperty(
+            action.payload.application,
             "application_review",
           ),
         },
-        applicationReviews:
-          action.payload.application_review !== undefined
-            ? {
-                byId: {
-                  ...state.applicationReviews.byId,
-                  [action.payload.application_review.id]:
-                    action.payload.application_review,
-                },
-                idByApplicationId: {
-                  ...state.applicationReviews.idByApplicationId,
-                  [action.payload.id]: action.payload.application_review.id,
-                },
-              }
-            : state.applicationReviews,
+        applicationReviews: action.payload.application.application_review
+          ? {
+              byId: {
+                ...state.applicationReviews.byId,
+                [action.payload.application.application_review.id]:
+                  action.payload.application.application_review,
+              },
+              idByApplicationId: {
+                ...state.applicationReviews.idByApplicationId,
+                [action.payload.application.id]:
+                  action.payload.application.application_review.id,
+              },
+            }
+          : state.applicationReviews,
+        jobApplicationAnswers: {
+          ...mapToObject(action.payload.jobApplicationAnswers, getId),
+        },
       };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
@@ -166,6 +181,14 @@ export const entitiesReducer = (
           },
         },
       };
+    case UPDATE_APPLICATION_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.id]: action.payload,
+        },
+      };
     case UPDATE_APPLICATION_REVIEW_SUCCEEDED:
       return {
         ...state,
@@ -196,6 +219,15 @@ export const entitiesReducer = (
               [action.meta.applicationId]: action.payload.secondary,
             },
           },
+        },
+      };
+    case CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+    case UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+      return {
+        ...state,
+        jobApplicationAnswers: {
+          ...state.jobApplicationAnswers,
+          [action.payload.id]: action.payload,
         },
       };
     default:
@@ -235,6 +267,23 @@ export const uiReducer = (
       return {
         ...state,
         fetchingApplications: false,
+      };
+    case UPDATE_APPLICATION_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case UPDATE_APPLICATION_SUCCEEDED:
+    case UPDATE_APPLICATION_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
       };
     case UPDATE_APPLICATION_REVIEW_STARTED:
       return {

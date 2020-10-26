@@ -5,7 +5,13 @@ import {
   asyncPut,
   asyncPost,
 } from "../asyncAction";
-import { Application, ApplicationReview, Email } from "../../models/types";
+import {
+  Application,
+  ApplicationNormalized,
+  ApplicationReview,
+  Email,
+  JobApplicationAnswer,
+} from "../../models/types";
 import {
   getApplicationEndpoint,
   parseApplication,
@@ -18,7 +24,13 @@ import {
   parseReferenceEmails,
   getSendReferenceEmailEndpoint,
   parseSingleReferenceEmail,
+  getApplicationBasicEndpoint,
+  parseApplicationResponse,
 } from "../../api/application";
+import {
+  CreateJobApplicationAnswerAction,
+  UpdateJobApplicationAnswerAction,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -28,7 +40,10 @@ export type FetchApplicationAction = AsyncFsaActions<
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+  },
   { id: number }
 >;
 
@@ -38,7 +53,10 @@ export const fetchApplication = (
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+  },
   { id: number }
 > =>
   asyncGet(
@@ -46,8 +64,39 @@ export const fetchApplication = (
     FETCH_APPLICATION_STARTED,
     FETCH_APPLICATION_SUCCEEDED,
     FETCH_APPLICATION_FAILED,
-    parseApplication,
+    parseApplicationResponse,
     { id },
+  );
+
+export const UPDATE_APPLICATION_STARTED = "APPLICATION: UPDATE STARTED";
+export const UPDATE_APPLICATION_SUCCEEDED = "APPLICATION: UPDATE SUCCEEDED";
+export const UPDATE_APPLICATION_FAILED = "APPLICATION: UPDATE FAILED";
+
+export type UpdateApplicationAction = AsyncFsaActions<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const updateApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationBasicEndpoint(application.id),
+    application,
+    UPDATE_APPLICATION_STARTED,
+    UPDATE_APPLICATION_SUCCEEDED,
+    UPDATE_APPLICATION_FAILED,
+    parseApplication,
+    { id: application.id },
   );
 
 export const FETCH_APPLICATIONS_FOR_JOB_STARTED =
@@ -191,6 +240,9 @@ export const sendReferenceEmail = (
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
+  | UpdateApplicationAction
   | UpdateApplicationReview
   | FetchReferenceEmailsAction
-  | SendReferenceEmailAction;
+  | SendReferenceEmailAction
+  | CreateJobApplicationAnswerAction
+  | UpdateJobApplicationAnswerAction;

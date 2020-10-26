@@ -210,3 +210,20 @@ export function flatten<T>(x: T[][]): T[] {
   const concat = (ls: T[], xs: T[]): T[] => ls.concat(xs);
   return x.reduce(concat, []);
 }
+
+export function removeDuplicatesById<T extends { id: number }>(
+  items: T[],
+): T[] {
+  interface Accumulator {
+    contents: T[];
+    ids: number[];
+  }
+  const reducer = (result: Accumulator, next: T): Accumulator => {
+    if (!result.ids.includes(next.id)) {
+      result.contents.push(next);
+      result.ids.push(next.id);
+    }
+    return result;
+  };
+  return items.reduce(reducer, { contents: [], ids: [] }).contents;
+}

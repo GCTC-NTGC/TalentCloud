@@ -36,6 +36,7 @@ interface CommunityExperienceModalProps {
   experienceCommunity: ExperienceCommunity | null;
   jobId: number;
   jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
@@ -225,6 +226,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   experienceCommunity,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -265,7 +267,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
     <div data-c-container="medium">
       <div data-c-grid="gutter(all, 1) middle">
         <FastField
-          id="title"
+          id="community-title"
           name="title"
           type="text"
           grid="base(1of1)"
@@ -275,7 +277,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
           placeholder={intl.formatMessage(messages.titlePlaceholder)}
         />
         <FastField
-          id="group"
+          id="community-group"
           type="text"
           name="group"
           component={TextInput}
@@ -285,7 +287,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
           placeholder={intl.formatMessage(messages.groupPlaceholder)}
         />
         <FastField
-          id="project"
+          id="community-project"
           type="text"
           name="project"
           component={TextInput}
@@ -295,7 +297,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
           placeholder={intl.formatMessage(messages.projectPlaceholder)}
         />
         <FastField
-          id="startDate"
+          id="community-startDate"
           name="startDate"
           component={DateInput}
           required
@@ -304,14 +306,14 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
           placeholder={intl.formatMessage(messages.datePlaceholder)}
         />
         <Field
-          id="isActive"
+          id="community-isActive"
           name="isActive"
           component={CheckboxInput}
           grid="tl(1of2)"
           label={intl.formatMessage(messages.isActiveLabel)}
         />
         <Field
-          id="endDate"
+          id="community-endDate"
           name="endDate"
           component={DateInput}
           grid="base(1of2)"
@@ -346,6 +348,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -357,11 +360,16 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               />
               {detailsSubform}
               <SkillSubform
+                keyPrefix="community"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="community"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

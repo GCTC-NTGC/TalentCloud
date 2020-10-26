@@ -74,11 +74,11 @@ export const citizenshipDeclarations = defineMessages({
 });
 
 export const citizenshipDeclaration = (
-  citizenshipDeclararionId: number,
+  citizenshipDeclarationId: number,
 ): MessageDescriptor =>
   getOrThrowError(
     citizenshipDeclarations,
-    citizenshipDeclararionId,
+    citizenshipDeclarationId,
     "invalid Citizenship Declaration",
   );
 

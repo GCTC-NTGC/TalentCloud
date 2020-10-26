@@ -10,15 +10,24 @@ use Illuminate\Support\Facades\Lang;
 
 class ApplicationTimelineController extends Controller
 {
+    public function show(JobApplication $jobApplication)
+    {
+        return view('applicant/application-timeline-root')
+            ->with([
+                'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
+                'disable_clone_js' => true,
+            ]);
+    }
+
     /**
-     * Show the application submission information.
+     * Show the congrats page after application it's validated and submit.
      *
      * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
      * @return \Illuminate\Http\Response
      */
     public function complete(/* JobPoster $jobPoster */)
     {
-        // Dummy Data
+        // Dummy Data.
         $applicant = Auth::user()->applicant;
         $jobPoster = JobPoster::where('job_poster_status_id', '10')->first();
         $application = JobApplication::where('job_poster_id', $jobPoster->id)->first();
@@ -26,22 +35,14 @@ class ApplicationTimelineController extends Controller
         return view(
             'applicant/application/10-congrats',
             [
-              'applicant' => $applicant,
-              'application' => $application,
-              'application_template' => Lang::get(
-                  'applicant/application_template',
-                  ['security_clearance' => $jobPoster->security_clearance->value ]
-              ),
-              'jobPoster' => $jobPoster,
+                'applicant' => $applicant,
+                'application' => $application,
+                'application_template' => Lang::get(
+                    'applicant/application_template',
+                    ['security_clearance' => $jobPoster->security_clearance->value ]
+                ),
+                'jobPoster' => $jobPoster,
             ]
         );
-    }
-
-    public function show(JobApplication $jobApplication)
-    {
-        return view('applicant/application-timeline-root')
-            ->with([
-                'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
-            ]);
     }
 }
