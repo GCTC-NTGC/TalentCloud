@@ -48,6 +48,7 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+import { getClassifications } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -328,10 +329,6 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
 
-  console.log("START classifications = " + classifications)
-  console.dir(classifications)
-  console.log("END classifications = " + classifications)
-
   const initialValues: DetailsFormValues = jobToValues(
     job || null,
     classifications,
@@ -345,6 +342,22 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
     "remoteWorkWorld",
   ];
 
+
+  const getClassifications = function() : {value : number, label: string}[] {
+    let classificationsArr : {value : number, label: string}[] = [];
+
+    classifications.forEach(function(classification) {
+      classificationsArr.push({
+        value : classification.id,
+        label : classification.key
+      })
+    })
+    return classificationsArr
+  }
+
+
+  console.dir(getClassifications())
+
   const jobSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, intl.formatMessage(validationMessages.tooShort))
@@ -356,7 +369,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
     classification: Yup.number()
       .oneOf(
         Object.values(
-          classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })
+          {}
         ),
         intl.formatMessage(validationMessages.invalidSelection),
       )
@@ -530,13 +543,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                    options={Object.values(classifications.reduce(function(a, b) {return a[b.key] = a[b.id] })).map((id: number): {
-                    value: number;
-                    label: string;
-                  } => ({
-                    value: id,
-                    label: classifications[id].key,
-                  }))}
+                  options={getClassifications()}
                 />
                 <FastField
                   name="level"
@@ -1051,7 +1058,8 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        classifications.reduce(function(a, b) {return a[b.key] = a[b.id] }),
+                        //classifications.reduce(function(a, b) {return a[b.key] = a[b.id] }),
+                        {} ,
                         values.classification,
                       )}
                       level={String(values.level)}
