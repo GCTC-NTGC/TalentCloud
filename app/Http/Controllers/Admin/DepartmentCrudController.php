@@ -53,6 +53,18 @@ class DepartmentCrudController extends CrudController
                 'type' => 'checkbox',
                 'label' => 'Allow Indeterminate: allow Indeterminate length jobs to be created within this department.',
             ]);
+
+            $this->crud->addField([
+                'name' => 'is_partner',
+                'type' => 'checkbox',
+                'label' => 'Is this department a Talent Cloud partner?',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'is_host',
+                'type' => 'checkbox',
+                'label' => 'Is this department a Talent Cloud host?',
+            ]);
         });
     }
 
@@ -107,6 +119,18 @@ class DepartmentCrudController extends CrudController
             'name' => 'allow_indeterminate',
             'type' => 'check',
             'label' => 'Allow Indeterminate',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_partner',
+            'type' => 'check',
+            'label' => 'Partner Department',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_host',
+            'type' => 'check',
+            'label' => 'Talent Cloud Host',
         ]);
     }
 
