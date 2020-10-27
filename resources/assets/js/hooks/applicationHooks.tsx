@@ -34,7 +34,10 @@ import {
   getJobApplicationAnswers,
   getJobApplicationSteps,
 } from "../store/Application/applicationSelector";
-import { fetchApplication } from "../store/Application/applicationActions";
+import {
+  fetchApplication,
+  touchApplicationStep,
+} from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
@@ -45,6 +48,7 @@ import { fetchJob } from "../store/Job/jobActions";
 import {
   ApplicationStatusId,
   ApplicationStep,
+  ApplicationStepId,
   ProgressBarStatus,
 } from "../models/lookupConstants";
 import {
@@ -268,6 +272,26 @@ export function useJobApplicationSteps(): {
   [step in ApplicationStep]: ProgressBarStatus;
 } {
   return useSelector(getJobApplicationSteps);
+}
+
+/**
+ * If the specified step of the application has status "default" (ie has not been touched yet),
+ * then this dispatches an api request that will record the step as touched, setting it to "complete" or "error".
+ *
+ * NOTE: this hook only runs once, when the component is first mounted. If the true status of the step has not yet loaded
+ * from the server, this may re-touch the step when not strictly necessary.
+ */
+export function useTouchApplicationStep(
+  applicationId: number,
+  step: ApplicationStep,
+  dispatch: DispatchType,
+): void {
+  const steps = useJobApplicationSteps();
+  useEffect(() => {
+    if (steps[step] === "default") {
+      dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
+    }
+  }, [applicationId, step, steps, dispatch]);
 }
 
 /**

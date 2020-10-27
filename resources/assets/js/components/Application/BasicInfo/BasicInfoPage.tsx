@@ -14,18 +14,15 @@ import {
 } from "../../../helpers/routes";
 import { ApplicationNormalized } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
-import {
-  updateApplication as updateApplicationAction,
-  touchApplicationStep,
-} from "../../../store/Application/applicationActions";
+import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
 import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -46,6 +43,8 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
 
+  useTouchApplicationStep(applicationId, "basic", dispatch);
+
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
   ): Promise<ApplicationNormalized> => {
@@ -60,12 +59,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const handleContinue = async (
     values: ApplicationNormalized,
   ): Promise<void> => {
-    Promise.all([
-      await updateApplication(values),
-      await dispatch(
-        touchApplicationStep(applicationId, ApplicationStepId.experience),
-      ),
-    ]);
+    Promise.all([await updateApplication(values)]);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
   const handleReturn = async (values: ApplicationNormalized): Promise<void> => {

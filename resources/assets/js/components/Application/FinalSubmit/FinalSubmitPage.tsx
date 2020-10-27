@@ -18,6 +18,7 @@ import {
   useFetchAllApplicationData,
   useJob,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 import { updateApplication } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
@@ -40,6 +41,8 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
+
+  useTouchApplicationStep(applicationId, "submission", dispatch);
 
   const handleSubmit = async (
     completeApplication: ApplicationNormalized,

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import Intro from "./Intro";
@@ -15,8 +15,6 @@ import {
   useJob,
   useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
-import { touchApplicationStep } from "../../../store/Application/applicationActions";
-import { ApplicationStepId } from "../../../models/lookupConstants";
 import { loadingMessages } from "../applicationMessages";
 
 interface IntroPageProps {
@@ -38,9 +36,6 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
   const steps = useJobApplicationSteps();
 
   const handleContinue = async (): Promise<void> => {
-    await dispatch(
-      touchApplicationStep(applicationId, ApplicationStepId.basic),
-    );
     return navigate(applicationBasic(locale, applicationId));
   };
   const closeDate = job?.close_date_time ?? null;

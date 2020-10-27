@@ -37,9 +37,8 @@ import {
   useExperiences,
   useSkills,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { touchApplicationStep } from "../../../store/Application/applicationActions";
-import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -73,6 +72,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     educationStatuses,
   } = useExperienceConstants();
   const steps = useJobApplicationSteps();
+
+  useTouchApplicationStep(applicationId, "experience", dispatch);
 
   const showLoadingState =
     application === null ||
@@ -185,9 +186,6 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   };
 
   const handleContinue = async (): Promise<void> => {
-    await dispatch(
-      touchApplicationStep(applicationId, ApplicationStepId.skills),
-    );
     navigate(applicationSkillsIntro(locale, applicationId));
   };
   const handleReturn = (): void => {

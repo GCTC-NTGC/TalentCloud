@@ -13,10 +13,7 @@ import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import Fit from "./Fit";
 import { JobApplicationAnswer } from "../../../models/types";
-import {
-  fetchApplication,
-  touchApplicationStep,
-} from "../../../store/Application/applicationActions";
+import { fetchApplication } from "../../../store/Application/applicationActions";
 import {
   createJobApplicationAnswer,
   updateJobApplicationAnswer,
@@ -29,8 +26,8 @@ import {
   useJobApplicationAnswers,
   useJobPosterQuestions,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface FitPageProps {
   applicationId: number;
@@ -53,6 +50,8 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const answers = useJobApplicationAnswers(applicationId);
   const steps = useJobApplicationSteps();
 
+  useTouchApplicationStep(applicationId, "fit", dispatch);
+
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;
     const result = exists
@@ -68,9 +67,6 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   };
 
   const handleContinue = async (): Promise<void> => {
-    await dispatch(
-      touchApplicationStep(applicationId, ApplicationStepId.review),
-    );
     navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {

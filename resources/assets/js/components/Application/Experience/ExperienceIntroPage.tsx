@@ -15,6 +15,7 @@ import {
   useFetchAllApplicationData,
   useJob,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface ExperienceIntroPageProps {
@@ -35,6 +36,8 @@ export const ExperienceIntroPage: React.FunctionComponent<ExperienceIntroPagePro
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
+
+  useTouchApplicationStep(applicationId, "experience", dispatch);
 
   const handleStart = (): void =>
     navigate(applicationExperience(locale, applicationId));
