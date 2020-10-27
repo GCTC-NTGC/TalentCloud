@@ -121,6 +121,21 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
             departments={departments}
             hideBuilderLinks
           />
+          <div data-c-grid="gutter">
+            <div
+              data-c-alignment="base(centre) tp(left)"
+              data-c-grid-item="tp(1of2)"
+              data-c-margin="top(normal) bottom(normal)"
+            >
+              <a href={hrJobSummary(locale, jobId)} title="">
+                <FormattedMessage
+                  id="jobReviewHr.summaryLink"
+                  defaultMessage="Return to Summary"
+                  description="Text for the Return to Summary link."
+                />
+              </a>
+            </div>
+          </div>
         </>
       ) : (
         <div data-c-alignment="base(centre)">
@@ -131,21 +146,6 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           />
         </div>
       )}
-      <div data-c-grid="gutter">
-        <div
-          data-c-alignment="base(centre) tp(left)"
-          data-c-grid-item="tp(1of2)"
-          data-c-margin="top(normal) bottom(normal)"
-        >
-          <a href={hrJobSummary(locale, jobId)} title="">
-            <FormattedMessage
-              id="jobReviewHr.summaryLink"
-              defaultMessage="Return to Summary"
-              description="Text for the Return to Summary link."
-            />
-          </a>
-        </div>
-      </div>
     </div>
   );
 };
