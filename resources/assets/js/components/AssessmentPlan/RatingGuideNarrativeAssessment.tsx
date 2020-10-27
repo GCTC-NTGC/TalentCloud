@@ -31,8 +31,9 @@ interface RatingGuideNarrativeAssessmentProps {
   criteriaToSkill: { [criteriaId: number]: Skill | null };
 }
 
-export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuideNarrativeAssessmentProps &
-  WrappedComponentProps> = ({
+export const RatingGuideNarrativeAssessment: React.FunctionComponent<
+  RatingGuideNarrativeAssessmentProps & WrappedComponentProps
+> = ({
   jobId,
   assessmentIndex,
   assessedCriteria,
@@ -95,7 +96,9 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuide
               data-c-alignment="center"
               data-c-grid-item="base(1of1) tp(1of8)"
             >
-              <strong>{assessmentIndex}.</strong>
+              <p>
+                <strong>{assessmentIndex}.</strong>
+              </p>
             </div>
             <div data-c-grid-item="base(1of1) tp(7of8)">
               <p data-c-font-weight="800">
@@ -124,19 +127,21 @@ export const RatingGuideNarrativeAssessment: React.FunctionComponent<RatingGuide
                   <div data-c-grid-item="base(1of1) tp(1of8)" />
                   {criterion && skillLevel.length > 0 && (
                     <div data-c-grid-item="base(1of1) tp(2of8)">
-                      <FormattedMessage
-                        id="ratingGuideBuilder.criteriaName"
-                        defaultMessage="{skillName} - {skillLevel}"
-                        description="How each criteria is listed in Rating Guide Builder."
-                        values={{
-                          skillName: getCriteriaSkillName(criterion.id),
-                          skillLevel,
-                        }}
-                      />
+                      <p>
+                        <FormattedMessage
+                          id="ratingGuideBuilder.criteriaName"
+                          defaultMessage="{skillName} - {skillLevel}"
+                          description="How each criteria is listed in Rating Guide Builder."
+                          values={{
+                            skillName: getCriteriaSkillName(criterion.id),
+                            skillLevel,
+                          }}
+                        />
+                      </p>
                     </div>
                   )}
                   <div data-c-grid-item="base(1of1) tp(5of8)">
-                    {intl.formatMessage(narrativeReviewStandardAnswer())}
+                    <p>{intl.formatMessage(narrativeReviewStandardAnswer())}</p>
                   </div>
                 </div>
               </div>

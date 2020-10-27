@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { defineMessages, useIntl } from "react-intl";
 import UpdatingInput from "../UpdatingInput";
 import { RatingGuideQuestion as RatingGuideQuestionModel } from "../../models/types";
 import { RootState } from "../../store/store";
-import { defineMessages, useIntl } from "react-intl";
 import {
   ratingGuideQuestionIsEdited,
   ratingGuideQuestionIsUpdating,
@@ -25,16 +25,13 @@ const messages = defineMessages({
   questionLabel: {
     id: "ratingGuideQuestion.questionLabel",
     defaultMessage: "Interview Question",
-    description:
-      "Label for the rating guide question.",
+    description: "Label for the rating guide question.",
   },
   questionPlaceholder: {
     id: "ratingGuideQuestion.questionPlaceholder",
     defaultMessage: "Write your interview question here...",
-    description:
-      "Placeholder for the rating guide question.",
+    description: "Placeholder for the rating guide question.",
   },
-
 });
 
 interface RatingGuideQuestionProps {
@@ -63,7 +60,7 @@ const RatingGuideQuestion: React.FunctionComponent<RatingGuideQuestionProps> = (
   removeQuestion,
   updateQuestion,
 }): React.ReactElement | null => {
-  const intl =  useIntl();
+  const intl = useIntl();
   if (question === null) {
     return null;
   }
@@ -75,7 +72,9 @@ const RatingGuideQuestion: React.FunctionComponent<RatingGuideQuestionProps> = (
     >
       <div data-c-grid="gutter middle">
         <div data-c-alignment="center" data-c-grid-item="base(1of1) tp(1of8)">
-          <strong>{questionIndex}</strong>
+          <p>
+            <strong>{questionIndex}</strong>
+          </p>
         </div>
         <div data-c-grid-item="base(1of1) tp(6of8)">
           <UpdatingInput
