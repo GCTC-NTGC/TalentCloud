@@ -19,6 +19,8 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property string $impact
  * @property string $preference
  * @property string $allow_indeterminate
+ * @property string $is_partner
+ * @property string $is_host
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -53,6 +55,8 @@ class Department extends BaseModel
         'impact',
         'preference',
         'allow_indeterminate',
+        'is_partner',
+        'is_host',
     ];
 
     public function users() // phpcs:ignore
