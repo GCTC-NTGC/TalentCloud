@@ -13,6 +13,7 @@ class DepartmentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -132,6 +133,20 @@ class DepartmentCrudController extends CrudController
             'type' => 'check',
             'label' => 'Talent Cloud Host',
         ]);
+
+        // Add filter for departments that are partners
+        $this->crud->addFilter(
+            [
+                'type' => 'simple',
+                'name' => 'partners',
+                'label'=> 'Department Partners'
+            ],
+            false,
+            function () {
+                $this->crud->addClause('where', 'is_partner', '=', true);
+            }
+        );
+
     }
 
     public function setupCreateOperation()
@@ -142,5 +157,11 @@ class DepartmentCrudController extends CrudController
     public function setupUpdateOperation()
     {
         $this->crud->setValidation(UpdateRequest::class);
+    }
+
+    protected function setupReorderOperation()
+    {
+        $this->crud->set('reorder.label', 'name');
+        $this->crud->set('reorder.max_level', 1);
     }
 }

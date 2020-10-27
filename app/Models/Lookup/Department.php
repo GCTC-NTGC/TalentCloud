@@ -15,6 +15,10 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
 /**
  * Class Department
  * @property int $id
+ * @property int $parent_id
+ * @property int $lft
+ * @property int $rgt
+ * @property int $depth
  * @property string $name
  * @property string $impact
  * @property string $preference
