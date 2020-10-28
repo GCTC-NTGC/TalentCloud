@@ -51,6 +51,10 @@ Route::group(
             /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
 
+            /* Profile (Experience) */
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
             /* Application (Welcome Mat) */
             Route::view('application-01', 'applicant/application/01-welcome')->middleware('localOnly')->name('app1');
             /* Application (Intro Information & Education) */
@@ -70,11 +74,7 @@ Route::group(
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
             /* Application (Congrats) */
-            Route::view('application-10', 'applicant/application/10-congrats')->middleware('localOnly')->name('app10');
-
-            /* Profile (Experience) */
-            /* Temp Resources */
-            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
