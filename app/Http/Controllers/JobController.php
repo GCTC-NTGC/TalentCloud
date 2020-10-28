@@ -174,15 +174,13 @@ class JobController extends Controller
         foreach ($essential as $criterion) {
             $skillsArray[] = [
                 'skill' => $criterion['skill']['name'],
-                'level' => $skillsLang['skill_levels'][$criterion
-                ->skill->skill_type->name][$criterion->skill_level->name],
+                'level' => $criterion->level_name,
             ];
         }
         foreach ($asset as $criterion) {
             $skillsArray[] = [
                 'skill' => $criterion['skill']['name'],
-                'level' => $skillsLang['skill_levels'][$criterion
-                ->skill->skill_type->name][$criterion->skill_level->name],
+                'level' => $criterion->level_name,
             ];
         }
 
