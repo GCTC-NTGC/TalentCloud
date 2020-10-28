@@ -253,19 +253,11 @@ test("Job Poster Builder - New Job", async (t) => {
     .ok()
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
-    .click(Selector("button").withText("Looks good!"))
-    // Review confirmation.
-    .expect(
-      Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
-    )
-    .ok()
+    .click(Selector("a").withText("Save and Return to Summary"))
     .wait(200)
-    .click(Selector("button").withText("Yes, Submit"))
-    .wait(200)
-    .click(Selector("a").withText("Go back to My Job Posters"))
-    // Taken back to the Job index page
-    .expect(Selector("h1").withText("My Job Posters").visible)
+    // Taken back to Job Summary page.
+    .expect(Selector("h1").withText("AS-3 - Product Designer").visible)
     .ok()
-    .expect(Selector("a").withText("Product Designer").visible)
+    .expect(Selector("h2").withText("Job Summary").visible)
     .ok();
 });

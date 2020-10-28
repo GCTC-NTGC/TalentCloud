@@ -106,7 +106,7 @@
                     </div>
                     {# Add a Work Sample Trigger #}
                     <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
-                        <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                        <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button" disabled>
                             {{ relative_template.project.add_label }}
                         </button>
                     </div>
@@ -137,12 +137,12 @@
             <div data-c-padding="all(1)">
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
-                        <button class="modal-trigger" data-modal-id="deleteReference" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                        <button class="modal-trigger" data-modal-id="deleteReference" data-c-button="outline(stop)" data-c-radius="rounded" type="button" disabled>
                             <span>{{ reference_template.action_01 }}</span>
                         </button>
                     </div>
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(right)">
-                        <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
+                        <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}" disabled>
                             <span>
                                 <span class="submit-default">{{ reference_template.action_02 }}</span>
                                 <span class="submit-working">{{ reference_template.action_02_working }}</span>

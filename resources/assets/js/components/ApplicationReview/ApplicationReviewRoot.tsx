@@ -85,7 +85,7 @@ class ApplicationReviewRoot extends React.Component<
 
     return axios
       .put(route.applicationReviewUpdate(intl.locale, application.id), review)
-      .then(response => {
+      .then((response) => {
         const newReview = response.data as ApplicationReview;
         this.updateReviewState(newReview);
         this.setState({ isSaving: false });
@@ -132,8 +132,8 @@ class ApplicationReviewRoot extends React.Component<
     const { reviewStatuses, portal } = this.props;
     const { application, isSaving } = this.state;
     const reviewStatusOptions = reviewStatuses
-      .filter(status => status.id in ReviewStatusId)
-      .map(status => ({
+      .filter((status) => status.id in ReviewStatusId)
+      .map((status) => ({
         value: status.id,
         label: camelCase(status.name),
       }));
@@ -161,7 +161,7 @@ const renderApplicationReviewRoot = (
     container.hasAttribute("data-application") &&
     container.hasAttribute("data-review-statuses")
   ) {
-    const applications = JSON.parse(
+    const application = JSON.parse(
       container.getAttribute("data-application") as string,
     );
     const reviewStatuses = JSON.parse(
@@ -172,7 +172,7 @@ const renderApplicationReviewRoot = (
     ReactDOM.render(
       <IntlContainer locale={language}>
         <IntlApplicationReviewRoot
-          initApplication={applications}
+          initApplication={application}
           reviewStatuses={reviewStatuses}
           portal={portal}
         />

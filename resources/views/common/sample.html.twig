@@ -136,7 +136,7 @@
                     {# Add a Work Sample Trigger #}
                     {% if applicant.skill_declarations|length > 0 %}
                         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
-                            <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                            <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button" disabled>
                                 {{ relative_template.skill.add_label }}
                             </button>
                         </div>
@@ -172,12 +172,12 @@
             <div data-c-padding="all(1)">
                 <div data-c-grid="gutter(all, 1)">
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
-                        <button class="modal-trigger" data-modal-id="deleteSample" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                        <button class="modal-trigger" data-modal-id="deleteSample" data-c-button="outline(stop)" data-c-radius="rounded" type="button" disabled>
                             <span>{{ sample_template.action_01 }}</span>
                         </button>
                     </div>
                     <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(right)">
-                        <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
+                        <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}" disabled>
                             <span>
                                 <span class="submit-default">{{ sample_template.action_02 }}</span>
                                 <span class="submit-working">{{ sample_template.action_02_working }}</span>

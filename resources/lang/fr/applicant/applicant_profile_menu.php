@@ -28,5 +28,6 @@ return [
     "portfolio" => [
         "title" => "Allez à la section Échantillons de travail de votre profil.",
         "label" => "Mes échantillons de travail"
-    ]
+    ],
+    "read_only" => "en lecture seule",
 ];

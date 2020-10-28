@@ -5,6 +5,7 @@ import {
   adminUser,
   assertIsLoggedIn,
   hrUser,
+  applicantUser,
 } from "./helpers/roles";
 import {
   HOMEPAGE,
@@ -27,53 +28,18 @@ test("Applicant Profile - My Skills", async (t) => {
   await t
     // TODO: Applicant user account without prepopulated skills.
     // Logged in as admin (empty skills page).
-    .useRole(adminUser)
+    .useRole(applicantUser)
     // Go to My Skills page.
     .navigateTo(PROFILE_SKILLS)
     .expect(Selector("h1").withText("My Skills").visible)
     .ok()
-    // Add soft skill (Passion).
-    .click(Selector("button").withText("Add soft skill"))
-    .click(Selector("select").withAttribute("name", "skill_id"))
-    .click(
-      Selector("select")
-        .withAttribute("name", "skill_id")
-        .find("option")
-        .withText("Passion"),
-    )
-    .click(
-      Selector('[role="radiogroup"]')
-        .find("span")
-        .withText("Deep Level Demonstration"),
-    )
-    .typeText(
-      Selector("textarea").withAttribute("name", "description"),
-      "Eating lots of passionfruit.",
-    )
-    .click(Selector("button").withText("Save Skill"))
-    // Add hard skill (Docker).
-    .click(Selector("button").withText("Add hard skill"))
-    .click(
-      Selector("select").withAttribute(
-        "id",
-        "skill_declarations[new][hard][1]skillSelection",
-      ),
-    )
-    .click(Selector("option").withAttribute("value", "12"))
-    .click(Selector('[role="radiogroup"]').find("span").withText("Advanced"))
-    .typeText(
-      Selector("textarea").withAttribute(
-        "id",
-        "skill_declarations[new][hard][1]skillDescription",
-      ),
-      "Sailing the high seas.",
-    )
-    .pressKey("tab tab enter")
-    // Save and refresh.
-    .navigateTo(PROFILE_SKILLS)
-    .expect(Selector("p").withText("Passion").visible)
+    // Check for note explaining page has been archived.
+    .expect(Selector("p").withText("This page is going away").visible)
     .ok()
-    .expect(Selector("p").withText("Docker").visible)
+    // Check that buttons have been disabled.
+    .expect(Selector("button#add-soft-skill").hasAttribute("disabled"))
+    .ok()
+    .expect(Selector("button#add-hard-skill").hasAttribute("disabled"))
     .ok();
 });
 
@@ -157,80 +123,32 @@ test("Applicant Profile - My Experience", async (t) => {
 test("Applicant Profile - My References", async (t) => {
   await t
     // Logged in as applicant.
-    .useRole(emptyApplicantUser)
+    .useRole(applicantUser)
     // Go to My References page.
     .navigateTo(PROFILE_REFERENCES)
     .expect(Selector("h1").withText("My References").visible)
     .ok()
-    .click(Selector("button").withText("Add Reference"))
-    .typeText(
-      Selector("input").withAttribute("id", "references[1]referenceName"),
-      "Richard Cranium",
+    // Check for note explaining page has been archived.
+    .expect(Selector("p").withText("This page is going away").visible)
+    .ok()
+    .expect(
+      Selector("button").withText("Add Reference").hasAttribute("disabled"),
     )
-    .click(
-      Selector("select").withAttribute(
-        "id",
-        "references[1]referenceRelationship",
-      ),
-    )
-    .click(
-      Selector("select")
-        .withAttribute("id", "references[1]referenceRelationship")
-        .find("option")
-        .withAttribute("value", "1"),
-    )
-    .typeText(
-      Selector("input").withAttribute("id", "references[1]referenceEmail"),
-      "richard@coolfunny.com",
-    )
-    .typeText(
-      Selector("textarea").withAttribute(
-        "id",
-        "references[1]referenceDescription",
-      ),
-      "Richard is the CEO of Cool Funny, we had some laughs.",
-    )
-    .click(Selector("button").withAttribute("value", "references[1]"))
-    .navigateTo(PROFILE_REFERENCES)
-    .expect(Selector("p").withText("Richard Cranium").visible)
     .ok();
 });
 
 test("Applicant Profile - My Work Samples", async (t) => {
   await t
     // Logged in as applicant.
-    .useRole(emptyApplicantUser)
+    .useRole(applicantUser)
     // Go to My Work Samples page.
     .navigateTo(PROFILE_PORTFOLIO)
     .expect(Selector("h1").withText("My Work Samples").visible)
     .ok()
-    // Add new work sample.
-    .click(Selector("button").withText("Add Sample"))
-    .typeText(
-      Selector("input").withAttribute("id", "work_samples[1]sampleName"),
-      "Cool Funny",
-    )
-    .click(Selector("select").withAttribute("id", "work_samples[1]sampleType"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "work_samples[1]sampleType")
-        .find("option")
-        .withAttribute("value", "3"),
-    )
-    .typeText(
-      Selector("input").withAttribute("id", "work_samples[1]sampleLink"),
-      "http://www.coolfunny.com",
-    )
-    .typeText(
-      Selector("textarea").withAttribute(
-        "id",
-        "work_samples[1]sampleDescription",
-      ),
-      "A website that is both cool and funny.",
-    )
-    .click(Selector("button").withAttribute("value", "work_samples[1]"))
-    .navigateTo(PROFILE_PORTFOLIO)
-    .expect(Selector("button").withText("Cool Funny").visible)
+    // Check for note explaining page has been archived.
+    .expect(Selector("p").withText("This page is going away").visible)
+    .ok()
+    .expect(Selector("button").withText("Add Sample").hasAttribute("disabled"))
     .ok();
 });
 

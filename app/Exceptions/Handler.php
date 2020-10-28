@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -55,10 +56,12 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * This is a great spot to send exceptions to Flare, Sentry, Bugsnag, etc.
+     *
+     * @param  \Throwable  $exception
      * @return void
      */
-    public function report(\Exception $exception)
+    public function report(Throwable $exception)
     {
         if ($exception instanceof TokenMismatchException) {
             $logData = [
@@ -99,10 +102,12 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param  Throwable  $exception
      * @return \Illuminate\Http\Response
+     *
+     * @throws Throwable
      */
-    public function render($request, \Exception $exception)
+    public function render($request, Throwable $exception)
     {
         // Redirect upper case URLs to lower case route.
         $url = $request->url();

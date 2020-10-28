@@ -11,13 +11,13 @@ export const parseApplication = (data: any): Application => data;
 export const parseApplicationNormalized = (data: any): ApplicationNormalized =>
   data;
 
-export const parseApplicationNormalizedResponse = (
+export const parseApplicationResponse = (
   data: any,
 ): {
-  application: ApplicationNormalized;
+  application: Application;
   jobApplicationAnswers: JobApplicationAnswer[];
 } => {
-  const application: ApplicationNormalized = parseApplicationNormalized(data);
+  const application: Application = parseApplication(data);
   const jobApplicationAnswers: JobApplicationAnswer[] = data.job_application_answers.map(
     (answersData: any): JobApplicationAnswer => answersData,
   );

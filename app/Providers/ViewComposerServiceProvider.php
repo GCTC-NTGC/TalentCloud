@@ -136,6 +136,11 @@ class ViewComposerServiceProvider extends ServiceProvider
             'response/beta-banner',
             'App\Http\ViewComposers\StrategicResponseBannerComposer'
         );
+
+        View::composer(
+            'applicant/profile/archived',
+            'App\Http\ViewComposers\ArchivedComposer'
+        );
     }
 
     /**

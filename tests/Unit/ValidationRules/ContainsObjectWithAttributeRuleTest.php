@@ -3,7 +3,6 @@
 namespace Tests\Unit\ValidationRules;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Services\Validation\Rules\ContainsObjectWithAttributeRule;
 use Illuminate\Support\Facades\Validator;
 

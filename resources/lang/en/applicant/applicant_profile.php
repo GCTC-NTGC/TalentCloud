@@ -10,6 +10,7 @@
 return [
     'title' => 'About Me',
     'profile_sidebar_label' => 'On your profile:',
+    'profile_sidebar_archived' => 'Archived:',
     'account_settings_title' => 'Edit your account settings.',
     'account_settings_label' => 'Account Settings',
     'required_label' => 'Required',

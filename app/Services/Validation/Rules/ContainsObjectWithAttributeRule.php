@@ -14,8 +14,8 @@ class ContainsObjectWithAttributeRule implements Rule
     /**
      * Create a new rule instance.
      *
-     * @param  App\Models\Applicant  $applicant
-     * @param  string  $relation
+     * @param  string $attributeName
+     * @param  mixed  $attributeValue
      * @return void
      */
     public function __construct($attributeName, $attributeValue)
@@ -24,7 +24,7 @@ class ContainsObjectWithAttributeRule implements Rule
         $this->attributeValue = $attributeValue;
     }
 
-    protected function array_any(array $array, callable $fn)
+    protected function arrayAny(array $array, callable $fn)
     {
         foreach ($array as $value) {
             if ($fn($value)) {
@@ -37,16 +37,13 @@ class ContainsObjectWithAttributeRule implements Rule
     /**
      * This check passes if the $value is an array which contains an object
      *  with a attributeName relation equal to attributeValue
-     * @param  [type] $attribute [description]
-     * @param  [type] $value     [description]
-     * @return boolean            [description]
+     * @param  mixed $attribute
+     * @param  mixed $value
+     * @return boolean
      */
     public function passes($attribute, $value)
     {
-        // debugbar()->debug($value);
-        // debugbar()->debug($this->attributeName);
-        // debugbar()->debug($this->attributeValue);
-        return $this->array_any($value, function ($object) {
+        return $this->arrayAny($value, function ($object) {
             return $object[$this->attributeName] == $this->attributeValue;
         });
     }

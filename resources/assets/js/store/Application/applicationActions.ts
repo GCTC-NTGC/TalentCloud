@@ -7,9 +7,9 @@ import {
 } from "../asyncAction";
 import {
   Application,
+  ApplicationNormalized,
   ApplicationReview,
   Email,
-  ApplicationNormalized,
   JobApplicationAnswer,
 } from "../../models/types";
 import {
@@ -24,8 +24,8 @@ import {
   parseReferenceEmails,
   getSendReferenceEmailEndpoint,
   parseSingleReferenceEmail,
-  parseApplicationNormalizedResponse,
   getApplicationBasicEndpoint,
+  parseApplicationResponse,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
@@ -40,7 +40,10 @@ export type FetchApplicationAction = AsyncFsaActions<
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+  },
   { id: number }
 >;
 
@@ -50,7 +53,10 @@ export const fetchApplication = (
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+  },
   { id: number }
 > =>
   asyncGet(
@@ -58,46 +64,7 @@ export const fetchApplication = (
     FETCH_APPLICATION_STARTED,
     FETCH_APPLICATION_SUCCEEDED,
     FETCH_APPLICATION_FAILED,
-    parseApplication,
-    { id },
-  );
-
-export const FETCH_APPLICATION_NORMALIZED_STARTED =
-  "APPLICATION NORMALIZED: GET STARTED";
-export const FETCH_APPLICATION_NORMALIZED_SUCCEEDED =
-  "APPLICATION NORMALIZED: GET SUCCEEDED";
-export const FETCH_APPLICATION_NORMALIZED_FAILED =
-  "APPLICATION NORMALIZED: GET FAILED";
-
-export type FetchApplicationNormalizedAction = AsyncFsaActions<
-  typeof FETCH_APPLICATION_NORMALIZED_STARTED,
-  typeof FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
-  typeof FETCH_APPLICATION_NORMALIZED_FAILED,
-  {
-    application: ApplicationNormalized;
-    jobApplicationAnswers: JobApplicationAnswer[];
-  },
-  { id: number }
->;
-
-export const fetchApplicationNormalized = (
-  id: number,
-): RSAActionTemplate<
-  typeof FETCH_APPLICATION_NORMALIZED_STARTED,
-  typeof FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
-  typeof FETCH_APPLICATION_NORMALIZED_FAILED,
-  {
-    application: ApplicationNormalized;
-    jobApplicationAnswers: JobApplicationAnswer[];
-  },
-  { id: number }
-> =>
-  asyncGet(
-    getApplicationEndpoint(id),
-    FETCH_APPLICATION_NORMALIZED_STARTED,
-    FETCH_APPLICATION_NORMALIZED_SUCCEEDED,
-    FETCH_APPLICATION_NORMALIZED_FAILED,
-    parseApplicationNormalizedResponse,
+    parseApplicationResponse,
     { id },
   );
 
@@ -272,7 +239,6 @@ export const sendReferenceEmail = (
 
 export type ApplicationAction =
   | FetchApplicationAction
-  | FetchApplicationNormalizedAction
   | FetchApplicationsForJobAction
   | UpdateApplicationAction
   | UpdateApplicationReview

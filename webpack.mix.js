@@ -33,6 +33,10 @@ mix
     "public/js",
   )
   .ts(
+    "resources/assets/js/components/ApplicationReview/ApplicationTimelineReviewRoot.tsx",
+    "public/js",
+  )
+  .ts(
     "resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.tsx",
     "public/js",
   )

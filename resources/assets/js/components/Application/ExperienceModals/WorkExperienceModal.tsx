@@ -36,6 +36,7 @@ interface WorkExperienceModalProps {
   experienceWork: ExperienceWork | null;
   jobId: number;
   jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
@@ -221,6 +222,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   experienceWork,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -361,6 +363,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
               <EducationSubform
                 keyPrefix="work"
                 jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />

@@ -120,14 +120,10 @@ Route::group(
 
                 /* Response Home */
                 // Redirect /en/response to /response so it reaches the Talent Reserve app.
-                Route::get('response', function () {
-                    return redirect(URL::to('/response'));
-                });
+                Route::redirect('response', URL::to('/response'));
 
                 /* Reserve Redirect */
-                Route::get('reserve', function () {
-                    return redirect('response');
-                });
+                Route::redirect('reserve', URL::to('/response'));
 
                 /* Require being logged in as applicant */
                 Route::middleware(['auth', 'role:applicant'])->group(function (): void {
@@ -287,37 +283,29 @@ Route::group(
                 Route::get('faq', 'FaqController')->name('faq');
 
                 /* Static - Privacy Policy */
-                Route::get(
+                Route::view(
                     'privacy',
-                    function () {
-                        return view(
-                            'common/static_privacy',
-                            [
-                                'privacy' => Lang::get('common/privacy'),
-                                'custom_breadcrumbs' => [
-                                    'home' => route('home'),
-                                    Lang::get('common/privacy.title') => '',
-                                ],
-                            ]
-                        );
-                    }
+                    'common/static_privacy',
+                    [
+                        'privacy' => Lang::get('common/privacy'),
+                        'custom_breadcrumbs' => [
+                            'home' => LaravelLocalization::localizeUrl('/'),
+                            Lang::get('common/privacy.title') => '',
+                        ],
+                    ]
                 )->name('privacy');
 
                 /* Static - Terms of Service */
-                Route::get(
+                Route::view(
                     'tos',
-                    function () {
-                        return view(
-                            'common/static_tos',
-                            [
-                                'tos' => Lang::get('common/tos'),
-                                'custom_breadcrumbs' => [
-                                    'home' => route('home'),
-                                    Lang::get('common/tos.title') => '',
-                                ],
-                            ]
-                        );
-                    }
+                    'common/static_tos',
+                    [
+                        'tos' => Lang::get('common/tos'),
+                        'custom_breadcrumbs' => [
+                            'home' => LaravelLocalization::localizeUrl('/'),
+                            Lang::get('common/tos.title') => '',
+                        ],
+                    ]
                 )->name('tos');
 
                 /* Static - ITP */

@@ -69,6 +69,12 @@ export const formMessages = defineMessages({
       "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
     description: "Subtext 2 displayed of the our culture section.",
   },
+  cultureSummaryDefault: {
+    id: "jobBuilder.workEnv.cultureSummaryDefault",
+    defaultMessage: "Please make selections above...",
+    description:
+      "Displayed in culture summary before radio inputs are selected.",
+  },
   fastPacedSteadyLabel: {
     id: "jobBuilder.workEnv.fastPacedSteadyLabel",
     defaultMessage: "Fast-paced vs. Steady:",

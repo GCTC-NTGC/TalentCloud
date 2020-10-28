@@ -13,7 +13,7 @@ import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import Fit from "./Fit";
 import { JobApplicationAnswer } from "../../../models/types";
-import { fetchApplicationNormalized } from "../../../store/Application/applicationActions";
+import { fetchApplication } from "../../../store/Application/applicationActions";
 import {
   createJobApplicationAnswer,
   updateJobApplicationAnswer,
@@ -54,7 +54,7 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
       : await dispatch(createJobApplicationAnswer(answer));
 
     if (!result.error) {
-      await dispatch(fetchApplicationNormalized(applicationId));
+      await dispatch(fetchApplication(applicationId));
       const payload = await result.payload;
       return payload;
     }

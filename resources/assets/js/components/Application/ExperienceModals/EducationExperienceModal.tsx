@@ -50,6 +50,7 @@ interface EducationExperienceModalProps {
   educationStatuses: EducationStatus[];
   jobId: number;
   jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
@@ -291,6 +292,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   educationStatuses,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -469,6 +471,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               <EducationSubform
                 keyPrefix="education"
                 jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />

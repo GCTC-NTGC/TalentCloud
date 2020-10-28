@@ -186,9 +186,11 @@ const getEducationMsgForClassification = (
   classification: number | string,
   intl: IntlShape,
 ): string => {
-  return hasKey(educationMessages, classificationCode(classification))
-    ? intl.formatMessage(educationMessages[classificationCode(classification)])
-    : "he";
+  return hasKey(educationMessages, classificationCode(Number(classification)))
+    ? intl.formatMessage(
+        educationMessages[classificationCode(Number(classification))],
+      )
+    : intl.formatMessage(educationMessages.classificationNotFound);
 };
 
 const jobToValues = (
