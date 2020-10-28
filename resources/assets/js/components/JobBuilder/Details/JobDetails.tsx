@@ -48,7 +48,7 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { getClassifications } from "../../../store/Classification/classificationSelector";
+import { formatClassificationsForDropdown } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -174,13 +174,6 @@ interface DetailsFormValues {
   travel: TravelOptionType;
   overtime: OvertimeOptionType;
 }
-
-// Store a list of classifications in the state
-// Use the ID to get the classification based on the ID
-// classificationId (from lookupConstants is actually a list of IDs)
-
-// Sent from JobDetailsPage. Retreive to populate classifications.
-
 
 const classificationCode = (classifications, classification: number | string): string =>
   getKeyByValue(classifications, classification);
@@ -341,22 +334,6 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
     "remoteWorkCanada",
     "remoteWorkWorld",
   ];
-
-
-  const getClassifications = function() : {value : number, label: string}[] {
-    let classificationsArr : {value : number, label: string}[] = [];
-
-    classifications.forEach(function(classification) {
-      classificationsArr.push({
-        value : classification.id,
-        label : classification.key
-      })
-    })
-    return classificationsArr
-  }
-
-
-  console.dir(getClassifications())
 
   const jobSchema = Yup.object().shape({
     title: Yup.string()
@@ -543,7 +520,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={getClassifications()}
+                  options={formatClassificationsForDropdown(classifications)}
                 />
                 <FastField
                   name="level"
