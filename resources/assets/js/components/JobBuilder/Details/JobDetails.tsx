@@ -48,7 +48,7 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { formatClassificationsForDropdown } from "../../../store/Classification/classificationSelector";
+import { classificationsExtractKeyValue } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -175,8 +175,10 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = (classifications, classification: number | string): string =>
-  getKeyByValue(classifications, classification);
+const classificationCode = function(classifications : Classification[], classification: number | string): string {
+  let lClassification : Classification = classifications.filter(c => c.id == classification)[0]
+  return lClassification ? lClassification.key : ""
+}
 
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
@@ -520,7 +522,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={formatClassificationsForDropdown(classifications)}
+                  options={classificationsExtractKeyValue(classifications)}
                 />
                 <FastField
                   name="level"
@@ -578,6 +580,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                           wrapperMargin="bottom(normal)"
                           subtext={textToParagraphs(
                             getEducationMsgForClassification(
+                              //classificationsExtractKeyValue(classifications),
                               classifications,
                               values.classification,
                               intl,
@@ -1035,8 +1038,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        //classifications.reduce(function(a, b) {return a[b.key] = a[b.id] }),
-                        {} ,
+                        classificationsExtractKeyValue(classifications),
                         values.classification,
                       )}
                       level={String(values.level)}
