@@ -282,6 +282,11 @@
         "id": "application.experience.heading"
       },
       {
+        "defaultMessage": "UNKNOWN CLASSIFICATION",
+        "description": "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
+        "id": "application.education.missingClassification"
+      },
+      {
         "defaultMessage": "Start writing here...",
         "description": "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
         "id": "application.skills.experienceSkillPlaceholder"
@@ -1241,29 +1246,24 @@
         "id": "application.review.shareCheckboxLabel"
       },
       {
-        "defaultMessage": "Review Your Application",
-        "description": "Main page heading for the Review page.",
-        "id": "application.review.heading"
+        "defaultMessage": "Basic Information",
+        "description": "Manager's heading for the Basic Info section of the Application.",
+        "id": "application.review.manager.basicInfoHeading"
       },
       {
-        "defaultMessage": "Take one last look at your information before you submit it.",
-        "description": "First line of the subheading for the Review page.",
-        "id": "application.review.subheadingOne"
+        "defaultMessage": "Experience",
+        "description": "Manager's heading for the Experience section of the Application.",
+        "id": "application.review.manager.experienceHeading"
       },
       {
-        "defaultMessage": "Make sure everything you've said is as honest and accurate as possible.",
-        "description": "Second line of the subheading for the Review page.",
-        "id": "application.review.subheadingTwo"
+        "defaultMessage": "Fit",
+        "description": "Manager's heading for the Fit section of the Application.",
+        "id": "application.review.manager.fitHeading"
       },
       {
-        "defaultMessage": "Ask yourself, If I was a manager would I think they could do a good job?",
-        "description": "Third line of the subheading for the Review page.",
-        "id": "application.review.subheadingThree"
-      },
-      {
-        "defaultMessage": "Change Your View:",
-        "description": "Heading for the Review section with the buttons to change the layout.",
-        "id": "application.review.changeViewHeading"
+        "defaultMessage": "Account Settings",
+        "description": "Manager's heading for the Account Settings section of the Application.",
+        "id": "application.review.manager.accountSettingsHeading"
       },
       {
         "defaultMessage": "All Experience",
@@ -1279,6 +1279,31 @@
         "defaultMessage": "Education Requirements for This Job",
         "description": "Button text for the education view of the Review page.",
         "id": "application.review.educationViewButton"
+      },
+      {
+        "defaultMessage": "Review Your Application",
+        "description": "Main page heading for the Review page.",
+        "id": "application.review.heading"
+      },
+      {
+        "defaultMessage": "Take one last look at your information before you submit it.",
+        "description": "First line of the subheading for the Review page.",
+        "id": "application.review.subheadingOne"
+      },
+      {
+        "defaultMessage": "Make sure everything you've said is as honest and accurate as possible.",
+        "description": "Second line of the subheading for the Review page.",
+        "id": "application.review.subheadingTwo"
+      },
+      {
+        "defaultMessage": "Ask yourself, \"If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?\"",
+        "description": "Third line of the subheading for the Review page.",
+        "id": "application.review.subheadingThree"
+      },
+      {
+        "defaultMessage": "Change Your View:",
+        "description": "Heading for the Review section with the buttons to change the layout.",
+        "id": "application.review.changeViewHeading"
       },
       {
         "defaultMessage": "This view is a summary of all the experiences you will be sending as a part of your application.",
@@ -1315,6 +1340,15 @@
       {
         "defaultMessage": "I do not want Talent Cloud to contact me at {email} about related jobs.",
         "id": "application.review.userNoContact"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Review/ApplicationPreview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
+        "id": "application.review.shareCheckboxLabel"
       },
       {
         "defaultMessage": "Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?",
