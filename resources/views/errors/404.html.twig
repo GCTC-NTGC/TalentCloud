@@ -1,0 +1,27 @@
+{% extends "layouts/base" %}
+{% block title %}
+	{{ error.title }}
+{% endblock %}
+{% block body %}
+	{% include "common/goc" %}
+	{% include "common/alert" %}
+	{% include "common/header" with {"header": { "title" : error.title }, "hide_breadcrumbs": true} %}
+	<section class="error-404">
+		<div class="container--copy">
+			<h2>
+				{{ error.header }}
+			</h2>
+			<p>
+				{{ error.paragraph1 }}
+			</p>
+			<ul>
+				{% for link in error.links %}
+					<li><a href="/{{ appLocale }}{{ link.url }}">{{ link.title }}</a></li>
+				{% endfor %}
+			</ul>
+			<p>
+				{{ error.paragraph2 }}
+			</p>
+		</div>
+	</section>
+{% endblock %}
