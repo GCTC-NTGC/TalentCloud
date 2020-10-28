@@ -1,3 +1,4 @@
+
 <?php
 
 /**
@@ -17,7 +18,6 @@ use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Class JobApplication
