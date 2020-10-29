@@ -12,13 +12,25 @@ export const getClassifications = createSelector(
   (ClassificationState): Classification[] => Object.values(ClassificationState),
 );
 
-export const formatClassificationsForDropdown = function(classifications : Classification[]) : {value : number, label: string}[] {
+export const classificationsExtractKeyValueJsonArray = function(classifications : Classification[]) : {value : number, label: string}[] {
     let classificationsArr : {value : number, label: string}[] = [];
     classifications.forEach(function(classification) {
       classificationsArr.push({value : classification.id, label : classification.key
       })
     })
     return classificationsArr
+}
+
+export const classificationsExtractKeyValueJson = function(classifications) : JSON {
+  let classificationsJson : any = {}
+  let output : JSON;
+
+  classifications.forEach(function (classification) {
+    classificationsJson[classification.key] = classification.id
+  })
+
+  output = <JSON>classificationsJson
+  return output
 }
 
 // Get a classification from the redux state by passing in an ID

@@ -48,7 +48,7 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { classificationsExtractKeyValue } from "../../../store/Classification/classificationSelector";
+import { classificationsExtractKeyValueJsonArray, classificationsExtractKeyValueJson } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -345,11 +345,9 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .min(1, intl.formatMessage(validationMessages.tooShort))
       .max(36, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-    classification: Yup.number()
+      classification: Yup.number()
       .oneOf(
-        Object.values(
-          {}
-        ),
+        Object.values(classificationsExtractKeyValueJson(classifications)),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -522,7 +520,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={classificationsExtractKeyValue(classifications)}
+                  options={classificationsExtractKeyValueJsonArray(classifications)}
                 />
                 <FastField
                   name="level"
@@ -1038,7 +1036,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        classificationsExtractKeyValue(classifications),
+                        classificationsExtractKeyValueJsonArray(classifications),
                         values.classification,
                       )}
                       level={String(values.level)}
