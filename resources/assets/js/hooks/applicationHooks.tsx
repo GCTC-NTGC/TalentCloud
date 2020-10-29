@@ -288,11 +288,10 @@ export function useTouchApplicationStep(
   step: ApplicationStep,
   dispatch: DispatchType,
 ): boolean {
-  const steps = useJobApplicationSteps();
   const stepsAreUpdating = useSelector(getStepsAreUpdating);
   useEffect(() => {
     dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
-  }, [applicationId, step, steps, dispatch]);
+  }, [applicationId, step, dispatch]);
   return stepsAreUpdating;
 }
 
