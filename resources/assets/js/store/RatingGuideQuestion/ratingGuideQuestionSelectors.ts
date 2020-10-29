@@ -44,7 +44,7 @@ const getCurrentQuestionState = createSelector(
 );
 
 /**
- * Returns current verisons of all assessments.
+ * Returns current versions of all assessments.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -72,12 +72,13 @@ export const getTempRatingGuideQuestions = createSelector(
 export const getRatingGuideQuestionIds = createSelector(
   getCurrentQuestionState,
   (currentQuestions): number[] =>
-    Object.keys(currentQuestions).map(id => Number(id)),
+    Object.keys(currentQuestions).map((id) => Number(id)),
 );
 
 export const getTempRatingGuideQuestionIds = createSelector(
   getTempQuestionState,
-  (tempQuestions): number[] => Object.keys(tempQuestions).map(id => Number(id)),
+  (tempQuestions): number[] =>
+    Object.keys(tempQuestions).map((id) => Number(id)),
 );
 
 /**

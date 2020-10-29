@@ -41,7 +41,7 @@ const getCurrentAssessmentState = createSelector(
 );
 
 /**
- * Returns current verisons of all assessments.
+ * Returns current versions of all assessments.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -61,7 +61,7 @@ export const getTempAssessments = createSelector(
 );
 
 /**
- * Returns current verisons of all assessments.
+ * Returns current versions of all assessments.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -117,7 +117,7 @@ export const tempAssessmentsAreSavingByCriterion = createCachedSelector(
     ),
 )((state, props): number => props.criterionId);
 
-/** Returns current (ie edited, if possible) verisons of assessment */
+/** Returns current (ie edited, if possible) versions of assessment */
 export const getAssessmentById = createCachedSelector(
   getCurrentAssessmentState,
   (state: RootState, props: { assessmentId: number }): number =>

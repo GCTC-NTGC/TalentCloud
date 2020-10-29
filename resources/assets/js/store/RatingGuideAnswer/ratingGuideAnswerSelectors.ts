@@ -42,7 +42,7 @@ export const getAnswerDeleteState = (
 ): { [id: number]: number } => stateSlice(state).ratingGuideAnswerDeletes;
 
 /**
- * Returns current verisons of all answers.
+ * Returns current versions of all answers.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -68,7 +68,7 @@ export const getTempRatingGuideAnswers = createSelector(
 );
 
 /**
- * Returns current verisons of all answers.
+ * Returns current versions of all answers.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -82,7 +82,7 @@ export const getRatingGuideAnswersByJob = createCachedSelector(
 )((state, props): number => props.jobId);
 
 /**
- * Returns current verison of answer, ie edited version if possible.
+ * Returns current versions of answer, ie edited version if possible.
  */
 export const getRatingGuideAnswerById = createCachedSelector(
   getCurrentAnswerState,
