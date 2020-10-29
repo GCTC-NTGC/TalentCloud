@@ -83,8 +83,8 @@ Route::group(
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline.step');
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@showDemo')->middleware('localOnly')->name('application.timeline');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@showDemo')->middleware('localOnly')->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -133,17 +133,16 @@ Route::group(
                     Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
                     /* View Application */
-                    // TODO: Uncomment route below after tests are reviewed.
-                    // Route::get('applications/{application}', 'ApplicationController@show')
-                    //     ->middleware('can:view,application')
-                    //     ->name('applications.show');
+                    Route::get('applications/{application}', 'ApplicationController@show')
+                        ->middleware('can:view,application')
+                        ->name('applications.show');
 
                     /* Application Timeline */
-                    // TODO: Comment out routes below after tests are reviewed.
-                    Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
+                    // TODO: Remove timeline from url
+                    Route::get('timeline/applications/{jobApplication}', 'ApplicationTimelineController@show')
                         ->middleware('can:view,jobApplication')
                         ->name('applications.show');
-                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                    Route::get('timeline/applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
                         ->middleware('can:view,jobApplication')
                         ->name('applications.show.step');
 
