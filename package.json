@@ -108,7 +108,7 @@
         "jquery": "^3.5.1",
         "lodash": "^4.17.20",
         "nprogress": "^0.2.0",
-        "re-reselect": "^3.4.0",
+        "re-reselect": "^4.0.0",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",
         "react-intl": "^5.8.0",
