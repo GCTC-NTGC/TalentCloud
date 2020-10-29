@@ -63,7 +63,7 @@ class ApplicationTimelineController extends TestCase
         // Applicant should be redirected to experience step, which is the last touched step.
         $lastTouchedStepResponse = $this->actingAs($applicant->user)
         ->get($applicationRoute());
-        $lastTouchedStepResponse->assertRedirect($applicationStepRoute('review'));
+        $lastTouchedStepResponse->assertRedirect($applicationStepRoute('experience'));
 
         // Attempting to skip to further steps should redirect to experience step.
         $skillsResponse = $this->actingAs($applicant->user)
