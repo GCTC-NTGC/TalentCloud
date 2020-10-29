@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -278,12 +277,7 @@ class JobApplication extends BaseModel
 
     public function touched_application_steps() //phpcs:ignore
     {
-        return $this->belongsToMany(
-            \App\Models\Lookup\JobApplicationStep::class,
-            'touched_application_steps',
-            'job_application_id',
-            'step_id'
-        )->withPivot('touched');
+        return $this->hasMany(\App\Models\TouchedApplicationStep::class);
     }
 
     /**
@@ -540,12 +534,24 @@ class JobApplication extends BaseModel
     public function attachSteps(): void
     {
         if ($this->touched_application_steps->isEmpty()) {
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'basic')->first());
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'experience')->first());
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'skills')->first());
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'fit')->first());
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'review')->first());
-            $this->touched_application_steps()->attach(JobApplicationStep::where('name', 'submission')->first());
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'basic')->first()->id,
+            ]);
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'experience')->first()->id,
+            ]);
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'skills')->first()->id,
+            ]);
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'fit')->first()->id,
+            ]);
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'review')->first()->id,
+            ]);
+            $this->touched_application_steps()->create([
+                'step_id' =>  JobApplicationStep::where('name', 'submission')->first()->id,
+            ]);
         };
     }
 
@@ -557,6 +563,7 @@ class JobApplication extends BaseModel
      */
     public function jobApplicationSteps(): array
     {
+        $this->save();
         $setState = function (bool $touched, bool $isValid) {
             return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
         };
@@ -570,12 +577,24 @@ class JobApplication extends BaseModel
         $reviewValidator = $validator->validateComplete($this);
         $submissionValidator = $validator->affirmationComplete($this);
 
-        $basicTouched = $this->touched_application_steps->where('name', 'basic')->first()->pivot->touched;
-        $experienceTouched = $this->touched_application_steps->where('name', 'experience')->first()->pivot->touched;
-        $skillsTouched = $this->touched_application_steps->where('name', 'skills')->first()->pivot->touched;
-        $fitTouched = $this->touched_application_steps->where('name', 'fit')->first()->pivot->touched;
-        $reviewTouched = $this->touched_application_steps->where('name', 'review')->first()->pivot->touched;
-        $submissionTouched = $this->touched_application_steps->where('name', 'submission')->first()->pivot->touched;
+        $basicTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'basic')->first()->id)
+            ->first()->touched;
+        $experienceTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'experience')->first()->id)
+            ->first()->touched;
+        $skillsTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'skills')->first()->id)
+            ->first()->touched;
+        $fitTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'fit')->first()->id)
+            ->first()->touched;
+        $reviewTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'review')->first()->id)
+            ->first()->touched;
+        $submissionTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'submission')->first()->id)
+            ->first()->touched;
 
         $jobApplicationSteps = [
             'basic' => $setState($basicTouched, $basicValidator),

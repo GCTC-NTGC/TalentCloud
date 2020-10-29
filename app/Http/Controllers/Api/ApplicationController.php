@@ -168,7 +168,10 @@ class ApplicationController extends Controller
      */
     public function touchStep(Request $request, JobApplication $application, JobApplicationStep $jobApplicationStep)
     {
-        $application->touched_application_steps()->updateExistingPivot($jobApplicationStep->id, ['touched' => true]);
+        $touchedApplicationStep = $application->touched_application_steps
+            ->where('step_id', $jobApplicationStep->id)
+            ->first();
+        $touchedApplicationStep->update(['touched' => true]);
 
         return new JsonResource($application->jobApplicationSteps());
     }
