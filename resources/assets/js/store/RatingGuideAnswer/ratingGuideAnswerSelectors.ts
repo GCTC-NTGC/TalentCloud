@@ -111,7 +111,10 @@ export const getRatingGuideAnswerIdsByQuestion = createCachedSelector(
   (state: RootState, props: { questionId: number }): number[] =>
     getRatingGuideAnswersByQuestion(state, props).map(getId),
   (answerIds): number[] => answerIds,
-)((state, props): number => props.questionId, deepEqualSelectorOptions);
+)({
+  keySelector: (state, props): number => props.questionId,
+  ...deepEqualSelectorOptions,
+});
 
 // TODO: rename to ByAssessmentType
 export const getRatingGuideAnswersByAssessment = createCachedSelector(
@@ -136,7 +139,10 @@ export const getTempRatingGuideAnswerIdsByQuestion = createCachedSelector(
   (state: RootState, props: { questionId: number }): number[] =>
     getTempRatingGuideAnswersByQuestion(state, props).map(getId),
   (answerIds): number[] => answerIds,
-)((state, props): number => props.questionId, deepEqualSelectorOptions);
+)({
+  keySelector: (state, props): number => props.questionId,
+  ...deepEqualSelectorOptions,
+});
 
 export const getCanonRatingGuideAnswerById = createCachedSelector(
   getCanonAnswerState,

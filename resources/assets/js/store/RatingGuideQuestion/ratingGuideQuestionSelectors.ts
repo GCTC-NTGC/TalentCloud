@@ -149,10 +149,11 @@ export const getRatingGuideQuestionIdsByJobAndAssessmentType = createCachedSelec
   ): number[] =>
     getRatingGuideQuestionsByJobAndAssessmentType(state, props).map(getId),
   (questionsIds): number[] => questionsIds,
-)(
-  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
-  deepEqualSelectorOptions,
-);
+)({
+  keySelector: (state, props): string =>
+    `${props.jobId} ${props.assessmentTypeId}`,
+  ...deepEqualSelectorOptions,
+});
 
 export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
   getTempRatingGuideQuestions,
@@ -179,10 +180,11 @@ export const getTempRatingGuideQuestionIdsByAssessment = createCachedSelector(
   ): number[] =>
     getTempRatingGuideQuestionsByAssessment(state, props).map(getId),
   (questionsIds): number[] => questionsIds,
-)(
-  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
-  deepEqualSelectorOptions,
-);
+)({
+  keySelector: (state, props): string =>
+    `${props.jobId} ${props.assessmentTypeId}`,
+  ...deepEqualSelectorOptions,
+});
 
 // TODO: test that this works like I think it does -- Tristan
 /** Returns true if there is an edited verision which differs from canonical version */
