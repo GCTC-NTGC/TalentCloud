@@ -50,7 +50,11 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const answers = useJobApplicationAnswers(applicationId);
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "fit", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "fit",
+    dispatch,
+  );
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;
@@ -85,7 +89,13 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step04)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "fit")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "fit",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

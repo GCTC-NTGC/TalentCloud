@@ -57,7 +57,11 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const skills = useSkills();
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "skills", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
 
   const showLoadingState =
     application === null || job === null || !experiencesLoaded || !skillsLoaded;
@@ -105,7 +109,13 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step03)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "skills")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "skills",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

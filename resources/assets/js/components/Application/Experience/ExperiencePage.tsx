@@ -73,7 +73,11 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   } = useExperienceConstants();
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "experience", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "experience",
+    dispatch,
+  );
 
   const showLoadingState =
     application === null ||
@@ -201,7 +205,13 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step02)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "experience")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "experience",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

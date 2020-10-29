@@ -38,7 +38,11 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
   const steps = useJobApplicationSteps();
   const closeDate = job?.close_date_time ?? null;
 
-  useTouchApplicationStep(applicationId, "skills", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
 
   const handleContinue = (): void => {
     navigate(applicationSkills(locale, applicationId));
@@ -50,7 +54,13 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step03)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "skills")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "skills",
+            stepsAreUpdating,
+          )}
         />
       )}
       {!application && (

@@ -43,7 +43,11 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "basic", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "basic",
+    dispatch,
+  );
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
@@ -80,7 +84,13 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step01)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "basic")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "basic",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

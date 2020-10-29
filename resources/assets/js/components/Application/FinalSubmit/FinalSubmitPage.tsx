@@ -42,7 +42,11 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "submission", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "submission",
+    dispatch,
+  );
 
   const handleSubmit = async (
     completeApplication: ApplicationNormalized,
@@ -67,7 +71,13 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step06)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "submission")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "submission",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

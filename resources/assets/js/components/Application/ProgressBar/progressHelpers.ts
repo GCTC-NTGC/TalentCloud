@@ -27,8 +27,17 @@ export function makeProgressBarSteps(
     | "review"
     | "submission"
     | "other",
+  stepsUpdateInProgress: boolean,
 ): ProgressBarProps["steps"] {
   const locale = getLocale(intl.locale);
+  const makeStatus = (step: ApplicationStep): ProgressBarStatus => {
+    // eslint-disable-next-line no-nested-ternary
+    return step === currentStep
+      ? "current"
+      : steps[step] === "error" && stepsUpdateInProgress
+      ? "default"
+      : steps[step];
+  };
   return [
     {
       link: {
@@ -36,7 +45,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
-      status: currentStep === "basic" ? "current" : steps.basic,
+      status: makeStatus("basic"),
     },
     {
       link: {
@@ -44,7 +53,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
-      status: currentStep === "experience" ? "current" : steps.experience,
+      status: makeStatus("experience"),
     },
     {
       link: {
@@ -52,7 +61,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
-      status: currentStep === "skills" ? "current" : steps.skills,
+      status: makeStatus("skills"),
     },
     {
       link: {
@@ -60,7 +69,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
-      status: currentStep === "fit" ? "current" : steps.fit,
+      status: makeStatus("fit"),
     },
     {
       link: {
@@ -68,7 +77,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
-      status: currentStep === "review" ? "current" : steps.review,
+      status: makeStatus("review"),
     },
     {
       link: {
@@ -76,7 +85,7 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
-      status: currentStep === "submission" ? "current" : steps.submission,
+      status: makeStatus("submission"),
     },
   ];
 }

@@ -62,7 +62,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const skills = useSkills();
   const steps = useJobApplicationSteps();
 
-  useTouchApplicationStep(applicationId, "review", dispatch);
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "review",
+    dispatch,
+  );
 
   const handleSave = (values: ReviewFormValues): Promise<void> => {
     if (application === null) {
@@ -112,7 +116,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step05)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "review")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "review",
+            stepsAreUpdating,
+          )}
         />
       )}
       {allDataLoaded &&
