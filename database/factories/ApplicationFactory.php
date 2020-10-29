@@ -122,6 +122,7 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
 
         // Version 2 applications need to track which application steps have been touched.
         $application->attachSteps();
+        $application->refresh();
     }
 
     // If application is not a draft, it needs a snapshot of the profile.

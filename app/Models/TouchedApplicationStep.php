@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Lookup;
+namespace App\Models;
 
 use App\Models\BaseModel;
 
@@ -20,11 +20,13 @@ class TouchedApplicationStep extends BaseModel
 {
     protected $casts = [
       'job_application_id' => 'int',
-      'skill_id' => 'int',
+      'step_id' => 'int',
       'touched' => 'boolean',
     ];
 
     protected $fillable = [
+      'job_application_id',
+      'step_id',
       'touched'
     ];
 

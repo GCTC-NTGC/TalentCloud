@@ -118,7 +118,6 @@ mix.webpackConfig({
     alias: {
       "@": path.resolve(__dirname, "resources/assets/js"),
     },
-    mainFields: ["browser", "main", "module"],
   },
 });
 

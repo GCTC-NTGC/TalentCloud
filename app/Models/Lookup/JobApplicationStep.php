@@ -12,17 +12,12 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $job_applications
+ * @property \Illuminate\Database\Eloquent\Collection $touched_application_steps
  */
 class JobApplicationStep extends BaseModel
 {
-    public function job_applications() //phpcs:ignore
+    public function touched_application_steps() //phpcs:ignore
     {
-        return $this->belongsToMany(
-            \App\Models\JobApplication::class,
-            'touched_application_steps',
-            'step_id',
-            'job_application_id'
-        )->withPivot('touched');
+        return $this->hasMany(\App\Models\Lookup\TouchedApplicationStep::class);
     }
 }
