@@ -33,6 +33,7 @@ import {
   getApplicationNormalized,
   getJobApplicationAnswers,
   getJobApplicationSteps,
+  getStepsAreUpdating,
 } from "../store/Application/applicationSelector";
 import {
   fetchApplication,
@@ -275,23 +276,24 @@ export function useJobApplicationSteps(): {
 }
 
 /**
- * If the specified step of the application has status "default" (ie has not been touched yet),
- * then this dispatches an api request that will record the step as touched, setting it to "complete" or "error".
+ * Dispatches an api request that will record the step as touched, setting it to "complete" or "error",
+ * and gets the validation status of the application steps.
  *
- * NOTE: this hook only runs once, when the component is first mounted. If the true status of the step has not yet loaded
- * from the server, this may re-touch the step when not strictly necessary.
+ * Returns true if the request is currently in progress, false otherwise.
+ *
+ * NOTE: this hook only runs once, when the component is first mounted.
  */
 export function useTouchApplicationStep(
   applicationId: number,
   step: ApplicationStep,
   dispatch: DispatchType,
-): void {
+): boolean {
   const steps = useJobApplicationSteps();
+  const stepsAreUpdating = useSelector(getStepsAreUpdating);
   useEffect(() => {
-    if (steps[step] === "default") {
-      dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
-    }
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
   }, [applicationId, step, steps, dispatch]);
+  return stepsAreUpdating;
 }
 
 /**

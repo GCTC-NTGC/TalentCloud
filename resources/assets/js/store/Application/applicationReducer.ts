@@ -26,6 +26,8 @@ import {
   SEND_REFERENCE_EMAIL_SUCCEEDED,
   SEND_REFERENCE_EMAIL_FAILED,
   TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  TOUCH_JOB_APPLICATION_STEP_STARTED,
+  TOUCH_JOB_APPLICATION_STEP_FAILED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -84,6 +86,7 @@ export interface UiState {
   sendingReferenceEmailForApplication: {
     [applicationId: number]: boolean;
   };
+  updatingSteps: boolean;
 }
 
 export interface ApplicationState {
@@ -121,6 +124,7 @@ export const initUi = (): UiState => ({
   fetchingApplications: false,
   fetchingReferenceEmailsForApplication: {},
   sendingReferenceEmailForApplication: {},
+  updatingSteps: false,
 });
 
 export const initApplicationState = (): ApplicationState => ({
@@ -270,6 +274,7 @@ export const uiReducer = (
           ...state.applicationIsUpdating,
           [action.meta.id]: true,
         },
+        updatingSteps: true,
       };
     case FETCH_APPLICATION_SUCCEEDED:
     case FETCH_APPLICATION_FAILED:
@@ -279,6 +284,7 @@ export const uiReducer = (
           ...state.applicationIsUpdating,
           [action.meta.id]: false,
         },
+        updatingSteps: false,
       };
     case FETCH_APPLICATIONS_FOR_JOB_STARTED:
       return {
@@ -358,6 +364,17 @@ export const uiReducer = (
           ...state.sendingReferenceEmailForApplication,
           [action.meta.applicationId]: false,
         },
+      };
+    case TOUCH_JOB_APPLICATION_STEP_STARTED:
+      return {
+        ...state,
+        updatingSteps: true,
+      };
+    case TOUCH_JOB_APPLICATION_STEP_SUCCEEDED:
+    case TOUCH_JOB_APPLICATION_STEP_FAILED:
+      return {
+        ...state,
+        updatingSteps: false,
       };
     default:
       return state;
