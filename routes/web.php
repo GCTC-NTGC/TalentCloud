@@ -83,8 +83,8 @@ Route::group(
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline');
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly')->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -133,9 +133,19 @@ Route::group(
                     Route::get('applications', 'ApplicationController@index')->name('applications.index');
 
                     /* View Application */
-                    Route::get('applications/{application}', 'ApplicationController@show')
-                        ->middleware('can:view,application')
+                    // TODO: Uncomment route below after tests are reviewed.
+                    // Route::get('applications/{application}', 'ApplicationController@show')
+                    //     ->middleware('can:view,application')
+                    //     ->name('applications.show');
+
+                    /* Application Timeline */
+                    // TODO: Comment out routes below after tests are reviewed.
+                    Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
+                        ->middleware('can:view,jobApplication')
                         ->name('applications.show');
+                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:view,jobApplication')
+                        ->name('applications.show.step');
 
                     /* Step 01 */
                     Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
