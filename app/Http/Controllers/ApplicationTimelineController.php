@@ -76,6 +76,21 @@ class ApplicationTimelineController extends Controller
     }
 
     /**
+     * Display job application.
+     *
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+    */
+    public function showDemo(JobApplication $jobApplication, string $requestedStep = null)
+    {
+        return view('applicant/application-timeline-root')
+                ->with([
+                    'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
+                    'disable_clone_js' => true,
+                ]);
+    }
+
+    /**
      * Show the congrats page after application it's validated and submit.
      *
      * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
