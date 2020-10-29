@@ -14,6 +14,7 @@ class CreateTouchedApplicationStepsTable extends Migration
     public function up()
     {
         Schema::create('touched_application_steps', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('job_application_id');
             $table->integer('step_id');
             $table->boolean('touched')->default(false);
@@ -26,11 +27,14 @@ class CreateTouchedApplicationStepsTable extends Migration
             ->on('job_applications')
             ->onDelete('CASCADE');
 
-        $table->foreign('step_id')
-            ->references('id')
-            ->on('job_application_steps')
-            ->onDelete('CASCADE');
+            $table->foreign('step_id')
+                ->references('id')
+                ->on('job_application_steps')
+                ->onDelete('CASCADE');
+
+            $table->unique(['job_application_id', 'step_id']);
         });
+
     }
 
     /**
