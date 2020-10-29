@@ -139,7 +139,7 @@ class DepartmentCrudController extends CrudController
             [
                 'type' => 'simple',
                 'name' => 'partners',
-                'label'=> 'Department Partners'
+                'label'=> 'Partner Departments'
             ],
             false,
             function () {
