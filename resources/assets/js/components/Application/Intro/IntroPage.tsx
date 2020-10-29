@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import Intro from "./Intro";
