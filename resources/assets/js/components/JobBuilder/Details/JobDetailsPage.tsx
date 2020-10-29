@@ -22,7 +22,7 @@ import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
 import { useDispatch, useSelector } from "react-redux";
-import { loadClassificationsIntoState } from "../../../../js/store/Classification/classificationActions"
+//import { loadClassificationsIntoState } from "../../../../js/store/Classification/classificationActions"
 import { getClassifications, getClassificationById } from "../../../../js/store/Classification/classificationSelector"
 
 interface JobDetailsPageProps {
@@ -70,15 +70,6 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
     }
   };
 
-  // Load list of classifications into state
-  useEffect(() => {
-    dispatch(loadClassificationsIntoState());
-  }, [dispatch]);
-
-  const classification = useSelector((state: RootState) =>
-    job !== null ? getClassificationById(state, job?.classification_id || 0) : null,
-  );
-
   const jobIsComplete =
     job !== null && isJobBuilderComplete(job, keyTasks, criteria, locale);
   return (
@@ -98,7 +89,6 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
     </JobBuilderStepContainer>
   );
 };
-
 
 const mapStateToPropsPage = (
   state: RootState,

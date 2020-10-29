@@ -8,6 +8,7 @@ import {
   Criteria,
   Skill,
   Department,
+  Classification,
 } from "../../models/types";
 import { JobBuilderPage } from "./jobBuilderHelpers";
 import {
@@ -28,6 +29,8 @@ import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
 import { getDepartments } from "../../store/Department/deptSelector";
 import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
 import { RootState } from "../../store/store";
+import { loadClassificationsIntoState as fetchClassifications } from "../../../js/store/Classification/classificationActions"
+import { getClassifications, getClassificationById } from "../../../js/store/Classification/classificationSelector"
 
 interface JobBuilderStepProps {
   jobId: number | null;
@@ -42,6 +45,8 @@ interface JobBuilderStepProps {
   // This is called when departments is empty to fetch departments.
   loadDepartments: () => Promise<void>;
   skills: Skill[];
+  classifications: Classification[];
+  loadClassifications: () => Promise<void>;
   loadSkills: () => Promise<void>;
   currentPage: JobBuilderPage | null;
   forceIsLoading?: boolean;
@@ -58,7 +63,9 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   loadCriteria,
   loadSkills,
   departments,
+  classifications,
   loadDepartments,
+  loadClassifications,
   currentPage,
   forceIsLoading,
   children,
@@ -124,6 +131,12 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   }, [loadSkills]);
 
   useEffect((): void => {
+    if (classifications.length === 0) {
+      loadClassifications();
+    }
+  }, [classifications, loadClassifications]);
+
+  useEffect((): void => {
     if (jobId !== null && job === null) {
       nprogress.start();
     } else if (currentPage !== "intro") {
@@ -177,12 +190,14 @@ const mapStateToProps = (
   criteria: Criteria[];
   skills: Skill[];
   departments: Department[];
+  classifications: Classification[];
 } => ({
   job: jobId !== null ? getJob(state, { jobId }) : null,
   keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
   criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
   skills: getSkills(state),
   departments: getDepartments(state),
+  classifications: getClassifications(state),
 });
 
 const mapDispatchToProps = (
@@ -193,6 +208,8 @@ const mapDispatchToProps = (
   loadCriteria: (jobId: number) => Promise<void>;
   loadSkills: () => Promise<void>;
   loadDepartments: () => Promise<void>;
+  loadClassifications: () => Promise<void>;
+
 } => ({
   loadJob: async (jobId: number): Promise<void> => {
     await dispatch(fetchJob(jobId));
@@ -209,6 +226,9 @@ const mapDispatchToProps = (
   },
   loadDepartments: async (): Promise<void> => {
     await dispatch(fetchDepartments());
+  },
+  loadClassifications: async (): Promise<void> => {
+    await dispatch(fetchClassifications());
   },
 });
 
