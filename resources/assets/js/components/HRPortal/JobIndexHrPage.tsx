@@ -95,7 +95,7 @@ const makeJobAction = (
   const jobTitle = localizeField(locale, job, "title");
   return {
     id: job.id,
-    applicants: 0, // TODO: find real number of applicants.
+    applicants: job.submitted_applications_count,
     // TODO: is this intended to be a link as well, like activity?
     classification: classificationString(job),
     managerTime: 0, // TODO: This isn't recorded yet.
