@@ -579,18 +579,6 @@ Route::group(
                 ->middleware('can:delete,workExperience')
                 ->name('work_experiences.destroy');
 
-            Route::post('skill-declarations', 'SkillDeclarationController@create')
-                ->middleware('can:create,App\Models\SkillDeclaration')
-                ->name('skill_declarations.create');
-
-            Route::put('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@update')
-                ->middleware('can:update,skillDeclaration')
-                ->name('skill_declarations.update');
-
-            Route::delete('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@destroy')
-                ->middleware('can:delete,skillDeclaration')
-                ->name('skill_declarations.destroy');
-
             Route::post('references', 'ReferencesController@update')
                 ->middleware('can:create,App\Models\Reference')
                 ->name('references.create');
