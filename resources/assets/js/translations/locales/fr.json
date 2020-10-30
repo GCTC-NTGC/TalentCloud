@@ -716,7 +716,7 @@
   "jobBuilder.review.managerPosition": "{position} au {department}",
   "jobBuilder.review.managerProfileLink": "Modifier cet élément dans votre profil",
   "jobBuilder.review.meantime": "Entre-temps, n’hésitez pas à créer un plan de présélection pour votre processus de sélection. Vous pouvez aussi attendre les commentaires des RH avant de passer à l’étape suivante.",
-  "jobBuilder.review.months": "{termMonths,plural,=0{No Months} one{{termMonths, number} Month} other{{termMonths, number} Months}}",
+  "jobBuilder.review.months": "{termMonths, plural, =0 {Pas de mois} other {# mois}}",
   "jobBuilder.review.nullProvince": "PROVINCE MANQUANTE",
   "jobBuilder.review.or": "ou",
   "jobBuilder.review.otherInfoHeading": "Autres renseignements au sujet de l’équipe",
