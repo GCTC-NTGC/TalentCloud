@@ -21,9 +21,8 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
-import { useDispatch, useSelector } from "react-redux";
-//import { loadClassificationsIntoState } from "../../../../js/store/Classification/classificationActions"
-import { getClassifications, getClassificationById } from "../../../../js/store/Classification/classificationSelector"
+import { useDispatch } from "react-redux";
+import { getClassifications } from "../../../../js/store/Classification/classificationSelector"
 
 interface JobDetailsPageProps {
   jobId: number;
