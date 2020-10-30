@@ -61,10 +61,12 @@ sudo rm -R $SRC;
 echo "Moving to app directory...";
 cd $APP_DIR;
 
-echo "Executing Laravel commands...";
+echo "Reset Laravel caches...";
 sudo php artisan route:clear;
 sudo php artisan cache:clear;
 sudo php artisan config:clear;
+
+sudo php artisan route:trans:cache;
 
 echo "Database migrations...";
 sudo php artisan migrate -n --force;

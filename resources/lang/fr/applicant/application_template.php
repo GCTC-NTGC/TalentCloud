@@ -242,6 +242,29 @@ return [
         'return_label' => "Retour à la page d'accueil",
         'faq_title' => 'Accéder à la foire aux questions du Talent Cloud.',
         'faq_label' => 'Voir la foire aux questions',
+
+        // Application Timeline - Complete page copy
+        'complete_step_title' => 'Postulez maintenant : Félicitations!',
+        'speed_up_process' => 'Pendant que vous attendez de connaître les résultats de votre demande, il y a quelques mesures que vous pouvez prendre de façon proactive pour accélérer le processus. L’emploi que vous venez de postuler requiert une cote de sécurité :security_clearance. Cela signifie que vous devrez remplir et conserver les formulaires suivants :',
+        'security_clearance_link' => [
+            'text' => 'Formulaire d’autorisation de niveau secret',
+            'title' => 'Apprenez-en davantage sur l’obtention d’une autorisation de niveau secret.'
+        ],
+        'reliability_clearance_link' => [
+            'text' => 'Formulaire de cote de fiabilité',
+            'title' => 'Apprenez-en davantage sur l’obtention d’une cote de fiabilité.'
+        ],
+        'lived_outside_canada' => 'Avez-vous vécu à l’extérieur du Canada pendant plus de six mois?',
+        'prepare_for_application' => [
+            'text' => 'Renseignez-vous sur les autres mesures que vous pouvez prendre pour préparer cette demande d’emploi.',
+            'title' => 'Pour en savoir plus sur les vérifications de sécurité internationales, consultez la FAQ.',
+        ],
+        'useful_links_copy' => "N’oubliez pas! Tout le travail que vous avez effectué est enregistré dans votre profil. Vous pourrez vous en servir pour effectuer d’autres demandes d’emploi, à l’avenir.
+        Voici quelques liens utiles :",
+        'update_profile_link' => [
+            'text' => 'Tenir votre profil à jour',
+            'title' => 'Ouvrir votre profil',
+        ],
     ],
 
     'strategic_response' => [
