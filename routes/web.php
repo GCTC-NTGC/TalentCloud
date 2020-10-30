@@ -591,18 +591,6 @@ Route::group(
                 ->middleware('can:delete,reference')
                 ->name('references.destroy');
 
-            Route::post('work-samples', 'WorkSamplesController@update')
-                ->middleware('can:create,App\Models\WorkSample')
-                ->name('work_samples.create');
-
-            Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
-                ->middleware('can:update,workSample')
-                ->name('work_samples.update');
-
-            Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
-                ->middleware('can:delete,workSample')
-                ->name('work_samples.destroy');
-
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
