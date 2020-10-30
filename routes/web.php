@@ -579,18 +579,6 @@ Route::group(
                 ->middleware('can:delete,workExperience')
                 ->name('work_experiences.destroy');
 
-            Route::post('references', 'ReferencesController@update')
-                ->middleware('can:create,App\Models\Reference')
-                ->name('references.create');
-
-            Route::put('references/{reference}', 'ReferencesController@update')
-                ->middleware('can:update,reference')
-                ->name('references.update');
-
-            Route::delete('references/{reference}', 'ReferencesController@destroy')
-                ->middleware('can:delete,reference')
-                ->name('references.destroy');
-
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
