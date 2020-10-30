@@ -5,6 +5,7 @@ import { action } from "@storybook/addon-actions";
 import { boolean } from "@storybook/addon-knobs";
 import { JobDetails } from "../../components/JobBuilder/Details/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
+import fakeClassifications from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Job Poster Builder|Details", module).addDecorator(
   withIntl,
@@ -24,6 +25,7 @@ stories
     (): React.ReactElement => (
       <JobDetails
         job={null}
+        classifications={fakeClassifications()}
         handleSubmit={handleSubmit}
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
@@ -38,6 +40,7 @@ stories
     (): React.ReactElement => (
       <JobDetails
         job={fakeJob()}
+        classifications={fakeClassifications()}
         handleSubmit={handleSubmit}
         handleReturn={action("Save and Return")}
         handleModalCancel={action("Modal Cancelled")}
