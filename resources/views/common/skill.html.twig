@@ -79,7 +79,7 @@
         {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if skill_declaration %}complete{% endif %}
         modal-target-object"
-    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="{{ route("skill_declarations.destroy", ":id") }}" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
+    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
     <button class="accordion-trigger" data-c-accordion-trigger tabindex="0" type="button"
         {% if skill_declaration == false %}
             aria-expanded="true"
