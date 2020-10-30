@@ -453,6 +453,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -472,6 +475,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -491,10 +497,10 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
-            },
-            Object {
-              "key": "EX",
             },
           ],
           "description": Object {
@@ -513,7 +519,10 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
-              "key": "EX",
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
+              "key": "CS",
             },
           ],
           "description": Object {
@@ -532,6 +541,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -551,6 +563,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 2,
               "key": "EX",
             },
           ],
@@ -877,6 +892,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -896,6 +914,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -915,10 +936,10 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
-            },
-            Object {
-              "key": "EX",
             },
           ],
           "description": Object {
@@ -937,7 +958,10 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
-              "key": "EX",
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
+              "key": "CS",
             },
           ],
           "description": Object {
@@ -956,6 +980,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 1,
               "key": "CS",
             },
           ],
@@ -975,6 +1002,9 @@ If you have on-the-job learning or other non-conventional training that you beli
         Object {
           "classifications": Array [
             Object {
+              "defaultMessage": "",
+              "description": "",
+              "id": 2,
               "key": "EX",
             },
           ],
