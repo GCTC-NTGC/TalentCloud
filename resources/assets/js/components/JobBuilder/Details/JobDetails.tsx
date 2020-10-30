@@ -48,7 +48,10 @@ import { formMessages, educationMessages } from "./JobDetailsMessages";
 import { hasKey, objectMap } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { classificationsExtractKeyValueJsonArray, classificationsExtractKeyValueJson } from "../../../store/Classification/classificationSelector";
+import {
+  classificationsExtractKeyValueJsonArray,
+  classificationsExtractKeyValueJson,
+  getClassificationKey } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
@@ -175,11 +178,6 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = function(classifications : Classification[], classification: number | string): string {
-  let lClassification : Classification = classifications.filter(c => c.id == classification)[0]
-  return lClassification ? lClassification.key : ""
-}
-
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
 };
@@ -189,9 +187,9 @@ const getEducationMsgForClassification = (
   classification: number | string,
   intl: IntlShape,
 ): string => {
-  return hasKey(educationMessages, classificationCode(classifications, Number(classification)))
+  return hasKey(educationMessages, getClassificationKey(classifications, Number(classification)))
     ? intl.formatMessage(
-        educationMessages[classificationCode(classifications, Number(classification))],
+        educationMessages[getClassificationKey(classifications, Number(classification))],
       )
     : intl.formatMessage(educationMessages.classificationNotFound);
 };
