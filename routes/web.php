@@ -184,10 +184,6 @@ Route::group(
                         ->middleware('can:update,applicant')
                         ->name('profile.about.edit');
 
-                    Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@update')
-                        ->middleware('can:update,applicant')
-                        ->name('profile.about.update');
-
                     /* Profile - My Experience */
                     Route::get('profile/experience', 'ExperienceController@editAuthenticated');
 

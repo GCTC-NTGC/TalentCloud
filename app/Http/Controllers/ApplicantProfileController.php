@@ -6,10 +6,8 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Models\Lookup\ApplicantProfileQuestion;
 use App\Models\Applicant;
-use App\Models\ApplicantProfileAnswer;
 use App\Http\Controllers\Controller;
 use App\Models\JobPoster;
-use App\Services\Validation\Requests\UpdateApplicationProfileValidator;
 use App\Services\Validation\Rules\LinkedInUrlRule;
 use App\Services\Validation\Rules\TwitterHandleRule;
 use Facades\App\Services\WhichPortal;
@@ -143,57 +141,11 @@ class ApplicantProfileController extends Controller
                 // Applicant Profile Questions.
                 'applicant_profile_questions' => $profileQuestionForms,
                 // Update route.
-                'form_submit_action' => route('profile.about.update', $applicant),
+                'form_submit_action' => '',
                 'linkedInUrlPattern' => $linkedInUrlPattern,
                 'twitterHandlePattern' => $twitterHandlePattern,
                 'custom_breadcrumbs' => $custom_breadcrumbs,
             ]
         );
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request   Incoming request.
-     * @param  \App\Models\Applicant    $applicant Applicant object to update.
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Applicant $applicant)
-    {
-        $questions = ApplicantProfileQuestion::all();
-
-        $validator = new UpdateApplicationProfileValidator($applicant);
-        $validator->validate($request->all());
-
-        foreach ($questions as $question) {
-            $answerName = $this->answerFormInputName . '.' . $question->id;
-            if ($request->has($answerName)) {
-                $answer = ApplicantProfileAnswer::where(
-                    [
-                        'applicant_id' => $applicant->id,
-                        'applicant_profile_question_id' => $question->id
-                    ]
-                )->first();
-                if ($answer == null) {
-                    $answer = new ApplicantProfileAnswer();
-                    $answer->applicant_id = $applicant->id;
-                    $answer->applicant_profile_question_id = $question->id;
-                }
-                $answer->answer = $request->input($answerName);
-                $answer->save();
-            }
-        }
-
-        $input = $request->input();
-        $applicant->fill(
-            [
-                'tagline' => $input['tagline'],
-                'twitter_username' => $input['twitter_username'],
-                'linkedin_url' => $input['linkedin_url'],
-            ]
-        );
-        $applicant->save();
-
-        return redirect()->route('profile.about.edit', $applicant);
     }
 }
