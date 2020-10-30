@@ -103,6 +103,13 @@ const createStep = (
           </a>
         </li>
       );
+    case "loading":
+      return (
+        <li key={link.title} title={link.title}>
+          <span data-c-visibility="invisible">{link.text}</span>
+          <i className="fas fa-spinner fa-spin" data-c-color="white" />
+        </li>
+      );
     default:
       return (
         <li key={link.title} title={link.title}>

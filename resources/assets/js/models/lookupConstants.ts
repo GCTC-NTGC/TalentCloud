@@ -220,7 +220,12 @@ export type ApplicationStep =
   | "review"
   | "submission";
 
-export type ProgressBarStatus = "default" | "complete" | "error" | "current";
+export type ProgressBarStatus =
+  | "default"
+  | "complete"
+  | "error"
+  | "current"
+  | "loading";
 
 export function getKeyByValue(object, value): string {
   return (

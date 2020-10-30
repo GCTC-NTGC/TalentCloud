@@ -34,8 +34,8 @@ export function makeProgressBarSteps(
     // eslint-disable-next-line no-nested-ternary
     return step === currentStep
       ? "current"
-      : steps[step] === "error" && stepsUpdateInProgress
-      ? "default"
+      : steps[step] !== "default" && stepsUpdateInProgress
+      ? "loading"
       : steps[step];
   };
   return [
