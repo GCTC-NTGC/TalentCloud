@@ -567,18 +567,6 @@ Route::group(
         /* Require being logged in */
         Route::middleware(['auth'])->group(function (): void {
 
-            Route::delete('courses/{course}', 'CourseController@destroy')
-                ->middleware('can:delete,course')
-                ->name('courses.destroy');
-
-            Route::delete('degrees/{degree}', 'DegreeController@destroy')
-                ->middleware('can:delete,degree')
-                ->name('degrees.destroy');
-
-            Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
-                ->middleware('can:delete,workExperience')
-                ->name('work_experiences.destroy');
-
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
                 ->name('applications.destroy');
