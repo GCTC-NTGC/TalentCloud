@@ -33,13 +33,14 @@ export const classificationsExtractKeyValueJson = function(classifications) : JS
   return output
 }
 
+export const getClassificationKey = function(classifications : Classification[], classification: number | string): string {
+  let lClassification : Classification = classifications.filter(c => c.id == classification)[0]
+  return lClassification ? lClassification.key : ""
+}
+
 // Get a classification from the redux state by passing in an ID
 export const getClassificationById = (
   state: RootState,
   id: number,
 ): Classification  =>
   getClassificationState(state)[id]
-
-
-
-
