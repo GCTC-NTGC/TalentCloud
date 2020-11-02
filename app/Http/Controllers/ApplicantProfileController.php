@@ -91,7 +91,7 @@ class ApplicantProfileController extends Controller
     public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
-        return redirect(route('profile.about.edit', $applicant));
+        return redirect(route('profile.experience.edit', $applicant));
     }
 
     /**
