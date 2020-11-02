@@ -30,10 +30,14 @@ const handleDeptChange = (event: Event): void => {
   if (event.target instanceof HTMLSelectElement) {
     const { value } = event.target;
     const NOT_IN_GOV = "0";
+    const govEmailInput = getGovEmailInput();
     if (value !== null && value !== "" && value !== NOT_IN_GOV) {
       showGovEmail();
     } else {
       hideGovEmail();
+      if (govEmailInput !== null) {
+        govEmailInput.value = "";
+      }
     }
   }
 };
