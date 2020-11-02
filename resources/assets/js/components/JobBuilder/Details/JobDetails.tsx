@@ -1034,7 +1034,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        classificationsExtractKeyValueJsonArray(classifications),
+                        classificationsExtractKeyValueJson(classifications),
                         values.classification,
                       )}
                       level={String(values.level)}
