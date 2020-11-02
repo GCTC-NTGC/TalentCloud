@@ -105,6 +105,7 @@ test("Job Poster Builder - New Job", async (t) => {
     .ok()
     .expect(Selector("p").withText("Ontario").visible)
     .ok()
+    .wait(10000)
     .expect(Selector("p").withText("AS").visible)
     .ok()
     .expect(Selector("p").withText("3").visible)
