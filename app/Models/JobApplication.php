@@ -570,7 +570,6 @@ class JobApplication extends BaseModel
     public function jobApplicationSteps(): array
     {
         $this->attachSteps();
-        $this->save();
         $setState = function (bool $touched, bool $isValid) {
             return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
         };
