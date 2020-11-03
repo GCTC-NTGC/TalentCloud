@@ -28,9 +28,8 @@ import {
   useJob,
   useSkills,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { touchApplicationStep } from "../../../store/Application/applicationActions";
-import { ApplicationStepId } from "../../../models/lookupConstants";
 
 interface SkillsPageProps {
   applicationId: number;
@@ -57,6 +56,12 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const experienceSkills = useExperienceSkills(applicationId, application);
   const skills = useSkills();
   const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
 
   const showLoadingState =
     application === null || job === null || !experiencesLoaded || !skillsLoaded;
@@ -95,7 +100,6 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = async (): Promise<void> => {
-    await dispatch(touchApplicationStep(applicationId, ApplicationStepId.fit));
     navigate(applicationFit(locale, applicationId));
   };
 
@@ -105,7 +109,13 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step03)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "skills")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "skills",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

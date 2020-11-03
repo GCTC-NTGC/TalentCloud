@@ -26,13 +26,10 @@ import {
   useJobPosterQuestions,
   useSkills,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 import { loadingMessages } from "../applicationMessages";
-import {
-  updateApplication as updateApplicationAction,
-  touchApplicationStep,
-} from "../../../store/Application/applicationActions";
-import { ApplicationStepId } from "../../../models/lookupConstants";
+import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 
 interface ReviewPageProps {
   applicationId: number;
@@ -65,6 +62,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
   const skills = useSkills();
   const steps = useJobApplicationSteps();
 
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "review",
+    dispatch,
+  );
+
   const handleSave = (values: ReviewFormValues): Promise<void> => {
     if (application === null) {
       // We shouldn't expect this to handler to trigger before application is loaded, but just to be sure.
@@ -91,9 +94,6 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
     window.location.href = applicationIndex(locale);
   };
   const handleContinue = async (): Promise<void> => {
-    await dispatch(
-      touchApplicationStep(applicationId, ApplicationStepId.submission),
-    );
     navigate(applicationSubmission(locale, applicationId));
   };
 
@@ -116,7 +116,13 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({ applicationId }) => {
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step05)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "review")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "review",
+            stepsAreUpdating,
+          )}
         />
       )}
       {allDataLoaded &&

@@ -75,6 +75,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
 
   return (
     <Formik
+      enableReinitialize
       innerRef={formRef}
       initialValues={initialValues}
       validationSchema={validationSchema}

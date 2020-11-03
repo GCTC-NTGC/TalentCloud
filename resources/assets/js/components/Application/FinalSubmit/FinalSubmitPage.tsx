@@ -18,6 +18,7 @@ import {
   useFetchAllApplicationData,
   useJob,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 import { updateApplication } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
@@ -40,6 +41,12 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "submission",
+    dispatch,
+  );
 
   const handleSubmit = async (
     completeApplication: ApplicationNormalized,
@@ -64,7 +71,13 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step06)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "submission")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "submission",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

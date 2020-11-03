@@ -1,44 +1,20 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useIntl, FormattedMessage } from "react-intl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { Experience } from "../../../models/types";
 import { navigate } from "../../../helpers/router";
 import { applicationSkills } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import { DispatchType } from "../../../configureStore";
-import { RootState } from "../../../store/store";
-import {
-  getApplicationById,
-  getApplicationIsUpdating,
-} from "../../../store/Application/applicationSelector";
-import { fetchApplication } from "../../../store/Application/applicationActions";
-import { getJob, getJobIsUpdating } from "../../../store/Job/jobSelector";
-import { fetchJob } from "../../../store/Job/jobActions";
-import {
-  getExperienceByApplicant,
-  getExperienceByApplication,
-  getUpdatingByApplicant,
-  getUpdatingByApplication,
-} from "../../../store/Experience/experienceSelector";
-import {
-  fetchExperienceByApplicant,
-  fetchExperienceByApplication,
-} from "../../../store/Experience/experienceActions";
-import { ApplicationStatusId } from "../../../models/lookupConstants";
-import {
-  getSkills,
-  getSkillsUpdating,
-} from "../../../store/Skill/skillSelector";
-import { fetchSkills } from "../../../store/Skill/skillActions";
 import { loadingMessages } from "../applicationMessages";
 import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
   useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface SkillsIntroPageProps {
@@ -62,6 +38,12 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
   const steps = useJobApplicationSteps();
   const closeDate = job?.close_date_time ?? null;
 
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
+
   const handleContinue = (): void => {
     navigate(applicationSkills(locale, applicationId));
   };
@@ -72,7 +54,13 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step03)}
-          steps={makeProgressBarSteps(applicationId, steps, intl, "skills")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "skills",
+            stepsAreUpdating,
+          )}
         />
       )}
       {!application && (

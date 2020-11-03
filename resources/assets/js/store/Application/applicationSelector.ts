@@ -145,3 +145,6 @@ export const getJobApplicationSteps = (
   state: RootState,
 ): { [step in ApplicationStep]: ProgressBarStatus } =>
   entities(state).jobApplicationSteps;
+
+export const getStepsAreUpdating = (state: RootState): boolean =>
+  ui(state).updatingSteps;
