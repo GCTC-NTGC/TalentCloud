@@ -120,6 +120,7 @@ class JobApplication extends BaseModel
         'language_requirement_confirmed',
         'language_test_confirmed',
         'education_requirement_confirmed',
+        'version_id',
         'veteran_status_id',
         'preferred_language_id',
         'submission_signature',
@@ -233,7 +234,7 @@ class JobApplication extends BaseModel
 
     public function job_application_version() //phpcs:ignore
     {
-        return $this->hasOne(\App\Models\JobApplicationVersion::class);
+        return $this->hasOne(\App\Models\JobApplicationVersion::class, 'version_id');
     }
 
     public function security_clearance() //phpcs:ignore
