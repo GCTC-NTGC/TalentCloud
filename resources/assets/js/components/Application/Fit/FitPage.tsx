@@ -63,7 +63,6 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
       : await dispatch(createJobApplicationAnswer(answer));
 
     if (!result.error) {
-      await dispatch(fetchApplication(applicationId));
       const payload = await result.payload;
       return payload;
     }
