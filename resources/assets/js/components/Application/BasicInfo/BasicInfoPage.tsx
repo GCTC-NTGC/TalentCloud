@@ -63,7 +63,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const handleContinue = async (
     values: ApplicationNormalized,
   ): Promise<void> => {
-    Promise.all([await updateApplication(values)]);
+    await updateApplication(values);
     navigate(applicationExperienceIntro(locale, applicationId));
   };
   const handleReturn = async (values: ApplicationNormalized): Promise<void> => {
