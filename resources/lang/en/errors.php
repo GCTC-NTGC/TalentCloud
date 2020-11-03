@@ -37,6 +37,6 @@ return [
                 'url' => '/indigenous',
             ],
         ],
-        'paragraph2' => 'If you still haven\'t found what you\'re looking for please get in touch with us directly.',
+        'paragraph2' => 'If you still haven\'t found what you\'re looking for please <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">get in touch with us directly</a>.',
     ],
 ];
