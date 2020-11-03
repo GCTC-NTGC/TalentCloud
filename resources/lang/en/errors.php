@@ -15,7 +15,7 @@ return [
     'illegal_status_transition' => 'Changing status from :from to :to is not allowed.',
     'bad_url' => 'The url is malformed or used an unsupported query parameter.',
     'email_missing_delivery_address' => 'Unable to send an email with no delivery address.',
-    '404' => [
+    'default' => [
         'title' => 'Page not found',
         'header' => 'Sorry, we can\'t find the page you were looking for.',
         'paragraph1' => 'Oops, it looks like you\'ve landed on a page that either doesn\'t exist or has moved. That\'s okay, here are a few options for other pages that may help you get rolling.',

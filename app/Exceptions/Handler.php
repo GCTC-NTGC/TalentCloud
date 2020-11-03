@@ -174,15 +174,7 @@ class Handler extends ExceptionHandler
                 'exception' => $e,
                 'goc' => Lang::get('common/goc'),
                 'alert' => Lang::get('common/alert'),
-                'error' => [
-                    'title' => 'Error'
-                ]
-            ], $e->getStatusCode(), $e->getHeaders());
-        } elseif ($e->getStatusCode() === 404 && view()->exists('errors.404')) {
-            return response()->view('errors.404', [
-                'goc' => Lang::get('common/goc'),
-                'alert' => Lang::get('common/alert'),
-                'error' => Lang::get('errors')['404'],
+                'error' => Lang::get('errors')['default'],
             ], $e->getStatusCode(), $e->getHeaders());
         }
         return parent::renderHttpException($e);
