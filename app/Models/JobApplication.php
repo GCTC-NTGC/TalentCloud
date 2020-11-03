@@ -534,24 +534,30 @@ class JobApplication extends BaseModel
     public function attachSteps(): void
     {
         if ($this->touched_application_steps->isEmpty()) {
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'basic')->first()->id,
-            ]);
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'experience')->first()->id,
-            ]);
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'skills')->first()->id,
-            ]);
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'fit')->first()->id,
-            ]);
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'review')->first()->id,
-            ]);
-            $this->touched_application_steps()->create([
-                'step_id' =>  JobApplicationStep::where('name', 'submission')->first()->id,
-            ]);
+            $basicStep = new TouchedApplicationStep();
+            $basicStep->step_id = JobApplicationStep::where('name', 'basic')->first()->id;
+            $this->touched_application_steps()->save($basicStep);
+
+            $experienceStep = new TouchedApplicationStep();
+            $experienceStep->step_id = JobApplicationStep::where('name', 'experience')->first()->id;
+            $this->touched_application_steps()->save($experienceStep);
+
+            $skillsStep = new TouchedApplicationStep();
+            $skillsStep->step_id = JobApplicationStep::where('name', 'skills')->first()->id;
+            $this->touched_application_steps()->save($skillsStep);
+
+            $fitStep = new TouchedApplicationStep();
+            $fitStep->step_id = JobApplicationStep::where('name', 'fit')->first()->id;
+            $this->touched_application_steps()->save($fitStep);
+
+            $reviewStep = new TouchedApplicationStep();
+            $reviewStep->step_id = JobApplicationStep::where('name', 'review')->first()->id;
+            $this->touched_application_steps()->save($reviewStep);
+
+            $submissionStep = new TouchedApplicationStep();
+            $submissionStep->step_id = JobApplicationStep::where('name', 'submission')->first()->id;
+            $this->touched_application_steps()->save($submissionStep);
+            $this->save();
         };
     }
 
@@ -563,6 +569,7 @@ class JobApplication extends BaseModel
      */
     public function jobApplicationSteps(): array
     {
+        $this->attachSteps();
         $this->save();
         $setState = function (bool $touched, bool $isValid) {
             return !$touched ? 'default' : ($isValid ? 'complete' : 'error');

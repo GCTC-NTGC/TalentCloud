@@ -25,8 +25,6 @@ class TouchedApplicationStep extends BaseModel
     ];
 
     protected $fillable = [
-      'job_application_id',
-      'step_id',
       'touched'
     ];
 
