@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/camelcase */
+import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
@@ -16,15 +19,21 @@ export const parseApplicationResponse = (
 ): {
   application: Application;
   jobApplicationAnswers: JobApplicationAnswer[];
+  jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
 } => {
+  const { job_application_steps, job_application_answers } = data;
   const application: Application = parseApplication(data);
-  const jobApplicationAnswers: JobApplicationAnswer[] = data.job_application_answers.map(
+  const jobApplicationAnswers: JobApplicationAnswer[] = job_application_answers.map(
     (answersData: any): JobApplicationAnswer => answersData,
   );
+  const jobApplicationSteps: {
+    [step in ApplicationStep]: ProgressBarStatus;
+  } = job_application_steps;
 
   return {
     application,
     jobApplicationAnswers,
+    jobApplicationSteps,
   };
 };
 
@@ -38,6 +47,10 @@ export interface ReferenceEmailResponse {
 }
 export const parseReferenceEmails = (data: any): ReferenceEmailResponse => data;
 export const parseSingleReferenceEmail = (data: any): Email => data;
+
+export const parseApplicationStep = (
+  data: any,
+): { [step in ApplicationStep]: ProgressBarStatus } => data;
 
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;
@@ -59,3 +72,9 @@ export const getSendReferenceEmailEndpoint = (
   referenceType: "director" | "secondary",
 ): string =>
   `${baseUrl()}/applications/${applicationId}/reference-emails/${referenceType}/send`;
+
+export const getTouchApplicationStepEndpoint = (
+  applicationId: number,
+  stepId: number,
+): string =>
+  `${getApplicationEndpoint(applicationId)}/job-application-steps/${stepId}`;

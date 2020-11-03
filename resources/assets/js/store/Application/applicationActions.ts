@@ -26,11 +26,17 @@ import {
   parseSingleReferenceEmail,
   getApplicationBasicEndpoint,
   parseApplicationResponse,
+  getTouchApplicationStepEndpoint,
+  parseApplicationStep,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
   UpdateJobApplicationAnswerAction,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -43,6 +49,7 @@ export type FetchApplicationAction = AsyncFsaActions<
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
   },
   { id: number }
 >;
@@ -56,6 +63,7 @@ export const fetchApplication = (
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [key in string]: ProgressBarStatus };
   },
   { id: number }
 > =>
@@ -237,6 +245,41 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
+export const TOUCH_JOB_APPLICATION_STEP_STARTED =
+  "APPLICATION: TOUCH STEP STARTED";
+export const TOUCH_JOB_APPLICATION_STEP_SUCCEEDED =
+  "APPLICATION: TOUCH STEP SUCCEEDED";
+export const TOUCH_JOB_APPLICATION_STEP_FAILED =
+  "APPLICATION: TOUCH STEP FAILED";
+
+export type TouchJobApplicationStepAction = AsyncFsaActions<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+>;
+
+export const touchApplicationStep = (
+  applicationId: number,
+  stepId: number,
+): RSAActionTemplate<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+> =>
+  asyncPut(
+    getTouchApplicationStepEndpoint(applicationId, stepId),
+    [],
+    TOUCH_JOB_APPLICATION_STEP_STARTED,
+    TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+    TOUCH_JOB_APPLICATION_STEP_FAILED,
+    parseApplicationStep,
+    { applicationId, stepId },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
@@ -245,4 +288,5 @@ export type ApplicationAction =
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction
-  | UpdateJobApplicationAnswerAction;
+  | UpdateJobApplicationAnswerAction
+  | TouchJobApplicationStepAction;

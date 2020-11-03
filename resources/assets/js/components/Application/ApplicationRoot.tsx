@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { useIntl, defineMessages } from "react-intl";
 import RootContainer from "../RootContainer";
-import { RouterResult, useRouter, Link } from "../../helpers/router";
+import { RouterResult, useRouter } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";

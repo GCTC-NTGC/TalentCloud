@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
 use App\Models\JobApplication;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\JobApplicationStep;
 use App\Models\Lookup\VeteranStatus;
 
 class ApplicationControllerTest extends TestCase
@@ -109,5 +110,58 @@ class ApplicationControllerTest extends TestCase
             ->json('put', "$this->baseUrl/applications/$application->id/basic", $invalid);
         $response->assertStatus(422);
         $response->assertJsonFragment(['message' => 'The given data was invalid.']);
+    }
+
+    public function testTouchJobApplicationStep(): void
+    {
+        $applicant = factory(Applicant::class)->create();
+        // Set basic info step values to pass validation.
+        $application = factory(JobApplication::class)->states('draft')->create([
+            'applicant_id' => $applicant->id,
+            'language_requirement_confirmed' => true,
+            'education_requirement_confirmed' => true,
+            'language_test_confirmed' => true,
+        ]);
+        $defaultJobApplicationSteps = [
+            'basic' => 'default',
+            'experience' => 'default',
+            'skills' => 'default',
+            'fit' => 'default',
+            'review' => 'default',
+            'submission' => 'default',
+        ];
+
+        $basicStep = JobApplicationStep::where('name', 'basic')->first();
+        $application->attachSteps();
+        $application->refresh();
+
+        // Assert that the basic step is set to touch after request a request.
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/job-application-steps/$basicStep->id", []);
+        $response->assertOk();
+
+        // Expect the basic step to be set to touch and the validation to pass.
+        $application->refresh();
+        $expectedJobApplicationSteps = array_replace($defaultJobApplicationSteps, ['basic' => 'complete']);
+        $response->assertJsonFragment($expectedJobApplicationSteps);
+
+        // Assert that the experience step is set to touch after request a request.
+        $experienceStep = JobApplicationStep::where('name', 'experience')->first();
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/job-application-steps/$experienceStep->id", []);
+        $response->assertOk();
+
+        // Expect the experience step to be set to touch and the validation to fail.
+        $application->refresh();
+        $expectedJobApplicationSteps = array_replace($expectedJobApplicationSteps, ['experience' => 'error']);
+        $response->assertJsonFragment($expectedJobApplicationSteps);
+
+        // Test calling the basic step again to ensure it doesn't make any unexpected changes.
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/job-application-steps/$basicStep->id", []);
+        $response->assertOk();
+
+        $application->refresh();
+        $response->assertJsonFragment($expectedJobApplicationSteps);
     }
 }

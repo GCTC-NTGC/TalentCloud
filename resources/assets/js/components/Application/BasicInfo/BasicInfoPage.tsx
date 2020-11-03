@@ -20,6 +20,8 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface BasicInfoPageProps {
@@ -39,6 +41,13 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "basic",
+    dispatch,
+  );
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
@@ -77,9 +86,10 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
           currentTitle={intl.formatMessage(stepNames.step01)}
           steps={makeProgressBarSteps(
             applicationId,
-            application,
+            steps,
             intl,
             "basic",
+            stepsAreUpdating,
           )}
         />
       )}
