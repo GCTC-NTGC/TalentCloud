@@ -23,13 +23,12 @@ class ApplicationTimelineController extends TestCase
         $application = factory(JobApplication::class)->states(['draft', 'version2'])->create([
             'applicant_id' => $applicant->id
         ]);
-        $application->refresh();
 
         $applicationRoute = function () use ($application) {
-            return route('applications.show', ['jobApplication' => $application]);
+            return route('application.timeline', ['jobApplication' => $application]);
         };
         $applicationStepRoute = function ($step) use ($application) {
-            return route('applications.show.step', ['jobApplication' => $application, 'step' => $step]);
+            return route('application.timeline.step', ['jobApplication' => $application, 'step' => $step]);
         };
 
         // New applications should be redirected to welcome page.

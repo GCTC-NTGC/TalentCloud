@@ -83,8 +83,10 @@ Route::group(
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@showDemo')->middleware('localOnly')->name('application.timeline');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@showDemo')->middleware('localOnly')->name('application.timeline.step');
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
+                ->name('application.timeline');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                ->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -136,15 +138,6 @@ Route::group(
                     Route::get('applications/{application}', 'ApplicationController@show')
                         ->middleware('can:view,application')
                         ->name('applications.show');
-
-                    /* Application Timeline */
-                    // TODO: Remove timeline from url
-                    Route::get('timeline/applications/{jobApplication}', 'ApplicationTimelineController@show')
-                        ->middleware('can:view,jobApplication')
-                        ->name('applications.show');
-                    Route::get('timeline/applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                        ->middleware('can:view,jobApplication')
-                        ->name('applications.show.step');
 
                     /* Step 01 */
                     Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');

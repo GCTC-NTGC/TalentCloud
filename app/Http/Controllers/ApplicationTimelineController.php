@@ -63,31 +63,16 @@ class ApplicationTimelineController extends Controller
                 ]);
             } else {
                 return redirect(
-                    route('applications.show.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                    route('application.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
                 );
             }
         } else {
             // If no step has been entered (/application/id) then redirect user to the last touched step.
             // If no step has been touched, then take them to welcome step.
             return redirect(
-                route('applications.show.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                route('application.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
             );
         }
-    }
-
-    /**
-     * Display job application.
-     *
-     * @param  \App\Models\JobApplication $application Incoming Application object.
-     * @return \Illuminate\Http\Response
-    */
-    public function showDemo(JobApplication $jobApplication, string $requestedStep = null)
-    {
-        return view('applicant/application-timeline-root')
-                ->with([
-                    'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
-                    'disable_clone_js' => true,
-                ]);
     }
 
     /**
