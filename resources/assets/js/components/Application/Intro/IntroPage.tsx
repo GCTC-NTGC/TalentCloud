@@ -64,9 +64,7 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
           {intl.formatMessage(loadingMessages.loading)}
         </h2>
       )}
-      {application !== null && job !== null && (
-        <Intro handleStart={handleContinue} />
-      )}
+      <Intro handleStart={handleContinue} />
     </>
   );
 };
