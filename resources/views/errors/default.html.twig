@@ -20,7 +20,7 @@
 				{% endfor %}
 			</ul>
 			<p>
-				{{ error.paragraph2 }}
+				{{ error.paragraph2|replace({"%link0%": section.links[0] })|raw|nl2br }}
 			</p>
 		</div>
 	</section>
