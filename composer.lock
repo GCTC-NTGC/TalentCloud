@@ -1933,27 +1933,23 @@
         },
         {
             "name": "laravel/ui",
-            "version": "v2.4.1",
+            "version": "v2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/ui.git",
-                "reference": "1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c"
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/ui/zipball/1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c",
-                "reference": "1c69ae3e8b52fe6c9eaf83b43c6dd8ef5c3f9e2c",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/d01a705763c243b07be795e9d1bb47f89260f73d",
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d",
                 "shasum": ""
             },
             "require": {
                 "illuminate/console": "^7.0",
                 "illuminate/filesystem": "^7.0",
                 "illuminate/support": "^7.0",
-                "php": "^7.2.5"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^8.0"
+                "php": "^7.2.5|^8.0"
             },
             "type": "library",
             "extra": {
@@ -1984,7 +1980,7 @@
                 "laravel",
                 "ui"
             ],
-            "time": "2020-09-22T16:51:51+00:00"
+            "time": "2020-11-03T19:45:19+00:00"
         },
         {
             "name": "league/commonmark",
