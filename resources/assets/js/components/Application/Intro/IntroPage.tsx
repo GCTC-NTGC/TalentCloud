@@ -39,7 +39,6 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
     return navigate(applicationBasic(locale, applicationId));
   };
   const closeDate = job?.close_date_time ?? null;
-  const showLoadingState = application === null || job === null;
   return (
     <>
       {application !== null && (
@@ -54,15 +53,6 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
             false,
           )}
         />
-      )}
-      {showLoadingState && (
-        <h2
-          data-c-heading="h2"
-          data-c-align="center"
-          data-c-padding="top(2) bottom(3)"
-        >
-          {intl.formatMessage(loadingMessages.loading)}
-        </h2>
       )}
       <Intro handleStart={handleContinue} />
     </>
