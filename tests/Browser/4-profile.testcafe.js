@@ -8,6 +8,7 @@ import {
   PROFILE_PORTFOLIO,
   PROFILE_SKILLS,
 } from "./helpers/constants";
+import { educationModal } from "./helpers/experiencePage";
 
 fixture(`Critical - Applicant Profile`).page(HOMEPAGE).meta("travis", "run");
 
@@ -39,74 +40,29 @@ test("Applicant Profile - My Experience", async (t) => {
     .useRole(emptyApplicantUser)
     // Go to My Experience page.
     .navigateTo(PROFILE_EXPERIENCE)
-    .expect(Selector("h1").withText("My Experience").visible)
-    .ok()
-    // Add new diploma.
-    .click(Selector("button").withText("Add Diploma/Degree"))
-    .click(Selector("select").withAttribute("id", "degrees[new][1]degreeType"))
-    .click(
-      Selector("select")
-        .withAttribute("id", "degrees[new][1]degreeType")
-        .find("option")
-        .withAttribute("value", "4"),
-    )
-    .typeText(
-      Selector("input").withAttribute("id", "degrees[new][1]degreeArea"),
-      "Computer Science",
-    )
-    .typeText(
-      Selector("input").withAttribute("id", "degrees[new][1]degreeInstitution"),
-      "University of Phoenix",
-    )
-    .click(Selector("button").withAttribute("value", "degrees[new][1]"))
-    .expect(Selector("p").withText("Phd, Computer Science").visible)
-    .ok()
-    // Add new course.
-    .click(Selector("button").withText("Add Course/Certification"))
-    .typeText(
-      Selector("input").withAttribute("id", "courses[new][1]courseName"),
-      "Advanced Memes",
-    )
-    .typeText(
-      Selector("input").withAttribute("id", "courses[new][1]courseInstitution"),
-      "Yale University",
-    )
-    .click(
-      Selector("select").withAttribute("id", "courses[new][1]courseStatus"),
-    )
-    .click(
-      Selector("select")
-        .withAttribute("id", "courses[new][1]courseStatus")
-        .find("option")
-        .withAttribute("value", "2"),
-    )
-    .click(Selector("button").withAttribute("value", "courses[new][1]"))
-    .expect(Selector("p").withText("Advanced Memes").visible)
-    .ok()
-    // Add new experience.
-    .click(Selector("button").withText("Add Equivalent Experience"))
-    .typeText(
-      Selector("input").withAttribute("id", "work_experiences[new][1]workRole"),
-      "The boss",
-    )
-    .typeText(
-      Selector("input").withAttribute(
-        "id",
-        "work_experiences[new][1]workCompany",
-      ),
-      "My house",
-    )
-    .typeText(
-      Selector("textarea").withAttribute(
-        "id",
-        "work_experiences[new][1]workDescription",
-      ),
-      "It was the best of times, it was the worst of times.",
-    )
-    .click(
-      Selector("button").withAttribute("value", "work_experiences[new][1]"),
-    )
-    .expect(Selector("p").withText("The boss").visible)
+    .expect(Selector("h2").withText("My Experience").visible)
+    .ok();
+
+  const education = educationModal();
+
+  // Modal initially hidden.
+  await t.expect(education.container.getStyleProperty("opacity")).eql("0");
+  // Open modal.
+  await t.click(education.openBtn).wait(1000);
+  // Test that modal is visible.
+  await t.expect(education.container.getStyleProperty("opacity")).eql("1");
+  // Fill form.
+  await education.fillForm();
+  // Save experience.
+  await t.click(education.saveBtn).wait(10000);
+  // Test that modal closes.
+  await t.expect(education.container.getStyleProperty("opacity")).eql("0");
+  // Test that saved experience appears in an accordion.
+  await t.expect(education.accordion.exists).ok();
+  // Test that accordion can be opened by clicking on it.
+  await t
+    .click(education.accordion)
+    .expect(education.accordionBody.visible)
     .ok();
 });
 
