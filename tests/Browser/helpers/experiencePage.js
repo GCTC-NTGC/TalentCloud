@@ -69,14 +69,7 @@ export function educationModal() {
       .typeText(inputs.startDate, fakeValues.startDate)
       .typeText(inputs.endDate, fakeValues.endDate);
   };
-  /*
-   * Returns a selector for an accordion that matches the values entered in fillForm function.
-   */
-  const findAccordion = () => {
-    return Selector("div[data-c-accordion]").withText(
-      `${fakeValues.type} in ${fakeValues.areaOfStudy}`,
-    );
-  };
+  // A selector for an accordion that matches the values entered in fillForm function.
   const accordion = Selector("div[data-c-accordion]").withText(
     `${fakeValues.type} in ${fakeValues.areaOfStudy}`,
   );
@@ -87,7 +80,6 @@ export function educationModal() {
     inputs,
     fakeValues,
     fillForm,
-    findAccordion,
     accordion,
     accordionBody,
   };
