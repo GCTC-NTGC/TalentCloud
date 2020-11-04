@@ -310,6 +310,8 @@ class LangFilesTest extends BaseTranslationTest
         'manager-others',
         'hr',
         'hr-coming-soon',
+        '/faq',
+        '/',
     ];
 
     /**
