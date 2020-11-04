@@ -17,8 +17,8 @@ return [
     'email_missing_delivery_address' => 'Impossible d\'envoyer un courriel sans adresse de livraison.',
     'default' => [
         'title' => 'Page non trouvée',
-        'header' => '',
-        'paragraph1' => '',
+        'header' => 'Le système est incapable de trouver la page que vous cherchez.',
+        'paragraph1' => 'Il semble que la page à laquelle vous voulez accéder n\'existe pas ou a été déplacée. Ne vous en faites pas, voici quelques suggestions de pages qui pourraient vous aider à parvenir à vos fins.',
         'links' => [
             '1' => [
                 'title' => 'Accueil',
@@ -37,6 +37,6 @@ return [
                 'url' => '/indigenous',
             ],
         ],
-        'paragraph2' => '',
+        'paragraph2' => 'Si vous n\'avez toujours pas trouvé ce que vous cherchez, veuillez <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un courriel au Nuage de talents.">communiquer directement avec nous</a>.',
     ],
 ];
