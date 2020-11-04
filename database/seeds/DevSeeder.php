@@ -4,6 +4,7 @@ use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\Lookup\Department;
 use App\Models\ExperienceEducation;
 use App\Models\ExperienceSkill;
 use App\Models\ExperienceWork;
@@ -65,15 +66,25 @@ class DevSeeder extends Seeder // phpcs:ignore
      */
     public function run(): void
     {
+        /*
+        Get random department_id.
+        Use departmentId to ensure any jobs that are attached to a given user belong to that user's department.
+        */
+        $departmentId = Department::inRandomOrder()->first()->id;
+
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
-            $adminUser = factory(User::class)->state('admin')->create(['email' => $this->adminEmail]);
+            $adminUser = factory(User::class)->state('admin')->create([
+                'email' => $this->adminEmail,
+                'department_id' => $departmentId,
+            ]);
         }
 
         $hrUser = User::where('email', $this->hrAdvisorEmail)->first();
         if ($hrUser === null) {
             $hrUser = factory(User::class)->state('hr_advisor')->create([
                 'email' => $this->hrAdvisorEmail,
+                'department_id' => $departmentId,
             ]);
             $hrUser->hr_advisor()->save(factory(HrAdvisor::class)->create([
                 'user_id' => $hrUser->id,
@@ -83,14 +94,18 @@ class DevSeeder extends Seeder // phpcs:ignore
         $managerUser = User::where('email', $this->managerEmail)->first();
         // Create the test manager if it does not exist yet.
         if ($managerUser === null) {
-            $managerUser = factory(User::class)->state('upgradedManager')->create(['email' => $this->managerEmail]);
+            $managerUser = factory(User::class)->state('upgradedManager')->create([
+                'email' => $this->managerEmail,
+                'department_id' => $departmentId,
+            ]);
             $managerUser->manager()->save(factory(Manager::class)->create([
-                'user_id' => $managerUser->id
+                'user_id' => $managerUser->id,
             ]));
         }
 
         factory(JobPoster::class, 3)->state('live')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
@@ -104,7 +119,8 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
@@ -118,10 +134,12 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         });
         factory(JobPoster::class, 3)->state('draft')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ]);
         factory(JobPoster::class, 3)->state('review_requested')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ]);
 
         // Create a Job Poster with an Assessment Plan.
