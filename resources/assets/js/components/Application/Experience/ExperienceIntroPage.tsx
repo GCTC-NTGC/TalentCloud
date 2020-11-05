@@ -14,6 +14,8 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface ExperienceIntroPageProps {
@@ -33,6 +35,13 @@ export const ExperienceIntroPage: React.FunctionComponent<ExperienceIntroPagePro
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "experience",
+    dispatch,
+  );
 
   const handleStart = (): void =>
     navigate(applicationExperience(locale, applicationId));
@@ -52,9 +61,10 @@ export const ExperienceIntroPage: React.FunctionComponent<ExperienceIntroPagePro
         currentTitle={intl.formatMessage(stepNames.step02)}
         steps={makeProgressBarSteps(
           applicationId,
-          application,
+          steps,
           intl,
           "experience",
+          stepsAreUpdating,
         )}
       />
       <ExperienceIntro handleStart={handleStart} />

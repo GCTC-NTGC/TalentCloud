@@ -2,13 +2,11 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { date, text } from "@storybook/addon-knobs";
-import {
-  ProgressBar,
-  ProgressBarStepStatus,
-} from "../../components/Application/ProgressBar/ProgressBar";
+import { ProgressBar } from "../../components/Application/ProgressBar/ProgressBar";
 import { Link } from "../../models/app";
+import { ProgressBarStatus } from "../../models/lookupConstants";
 
-const steps: { link: Link; status: ProgressBarStepStatus }[] = [
+const steps: { link: Link; status: ProgressBarStatus }[] = [
   {
     link: { url: "/", text: "Step 1", title: "Step 1" },
     status: "complete",

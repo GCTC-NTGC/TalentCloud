@@ -66,7 +66,7 @@ interface EducationExperienceModalProps {
 export const messages = defineMessages({
   modalTitle: {
     id: "application.educationExperienceModal.modalTitle",
-    defaultMessage: "Add Education Experience",
+    defaultMessage: "Add Education",
   },
   modalDescription: {
     id: "application.educationExperienceModal.modalDescription",
@@ -121,7 +121,7 @@ export const messages = defineMessages({
   blockcertInlineLabel: {
     id: "application.educationExperienceModal.blockcertInlineLabel",
     defaultMessage:
-      "I have a Blockcert and can provide it on request. (Optional)",
+      "Yes, I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
     id: "application.educationExperienceModal.startDateLabel",

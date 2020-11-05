@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import TextInput from "../../Form/TextInput";
 import DateInput from "../../Form/DateInput";
 import { validationMessages } from "../../Form/Messages";
-import { Application } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import { navigationMessages } from "../applicationMessages";
 
 const messages = defineMessages({
@@ -40,20 +40,14 @@ const confirmationCriteria = defineMessages({
   },
   secondBullet: {
     id: "application.finalSubmit.confirmCriteria.secondBullet",
-    defaultMessage:
-      "I understand that I am a part of a community of people who trust each other.",
-    description: "Bullet point about the criteria before final submission.",
-  },
-  thirdBullet: {
-    id: "application.finalSubmit.confirmCriteria.thirdBullet",
     defaultMessage: "I promise that the information I've provided is true.",
     description: "Bullet point about the criteria before final submission.",
   },
 });
 
 interface FinalSubmitProps {
-  application: Application;
-  submitApplication: (application: Application) => Promise<void>;
+  application: ApplicationNormalized;
+  submitApplication: (application: ApplicationNormalized) => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
 }
@@ -73,8 +67,8 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
 
   const formValuesToData = (
     formValues: FinalSubmitFormValues,
-    initialApplication: Application,
-  ): Application => ({
+    initialApplication: ApplicationNormalized,
+  ): ApplicationNormalized => ({
     ...initialApplication,
     submission_signature: formValues.submissionSignature,
     submission_date: formValues.submissionDate,
@@ -98,16 +92,23 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
     <div data-c-container="medium">
       <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
         <FormattedMessage
-          id="application.finalSubmit."
+          id="application.finalSubmit.heading"
           defaultMessage="Final Submission"
           description="Heading text on the final submit step of the Application Timeline."
         />
       </h2>
-      <p data-c-margin="bottom(1)">
+      <p data-c-margin="bottom(1)" data-c-font-weight="bold">
         <FormattedMessage
           id="application.finalSubmit.confirmCriteriaHeading"
-          defaultMessage="You've made it! By signing your name below, you're confirming that:"
+          defaultMessage="You've made it!"
           description="Heading text before confirmation criteria list."
+        />
+      </p>
+      <p data-c-margin="bottom(1)">
+        <FormattedMessage
+          id="application.finalSubmit.confirmCriteria.firstSentence"
+          defaultMessage="I understand that I am a part of a community of people who trust each other and by signing my name below, I am confirming that:"
+          description="Sentence before confirmation criteria list."
         />
       </p>
       <ul data-c-margin="bottom(2)">
