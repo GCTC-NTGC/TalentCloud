@@ -322,7 +322,7 @@ export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
+        iconClass="fa-briefcase"
       />
       <Formik
         enableReinitialize

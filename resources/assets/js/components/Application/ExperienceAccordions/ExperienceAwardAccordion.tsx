@@ -6,12 +6,8 @@ import { readableDate } from "../../../helpers/dates";
 import { ExperienceAward, ExperienceSkill, Skill } from "../../../models/types";
 import {
   ApplicationExperienceAccordion,
-  ExperienceAccordionButtons,
-  ExperienceAccordionSkills,
-  ExperienceAccordionWrapper,
   ProfileExperienceAccordion,
 } from "./ExperienceAccordionCommon";
-import { getId, mapToObject } from "../../../helpers/queries";
 
 const ExperienceAwardDetails: React.FC<{
   experience: ExperienceAward;
