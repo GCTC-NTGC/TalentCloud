@@ -13,9 +13,12 @@ use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\ReviewStatus;
 use App\Models\Lookup\JobApplicationStep;
+use App\Services\Validation\ApplicationTimelineValidator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ApplicationController extends Controller
 {
@@ -49,6 +52,44 @@ class ApplicationController extends Controller
     }
 
     /**
+     * Validate and submit the Application.
+     *
+     * @param Request        $request     Incoming request object.
+     * @param JobApplication $application Incoming Job Application object.
+     *
+     * @return mixed
+     */
+    public function submit(Request $request, JobApplication $application)
+    {
+        if ($application->application_status->name == 'draft') {
+            $validator = new ApplicationTimelineValidator();
+            $application->fill([
+                'submission_signature' => $request->input('submission_signature'),
+                'submission_date' => $request->input('submission_date'),
+            ]);
+            $data = $validator->affirmationValidator($application)->validated();
+            $application->fill($data);
+            $application->save();
+
+            $applicationComplete = $validator->validateComplete($application);
+            if (!$applicationComplete) {
+                $userId = $application->applicant->user_id;
+                $msg = "Application $application->id for user $userId is invalid for submission: " .
+                implode('; ', $validator->detailedValidatorErrors($application));
+                Log::info($msg);
+
+                throw ValidationException::withMessages($validator->detailedValidatorErrors($application));
+            }
+
+            $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+            $application->saveProfileSnapshotTimeline();
+            $application->save();
+        }
+
+        return new JobApplicationBasicResource($application);
+    }
+
+    /**
      * Return a single Job Application.
      *
      * @param JobApplication $application Incoming Job Application object.
@@ -57,7 +98,13 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
-        $application->loadMissing('applicant', 'application_review', 'citizenship_declaration', 'veteran_status', 'job_application_answers');
+        $application->loadMissing(
+            'applicant',
+            'application_review',
+            'citizenship_declaration',
+            'veteran_status',
+            'job_application_answers'
+        );
         return new JobApplicationResource($application);
     }
 
