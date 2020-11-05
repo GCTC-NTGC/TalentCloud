@@ -557,6 +557,7 @@ class JobApplication extends BaseModel
             $submissionStep->step_id = JobApplicationStep::where('name', 'submission')->first()->id;
             $this->touched_application_steps()->save($submissionStep);
             $this->save();
+            $this->refresh();
         };
     }
 
