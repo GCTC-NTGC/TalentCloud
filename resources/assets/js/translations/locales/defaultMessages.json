@@ -183,7 +183,7 @@
         "id": "application.accordion.educationHeading"
       },
       {
-        "defaultMessage": "Education Experience",
+        "defaultMessage": "Education",
         "id": "application.accordion.educationType"
       },
       {
@@ -211,7 +211,7 @@
         "id": "application.accordion.educationBlockcertLabel"
       },
       {
-        "defaultMessage": "I have a Blockcert and can provide it on request.",
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request.",
         "id": "application.accordion.educationHasBlockcert"
       },
       {
@@ -277,9 +277,19 @@
         "id": "application.basicInfo.languageRequirementsHeading"
       },
       {
-        "defaultMessage": "My Experience",
+        "defaultMessage": "Your Experience",
         "description": "Heading for the Experience section of the Application.",
         "id": "application.experience.heading"
+      },
+      {
+        "defaultMessage": "UNKNOWN CLASSIFICATION",
+        "description": "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
+        "id": "application.education.missingClassification"
+      },
+      {
+        "defaultMessage": "Start writing here...",
+        "description": "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
+        "id": "application.skills.experienceSkillPlaceholder"
       },
       {
         "defaultMessage": "My Fit",
@@ -305,6 +315,11 @@
         "defaultMessage": "Save & Return to Previous Step",
         "description": "The text displayed on the Save & Return button of the Application form.",
         "id": "application.returnButtonLabel"
+      },
+      {
+        "defaultMessage": "Just a second...",
+        "description": "A message to inform the user that the page is incomplete because data is still being loaded.",
+        "id": "application.loading"
       }
     ],
     "path": "resources/assets/js/components/Application/applicationMessages.json"
@@ -362,7 +377,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "I understand that my second language proficiency will be tested as part of this process.",
+        "defaultMessage": "Yes, I understand that my second language proficiency will be tested as part of this process.",
         "description": "Label for language test checkbox in applicant timeline form.",
         "id": "application.basicInfo.languageTestLabel"
       },
@@ -377,7 +392,7 @@
         "id": "application.basicInfo.meetEducationRequirement"
       },
       {
-        "defaultMessage": "I meet this requirement and will provide details in the application.",
+        "defaultMessage": "Yes, I meet this requirement and will provide details in the application.",
         "description": "Label for education requirement section in applicant timeline form.",
         "id": "application.basicInfo.educationRequirementLabel"
       },
@@ -522,7 +537,7 @@
         "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "defaultMessage": "Please note that {skill} will be evaluated later in the hiring process.",
         "description": "List of soft skills that will be evaluated later.",
         "id": "application.experience.softSkillsList"
       },
@@ -542,7 +557,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Education Experience",
+        "defaultMessage": "Education",
         "description": "Type of experience: Education Experience.",
         "id": "application.experience.intro.educationExperience"
       },
@@ -752,7 +767,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Add Education Experience",
+        "defaultMessage": "Add Education",
         "id": "application.educationExperienceModal.modalTitle"
       },
       {
@@ -805,7 +820,7 @@
         "id": "application.educationExperienceModal.blockcertLabel"
       },
       {
-        "defaultMessage": "I have a Blockcert and can provide it on request. (Optional)",
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request. (Optional)",
         "id": "application.educationExperienceModal.blockcertInlineLabel"
       },
       {
@@ -899,7 +914,7 @@
         "id": "application.personalExperienceModal.isShareableLabel"
       },
       {
-        "defaultMessage": "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+        "defaultMessage": "Please acknowledge that this information is not sensitive in nature as it may be shared with the staff managing this job application.",
         "id": "application.personalExperienceModal.isShareableInlineLabel"
       },
       {
@@ -1044,24 +1059,24 @@
         "id": "application.finalSubmit.confirmCriteria.firstBullet"
       },
       {
-        "defaultMessage": "I understand that I am a part of a community of people who trust each other.",
+        "defaultMessage": "I promise that the information I've provided is true.",
         "description": "Bullet point about the criteria before final submission.",
         "id": "application.finalSubmit.confirmCriteria.secondBullet"
       },
       {
-        "defaultMessage": "I promise that the information I've provided is true.",
-        "description": "Bullet point about the criteria before final submission.",
-        "id": "application.finalSubmit.confirmCriteria.thirdBullet"
-      },
-      {
         "defaultMessage": "Final Submission",
         "description": "Heading text on the final submit step of the Application Timeline.",
-        "id": "application.finalSubmit."
+        "id": "application.finalSubmit.heading"
       },
       {
-        "defaultMessage": "You've made it! By signing your name below, you're confirming that:",
+        "defaultMessage": "<b>You've made it!</b>",
         "description": "Heading text before confirmation criteria list.",
         "id": "application.finalSubmit.confirmCriteriaHeading"
+      },
+      {
+        "defaultMessage": "I understand that I am a part of a community of people who trust each other and by signing my name below, I am confirming that:",
+        "description": "Sentence before confirmation criteria list.",
+        "id": "application.finalSubmit.confirmCriteria.firstSentence"
       },
       {
         "defaultMessage": "Submit Application",
@@ -1109,17 +1124,17 @@
         "id": "application.intro.heading"
       },
       {
-        "defaultMessage": "Before you begin we'd like to provide you with some information about what you can expect from our application process.",
+        "defaultMessage": "Before getting started, we'd like to provide you with some information about what you can expect from our application process.",
         "description": "First section of text on the intro step of the Application Timeline.",
         "id": "application.intro.preamble"
       },
       {
-        "defaultMessage": "Talent Cloud is a skills-based hiring platform, and <bold>this means that we're going to ask you about your experiences in a way that differs from a traditional resume format</bold>. The goal is to get a thorough understanding of the skills you have and how your past experiences have shaped them. This gives the manager reviewing your application a much stronger sense of your abilities.",
+        "defaultMessage": "Talent Cloud is a skills-based hiring platform, but what does that mean for you? Simply put, this means that <b>we're going to ask you about your experiences in a way that differs from a traditional resume format</b>. ",
         "description": "Paragraph explaining how TC differs from a traditional resumé.",
         "id": "application.intro.firstParagraph"
       },
       {
-        "defaultMessage": "We'll begin by asking you about your experiences, varying across academia, work, community, etc.",
+        "defaultMessage": "We'll start by asking you about your experiences, varying across academia, work, community, and more. Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position.",
         "description": "Bullet point about the beginning of the application process.",
         "id": "application.intro.firstBullet"
       },
@@ -1129,14 +1144,9 @@
         "id": "application.intro.secondBullet"
       },
       {
-        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you a ton of time.",
+        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you time and effort.",
         "description": "Paragraph explaining the time saving of the application and profile.",
         "id": "application.intro.secondParagraph"
-      },
-      {
-        "defaultMessage": "Ready to get started?",
-        "description": "Ending text to motivate the applicant to progress.",
-        "id": "application.intro.prompt"
       },
       {
         "defaultMessage": "Start My Application",
@@ -1212,6 +1222,11 @@
         "id": "application.review.editTitle"
       },
       {
+        "defaultMessage": "Not set",
+        "description": "Message displayed if a user has not yet set a given value.",
+        "id": "application.review.valueNotSet"
+      },
+      {
         "defaultMessage": "I prefer to communicate in English.",
         "description": "Text displayed when a user selects 'en' in their profile for communication preference.",
         "id": "application.review.communication.english"
@@ -1229,6 +1244,41 @@
       {
         "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
         "id": "application.review.shareCheckboxLabel"
+      },
+      {
+        "defaultMessage": "Basic Information",
+        "description": "Manager's heading for the Basic Info section of the Application.",
+        "id": "application.review.manager.basicInfoHeading"
+      },
+      {
+        "defaultMessage": "Experience",
+        "description": "Manager's heading for the Experience section of the Application.",
+        "id": "application.review.manager.experienceHeading"
+      },
+      {
+        "defaultMessage": "Fit",
+        "description": "Manager's heading for the Fit section of the Application.",
+        "id": "application.review.manager.fitHeading"
+      },
+      {
+        "defaultMessage": "Account Settings",
+        "description": "Manager's heading for the Account Settings section of the Application.",
+        "id": "application.review.manager.accountSettingsHeading"
+      },
+      {
+        "defaultMessage": "All Experience",
+        "description": "Button text for the experience view of the Review page.",
+        "id": "application.review.experienceViewButton"
+      },
+      {
+        "defaultMessage": "Skills for This Job",
+        "description": "Button text for the skills view of the Review page.",
+        "id": "application.review.skillsViewButton"
+      },
+      {
+        "defaultMessage": "Education Requirements for This Job",
+        "description": "Button text for the education view of the Review page.",
+        "id": "application.review.educationViewButton"
       },
       {
         "defaultMessage": "Review Your Application",
@@ -1254,21 +1304,6 @@
         "defaultMessage": "Change Your View:",
         "description": "Heading for the Review section with the buttons to change the layout.",
         "id": "application.review.changeViewHeading"
-      },
-      {
-        "defaultMessage": "All Experience",
-        "description": "Button text for the experience view of the Review page.",
-        "id": "application.review.experienceViewButton"
-      },
-      {
-        "defaultMessage": "Skills for This Job",
-        "description": "Button text for the skills view of the Review page.",
-        "id": "application.review.skillsViewButton"
-      },
-      {
-        "defaultMessage": "Education Requirements for This Job",
-        "description": "Button text for the education view of the Review page.",
-        "id": "application.review.educationViewButton"
       },
       {
         "defaultMessage": "This view is a summary of all the experiences you will be sending as a part of your application.",
@@ -1305,6 +1340,15 @@
       {
         "defaultMessage": "I do not want Talent Cloud to contact me at {email} about related jobs.",
         "id": "application.review.userNoContact"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Review/ApplicationPreview.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
+        "id": "application.review.shareCheckboxLabel"
       },
       {
         "defaultMessage": "Do you give Talent Cloud permission to share your application with other Government of Canada managers who may be looking for a similar set of skills?",
@@ -1390,6 +1434,36 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "How You Used Each Skill",
+        "description": "Header for the Skills Intro step.",
+        "id": "application.skills.intro.header"
+      },
+      {
+        "defaultMessage": "Now that you've shared your experiences, tell us how they connect to the skills required for the job.",
+        "description": "Opening sentence describing the Skills step.",
+        "id": "application.experience.intro.opening"
+      },
+      {
+        "defaultMessage": "For each experience <b>add a short explanation that demonstrates how you used the skill</b>. These explanations are what the manager will use to decide how strong your application is, so <b>it's important that you share your best examples</b>.",
+        "description": "Paragraphs explaining what to expect on the Skills step.",
+        "id": "application.experience.intro.explanation"
+      },
+      {
+        "defaultMessage": "Just like experience, this information is saved to your profile so that you can reuse it on other applications!",
+        "description": "Paragraph explaining that changes to Skills will be saved to profile.",
+        "id": "application.experience.intro.savedToProfile"
+      },
+      {
+        "defaultMessage": "Let's Go",
+        "description": "Button text for continuing to next step in Application Form.",
+        "id": "application.skills.intro.letsGo"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/Skills/SkillsIntroPage.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Go to this skill.",
         "description": "Title attribute for sidebar links.",
         "id": "application.skills.sidebarLinkTitle"
@@ -1440,7 +1514,7 @@
         "id": "application.skills.confirmButtonText"
       }
     ],
-    "path": "resources/assets/js/components/Application/Skills/skillsMessages.json"
+    "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"
   },
   {
     "descriptors": [
@@ -1655,12 +1729,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -3408,7 +3482,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -5566,6 +5640,11 @@
         "defaultMessage": "Error: Unknown experience type.",
         "description": "Accordion heading error when an unknown experience type is used.",
         "id": "application.skills.unknownHeading"
+      },
+      {
+        "defaultMessage": "Current",
+        "description": "Text for the end date of a current experience on the Skills page.",
+        "id": "application.skills.currentSubheading"
       },
       {
         "defaultMessage": "How I used {skillName} to achieve {title}",
