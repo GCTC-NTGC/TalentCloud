@@ -54,7 +54,7 @@ const ApplicationIntro: React.FC<IntroProps> = ({ handleStart }) => {
         <p data-c-margin="bottom(1)">
           <FormattedMessage
             id="application.intro.secondParagraph"
-            defaultMessage="During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you time and effort."
+            defaultMessage="During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <b>all of your information will be saved to your profile</b>. This allows us to automatically fill in parts of your future applications, saving you time and effort."
             description="Paragraph explaining the time saving of the application and profile."
             values={{
               bold: (...chunks): React.ReactElement => (

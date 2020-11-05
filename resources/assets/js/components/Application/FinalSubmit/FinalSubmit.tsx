@@ -97,14 +97,11 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
           description="Heading text on the final submit step of the Application Timeline."
         />
       </h2>
-      <p data-c-margin="bottom(1)">
+      <p data-c-margin="bottom(1)" data-c-font-weight="bold">
         <FormattedMessage
           id="application.finalSubmit.confirmCriteriaHeading"
-          defaultMessage="<b>You've made it!</b>"
+          defaultMessage="You've made it!"
           description="Heading text before confirmation criteria list."
-          values={{
-            b: (...chunks) => <span data-c-font-weight="bold">{chunks}</span>,
-          }}
         />
       </p>
       <p data-c-margin="bottom(1)">

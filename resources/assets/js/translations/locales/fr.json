@@ -197,7 +197,7 @@
   "application.finalSubmit.confirmCriteria.firstBullet": "J’ai examiné tout ce qui est écrit dans ma demande.",
   "application.finalSubmit.confirmCriteria.firstSentence": "Je comprends que je fais partie d’une communauté de gens qui se font confiance et que, en signant mon nom ci-dessous, je confirme que :",
   "application.finalSubmit.confirmCriteria.secondBullet": "Je promets que les renseignements que j’ai fournis sont vrais.",
-  "application.finalSubmit.confirmCriteriaHeading": "<b>Vous avez réussi!</b>",
+  "application.finalSubmit.confirmCriteriaHeading": "Vous avez réussi!",
   "application.finalSubmit.heading": "Présentation finale",
   "application.finalSubmit.submissionDateLabel": "Date d’aujourd’hui",
   "application.finalSubmit.submissionDatePlaceholder": "aaaa-mm-jj",
