@@ -486,9 +486,7 @@ class JobApplication extends BaseModel
      */
     public function saveProfileSnapshotTimeline(): void
     {
-        $this->refresh();
         $applicant = $this->applicant->fresh();
-
         $this->user_name = $applicant->user->full_name;
         $this->user_email = $applicant->user->email;
         $this->save();
@@ -580,7 +578,7 @@ class JobApplication extends BaseModel
         $experienceValidator = $validator->experienceComplete($this);
         $skillsValidator = $validator->skillsComplete($this);
         $fitValidator = $validator->fitComplete($this);
-        $reviewValidator = $validator->validateComplete($this);
+        $reviewValidator = $basicValidator && $experienceValidator && $skillsValidator && $fitValidator;
         $submissionValidator = $validator->affirmationComplete($this);
 
         $basicTouched = $this->touched_application_steps
