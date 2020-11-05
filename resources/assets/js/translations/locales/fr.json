@@ -215,7 +215,7 @@
   "application.intro.heading": "Commencer votre candidature.",
   "application.intro.preamble": "Avant de commencer, nous aimerions vous fournir quelques renseignements sur ce à quoi vous pouvez vous attendre de notre processus de candidature.",
   "application.intro.secondBullet": "Une fois que nous aurons compris votre histoire, nous vous demanderons d’expliquer \nle lien entre ces expériences et les compétences requises pour ce poste.\n",
-  "application.intro.secondParagraph": "Au cours de votre toute remière candidature, vous commencerez avec une ardoise vierge, mais ce qui est bien avec le Nuage de talents, c’est que tous vos renseignements seront enregistrés dans votre profil. Cela nous permet de préremplir automatiquement des parties de vos candidatures futures, vous économisant temps et efforts.",
+  "application.intro.secondParagraph": "Au cours de votre toute remière candidature, vous commencerez avec une ardoise vierge, mais ce qui est bien avec le Nuage de talents, c’est que <b>tous vos renseignements seront enregistrés dans votre profil</b>. Cela nous permet de préremplir automatiquement des parties de vos candidatures futures, vous économisant temps et efforts.",
   "application.intro.start": "Commencer ma candidature",
   "application.loading": "Veuillez patienter un instant...",
   "application.personalExperienceModal.datePlaceholder": "aaaa-mm-jj",
