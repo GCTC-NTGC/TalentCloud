@@ -44,7 +44,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   handleQuit,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
   return (
     <>
       <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
