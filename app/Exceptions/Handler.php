@@ -174,9 +174,7 @@ class Handler extends ExceptionHandler
                 'exception' => $e,
                 'goc' => Lang::get('common/goc'),
                 'alert' => Lang::get('common/alert'),
-                'error' => [
-                    'title' => 'Error'
-                ]
+                'error' => Lang::get('errors')['default'],
             ], $e->getStatusCode(), $e->getHeaders());
         }
         return parent::renderHttpException($e);
