@@ -14,6 +14,7 @@ stories.add(
   (): React.ReactElement => (
     <FinalSubmit
       application={fakeApplication()}
+      applicationIsInvalid
       handleQuit={action("Save and Quit")}
       handleReturn={action("Save and Return")}
       submitApplication={async (x) => {
