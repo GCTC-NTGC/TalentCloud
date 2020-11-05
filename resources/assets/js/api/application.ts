@@ -58,6 +58,9 @@ export const getApplicationEndpoint = (id: number): string =>
 export const getApplicationBasicEndpoint = (applicationId: number): string =>
   `${getApplicationEndpoint(applicationId)}/basic`;
 
+export const getApplicationSubmitEndpoint = (applicationId: number): string =>
+  `${getApplicationEndpoint(applicationId)}/submit`;
+
 export const getApplicationReviewEndpoint = (applicationId: number): string =>
   `${getApplicationEndpoint(applicationId)}/review`;
 
