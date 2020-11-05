@@ -82,8 +82,8 @@ class ApplicationController extends Controller
             }
 
             $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
-            $application->saveProfileSnapshotTimeline();
             $application->save();
+            $application->saveProfileSnapshotTimeline();
         }
 
         return new JobApplicationBasicResource($application);

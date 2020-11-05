@@ -486,6 +486,7 @@ class JobApplication extends BaseModel
      */
     public function saveProfileSnapshotTimeline(): void
     {
+        $this->refresh();
         $applicant = $this->applicant->fresh();
         $this->user_name = $applicant->user->full_name;
         $this->user_email = $applicant->user->email;
