@@ -42,7 +42,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
-  const applicationIsInvalid = steps.review !== "complete";
+  const applicationIsValid = steps.review === "complete";
 
   const stepsAreUpdating = useTouchApplicationStep(
     applicationId,
@@ -126,7 +126,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
           )}
           <FinalSubmit
             application={application}
-            applicationIsInvalid={applicationIsInvalid}
+            applicationIsValid={applicationIsValid}
             submitApplication={handleSubmit}
             handleReturn={handleReturn}
             handleQuit={handleQuit}

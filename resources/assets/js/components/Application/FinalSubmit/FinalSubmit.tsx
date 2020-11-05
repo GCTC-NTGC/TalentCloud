@@ -53,7 +53,7 @@ const confirmationCriteria = defineMessages({
 
 interface FinalSubmitProps {
   application: ApplicationNormalized;
-  applicationIsInvalid: boolean;
+  applicationIsValid: boolean;
   submitApplication: (application: ApplicationNormalized) => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -66,7 +66,7 @@ interface FinalSubmitFormValues {
 
 const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
   application,
-  applicationIsInvalid,
+  applicationIsValid,
   submitApplication,
   handleQuit,
   handleReturn,
@@ -191,7 +191,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
                     data-c-margin="left(1)"
                     type="submit"
                     disabled={
-                      isSubmitting || applicationIsInvalid || !isValid || !dirty
+                      isSubmitting || !applicationIsValid || !isValid || !dirty
                     }
                   >
                     <FormattedMessage
