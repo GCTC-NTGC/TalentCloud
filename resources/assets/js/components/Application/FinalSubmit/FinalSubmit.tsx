@@ -38,14 +38,8 @@ const confirmationCriteria = defineMessages({
     defaultMessage: "I've reviewed everything written in my application.",
     description: "Bullet point about the criteria before final submission.",
   },
-  // secondBullet: {
-  //   id: "application.finalSubmit.confirmCriteria.secondBullet",
-  //   defaultMessage:
-  //     "I understand that I am a part of a community of people who trust each other.",
-  //   description: "Bullet point about the criteria before final submission.",
-  // },
-  thirdBullet: {
-    id: "application.finalSubmit.confirmCriteria.thirdBullet",
+  secondBullet: {
+    id: "application.finalSubmit.confirmCriteria.secondBullet",
     defaultMessage: "I promise that the information I've provided is true.",
     description: "Bullet point about the criteria before final submission.",
   },

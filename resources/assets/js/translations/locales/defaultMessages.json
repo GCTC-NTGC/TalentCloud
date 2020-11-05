@@ -1061,7 +1061,7 @@
       {
         "defaultMessage": "I promise that the information I've provided is true.",
         "description": "Bullet point about the criteria before final submission.",
-        "id": "application.finalSubmit.confirmCriteria.thirdBullet"
+        "id": "application.finalSubmit.confirmCriteria.secondBullet"
       },
       {
         "defaultMessage": "Final Submission",
