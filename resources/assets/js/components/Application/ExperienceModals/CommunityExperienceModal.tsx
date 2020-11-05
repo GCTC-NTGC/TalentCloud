@@ -327,7 +327,7 @@ export const ProfileCommunityModal: FunctionComponent<ProfileCommunityModalProps
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
+        iconClass="fa-people-carry"
       />
       <Formik
         enableReinitialize

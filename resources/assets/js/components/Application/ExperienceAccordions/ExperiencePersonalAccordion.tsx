@@ -49,7 +49,7 @@ const ExperiencePersonalDetails: FunctionComponent<{
           </p>
           <p>
             <i
-              className="fas fa-trophy"
+              className="fas fa-mountain"
               data-c-color="c1"
               data-c-margin="right(.25)"
             />

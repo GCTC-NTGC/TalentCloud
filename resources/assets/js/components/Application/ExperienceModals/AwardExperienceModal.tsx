@@ -334,7 +334,7 @@ export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
+        iconClass="fa-trophy"
       />
       <Formik
         enableReinitialize
@@ -440,7 +440,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
+        iconClass="fa-trophy"
       />
       <Formik
         enableReinitialize
