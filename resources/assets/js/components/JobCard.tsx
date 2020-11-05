@@ -29,7 +29,7 @@ const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
 export interface JobCardProps {
   id: number;
   activity: Activity;
-  applicants: number;
+  applicants: number | null;
   classification: string;
   draft: Link;
   managerTime: number;
@@ -142,7 +142,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small">
                 <FormattedMessage
                   id="jobCard.managerTime"
-                  defaultMessage={`Time with Manager: {managerTime, plural, one {# day} other {# days}}`}
+                  defaultMessage="Time with Manager: {managerTime, plural, one {# day} other {# days}}"
                   description="Text displaying how long a job post has been claimed by a manager."
                   values={{
                     managerTime,
@@ -152,7 +152,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small" className={owned ? "pulse" : ""}>
                 <FormattedMessage
                   id="jobCard.userTime"
-                  defaultMessage={`Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>`}
+                  defaultMessage="Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>"
                   description="Text displaying how long a job has been claimed by the current user."
                   values={{
                     s: (msg): JSX.Element => <span>{msg}</span>,
