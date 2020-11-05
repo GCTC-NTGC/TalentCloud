@@ -905,7 +905,7 @@
   "jobBuilder.workEnvModal.modalMiddleLabel": "Passer pour la révision",
   "jobBuilder.workEnvModal.title": "Environnement de travail",
   "jobBuilder.workEnvModal.workCultureTitle": "Culture du travail",
-  "jobCard.applicants": "{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}",
+  "hrJobIndex.applicantsLink": "{applicants, plural,=0 {Aucun candidat} one {# candidat} other {# candidats}}",
   "jobCard.managerTime": "Time with Manager: {managerTime, plural, one {# day} other {# days} }",
   "jobCard.noActivity": "Aucune nouvelle activité",
   "jobCard.userTime": "Time with you: <s>{userTime, plural, one {# day} other {# days} }</s>",
