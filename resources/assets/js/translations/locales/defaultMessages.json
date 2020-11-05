@@ -4509,7 +4509,7 @@
       {
         "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }",
         "description": "Text displaying how many applicants have applied to this Job.",
-        "id": "jobCard.applicants"
+        "id": "hrJobIndex.applicantsLink"
       },
       {
         "defaultMessage": "Time with Manager: {managerTime, plural, one {# day} other {# days}}",
