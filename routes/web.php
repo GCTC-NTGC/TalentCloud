@@ -1068,11 +1068,11 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->name('application.basic');
     Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
-        ->middleware('can:view,application')
+        ->middleware('can:update,application')
         ->name('application.basic.update');
     Route::put('applications/{application}/submit', 'Api\ApplicationController@submit')
         ->where('application', '[0-9]+')
-        ->middleware('can:view,application')
+        ->middleware('can:update,application')
         ->name('application.submit');
     Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
         ->where('jobPoster', '[0-9]+')
