@@ -63,11 +63,7 @@ class ApplicationController extends Controller
     {
         if ($application->application_status->name == 'draft') {
             $validator = new ApplicationTimelineValidator();
-            $application->fill([
-                'submission_signature' => $request->input('submission_signature'),
-                'submission_date' => $request->input('submission_date'),
-            ]);
-            $data = $validator->affirmationValidator($application)->validated();
+            $data = $request->validate($validator->affirmationRules);
             $application->fill($data);
             $application->save();
 

@@ -331,6 +331,23 @@ class ApplicationTimelineValidator
     /* Step 6 ------------------------------------------------------------------------------------------------------- */
 
     /**
+     * Affirmation Rules.
+     * @var mixed
+     */
+    public $affirmationRules = [
+        'submission_signature' => [
+            'required',
+            'string',
+            'max:191',
+        ],
+        'submission_date' => [
+            'required',
+            'string',
+            'max:191',
+        ]
+    ];
+
+    /**
      * Validator instance for the Final Submit step.
      *
      * @param JobApplication $application Job Application object.
