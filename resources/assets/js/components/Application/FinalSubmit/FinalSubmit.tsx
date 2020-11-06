@@ -129,7 +129,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
         }}
         validationSchema={validationSchema}
       >
-        {({ isSubmitting, isValid, dirty }): React.ReactElement => (
+        {({ isSubmitting }): React.ReactElement => (
           <Form>
             <div data-c-grid="gutter(all, 1)">
               <FastField
@@ -191,9 +191,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
                     data-c-radius="rounded"
                     data-c-margin="left(1)"
                     type="submit"
-                    disabled={
-                      isSubmitting || !applicationIsValid || !isValid || !dirty
-                    }
+                    disabled={isSubmitting || !applicationIsValid}
                   >
                     <FormattedMessage
                       id="application.submitApplicationButtonLabel"
