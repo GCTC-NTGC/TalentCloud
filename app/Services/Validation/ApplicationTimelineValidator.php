@@ -356,18 +356,7 @@ class ApplicationTimelineValidator
      */
     public function affirmationValidator(JobApplication $application)
     {
-        return Validator::make($application->toArray(), [
-            'submission_signature' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'submission_date' => [
-                'required',
-                'string',
-                'max:191',
-            ]
-        ]);
+        return Validator::make($application->toArray(), $this->affirmationRules);
     }
 
     /**
