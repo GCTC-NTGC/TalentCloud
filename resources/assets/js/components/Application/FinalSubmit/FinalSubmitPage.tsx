@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { getLocale } from "../../../helpers/localize";
@@ -11,7 +11,7 @@ import {
 } from "../../../helpers/routes";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { Application, ApplicationNormalized } from "../../../models/types";
+import { ApplicationNormalized } from "../../../models/types";
 import FinalSubmit from "./FinalSubmit";
 import {
   useApplication,
@@ -20,7 +20,7 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { updateApplication } from "../../../store/Application/applicationActions";
+import { submitApplication as submitApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
 
 interface FinalSubmitPageProps {
@@ -33,6 +33,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
+  const [applicationErrors, setApplicationErrors] = useState([]);
 
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
@@ -41,6 +42,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
+  const applicationIsValid = steps.review === "complete";
 
   const stepsAreUpdating = useTouchApplicationStep(
     applicationId,
@@ -48,12 +50,26 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
     dispatch,
   );
 
+  const submitApplication = async (
+    completeApplication: ApplicationNormalized,
+  ): Promise<void> => {
+    const result = await dispatch(submitApplicationAction(completeApplication));
+    if (result.error) {
+      const errors = await result.payload.response.errors;
+      setApplicationErrors(errors);
+      return Promise.reject(result.payload);
+    }
+    return Promise.resolve();
+  };
+
   const handleSubmit = async (
     completeApplication: ApplicationNormalized,
   ): Promise<void> => {
-    await updateApplication(completeApplication);
-    // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
-    window.location.href = applicationNextSteps(locale, applicationId);
+    await submitApplication(completeApplication).then(() => {
+      // If the application had been submitted successfully then move to congrats page.
+      // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
+      window.location.href = applicationNextSteps(locale, applicationId);
+    });
   };
   const handleReturn = (): void => {
     navigate(applicationReview(locale, applicationId));
@@ -90,12 +106,32 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
         </h2>
       )}
       {application !== null && job !== null && (
-        <FinalSubmit
-          application={application}
-          submitApplication={handleSubmit}
-          handleReturn={handleReturn}
-          handleQuit={handleQuit}
-        />
+        <>
+          {applicationErrors.length !== 0 && (
+            <div
+              data-c-container="medium"
+              data-c-margin="top(1)"
+              data-c-alert="error"
+              data-c-radius="rounded"
+              role="alert"
+            >
+              <div data-c-padding="all(.5)">
+                <ul>
+                  {applicationErrors.flat().map((error) => (
+                    <li>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+          <FinalSubmit
+            application={application}
+            applicationIsValid={applicationIsValid}
+            submitApplication={handleSubmit}
+            handleReturn={handleReturn}
+            handleQuit={handleQuit}
+          />
+        </>
       )}
     </>
   );

@@ -2,11 +2,11 @@ import { IntlShape } from "react-intl";
 import { ProgressBarProps, stepNames } from "./ProgressBar";
 import {
   applicationBasic,
-  applicationExperienceIntro,
   applicationFit,
   applicationReview,
   applicationSubmission,
-  applicationSkillsIntro,
+  applicationExperience,
+  applicationSkills,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import {
@@ -49,7 +49,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationExperienceIntro(locale, applicationId),
+        url: applicationExperience(locale, applicationId),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
@@ -57,7 +57,7 @@ export function makeProgressBarSteps(
     },
     {
       link: {
-        url: applicationSkillsIntro(locale, applicationId),
+        url: applicationSkills(locale, applicationId),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },

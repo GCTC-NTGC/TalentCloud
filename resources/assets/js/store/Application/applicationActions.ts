@@ -28,6 +28,7 @@ import {
   parseApplicationResponse,
   getTouchApplicationStepEndpoint,
   parseApplicationStep,
+  getApplicationSubmitEndpoint,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
@@ -103,6 +104,37 @@ export const updateApplication = (
     UPDATE_APPLICATION_STARTED,
     UPDATE_APPLICATION_SUCCEEDED,
     UPDATE_APPLICATION_FAILED,
+    parseApplication,
+    { id: application.id },
+  );
+
+export const SUBMIT_APPLICATION_STARTED = "APPLICATION: SUBMIT STARTED";
+export const SUBMIT_APPLICATION_SUCCEEDED = "APPLICATION: SUBMIT SUCCEEDED";
+export const SUBMIT_APPLICATION_FAILED = "APPLICATION: SUBMIT FAILED";
+
+export type SubmitApplicationAction = AsyncFsaActions<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const submitApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationSubmitEndpoint(application.id),
+    application,
+    SUBMIT_APPLICATION_STARTED,
+    SUBMIT_APPLICATION_SUCCEEDED,
+    SUBMIT_APPLICATION_FAILED,
     parseApplication,
     { id: application.id },
   );
@@ -284,6 +316,7 @@ export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
   | UpdateApplicationAction
+  | SubmitApplicationAction
   | UpdateApplicationReview
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction

@@ -12,8 +12,10 @@ use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\SecurityClearance;
+use App\Models\Lookup\SkillType;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\SkillDeclaration;
 
@@ -107,7 +109,17 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
             ExperienceAward::class,
             ExperienceCommunity::class
         ];
-        foreach ($application->job_poster->criteria as $criterion) {
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
+        $jobCriteria = $application->job_poster->criteria;
+        $requiredCriteria = $jobCriteria
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->all();
+
+        foreach ($requiredCriteria as $criterion) {
             $index = rand(0, 4);
             $experience = factory($experienceTypes[$index])->create([
                 'experienceable_id' => $application->applicant_id,

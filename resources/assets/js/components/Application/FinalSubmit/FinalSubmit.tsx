@@ -47,6 +47,7 @@ const confirmationCriteria = defineMessages({
 
 interface FinalSubmitProps {
   application: ApplicationNormalized;
+  applicationIsValid: boolean;
   submitApplication: (application: ApplicationNormalized) => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -59,6 +60,7 @@ interface FinalSubmitFormValues {
 
 const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
   application,
+  applicationIsValid,
   submitApplication,
   handleQuit,
   handleReturn,
@@ -90,7 +92,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
 
   return (
     <div data-c-container="medium">
-      <h2 data-c-heading="h2" data-c-margin="top(3) bottom(1)">
+      <h2 data-c-heading="h2" data-c-margin="top(2) bottom(1)">
         <FormattedMessage
           id="application.finalSubmit.heading"
           defaultMessage="Final Submission"
@@ -119,8 +121,11 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting }): Promise<void> => {
-          submitApplication(formValuesToData(values, application));
-          setSubmitting(false);
+          await submitApplication(
+            formValuesToData(values, application),
+          ).finally(() => {
+            setSubmitting(false);
+          });
         }}
         validationSchema={validationSchema}
       >
@@ -186,7 +191,7 @@ const FinalSubmit: React.FunctionComponent<FinalSubmitProps> = ({
                     data-c-radius="rounded"
                     data-c-margin="left(1)"
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !applicationIsValid}
                   >
                     <FormattedMessage
                       id="application.submitApplicationButtonLabel"

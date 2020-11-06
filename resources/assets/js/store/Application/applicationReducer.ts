@@ -28,6 +28,7 @@ import {
   TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
   TOUCH_JOB_APPLICATION_STEP_STARTED,
   TOUCH_JOB_APPLICATION_STEP_FAILED,
+  SUBMIT_APPLICATION_SUCCEEDED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -201,6 +202,7 @@ export const entitiesReducer = (
         },
       };
     case UPDATE_APPLICATION_SUCCEEDED:
+    case SUBMIT_APPLICATION_SUCCEEDED:
       return {
         ...state,
         applications: {

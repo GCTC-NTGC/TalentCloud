@@ -5,7 +5,9 @@ namespace Tests\Feature\Api;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Applicant;
+use App\Models\ExperienceSkill;
 use App\Models\JobApplication;
+use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\JobApplicationStep;
 use App\Models\Lookup\VeteranStatus;
@@ -30,6 +32,7 @@ class ApplicationControllerTest extends TestCase
     {
         parent::setUp();
         $this->baseUrl = 'api/v2';
+        $this->faker = \Faker\Factory::create();
     }
 
     public function testGetBasics(): void
@@ -163,5 +166,44 @@ class ApplicationControllerTest extends TestCase
 
         $application->refresh();
         $response->assertJsonFragment($expectedJobApplicationSteps);
+    }
+
+    public function testSubmitApplication(): void
+    {
+        $applicant = factory(Applicant::class)->create();
+        $application = factory(JobApplication::class)->states(['draft', 'version2'])->create([
+            'applicant_id' => $applicant->id,
+            'language_test_confirmed' => true,
+        ]);
+
+        $invalid = [
+            'submission_signature' => null,
+            'submission_date' => null,
+        ];
+
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/submit", $invalid);
+        $response->assertStatus(422);
+
+        $expected = [
+            'submission_signature' => $this->faker->name(),
+            'submission_date' =>  $this->faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s'),
+        ];
+
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$application->id/submit", $expected);
+        $response->assertStatus(200);
+
+        // Assert request fails after the experiences are remove.
+        $incompleteApplication = factory(JobApplication::class)->states(['draft', 'version2'])->create([
+            'applicant_id' => $applicant->id,
+            'language_test_confirmed' => true,
+        ]);
+        ExperienceSkill::truncate();
+
+        $response = $this->actingAs($applicant->user)
+        ->json('put', "$this->baseUrl/applications/$incompleteApplication->id/submit", $expected);
+        $response->assertStatus(422);
+        $response->assertJsonFragment([ 'message' => 'The given data was invalid.']);
     }
 }
