@@ -192,6 +192,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  submitted_applications_count: number | null;
   created_at: Date;
   city: localizedField;
   title: localizedField;
