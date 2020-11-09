@@ -137,9 +137,13 @@ Route::group(
                     Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
                         ->middleware('can:update,jobApplication')
                         ->name('applications.timeline');
+                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,jobApplication')
+                        ->name('applications.timeline.next');
                     Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
                         ->middleware('can:update,jobApplication')
                         ->name('applications.timeline.step');
+
 
                     Route::get('jobs/{jobPoster}/apply', 'JobController@apply')
                         ->name('jobs.apply');

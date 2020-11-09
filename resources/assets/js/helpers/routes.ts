@@ -272,8 +272,7 @@ export function applicationNextSteps(
   locale: Locales,
   applicationId: number,
 ): string {
-  // TODO: Link to a non-demo Next Steps page.
-  return `${baseUrl()}/${locale}/demo/application-10`;
+  return `${baseApplicationUrl(locale, applicationId)}/next`;
 }
 
 /**

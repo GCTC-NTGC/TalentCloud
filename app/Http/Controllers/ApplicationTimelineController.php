@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
-use App\Models\JobPoster;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 
 class ApplicationTimelineController extends Controller
 {
@@ -19,8 +16,6 @@ class ApplicationTimelineController extends Controller
     */
     public function show(JobApplication $jobApplication, string $requestedStep = null)
     {
-        Log::debug("Step is $requestedStep");
-
         $jobApplicationSteps = $jobApplication->jobApplicationSteps();
         $stepOrder = [
             'basic',
@@ -81,21 +76,20 @@ class ApplicationTimelineController extends Controller
     /**
      * Show the congrats page after application it's validated and submit.
      *
-     * @param  \App\Models\JobPoster $jobPoster Incoming Job Poster object.
+     * @param  \App\Models\JobApplication $jobApplication Incoming Job Application object.
      * @return \Illuminate\Http\Response
      */
-    public function complete(/* JobPoster $jobPoster */)
+    public function complete(JobApplication $jobApplication)
     {
         // Dummy Data.
-        $applicant = Auth::user()->applicant;
-        $jobPoster = JobPoster::where('job_poster_status_id', '10')->first();
-        $application = JobApplication::where('job_poster_id', $jobPoster->id)->first();
+        $applicant = $jobApplication->applicant;
+        $jobPoster = $jobApplication->job_poster;
 
         return view(
-            'applicant/application/10-congrats',
+            'applicant/application/congrats',
             [
                 'applicant' => $applicant,
-                'application' => $application,
+                'application' => $jobApplication,
                 'application_template' => Lang::get(
                     'applicant/application_template',
                     ['security_clearance' => $jobPoster->security_clearance->value ]
