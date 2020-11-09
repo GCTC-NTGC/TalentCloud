@@ -3725,16 +3725,16 @@
         },
         {
             "name": "rcrowe/twigbridge",
-            "version": "v0.12.2",
+            "version": "v0.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rcrowe/TwigBridge.git",
-                "reference": "a4faebbb0c18cf775fda4247c926faa6319ee611"
+                "reference": "5d6dc0c907c5db476cf0caf3210eb10e44a78369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/a4faebbb0c18cf775fda4247c926faa6319ee611",
-                "reference": "a4faebbb0c18cf775fda4247c926faa6319ee611",
+                "url": "https://api.github.com/repos/rcrowe/TwigBridge/zipball/5d6dc0c907c5db476cf0caf3210eb10e44a78369",
+                "reference": "5d6dc0c907c5db476cf0caf3210eb10e44a78369",
                 "shasum": ""
             },
             "require": {
@@ -3794,7 +3794,7 @@
                 "laravel",
                 "twig"
             ],
-            "time": "2020-09-07T12:36:34+00:00"
+            "time": "2020-10-14T18:14:32+00:00"
         },
         {
             "name": "scrivo/highlight.php",
