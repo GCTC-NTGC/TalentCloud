@@ -76,6 +76,9 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
 $factory->state(JobApplication::class, 'version2', [
     'version_id' => 2,
 ]);
+$factory->state(JobApplication::class, 'version1', [
+    'version_id' => 1,
+]);
 
 $factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {

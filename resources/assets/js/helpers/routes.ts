@@ -215,7 +215,7 @@ export function applicationIndex(locale: Locales): string {
 }
 
 function baseApplicationUrl(locale: Locales, applicationId) {
-  return `${baseUrl()}/${locale}/applications/${applicationId}/edit`;
+  return `${baseUrl()}/${locale}/applications/${applicationId}`;
 }
 export function applicationWelcome(
   locale: Locales,
