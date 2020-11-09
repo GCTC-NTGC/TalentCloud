@@ -7,6 +7,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationTimelineController extends Controller
 {
@@ -18,6 +19,8 @@ class ApplicationTimelineController extends Controller
     */
     public function show(JobApplication $jobApplication, string $requestedStep = null)
     {
+        Log::debug("Step is $requestedStep");
+
         $jobApplicationSteps = $jobApplication->jobApplicationSteps();
         $stepOrder = [
             'basic',
@@ -63,14 +66,14 @@ class ApplicationTimelineController extends Controller
                 ]);
             } else {
                 return redirect(
-                    route('application.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                    route('applications.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
                 );
             }
         } else {
             // If no step has been entered (/application/id) then redirect user to the last touched step.
             // If no step has been touched, then take them to welcome step.
             return redirect(
-                route('application.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                route('applications.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
             );
         }
     }

@@ -145,5 +145,6 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
         } else {
             $application->saveProfileSnapshot();
         }
+        $application->refresh();
     }
 });

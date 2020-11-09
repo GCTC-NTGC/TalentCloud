@@ -215,8 +215,7 @@ export function applicationIndex(locale: Locales): string {
 }
 
 function baseApplicationUrl(locale: Locales, applicationId) {
-  // TODO: remove "demo" from url.
-  return `${baseUrl()}/${locale}/demo/applications/${applicationId}`;
+  return `${baseUrl()}/${locale}/applications/${applicationId}/edit`;
 }
 export function applicationWelcome(
   locale: Locales,
