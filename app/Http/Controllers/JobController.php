@@ -649,7 +649,7 @@ class JobController extends Controller
             if ($application->version_id === $version2id) {
                 return redirect(route('applications.timeline', $application->id));
             }
-            return redirect(route(route('job.application.edit.1', $jobPoster->id)));
+            return redirect(route('job.application.edit.1', $jobPoster->id));
         }
 
         // If the application exists but has already been submitted, or the job is closed,

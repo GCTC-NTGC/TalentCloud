@@ -214,7 +214,7 @@ class JobControllerTest extends TestCase
             'job_poster_id' => $job->id,
             'applicant_id' => $applicant->id,
             'version_id' => 2, // And the new application should be version 2.
-        ])->get();
+        ])->first();
         $response->assertRedirect(route('applications.timeline', $application->id));
 
         // If an applicant applies to a live job they've already started an application for,
@@ -228,7 +228,7 @@ class JobControllerTest extends TestCase
         $submitted = factory(JobApplication::class)->states(['version2', 'submitted'])->create([
             'job_poster_id' => $jobSubmitted->id,
         ]);
-        $response = $this->actingAs($submitted->applicant)->get(route('jobs.apply', $jobSubmitted->id));
+        $response = $this->actingAs($submitted->applicant->user)->get(route('jobs.apply', $jobSubmitted->id));
         $response->assertRedirect(route('applications.show', $submitted->id));
 
         // If an applicant tries to continue an application for a job that has closed,
@@ -237,7 +237,7 @@ class JobControllerTest extends TestCase
         $appClosed = factory(JobApplication::class)->states(['version2', 'draft'])->create([
             'job_poster_id' => $jobClosed->id,
         ]);
-        $response = $this->actingAs($appClosed->applicant)->get(route('jobs.apply', $jobClosed->id));
+        $response = $this->actingAs($appClosed->applicant->user)->get(route('jobs.apply', $jobClosed->id));
         $response->assertRedirect(route('applications.show', $appClosed->id));
 
         // If, somehow, there is an existing version 1 application for a job that is still open,
@@ -246,7 +246,7 @@ class JobControllerTest extends TestCase
         $appOld = factory(JobApplication::class)->states(['version1', 'draft'])->create([
             'job_poster_id' => $jobOld->id,
         ]);
-        $response = $this->actingAs($appOld->applicant)->get(route('jobs.apply', $jobOld->id));
+        $response = $this->actingAs($appOld->applicant->user)->get(route('jobs.apply', $jobOld->id));
         $response->assertRedirect(route('job.application.edit.1', $jobOld->id));
     }
 }
