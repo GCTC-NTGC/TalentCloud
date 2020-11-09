@@ -73,8 +73,6 @@ Route::group(
             Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
-            /* Application (Congrats) */
-            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
