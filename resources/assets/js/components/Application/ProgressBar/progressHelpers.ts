@@ -31,13 +31,12 @@ export function makeProgressBarSteps(
 ): ProgressBarProps["steps"] {
   const locale = getLocale(intl.locale);
   const makeStatus = (step: ApplicationStep): ProgressBarStatus => {
-    // eslint-disable-next-line no-nested-ternary
-    return step === currentStep
-      ? "current"
-      : steps[step] !== "default" && stepsUpdateInProgress
-      ? "loading"
-      : steps[step];
+    return step === currentStep ? "current" : steps[step];
   };
+  const isLoading = (step: ApplicationStep): boolean => {
+    return steps[step] !== "default" && stepsUpdateInProgress;
+  };
+
   return [
     {
       link: {
@@ -46,6 +45,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step01),
       },
       status: makeStatus("basic"),
+      loading: isLoading("basic"),
     },
     {
       link: {
@@ -54,6 +54,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step02),
       },
       status: makeStatus("experience"),
+      loading: isLoading("experience"),
     },
     {
       link: {
@@ -62,6 +63,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step03),
       },
       status: makeStatus("skills"),
+      loading: isLoading("skills"),
     },
     {
       link: {
@@ -70,6 +72,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step04),
       },
       status: makeStatus("fit"),
+      loading: isLoading("fit"),
     },
     {
       link: {
@@ -78,6 +81,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step05),
       },
       status: makeStatus("review"),
+      loading: isLoading("review"),
     },
     {
       link: {
@@ -86,6 +90,7 @@ export function makeProgressBarSteps(
         title: intl.formatMessage(stepNames.step06),
       },
       status: makeStatus("submission"),
+      loading: isLoading("submission"),
     },
   ];
 }

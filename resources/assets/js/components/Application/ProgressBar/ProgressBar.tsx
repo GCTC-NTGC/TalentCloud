@@ -41,6 +41,7 @@ export const stepNames = defineMessages({
 const createStep = (
   link: Link,
   status: ProgressBarStatus,
+  loading: boolean,
 ): React.ReactElement => {
   switch (status) {
     case "complete":
@@ -62,7 +63,12 @@ const createStep = (
             }}
           >
             <span data-c-visibility="invisible">{link.text}</span>
-            <i className="fas fa-check-circle" data-c-color="go" />
+            <i
+              className={`${
+                loading ? "blinking-animation" : ""
+              } fas fa-check-circle`}
+              data-c-color="go"
+            />
           </a>
         </li>
       );
@@ -77,7 +83,10 @@ const createStep = (
             />
           </span>
           <span data-c-visibility="invisible">{link.text}</span>
-          <i className="far fa-circle" data-c-color="white" />
+          <i
+            className={`${loading ? "blinking-animation" : ""} far fa-circle`}
+            data-c-color="white"
+          />
         </li>
       );
     case "error":
@@ -99,15 +108,13 @@ const createStep = (
             }}
           >
             <span data-c-visibility="invisible">{link.text}</span>
-            <i className="fas fa-exclamation-circle" data-c-color="stop" />
+            <i
+              className={`${
+                loading ? "blinking-animation" : ""
+              } fas fa-exclamation-circle`}
+              data-c-color="stop"
+            />
           </a>
-        </li>
-      );
-    case "loading":
-      return (
-        <li key={link.title} title={link.title}>
-          <span data-c-visibility="invisible">{link.text}</span>
-          <i className="fas fa-spinner fa-spin" data-c-color="white" />
         </li>
       );
     default:
@@ -126,7 +133,7 @@ export interface ProgressBarProps {
   /** The current step number. This is required for the informational steps, since they do not use a list item. */
   currentTitle: string;
   /** List of the steps. */
-  steps: { link: Link; status: ProgressBarStatus }[];
+  steps: { link: Link; status: ProgressBarStatus; loading: boolean }[];
 }
 
 export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
@@ -145,8 +152,8 @@ export const ProgressBar: React.FunctionComponent<ProgressBarProps> = ({
             <span data-c-color="white">{currentTitle}</span>
             <ol className="applicant-application-progress-bar">
               {steps.map(
-                ({ link, status }): React.ReactElement =>
-                  createStep(link, status),
+                ({ link, status, loading }): React.ReactElement =>
+                  createStep(link, status, loading),
               )}
             </ol>
           </div>
