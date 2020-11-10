@@ -29,12 +29,7 @@ import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEduc
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
-import {
-  Locales,
-  localizeFieldNonNull,
-  getLocale,
-  localizeField,
-} from "../../../helpers/localize";
+import { getLocale, localizeField } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
 
@@ -111,7 +106,6 @@ interface ExperienceAccordionProps {
   experienceSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   skills: Skill[];
-  locale: Locales;
 }
 
 const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
@@ -119,29 +113,15 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   experienceSkills,
   irrelevantSkillCount,
   skills,
-  locale,
 }) => {
   switch (experience.type) {
     case "experience_award":
       return (
         <ExperienceAwardAccordion
-          title={experience.title}
-          recipient={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recipient_type",
-          )}
-          issuer={experience.issued_by}
-          scope={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recognition_type",
-          )}
-          awardedDate={experience.awarded_date}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -151,16 +131,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_community":
       return (
         <ExperienceCommunityAccordion
-          title={experience.title}
-          group={experience.group}
-          project={experience.project}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -170,22 +144,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_education":
       return (
         <ExperienceEducationAccordion
-          educationType={localizeFieldNonNull(
-            locale,
-            experience,
-            "education_type",
-          )}
-          areaOfStudy={experience.area_of_study}
-          institution={experience.institution}
-          status={localizeFieldNonNull(locale, experience, "education_status")}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
-          thesisTitle={experience.thesis_title}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleDelete={async (): Promise<void> => {}}
@@ -195,16 +157,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_personal":
       return (
         <ExperiencePersonalAccordion
-          title={experience.title}
-          description={experience.description}
-          isShareable={experience.is_shareable}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -214,16 +170,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_work":
       return (
         <ExperienceWorkAccordion
-          title={experience.title}
-          organization={experience.organization}
-          group={experience.group}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -556,7 +506,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                   experienceSkills={relevantSkills}
                   skills={skills}
                   irrelevantSkillCount={irrelevantSkillCount}
-                  locale={locale}
                 />
               );
             })}
@@ -648,7 +597,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                     experienceSkills={relevantSkills}
                     skills={skills}
                     irrelevantSkillCount={irrelevantSkillCount}
-                    locale={locale}
                   />
                 );
               })}
@@ -729,7 +677,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-align="base(center) tp(right)"
           >
             <a
-              href="https://talent.test/demo/application-07"
+              href="https://talent.test/demo/application-07" // To
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"

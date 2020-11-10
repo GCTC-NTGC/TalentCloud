@@ -43,7 +43,7 @@ export const getExperiencesOfSkill = (
  * @param experiences Array of ExperienceSkill objects.
  * @returns null if not found or Experience object.
  */
-export const getExperienceOfExperienceSkills = (
+export const getExperienceOfExperienceSkill = (
   experienceSkill: ExperienceSkill,
   experiences: Experience[],
 ): Experience | null => {
