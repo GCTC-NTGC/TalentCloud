@@ -8,6 +8,16 @@
                 <h4 data-c-font-size="normal" data-c-font-weight="bold" data-c-margin="top(double) bottom(normal)">{{ item.copy }}</h4>
             {% elseif item.type == "text" %}
                 <p>{{ item.copy|replace({"%link0%": section.links[0], "%link1%": section.links[1], "%link2%": section.links[2], "%link3%": section.links[3], "%link4%": section.links[4], "%link5%": section.links[5], "%link6%": section.links[6], "%link7%": section.links[7], "%link8%": section.links[8], "%link9%": section.links[9], "%link10%": section.links[10]})|raw|nl2br }}</p>
+            {% elseif item.type == "partners" %}
+                 {% if partner_departments is iterable %}
+                    <ul>
+                        {% for partner in partner_departments %}
+                        <li>
+                            {{ partner.name }}{{ partner.is_host == true ? ' (' ~ item.host_partner_title ~ ')' }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                 {% endif %}
             {% elseif item.type == "ul" %}
                 <ul>
                     {% for listItem in item.items %}

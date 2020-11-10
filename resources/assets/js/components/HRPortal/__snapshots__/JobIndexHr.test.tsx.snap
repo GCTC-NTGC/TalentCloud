@@ -40,7 +40,13 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             },
           }
         }
-        applicants={5}
+        applicants={
+          Object {
+            "text": "5 Applicants",
+            "title": "",
+            "url": "https://google.ca",
+          }
+        }
         classification="CS01"
         draft={
           Object {
@@ -102,7 +108,13 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
             },
           }
         }
-        applicants={12}
+        applicants={
+          Object {
+            "text": "12 Applicants",
+            "title": "",
+            "url": "https://google.ca",
+          }
+        }
         classification="BK01"
         draft={
           Object {
@@ -165,7 +177,11 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
                   "url": "https://google.ca",
                 },
               },
-              "applicants": 5,
+              "applicants": Object {
+                "text": "5 Applicants",
+                "title": "",
+                "url": "https://google.ca",
+              },
               "classification": "BS01",
               "draft": Object {
                 "text": "View Draft",

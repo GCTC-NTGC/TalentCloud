@@ -1,78 +1,22 @@
 import { IntlShape } from "react-intl";
-import { ApplicationNormalized } from "../../../models/types";
-import {
-  ProgressBarProps,
-  stepNames,
-  ProgressBarStepStatus,
-} from "./ProgressBar";
+import { ProgressBarProps, stepNames } from "./ProgressBar";
 import {
   applicationBasic,
-  applicationExperienceIntro,
-  applicationSkills,
   applicationFit,
   applicationReview,
   applicationSubmission,
+  applicationExperience,
+  applicationSkills,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
-
-function basicInfoStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function experienceStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function skillsStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function myFitStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function reviewStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
-function submissionStatus(
-  application: ApplicationNormalized | null,
-): ProgressBarStepStatus {
-  if (application === null) {
-    return "default";
-  }
-  // TODO: implement.
-  return "complete";
-}
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../../models/lookupConstants";
 
 export function makeProgressBarSteps(
   applicationId: number,
-  application: ApplicationNormalized | null,
+  steps: { [step in ApplicationStep]: ProgressBarStatus },
   intl: IntlShape,
   currentStep:
     | "welcome"
@@ -83,8 +27,16 @@ export function makeProgressBarSteps(
     | "review"
     | "submission"
     | "other",
+  stepsUpdateInProgress: boolean,
 ): ProgressBarProps["steps"] {
   const locale = getLocale(intl.locale);
+  const makeStatus = (step: ApplicationStep): ProgressBarStatus => {
+    return step === currentStep ? "current" : steps[step];
+  };
+  const isLoading = (step: ApplicationStep): boolean => {
+    return steps[step] !== "default" && stepsUpdateInProgress;
+  };
+
   return [
     {
       link: {
@@ -92,19 +44,17 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
-      status:
-        currentStep === "basic" ? "current" : basicInfoStatus(application),
+      status: makeStatus("basic"),
+      loading: isLoading("basic"),
     },
     {
       link: {
-        url: applicationExperienceIntro(locale, applicationId),
+        url: applicationExperience(locale, applicationId),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
-      status:
-        currentStep === "experience"
-          ? "current"
-          : experienceStatus(application),
+      status: makeStatus("experience"),
+      loading: isLoading("experience"),
     },
     {
       link: {
@@ -112,7 +62,8 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
-      status: currentStep === "skills" ? "current" : skillsStatus(application),
+      status: makeStatus("skills"),
+      loading: isLoading("skills"),
     },
     {
       link: {
@@ -120,7 +71,8 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
-      status: currentStep === "fit" ? "current" : myFitStatus(application),
+      status: makeStatus("fit"),
+      loading: isLoading("fit"),
     },
     {
       link: {
@@ -128,7 +80,8 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
-      status: currentStep === "review" ? "current" : reviewStatus(application),
+      status: makeStatus("review"),
+      loading: isLoading("review"),
     },
     {
       link: {
@@ -136,10 +89,8 @@ export function makeProgressBarSteps(
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
-      status:
-        currentStep === "submission"
-          ? "current"
-          : submissionStatus(application),
+      status: makeStatus("submission"),
+      loading: isLoading("submission"),
     },
   ];
 }

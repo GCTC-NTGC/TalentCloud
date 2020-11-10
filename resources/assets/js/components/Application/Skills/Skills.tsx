@@ -36,7 +36,7 @@ import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
   getExperiencesOfSkill,
-  getExperienceOfExperienceSkills,
+  getExperienceOfExperienceSkill,
 } from "../helpers";
 import {
   statusReducer,
@@ -58,7 +58,7 @@ import {
   notEmpty,
 } from "../../../helpers/queries";
 
-const JUSTIFICATION_WORD_LIMIT = 100;
+export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
   menuSkills: { [skillId: number]: string };
@@ -649,7 +649,7 @@ const Skills: React.FC<SkillsProps> = ({
                             status,
                             experienceSkill,
                           );
-                          const relevantExperience = getExperienceOfExperienceSkills(
+                          const relevantExperience = getExperienceOfExperienceSkill(
                             experienceSkill,
                             experiences,
                           );

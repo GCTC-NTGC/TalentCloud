@@ -18,6 +18,11 @@ export const accordionMessages = defineMessages({
     description:
       "Shows the date range for the title bar (assuming activity is ongoing).",
   },
+  detailsTitle: {
+    id: "application.accordion.detailsTitle",
+    defaultMessage: "Details of this Experience",
+    description: "Subtitle of the details section.",
+  },
   notApplicable: {
     id: "application.accordion.notApplicable",
     defaultMessage: "N/A",
@@ -104,7 +109,7 @@ export const accordionMessages = defineMessages({
   },
   educationType: {
     id: "application.accordion.educationType",
-    defaultMessage: "Education Experience",
+    defaultMessage: "Education",
   },
   educationTypeLabel: {
     id: "application.accordion.educationTypeLabel",
@@ -132,7 +137,7 @@ export const accordionMessages = defineMessages({
   },
   educationHasBlockcert: {
     id: "application.accordion.educationHasBlockcert",
-    defaultMessage: "I have a Blockcert and can provide it on request.",
+    defaultMessage: "Yes, I have a Blockcert and can provide it on request.",
   },
   personalType: {
     id: "application.accordion.personalType",
@@ -207,7 +212,7 @@ export const basicInfoMessages = defineMessages({
 export const experienceMessages = defineMessages({
   heading: {
     id: "application.experience.heading",
-    defaultMessage: "My Experience",
+    defaultMessage: "Your Experience",
     description: "Heading for the Experience section of the Application.",
   },
 });

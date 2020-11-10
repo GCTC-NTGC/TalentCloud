@@ -70,7 +70,7 @@ export const fakeExperienceSkill5 = (
   skill_id: fakeSkills()[2].id,
   experience_id: fakeExperienceAward().id,
   experience_type: "experience_award",
-  justification: "",
+  justification: null,
   created_at: dayjs("2015-04-30T14:47:29+00:00").toDate(),
   updated_at: dayjs("2016-04-30T14:47:29+00:00").toDate(),
   ...overrides,
