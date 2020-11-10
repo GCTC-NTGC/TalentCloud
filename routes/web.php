@@ -51,6 +51,10 @@ Route::group(
             /* Temp Builder 08 (Review) */
             Route::view('builder-08', 'manager/builder-08')->middleware('localOnly')->name('jpb8');
 
+            /* Profile (Experience) */
+            /* Temp Resources */
+            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+
             /* Application (Welcome Mat) */
             Route::view('application-01', 'applicant/application/01-welcome')->middleware('localOnly')->name('app1');
             /* Application (Intro Information & Education) */
@@ -70,11 +74,7 @@ Route::group(
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
             /* Application (Congrats) */
-            Route::view('application-10', 'applicant/application/10-congrats')->middleware('localOnly')->name('app10');
-
-            /* Profile (Experience) */
-            /* Temp Resources */
-            Route::view('resources', 'common/resources')->middleware('localOnly')->name('resources');
+            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
@@ -83,8 +83,10 @@ Route::group(
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
+                ->name('application.timeline');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                ->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -1066,8 +1068,12 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->name('application.basic');
     Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
-        ->middleware('can:view,application')
+        ->middleware('can:update,application')
         ->name('application.basic.update');
+    Route::put('applications/{application}/submit', 'Api\ApplicationController@submit')
+        ->where('application', '[0-9]+')
+        ->middleware('can:update,application')
+        ->name('application.submit');
     Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:reviewApplicationsFor,jobPoster')
@@ -1080,4 +1086,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
+    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+        ->middleware('can:view,application')
+        ->name('job-application-step.update');
 });

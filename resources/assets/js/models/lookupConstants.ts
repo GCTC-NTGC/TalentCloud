@@ -203,6 +203,30 @@ export const ApplicationStatusId = {
   rejected: 5,
 };
 
+export const ApplicationStepId = {
+  basic: 1,
+  experience: 2,
+  skills: 3,
+  fit: 4,
+  review: 5,
+  submission: 6,
+};
+
+export type ApplicationStep =
+  | "basic"
+  | "experience"
+  | "skills"
+  | "fit"
+  | "review"
+  | "submission";
+
+export type ProgressBarStatus =
+  | "default"
+  | "complete"
+  | "error"
+  | "current"
+  | "loading";
+
 export function getKeyByValue(object, value): string {
   return (
     Object.keys(object).find((key) => object[key] === value) ?? "key not found."

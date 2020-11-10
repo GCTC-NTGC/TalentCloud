@@ -77,24 +77,24 @@ const messages = defineMessages({
 
 const managerViewHeaders = defineMessages({
   basicInfo: {
-    id: "application.review.basicInfoHeading",
+    id: "application.review.manager.basicInfoHeading",
     defaultMessage: "Basic Information",
     description:
       "Manager's heading for the Basic Info section of the Application.",
   },
   experience: {
-    id: "application.review.experienceHeading",
+    id: "application.review.manager.experienceHeading",
     defaultMessage: "Experience",
     description:
       "Manager's heading for the Experience section of the Application.",
   },
   fit: {
-    id: "application.review.fitHeading",
+    id: "application.review.manager.fitHeading",
     defaultMessage: "Fit",
     description: "Manager's heading for the Fit section of the Application.",
   },
   accountSettings: {
-    id: "application.review.accountSettingsHeading",
+    id: "application.review.manager.accountSettingsHeading",
     defaultMessage: "Account Settings",
     description:
       "Manager's heading for the Account Settings section of the Application.",

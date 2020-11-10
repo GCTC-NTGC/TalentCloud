@@ -27,6 +27,8 @@ import {
   useFetchAllApplicationData,
   useJob,
   useSkills,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface SkillsPageProps {
@@ -53,6 +55,13 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
   const skills = useSkills();
+  const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
 
   const showLoadingState =
     application === null || job === null || !experiencesLoaded || !skillsLoaded;
@@ -90,7 +99,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     // Because the Applications Index is outside of the Application SPA, we navigate to it differently.
     window.location.href = applicationIndex(locale);
   };
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
     navigate(applicationFit(locale, applicationId));
   };
 
@@ -102,9 +111,10 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
           currentTitle={intl.formatMessage(stepNames.step03)}
           steps={makeProgressBarSteps(
             applicationId,
-            application,
+            steps,
             intl,
             "skills",
+            stepsAreUpdating,
           )}
         />
       )}

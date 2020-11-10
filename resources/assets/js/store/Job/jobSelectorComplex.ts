@@ -175,10 +175,11 @@ export const getCriteriaUnansweredForQuestion = createCachedSelector(
 export const getCachedCriteriaUnansweredForQuestion = createCachedSelector(
   getCriteriaUnansweredForQuestion,
   (criteria): Criteria[] => criteria,
-)(
-  (state, props): string => `${props.questionId} ${props.isTempQuestion}`,
-  deepEqualSelectorOptions,
-);
+)({
+  keySelector: (state, props): string =>
+    `${props.questionId} ${props.isTempQuestion}`,
+  ...deepEqualSelectorOptions,
+});
 
 export const getCriteriaUnansweredForAssessmentType = createCachedSelector(
   getCriteriaIdsUnansweredForAssessmentType,

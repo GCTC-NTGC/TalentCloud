@@ -4,13 +4,23 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Review from "../../components/Application/Review/Review";
-import { fakeApplication1 } from "../../fakeData/fakeApplications";
+import {
+  fakeApplication,
+  fakeApplication1,
+} from "../../fakeData/fakeApplications";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
-import { fakeJob, fakeJobQuestions } from "../../fakeData/fakeJob";
+import {
+  fakeJob,
+  fakeJobApplicationAnswers,
+  fakeJobQuestions,
+} from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";
-import { fakeUsers } from "../../fakeData/fakeUsers";
+import { fakeUser, fakeUsers } from "../../fakeData/fakeUsers";
+import ApplicationPreview from "../../components/Application/Review/ApplicationPreview";
+import ApplicationReviewNav from "../../components/ApplicationReview/ApplicationReviewRoot";
+import fakeReviewStatuses from "../../fakeData/fakeReviewStatus";
 
 const stories = storiesOf("Application|Review", module).addDecorator(withIntl);
 
@@ -54,4 +64,62 @@ stories.add(
       handleQuit={action("Quit")}
     />
   ),
+);
+stories.add(
+  "Manager View",
+  (): React.ReactElement => {
+    const application = fakeApplication1();
+    return (
+      <>
+        <ApplicationReviewNav
+          initApplication={application}
+          portal="manager"
+          reviewStatuses={fakeReviewStatuses()}
+        />
+        <ApplicationPreview
+          application={application}
+          criteria={fakeCriteria()}
+          experiences={fakeExperiences()}
+          experienceSkills={fakeExperienceSkills()}
+          experienceViewState="education"
+          experienceViewButtonOrder={["education", "skills", "experience"]}
+          job={fakeJob()}
+          jobApplicationAnswers={fakeJobApplicationAnswers()}
+          jobQuestions={fakeJobQuestions()}
+          skills={fakeSkills()}
+          user={fakeUser()}
+          managerView
+        />
+      </>
+    );
+  },
+);
+stories.add(
+  "HR View",
+  (): React.ReactElement => {
+    const application = fakeApplication1();
+    return (
+      <>
+        <ApplicationReviewNav
+          initApplication={application}
+          portal="hr"
+          reviewStatuses={fakeReviewStatuses()}
+        />
+        <ApplicationPreview
+          application={application}
+          criteria={fakeCriteria()}
+          experiences={fakeExperiences()}
+          experienceSkills={fakeExperienceSkills()}
+          experienceViewState="education"
+          experienceViewButtonOrder={["education", "skills", "experience"]}
+          job={fakeJob()}
+          jobApplicationAnswers={fakeJobApplicationAnswers()}
+          jobQuestions={fakeJobQuestions()}
+          skills={fakeSkills()}
+          user={fakeUser()}
+          managerView
+        />
+      </>
+    );
+  },
 );

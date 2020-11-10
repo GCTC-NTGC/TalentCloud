@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { select, text, number, boolean, date } from "@storybook/addon-knobs";
+import { number, boolean } from "@storybook/addon-knobs";
 import { ExperienceWorkAccordion } from "../../components/Application/ExperienceAccordions/ExperienceWorkAccordion";
 import {
   fakeExperienceWork,
