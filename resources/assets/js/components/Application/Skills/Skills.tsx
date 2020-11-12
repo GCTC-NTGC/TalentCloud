@@ -272,6 +272,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
         )}
       </button>
       <Formik
+        enableReinitialize
         innerRef={formRef}
         initialValues={initialValues}
         validationSchema={experienceSkillSchema}
