@@ -32,7 +32,7 @@ const comments: Comment[] = [
     created_at: new Date(),
   },
   {
-    id: 2,
+    id: 3,
     job_poster_id: 2,
     user_id: 3,
     comment: "Redo everything",
