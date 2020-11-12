@@ -48,7 +48,7 @@ const users = [fakeUsers()[2]];
 const handleFetchComments = (jobId: number): Promise<void> => Promise.resolve();
 const handleFetchUsers = (): Promise<void> => Promise.resolve();
 
-const stories = storiesOf("Components|Activity Feed", module)
+const stories = storiesOf("Components/Activity Feed", module)
   .addDecorator(withIntl)
   .addDecorator(withRootContainer);
 

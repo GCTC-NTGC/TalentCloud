@@ -42,7 +42,7 @@ const steps: { link: Link; status: ProgressBarStatus; loading: boolean }[] = [
 const twoWeeksFromNow = new Date();
 twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
 
-const stories = storiesOf("Application|Progress Bar", module).addDecorator(
+const stories = storiesOf("Application/Progress Bar", module).addDecorator(
   withIntl,
 );
 

@@ -20,7 +20,7 @@ import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 import { sleep } from "../helpers";
 
-const stories = storiesOf("Applicant Profile|Experience", module).addDecorator(
+const stories = storiesOf("Applicant Profile/Experience", module).addDecorator(
   withIntl,
 );
 

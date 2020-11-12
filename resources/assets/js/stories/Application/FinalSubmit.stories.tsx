@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import FinalSubmit from "../../components/Application/FinalSubmit/FinalSubmit";
 import { fakeApplication } from "../../fakeData/fakeApplications";
 
-const stories = storiesOf("Application|Final Submit", module).addDecorator(
+const stories = storiesOf("Application/Final Submit", module).addDecorator(
   withIntl,
 );
 

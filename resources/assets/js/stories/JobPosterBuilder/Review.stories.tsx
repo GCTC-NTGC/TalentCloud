@@ -11,7 +11,7 @@ import fakeDepartments from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
 import { fakeUser } from "../../fakeData/fakeUsers";
 
-const stories = storiesOf("Job Poster Builder|Review", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Review", module).addDecorator(
   withIntl,
 );
 
