@@ -51,13 +51,8 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
 
   const updateApplication = async (
     editedApplication: ApplicationNormalized,
-  ): Promise<ApplicationNormalized> => {
-    const result = await dispatch(updateApplicationAction(editedApplication));
-    if (!result.error) {
-      const payload = await result.payload;
-      return payload;
-    }
-    return Promise.reject(result.payload);
+  ): Promise<void> => {
+    await dispatch(updateApplicationAction(editedApplication));
   };
 
   const handleContinue = async (

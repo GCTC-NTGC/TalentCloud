@@ -7,6 +7,7 @@ import {
 } from "../asyncAction";
 import {
   Application,
+  ApplicationBasic,
   ApplicationNormalized,
   ApplicationReview,
   Email,
@@ -29,6 +30,7 @@ import {
   getTouchApplicationStepEndpoint,
   parseApplicationStep,
   getApplicationSubmitEndpoint,
+  parseApplicationBasic,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
@@ -85,7 +87,7 @@ export type UpdateApplicationAction = AsyncFsaActions<
   typeof UPDATE_APPLICATION_STARTED,
   typeof UPDATE_APPLICATION_SUCCEEDED,
   typeof UPDATE_APPLICATION_FAILED,
-  ApplicationNormalized,
+  ApplicationBasic,
   { id: number }
 >;
 
@@ -95,7 +97,7 @@ export const updateApplication = (
   typeof UPDATE_APPLICATION_STARTED,
   typeof UPDATE_APPLICATION_SUCCEEDED,
   typeof UPDATE_APPLICATION_FAILED,
-  ApplicationNormalized,
+  ApplicationBasic,
   { id: number }
 > =>
   asyncPut(
@@ -104,7 +106,7 @@ export const updateApplication = (
     UPDATE_APPLICATION_STARTED,
     UPDATE_APPLICATION_SUCCEEDED,
     UPDATE_APPLICATION_FAILED,
-    parseApplication,
+    parseApplicationBasic,
     { id: application.id },
   );
 

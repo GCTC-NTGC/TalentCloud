@@ -44,6 +44,13 @@ export const fakeApplicationNormalized = (
   created_at: new Date("2020-01-01"),
   updated_at: new Date("2020-01-01"),
   share_with_managers: false,
+  language_requirement_confirmed: true,
+  language_test_confirmed: true,
+  education_requirement_confirmed: true,
+  version_id: 2,
+  user_email: null,
+  user_name: null,
+
   veteran_status: {
     id: 1,
     name: "none",
@@ -90,9 +97,6 @@ export const fakeApplicationNormalized = (
     },
   },
   meets_essential_criteria: true,
-  language_requirement_confirmed: true,
-  language_test_confirmed: true,
-  education_requirement_confirmed: true,
   ...overrides,
 });
 
