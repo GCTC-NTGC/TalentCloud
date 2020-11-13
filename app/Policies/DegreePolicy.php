@@ -32,7 +32,7 @@ class DegreePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class DegreePolicy extends BasePolicy
      */
     public function update(User $user, Degree $degree)
     {
-        return $user->isApplicant()
-            && $degree->degreeable instanceof Applicant
-            && $degree->degreeable->user->is($user);
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class DegreePolicy extends BasePolicy
      */
     public function delete(User $user, Degree $degree)
     {
-        return $user->isApplicant()
-            && $degree->degreeable instanceof Applicant
-            && $degree->degreeable->user->is($user);
+        return false;
     }
 }

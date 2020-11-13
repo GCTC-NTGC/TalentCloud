@@ -21,42 +21,4 @@ class SkillDeclarationControllerTest extends TestCase
 
         $this->skillDeclaration = factory(SkillDeclaration::class)->create();
     }
-
-    /**
-     * Ensure a skill declaration can be updated.
-     *
-     * @return void
-     */
-    public function testUpdateSkillDeclaration(): void
-    {
-        $oldDeclaration = clone $this->skillDeclaration;
-        $expected = 'This is a new sample skill declaration description';
-        $this->skillDeclaration->description = $expected;
-        $response = $this->actingAs($this->skillDeclaration->skillable->user)
-                            ->followingRedirects()
-                            ->json(
-                                'PUT',
-                                'skill-declarations/' . $this->skillDeclaration->id,
-                                $this->skillDeclaration->toArray()
-                            );
-        $response->assertStatus(200);
-        $this->assertDatabaseHas(
-            'skill_declarations',
-            $this->skillDeclaration->makeHidden(
-                [
-                    'created_at',
-                    'updated_at'
-                ]
-            )->attributesToArray()
-        );
-        $this->assertDatabaseMissing(
-            'skill_declarations',
-            $oldDeclaration->makeHidden(
-                [
-                    'created_at',
-                    'updated_at'
-                ]
-            )->attributesToArray()
-        );
-    }
 }

@@ -32,7 +32,7 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function update(User $user, WorkExperience $workExperience)
     {
-        return $user->isApplicant()
-            && $workExperience->experienceable instanceof Applicant
-            && $workExperience->experienceable->user->is($user);
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class WorkExperiencePolicy extends BasePolicy
      */
     public function delete(User $user, WorkExperience $workExperience)
     {
-        return $user->isApplicant()
-            && $workExperience->experienceable instanceof Applicant
-            && $workExperience->experienceable->user->is($user);
+        return false;
     }
 }
