@@ -115,8 +115,14 @@ class StrategicResponseApplicationValidatorTest extends TestCase
         $incompleteSkills = factory(JobApplication::class)->states(['draft', 'strategic_response'])->create([
             'applicant_id' => $applicant->id
         ]);
-        $essentialCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'essential')->first();
-        $assetCriteria = $incompleteSkills->job_poster->criteria->where('criteria_type.name', 'asset')->first();
+        $essentialCriteria = $incompleteSkills->job_poster->criteria
+            ->where('criteria_type.name', 'essential')
+            ->where('skill.skill_type.name', 'hard')
+            ->first();
+        $assetCriteria = $incompleteSkills->job_poster->criteria
+            ->where('criteria_type.name', 'essential')
+            ->where('skill.skill_type.name', 'hard')
+            ->first();
         $essentialDec = $applicant->skill_declarations->where('skill_id', $essentialCriteria->skill_id)->first();
         $assetDec = $applicant->skill_declarations->where('skill_id', $assetCriteria->skill_id)->first();
         $essentialDec->description = null;
