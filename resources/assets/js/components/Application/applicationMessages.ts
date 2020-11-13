@@ -18,6 +18,11 @@ export const accordionMessages = defineMessages({
     description:
       "Shows the date range for the title bar (assuming activity is ongoing).",
   },
+  detailsTitle: {
+    id: "application.accordion.detailsTitle",
+    defaultMessage: "Details of this Experience",
+    description: "Subtitle of the details section.",
+  },
   notApplicable: {
     id: "application.accordion.notApplicable",
     defaultMessage: "N/A",
