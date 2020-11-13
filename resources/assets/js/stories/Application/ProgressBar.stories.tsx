@@ -2,36 +2,40 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { date, text } from "@storybook/addon-knobs";
-import {
-  ProgressBar,
-  ProgressBarStepStatus,
-} from "../../components/Application/ProgressBar/ProgressBar";
+import { ProgressBar } from "../../components/Application/ProgressBar/ProgressBar";
 import { Link } from "../../models/app";
+import { ProgressBarStatus } from "../../models/lookupConstants";
 
-const steps: { link: Link; status: ProgressBarStepStatus }[] = [
+const steps: { link: Link; status: ProgressBarStatus; loading: boolean }[] = [
   {
     link: { url: "/", text: "Step 1", title: "Step 1" },
     status: "complete",
+    loading: false,
   },
   {
     link: { url: "/", text: "Step 2", title: "Step 2" },
     status: "error",
+    loading: false,
   },
   {
     link: { url: "/", text: "Step 3", title: "Step 3" },
     status: "current",
+    loading: false,
   },
   {
     link: { url: "/", text: "Step 4", title: "Step 4" },
     status: "default",
+    loading: false,
   },
   {
     link: { url: "/", text: "Step 5", title: "Step 5" },
     status: "default",
+    loading: false,
   },
   {
     link: { url: "/", text: "Step 6", title: "Step 6" },
     status: "default",
+    loading: false,
   },
 ];
 

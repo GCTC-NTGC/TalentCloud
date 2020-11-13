@@ -16,6 +16,7 @@ import {
   hrJobReview,
   hrJobPreview,
   hrScreeningPlan,
+  hrJobApplications,
 } from "../../helpers/routes";
 import { UnclaimedJobCardProps } from "../UnclaimedJobCard";
 import { find, stringNotEmpty } from "../../helpers/queries";
@@ -66,6 +67,13 @@ const buttonMessages = defineMessages({
     defaultMessage: "View Summary",
     description: "Text for the link to the Job Summary page.",
   },
+  applicants: {
+    id: "hrJobIndex.applicantsLink",
+    defaultMessage:
+      "{applicants, plural,=0 {No Applicants} one {# Applicant} other {# Applicants}}",
+    description:
+      "Text of link to applicants, showing how many applicants have applied to this Job.",
+  },
 });
 
 export const messages = defineMessages({
@@ -95,7 +103,16 @@ const makeJobAction = (
   const jobTitle = localizeField(locale, job, "title");
   return {
     id: job.id,
-    applicants: 0, // TODO: find real number of applicants.
+    applicants: {
+      url:
+        (job.submitted_applications_count ?? 0) > 0
+          ? hrJobApplications(locale, job.id)
+          : "",
+      text: intl.formatMessage(buttonMessages.applicants, {
+        applicants: job.submitted_applications_count ?? 0,
+      }),
+      title: "",
+    },
     // TODO: is this intended to be a link as well, like activity?
     classification: classificationString(job),
     managerTime: 0, // TODO: This isn't recorded yet.

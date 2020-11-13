@@ -83,8 +83,10 @@ Route::group(
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
 
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
+            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
+                ->name('application.timeline');
+            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                ->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -1066,8 +1068,12 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->name('application.basic');
     Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
-        ->middleware('can:view,application')
+        ->middleware('can:update,application')
         ->name('application.basic.update');
+    Route::put('applications/{application}/submit', 'Api\ApplicationController@submit')
+        ->where('application', '[0-9]+')
+        ->middleware('can:update,application')
+        ->name('application.submit');
     Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:reviewApplicationsFor,jobPoster')
@@ -1080,4 +1086,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
+    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+        ->middleware('can:view,application')
+        ->name('job-application-step.update');
 });

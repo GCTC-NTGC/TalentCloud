@@ -1,39 +1,21 @@
 /* eslint-disable camelcase */
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useIntl, FormattedMessage } from "react-intl";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
-import { Experience } from "../../../models/types";
 import { navigate } from "../../../helpers/router";
 import { applicationSkills } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
 import { DispatchType } from "../../../configureStore";
-import { RootState } from "../../../store/store";
-import {
-  getApplicationById,
-  getApplicationIsUpdating,
-} from "../../../store/Application/applicationSelector";
-import { fetchApplication } from "../../../store/Application/applicationActions";
-import { getJob, getJobIsUpdating } from "../../../store/Job/jobSelector";
-import { fetchJob } from "../../../store/Job/jobActions";
-import {
-  getExperienceByApplicant,
-  getExperienceByApplication,
-  getUpdatingByApplicant,
-  getUpdatingByApplication,
-} from "../../../store/Experience/experienceSelector";
-import {
-  fetchExperienceByApplicant,
-  fetchExperienceByApplication,
-} from "../../../store/Experience/experienceActions";
-import { ApplicationStatusId } from "../../../models/lookupConstants";
-import {
-  getSkills,
-  getSkillsUpdating,
-} from "../../../store/Skill/skillSelector";
-import { fetchSkills } from "../../../store/Skill/skillActions";
 import { loadingMessages } from "../applicationMessages";
+import {
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
+} from "../../../hooks/applicationHooks";
 
 interface SkillsIntroPageProps {
   applicationId: number;
@@ -50,101 +32,17 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
-  const applicationSelector = (state: RootState) =>
-    getApplicationById(state, { id: applicationId });
-  const application = useSelector(applicationSelector);
-  const applicationIsUpdating = useSelector((state: RootState) =>
-    getApplicationIsUpdating(state, { applicationId }),
-  );
-  useEffect(() => {
-    if (application === null && !applicationIsUpdating) {
-      dispatch(fetchApplication(applicationId));
-    }
-  }, [application, applicationId, applicationIsUpdating, dispatch]);
-
-  const jobId = application?.job_poster_id;
-  const jobSelector = (state: RootState) =>
-    jobId ? getJob(state, { jobId }) : null;
-  const job = useSelector(jobSelector);
-  const jobUpdatingSelector = (state: RootState) =>
-    jobId ? getJobIsUpdating(state, jobId) : false;
-  const jobIsUpdating = useSelector(jobUpdatingSelector);
-  useEffect(() => {
-    // If job is null and not already updating, fetch it.
-    if (jobId && job === null && !jobIsUpdating) {
-      dispatch(fetchJob(jobId));
-    }
-  }, [jobId, job, jobIsUpdating, dispatch]);
-
-  const applicantId = application?.applicant_id ?? 0;
-
-  // When an Application is still a draft, use Experiences associated with the applicant profile.
-  // When an Application has been submitted and is no longer a draft, display Experience associated with the Application directly.
-  const applicationLoaded = application !== null;
-  const useProfileExperience =
-    application === null ||
-    application.application_status_id === ApplicationStatusId.draft;
-
-  // This selector must be memoized because getExperienceByApplicant/Application uses reselect, and not re-reselect.
-  const experienceSelector = useCallback(
-    (state: RootState) =>
-      useProfileExperience
-        ? getExperienceByApplicant(state, { applicantId })
-        : getExperienceByApplication(state, { applicationId }),
-    [applicationId, applicantId, useProfileExperience],
-  );
-  const experiencesByType = useSelector(experienceSelector);
-  const experiences: Experience[] = [
-    ...experiencesByType.award,
-    ...experiencesByType.community,
-    ...experiencesByType.education,
-    ...experiencesByType.personal,
-    ...experiencesByType.work,
-  ];
-  const experiencesUpdating = useSelector((state: RootState) =>
-    useProfileExperience
-      ? getUpdatingByApplicant(state, { applicantId })
-      : getUpdatingByApplication(state, { applicationId }),
-  );
-  const [experiencesFetched, setExperiencesFetched] = useState(false);
-  useEffect(() => {
-    // Only load experiences if they have never been fetched by this component (!experiencesFetched),
-    //  have never been fetched by another component (length === 0),
-    //  and are not currently being fetched (!experiencesUpdating).
-    // Also, wait until application has been loaded so the correct source can be determined.
-    if (
-      applicationLoaded &&
-      !experiencesFetched &&
-      !experiencesUpdating &&
-      experiences.length === 0
-    ) {
-      setExperiencesFetched(true);
-      if (useProfileExperience) {
-        dispatch(fetchExperienceByApplicant(applicantId));
-      } else {
-        dispatch(fetchExperienceByApplication(applicationId));
-      }
-    }
-  }, [
-    applicantId,
-    applicationId,
-    applicationLoaded,
-    dispatch,
-    experiences.length,
-    experiencesFetched,
-    experiencesUpdating,
-    useProfileExperience,
-  ]);
-
-  const skills = useSelector(getSkills);
-  const skillsUpdating = useSelector(getSkillsUpdating);
-  useEffect(() => {
-    if (skills.length === 0 && !skillsUpdating) {
-      dispatch(fetchSkills());
-    }
-  }, [skills.length, skillsUpdating, dispatch]);
-
+  useFetchAllApplicationData(applicationId, dispatch);
+  const application = useApplication(applicationId);
+  const job = useJob(application?.job_poster_id);
+  const steps = useJobApplicationSteps();
   const closeDate = job?.close_date_time ?? null;
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "skills",
+    dispatch,
+  );
 
   const handleContinue = (): void => {
     navigate(applicationSkills(locale, applicationId));
@@ -158,9 +56,10 @@ export const SkillsIntroPage: React.FunctionComponent<SkillsIntroPageProps> = ({
           currentTitle={intl.formatMessage(stepNames.step03)}
           steps={makeProgressBarSteps(
             applicationId,
-            application,
+            steps,
             intl,
             "skills",
+            stepsAreUpdating,
           )}
         />
       )}
