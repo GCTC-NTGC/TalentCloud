@@ -55,6 +55,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   keyTasks,
   loadTasks,
   criteria,
+  skills,
   loadCriteria,
   loadSkills,
   departments,
@@ -67,7 +68,7 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   const [isLoadingJob, setIsLoadingJob] = useState(false);
   useEffect((): (() => void) => {
     let isSubscribed = true;
-    if (jobId) {
+    if (jobId && (job === null || job.id !== jobId) && !isLoadingJob) {
       setIsLoadingJob(true);
       loadJob(jobId).finally((): void => {
         if (isSubscribed) {
@@ -78,37 +79,53 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     return (): void => {
       isSubscribed = false;
     };
-  }, [jobId, loadJob]);
+  }, [jobId, loadJob, job, isLoadingJob]);
   const [isLoadingTasks, setIsLoadingTasks] = useState(false);
+  const [hasFetchedTasks, setHasFetchedTasks] = useState(false);
   useEffect((): (() => void) => {
     let isSubscribed = true;
-    if (jobId) {
+    if (jobId && !hasFetchedTasks) {
       setIsLoadingTasks(true);
-      loadTasks(jobId).finally((): void => {
-        if (isSubscribed) {
-          setIsLoadingTasks(false);
-        }
-      });
+      setHasFetchedTasks(true);
+      loadTasks(jobId)
+        .catch((): void => {
+          if (isSubscribed) {
+            setHasFetchedTasks(false);
+          }
+        })
+        .finally((): void => {
+          if (isSubscribed) {
+            setIsLoadingTasks(false);
+          }
+        });
     }
     return (): void => {
       isSubscribed = false;
     };
-  }, [jobId, loadTasks]);
+  }, [jobId, loadTasks, hasFetchedTasks]);
   const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
+  const [hasFetchedCriteria, setHasFetchedCriteria] = useState(false);
   useEffect((): (() => void) => {
     let isSubscribed = true;
-    if (jobId) {
+    if (jobId && !hasFetchedCriteria) {
       setIsLoadingCriteria(true);
-      loadCriteria(jobId).finally((): void => {
-        if (isSubscribed) {
-          setIsLoadingCriteria(false);
-        }
-      });
+      setHasFetchedCriteria(true);
+      loadCriteria(jobId)
+        .catch((): void => {
+          if (isSubscribed) {
+            setHasFetchedCriteria(false);
+          }
+        })
+        .finally((): void => {
+          if (isSubscribed) {
+            setIsLoadingCriteria(false);
+          }
+        });
     }
     return (): void => {
       isSubscribed = false;
     };
-  }, [jobId, loadCriteria]);
+  }, [jobId, loadCriteria, hasFetchedCriteria]);
 
   const dataIsLoading =
     forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
@@ -120,8 +137,10 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
     }
   }, [departments, loadDepartments]);
   useEffect((): void => {
-    loadSkills();
-  }, [loadSkills]);
+    if (skills.length === 0) {
+      loadSkills();
+    }
+  }, [skills, loadSkills]);
 
   useEffect((): void => {
     if (jobId !== null && job === null) {
