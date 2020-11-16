@@ -66,43 +66,65 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
 }): React.ReactElement => {
   // Trigger fetching of job details
   const [isLoadingJob, setIsLoadingJob] = useState(false);
-  useEffect((): void => {
+  useEffect((): (() => void) => {
+    let isSubscribed = true;
     if (jobId && (job === null || job.id !== jobId) && !isLoadingJob) {
       setIsLoadingJob(true);
       loadJob(jobId).finally((): void => {
-        setIsLoadingJob(false);
+        if (isSubscribed) {
+          setIsLoadingJob(false);
+        }
       });
     }
+    return (): void => {
+      isSubscribed = false;
+    };
   }, [jobId, loadJob, job, isLoadingJob]);
   const [isLoadingTasks, setIsLoadingTasks] = useState(false);
   const [hasFetchedTasks, setHasFetchedTasks] = useState(false);
-  useEffect((): void => {
+  useEffect((): (() => void) => {
+    let isSubscribed = true;
     if (jobId && !hasFetchedTasks) {
       setIsLoadingTasks(true);
       setHasFetchedTasks(true);
       loadTasks(jobId)
         .catch((): void => {
-          setHasFetchedTasks(false);
+          if (isSubscribed) {
+            setHasFetchedTasks(false);
+          }
         })
         .finally((): void => {
-          setIsLoadingTasks(false);
+          if (isSubscribed) {
+            setIsLoadingTasks(false);
+          }
         });
     }
+    return (): void => {
+      isSubscribed = false;
+    };
   }, [jobId, loadTasks, hasFetchedTasks]);
   const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
   const [hasFetchedCriteria, setHasFetchedCriteria] = useState(false);
-  useEffect((): void => {
+  useEffect((): (() => void) => {
+    let isSubscribed = true;
     if (jobId && !hasFetchedCriteria) {
       setIsLoadingCriteria(true);
       setHasFetchedCriteria(true);
       loadCriteria(jobId)
         .catch((): void => {
-          setHasFetchedCriteria(false);
+          if (isSubscribed) {
+            setHasFetchedCriteria(false);
+          }
         })
         .finally((): void => {
-          setIsLoadingCriteria(false);
+          if (isSubscribed) {
+            setIsLoadingCriteria(false);
+          }
         });
     }
+    return (): void => {
+      isSubscribed = false;
+    };
   }, [jobId, loadCriteria, hasFetchedCriteria]);
 
   const dataIsLoading =
