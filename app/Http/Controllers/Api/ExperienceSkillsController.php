@@ -16,7 +16,8 @@ class ExperienceSkillsController extends Controller
         $softDeletedExperienceSkill = ExperienceSkill::onlyTrashed()
             ->where([
             ['skill_id', $data['skill_id']],
-            ['experience_id', $data['experience_id']]
+            ['experience_id', $data['experience_id']],
+            ['experience_type', $data['experience_type']]
         ])->first();
         if ($softDeletedExperienceSkill) {
             $softDeletedExperienceSkill->restore();
