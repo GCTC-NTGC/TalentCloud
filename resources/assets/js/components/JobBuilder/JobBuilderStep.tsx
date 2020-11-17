@@ -12,7 +12,7 @@ import {
   useLoadJob,
   useLoadSkills,
   useLoadTasks,
-} from "./jobBuilderHooks";
+} from "../../hooks/jobBuilderHooks";
 
 interface JobBuilderStepProps {
   jobId: number | null;

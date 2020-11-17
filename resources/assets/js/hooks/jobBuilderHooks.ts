@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { DispatchType } from "../../configureStore";
+import { DispatchType } from "../configureStore";
 import {
   Criteria,
   Department,
   Job,
   JobPosterKeyTask,
   Skill,
-} from "../../models/types";
+} from "../models/types";
 import {
   getDepartments,
   departmentsIsLoading,
-} from "../../store/Department/deptSelector";
-import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
+} from "../store/Department/deptSelector";
+import { getDepartments as fetchDepartments } from "../store/Department/deptActions";
 import {
   getCriteriaByJob,
   getCriteriaForJobIsUpdating,
@@ -20,15 +20,15 @@ import {
   getJobIsUpdating,
   getTasksByJob,
   getTasksForJobIsUpdating,
-} from "../../store/Job/jobSelector";
-import { RootState } from "../../store/store";
+} from "../store/Job/jobSelector";
+import { RootState } from "../store/store";
 import {
   fetchCriteria,
   fetchJob,
   setSelectedJob,
-} from "../../store/Job/jobActions";
-import { getSkills, getSkillsUpdating } from "../../store/Skill/skillSelector";
-import { fetchSkills } from "../../store/Skill/skillActions";
+} from "../store/Job/jobActions";
+import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
+import { fetchSkills } from "../store/Skill/skillActions";
 
 export function useLoadJob(
   jobId: number | null,
