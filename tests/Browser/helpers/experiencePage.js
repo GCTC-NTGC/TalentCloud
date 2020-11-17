@@ -34,7 +34,7 @@ function modal(titleText) {
 }
 
 export function educationModal() {
-  const title = "Add Education Experience";
+  const title = "Add Education";
   const baseModal = modal(title);
 
   const inputs = {

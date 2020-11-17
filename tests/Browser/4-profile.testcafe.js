@@ -40,7 +40,7 @@ test("Applicant Profile - My Experience", async (t) => {
     .useRole(emptyApplicantUser)
     // Go to My Experience page.
     .navigateTo(PROFILE_EXPERIENCE)
-    .expect(Selector("h2").withText("My Experience").visible)
+    .expect(Selector("h2").withText("Your Experience").visible)
     .ok();
 
   const education = educationModal();
