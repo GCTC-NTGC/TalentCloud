@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Applicant;
-use App\Models\WorkSample;
-use App\Services\Validation\Requests\UpdateWorkSampleValidator;
 
 class WorkSamplesController extends Controller
 {
@@ -47,65 +45,5 @@ class WorkSamplesController extends Controller
             'profile' => Lang::get('applicant/profile_work_samples'),
             'custom_breadcrumbs' => $custom_breadcrumbs,
         ]);
-    }
-
-    /**
-     * Update the workSample in storage, or create new one.
-     *
-     * @param  \Illuminate\Http\Request    $request    Incoming Request.
-     * @param  \App\Models\WorkSample|null $workSample Incoming optional Work Sample.
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ?WorkSample $workSample = null)
-    {
-        $validator = new UpdateWorkSampleValidator();
-        $validator->validate($request->input());
-
-        if ($workSample === null) {
-            $workSample = new WorkSample();
-            $request->user()->applicant->work_samples()->save($workSample);
-            $workSample->refresh();
-        }
-        $workSample->fill([
-            'name' => $request->input('name'),
-            'file_type_id' => $request->input('file_type_id'),
-            'url' => $request->input('url'),
-            'description' => $request->input('description'),
-        ]);
-        $workSample->save();
-
-        // Attach relatives.
-        $skillIds = $this->getRelativeIds($request->input(), 'skills');
-        $workSample->skill_declarations()->sync($skillIds);
-
-        // If an ajax request, return the new object.
-        if ($request->ajax()) {
-            $workSample->load('file_type');
-            return $workSample->toJson();
-        } else {
-            return redirect()->back();
-        }
-    }
-
-    /**
-     * Delete the particular work sample from storage.
-     *
-     * @param  \Illuminate\Http\Request $request    Incoming Request.
-     * @param  \App\Models\WorkSample   $workSample Incoming Work Sample.
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $request, WorkSample $workSample)
-    {
-        $this->authorize('delete', $workSample);
-
-        $workSample->delete();
-
-        if ($request->ajax()) {
-            return [
-                'message' => 'Work sample deleted'
-            ];
-        }
-
-        return redirect()->back();
     }
 }

@@ -32,7 +32,7 @@ class CoursePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class CoursePolicy extends BasePolicy
      */
     public function update(User $user, Course $course)
     {
-        return $user->isApplicant()
-            && $course->courseable instanceof Applicant
-            && $course->courseable->user->id === $user->id;
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class CoursePolicy extends BasePolicy
      */
     public function delete(User $user, Course $course)
     {
-        return $user->isApplicant()
-            && $course->courseable instanceof Applicant
-            && $course->courseable->user->id === $user->id;
+        return false;
     }
 }
