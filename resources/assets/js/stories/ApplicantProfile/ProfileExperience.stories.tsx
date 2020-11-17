@@ -17,7 +17,7 @@ import {
 } from "../Application/ExperienceModals.stories";
 import { sleep } from "../helpers";
 
-const stories = storiesOf("Applicant Profile|Experience", module).addDecorator(
+const stories = storiesOf("Applicant Profile/Experience", module).addDecorator(
   withIntl,
 );
 

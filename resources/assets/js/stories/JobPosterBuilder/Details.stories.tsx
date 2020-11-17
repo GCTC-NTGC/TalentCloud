@@ -6,7 +6,7 @@ import { boolean } from "@storybook/addon-knobs";
 import { JobDetails } from "../../components/JobBuilder/Details/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 
-const stories = storiesOf("Job Poster Builder|Details", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Details", module).addDecorator(
   withIntl,
 );
 

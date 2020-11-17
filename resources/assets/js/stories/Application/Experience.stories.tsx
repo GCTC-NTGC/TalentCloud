@@ -23,7 +23,7 @@ import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
-const stories = storiesOf("Application|My Experience", module).addDecorator(
+const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
 );
 

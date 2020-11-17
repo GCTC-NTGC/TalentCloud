@@ -20,7 +20,7 @@ import { ProfilePersonalAccordion } from "../../components/Application/Experienc
 import { ProfileWorkAccordion } from "../../components/Application/ExperienceAccordions/ExperienceWorkAccordion";
 import { promiseAction } from "../helpers";
 
-const stories = storiesOf("Applicant Profile|Experience Accordions", module)
+const stories = storiesOf("Applicant Profile/Experience Accordions", module)
   .addDecorator(withIntl)
   .addDecorator((storyFn) => (
     <div data-c-container="medium">

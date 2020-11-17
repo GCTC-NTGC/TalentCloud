@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import JobCard from "../components/JobCard";
 import { jobPosterStatuses } from "../components/HRPortal/fixtures";
 
-const stories = storiesOf("Components|Job Card", module).addDecorator(withIntl);
+const stories = storiesOf("Components/Job Card", module).addDecorator(withIntl);
 
 stories
   .add(

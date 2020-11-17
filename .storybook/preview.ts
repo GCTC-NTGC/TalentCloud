@@ -1,25 +1,11 @@
 import React from "react";
-import { addParameters, configure, addDecorator } from "@storybook/react";
-import { themes } from "@storybook/theming";
+import { addDecorator } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { setIntlConfig } from "storybook-addon-intl";
 import messagesFr from "../resources/assets/js/translations/locales/fr.json";
 
+// Add storybook knobs globally.
 addDecorator(withKnobs);
-
-// Option defaults.
-addParameters({
-  options: {
-    theme: themes.light,
-  },
-});
-
-// automatically import all files ending in *.stories.tsx
-const req = require.context(
-  "../resources/assets/js/stories",
-  true,
-  /\.stories\.tsx$/,
-);
 
 // Create a parent element for modals.
 // Modals use the createPortal function, which needs a dom node passed in as a parent.
@@ -47,9 +33,3 @@ setIntlConfig({
   getMessages,
   textComponent: React.Fragment,
 });
-
-function loadStories() {
-  req.keys().forEach(req);
-}
-
-configure(loadStories, module);

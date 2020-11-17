@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Checkbox from "../components/Checkbox";
 
-const stories = storiesOf("Form Components|Checkbox", module).addDecorator(
+const stories = storiesOf("Form Components/Checkbox", module).addDecorator(
   withIntl,
 );
 

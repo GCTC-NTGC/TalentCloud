@@ -32,7 +32,7 @@ const comments: Comment[] = [
     created_at: new Date(),
   },
   {
-    id: 2,
+    id: 3,
     job_poster_id: 2,
     user_id: 3,
     comment: "Redo everything",
@@ -48,7 +48,7 @@ const users = [fakeUsers()[2]];
 const handleFetchComments = (jobId: number): Promise<void> => Promise.resolve();
 const handleFetchUsers = (): Promise<void> => Promise.resolve();
 
-const stories = storiesOf("Components|Activity Feed", module)
+const stories = storiesOf("Components/Activity Feed", module)
   .addDecorator(withIntl)
   .addDecorator(withRootContainer);
 

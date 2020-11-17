@@ -6,7 +6,7 @@ import { withIntl } from "storybook-addon-intl";
 import TextArea from "../../components/TextArea";
 import WordCounter from "../../components/WordCounter/WordCounter";
 
-const stories = storiesOf("Components|Word Counter", module).addDecorator(
+const stories = storiesOf("Components/Word Counter", module).addDecorator(
   withIntl,
 );
 
