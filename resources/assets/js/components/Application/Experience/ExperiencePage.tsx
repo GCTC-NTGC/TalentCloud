@@ -147,7 +147,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const prevExpSkills = experienceSkills.filter(
         (expSkill) =>
           expSkill.experience_id === experience?.id &&
-          expSkill.experience_type === experience?.type,
+          expSkill.experience_type === experience?.type &&
+          criteria.find(
+            (criterion) => criterion.skill_id === expSkill.skill_id,
+          ),
       );
       const prevSkillIds = prevExpSkills.map((expSkill) => expSkill.skill_id);
       const newSkillIds = newLinkedSkills.map(getId);
