@@ -105,7 +105,8 @@ class JobController extends Controller
         $hrAdvisor = $request->user()->hr_advisor;
         return view('hr_advisor/job_index', [
             'jobs_l10n' => Lang::get('hr_advisor/job_index'),
-            'hr_advisor_id' => $hrAdvisor->id
+            'hr_advisor_id' => $hrAdvisor->id,
+            'disable_clone_js' => true,
         ]);
     }
 
