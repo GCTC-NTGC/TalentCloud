@@ -36,7 +36,7 @@ class JobApplicationBasic extends JsonResource
             'user_email' => $this->user_email,
             'share_with_managers' => $this->share_with_managers,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at
         ];
     }
 }
