@@ -370,6 +370,7 @@
   "assessmentPlan.alert.skillUpdated": "Le champ {oldSkill} a été remplacé par {newSkill}.",
   "assessmentPlan.alert.title": "Ce poste a récemment changé!",
   "assessmentPlan.assessmentPlanBuilder.instructions": "La première étape consiste à choisir des évaluations qui vous permettront d’évaluer les critères que vous avez sélectionnés pour votre offre d’emploi. Vous trouverez ci-dessous vos critères essentiels, suivis de vos critères constituant un atout, le cas échéant. Le concepteur sera enregistré au fur et à mesure, donc lorsque vous aurez terminé, n’hésitez pas à passer à l’étape 2 pour examiner votre travail.",
+  "assessmentPlan.assessmentPlanBuilder.primaryTitle": "Concepteur de plans d’évaluation",
   "assessmentPlan.assessmentPlanBuilder.shortDescription": "(Sélectionnez vos évaluations)",
   "assessmentPlan.assessmentPlanBuilder.title": "Concepteur de plans d’évaluation",
   "assessmentPlan.assessmentPlanSummary.shortDescription": "(Passez votre plan en revue)",

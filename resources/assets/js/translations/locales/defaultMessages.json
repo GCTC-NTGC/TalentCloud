@@ -1913,7 +1913,7 @@
       {
         "defaultMessage": "Assessment Plan Builder",
         "description": "Title of the Assessment Plan Builder",
-        "id": "assessmentPlan.assessmentPlanBuilder.title"
+        "id": "assessmentPlan.assessmentPlanBuilder.primaryTitle"
       },
       {
         "defaultMessage": "(Select your assessments)",
