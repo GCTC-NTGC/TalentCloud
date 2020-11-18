@@ -1318,10 +1318,6 @@
         "id": "application.review.communication.notSet"
       },
       {
-        "defaultMessage": "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
-        "id": "application.review.shareCheckboxLabel"
-      },
-      {
         "defaultMessage": "Basic Information",
         "description": "Manager's heading for the Basic Info section of the Application.",
         "id": "application.review.manager.basicInfoHeading"
