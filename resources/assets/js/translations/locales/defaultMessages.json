@@ -72,6 +72,31 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button text",
+        "id": "profileExperience.skillExperienceModal.cancel"
+      },
+      {
+        "defaultMessage": "Delete",
+        "description": "Delete button text",
+        "id": "profileExperience.skillExperienceModal.delete"
+      },
+      {
+        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
+        "description": "First section of text on the experience step of the Application Timeline.",
+        "id": "profile.experience.preamble"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
+        "description": "Message displayed when application has no experiences.",
+        "id": "profile.experience.noExperiences"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/ProfileExperience.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "words left",
         "description": "Message displayed on word counter when users under/matching the limit.",
         "id": "skillWordCounter.wordsLeft"
@@ -100,6 +125,11 @@
         "defaultMessage": "{startDate} - Current",
         "description": "Shows the date range for the title bar (assuming activity is ongoing).",
         "id": "application.accordion.dateRangeCurrent"
+      },
+      {
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "application.accordion.detailsTitle"
       },
       {
         "defaultMessage": "N/A",
@@ -280,6 +310,31 @@
         "defaultMessage": "Your Experience",
         "description": "Heading for the Experience section of the Application.",
         "id": "application.experience.heading"
+      },
+      {
+        "defaultMessage": "Education type not found",
+        "description": "Error message for when the education type cannot be found.",
+        "id": "application.experience.educationTypeMissing"
+      },
+      {
+        "defaultMessage": "Education status not found",
+        "description": "Error message for when the education status cannot be found.",
+        "id": "application.experience.educationStatusMissing"
+      },
+      {
+        "defaultMessage": "Award recipient not found",
+        "description": "Error message for when the award recipient cannot be found.",
+        "id": "application.experience.awardRecipientMissing"
+      },
+      {
+        "defaultMessage": "Award recognition not found",
+        "description": "Error message for when the award recognition cannot be found.",
+        "id": "application.experience.awardRecognitionMissing"
+      },
+      {
+        "defaultMessage": "Experience failed to render (experience type missing).",
+        "description": "Error message displayed when experience fails to render.",
+        "id": "application.experience.errorRenderingExperience"
       },
       {
         "defaultMessage": "UNKNOWN CLASSIFICATION",
@@ -497,31 +552,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Education type not found",
-        "description": "Error message for when the education type cannot be found.",
-        "id": "application.experience.educationTypeMissing"
-      },
-      {
-        "defaultMessage": "Education status not found",
-        "description": "Error message for when the education status cannot be found.",
-        "id": "application.experience.educationStatusMissing"
-      },
-      {
-        "defaultMessage": "Award recipient not found",
-        "description": "Error message for when the award recipient cannot be found.",
-        "id": "application.experience.awardRecipientMissing"
-      },
-      {
-        "defaultMessage": "Award recognition not found",
-        "description": "Error message for when the award recognition cannot be found.",
-        "id": "application.experience.awardRecognitionMissing"
-      },
-      {
-        "defaultMessage": "Experience failed to render (experience type missing).",
-        "description": "Error message displayed when experience fails to render.",
-        "id": "application.experience.errorRenderingExperience"
-      },
-      {
         "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
         "description": "First section of text on the experience step of the Application Timeline.",
         "id": "application.experience.preamble"
@@ -537,7 +567,7 @@
         "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Please note that {skill} will be evaluated later in the hiring process.",
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
         "description": "List of soft skills that will be evaluated later.",
         "id": "application.experience.softSkillsList"
       },
@@ -655,6 +685,52 @@
       }
     ],
     "path": "resources/assets/js/components/Application/ExperienceAccordions/BaseExperienceAccordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Edit Skill",
+        "id": "application.experienceAccordion.editExperienceSkill"
+      },
+      {
+        "defaultMessage": "Skills for this Job",
+        "description": "Subtitle of the skills section.",
+        "id": "application.experienceAccordion.skillsTitle"
+      },
+      {
+        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
+        "description": "Say how many skills unrelated to this job are associated with this experience.",
+        "id": "application.experienceAccordion.irrelevantSkillCount"
+      },
+      {
+        "defaultMessage": "You don't have any skills attached to this experience.",
+        "description": "Message to show if experience has no associated skills at all.",
+        "id": "application.experienceAccordion.noSkills"
+      },
+      {
+        "defaultMessage": "Education Requirement",
+        "id": "application.experienceAccordion.educationRequirement"
+      },
+      {
+        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
+        "description": "Explanation of what it means that this experience meets an education requirement.",
+        "id": "application.experienceAccordion.educationRequirmentDescription"
+      },
+      {
+        "defaultMessage": "Delete Experience",
+        "id": "application.experienceAccordion.deleteButton"
+      },
+      {
+        "defaultMessage": "Edit Experience",
+        "id": "application.experienceAccordion.editButton"
+      },
+      {
+        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
+        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
+        "id": "application.experienceAccordion.skillCount"
+      }
+    ],
+    "path": "resources/assets/js/components/Application/ExperienceAccordions/ExperienceAccordionCommon.json"
   },
   {
     "descriptors": [
@@ -1069,7 +1145,7 @@
         "id": "application.finalSubmit.heading"
       },
       {
-        "defaultMessage": "<b>You've made it!</b>",
+        "defaultMessage": "You've made it!",
         "description": "Heading text before confirmation criteria list.",
         "id": "application.finalSubmit.confirmCriteriaHeading"
       },
@@ -1144,7 +1220,7 @@
         "id": "application.intro.secondBullet"
       },
       {
-        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <bold>all of your information will be saved to your profile</bold>. This allows us to automatically fill in parts of your future applications, saving you time and effort.",
+        "defaultMessage": "During your very first application you'll be starting with a blank slate, but the great thing about Talent Cloud is that <b>all of your information will be saved to your profile</b>. This allows us to automatically fill in parts of your future applications, saving you time and effort.",
         "description": "Paragraph explaining the time saving of the application and profile.",
         "id": "application.intro.secondParagraph"
       },
@@ -1729,12 +1805,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -2422,6 +2498,11 @@
         "defaultMessage": "View Summary",
         "description": "Text for the link to the Job Summary page.",
         "id": "hrJobIndex.viewSummary"
+      },
+      {
+        "defaultMessage": "{applicants, plural,=0 {No Applicants} one {# Applicant} other {# Applicants}}",
+        "description": "Text of link to applicants, showing how many applicants have applied to this Job.",
+        "id": "hrJobIndex.applicantsLink"
       },
       {
         "defaultMessage": "Loading...",
@@ -3482,7 +3563,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -4580,11 +4661,6 @@
   },
   {
     "descriptors": [
-      {
-        "defaultMessage": "{applicants, plural,\n                  =0 {No Applicants}\n                  one {# Applicant}\n                  other {# Applicants}\n                }",
-        "description": "Text displaying how many applicants have applied to this Job.",
-        "id": "hrJobIndex.applicantsLink"
-      },
       {
         "defaultMessage": "Time with Manager: {managerTime, plural, one {# day} other {# days}}",
         "description": "Text displaying how long a job post has been claimed by a manager.",
