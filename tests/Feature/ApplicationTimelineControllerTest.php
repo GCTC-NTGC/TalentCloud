@@ -7,8 +7,9 @@ use App\Models\JobApplication;
 use App\Models\Lookup\JobApplicationStep;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 
-class ApplicationTimelineController extends TestCase
+class ApplicationTimelineControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -24,16 +25,14 @@ class ApplicationTimelineController extends TestCase
             'applicant_id' => $applicant->id
         ]);
 
-        $applicationRoute = function () use ($application) {
-            return route('application.timeline', ['jobApplication' => $application]);
-        };
+        $applicationRoute = route('applications.timeline', ['jobApplication' => $application]);
         $applicationStepRoute = function ($step) use ($application) {
-            return route('application.timeline.step', ['jobApplication' => $application, 'step' => $step]);
+            return route('applications.timeline.step', ['jobApplication' => $application, 'step' => $step]);
         };
 
         // New applications should be redirected to welcome page.
-        $newApplicationResponse = $this->actingAs($applicant->user)
-        ->get($applicationRoute());
+        $newApplicationResponse = $this->actingAs($applicant->user)->get($applicationRoute);
+
         $newApplicationResponse->assertRedirect($applicationStepRoute('welcome'));
 
         // Ensure response to path /welcome is ok.
@@ -61,7 +60,7 @@ class ApplicationTimelineController extends TestCase
 
         // Applicant should be redirected to experience step, which is the last touched step.
         $lastTouchedStepResponse = $this->actingAs($applicant->user)
-        ->get($applicationRoute());
+        ->get($applicationRoute);
         $lastTouchedStepResponse->assertRedirect($applicationStepRoute('experience'));
 
         // Attempting to skip to further steps should redirect to experience step.

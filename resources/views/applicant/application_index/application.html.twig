@@ -16,7 +16,7 @@
             </div>
             <div data-c-grid-item="tl(1of3)" data-c-align="base(left) tl(right)">
                 {# Status #}
-                {% if item.application_status.name != "draft"  %}
+                {% if not item.isDraft()  %}
                     <p data-c-tag="go" data-c-font-size="small" data-c-radius="pill"><i class="fas fa-check" data-c-margin="right(.25)"></i><span>{{ application_index.received_label }}</span></p>
                 {% endif %}
             </div>
@@ -36,7 +36,7 @@
             </div>
             <div data-c-grid-item="tl(1of6)">
                 <p data-c-font-weight="bold" data-c-margin="bottom(.25)">{{ application_index.apply_by_label|trans }}</p>
-                {% if item.application_status.name == "draft"  %}
+                {% if item.isDraft()  %}
                     <p data-c-color="stop">
                         {% if item.job_poster.close_date_time.isFuture() %}
                             {{ humanizeLastDay(item.job_poster.close_date_time) }}
@@ -57,7 +57,16 @@
             <div data-c-grid-item="base(1of2) tl(1of6)" data-c-align="base(center)">
                 {% if item.application_status.name == "draft" %}
                     {% set expired = item.job_poster.close_date_time.isPast() %}
-                    <a data-c-button="solid(c1)" data-c-radius="rounded" href={{ expired ? route('applications.show', item) : route('job.application.edit.1', item.job_poster) }} title="{{ expired ? application_index.view_link_title : application_index.draft_link_title }}">{{ expired ? application_index.view_link_label : application_index.draft_link_label }}</a>
+                    <a
+                        data-c-button="solid(c1)"
+                        data-c-radius="rounded"
+                        href={{ expired
+                            ? route('applications.show', item)
+                            : item.version_id is same as(2)
+                            ? route('applications.timeline', item.id)
+                            : route('job.application.edit.1', item.job_poster) }}
+                        title="{{ expired ? application_index.view_link_title : application_index.draft_link_title }}"
+                    >{{ expired ? application_index.view_link_label : application_index.draft_link_label }}</a>
                 {% else %}
                     <a data-c-button="solid(c1)" data-c-radius="rounded" href={{ route('applications.show', item) }} title="{{ application_index.view_link_title }}">{{ application_index.view_link_label }}</a>
                 {% endif %}

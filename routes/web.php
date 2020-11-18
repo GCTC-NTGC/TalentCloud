@@ -73,8 +73,6 @@ Route::group(
             Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
-            /* Application (Congrats) */
-            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
@@ -82,11 +80,6 @@ Route::group(
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
-
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
-                ->name('application.timeline');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                ->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -138,6 +131,20 @@ Route::group(
                     Route::get('applications/{application}', 'ApplicationController@show')
                         ->middleware('can:view,application')
                         ->name('applications.show');
+
+                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline');
+                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,jobApplication')
+                        ->name('applications.timeline.next');
+                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline.step');
+
+
+                    Route::get('jobs/{jobPoster}/apply', 'JobController@apply')
+                        ->name('jobs.apply');
 
                     /* Step 01 */
                     Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');

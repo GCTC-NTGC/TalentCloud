@@ -32,6 +32,13 @@ import SkillAccordion from "./SkillAccordion";
 import { getLocale, localizeField } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
+import { Link } from "../../../helpers/router";
+import {
+  accountSettings,
+  applicationBasic,
+  applicationExperience,
+  applicationFit,
+} from "../../../helpers/routes";
 
 const messages = defineMessages({
   edit: {
@@ -365,14 +372,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-02"
+            <Link
+              href={applicationBasic(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -456,14 +463,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-04"
+            <Link
+              href={applicationExperience(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -616,14 +623,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-07"
+            <Link
+              href={applicationFit(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -677,7 +684,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             data-c-align="base(center) tp(right)"
           >
             <a
-              href="https://talent.test/demo/application-07" // To
+              href={accountSettings(locale)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
