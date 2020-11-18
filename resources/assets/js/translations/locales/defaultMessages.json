@@ -1882,13 +1882,13 @@
       },
       {
         "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy all applicant emails in screening category",
-        "id": "button.copied"
+        "description": "Confirmation for Button to copy all applicant emails in screening category.",
+        "id": "review.applications.button.copied"
       },
       {
         "defaultMessage": "Copy Emails",
         "description": "Button to copy all applicant emails in screening category",
-        "id": "button.copyEmails"
+        "id": "review.applications.button.copyEmails"
       },
       {
         "defaultMessage": "Screen All Optional Candidates Out",
@@ -2581,16 +2581,6 @@
         "id": "jobBuilder.details.educationRequirementReviewChanges"
       },
       {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
         "defaultMessage": "Is remote work allowed?",
         "description": "Header message displayed on the remote work group input.",
         "id": "jobBuilder.details.remoteWorkGroupHeader"
@@ -2879,6 +2869,16 @@
         "defaultMessage": "Classification not found.",
         "description": "Job Classification message when the classification id is incorrect.",
         "id": "jobBuilder.details.educationMessages.classificationNotFound"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "jobBuilder.details.button.copied"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "jobBuilder.details.button.copyToClipboard"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/Details/JobDetailsMessages.json"
@@ -4198,16 +4198,6 @@
         "id": "jobBuilder.workEnv.cultureSubtext1"
       },
       {
-        "defaultMessage": "Copy to Clipboard",
-        "description": "Button to copy text to clipboard.",
-        "id": "button.copyToClipboard"
-      },
-      {
-        "defaultMessage": "Copied!",
-        "description": "Confirmation for Button to copy text to clipboard.",
-        "id": "button.copied"
-      },
-      {
         "defaultMessage": "Save & Return to Job Details",
         "description": "Label for Save & Return button on Work Environment form.",
         "id": "jobBuilder.workEnv.saveAndReturnButtonLabel"
@@ -4516,6 +4506,16 @@
       {
         "defaultMessage": "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
         "id": "jobBuilder.collaborativeness.04.description"
+      },
+      {
+        "defaultMessage": "Copied!",
+        "description": "Confirmation for Button to copy text to clipboard.",
+        "id": "jobBuilder.workEnv.button.copied"
+      },
+      {
+        "defaultMessage": "Copy to Clipboard",
+        "description": "Button to copy text to clipboard.",
+        "id": "jobBuilder.workEnv.button.copyToClipboard"
       }
     ],
     "path": "resources/assets/js/components/JobBuilder/WorkEnv/JobWorkEnvMessages.json"
