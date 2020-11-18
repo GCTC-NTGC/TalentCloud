@@ -2008,7 +2008,7 @@
       {
         "defaultMessage": "Essential Skills",
         "description": "What essential criteria are called.",
-        "id": "criteria.essential"
+        "id": "assessmentPlan.criteria.essential"
       },
       {
         "defaultMessage": "You have no essential skills selected for this job poster.",
@@ -2018,7 +2018,7 @@
       {
         "defaultMessage": "Asset Skills",
         "description": "What asset criteria are called.",
-        "id": "criteria.asset"
+        "id": "assessmentPlan.criteria.asset"
       },
       {
         "defaultMessage": "You have no asset skills selected for this job poster.",
@@ -2088,7 +2088,7 @@
       {
         "defaultMessage": "Essential Skills",
         "description": "What essential criteria are called.",
-        "id": "criteria.essential"
+        "id": "assessmentPlan.summary.criteria.essential"
       },
       {
         "defaultMessage": "No skills being assessed by this tool.",
@@ -2098,7 +2098,7 @@
       {
         "defaultMessage": "Asset Skills",
         "description": "What asset criteria are called.",
-        "id": "criteria.asset"
+        "id": "assessmentPlan.summary.criteria.asset"
       },
       {
         "defaultMessage": "2. Assessment Plan Summary",
