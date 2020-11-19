@@ -75,11 +75,6 @@ const messages = defineMessages({
     description:
       "Text displayed if a user has not yet selected a communication preference in their profile.",
   },
-  shareCheckboxLabel: {
-    id: "application.review.shareCheckboxLabel",
-    defaultMessage:
-      "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
-  },
 });
 
 const managerViewHeaders = defineMessages({
