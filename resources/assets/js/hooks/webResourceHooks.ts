@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { deleteRequest, getRequest, putRequest } from "../helpers/httpRequests";
 
 type Json = any;
@@ -24,7 +24,7 @@ type HttpError = RequestError | ApiError | ParseError;
 
 type ResourceStatus = "updating" | "success" | "error" | "deleted";
 
-async function handleResponse<T>(
+export async function handleResponse<T>(
   responsePromise: Promise<Response>,
   parseResponse: (json: Json) => T,
   handleError: (e: HttpError) => void,
@@ -62,7 +62,7 @@ async function handleResponse<T>(
   return newValue;
 }
 
-async function handleResponseWithoutData(
+export async function handleResponseWithoutData(
   request: Promise<Response>,
   handleError: (e: HttpError) => void,
 ): Promise<void> {
@@ -104,65 +104,75 @@ export function useResource<T>(
     value: initialValue,
     status: "success",
   });
-  function internalHandleError(e: HttpError): void {
-    setState({ value, status: "error" });
-    handleError(e);
-  }
+  const internalHandleError = useCallback(
+    (e: HttpError): void => {
+      setState((prevState) => ({ value: prevState.value, status: "error" }));
+      handleError(e);
+    },
+    [setState, handleError],
+  );
 
-  async function refresh(): Promise<T> {
-    setState({
-      value,
-      status: "updating",
-    });
-    const request = getRequest(endpoint);
-    const responseValue = await handleResponse(
-      request,
-      parseResponse,
-      internalHandleError,
-    );
-    setState({
-      value: responseValue,
-      status: "success",
-    });
-    return responseValue;
-  }
+  const refresh = useCallback(
+    async function refreshMemo(): Promise<T> {
+      setState((prevState) => ({
+        value: prevState.value,
+        status: "updating",
+      }));
+      const request = getRequest(endpoint);
+      const responseValue = await handleResponse(
+        request,
+        parseResponse,
+        internalHandleError,
+      );
+      setState({
+        value: responseValue,
+        status: "success",
+      });
+      return responseValue;
+    },
+    [endpoint, parseResponse, setState, internalHandleError],
+  );
 
-  async function update(newValue: T): Promise<T> {
-    setState({
-      value,
-      status: "updating",
-    });
-    const request = putRequest(endpoint, newValue);
-    const responseValue = await handleResponse(
-      request,
-      parseResponse,
-      internalHandleError,
-    );
-    setState({
-      value: responseValue,
-      status: "success",
-    });
-    return responseValue;
-  }
+  const update = useCallback(
+    async function updateMemo(newValue: T): Promise<T> {
+      setState((prevState) => ({
+        value: prevState.value,
+        status: "updating",
+      }));
+      const request = putRequest(endpoint, newValue);
+      const responseValue = await handleResponse(
+        request,
+        parseResponse,
+        internalHandleError,
+      );
+      setState({
+        value: responseValue,
+        status: "success",
+      });
+      return responseValue;
+    },
+    [endpoint, parseResponse, setState, internalHandleError],
+  );
 
-  async function deleteResource(): Promise<void> {
-    setState({
-      value,
-      status: "updating",
-    });
-    const request = deleteRequest(endpoint);
-    await handleResponseWithoutData(request, internalHandleError);
-    setState({
-      value,
-      status: "deleted",
-    });
-  }
+  const deleteResource = useCallback(
+    async function deleteResourceMemo(): Promise<void> {
+      setState((prevState) => ({
+        value: prevState.value,
+        status: "updating",
+      }));
+      const request = deleteRequest(endpoint);
+      await handleResponseWithoutData(request, internalHandleError);
+      setState((prevState) => ({
+        value: prevState.value,
+        status: "deleted",
+      }));
+    },
+    [endpoint, internalHandleError, setState],
+  );
 
-  refresh();
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
   return { value, status, update, refresh, deleteResource };
 }
-
-export default {
-  useResource,
-};
