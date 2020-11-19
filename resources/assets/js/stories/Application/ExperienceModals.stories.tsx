@@ -26,7 +26,7 @@ import { ClassificationId } from "../../models/lookupConstants";
 import { mapToObject } from "../../helpers/queries";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
-const stories = storiesOf("Application|Experience Modals", module).addDecorator(
+const stories = storiesOf("Application/Experience Modals", module).addDecorator(
   withIntl,
 );
 

@@ -9,7 +9,7 @@ import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import { ExperienceSkill } from "../../models/types";
 
-const stories = storiesOf("Application|Skills", module).addDecorator(withIntl);
+const stories = storiesOf("Application/Skills", module).addDecorator(withIntl);
 
 const handleUpdateExperienceJustification = (
   experience: ExperienceSkill,

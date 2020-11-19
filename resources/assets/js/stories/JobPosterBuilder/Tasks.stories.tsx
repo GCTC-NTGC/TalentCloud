@@ -8,7 +8,7 @@ import { JobTasks } from "../../components/JobBuilder/Tasks/JobTasks";
 import { fakeJobTasks } from "../../fakeData/fakeJob";
 import { JobPosterKeyTask } from "../../models/types";
 
-const stories = storiesOf("Job Poster Builder|Tasks", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Tasks", module).addDecorator(
   withIntl,
 );
 

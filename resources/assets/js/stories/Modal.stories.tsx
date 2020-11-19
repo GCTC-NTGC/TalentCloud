@@ -6,7 +6,7 @@ import { withIntl } from "storybook-addon-intl";
 import Modal from "../components/Modal";
 import Input from "../components/Input";
 
-const stories = storiesOf("Components|Modal", module).addDecorator(withIntl);
+const stories = storiesOf("Components/Modal", module).addDecorator(withIntl);
 
 stories.add(
   "Basic",

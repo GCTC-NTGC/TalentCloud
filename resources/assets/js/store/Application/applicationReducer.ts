@@ -207,7 +207,10 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: action.payload,
+          [action.payload.id]: {
+            ...state.applications[action.payload.id],
+            ...action.payload,
+          },
         },
       };
     case UPDATE_APPLICATION_REVIEW_SUCCEEDED:

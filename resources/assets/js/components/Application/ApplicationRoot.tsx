@@ -67,7 +67,7 @@ const pageTitles = defineMessages({
 
 const routes: Routes<{}, RouterResult> = [
   {
-    path: "/:locale/demo/applications/:id", // TODO: remove demo from url.
+    path: "/:locale/applications/:id",
     children: [
       {
         path: "/welcome",

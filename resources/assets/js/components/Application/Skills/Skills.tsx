@@ -277,6 +277,9 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
         initialValues={initialValues}
         validationSchema={experienceSkillSchema}
         onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
+          if (initialValues.justification === values.justification) {
+            return Promise.resolve();
+          }
           const experienceSkillJustification = updateExperienceSkill(
             experienceSkill,
             values,

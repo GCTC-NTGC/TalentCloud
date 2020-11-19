@@ -82,6 +82,17 @@ const messages = defineMessages({
     description:
       "Confirm dialogue text for screening out all optional candidates.",
   },
+  buttonCopied: {
+    id: "review.applications.button.copied",
+    defaultMessage: "Copied!",
+    description:
+      "Confirmation for Button to copy all applicant emails in screening category.",
+  },
+  buttonCopyEmails: {
+    id: "review.applications.button.copyEmails",
+    defaultMessage: "Copy Emails",
+    description: "Button to copy all applicant emails in screening category",
+  },
 });
 
 const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
@@ -184,19 +195,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
             type="button"
             onClick={handleCopyClick}
           >
-            {justCopied ? (
-              <FormattedMessage
-                id="button.copied"
-                defaultMessage="Copied!"
-                description="Confirmation for Button to copy all applicant emails in screening category"
-              />
-            ) : (
-              <FormattedMessage
-                id="button.copyEmails"
-                defaultMessage="Copy Emails"
-                description="Button to copy all applicant emails in screening category"
-              />
-            )}
+            {justCopied
+              ? intl.formatMessage(messages.buttonCopied)
+              : intl.formatMessage(messages.buttonCopyEmails)}
           </button>
         </div>
         <div className="box med-1of2">

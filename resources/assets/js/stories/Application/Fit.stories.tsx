@@ -9,7 +9,7 @@ import {
   fakeJobApplicationAnswers,
 } from "../../fakeData/fakeJob";
 
-const stories = storiesOf("Application|Fit", module).addDecorator(withIntl);
+const stories = storiesOf("Application/Fit", module).addDecorator(withIntl);
 
 stories.add(
   "Fit",

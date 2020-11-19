@@ -238,3 +238,16 @@ export const educationMessages = defineMessages({
       "Job Classification message when the classification id is incorrect.",
   },
 });
+
+export const buttonMessages = defineMessages({
+  buttonCopied: {
+    id: "jobBuilder.details.button.copied",
+    defaultMessage: "Copied!",
+    description: "Confirmation for Button to copy text to clipboard.",
+  },
+  buttonCopyToClipboard: {
+    id: "jobBuilder.details.button.copyToClipboard",
+    defaultMessage: "Copy to Clipboard",
+    description: "Button to copy text to clipboard.",
+  },
+});
