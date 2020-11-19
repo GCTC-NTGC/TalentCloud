@@ -4,7 +4,14 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  ReviewStatus,
 } from "../models/types";
+
+export const reviewStatuses: ReviewStatus[] = [
+  { id: 1, name: "screened_out" },
+  { id: 2, name: "still_thinking" },
+  { id: 3, name: "still_in" },
+];
 
 export const fakeApplicationReview = (
   overrides: Partial<ApplicationReview> = {},
