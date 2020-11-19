@@ -32,7 +32,7 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function update(User $user, WorkSample $workSample)
     {
-        return $user->isApplicant()
-            && $workSample->work_sampleable instanceof Applicant
-            && $workSample->work_sampleable->user->is($user);
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class WorkSamplePolicy extends BasePolicy
      */
     public function delete(User $user, WorkSample $workSample)
     {
-        return $user->isApplicant()
-            && $workSample->work_sampleable instanceof Applicant
-            && $workSample->work_sampleable->user->is($user);
+        return false;
     }
 }

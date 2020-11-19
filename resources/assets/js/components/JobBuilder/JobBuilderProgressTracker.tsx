@@ -58,8 +58,9 @@ const stepComesBefore = (
   return comesBefore;
 };
 
-export const JobBuilderProgressTracker: React.FunctionComponent<JobBuilderProgressTrackerProps &
-  WrappedComponentProps> = ({
+export const JobBuilderProgressTracker: React.FunctionComponent<
+  JobBuilderProgressTrackerProps & WrappedComponentProps
+> = ({
   job,
   jobId,
   tasks,
@@ -73,49 +74,46 @@ export const JobBuilderProgressTracker: React.FunctionComponent<JobBuilderProgre
     throw new Error("Unexpected locale");
   }
   const pageStates: { [page in JobBuilderPage]: ProgressTrackerState } = {
-    intro: dataIsLoading
-      ? "null"
-      : jobBuilderIntroProgressState(
-          job,
-          stepComesBefore(currentPage, "intro"),
-        ),
-    details: dataIsLoading
-      ? "null"
-      : jobBuilderDetailsProgressState(
-          job,
-          locale,
-          stepComesBefore(currentPage, "details"),
-        ),
-    env: dataIsLoading
-      ? "null"
-      : jobBuilderEnvProgressState(
-          job,
-          locale,
-          stepComesBefore(currentPage, "env"),
-        ),
-    impact: dataIsLoading
-      ? "null"
-      : jobImpactProgressState(
-          job,
-          locale,
-          stepComesBefore(currentPage, "impact"),
-        ),
-    tasks: dataIsLoading
-      ? "null"
-      : jobTasksProgressState(
-          tasks,
-          locale,
-          stepComesBefore(currentPage, "tasks"),
-        ),
-    skills: dataIsLoading
-      ? "null"
-      : criteriaProgressState(
-          criteria,
-          locale,
-          stepComesBefore(currentPage, "skills"),
-        ),
+    intro: jobBuilderIntroProgressState(
+      job,
+      stepComesBefore(currentPage, "intro"),
+    ),
+    details: jobBuilderDetailsProgressState(
+      job,
+      locale,
+      stepComesBefore(currentPage, "details"),
+    ),
+    env: jobBuilderEnvProgressState(
+      job,
+      locale,
+      stepComesBefore(currentPage, "env"),
+    ),
+    impact: jobImpactProgressState(
+      job,
+      locale,
+      stepComesBefore(currentPage, "impact"),
+    ),
+    tasks: jobTasksProgressState(
+      tasks,
+      locale,
+      stepComesBefore(currentPage, "tasks"),
+    ),
+    skills: criteriaProgressState(
+      criteria,
+      locale,
+      stepComesBefore(currentPage, "skills"),
+    ),
     review: "null",
   };
+
+  if (dataIsLoading) {
+    Object.keys(pageStates).forEach((key) => {
+      if (pageStates[key] === "error") {
+        pageStates[key] = "null";
+      }
+    });
+  }
+
   if (currentPage) {
     pageStates[currentPage] = "active";
   }

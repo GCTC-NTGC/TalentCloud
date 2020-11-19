@@ -14,7 +14,7 @@ const handleUpdateReview = (
 ): Promise<ApplicationReview> => Promise.resolve(review);
 
 const stories = storiesOf(
-  "Strategic Talent Response|Bucket",
+  "Strategic Talent Response/Bucket",
   module,
 ).addDecorator(withIntl);
 

@@ -45,6 +45,7 @@ class ExperienceController extends Controller
             'work_template' => Lang::get('common/work_experience'),
             'form_submit_action' => route('profile.experience.update', $applicant),
             'custom_breadcrumbs' => $custom_breadcrumbs,
+            'disable_clone_js' => true,
         ]);
     }
 

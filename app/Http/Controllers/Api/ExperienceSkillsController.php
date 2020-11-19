@@ -12,13 +12,26 @@ class ExperienceSkillsController extends Controller
     public function store(StoreExperienceSkill $request)
     {
         $data = $request->validated();
-        $experienceSkill = new ExperienceSkill($data);
-        $experienceSkill->skill_id = $data['skill_id'];
-        $experienceSkill->experience_id = $data['experience_id'];
-        $experienceSkill->experience_type = $data['experience_type'];
-        $experienceSkill->justification = $data['justification'];
-        $experienceSkill->save();
-        return new JsonResource($experienceSkill->fresh());
+        // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
+        $softDeletedExperienceSkill = ExperienceSkill::onlyTrashed()
+            ->where([
+            ['skill_id', $data['skill_id']],
+            ['experience_id', $data['experience_id']],
+            ['experience_type', $data['experience_type']]
+        ])->first();
+        if ($softDeletedExperienceSkill) {
+            $softDeletedExperienceSkill->restore();
+            $softDeletedExperienceSkill->save();
+            return new JsonResource($softDeletedExperienceSkill->fresh());
+        } else {
+            $experienceSkill = new ExperienceSkill($data);
+            $experienceSkill->skill_id = $data['skill_id'];
+            $experienceSkill->experience_id = $data['experience_id'];
+            $experienceSkill->experience_type = $data['experience_type'];
+            $experienceSkill->justification = $data['justification'];
+            $experienceSkill->save();
+            return new JsonResource($experienceSkill->fresh());
+        }
     }
 
     public function update(Request $request, ExperienceSkill $experienceSkill)

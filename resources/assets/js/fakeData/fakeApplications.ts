@@ -1,4 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
@@ -50,6 +51,13 @@ export const fakeApplicationNormalized = (
   created_at: new Date("2020-01-01"),
   updated_at: new Date("2020-01-01"),
   share_with_managers: false,
+  language_requirement_confirmed: true,
+  language_test_confirmed: true,
+  education_requirement_confirmed: true,
+  version_id: 2,
+  user_email: null,
+  user_name: null,
+
   veteran_status: {
     id: 1,
     name: "none",
@@ -96,9 +104,6 @@ export const fakeApplicationNormalized = (
     },
   },
   meets_essential_criteria: true,
-  language_requirement_confirmed: true,
-  language_test_confirmed: true,
-  education_requirement_confirmed: true,
   ...overrides,
 });
 
@@ -233,6 +238,22 @@ export const fakeReferenceEmail = (overrides: Partial<Email>): Email => ({
   subject: "Reference Requested - GC Talent Reserve",
   body: defaultEmailBody,
   ...overrides,
+});
+
+export const fakeJobApplicationSteps = (
+  basic: ProgressBarStatus = "default",
+  experience: ProgressBarStatus = "default",
+  fit: ProgressBarStatus = "default",
+  skills: ProgressBarStatus = "default",
+  review: ProgressBarStatus = "default",
+  submission: ProgressBarStatus = "default",
+): { [step in ApplicationStep]: ProgressBarStatus } => ({
+  basic,
+  experience,
+  fit,
+  skills,
+  review,
+  submission,
 });
 
 export default fakeApplications;

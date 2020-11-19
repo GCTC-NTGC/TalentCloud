@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
-import { FormattedMessage, useIntl, defineMessages } from "react-intl";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
   ExperienceEducation,
@@ -45,11 +45,11 @@ import AwardExperienceModal, {
   AwardRecognitionType,
   AwardExperienceSubmitData,
 } from "../ExperienceModals/AwardExperienceModal";
-import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEducationAccordion";
-import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
-import ExperienceCommunityAccordion from "../ExperienceAccordions/ExperienceCommunityAccordion";
-import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
-import ExperienceAwardAccordion from "../ExperienceAccordions/ExperienceAwardAccordion";
+import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
+import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
+import { ExperienceCommunityAccordion } from "../ExperienceAccordions/ExperienceCommunityAccordion";
+import { ExperiencePersonalAccordion } from "../ExperienceAccordions/ExperiencePersonalAccordion";
+import { ExperienceAwardAccordion } from "../ExperienceAccordions/ExperienceAwardAccordion";
 import {
   getSkillOfCriteria,
   getSkillsOfExperience,
@@ -58,34 +58,149 @@ import {
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 
-const messages = defineMessages({
-  educationTypeMissing: {
-    id: "application.experience.educationTypeMissing",
-    defaultMessage: "Education type not found",
-    description: "Error message for when the education type cannot be found.",
-  },
-  educationStatusMissing: {
-    id: "application.experience.educationStatusMissing",
-    defaultMessage: "Education status not found",
-    description: "Error message for when the education status cannot be found.",
-  },
-  awardRecipientMissing: {
-    id: "application.experience.awardRecipientMissing",
-    defaultMessage: "Award recipient not found",
-    description: "Error message for when the award recipient cannot be found.",
-  },
-  awardRecognitionMissing: {
-    id: "application.experience.awardRecognitionMissing",
-    defaultMessage: "Award recognition not found",
-    description:
-      "Error message for when the award recognition cannot be found.",
-  },
-  errorRenderingExperience: {
-    id: "application.experience.errorRenderingExperience",
-    defaultMessage: "Experience failed to render (experience type missing).",
-    description: "Error message displayed when experience fails to render.",
-  },
-});
+export function modalButtonProps(
+  intl: IntlShape,
+): { [key: string]: { id: Experience["type"]; title: string; icon: string } } {
+  return {
+    education: {
+      id: "experience_education",
+      title: intl.formatMessage(educationMessages.modalTitle),
+      icon: "fas fa-book",
+    },
+    work: {
+      id: "experience_work",
+      title: intl.formatMessage(workMessages.modalTitle),
+      icon: "fas fa-briefcase",
+    },
+    community: {
+      id: "experience_community",
+      title: intl.formatMessage(communityMessages.modalTitle),
+      icon: "fas fa-people-carry",
+    },
+    personal: {
+      id: "experience_personal",
+      title: intl.formatMessage(personalMessages.modalTitle),
+      icon: "fas fa-mountain",
+    },
+    award: {
+      id: "experience_award",
+      title: intl.formatMessage(awardMessages.modalTitle),
+      icon: "fas fa-trophy",
+    },
+  };
+}
+
+export const ModalButton: React.FunctionComponent<{
+  id: Experience["type"];
+  title: string;
+  icon: string;
+  openModal: (id: Experience["type"]) => void;
+}> = ({ id, title, icon, openModal }) => {
+  return (
+    <div key={id} data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+      <button
+        className="application-experience-trigger"
+        data-c-card
+        data-c-background="c1(100)"
+        data-c-radius="rounded"
+        title={title}
+        data-c-dialog-id={id}
+        data-c-dialog-action="open"
+        type="button"
+        onClick={(): void => openModal(id)}
+      >
+        <i className={icon} aria-hidden="true" />
+        <span data-c-font-size="regular" data-c-font-weight="bold">
+          {title}
+        </span>
+      </button>
+    </div>
+  );
+};
+
+const applicationExperienceAccordion = (
+  experience: Experience,
+  irrelevantSkillCount: number,
+  relevantSkills: ExperienceSkill[],
+  skills: Skill[],
+  handleEdit: () => void,
+  handleDelete: () => Promise<void>,
+): React.ReactElement | null => {
+  switch (experience.type) {
+    case "experience_education":
+      return (
+        <ExperienceEducationAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_work":
+      return (
+        <ExperienceWorkAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_community":
+      return (
+        <ExperienceCommunityAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_personal":
+      return (
+        <ExperiencePersonalAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    case "experience_award":
+      return (
+        <ExperienceAwardAccordion
+          key={`${experience.id}-${experience.type}`}
+          experience={experience}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
+          irrelevantSkillCount={irrelevantSkillCount}
+          relevantSkills={relevantSkills}
+          skills={skills}
+          showButtons
+          showSkillDetails
+        />
+      );
+    default:
+      return null;
+  }
+};
 
 export type ExperienceSubmitData =
   | EducationExperienceSubmitData
@@ -106,17 +221,14 @@ interface ExperienceProps {
   jobEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleContinue: () => void;
-  handleQuit: () => void;
-  handleReturn: () => void;
+  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
 }
 
-const MyExperience: React.FunctionComponent<ExperienceProps> = ({
+export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
   educationStatuses,
   educationTypes,
@@ -130,9 +242,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
-  handleContinue,
-  handleQuit,
-  handleReturn,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -192,7 +301,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     setIsModalVisible({ id: "", visible: false });
   };
 
-  const submitExperience = (data: ExperienceSubmitData): Promise<void> =>
+  const submitExperience = (data) =>
     handleSubmitExperience(data).then(closeModal);
 
   const editExperience = (
@@ -217,202 +326,9 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     ),
   );
 
-  const modalButtons: {
-    [key: string]: { id: Experience["type"]; title: string; icon: string };
-  } = {
-    education: {
-      id: "experience_education",
-      title: intl.formatMessage(educationMessages.modalTitle),
-      icon: "fas fa-book",
-    },
-    work: {
-      id: "experience_work",
-      title: intl.formatMessage(workMessages.modalTitle),
-      icon: "fas fa-briefcase",
-    },
-    community: {
-      id: "experience_community",
-      title: intl.formatMessage(communityMessages.modalTitle),
-      icon: "fas fa-people-carry",
-    },
-    personal: {
-      id: "experience_personal",
-      title: intl.formatMessage(personalMessages.modalTitle),
-      icon: "fas fa-mountain",
-    },
-    award: {
-      id: "experience_award",
-      title: intl.formatMessage(awardMessages.modalTitle),
-      icon: "fas fa-trophy",
-    },
-  };
-
-  const modalButton = ({ id, title, icon }): React.ReactElement => (
-    <div key={id} data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
-      <button
-        className="application-experience-trigger"
-        data-c-card
-        data-c-background="c1(100)"
-        data-c-radius="rounded"
-        title={title}
-        data-c-dialog-id={id}
-        data-c-dialog-action="open"
-        type="button"
-        onClick={(): void => openModal(id)}
-      >
-        <i className={icon} aria-hidden="true" />
-        <span data-c-font-size="regular" data-c-font-weight="bold">
-          {title}
-        </span>
-      </button>
-    </div>
-  );
+  const modalButtons = modalButtonProps(intl);
 
   const modalRoot = document.getElementById("modal-root");
-
-  const experienceAccordion = (
-    experience: Experience,
-    irrelevantSkillCount: number,
-    relevantSkills: ExperienceSkill[],
-    handleEdit: () => void,
-    handleDelete: () => Promise<void>,
-  ): React.ReactElement => {
-    switch (experience.type) {
-      case "experience_education":
-        return (
-          <ExperienceEducationAccordion
-            key={`${experience.id}-${experience.type}`}
-            areaOfStudy={experience.area_of_study}
-            educationType={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_type",
-            )}
-            endDate={experience.end_date}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            institution={experience.institution}
-            irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-            startDate={experience.start_date}
-            status={localizeFieldNonNull(
-              locale,
-              experience,
-              "education_status",
-            )}
-            thesisTitle={experience.thesis_title}
-          />
-        );
-      case "experience_work":
-        return (
-          <ExperienceWorkAccordion
-            key={`${experience.id}-${experience.type}`}
-            endDate={experience.end_date}
-            group={experience.group}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
-            organization={experience.organization}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-            startDate={experience.start_date}
-            title={experience.title}
-          />
-        );
-      case "experience_community":
-        return (
-          <ExperienceCommunityAccordion
-            key={`${experience.id}-${experience.type}`}
-            endDate={experience.end_date}
-            group={experience.group}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
-            project={experience.project}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-            startDate={experience.start_date}
-            title={experience.title}
-          />
-        );
-      case "experience_personal":
-        return (
-          <ExperiencePersonalAccordion
-            key={`${experience.id}-${experience.type}`}
-            description={experience.description}
-            endDate={experience.end_date}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            isActive={experience.is_active}
-            isEducationJustification={experience.is_education_requirement}
-            isShareable={experience.is_shareable}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            showButtons
-            showSkillDetails
-            startDate={experience.start_date}
-            title={experience.title}
-          />
-        );
-      case "experience_award":
-        return (
-          <ExperienceAwardAccordion
-            key={`${experience.id}-${experience.type}`}
-            awardedDate={experience.awarded_date}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            irrelevantSkillCount={irrelevantSkillCount}
-            isEducationJustification={experience.is_education_requirement}
-            issuer={experience.issued_by}
-            recipient={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recipient_type",
-            )}
-            relevantSkills={relevantSkills}
-            skills={skills}
-            scope={localizeFieldNonNull(
-              locale,
-              experience,
-              "award_recognition_type",
-            )}
-            showButtons
-            showSkillDetails
-            title={experience.title}
-          />
-        );
-      default:
-        return (
-          <div
-            data-c-background="gray(10)"
-            data-c-radius="rounded"
-            data-c-border="all(thin, solid, gray)"
-            data-c-margin="top(1)"
-            data-c-padding="all(1)"
-          >
-            <div data-c-align="base(center)">
-              <p data-c-color="stop">
-                {intl.formatMessage(messages.errorRenderingExperience)}
-              </p>
-            </div>
-          </div>
-        );
-    }
-  };
 
   return (
     <>
@@ -427,6 +343,7 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             description="First section of text on the experience step of the Application Timeline."
           />
         </p>
+
         <div data-c-grid="gutter(all, 1)">
           {essentialSkills.length > 0 && (
             <div data-c-grid-item="tl(1of2)">
@@ -500,7 +417,18 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
         </p>
         {/* Experience Modal Buttons */}
         <div data-c-grid="gutter(all, 1)">
-          {Object.keys(modalButtons).map((id) => modalButton(modalButtons[id]))}
+          {Object.values(modalButtons).map((buttonProps) => {
+            const { id, title, icon } = buttonProps;
+            return (
+              <ModalButton
+                key={id}
+                id={id}
+                title={title}
+                icon={icon}
+                openModal={openModal}
+              />
+            );
+          })}
         </div>
         {/* Experience Accordion List */}
         {experiences && experiences.length > 0 ? (
@@ -528,6 +456,32 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   })
                   .filter(notEmpty);
 
+                const handleEdit = () =>
+                  editExperience(
+                    experience,
+                    savedOptionalSkills,
+                    savedRequiredSkills,
+                  );
+                const handleDelete = () => deleteExperience(experience);
+
+                const errorAccordion = () => (
+                  <div
+                    data-c-background="gray(10)"
+                    data-c-radius="rounded"
+                    data-c-border="all(thin, solid, gray)"
+                    data-c-margin="top(1)"
+                    data-c-padding="all(1)"
+                  >
+                    <div data-c-align="base(center)">
+                      <p data-c-color="stop">
+                        {intl.formatMessage(
+                          experienceMessages.errorRenderingExperience,
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                );
+
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
                 const irrelevantSkillCount =
                   experienceSkills.filter(
@@ -537,17 +491,15 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   ).length -
                   (savedOptionalSkills.length + savedRequiredSkills.length);
 
-                return experienceAccordion(
-                  experience,
-                  irrelevantSkillCount,
-                  relevantSkills,
-                  () =>
-                    editExperience(
-                      experience,
-                      savedOptionalSkills,
-                      savedRequiredSkills,
-                    ),
-                  () => deleteExperience(experience),
+                return (
+                  applicationExperienceAccordion(
+                    experience,
+                    irrelevantSkillCount,
+                    relevantSkills,
+                    skills,
+                    handleEdit,
+                    handleDelete,
+                  ) ?? errorAccordion()
                 );
               })}
             </div>
@@ -591,46 +543,6 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             ))}
           </p>
         )}
-      </div>
-      <div data-c-container="medium" data-c-padding="tb(2)">
-        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
-        <div data-c-grid="gutter">
-          <div
-            data-c-alignment="base(centre) tp(left)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleReturn()}
-            >
-              {intl.formatMessage(navigationMessages.return)}
-            </button>
-          </div>
-          <div
-            data-c-alignment="base(centre) tp(right)"
-            data-c-grid-item="tp(1of2)"
-          >
-            <button
-              data-c-button="outline(c2)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleQuit()}
-            >
-              {intl.formatMessage(navigationMessages.quit)}
-            </button>
-            <button
-              data-c-button="solid(c1)"
-              data-c-radius="rounded"
-              data-c-margin="left(1)"
-              type="button"
-              onClick={(): void => handleContinue()}
-            >
-              {intl.formatMessage(navigationMessages.continue)}
-            </button>
-          </div>
-        </div>
       </div>
 
       <div data-c-dialog-overlay={isModalVisible.visible ? "active" : ""} />
@@ -750,4 +662,106 @@ const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   );
 };
 
-export default MyExperience;
+interface ExperienceStepProps {
+  experiences: Experience[];
+  educationStatuses: EducationStatus[];
+  educationTypes: EducationType[];
+  experienceSkills: ExperienceSkill[];
+  criteria: Criteria[];
+  skills: Skill[];
+  jobId: number;
+  jobClassificationId: number | null;
+  jobEducationRequirements: string | null;
+  recipientTypes: AwardRecipientType[];
+  recognitionTypes: AwardRecognitionType[];
+  handleDeleteExperience: (
+    id: number,
+    type: Experience["type"],
+  ) => Promise<void>;
+  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleContinue: () => void;
+  handleQuit: () => void;
+  handleReturn: () => void;
+}
+
+export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
+  experiences,
+  educationStatuses,
+  educationTypes,
+  experienceSkills,
+  criteria,
+  skills,
+  handleSubmitExperience,
+  handleDeleteExperience,
+  jobId,
+  jobClassificationId,
+  jobEducationRequirements,
+  recipientTypes,
+  recognitionTypes,
+  handleContinue,
+  handleQuit,
+  handleReturn,
+}) => {
+  const intl = useIntl();
+  return (
+    <>
+      <MyExperience
+        experiences={experiences}
+        educationStatuses={educationStatuses}
+        educationTypes={educationTypes}
+        experienceSkills={experienceSkills}
+        criteria={criteria}
+        skills={skills}
+        jobId={jobId}
+        jobClassificationId={jobClassificationId}
+        jobEducationRequirements={jobEducationRequirements}
+        recipientTypes={recipientTypes}
+        recognitionTypes={recognitionTypes}
+        handleSubmitExperience={handleSubmitExperience}
+        handleDeleteExperience={handleDeleteExperience}
+      />
+      <div data-c-container="medium" data-c-padding="tb(2)">
+        <hr data-c-hr="thin(c1)" data-c-margin="bottom(2)" />
+        <div data-c-grid="gutter">
+          <div
+            data-c-alignment="base(centre) tp(left)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleReturn()}
+            >
+              {intl.formatMessage(navigationMessages.return)}
+            </button>
+          </div>
+          <div
+            data-c-alignment="base(centre) tp(right)"
+            data-c-grid-item="tp(1of2)"
+          >
+            <button
+              data-c-button="outline(c2)"
+              data-c-radius="rounded"
+              type="button"
+              onClick={(): void => handleQuit()}
+            >
+              {intl.formatMessage(navigationMessages.quit)}
+            </button>
+            <button
+              data-c-button="solid(c1)"
+              data-c-radius="rounded"
+              data-c-margin="left(1)"
+              type="button"
+              onClick={(): void => handleContinue()}
+            >
+              {intl.formatMessage(navigationMessages.continue)}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ExperienceStep;

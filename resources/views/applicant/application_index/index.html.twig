@@ -28,7 +28,7 @@
                     <div aria-hidden="false" data-c-accordion-content>
                         <div data-c-padding="bottom(1)">
                             {% for item in applications %}
-                                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
+                                {% if item.isDraft() and item.job_poster.close_date_time.isFuture() %}
                                     {% include "applicant/application_index/application" %}
                                 {% endif %}
                             {% endfor %}

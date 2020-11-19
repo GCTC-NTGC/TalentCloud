@@ -8,7 +8,7 @@ import { Form, Formik } from "formik";
 import CheckboxGroupField from "../components/Form/CheckboxGroupField";
 
 const stories = storiesOf(
-  "Form Components|CheckboxGroupField",
+  "Form Components/CheckboxGroupField",
   module,
 ).addDecorator(withIntl);
 

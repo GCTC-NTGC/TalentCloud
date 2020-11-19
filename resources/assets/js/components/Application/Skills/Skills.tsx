@@ -36,7 +36,7 @@ import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
   getExperiencesOfSkill,
-  getExperienceOfExperienceSkills,
+  getExperienceOfExperienceSkill,
 } from "../helpers";
 import {
   statusReducer,
@@ -58,7 +58,7 @@ import {
   notEmpty,
 } from "../../../helpers/queries";
 
-const JUSTIFICATION_WORD_LIMIT = 100;
+export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
   menuSkills: { [skillId: number]: string };
@@ -272,10 +272,14 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
         )}
       </button>
       <Formik
+        enableReinitialize
         innerRef={formRef}
         initialValues={initialValues}
         validationSchema={experienceSkillSchema}
         onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
+          if (initialValues.justification === values.justification) {
+            return Promise.resolve();
+          }
           const experienceSkillJustification = updateExperienceSkill(
             experienceSkill,
             values,
@@ -649,7 +653,7 @@ const Skills: React.FC<SkillsProps> = ({
                             status,
                             experienceSkill,
                           );
-                          const relevantExperience = getExperienceOfExperienceSkills(
+                          const relevantExperience = getExperienceOfExperienceSkill(
                             experienceSkill,
                             experiences,
                           );

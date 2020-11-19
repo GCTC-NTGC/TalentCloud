@@ -12,7 +12,7 @@ import {
 } from "../../../helpers/routes";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import Experience, { ExperienceSubmitData } from "./Experience";
+import { ExperienceStep, ExperienceSubmitData } from "./Experience";
 import {
   Experience as ExperienceType,
   ExperienceSkill,
@@ -36,6 +36,8 @@ import {
   useCriteria,
   useExperiences,
   useSkills,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface ExperiencePageProps {
@@ -69,6 +71,13 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     educationTypes,
     educationStatuses,
   } = useExperienceConstants();
+  const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "experience",
+    dispatch,
+  );
 
   const showLoadingState =
     application === null ||
@@ -138,7 +147,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const prevExpSkills = experienceSkills.filter(
         (expSkill) =>
           expSkill.experience_id === experience?.id &&
-          expSkill.experience_type === experience?.type,
+          expSkill.experience_type === experience?.type &&
+          criteria.find(
+            (criterion) => criterion.skill_id === expSkill.skill_id,
+          ),
       );
       const prevSkillIds = prevExpSkills.map((expSkill) => expSkill.skill_id);
       const newSkillIds = newLinkedSkills.map(getId);
@@ -180,7 +192,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     await dispatch(deleteExperience(id, type));
   };
 
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
     navigate(applicationSkillsIntro(locale, applicationId));
   };
   const handleReturn = (): void => {
@@ -198,9 +210,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           currentTitle={intl.formatMessage(stepNames.step02)}
           steps={makeProgressBarSteps(
             applicationId,
-            application,
+            steps,
             intl,
             "experience",
+            stepsAreUpdating,
           )}
         />
       )}
@@ -215,7 +228,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       )}
       {/* Note: if showLoadingState is false, job must not be null, but TypeScript can't seem to infer that. */}
       {!showLoadingState && job !== null && (
-        <Experience
+        <ExperienceStep
           experiences={experiences}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
