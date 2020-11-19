@@ -642,53 +642,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "{skillCount, plural, =0 {No related skills} one {# related skill} other {# related skills}} {isEducationJustification, select, true {/ Education Requirement} false {}}",
-        "description": "Displays the number of required skills this relates to, and whether it's used to meed education requirements.",
-        "id": "application.experienceAccordion.skillCount"
-      },
-      {
-        "defaultMessage": "Details of this Experience",
-        "description": "Subtitle of the details section.",
-        "id": "application.experienceAccordion.detailsTitle"
-      },
-      {
-        "defaultMessage": "Skills for this Job",
-        "description": "Subtitle of the skills section.",
-        "id": "application.experienceAccordion.skillsTitle"
-      },
-      {
-        "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
-        "description": "Say how many skills unrelated to this job are associated with this experience.",
-        "id": "application.experienceAccordion.irrelevantSkillCount"
-      },
-      {
-        "defaultMessage": "You don't have any skills attached to this experience.",
-        "description": "Message to show if experience has no associated skills at all.",
-        "id": "application.experienceAccordion.noSkills"
-      },
-      {
-        "defaultMessage": "Education Requirement",
-        "id": "application.experienceAccordion.educationRequirement"
-      },
-      {
-        "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
-        "description": "Explanation of what it means that this experience meets an education requirement.",
-        "id": "application.experienceAccordion.educationRequirmentDescription"
-      },
-      {
-        "defaultMessage": "Delete Experience",
-        "id": "application.experienceAccordion.deleteButton"
-      },
-      {
-        "defaultMessage": "Edit Experience",
-        "id": "application.experienceAccordion.editButton"
-      }
-    ],
-    "path": "resources/assets/js/components/Application/ExperienceAccordions/BaseExperienceAccordion.json"
-  },
-  {
-    "descriptors": [
-      {
         "defaultMessage": "Edit Skill",
         "id": "application.experienceAccordion.editExperienceSkill"
       },
