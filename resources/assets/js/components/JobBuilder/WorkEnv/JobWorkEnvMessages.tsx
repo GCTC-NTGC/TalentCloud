@@ -343,3 +343,16 @@ export const collaborativenessMessages = defineMessages({
       "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
   },
 });
+
+export const buttonMessages = defineMessages({
+  buttonCopied: {
+    id: "jobBuilder.workEnv.button.copied",
+    defaultMessage: "Copied!",
+    description: "Confirmation for Button to copy text to clipboard.",
+  },
+  buttonCopyToClipboard: {
+    id: "jobBuilder.workEnv.button.copyToClipboard",
+    defaultMessage: "Copy to Clipboard",
+    description: "Button to copy text to clipboard.",
+  },
+});
