@@ -105,7 +105,7 @@ export function useResource<T>(
     status: ResourceStatus;
   }>({
     value: initialValue,
-    status: "success",
+    status: "updating", // Set initial status as updating until an initial request completes.
   });
   const internalHandleError = useCallback(
     (e: HttpError): void => {

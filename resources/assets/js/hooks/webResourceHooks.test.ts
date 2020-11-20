@@ -1,8 +1,9 @@
 import fetchMock from "fetch-mock";
-import { handleResponseWithoutData } from "./webResourceHooks";
+import { act, renderHook } from "@testing-library/react-hooks";
 import {
   handleResponse,
   handleResponseWithoutData,
+  useResource,
 } from "./webResourceHooks";
 
 describe("webResourceHooks", (): void => {
@@ -148,4 +149,115 @@ describe("webResourceHooks", (): void => {
     });
   });
 
+  describe("useResource hook", () => {
+    afterEach((): void => {
+      fetchMock.reset();
+      fetchMock.restore();
+    });
+
+    const endpoint = "https://talent.test/api/test";
+
+    it("Initially returns initialValue and a status of 'updating'", () => {
+      fetchMock.mock(
+        "*",
+        {},
+        {
+          delay: 500,
+        },
+      );
+      const initialValue = { name: "Talent Cloud", age: 3 };
+      const parseResponse = () => ({ name: "Talent Cloud 2", age: 100 });
+      const handleError = () => {};
+
+      const { result } = renderHook(() =>
+        useResource(endpoint, parseResponse, initialValue, handleError),
+      );
+
+      expect(result.current.value).toEqual(initialValue);
+      expect(result.current.status).toEqual("updating");
+    });
+    it("After initial request completes, status changes to 'updating' when refresh() is called", async () => {
+      fetchMock.mock("*", {});
+      const initialValue = { name: "Talent Cloud", age: 3 };
+      const parseResponse = () => ({ name: "Talent Cloud 2", age: 100 });
+      const handleError = jest.fn();
+
+      const { result, waitFor } = renderHook(() =>
+        useResource(endpoint, parseResponse, initialValue, handleError),
+      );
+
+      // Wait for initial request to finish.
+      await waitFor(
+        () => {
+          return result.current.status === "success";
+        },
+        { timeout: 2000 },
+      );
+      expect(handleError.mock.calls.length).toBe(0);
+      expect(fetchMock.calls().length).toBe(1);
+
+      expect(result.current.status).toEqual("success");
+      act(() => {
+        result.current.refresh();
+      });
+      expect(result.current.status).toEqual("updating");
+    });
+    it("Value changes after initial request if response is different from initialValue", async () => {
+      fetchMock.mock("*", { name: "Talent Cloud", age: 3 });
+      const initialValue = null;
+      const parseResponse = (x) => x;
+      const handleError = jest.fn();
+
+      const { result, waitFor } = renderHook(() =>
+        useResource(endpoint, parseResponse, initialValue, handleError),
+      );
+
+      expect(result.current.value).toBe(null);
+
+      // Wait for initial request to finish.
+      await waitFor(
+        () => {
+          return result.current.status === "success";
+        },
+        { timeout: 2000 },
+      );
+      expect(result.current.value).toEqual({ name: "Talent Cloud", age: 3 });
+    });
+    it("Value changes after refresh if fetch response is different", async () => {
+      const firstResponse = { name: "Talent Cloud", age: 10 };
+      const secondResponse = { name: "Talent Cloud", age: 20 };
+      fetchMock.get("*", firstResponse);
+      fetchMock.get("*", secondResponse, { overwriteRoutes: false });
+
+      const initialValue = null;
+      const parseResponse = (x) => x;
+      const handleError = jest.fn();
+
+      const { result, waitFor, waitForNextUpdate } = renderHook(() =>
+        useResource(endpoint, parseResponse, initialValue, handleError),
+      );
+
+      expect(result.current.value).toBe(null);
+
+      // Wait for initial request to finish.
+      await waitFor(
+        () => {
+          return result.current.status === "success";
+        },
+        { timeout: 2000 },
+      );
+      expect(result.current.value).toEqual(firstResponse);
+      await act(async () => {
+        await result.current.refresh();
+        // await waitFor(
+        //   () => {
+        //     return result.current.status === "success";
+        //   },
+        //   { timeout: 2000 },
+        // );
+      });
+      expect(fetchMock.calls().length).toEqual(2);
+      expect(result.current.value).toEqual(secondResponse);
+    });
+  });
 });
