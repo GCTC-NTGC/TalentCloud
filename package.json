@@ -29,7 +29,7 @@
         "@babel/core": "^7.12.3",
         "@babel/plugin-proposal-optional-chaining": "^7.12.1",
         "@babel/preset-react": "^7.12.5",
-        "@babel/preset-typescript": "^7.12.1",
+        "@babel/preset-typescript": "^7.12.7",
         "@fortawesome/fontawesome-free": "^5.15.1",
         "@storybook/addon-actions": "^6.1.1",
         "@storybook/addon-knobs": "^6.1.1",
