@@ -3,17 +3,20 @@ import { deleteRequest, getRequest, putRequest } from "../helpers/httpRequests";
 
 type Json = any;
 
+// Used when fetch() throws an exception, ie due to a network error.
 interface RequestError {
   error: Error;
   type: "RequestError";
 }
 
+// Used when the response has a non-200 status code.
 interface ApiError {
   error: Error;
   response: Response;
   type: "ApiError";
 }
 
+// Used when response.json() or parseResponse return throw an exception.
 interface ParseError {
   error: Error;
   response: Response;
@@ -49,7 +52,7 @@ export async function handleResponse<T>(
 
   let newValue: T;
   try {
-    const json: Json = response.json();
+    const json: Json = await response.json();
     newValue = parseResponse(json);
   } catch (error) {
     handleError({
