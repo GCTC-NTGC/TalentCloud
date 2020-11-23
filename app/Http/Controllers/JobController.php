@@ -536,7 +536,7 @@ class JobController extends Controller
         if (is_array($jobPoster['job_poster_key_tasks'])) {
             $lastTask = end($jobPoster['job_poster_key_tasks']);
             foreach ($jobPoster['job_poster_key_tasks'] as $task) {
-                $tasksString .= $task['description'].' '.($skillItem == $lastSkill ? '' : ' | ');
+                $tasksString .= $task['description'].' '.($task == $lastTask ? '' : ' | ');
             }
         }
 
