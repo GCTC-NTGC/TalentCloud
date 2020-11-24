@@ -4,7 +4,6 @@ import ReactDOM from "react-dom";
 import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { DispatchType } from "../../configureStore";
-import { getLocale } from "../../helpers/localize";
 import {
   useApplicationUser,
   useCriteria,
@@ -40,7 +39,6 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   reviewStatuses,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
   const dispatch = useDispatch<DispatchType>();
 
   const {
@@ -63,7 +61,6 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   const skills = useSkills();
   const jobQuestions = useJobPosterQuestions(jobId);
   const jobApplicationAnswers = useJobApplicationAnswers(applicationId);
-  const managerView = portal === "manager" || portal === "hr";
   const showLoadingState =
     application === null ||
     job === null ||
@@ -104,7 +101,7 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
               jobQuestions={jobQuestions}
               skills={skills}
               user={applicantUser}
-              managerView={managerView}
+              isSubmitted
             />
           </>
         )}
