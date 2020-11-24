@@ -124,4 +124,88 @@ class ExperienceSkillsControllerTest extends TestCase
             ['id' => $experienceSkill->id, 'deleted_at' => null]
         );
     }
+
+    public function testBatchStoreExperienceSkill()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $workExperienceSkills = [
+            $this->makeExpSkillData($work->id, 'experience_work'),
+            $this->makeExpSkillData($work->id, 'experience_work'),
+            $this->makeExpSkillData($work->id, 'experience_work'),
+        ];
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('post', route('api.v1.experience-skill.batchStore'), $workExperienceSkills);
+        $response->assertOk();
+        $response->assertJson($workExperienceSkills);
+        $ids = $response->decodeResponseJson('*.id');
+        $this->assertDatabaseHas(
+            'experience_skills',
+            [
+                'id' => $ids[0],
+                'id' => $ids[1],
+                'id' => $ids[2],
+            ]
+        );
+    }
+
+    public function testBatchUpdateExperienceSkill()
+    {
+        $faker = \Faker\Factory::create();
+        $work = factory(ExperienceWork::class)->create();
+        $experienceSkill1 = factory(ExperienceSkill::class)->create([
+            'experience_id' => $work->id,
+            'experience_type' => 'experience_work',
+        ]);
+        $experienceSkill2 = factory(ExperienceSkill::class)->create([
+            'experience_id' => $work->id,
+            'experience_type' => 'experience_work',
+        ]);
+
+        $updateData = [
+            [ 'id' => $experienceSkill1->id, 'justification' => $faker->paragraph()],
+            [ 'id' => $experienceSkill2->id, 'justification' => $faker->paragraph()],
+        ];
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('put', route('api.v1.experience-skill.batchUpdate'), $updateData);
+        $response->assertOk();
+        // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
+        // Note: also, the updated_at date will be now be newer
+        $expectData = array_merge(
+            collect($experienceSkill1->attributesToArray())->forget(['justification', 'updated_at'])->all(),
+            ['justification' => $updateData[0]['justification']],
+            collect($experienceSkill2->attributesToArray())->forget(['justification', 'updated_at'])->all(),
+            ['justification' => $updateData[1]['justification']]
+        );
+        $response->assertJsonFragment($expectData);
+        $this->assertDatabaseHas('experience_skills', $expectData);
+    }
+
+    public function testBatchDeleteExperienceSkill()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $experienceSkill1 = factory(ExperienceSkill::class)->create([
+            'experience_id' => $work->id,
+            'experience_type' => 'experience_work',
+        ]);
+        $experienceSkill2 = factory(ExperienceSkill::class)->create([
+            'experience_id' => $work->id,
+            'experience_type' => 'experience_work',
+        ]);
+
+        $experienceSkills = [
+            ['id' => $experienceSkill1->id ],
+            ['id' => $experienceSkill2->id ],
+        ];
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('put', route('api.v1.experience-skill.batchDestroy'), $experienceSkills);
+        $response->assertOk();
+
+        $this->assertSoftDeleted(
+            'experience_skills',
+            [
+                'id' => $experienceSkill1->id,
+                'id' => $experienceSkill2->id
+            ]
+        );
+    }
 }
