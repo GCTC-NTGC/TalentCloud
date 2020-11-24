@@ -1003,6 +1003,14 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
 
+    Route::post('experience-skills/batchStore', 'Api\ExperienceSkillsController@batchStore')
+        ->name('experience-skill.batchStore');
+    Route::put('experience-skills/batchUpdate', 'Api\ExperienceSkillsController@batchUpdate')
+        ->name('experience-skill.batchUpdate');
+    Route::put('experience-skills/batchDestroy', 'Api\ExperienceSkillsController@batchDestroy')
+        ->name('experience-skill.batchDestroy');
+
+
     Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
         ->middleware('can:create,App\Models\JobApplicationAnswer')
         ->name('job-application-answers.store');
