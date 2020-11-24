@@ -54,6 +54,7 @@ class ExperienceSkillsController extends Controller
     {
         $newExperienceSkills = $request->validated();
         $response = [];
+
         foreach ($newExperienceSkills as $newExperienceSkill) {
             // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
             $softDeletedExperienceSkill = ExperienceSkill::onlyTrashed()
@@ -91,6 +92,7 @@ class ExperienceSkillsController extends Controller
 
         foreach ($newExperienceSkills as $newExperienceSkill) {
             $experienceSkill = ExperienceSkill::where('id', $newExperienceSkill['id'])->first();
+            $this->authorize('update', $experienceSkill);
             $experienceSkill->fill($newExperienceSkill);
             $experienceSkill->save();
             array_push($response, $experienceSkill);
@@ -100,10 +102,14 @@ class ExperienceSkillsController extends Controller
 
     public function batchDestroy(Request $request)
     {
-        $experienceSkills = $request->validate([
+        $experienceSkillIds = $request->validate([
             '*.id' => 'required|exists:App\Models\ExperienceSkill,id',
-            ]);
-        ExperienceSkill::whereIn('id', $experienceSkills)->delete();
+        ]);
+        $experienceSkills = ExperienceSkill::whereIn('id', $experienceSkillIds);
+        foreach ($experienceSkills as $experienceSkill) {
+            $this->authorize('update', $experienceSkill);
+        }
+        $experienceSkills->delete();
         return response()->json(['success' => 'success'], 200);
     }
 }

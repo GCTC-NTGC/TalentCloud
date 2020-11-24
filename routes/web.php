@@ -1004,6 +1004,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->name('experience-skill.destroy');
 
     Route::post('experience-skills/batchStore', 'Api\ExperienceSkillsController@batchStore')
+        ->middleware('can:create,App\Models\ExperienceSkill')
         ->name('experience-skill.batchStore');
     Route::put('experience-skills/batchUpdate', 'Api\ExperienceSkillsController@batchUpdate')
         ->name('experience-skill.batchUpdate');
