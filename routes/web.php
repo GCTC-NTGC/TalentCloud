@@ -817,6 +817,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     Route::get('departments', 'Api\DepartmentController@index');
     Route::get('job-poster-statuses', 'Api\JobStatusController@index');
     Route::get('skills', 'Api\SkillController@index');
+    Route::get('skill-categories', 'Api\SkillCategoryController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
