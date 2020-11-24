@@ -36,4 +36,9 @@ class SkillCategory extends BaseModel
     public $translatable = [
         'name',
     ];
+
+    public function skills() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Skill::class, 'skill_categories_skills');
+    }
 }
