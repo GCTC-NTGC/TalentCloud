@@ -4,7 +4,7 @@ import {
   handleResponse,
   handleResponseWithoutData,
   useResource,
-} from "./webResourceHooks";
+} from "./indexCrudReducer";
 
 describe("webResourceHooks", (): void => {
   describe("handleResponseWithoutData", (): void => {
