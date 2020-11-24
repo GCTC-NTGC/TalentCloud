@@ -110,9 +110,9 @@ export function mapObjectValues<A, B>(
   );
 }
 
-interface IndexedObject<T> {
+type IndexedObject<T> = {
   [key: string]: T;
-}
+};
 
 /**
  * Maps an array of items into an object, with each transformed into an attribute
