@@ -142,7 +142,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
         }
       }
     } else {
-      let allRequests;
+      const allRequests: Promise<any>[] = [];
       // If the experience already exists it can simply be updated.
       const updateExpRequest = dispatch(updateExperience(experience));
       allRequests.push(updateExpRequest);
