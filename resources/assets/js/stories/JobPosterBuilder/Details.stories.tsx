@@ -7,7 +7,7 @@ import { JobDetails } from "../../components/JobBuilder/Details/JobDetails";
 import fakeJob from "../../fakeData/fakeJob";
 import fakeClassifications from "../../fakeData/fakeClassifications";
 
-const stories = storiesOf("Job Poster Builder|Details", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Details", module).addDecorator(
   withIntl,
 );
 

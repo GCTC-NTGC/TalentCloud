@@ -10,6 +10,7 @@ use App\Models\ExperienceWork;
 use App\Models\Skill;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 
 class ExperienceSkillsControllerTest extends TestCase
 {
@@ -89,9 +90,38 @@ class ExperienceSkillsControllerTest extends TestCase
             ->json('delete', route('api.v1.experience-skill.destroy', $experienceSkill->id));
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
-        $this->assertDatabaseMissing(
+        $this->assertSoftDeleted(
             'experience_skills',
             ['id' => $experienceSkill->id]
+        );
+    }
+
+    public function testRestoreSoftDeletedExperienceSkill()
+    {
+        $faker = \Faker\Factory::create();
+        $experienceSkill = factory(ExperienceSkill::class)->create([
+            'deleted_at' => $faker->dateTimeBetween('yesterday', 'tomorrow')->format('Y-m-d H:i:s')
+        ]);
+        // Assert that the experience skill has been soft deleted
+        $this->assertSoftDeleted(
+            'experience_skills',
+            ['id' => $experienceSkill->id]
+        );
+
+        // If a soft deleted experience skill already exists,
+        // restore that experience skill instead of creating a new one.
+        $experienceSkillData = [
+            'skill_id' => $experienceSkill->skill_id,
+            'experience_id' => $experienceSkill->experience_id,
+            'experience_type' => $experienceSkill->experience_type,
+            'justification' => $experienceSkill->justification,
+        ];
+        $response = $this->actingAs($experienceSkill->experience->experienceable->user)
+            ->json('post', route('api.v1.experience-skill.store'), $experienceSkillData);
+        $response->assertOk();
+        $this->assertDatabaseHas(
+            'experience_skills',
+            ['id' => $experienceSkill->id, 'deleted_at' => null]
         );
     }
 }

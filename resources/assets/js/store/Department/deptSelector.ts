@@ -16,3 +16,6 @@ export const getDepartmentById = (
   id: number,
 ): Department | null =>
   hasKey(getDeptState(state), id) ? getDeptState(state)[id] : null;
+
+export const departmentsIsLoading = (state: RootState): boolean =>
+  state.department.loading;

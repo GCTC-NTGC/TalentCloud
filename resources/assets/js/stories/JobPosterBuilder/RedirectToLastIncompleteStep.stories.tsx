@@ -8,7 +8,7 @@ import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { RedirectToLastIncompleteStep } from "../../components/JobBuilder/RedirectToLastIncompleteStep";
 
 const stories = storiesOf(
-  "Job Poster Builder|Redirect To Last Incomplete Step",
+  "Job Poster Builder/Redirect To Last Incomplete Step",
   module,
 ).addDecorator(withIntl);
 

@@ -44,7 +44,7 @@ export const AssessmentPlanBuilder: React.FunctionComponent<AssessmentPlanBuilde
       >
         <h4 data-c-colour="c5" data-c-font-weight="bold" data-c-font-size="h4">
           <FormattedMessage
-            id="criteria.essential"
+            id="assessmentPlan.criteria.essential"
             defaultMessage="Essential Skills"
             description="What essential criteria are called."
           />
@@ -77,7 +77,7 @@ export const AssessmentPlanBuilder: React.FunctionComponent<AssessmentPlanBuilde
         )}
         <h4 data-c-colour="c5" data-c-font-weight="bold" data-c-font-size="h4">
           <FormattedMessage
-            id="criteria.asset"
+            id="assessmentPlan.criteria.asset"
             defaultMessage="Asset Skills"
             description="What asset criteria are called."
           />

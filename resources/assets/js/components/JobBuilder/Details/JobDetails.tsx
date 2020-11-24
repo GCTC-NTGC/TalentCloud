@@ -44,8 +44,12 @@ import {
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
 import TextAreaInput from "../../Form/TextAreaInput";
-import { formMessages, educationMessages } from "./JobDetailsMessages";
-import { hasKey, objectMap } from "../../../helpers/queries";
+import {
+  formMessages,
+  educationMessages,
+  buttonMessages,
+} from "./JobDetailsMessages";
+import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import {
@@ -613,20 +617,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                           data-c-margin="top(normal) bottom(half)"
                         >
                           <CopyToClipboardButton
-                            actionText={
-                              <FormattedMessage
-                                id="button.copyToClipboard"
-                                defaultMessage="Copy to Clipboard"
-                                description="Button to copy text to clipboard."
-                              />
-                            }
-                            postActionText={
-                              <FormattedMessage
-                                id="button.copied"
-                                defaultMessage="Copied!"
-                                description="Confirmation for Button to copy text to clipboard."
-                              />
-                            }
+                            actionText={intl.formatMessage(
+                              buttonMessages.buttonCopyToClipboard,
+                            )}
+                            postActionText={intl.formatMessage(
+                              buttonMessages.buttonCopied,
+                            )}
                             textToCopy={getEducationMsgForClassification(
                               classifications,
                               values.classification,

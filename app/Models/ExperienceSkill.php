@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class ExperienceSkill
@@ -19,6 +20,8 @@ use App\Models\BaseModel;
  */
 class ExperienceSkill extends BaseModel
 {
+    use SoftDeletes;
+
     protected $casts = [
         'skill_id' => 'int',
         'experience_id' => 'int',

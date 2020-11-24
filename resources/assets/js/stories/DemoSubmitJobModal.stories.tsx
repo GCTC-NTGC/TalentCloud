@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import DemoSubmitJobModal from "../components/JobBuilder/Review/DemoSubmitJobModal";
 
-const stories = storiesOf("Modals|DemoSubmitJobModal", module).addDecorator(
+const stories = storiesOf("Modals/DemoSubmitJobModal", module).addDecorator(
   withIntl,
 );
 

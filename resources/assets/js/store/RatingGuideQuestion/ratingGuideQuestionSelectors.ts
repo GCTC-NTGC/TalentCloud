@@ -44,7 +44,7 @@ const getCurrentQuestionState = createSelector(
 );
 
 /**
- * Returns current verisons of all assessments.
+ * Returns current versions of all assessments.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */
@@ -72,12 +72,13 @@ export const getTempRatingGuideQuestions = createSelector(
 export const getRatingGuideQuestionIds = createSelector(
   getCurrentQuestionState,
   (currentQuestions): number[] =>
-    Object.keys(currentQuestions).map(id => Number(id)),
+    Object.keys(currentQuestions).map((id) => Number(id)),
 );
 
 export const getTempRatingGuideQuestionIds = createSelector(
   getTempQuestionState,
-  (tempQuestions): number[] => Object.keys(tempQuestions).map(id => Number(id)),
+  (tempQuestions): number[] =>
+    Object.keys(tempQuestions).map((id) => Number(id)),
 );
 
 /**
@@ -148,10 +149,11 @@ export const getRatingGuideQuestionIdsByJobAndAssessmentType = createCachedSelec
   ): number[] =>
     getRatingGuideQuestionsByJobAndAssessmentType(state, props).map(getId),
   (questionsIds): number[] => questionsIds,
-)(
-  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
-  deepEqualSelectorOptions,
-);
+)({
+  keySelector: (state, props): string =>
+    `${props.jobId} ${props.assessmentTypeId}`,
+  ...deepEqualSelectorOptions,
+});
 
 export const getTempRatingGuideQuestionsByAssessment = createCachedSelector(
   getTempRatingGuideQuestions,
@@ -178,10 +180,11 @@ export const getTempRatingGuideQuestionIdsByAssessment = createCachedSelector(
   ): number[] =>
     getTempRatingGuideQuestionsByAssessment(state, props).map(getId),
   (questionsIds): number[] => questionsIds,
-)(
-  (state, props): string => `${props.jobId} ${props.assessmentTypeId}`,
-  deepEqualSelectorOptions,
-);
+)({
+  keySelector: (state, props): string =>
+    `${props.jobId} ${props.assessmentTypeId}`,
+  ...deepEqualSelectorOptions,
+});
 
 // TODO: test that this works like I think it does -- Tristan
 /** Returns true if there is an edited verision which differs from canonical version */

@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import Intro from "./Intro";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
 import { navigate } from "../../../helpers/router";
 import { getLocale } from "../../../helpers/localize";
 import { applicationBasic } from "../../../helpers/routes";
@@ -14,7 +13,9 @@ import {
   useApplication,
   useFetchAllApplicationData,
   useJob,
+  useJobApplicationSteps,
 } from "../../../hooks/applicationHooks";
+import { loadingMessages } from "../applicationMessages";
 
 interface IntroPageProps {
   applicationId: number;
@@ -32,9 +33,11 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
 
   const application = useApplication(applicationId);
   const job = useJob(application?.job_poster_id);
+  const steps = useJobApplicationSteps();
 
-  const handleContinue = (): void =>
-    navigate(applicationBasic(locale, applicationId));
+  const handleContinue = async (): Promise<void> => {
+    return navigate(applicationBasic(locale, applicationId));
+  };
   const closeDate = job?.close_date_time ?? null;
   return (
     <>
@@ -44,9 +47,10 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
           currentTitle={intl.formatMessage(stepNames.welcome)}
           steps={makeProgressBarSteps(
             applicationId,
-            application,
+            steps,
             intl,
             "other",
+            false,
           )}
         />
       )}

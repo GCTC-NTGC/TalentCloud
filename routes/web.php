@@ -73,8 +73,6 @@ Route::group(
             Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
-            /* Application (Congrats) */
-            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
@@ -82,9 +80,6 @@ Route::group(
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
-
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')->middleware('localOnly');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')->middleware('localOnly');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -137,6 +132,20 @@ Route::group(
                         ->middleware('can:view,application')
                         ->name('applications.show');
 
+                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline');
+                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,jobApplication')
+                        ->name('applications.timeline.next');
+                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline.step');
+
+
+                    Route::get('jobs/{jobPoster}/apply', 'JobController@apply')
+                        ->name('jobs.apply');
+
                     /* Step 01 */
                     Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
 
@@ -183,10 +192,6 @@ Route::group(
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.about.edit');
-
-                    Route::post('profile/{applicant}/about/update', 'ApplicantProfileController@update')
-                        ->middleware('can:update,applicant')
-                        ->name('profile.about.update');
 
                     /* Profile - My Experience */
                     Route::get('profile/experience', 'ExperienceController@editAuthenticated');
@@ -570,54 +575,6 @@ Route::group(
 
         /* Require being logged in */
         Route::middleware(['auth'])->group(function (): void {
-
-            Route::delete('courses/{course}', 'CourseController@destroy')
-                ->middleware('can:delete,course')
-                ->name('courses.destroy');
-
-            Route::delete('degrees/{degree}', 'DegreeController@destroy')
-                ->middleware('can:delete,degree')
-                ->name('degrees.destroy');
-
-            Route::delete('work-experiences/{workExperience}', 'WorkExperienceController@destroy')
-                ->middleware('can:delete,workExperience')
-                ->name('work_experiences.destroy');
-
-            Route::post('skill-declarations', 'SkillDeclarationController@create')
-                ->middleware('can:create,App\Models\SkillDeclaration')
-                ->name('skill_declarations.create');
-
-            Route::put('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@update')
-                ->middleware('can:update,skillDeclaration')
-                ->name('skill_declarations.update');
-
-            Route::delete('skill-declarations/{skillDeclaration}', 'SkillDeclarationController@destroy')
-                ->middleware('can:delete,skillDeclaration')
-                ->name('skill_declarations.destroy');
-
-            Route::post('references', 'ReferencesController@update')
-                ->middleware('can:create,App\Models\Reference')
-                ->name('references.create');
-
-            Route::put('references/{reference}', 'ReferencesController@update')
-                ->middleware('can:update,reference')
-                ->name('references.update');
-
-            Route::delete('references/{reference}', 'ReferencesController@destroy')
-                ->middleware('can:delete,reference')
-                ->name('references.destroy');
-
-            Route::post('work-samples', 'WorkSamplesController@update')
-                ->middleware('can:create,App\Models\WorkSample')
-                ->name('work_samples.create');
-
-            Route::put('work-samples/{workSample}', 'WorkSamplesController@update')
-                ->middleware('can:update,workSample')
-                ->name('work_samples.update');
-
-            Route::delete('work-samples/{workSample}', 'WorkSamplesController@destroy')
-                ->middleware('can:delete,workSample')
-                ->name('work_samples.destroy');
 
             Route::delete('applications/{application}', 'ApplicationController@destroy')
                 ->middleware('can:delete,application')
@@ -1066,8 +1023,12 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->name('application.basic');
     Route::put('applications/{application}/basic', 'Api\ApplicationController@updateBasic')
         ->where('application', '[0-9]+')
-        ->middleware('can:view,application')
+        ->middleware('can:update,application')
         ->name('application.basic.update');
+    Route::put('applications/{application}/submit', 'Api\ApplicationController@submit')
+        ->where('application', '[0-9]+')
+        ->middleware('can:update,application')
+        ->name('application.submit');
     Route::get('jobs/{jobPoster}/applications', 'Api\ApplicationController@index')
         ->where('jobPoster', '[0-9]+')
         ->middleware('can:reviewApplicationsFor,jobPoster')
@@ -1082,4 +1043,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->name('application.experience.index');
     Route::get('classifications', 'ClassificationsController@getClassifications');
         //->middleware('can:view,application');
+    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+        ->middleware('can:view,application')
+        ->name('job-application-step.update');
 });

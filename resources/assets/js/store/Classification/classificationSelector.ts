@@ -44,3 +44,6 @@ export const getClassificationById = (
   id: number,
 ): Classification  =>
   getClassificationState(state)[id]
+
+export const classificationsIsLoading = (state: RootState): boolean =>
+  state.classification.loading;

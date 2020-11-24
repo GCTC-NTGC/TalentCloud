@@ -36,7 +36,6 @@ class ApplicantProfileMenuComposer
         switch (Route::currentRouteName()) {
             case ('profile.about'):
             case ('profile.about.edit'):
-            case ('profile.about.update'):
                 $profileMenu['about']['active'] = true;
                 break;
             case ('profile.experience'):
