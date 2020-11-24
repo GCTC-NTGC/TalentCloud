@@ -138,7 +138,7 @@ export function useLoadClassifications(
   dispatch: DispatchType,
 ) : {
   classifications: Classification[];
-  isLoadingDepartments: boolean;
+  isLoadingClassifications: boolean;
 } {
 
   const classifications = useSelector(getClassifications);
@@ -150,7 +150,7 @@ export function useLoadClassifications(
     }
   }, [classifications.length, isLoading, dispatch]);
 
-  return { classifications, isLoadingDepartments: isLoading };
+  return { classifications, isLoadingClassifications: isLoading };
 }
 
 export function useLoadSkills(
