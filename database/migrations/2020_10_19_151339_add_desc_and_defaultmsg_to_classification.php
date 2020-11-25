@@ -15,108 +15,107 @@ class AddDescAndDefaultmsgToClassification extends Migration
     {
         Schema::table('classifications', function (Blueprint $table) {
 
-            $table->json('defaultMessage')->default(json_encode([
+            $table->json('name')->default(json_encode([
                 'en' => '',
                 'fr' => '',
             ]));
         });
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'AS - Administrative Services',
             'fr' => ''
         ]);
 
         DB::table('classifications')->where('key', 'AS')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'BI - Biological Sciences',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'BI')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'CO - Commerce',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'CO')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'CR - Clerical and Regulatory',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'CR')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'CS - Computer Systems',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'CS')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'EC - Economics and Social Science Services',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'EC')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'EX - Executive',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'EX')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'FO - Forestry',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'FO')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'IS - Information Services',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'IS')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'PC - Physical Sciences',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'PC')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'PE - Personnel Administration',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'PE')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
 
-        $defaultMessage = json_encode([
+        $name = json_encode([
             'en' => 'PM - Programme Administration',
             'fr' => ''
         ]);
         DB::table('classifications')->where('key', 'PM')->update(
-            ['defaultMessage' => $defaultMessage]
+            ['name' => $name]
         );
     }
 
@@ -128,7 +127,7 @@ class AddDescAndDefaultmsgToClassification extends Migration
     public function down()
     {
         Schema::table('classifications', function (Blueprint $table) {
-            $table->dropColumn('defaultMessage');
+            $table->dropColumn('name');
             $table->dropColumn('description');
         });
     }
