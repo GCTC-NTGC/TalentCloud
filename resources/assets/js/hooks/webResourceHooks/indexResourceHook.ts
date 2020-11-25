@@ -1,14 +1,25 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import {
+  Reducer,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+} from "react";
+import {
+  deleteRequest,
   FetchError,
+  getRequest,
   postRequest,
   processJsonResponse,
+  putRequest,
 } from "../../helpers/httpRequests";
 import { identity } from "../../helpers/queries";
 import indexCrudReducer, {
   initializeState,
   ResourceState,
   ActionTypes,
+  AsyncAction,
 } from "./indexCrudReducer";
 import { Json, ResourceStatus } from "./types";
 
@@ -41,6 +52,21 @@ function statusSelector<T extends { id: number }>(
   );
 }
 
+// Defining these functions outside of the hook, despite their simplicity,
+// so they remain constant between re-renders.
+
+function defaultEntityEndpoint(baseEndpoint: string, id: number): string {
+  return `${baseEndpoint}/${id}`;
+}
+
+function defaultCreateEndpoint(baseEndpoint: string): string {
+  return baseEndpoint;
+}
+
+function doNothing(): void {
+  /* do nothing */
+}
+
 export function useResourceIndex<T extends { id: number }>(
   endpoint: string,
   overrides?: {
@@ -48,7 +74,7 @@ export function useResourceIndex<T extends { id: number }>(
     forceInitialRefresh: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
     parseIndexResponse?: (response: Json) => T[];
     parseEntityResponse?: (response: Json) => T;
-    resolveEntityEndpoint?: (baseEndpoint: string, entity: T) => string;
+    resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string;
     resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string;
     handleError?: (error: Error | FetchError) => void;
   },
@@ -62,29 +88,23 @@ export function useResourceIndex<T extends { id: number }>(
   deleteResource: (id: number) => Promise<void>;
 } {
   const initialValue = overrides?.initialValue ?? [];
-  const forceInitialRefresh =
-    overrides?.initialValue !== undefined && overrides?.forceInitialRefresh;
+  const doInitialRefresh =
+    overrides?.initialValue === undefined ||
+    overrides?.forceInitialRefresh === true;
   const parseIndexResponse = overrides?.parseIndexResponse ?? identity;
   const parseEntityResponse = overrides?.parseEntityResponse ?? identity;
   const resolveEntityEndpoint =
-    overrides?.resolveEntityEndpoint ??
-    ((baseEndpoint, entity): string => `${baseEndpoint}/${entity.id}`);
+    overrides?.resolveEntityEndpoint ?? defaultEntityEndpoint;
   const resolveCreateEndpoint =
-    overrides?.resolveCreateEndpoint ??
-    ((baseEndpoint, _): string => baseEndpoint);
-  const handleError =
-    overrides?.handleError ??
-    ((): void => {
-      /* Do nothing. */
-    });
+    overrides?.resolveCreateEndpoint ?? defaultCreateEndpoint;
+  const handleError = overrides?.handleError ?? doNothing;
 
   const isSubscribed = useRef(true);
 
-  const [state, dispatch] = useReducer(
-    indexCrudReducer,
-    initialValue,
-    initializeState,
-  );
+  const [state, dispatch] = useReducer<
+    Reducer<ResourceState<T>, AsyncAction<T>>,
+    T[] // This represent type of initialValue, passed to initializeState to create initial state.
+  >(indexCrudReducer, initialValue, initializeState);
 
   const values = useMemo(() => valuesSelector(state), [state]);
   const indexStatus = state.indexMeta.status;
@@ -103,11 +123,15 @@ export function useResourceIndex<T extends { id: number }>(
           newValue,
         ).then(processJsonResponse);
       } catch (error) {
-        dispatch({
-          type: ActionTypes.createReject,
-          payload: error,
-          meta: { item: newValue },
-        });
+        if (isSubscribed.current) {
+          dispatch({
+            type: ActionTypes.createReject,
+            payload: error,
+            meta: { item: newValue },
+          });
+        }
+        handleError(error);
+        throw error;
       }
       const entity = parseEntityResponse(json) as T;
       if (isSubscribed.current) {
@@ -119,8 +143,115 @@ export function useResourceIndex<T extends { id: number }>(
       }
       return entity;
     },
-    [endpoint, resolveCreateEndpoint, parseEntityResponse],
+    [endpoint, resolveCreateEndpoint, parseEntityResponse, handleError],
   );
+
+  const refresh = useCallback(async (): Promise<T[]> => {
+    dispatch({
+      type: ActionTypes.indexStart,
+    });
+    let json: Json;
+    try {
+      json = await getRequest(endpoint).then(processJsonResponse);
+    } catch (error) {
+      if (isSubscribed.current) {
+        dispatch({
+          type: ActionTypes.indexReject,
+          payload: error,
+        });
+      }
+      handleError(error);
+      throw error;
+    }
+    const index = parseIndexResponse(json) as T[];
+    if (isSubscribed.current) {
+      dispatch({
+        type: ActionTypes.indexFulfill,
+        payload: index,
+      });
+    }
+    return index;
+  }, [endpoint, parseIndexResponse, handleError]);
+
+  const update = useCallback(
+    async (newValue: T): Promise<T> => {
+      const meta = { id: newValue.id, item: newValue };
+      dispatch({
+        type: ActionTypes.updateStart,
+        meta,
+      });
+      let json: Json;
+      try {
+        json = await putRequest(
+          resolveEntityEndpoint(endpoint, newValue.id),
+          newValue,
+        ).then(processJsonResponse);
+      } catch (error) {
+        if (isSubscribed.current) {
+          dispatch({
+            type: ActionTypes.updateReject,
+            payload: error,
+            meta,
+          });
+        }
+        handleError(error);
+        throw error;
+      }
+      const value = parseEntityResponse(json) as T;
+      if (isSubscribed.current) {
+        dispatch({
+          type: ActionTypes.updateFulfill,
+          payload: value,
+          meta,
+        });
+      }
+      return value;
+    },
+    [endpoint, resolveEntityEndpoint, parseEntityResponse, handleError],
+  );
+
+  const deleteResource = useCallback(
+    async (id: number): Promise<void> => {
+      dispatch({
+        type: ActionTypes.deleteStart,
+        meta: { id },
+      });
+      try {
+        const response = await deleteRequest(
+          resolveEntityEndpoint(endpoint, id),
+        );
+        if (!response.ok) {
+          throw new FetchError(response);
+        }
+      } catch (error) {
+        if (isSubscribed.current) {
+          dispatch({
+            type: ActionTypes.deleteReject,
+            payload: error,
+            meta: { id },
+          });
+        }
+        handleError(error);
+        throw error;
+      }
+      if (isSubscribed.current) {
+        dispatch({
+          type: ActionTypes.deleteFulfill,
+          meta: { id },
+        });
+      }
+    },
+    [endpoint, resolveEntityEndpoint, handleError],
+  );
+
+  // Despite the usual guidlines, this should only be reconsidered if endpoint changes.
+  // Changing doInitialRefresh after the first run (or refresh) should not cause this to rerun.
+  useEffect(() => {
+    if (doInitialRefresh) {
+      refresh();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
 
   // Unsubscribe from promises when this hook is unmounted.
   useEffect(() => {
@@ -134,8 +265,9 @@ export function useResourceIndex<T extends { id: number }>(
     indexStatus,
     entityStatus,
     create,
-    update,
     refresh,
+    update,
+    deleteResource,
   };
 }
 
