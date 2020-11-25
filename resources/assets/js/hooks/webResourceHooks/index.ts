@@ -1,2 +1,2 @@
-export { useResource, useDeleteableResource } from "./singleResourceHooks";
+export { useResource } from "./singleResourceHooks";
 export { useResourceIndex } from "./indexResourceHook";
