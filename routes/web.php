@@ -1041,7 +1041,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::get('classifications', 'ClassificationsController@getClassifications');
+    Route::get('classifications', 'Api\ClassificationController@index');
         //->middleware('can:view,application');
     Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
         ->middleware('can:view,application')
