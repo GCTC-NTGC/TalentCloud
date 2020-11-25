@@ -13,6 +13,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\SkillCategory;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Seeder;
@@ -218,5 +219,42 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+         // Create first parent skill category.
+        $skillCategoryParentFirst = factory(SkillCategory::class, 1)->create([
+            'parent_category_id' => 0
+        ]);
+
+        // Create second parent skill category.
+        $skillCategoryParentSecond = factory(SkillCategory::class, 1)->create([
+            'parent_category_id' => 0
+        ]);
+
+        foreach ($skillCategoryParentFirst as $parent_category_id) {
+            // Create child categories for the first parent category.
+            factory(SkillCategory::class, 4)->create([
+                'parent_category_id' => $parent_category_id,
+            ]);
+        };
+
+        foreach ($skillCategoryParentSecond as $parent_category_id) {
+            // Create child categories for the second parent category.
+            factory(SkillCategory::class, 4)->create([
+                'parent_category_id' => $parent_category_id,
+            ]);
+        };
+
+        // Create relationship between skills and skill categories.
+        $skills = DB::table('skills')->select('id', 'skill_type_id')->get();
+        foreach ($skills as $skill) {
+            DB::table('skill_categories_skills')->updateOrInsert(
+                [
+                    'skill_id' => $skill->id
+                ],
+                [
+                    'skill_category_id' => rand(1, 10) // Based on total number of skill categories created.
+                ]
+            );
+        }
     }
 }
