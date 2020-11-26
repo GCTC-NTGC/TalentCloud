@@ -248,7 +248,11 @@ class DevSeeder extends Seeder // phpcs:ignore
                     'skill_id' => $skill->id
                 ],
                 [
-                    'skill_category_id' => rand(1, 10) // Based on total number of skill categories created.
+                    /*
+                    Include skill categories created.
+                    Exclude skill categories created that do not have children.
+                    */
+                    'skill_category_id' => rand(3, 10)
                 ]
             );
         }
