@@ -14,6 +14,7 @@ class SkillCategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -57,6 +58,12 @@ class SkillCategoryCrudController extends CrudController
                     'id',
                     '!=',
                     $this->crud->getCurrentEntry() ? $this->crud->getCurrentEntry()->id : null
+                )
+                ->where(
+                    // Include categories with depth of 1 (parent skill categories) in options.
+                    'depth',
+                    '=',
+                    1
                 )
                 ->get()->pluck('name', 'id')->toArray(),
             ]);
@@ -111,6 +118,12 @@ class SkillCategoryCrudController extends CrudController
                 $this->crud->query = $this->crud->query->whereNull('parent_id');
             }
         );
+    }
+
+    protected function setupReorderOperation()
+    {
+        $this->crud->set('reorder.label', 'name');
+        $this->crud->set('reorder.max_level', 2);
     }
 
     public function setupCreateOperation()
