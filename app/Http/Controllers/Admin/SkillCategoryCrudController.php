@@ -48,7 +48,7 @@ class SkillCategoryCrudController extends CrudController
             ]);
 
             $this->crud->addField([
-                'name' => 'parent_category_id',
+                'name' => 'parent_id',
                 'label' => 'Parent Category',
                 'type' => 'select_from_array',
                 'allow_null' => false,
@@ -108,7 +108,7 @@ class SkillCategoryCrudController extends CrudController
             ],
             false,
             function () {
-                $this->crud->query = $this->crud->query->whereNull('parent_category_id');
+                $this->crud->query = $this->crud->query->whereNull('parent_id');
             }
         );
     }

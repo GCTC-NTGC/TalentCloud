@@ -27,7 +27,7 @@ class SkillCategoryCrudRequest extends FormRequest
         return [
             'key' => 'required|alpha_dash|unique:skill_categories,key' . (isset($this->id) ? ",{$this->id}" : ''),
             'name' => 'required',
-            'parent_category_id' => 'required' . (isset($this->id) ? "|not_in:{$this->id}" : ''),
+            'parent_id' => 'required' . (isset($this->id) ? "|not_in:{$this->id}" : ''),
         ];
     }
 
