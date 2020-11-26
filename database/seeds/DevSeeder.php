@@ -226,19 +226,11 @@ class DevSeeder extends Seeder // phpcs:ignore
         // Create second parent skill category.
         $skillCategoryParentSecond = factory(SkillCategory::class, 1)->create();
 
-        foreach ($skillCategoryParentFirst as $parent_category_id) {
-            // Create child categories for the first parent category.
-            factory(SkillCategory::class, 4)->create([
-                'parent_category_id' => $parent_category_id,
-            ]);
-        };
+        // Create child categories for the first parent category.
+        factory(SkillCategory::class, 4)->create(['parent_id' => $skillCategoryParentFirst->first()->id]);
 
-        foreach ($skillCategoryParentSecond as $parent_category_id) {
-            // Create child categories for the second parent category.
-            factory(SkillCategory::class, 4)->create([
-                'parent_category_id' => $parent_category_id,
-            ]);
-        };
+        // Create child categories for the second parent category.
+        factory(SkillCategory::class, 4)->create(['parent_id' => $skillCategoryParentSecond->first()->id]);
 
         // Create relationship between skills and skill categories.
         $skills = DB::table('skills')->select('id', 'skill_type_id')->get();
