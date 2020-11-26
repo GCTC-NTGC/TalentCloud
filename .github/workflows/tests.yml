@@ -16,8 +16,6 @@ jobs:
         php-version: 7.2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
-    - name: Validate composer.json and composer.lock
-      run: composer validate
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -28,7 +26,11 @@ jobs:
           ${{ runner.os }}-php-
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --no-interaction --prefer-dist --no-progress --no-suggest    
+      uses: php-actions/composer@v4
+      with:
+        command: composer install --no-interaction --prefer-dist --no-progress --no-suggest
+        php_version: 7.2
+        composer_version: 1
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
