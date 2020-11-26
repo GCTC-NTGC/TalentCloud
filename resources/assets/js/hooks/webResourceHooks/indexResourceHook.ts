@@ -72,16 +72,16 @@ export function useResourceIndex<T extends { id: number }>(
   overrides?: {
     initialValue?: T[]; // Defaults to an empty list.
     forceInitialRefresh: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
-    parseIndexResponse?: (response: Json) => T[];
-    parseEntityResponse?: (response: Json) => T;
-    resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string;
-    resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string;
+    parseIndexResponse?: (response: Json) => T[]; // Defaults to the identity function.
+    parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
+    resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
+    resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string; // Defaults to identical to endpoint. Used for create (POST) requests.
     handleError?: (error: Error | FetchError) => void;
   },
 ): {
   values: IndexedObject<T>;
   indexStatus: ResourceStatus;
-  entityStatus: IndexedObject<ResourceStatus>;
+  entityStatus: IndexedObject<ResourceStatus>; // Note that if indexStatus is 'pending', every entity status will also be 'pending'.
   create: (newValue: T) => Promise<T>;
   refresh: () => Promise<T[]>; // Reloads the entire index.
   update: (newValue: T) => Promise<T>;
