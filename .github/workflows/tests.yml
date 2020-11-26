@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
     - name: Validate composer.json and composer.lock
@@ -34,7 +37,7 @@ jobs:
         chmod -R 775 /var/www
     - name: Generate certificates
       run: make gen-certs
-    - name: Create Laravel storate symlink
+    - name: Create Laravel storage symlink
       run: php artisan storage:link
       
   phpunit:
