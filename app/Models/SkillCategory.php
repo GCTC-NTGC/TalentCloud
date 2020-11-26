@@ -30,7 +30,7 @@ class SkillCategory extends BaseModel
     protected $fillable = [
         'key',
         'name',
-        'parent_category_id',
+        'parent_id',
     ];
 
     /**
