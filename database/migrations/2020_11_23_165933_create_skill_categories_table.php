@@ -17,7 +17,7 @@ class CreateSkillCategoriesTable extends Migration
             $table->increments('id');
             $table->string('key');
             $table->json('name');
-            $table->integer('parent_category_id')->default(0)->nullable();
+            $table->integer('parent_category_id')->default(null)->nullable();
             $table->timestamps();
         });
     }
