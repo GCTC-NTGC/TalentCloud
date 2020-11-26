@@ -1,0 +1,65 @@
+name: Tests
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build-php:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy .env
+      run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+    - name: Install dependencies
+      if: steps.composer-cache.outputs.cache-hit != 'true'
+      run: composer install --no-interaction --prefer-dist --no-progress --no-suggest    
+    - name: Generate key
+      run: php artisan key:generate
+    - name: Directory Permissions
+      run: |
+        chown -R www-data /var/www/storage /var/www/vendor /var/www/bootstrap/cache
+        chmod -R 775 /var/www
+    - name: Generate certificates
+      run: make gen-certs
+    - name: Create Laravel storate symlink
+      run: php artisan storage:link
+      
+  phpunit:
+    runs-on: ubuntu-latest
+    needs: build-php
+    services:
+      postgres:
+         image: postgres:9.6-alpine
+         options: --name=postgres
+         env:
+           POSTGRES_DB: talentcloud
+           POSTGRES_USER: talentcloud
+           POSTGRES_PASSWORD: talentcloud
+    steps:
+     - name: Setup database
+       run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
+     - name: Run PHPUnit tests
+       run: phpdbg -qrr ./vendor/bin/phpunit -dmemory_limit=4G --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
+       env:
+         DB_PORT: 5432
+         DB_HOST: postgres
+     - name: Upload reports to Codecov
+       uses: codecov/codecov-action@v1
+       with:
+         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
+         fail_ci_if_error: true
+       
+       
