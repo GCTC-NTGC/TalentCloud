@@ -1,0 +1,14 @@
+name: Codecov
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.15
