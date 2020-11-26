@@ -108,7 +108,7 @@ class SkillCategoryCrudController extends CrudController
             ],
             false,
             function () {
-                $this->crud->query = $this->crud->query->where('parent_category_id', 0);
+                $this->crud->query = $this->crud->query->whereNull('parent_category_id');
             }
         );
     }
