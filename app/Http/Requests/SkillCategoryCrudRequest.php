@@ -27,7 +27,7 @@ class SkillCategoryCrudRequest extends FormRequest
         return [
             'key' => 'required|alpha_dash|unique:skill_categories,key' . (isset($this->id) ? ",{$this->id}" : ''),
             'name' => 'required',
-            'parent_id' => 'required' . (isset($this->id) ? "|not_in:{$this->id}" : ''),
+            'parent_id' => (isset($this->id) ? "not_in:{$this->id}" : ''),
         ];
     }
 
@@ -41,7 +41,7 @@ class SkillCategoryCrudRequest extends FormRequest
         return [
             'key.required' => 'Please enter a skill name.',
             'key.unique' => 'A skill category with this name already exists.',
-            'key.alpha_dash' => 'The skill category key may only use alphabetic characters and dashes.'
+            'key.alpha_dash' => 'The skill category key may only use alphabetic characters and dashes.',
         ];
     }
 }
