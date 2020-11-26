@@ -1010,6 +1010,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+    Route::get('classifications', 'Api\ClassificationController@index');
+        //->middleware('can:view,application');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
@@ -1041,8 +1044,6 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::get('classifications', 'Api\ClassificationController@index');
-        //->middleware('can:view,application');
     Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
         ->middleware('can:view,application')
         ->name('job-application-step.update');

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
 use App\Models\Classification;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ClassificationController extends Controller
 {
     /**
-     * Return the current applicant's application for a given Job Poster.
+     * Return all classifications as an array
      *
-     * @param  \App\Models\JobDetailsPage List of classification objects.
-     * @return mixed|\App\Models\Classification
+     * @return mixed
      */
     public function index()
     {
