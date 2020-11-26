@@ -48,12 +48,13 @@ class SkillCategoryCrudController extends CrudController
                 'limit' => 70,
             ]);
 
+
             $this->crud->addField([
                 'name' => 'parent_id',
                 'label' => 'Parent Category',
                 'type' => 'select_from_array',
                 'allows_null' => true,
-                'options' => SkillCategory::where(
+                'options' => $this->crud->getCurrentEntry()->depth == 1 ? [] : SkillCategory::where(
                     // Exclude self from options.
                     'id',
                     '!=',
@@ -66,6 +67,7 @@ class SkillCategoryCrudController extends CrudController
                     1
                 )
                 ->get()->pluck('name', 'id')->toArray(),
+                // Exclude all categories if self has depth of 1 (parent skill category).
             ]);
         });
     }
