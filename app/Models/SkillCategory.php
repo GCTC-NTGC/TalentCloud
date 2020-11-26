@@ -11,7 +11,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property int $id
  * @property string $key
  * @property string $name
- * @property int $parent_category_id
+ * @property int|null $parent_category_id
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
