@@ -51,7 +51,7 @@ class SkillCategoryCrudController extends CrudController
                 'name' => 'parent_id',
                 'label' => 'Parent Category',
                 'type' => 'select_from_array',
-                'allow_null' => false,
+                'allows_null' => true,
                 'options' => SkillCategory::where(
                     // Exclude self from options.
                     'id',
