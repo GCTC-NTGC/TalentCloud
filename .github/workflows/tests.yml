@@ -14,7 +14,7 @@ jobs:
          image: postgres:9.6-alpine
          options: --name=postgres
          env:
-           POSTGRES_DB: talentcloud
+           POSTGRES_DB: testing
            POSTGRES_USER: talentcloud
            POSTGRES_PASSWORD: talentcloud
     steps:
@@ -54,6 +54,7 @@ jobs:
       env:
         DB_PORT: 5432
         DB_HOST: postgres
+        DB_DATABASE: testing
     - name: Upload reports to Codecov
       uses: codecov/codecov-action@v1
       with:
