@@ -7,8 +7,16 @@ on:
     branches: [ dev ]
 
 jobs:
-  build-php:
+  phpunit:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+         image: postgres:9.6-alpine
+         options: --name=postgres
+         env:
+           POSTGRES_DB: talentcloud
+           POSTGRES_USER: talentcloud
+           POSTGRES_PASSWORD: talentcloud
     steps:
     - uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v2
@@ -39,30 +47,17 @@ jobs:
       run: make gen-certs
     - name: Create Laravel storage symlink
       run: php artisan storage:link
-      
-  phpunit:
-    runs-on: ubuntu-latest
-    needs: build-php
-    services:
-      postgres:
-         image: postgres:9.6-alpine
-         options: --name=postgres
-         env:
-           POSTGRES_DB: talentcloud
-           POSTGRES_USER: talentcloud
-           POSTGRES_PASSWORD: talentcloud
-    steps:
-     - name: Setup database
-       run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
-     - name: Run PHPUnit tests
-       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
-       env:
-         DB_PORT: 5432
-         DB_HOST: postgres
-     - name: Upload reports to Codecov
-       uses: codecov/codecov-action@v1
-       with:
-         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
-         fail_ci_if_error: true
+    - name: Setup database
+      run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
+    - name: Run PHPUnit tests
+      run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
+      env:
+        DB_PORT: 5432
+        DB_HOST: postgres
+    - name: Upload reports to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
+        fail_ci_if_error: true
        
        
