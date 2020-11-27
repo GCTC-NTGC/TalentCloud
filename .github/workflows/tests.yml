@@ -17,6 +17,8 @@ jobs:
            POSTGRES_DB: testing
            POSTGRES_USER: talentcloud
            POSTGRES_PASSWORD: talentcloud
+         ports:
+          - 5432:5432
     steps:
     - uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v2
@@ -53,7 +55,7 @@ jobs:
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
         DB_PORT: 5432
-        DB_HOST: postgres
+        DB_HOST: localhost
         DB_DATABASE: testing
     - name: Upload reports to Codecov
       uses: codecov/codecov-action@v1
