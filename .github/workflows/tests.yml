@@ -55,7 +55,7 @@ jobs:
      - name: Setup database
        run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
      - name: Run PHPUnit tests
-       run: vendor/bin/phpunit -dmemory_limit=4G --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
+       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
        env:
          DB_PORT: 5432
          DB_HOST: postgres
