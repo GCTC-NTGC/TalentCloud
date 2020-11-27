@@ -34,9 +34,7 @@ jobs:
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
-      run: |
-        chown -R www-data ./storage ./vendor ./bootstrap/cache
-        chmod -R 775 .
+      run: chmod -R 775 .
     - name: Generate certificates
       run: make gen-certs
     - name: Create Laravel storage symlink
