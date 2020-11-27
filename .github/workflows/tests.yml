@@ -105,7 +105,6 @@ jobs:
            ${{ runner.os }}-build-
            ${{ runner.os }}-
      - name: Install npm dependencies
-       if: steps.npm-cache.outputs.cache-hit != 'true'
        run: npm install
      - name: Compile webpack assets
        run: npm run prod
