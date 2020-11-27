@@ -62,5 +62,37 @@ jobs:
       with:
         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
         fail_ci_if_error: true
+        
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Setup Node.js
+       uses: actions/setup-node@v1
+       with:
+         node-version: 12.6.0
+     - name: Cache Npm packages
+       id: npm-cache
+       uses: actions/cache@v2
+       with:
+         # npm cache files are stored in `~/.npm` on Linux/macOS
+         path: ~/.npm
+         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+         restore-keys: |
+           ${{ runner.os }}-build-${{ env.cache-name }}-
+           ${{ runner.os }}-build-
+           ${{ runner.os }}-
+     - name: Install npm dependencies
+       if: steps.npm-cache.outputs.cache-hit != 'true'
+       run: npm install
+     - name: Build npm
+       run: npm run prod
+     - name: Run Jest tests
+       run: npm run test -- -ci
+     - name: Upload reports to Codecov
+       uses: codecov/codecov-action@v1
+       with:
+         files: report/jest/clover.xml,report/phpunit/junit.jest.xml
+         fail_ci_if_error: true
        
        
