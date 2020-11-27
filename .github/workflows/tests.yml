@@ -51,6 +51,28 @@ jobs:
       run: php artisan storage:link
     - name: Setup database
       run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.6.0
+    - name: Cache Npm packages
+      id: npm-cache
+      uses: actions/cache@v2
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - name: Install npm dependencies
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: npm install
+    - name: Compile webpack assets
+      run: npm run prod
+      
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
@@ -85,7 +107,7 @@ jobs:
      - name: Install npm dependencies
        if: steps.npm-cache.outputs.cache-hit != 'true'
        run: npm install
-     - name: Build npm
+     - name: Compile webpack assets
        run: npm run prod
      - name: Run Jest tests
        run: npm run test -- -ci
