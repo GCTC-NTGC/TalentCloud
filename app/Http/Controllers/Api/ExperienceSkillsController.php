@@ -57,7 +57,7 @@ class ExperienceSkillsController extends Controller
 
         foreach ($newExperienceSkills as $newExperienceSkill) {
             // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
-            $softDeletedExperienceSkill = ExperienceSkill::onlyTrashed()
+            $softDeletedExperienceSkill = ExperienceSkill::withTrashed()
                 ->where([
                 ['skill_id', $newExperienceSkill['skill_id']],
                 ['experience_id', $newExperienceSkill['experience_id']],
