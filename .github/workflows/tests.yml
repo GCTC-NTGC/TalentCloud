@@ -36,7 +36,7 @@ jobs:
           ${{ runner.os }}-php-
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      uses: MilesChou/composer-action/5.5/install@master
+      uses: MilesChou/composer-action/7.2/install@master
       with:
         args: install --no-interaction --prefer-dist --no-progress --no-suggest
     - name: Generate key
