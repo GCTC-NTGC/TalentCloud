@@ -222,7 +222,7 @@ return [
             'button' => 'Step 3: Live Job',
             'heading' => 'Step 3: Live Job',
             'content' => [
-                'Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank">GC Jobs</a>. As people apply, you can view the number of applicants increasing on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.',
+                'Your job will be posted on Talent Cloud as well as <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs to learn more." target="_blank" rel="noopener noreferrer">GC Jobs</a>. As people apply, you can view the number of applicants increasing on your dashboard. We will also handle priority clearance so that priorities will be clearly indicated in your list of applicants once the poster closes.',
                 'This step is only available for partner department accounts.'
             ]
         ],

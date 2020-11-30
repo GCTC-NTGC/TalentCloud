@@ -281,14 +281,14 @@ return [
                     ],
                 ],
                 'links' => [
-                    '0' => '<a href="http://www.tbs-sct.gc.ca/agreements-conventions/list-eng.aspx" title="Learn more about the collective bargaining agreement." target="_blank">collective bargaining agreement</a>',
+                    '0' => '<a href="http://www.tbs-sct.gc.ca/agreements-conventions/list-eng.aspx" title="Learn more about the collective bargaining agreement." target="_blank" rel="noopener noreferrer">collective bargaining agreement</a>',
                     '1' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/topics/pension-benefits.html" title="Learn more about pension benefits." target="_blank">canada.ca/pension-benefits</a>',
                     '2' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/health-care-plan.html" title="Learn more about the Public Service Health Care Plan." target="_blank">Public Service Health Care Plan</a>',
-                    '3' => '<a href="https://www.njc-cnm.gc.ca/directive/d9/en" title="Learn more about the plan." target="_blank">A complete description of what is covered under the Plan can be found here</a>',
+                    '3' => '<a href="https://www.njc-cnm.gc.ca/directive/d9/en" title="Learn more about the plan." target="_blank" rel="noopener noreferrer">A complete description of what is covered under the Plan can be found here</a>',
                     '4' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan.html" title="Learn more about the Public Service Dental Care Plan." target="_blank">Public Service Dental Care Plan</a>',
                     '5' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan/rules-dental-care-plan-public-service-canada.html" title="Learn more about the plan." target="_blank">A complete description of what is covered under the Plan can be found here</a>',
                     '6' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/services/pension-plan/active-members/new-public-service-pension.html" title="Learn more about the Public Service Pension Plan." target="_blank">public service pension plan</a>',
-                    '7' => '<a href="https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-eng.html" title="Learn more about the plan." target="_blank">More information about the pension plan can be found here</a>',
+                    '7' => '<a href="https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-eng.html" title="Learn more about the plan." target="_blank" rel="noopener noreferrer">More information about the pension plan can be found here</a>',
                     '8' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/services/benefit-plans/disability-insurance-plan/disability-insurance-plan-benefits-glance.html" title="Learn more about disability insurance." target="_blank">Disability insurance</a>',
                     '9' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/topics/benefit-plans/plans/management-insurance-plan.html" title="Learn more about LTD benefits." target="_blank">Public Service Management Insurance Plan</a>',
                 ]
@@ -728,8 +728,8 @@ return [
                     ]
                 ],
                 'links' => [
-                    '0' => '<a href="https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=12584" title="Learn more about the term employment policy." target="_blank">Term Employment Policy</a>',
-                    '1' => '<a href="http://bit.ly/ARAExample" title="See an example of how cross-posting works." target="_blank">Here is an example</a>',
+                    '0' => '<a href="https://www.tbs-sct.gc.ca/pol/doc-eng.aspx?id=12584" title="Learn more about the term employment policy." target="_blank" rel="noopener noreferrer">Term Employment Policy</a>',
+                    '1' => '<a href="http://bit.ly/ARAExample" title="See an example of how cross-posting works." target="_blank" rel="noopener noreferrer">Here is an example</a>',
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud." target="_blank">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -810,7 +810,7 @@ return [
                 ],
                 'links' => [
                     '0' => '<a href="https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html" title="Learn more about Qualification Standards." target="_blank">Qualification Standards</a>',
-                    '1' => '<a href="https://twitter.com/PSCofCanada/status/1087386962288406529" title="Learn more about job poster formats." target="_blank">no prescribed format</a>',
+                    '1' => '<a href="https://twitter.com/PSCofCanada/status/1087386962288406529" title="Learn more about job poster formats." target="_blank" rel="noopener noreferrer">no prescribed format</a>',
                 ]
             ],
             'tc-assessment' => [
@@ -904,7 +904,7 @@ return [
                 ],
                 'links' => [
                     '0' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud." target="_blank">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>',
-                    '1' => '<a href="https://twitter.com/gc_talent" title="Visit Talent Cloud on Twitter." target="_blank">on Twitter @GC_Talent</a>',
+                    '1' => '<a href="https://twitter.com/gc_talent" title="Visit Talent Cloud on Twitter." target="_blank" rel="noopener noreferrer">on Twitter @GC_Talent</a>',
                 ]
             ],
             'others' => [

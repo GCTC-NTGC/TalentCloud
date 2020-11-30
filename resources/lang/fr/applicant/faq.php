@@ -281,14 +281,14 @@ return [
                     ],
                 ],
                 'links' => [
-                    '0' => '<a href="https://www.tbs-sct.gc.ca/agreements-conventions/list-fra.aspx" title="Pour en savoir plus sur la convention collective." target="_blank">convention collective</a>',
+                    '0' => '<a href="https://www.tbs-sct.gc.ca/agreements-conventions/list-fra.aspx" title="Pour en savoir plus sur la convention collective." target="_blank" rel="noopener noreferrer">convention collective</a>',
                     '1' => '<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/pension-avantages-sociaux.html" title="Pour en savoir plus sur les prestations de retraite." target="_blank">https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/pension-avantages-sociaux.html</a>',
                     '2' => '<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-soins-sante.html" title="Pour en savoir plus sur le Régime de soins de santé de la fonction publique." target="_blank">Régime de soins de santé de la fonction publique</a>',
-                    '3' => '<a href="https://www.njc-cnm.gc.ca/directive/d9/fr" title="Pour en savoir plus sur le plan." target="_blank">Une description complète de ce qui est couvert par le régime se trouve ici</a>',
+                    '3' => '<a href="https://www.njc-cnm.gc.ca/directive/d9/fr" title="Pour en savoir plus sur le plan." target="_blank" rel="noopener noreferrer">Une description complète de ce qui est couvert par le régime se trouve ici</a>',
                     '4' => '<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-soins-dentaires.html" title="Pour en savoir plus sur le Régime de soins dentaires de la fonction publique." target="_blank">Régime de soins dentaires de la fonction publique</a>',
                     '5' => '<a href="https://www.canada.ca/fr/treasury-board-secretariat/topics/benefit-plans/plans/dental-care-plan/rules-dental-care-plan-public-service-canada.html" title="Pour en savoir plus sur le plan." target="_blank">Une description complète de ce qui est couvert par le régime se trouve ici</a>',
                     '6' => '<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/regime-retraite/participants-actifs/nouvel-employe-fonction-publique-pension.html" title="Pour en savoir plus sur le Régime de pension de retraite de la fonction publique." target="_blank">Régime de pension de retraite de la fonction publique</a>',
-                    '7' => '<a href="https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-fra.html" title="Pour en savoir plus sur le plan." target="_blank">Pour en savoir plus sur le régime de retraite, cliquez ici</a>',
+                    '7' => '<a href="https://www.tpsgc-pwgsc.gc.ca/remuneration-compensation/services-pension-services/pension/info/bienvenue-welcome-fra.html" title="Pour en savoir plus sur le plan." target="_blank" rel="noopener noreferrer">Pour en savoir plus sur le régime de retraite, cliquez ici</a>',
                     '8' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/services/regimes-assurance/regime-assurance-invalidite/regime-assurance-invalidite-coup-oeil.html\" title=\"Pour en savoir plus sur l\'assurance invalidité.\" target=\"_blank\">L\'assurance-invalidité</a>",
                     '9' => "<a href=\"https://www.canada.ca/fr/secretariat-conseil-tresor/sujets/regimes-assurance/regimes/regime-assurance-gestion.html\" title=\"Pour en savoir plus sur les prestations d'AILD.\" target=\"_blank\">Régime d’assurance pour les cadres de gestion de la fonction publique</a>",
                 ]
@@ -728,8 +728,8 @@ return [
                     ]
                 ],
                 'links' => [
-                    '0' => "<a href=\"https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=12584\" title=\"Pour en savoir davantage sur la Politique sur l'emploi pour une période déterminée.\" target=\"_blank\">Politique sur l’emploi pour une période déterminée</a>",
-                    '1' => "<a href=\"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page1800?poster=1276951&toggleLanguage=fr\" title=\"Voir un exemple du fonctionnement de l'affichage dans plusieurs tableaux.\" target=\"_blank\">En voici un exemple</a>",
+                    '0' => "<a href=\"https://www.tbs-sct.gc.ca/pol/doc-fra.aspx?id=12584\" title=\"Pour en savoir davantage sur la Politique sur l'emploi pour une période déterminée.\" target=\"_blank\" rel=\"noopener noreferrer\">Politique sur l’emploi pour une période déterminée</a>",
+                    '1' => "<a href=\"https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page1800?poster=1276951&toggleLanguage=fr\" title=\"Voir un exemple du fonctionnement de l'affichage dans plusieurs tableaux.\" target=\"_blank\" rel=\"noopener noreferrer\">En voici un exemple</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un courriel au Nuage de talents." target="_blank">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -810,7 +810,7 @@ return [
                 ],
                 'links' => [
                     '0' => '<a href="https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html" title="Pour en savoir davantage sur les normes de qualification." target="_blank">Normes de qualification</a>',
-                    '1' => '<a href="https://twitter.com/CFPduCanada/status/1087387312336654336" title="Pour en savoir davantage sur les présentations des avis de concours." target="_blank">format prescrit</a>',
+                    '1' => '<a href="https://twitter.com/CFPduCanada/status/1087387312336654336" title="Pour en savoir davantage sur les présentations des avis de concours." target="_blank" rel="noopener noreferrer">format prescrit</a>',
                 ]
             ],
             'tc-assessment' => [
@@ -904,7 +904,7 @@ return [
                 ],
                 'links' => [
                     '0' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Envoyer un courriel au Nuage de talents." target="_blank">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>',
-                    '1' => '<a href="https://twitter.com/gc_talent" title="Visitez le Nuage des talents sur Twitter." target="_blank">sur Twitter @GCTalent</a>',
+                    '1' => '<a href="https://twitter.com/gc_talent" title="Visitez le Nuage des talents sur Twitter." target="_blank" rel="noopener noreferrer">sur Twitter @GCTalent</a>',
                 ]
             ],
             'others' => [

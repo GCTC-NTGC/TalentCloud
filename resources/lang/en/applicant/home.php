@@ -41,7 +41,7 @@ return [
         'title' => 'We\'re improving the platform.',
         'main_message' => 'Due to the evolving situation surrounding COVID-19, we\'ll put a pause on posting new opportunities on this site.',
         'sign_off' => 'For more opportunities, visit',
-        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="" target="_blank">GC Jobs</a>'
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="" target="_blank" rel="noopener noreferrer">GC Jobs</a>'
     ],
     'hiw' => [
         'title' => 'How Talent Cloud Works',
@@ -173,7 +173,7 @@ return [
     'cta' => [
         'copy' => "Can't find the job you're looking for on Talent Cloud? %gcjobs% for more public sector opportunities. Students, be sure to %fswep% too!",
         'copy_links' => [
-            'gcjobs' => '<a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs for more information." target="_blank">Check out GC Jobs</a>',
+            'gcjobs' => '<a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Visit GC Jobs for more information." target="_blank" rel="noopener noreferrer">Check out GC Jobs</a>',
             'fswep' => '<a href="https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html" title="Visit FSWEP for more information on student opportunities." target="_blank">check out FSWEP</a>'
         ]
     ],

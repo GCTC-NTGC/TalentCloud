@@ -222,7 +222,7 @@ return [
             'button' => '3 : Publication de l’offre d’emploi',
             'heading' => 'Étape 3 : Publication de l’offre d’emploi',
             'content' => [
-                'Votre emploi sera affiché dans le Nuage de talents ainsi que dans <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Pour en savoir plus, visitez Emplois GC." target="_blank">Emplois GC</a>. À mesure que les gens postulent, vous pouvez voir le nombre de postulants augmenter à partir de votre tableau de bord. Nous traiterons également les autorisations en matière de priorité afin qu’elles soient clairement indiquées dans votre liste de candidats après la date de clôture de l’offre.',
+                'Votre emploi sera affiché dans le Nuage de talents ainsi que dans <a href="https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en" title="Pour en savoir plus, visitez Emplois GC." target="_blank" rel="noopener noreferrer">Emplois GC</a>. À mesure que les gens postulent, vous pouvez voir le nombre de postulants augmenter à partir de votre tableau de bord. Nous traiterons également les autorisations en matière de priorité afin qu’elles soient clairement indiquées dans votre liste de candidats après la date de clôture de l’offre.',
                 'Cette étape n’est disponible que pour les comptes des ministères partenaires.'
             ]
         ],
