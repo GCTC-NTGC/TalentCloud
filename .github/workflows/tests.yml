@@ -36,11 +36,9 @@ jobs:
           ${{ runner.os }}-php-
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      uses: php-actions/composer@v4
+      uses: MilesChou/composer-action/5.5/install@master
       with:
-        command: install --no-interaction --prefer-dist --no-progress --no-suggest
-        php_version: 7.2
-        composer_version: 1
+        args: install --no-interaction --prefer-dist --no-progress --no-suggest
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
