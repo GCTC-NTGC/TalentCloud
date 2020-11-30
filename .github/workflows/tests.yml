@@ -50,7 +50,13 @@ jobs:
     - name: Create Laravel storage symlink
       run: php artisan storage:link
     - name: Setup database
-      run: docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud
+      run: |
+        docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud --no-password
+        php artisan migrate
+      env:
+        DB_PORT: 5432
+        DB_HOST: localhost
+        DB_DATABASE: testing
     
     - name: Setup Node.js
       uses: actions/setup-node@v1
@@ -72,8 +78,8 @@ jobs:
       run: npm install
     - name: Compile webpack assets
       run: npm run prod
-    - name: Start a web server
-      run: php artisan serve &
+    #- name: Start a web server
+    #  run: php artisan serve &
       
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
