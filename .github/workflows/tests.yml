@@ -55,7 +55,7 @@ jobs:
         DB_PORT: 5432
         DB_HOST: localhost
         DB_DATABASE: testing
-    
+
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
@@ -76,9 +76,9 @@ jobs:
       run: npm install
     - name: Compile webpack assets
       run: npm run prod
-    #- name: Start a web server
-    #  run: php artisan serve &
-      
+    - name: Start a web server
+      run: php artisan serve &
+
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
@@ -90,7 +90,7 @@ jobs:
       with:
         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
         fail_ci_if_error: true
-        
+
   jest:
     runs-on: ubuntu-latest
     steps:
@@ -121,5 +121,5 @@ jobs:
        with:
          files: report/jest/clover.xml,report/phpunit/junit.jest.xml
          fail_ci_if_error: true
-       
-       
+
+
