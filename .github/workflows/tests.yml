@@ -90,6 +90,11 @@ jobs:
       with:
         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
         fail_ci_if_error: true
+    - name: Archive Laravel logs
+      uses: actions/upload-artifact@v2
+      with:
+        name: laravel-logs
+        path: storage\logs\*.log
 
   jest:
     runs-on: ubuntu-latest
