@@ -9,65 +9,65 @@ import {
 import { ResourceStatus } from "./types";
 
 export enum ActionTypes {
-  indexStart = "indexStart",
-  indexFulfill = "indexFulfill",
-  indexReject = "indexReject",
+  IndexStart = "INDEX_START",
+  IndexFulfill = "INDEX_FULFILL",
+  IndexReject = "INDEX_REJECT",
 
-  createStart = "createStart",
-  createFulfill = "createFulfill",
-  createReject = "createReject",
+  CreateStart = "CREATE_START",
+  CreateFulfill = "CREATE_FULFILL",
+  CreateReject = "CREATE_REJECT",
 
-  updateStart = "updateStart",
-  updateFulfill = "updateFulfill",
-  updateReject = "updateReject",
+  UpdateStart = "UPDATE_START",
+  UpdateFulfill = "UPDATE_FULFILL",
+  UpdateReject = "UPDATE_REJECT",
 
-  deleteStart = "deleteStart",
-  deleteFulfill = "deleteFulfill",
-  deleteReject = "deleteReject",
+  DeleteStart = "DELETE_START",
+  deleteFulfill = "DELETE_FULFILL",
+  DeleteReject = "DELETE_REJECT",
 }
 
-export type IndexStartAction = { type: ActionTypes.indexStart };
+export type IndexStartAction = { type: ActionTypes.IndexStart };
 export type IndexFulfillAction<T> = {
-  type: ActionTypes.indexFulfill;
+  type: ActionTypes.IndexFulfill;
   payload: T[];
 };
 export type IndexRejectAction = {
-  type: ActionTypes.indexReject;
+  type: ActionTypes.IndexReject;
   payload: Error | FetchError;
 };
 
 export type CreateStartAction<T> = {
-  type: ActionTypes.createStart;
+  type: ActionTypes.CreateStart;
   meta: { item: T };
 };
 export type CreateFulfillAction<T> = {
-  type: ActionTypes.createFulfill;
+  type: ActionTypes.CreateFulfill;
   payload: T;
   meta: { item: T };
 };
 export type CreateRejectAction<T> = {
-  type: ActionTypes.createReject;
+  type: ActionTypes.CreateReject;
   payload: Error | FetchError;
   meta: { item: T };
 };
 
 export type UpdateStartAction<T> = {
-  type: ActionTypes.updateStart;
+  type: ActionTypes.UpdateStart;
   meta: { id: number; item: T };
 };
 export type UpdateFulfillAction<T> = {
-  type: ActionTypes.updateFulfill;
+  type: ActionTypes.UpdateFulfill;
   payload: T;
   meta: { id: number; item: T };
 };
 export type UpdateRejectAction<T> = {
-  type: ActionTypes.updateReject;
+  type: ActionTypes.UpdateReject;
   payload: Error | FetchError;
   meta: { id: number; item: T };
 };
 
 export type DeleteStartAction = {
-  type: ActionTypes.deleteStart;
+  type: ActionTypes.DeleteStart;
   meta: { id: number };
 };
 export type DeleteFulfillAction = {
@@ -75,7 +75,7 @@ export type DeleteFulfillAction = {
   meta: { id: number };
 };
 export type DeleteRejectAction = {
-  type: ActionTypes.deleteReject;
+  type: ActionTypes.DeleteReject;
   payload: Error | FetchError;
   meta: { id: number };
 };
@@ -315,7 +315,7 @@ export function reducer<T extends { id: number }>(
   action: AsyncAction<T>,
 ): ResourceState<T> {
   switch (action.type) {
-    case ActionTypes.indexStart:
+    case ActionTypes.IndexStart:
       return {
         ...state,
         indexMeta: {
@@ -325,7 +325,7 @@ export function reducer<T extends { id: number }>(
           error: undefined,
         },
       };
-    case ActionTypes.indexFulfill:
+    case ActionTypes.IndexFulfill:
       return {
         ...state,
         indexMeta: {
@@ -336,7 +336,7 @@ export function reducer<T extends { id: number }>(
         },
         values: mergeIndexPayload(state.values, action.payload),
       };
-    case ActionTypes.indexReject:
+    case ActionTypes.IndexReject:
       return {
         ...state,
         indexMeta: {
@@ -346,7 +346,7 @@ export function reducer<T extends { id: number }>(
           error: action.payload,
         },
       };
-    case ActionTypes.createStart:
+    case ActionTypes.CreateStart:
       // TODO: We could add an optimistic update here.
       return {
         ...state,
@@ -357,7 +357,7 @@ export function reducer<T extends { id: number }>(
           error: undefined,
         },
       };
-    case ActionTypes.createFulfill:
+    case ActionTypes.CreateFulfill:
       return {
         ...state,
         createMeta: {
@@ -367,7 +367,7 @@ export function reducer<T extends { id: number }>(
         },
         values: mergeCreatePayload(state.values, action.payload),
       };
-    case ActionTypes.createReject:
+    case ActionTypes.CreateReject:
       return {
         ...state,
         createMeta: {
@@ -376,22 +376,22 @@ export function reducer<T extends { id: number }>(
           error: action.payload,
         },
       };
-    case ActionTypes.updateStart:
+    case ActionTypes.UpdateStart:
       return {
         ...state,
         values: mergeUpdateStart(state.values, action),
       };
-    case ActionTypes.updateFulfill:
+    case ActionTypes.UpdateFulfill:
       return {
         ...state,
         values: mergeUpdateFulfill(state.values, action),
       };
-    case ActionTypes.updateReject:
+    case ActionTypes.UpdateReject:
       return {
         ...state,
         values: mergeUpdateReject(state.values, action),
       };
-    case ActionTypes.deleteStart:
+    case ActionTypes.DeleteStart:
       return {
         ...state,
         values: mergeDeleteStart(state.values, action),
@@ -401,7 +401,7 @@ export function reducer<T extends { id: number }>(
         ...state,
         values: mergeDeleteFulfill(state.values, action),
       };
-    case ActionTypes.deleteReject:
+    case ActionTypes.DeleteReject:
       return {
         ...state,
         values: mergeDeleteReject(state.values, action),

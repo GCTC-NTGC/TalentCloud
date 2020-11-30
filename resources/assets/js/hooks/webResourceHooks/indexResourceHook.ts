@@ -113,7 +113,7 @@ export function useResourceIndex<T extends { id: number }>(
   const create = useCallback(
     async (newValue: T): Promise<T> => {
       dispatch({
-        type: ActionTypes.createStart,
+        type: ActionTypes.CreateStart,
         meta: { item: newValue },
       });
       let json: Json;
@@ -125,7 +125,7 @@ export function useResourceIndex<T extends { id: number }>(
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
-            type: ActionTypes.createReject,
+            type: ActionTypes.CreateReject,
             payload: error,
             meta: { item: newValue },
           });
@@ -136,7 +136,7 @@ export function useResourceIndex<T extends { id: number }>(
       const entity = parseEntityResponse(json) as T;
       if (isSubscribed.current) {
         dispatch({
-          type: ActionTypes.createFulfill,
+          type: ActionTypes.CreateFulfill,
           payload: entity,
           meta: { item: newValue },
         });
@@ -148,7 +148,7 @@ export function useResourceIndex<T extends { id: number }>(
 
   const refresh = useCallback(async (): Promise<T[]> => {
     dispatch({
-      type: ActionTypes.indexStart,
+      type: ActionTypes.IndexStart,
     });
     let json: Json;
     try {
@@ -156,7 +156,7 @@ export function useResourceIndex<T extends { id: number }>(
     } catch (error) {
       if (isSubscribed.current) {
         dispatch({
-          type: ActionTypes.indexReject,
+          type: ActionTypes.IndexReject,
           payload: error,
         });
       }
@@ -166,7 +166,7 @@ export function useResourceIndex<T extends { id: number }>(
     const index = parseIndexResponse(json) as T[];
     if (isSubscribed.current) {
       dispatch({
-        type: ActionTypes.indexFulfill,
+        type: ActionTypes.IndexFulfill,
         payload: index,
       });
     }
@@ -177,7 +177,7 @@ export function useResourceIndex<T extends { id: number }>(
     async (newValue: T): Promise<T> => {
       const meta = { id: newValue.id, item: newValue };
       dispatch({
-        type: ActionTypes.updateStart,
+        type: ActionTypes.UpdateStart,
         meta,
       });
       let json: Json;
@@ -189,7 +189,7 @@ export function useResourceIndex<T extends { id: number }>(
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
-            type: ActionTypes.updateReject,
+            type: ActionTypes.UpdateReject,
             payload: error,
             meta,
           });
@@ -200,7 +200,7 @@ export function useResourceIndex<T extends { id: number }>(
       const value = parseEntityResponse(json) as T;
       if (isSubscribed.current) {
         dispatch({
-          type: ActionTypes.updateFulfill,
+          type: ActionTypes.UpdateFulfill,
           payload: value,
           meta,
         });
@@ -213,7 +213,7 @@ export function useResourceIndex<T extends { id: number }>(
   const deleteResource = useCallback(
     async (id: number): Promise<void> => {
       dispatch({
-        type: ActionTypes.deleteStart,
+        type: ActionTypes.DeleteStart,
         meta: { id },
       });
       try {
@@ -226,7 +226,7 @@ export function useResourceIndex<T extends { id: number }>(
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
-            type: ActionTypes.deleteReject,
+            type: ActionTypes.DeleteReject,
             payload: error,
             meta: { id },
           });
