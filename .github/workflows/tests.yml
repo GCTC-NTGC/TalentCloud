@@ -86,11 +86,13 @@ jobs:
         DB_HOST: localhost
         DB_DATABASE: testing
     - name: Upload reports to Codecov
+      if: ${{ always() }}
       uses: codecov/codecov-action@v1
       with:
         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
         fail_ci_if_error: true
     - name: Archive Laravel logs
+      if: ${{ always() }}
       uses: actions/upload-artifact@v2
       with:
         name: laravel-logs
@@ -122,6 +124,7 @@ jobs:
      - name: Run Jest tests
        run: npm run test -- -ci
      - name: Upload reports to Codecov
+       if: ${{ always() }}
        uses: codecov/codecov-action@v1
        with:
          files: report/jest/clover.xml,report/phpunit/junit.jest.xml
