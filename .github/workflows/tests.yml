@@ -70,7 +70,7 @@ jobs:
     - name: Setup database
       run: |
         docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud --no-password
-        php artisan migrate
+        php artisan migrate --seed
       env:
         DB_PORT: 5432
         DB_HOST: localhost
