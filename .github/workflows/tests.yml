@@ -24,10 +24,9 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
-        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, soap, intl, gd, exif, iconv, imagick
+        extensions: imagick
     - name: Copy .env
-      #run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
-      run: cp .env.travis .env
+      run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -41,7 +40,6 @@ jobs:
       uses: MilesChou/composer-action/7.2/install@master
       with:
         args: install --no-interaction --prefer-dist --no-progress --no-suggest
-
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
@@ -60,7 +58,6 @@ jobs:
     - name: Install npm dependencies
       if: steps.npm-cache.outputs.cache-hit != 'true'
       run: npm install
-
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
@@ -77,12 +74,10 @@ jobs:
         DB_PORT: 5432
         DB_HOST: localhost
         DB_DATABASE: testing
-
     - name: Compile webpack assets
       run: npm run prod
     - name: Start a web server
       run: php artisan serve &
-
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
@@ -101,6 +96,10 @@ jobs:
       with:
         name: laravel-logs
         path: storage\logs\*.log
+    - name: Slack Notification
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
   jest:
     runs-on: ubuntu-latest
@@ -133,3 +132,7 @@ jobs:
        with:
          files: report/jest/clover.xml,report/phpunit/junit.jest.xml
          fail_ci_if_error: true
+     - name: Slack Notification
+       uses: rtCamp/action-slack-notify@v2
+       env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
