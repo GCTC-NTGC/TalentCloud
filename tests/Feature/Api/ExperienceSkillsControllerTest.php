@@ -134,7 +134,7 @@ class ExperienceSkillsControllerTest extends TestCase
             $this->makeExpSkillData($work->id, 'experience_work'),
         ];
         $response = $this->actingAs($work->experienceable->user)
-            ->json('post', route('api.v1.experience-skill.batchStore'), $workExperienceSkills);
+            ->json('post', route('api.v1.experience-skill.batch-store'), $workExperienceSkills);
         $response->assertOk();
         $response->assertJson($workExperienceSkills);
         $ids = $response->decodeResponseJson('*.id');
@@ -166,7 +166,7 @@ class ExperienceSkillsControllerTest extends TestCase
             [ 'id' => $experienceSkill2->id, 'justification' => $faker->paragraph()],
         ];
         $response = $this->actingAs($work->experienceable->user)
-            ->json('put', route('api.v1.experience-skill.batchUpdate'), $updateData);
+            ->json('put', route('api.v1.experience-skill.batch-update'), $updateData);
         $response->assertOk();
         // Note: when updating, only the justification should be modifiable. The other fields will be ignored.
         // Note: also, the updated_at date will be now be newer
@@ -197,7 +197,7 @@ class ExperienceSkillsControllerTest extends TestCase
             ['id' => $experienceSkill2->id ],
         ];
         $response = $this->actingAs($work->experienceable->user)
-            ->json('put', route('api.v1.experience-skill.batchDestroy'), $experienceSkills);
+            ->json('put', route('api.v1.experience-skill.batch-destroy'), $experienceSkills);
         $response->assertOk();
 
         $this->assertSoftDeleted(

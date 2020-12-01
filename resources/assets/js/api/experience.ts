@@ -68,8 +68,8 @@ export const getExperienceSkillEndpoint = (id: number | null = null): string =>
   `${baseUrl()}/experience-skills/${id ?? ""}`;
 
 export const getBatchCreateExperienceSkillsEndpoint = (): string =>
-  `${baseUrl()}/experience-skills/batchStore`;
+  `${baseUrl()}/experience-skills/batch-store`;
 export const getBatchUpdateExperienceSkillsEndpoint = (): string =>
-  `${baseUrl()}/experience-skills/batchUpdate`;
+  `${baseUrl()}/experience-skills/batch-update`;
 export const getBatchDeleteExperienceSkillsEndpoint = (): string =>
-  `${baseUrl()}/experience-skills/batchDestroy`;
+  `${baseUrl()}/experience-skills/batch-destroy`;
