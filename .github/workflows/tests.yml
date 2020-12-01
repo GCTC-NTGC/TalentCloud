@@ -65,7 +65,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install npm dependencies
-      if: steps.npm-cache.outputs.cache-hit != 'true'
+      #if: steps.npm-cache.outputs.cache-hit != 'true'
       run: npm install
 
     - name: Generate key
