@@ -20,7 +20,41 @@ class BatchStoreExperienceSkill extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $result = true;
+        $experienceSkills = $this->all();
+        foreach ($experienceSkills as $experienceSkill) {
+            $experience_type = $experienceSkill['experience_type'];
+            $experience_id = (int)$experienceSkill['experience_id'];
+            $user = $this->user();
+            $experience = null;
+            switch ($experience_type) {
+                case 'experience_work':
+                    $experience = ExperienceWork::find($experience_id);
+                    break;
+                case 'experience_award':
+                    $experience = ExperienceAward::find($experience_id);
+                    break;
+                case 'experience_community':
+                    $experience = ExperienceCommunity::find($experience_id);
+                    break;
+                case 'experience_education':
+                    $experience = ExperienceEducation::find($experience_id);
+                    break;
+                case 'experience_personal':
+                    $experience = ExperiencePersonal::find($experience_id);
+                    break;
+            }
+
+            if ($experience === null ||
+                $user === null ||
+                !$user->can('create', ExperienceSkill::class) ||
+                !$user->can('update', $experience)
+            ) {
+                return false;
+            }
+        }
+
+        return $result;
     }
 
     /**
