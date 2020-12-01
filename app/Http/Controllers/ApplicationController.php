@@ -76,9 +76,6 @@ class ApplicationController extends Controller
      */
     public function showVersionTwo(JobApplication $application)
     {
-        $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
-            'manager/application_timeline_review' : 'applicant/application_timeline_preview';
-
         if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             return view(
                 'manager/application_timeline_review',
