@@ -96,13 +96,13 @@ jobs:
       with:
         name: laravel-logs
         path: storage\logs\*.log
-     - name: Send Slack notification
-       uses: 8398a7/action-slack@v2
-       #if: failure()
-       with:
+    - name: Send Slack notification
+      uses: 8398a7/action-slack@v2
+      #if: failure()
+      with:
         status: ${{ job.status }}
         author_name: ${{ github.actor }}
-       env:
+      env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
   jest:
