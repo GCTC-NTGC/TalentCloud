@@ -7,7 +7,9 @@ on:
     branches: [ dev ]
 
 jobs:
+
   phpunit:
+
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -19,14 +21,17 @@ jobs:
            POSTGRES_PASSWORD: talentcloud
          ports:
           - 5432:5432
+
     steps:
     - uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, soap, intl, gd, exif, iconv, imagick
+
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
+      run: cp .env.travis .env
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -35,15 +40,18 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       uses: MilesChou/composer-action/7.2/install@master
       with:
         args: install --no-interaction --prefer-dist --no-progress --no-suggest
+
     - name: Setup Node.js
       uses: actions/setup-node@v1
       with:
         node-version: 12.6.0
+
     - name: Cache Npm packages
       id: npm-cache
       uses: actions/cache@v2
@@ -55,17 +63,23 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+
     - name: Install npm dependencies
       if: steps.npm-cache.outputs.cache-hit != 'true'
       run: npm install
+
     - name: Generate key
       run: php artisan key:generate
+
     - name: Directory Permissions
       run: chmod -R 777 storage vendor bootstrap/cache
+
     - name: Generate certificates
       run: make gen-certs
+
     - name: Create Laravel storage symlink
       run: php artisan storage:link
+
     - name: Setup database
       run: |
         docker exec -d postgres psql -c 'create database testing with owner talentcloud;' -U talentcloud --no-password
@@ -74,28 +88,34 @@ jobs:
         DB_PORT: 5432
         DB_HOST: localhost
         DB_DATABASE: testing
+
     - name: Compile webpack assets
       run: npm run prod
+
     - name: Start a web server
       run: php artisan serve &
+
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
         DB_PORT: 5432
         DB_HOST: localhost
         DB_DATABASE: testing
+
     - name: Upload reports to Codecov
       if: ${{ always() }}
       uses: codecov/codecov-action@v1
       with:
         files: report/phpunit/coverage.xml,report/phpunit/junit.phpunit.xml
         fail_ci_if_error: true
+
     - name: Archive Laravel logs
       if: ${{ always() }}
       uses: actions/upload-artifact@v2
       with:
         name: laravel-logs
         path: storage\logs\*.log
+
     - name: Send Slack notification
       uses: 8398a7/action-slack@v2
       #if: failure()
@@ -106,13 +126,16 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
   jest:
+
     runs-on: ubuntu-latest
+
     steps:
      - uses: actions/checkout@v2
      - name: Setup Node.js
        uses: actions/setup-node@v1
        with:
          node-version: 12.6.0
+
      - name: Cache Npm packages
        id: npm-cache
        uses: actions/cache@v2
@@ -124,18 +147,23 @@ jobs:
            ${{ runner.os }}-build-${{ env.cache-name }}-
            ${{ runner.os }}-build-
            ${{ runner.os }}-
+
      - name: Install npm dependencies
        run: npm install
+
      - name: Compile webpack assets
        run: npm run prod
+
      - name: Run Jest tests
        run: npm run test -- -ci
+
      - name: Upload reports to Codecov
        if: ${{ always() }}
        uses: codecov/codecov-action@v1
        with:
          files: report/jest/clover.xml,report/phpunit/junit.jest.xml
          fail_ci_if_error: true
+
      - name: Send Slack notification
        #if: failure()
        uses: 8398a7/action-slack@v2
