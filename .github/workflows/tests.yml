@@ -28,6 +28,7 @@ jobs:
       with:
         php-version: 7.2
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, soap, intl, gd, exif, iconv, imagick
+        tools: composer:v1
 
     - name: Copy .env
       run: cp .env.travis .env
