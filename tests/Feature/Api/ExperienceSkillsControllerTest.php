@@ -211,5 +211,23 @@ class ExperienceSkillsControllerTest extends TestCase
                 'id' => $experienceSkill2->id
             ]
         );
+
+        // If a soft deleted experience skill already exists,
+        // restore that experience skill instead of creating a new one.
+        $workExperienceSkills = [
+            $experienceSkill1->attributesToArray(),
+            $experienceSkill2->attributesToArray(),
+        ];
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('post', route('api.v1.experience-skill.batch-store'), $workExperienceSkills);
+        $response->assertOk();
+        $this->assertDatabaseHas(
+            'experience_skills',
+            ['id' => $experienceSkill1->id, 'deleted_at' => null]
+        );
+        $this->assertDatabaseHas(
+            'experience_skills',
+            ['id' => $experienceSkill2->id, 'deleted_at' => null]
+        );
     }
 }
