@@ -58,11 +58,7 @@ class ApplicationController extends Controller
     public function showWithToolbar(JobPoster $jobPoster, JobApplication $application)
     {
         if ($jobPoster->job_applications->contains($application)) {
-            // If the application is version two then show the version two application review page.
-            if ($application->version_id !== null && $application->version_id == 2) {
-                return $this->showVersionTwo($application);
-            }
-            return $this->showVersionOne($application);
+            return $this->show($application);
         } else {
             return abort(404);
         }
