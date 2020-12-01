@@ -155,10 +155,12 @@ class ExperienceSkillsControllerTest extends TestCase
         $experienceSkill1 = factory(ExperienceSkill::class)->create([
             'experience_id' => $work->id,
             'experience_type' => 'experience_work',
+            'skill_id' => 1,
         ]);
         $experienceSkill2 = factory(ExperienceSkill::class)->create([
             'experience_id' => $work->id,
             'experience_type' => 'experience_work',
+            'skill_id' => 2,
         ]);
 
         $updateData = [
@@ -186,10 +188,12 @@ class ExperienceSkillsControllerTest extends TestCase
         $experienceSkill1 = factory(ExperienceSkill::class)->create([
             'experience_id' => $work->id,
             'experience_type' => 'experience_work',
+            'skill_id' => 1,
         ]);
         $experienceSkill2 = factory(ExperienceSkill::class)->create([
             'experience_id' => $work->id,
             'experience_type' => 'experience_work',
+            'skill_id' => 2,
         ]);
 
         $experienceSkills = [
