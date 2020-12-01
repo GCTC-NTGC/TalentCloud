@@ -25,7 +25,8 @@ jobs:
       with:
         php-version: 7.2
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
+      #run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
+      run: cp .env.travis .env
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
