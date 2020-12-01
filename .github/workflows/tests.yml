@@ -24,7 +24,7 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
-        extensions: imagick
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, soap, intl, gd, exif, iconv, imagick
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.travis', '.env');"
     - name: Cache Composer packages
@@ -96,10 +96,14 @@ jobs:
       with:
         name: laravel-logs
         path: storage\logs\*.log
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+     - name: Send Slack notification
+       uses: 8398a7/action-slack@v2
+       #if: failure()
+       with:
+        status: ${{ job.status }}
+        author_name: ${{ github.actor }}
+       env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
   jest:
     runs-on: ubuntu-latest
@@ -132,7 +136,11 @@ jobs:
        with:
          files: report/jest/clover.xml,report/phpunit/junit.jest.xml
          fail_ci_if_error: true
-     - name: Slack Notification
-       uses: rtCamp/action-slack-notify@v2
+     - name: Send Slack notification
+       #if: failure()
+       uses: 8398a7/action-slack@v2
+       with:
+        status: ${{ job.status }}
+        author_name: ${{ github.actor }}
        env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
