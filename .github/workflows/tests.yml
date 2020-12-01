@@ -52,6 +52,10 @@ jobs:
       with:
         node-version: 12.6.0
 
+    - name: Install npm dependencies
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: npm install
+
     - name: Cache Npm packages
       id: npm-cache
       uses: actions/cache@v2
@@ -63,10 +67,6 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-
-    - name: Install npm dependencies
-      #if: steps.npm-cache.outputs.cache-hit != 'true'
-      run: npm install
 
     - name: Generate key
       run: php artisan key:generate
