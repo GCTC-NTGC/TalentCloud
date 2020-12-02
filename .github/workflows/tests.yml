@@ -262,7 +262,7 @@ jobs:
      - name: Run browser tests
        uses: DevExpress/testcafe-action@latest
        with:
-        args: "chrome tests"
+        args: "chrome:headless tests/Browser/*.js -u -e -q"
 
      - name: Send Slack notification
        #if: failure()
