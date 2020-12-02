@@ -93,9 +93,6 @@ jobs:
     - name: Compile webpack assets
       run: npm run prod
 
-    - name: Start a web server
-      run: php artisan serve &
-
     - name: Run PHPUnit tests
       run: vendor/bin/phpunit --coverage-clover=report/phpunit/coverage.xml --log-junit=report/phpunit/junit.phpunit.xml
       env:
