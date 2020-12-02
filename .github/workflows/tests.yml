@@ -31,7 +31,7 @@ jobs:
         tools: composer:v1
 
     - name: Copy .env
-      run: cp .env.travis .env
+      run: cp .env.actions .env
 
     - name: Cache Composer packages
       id: composer-cache
@@ -194,7 +194,7 @@ jobs:
         tools: composer:v1
 
      - name: Copy .env
-       run: cp .env.travis .env
+       run: cp .env.actions .env
 
      - name: Cache Composer packages
        id: composer-cache
