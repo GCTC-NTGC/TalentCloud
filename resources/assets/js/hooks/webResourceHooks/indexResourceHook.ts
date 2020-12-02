@@ -80,7 +80,7 @@ export function useResourceIndex<T extends { id: number }>(
   },
 ): {
   values: IndexedObject<T>;
-  indexStatus: ResourceStatus;
+  indexStatus: ResourceStatus; // The state of any requests to reload the entire index.
   entityStatus: IndexedObject<ResourceStatus>; // Note that if indexStatus is 'pending', every entity status will also be 'pending'.
   create: (newValue: T) => Promise<T>;
   refresh: () => Promise<T[]>; // Reloads the entire index.

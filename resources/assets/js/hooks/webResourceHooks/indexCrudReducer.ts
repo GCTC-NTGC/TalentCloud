@@ -141,13 +141,14 @@ type StateValues<T> = ResourceState<T>["values"];
 
 /**
  * Decrement the number if it above zero, else return 0.
+ * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
  * @param num
  */
 function decrement(num: number): number {
   return num <= 0 ? 0 : num - 1;
 }
 
-function mergeItem<T extends { id: number }>(
+function mergeIndexItem<T extends { id: number }>(
   values: StateValues<T>,
   item: T,
 ): StateValues<T> {
@@ -172,12 +173,21 @@ function mergeItem<T extends { id: number }>(
     },
   };
 }
+
+/**
+ * Updates values in response to INDEX FULFILLED action:
+ *   - Updates the value of existing items without modifying item-specific metadata (related to UPDATE and DELETE requests).
+ *   - Creates new items (with "fulfilled" status metadata).
+ *   - Deletes existing state items that are not part of the new payload.
+ * @param values
+ * @param payload
+ */
 function mergeIndexPayload<T extends { id: number }>(
   values: StateValues<T>,
   payload: T[],
 ): StateValues<T> {
   // Update or create a values entry for each item in the payload.
-  const newValues = payload.reduce(mergeItem, values);
+  const newValues = payload.reduce(mergeIndexItem, values);
   // Delete any values entries that don't exist in the new payload.
   const payloadIds = payload.map(getId);
   return filterObjectProps(newValues, (item) =>
@@ -185,13 +195,20 @@ function mergeIndexPayload<T extends { id: number }>(
   );
 }
 
+/**
+ * Updates values in response to CREATE FULFILLED action.
+ * - Throws an error if the newly created item has the same id as an existing item, since we cannot know which version to keep.
+ *   This error should never happen during normal interaction with a REST api.
+ * - Otherwise adds the new item to values, with "fulfilled" status.
+ * @param values
+ * @param payload
+ */
 function mergeCreatePayload<T extends { id: number }>(
   values: StateValues<T>,
   payload: T,
 ): StateValues<T> {
   if (hasKey(values, payload.id)) {
     // Something has gone wrong if an existing item has the same id as the newly created one.
-    // TODO: But should we throw the error, or just update the value and pretend everything's ok?
     throw new Error(
       "Cannot create new item as an existing item shares the same id. Try refreshing the whole index.",
     );
@@ -207,6 +224,13 @@ function mergeCreatePayload<T extends { id: number }>(
   };
 }
 
+/**
+ * Updates values in response to UPDATE START action.
+ * - Throws error if item being updated does not exist.
+ * - Otherwise updates metadata for updated item
+ * @param values
+ * @param action
+ */
 function mergeUpdateStart<T extends { id: number }>(
   values: StateValues<T>,
   action: UpdateStartAction<T>,
@@ -228,6 +252,13 @@ function mergeUpdateStart<T extends { id: number }>(
     },
   };
 }
+/**
+ * Updates values in response to UPDATE FULFILLED action.
+ * - Throws error if item being updated does not exist.
+ * - Otherwise updates metadata for updated item and overwrites value with payload.
+ * @param values
+ * @param action
+ */
 function mergeUpdateFulfill<T extends { id: number }>(
   values: StateValues<T>,
   action: UpdateFulfillAction<T>,
@@ -248,13 +279,20 @@ function mergeUpdateFulfill<T extends { id: number }>(
     },
   };
 }
+/**
+ * Updates values in response to UPDATE REJECTED action.
+ * - DOES NOT throw error if item does exist, unlike other update mergeUpdate functions.
+ *   UPDATE REJECTED action already represents a graceful response to an error.
+ *   There is no relevant metadata to update, and nowhere to store the error, so return state as is.
+ * - Otherwise updates metdata for item and overwrites error with payload.f
+ * @param values
+ * @param action
+ */
 function mergeUpdateReject<T extends { id: number }>(
   values: StateValues<T>,
   action: UpdateRejectAction<T>,
 ): StateValues<T> {
   if (!hasKey(values, action.meta.id)) {
-    // In this case, the request has already errored, so don't throw an error.
-    // Simply leave the state as is.
     return values;
   }
   return {
@@ -267,12 +305,19 @@ function mergeUpdateReject<T extends { id: number }>(
     },
   };
 }
+/**
+ * Updates values in response to DELETE START action.
+ * Updates metadata for item if it exists.
+ *
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * @param values
+ * @param action
+ */
 function mergeDeleteStart<T extends { id: number }>(
   values: StateValues<T>,
   action: DeleteStartAction,
 ): StateValues<T> {
   if (!hasKey(values, action.meta.id)) {
-    // If the item already doesn't exist, nothing needs to be done.
     return values;
   }
   return {
@@ -285,18 +330,37 @@ function mergeDeleteStart<T extends { id: number }>(
     },
   };
 }
+/**
+ * Updates values in response to DELETE FULFILLED action.
+ * Deletes the entire value entry, metadata included. (No effect if entry already doesn't exist.)
+ *
+ * Note: We can safely delete the metadata because any subsequent DELETE or UPDATE requests
+ *   on the same item will presumably be REJECTED by the REST api.
+ *   DELETE REJECTED and UPDATE REJECTED actions are gracefully handled by the reducer,
+ *   even when no metadata is present.
+ * @param values
+ * @param action
+ */
 function mergeDeleteFulfill<T extends { id: number }>(
   values: StateValues<T>,
   action: DeleteFulfillAction,
 ): StateValues<T> {
   return deleteProperty(values, action.meta.id);
 }
+
+/**
+ * Updates values in response to DELETE REJECTED action.
+ * Updates metadata for item if it exists.
+ *
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * @param values
+ * @param action
+ */
 function mergeDeleteReject<T extends { id: number }>(
   values: StateValues<T>,
   action: DeleteRejectAction,
 ): StateValues<T> {
   if (!hasKey(values, action.meta.id)) {
-    // If the item already doesn't exist, nothing needs to be done, despite the error.
     return values;
   }
   return {
@@ -310,6 +374,41 @@ function mergeDeleteReject<T extends { id: number }>(
   };
 }
 
+/**
+ * This Reducer manages the lifecycle of several http requests related to a single type of resource.
+ * It helps keep a local version of a list of entities in sync with a REST server.
+ *
+ * There are 4 types of request:
+ *   - INDEX requests fetch a list of items from the server.
+ *   - CREATE requests create add a new item to the list.
+ *   - UPDATE requests modify a single existing item in the list.
+ *   - DELETE requests remove a single existing item from the list.
+ * Every request has a lifecycle reflected by 3 possible states, resulting in a total of 12 possible reducer Actions.
+ *   - START: every request begins with a START action.
+ *   - FULFILLED: a successful request dispatches a FULFILLED action, with the response as its payload.
+ *   - REJECTED: a request that fails for any reason dispatches a REJECTED action, with the Error as its payload.
+ * Any data sent with the requests is included in the actions (in all three states) as metadata.
+ *
+ * The Reducer's State contains:
+ *   - values: a map of items and associated request metadata (specifically UPDATE and DELETE request metadata)
+ *   - indexMeta: metadata associated with INDEX requests, as they don't relate to specific items
+ *   - createMeta: metadata associated with CREATE requests, as they don't relate to existing items
+ *
+ * The metadata associated with a request includes:
+ *   - status: one of four values:
+ *     - "initial" if a request has never been made
+ *     - "pending" if ANY request is in progress which could modify this resource
+ *     - "fulfilled" if the last completed request succeeded and no other request is in progress
+ *     - "rejected" if the last completed request failed and no other request is in progress
+ *   - pendingCount: stores the number of requests in progress. This helps account for the possibility of multiple requests being started in succession, and means one request could finish and the resource still be considered "pending".
+ *   - error: stores the last error recieved from a REJECTED action. Overwritten with undefined if a later request is STARTed or FULFILLED.
+ *
+ * Notes about item values:
+ *   - Its possible to include items in the initial state and then not begin any requests, in which case there will be existing values with the "initial" status.
+ *   - REJECTED actions do not overwrite the value. Therefore when a request fails and status becomes "rejected", the last good value is still available (though it may become out-of-sync with the REST api).
+ * @param state
+ * @param action
+ */
 export function reducer<T extends { id: number }>(
   state: ResourceState<T>,
   action: AsyncAction<T>,
