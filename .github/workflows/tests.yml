@@ -118,7 +118,7 @@ jobs:
         path: storage\logs\*.log
 
     - name: Send Slack notification
-      uses: 8398a7/action-slack@v2
+      uses: 8398a7/action-slack@v3
       #if: failure()
       with:
         status: ${{ job.status }}
@@ -167,7 +167,32 @@ jobs:
 
      - name: Send Slack notification
        #if: failure()
-       uses: 8398a7/action-slack@v2
+       uses: 8398a7/action-slack@v3
+       with:
+        status: ${{ job.status }}
+        author_name: ${{ github.actor }}
+       env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+  browser:
+
+    runs-on: ubuntu-latest
+
+    steps:
+     - uses: actions/checkout@v2
+     - name: Setup Node.js
+       uses: actions/setup-node@v1
+       with:
+         node-version: 12.6.0
+
+     - name: Run browser tests
+       uses: DevExpress/testcafe-action@latest
+       with:
+        args: "chrome tests"
+
+     - name: Send Slack notification
+       #if: failure()
+       uses: 8398a7/action-slack@v3
        with:
         status: ${{ job.status }}
         author_name: ${{ github.actor }}
