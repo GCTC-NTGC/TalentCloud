@@ -68,7 +68,7 @@ function doNothing(): void {
 }
 
 export function useResourceIndex<T extends { id: number }>(
-  endpoint: string,
+  endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
     initialValue?: T[]; // Defaults to an empty list.
     forceInitialRefresh: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.

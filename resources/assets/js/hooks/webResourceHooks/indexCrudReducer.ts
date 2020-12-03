@@ -153,12 +153,14 @@ function mergeIndexItem<T extends { id: number }>(
   item: T,
 ): StateValues<T> {
   if (hasKey(values, item.id)) {
-    // We leave the status and count as is, in case an update or delete is in progress for this item.
+    // We leave the pending count as is, in case an update or delete is in progress for this item.
+    // We do overwrite errors, and set status to "fulfilled" if it was "initial" or "rejected"
     return {
       ...values,
       [item.id]: {
         ...values[item.id],
         value: item,
+        status: values[item.id].status === "pending" ? "pending" : "fulfilled",
         error: undefined,
       },
     };
