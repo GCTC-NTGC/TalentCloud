@@ -5,8 +5,10 @@ use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
 use App\Models\HrAdvisor;
+use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\TeamCulture;
 use App\Models\WorkEnvironment;
 use Illuminate\Support\Facades\Hash;
@@ -78,6 +80,8 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(User::class)->states('applicant')->create()->id;
         },
+        'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
+        'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
     ];
 });
 

@@ -14,6 +14,8 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $linkedin_url
  * @property int $user_id
  * @property boolean $is_snapshot
+ * @property int $citizenship_declaration_id
+ * @property int $veteran_status_id
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -29,6 +31,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ * @property \Illuminate\Database\Eloquent\Collection $classifications
  *
  * Version 2 application models.
  * @property \Illuminate\Database\Eloquent\Collection $experiences_work
@@ -48,13 +51,17 @@ class Applicant extends BaseModel
         'tagline' => 'string',
         'twitter_username' => 'string',
         'linkedin_url' => 'string',
-        'is_snapshot' => 'boolean'
+        'is_snapshot' => 'boolean',
+        'citizenship_declaration_id' => 'int',
+        'veteran_status_id' => 'int',
     ];
     protected $fillable = [
         'personal_website',
         'tagline',
         'twitter_username',
-        'linkedin_url'
+        'linkedin_url',
+        'citizenship_declaration_id' => 'int',
+        'veteran_status_id' => 'int',
     ];
 
     public function user()
