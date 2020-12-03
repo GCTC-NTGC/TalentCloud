@@ -13,6 +13,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Seeder;
@@ -218,5 +219,17 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+        // Create relationship between applicants and skills.
+        for ($i=0; $i < 100; $i++) {
+            DB::table('applicants_skills')->updateOrInsert(
+                [
+                    'applicant_id' => Applicant::inRandomOrder()->get()->first()->id
+                ],
+                [
+                    'skill_id' => Skill::inRandomOrder()->get()->first()->id
+                ]
+            );
+        }
     }
 }
