@@ -122,6 +122,14 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
+    public function classifications() //phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Classification::class)
+        ->withPivot(['level', 'order'])
+        ->as('gov_classification')
+        ->withTimestamps();
+    }
+
     // Version 2 application models.
 
     public function experiences_work() //phpcs:ignore
