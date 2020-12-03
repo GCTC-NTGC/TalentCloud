@@ -122,6 +122,11 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
+    public function skills() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Skill::class, 'applicants_skills');
+    }
+
     // Version 2 application models.
 
     public function experiences_work() //phpcs:ignore

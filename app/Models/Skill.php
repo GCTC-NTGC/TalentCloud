@@ -95,6 +95,11 @@ class Skill extends BaseModel
         return $this->hasMany(\App\Models\ExperienceSkill::class);
     }
 
+    public function applicants() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Applicant::class, 'applicants_skills');
+    }
+
     /**
      * Check for a null "is_culture_skill" and pass false instead.
      *
