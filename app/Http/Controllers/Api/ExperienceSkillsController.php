@@ -19,6 +19,17 @@ class ExperienceSkillsController extends Controller
             ['experience_id', $data['experience_id']],
             ['experience_type', $data['experience_type']]
         ])->first();
+
+        // Attach skill to applicant if not already attached.
+        $applicant = $request->user()->applicant;
+        $skillApplicantRelationshipExists = $applicant->skills()
+            ->wherePivot('applicant_id', $applicant->id)
+            ->wherePivot('skill_id', $data['skill_id'])
+            ->exists();
+        if ($applicant != null && $skillApplicantRelationshipExists != 1) {
+            $applicant->skills()->attach($data['skill_id']);
+        }
+
         if ($softDeletedExperienceSkill) {
             $softDeletedExperienceSkill->restore();
             $softDeletedExperienceSkill->save();
