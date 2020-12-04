@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 use \Symfony\Component\HttpFoundation\Cookie;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
 
 class VerifyCsrfToken extends Middleware
 {
@@ -19,8 +19,7 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
-    protected $except = [
-            ];
+    protected $except = [];
 
     /**
      * OVERRIDE to make adding XSRF-TOKEN cookie optional
@@ -48,7 +47,9 @@ class VerifyCsrfToken extends Middleware
                     $config['same_site'] ?? null
                 )
             );
+
+            $request->session()->regenerate();
         }
-            return $response;
+        return $response;
     }
 }

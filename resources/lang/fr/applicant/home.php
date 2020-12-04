@@ -41,7 +41,7 @@ return [
         'title' => 'Nous améliorons la plate-forme.',
         'main_message' => 'En raison de l\'évolution de la situation autour de COVID-19, nous allons faire une pause sur la publication de nouvelles opportunités sur ce site.',
         'sign_off' => 'Pour plus d\'opportunités, visitez le site',
-        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr" title="" target="_blank">Emplois GC</a>'
+        'link' => '<a href="https://psjobs-emploisfp.psc-cfp.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=fr" title="" target="_blank" rel="noopener noreferrer">Emplois GC</a>'
     ],
     'hiw' => [
         'title' => 'Comment fonctionne le Nuage de talents',
@@ -167,7 +167,7 @@ return [
     'cta' => [
         'copy' => 'Vous ne pouvez pas trouver l’emploi que vous cherchez dans le Nuage de talents? %gcjobs% pour connaître d’autres possibilités dans le secteur public. Aux étudiants, n’oubliez pas de %fswep%!',
         'copy_links' => [
-            'gcjobs' => "<a href='https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en' title='Consultez Emplois GC pour obtenir de plus amples renseignements.' target='_blank'>Consultez Emplois GC</a>",
+            'gcjobs' => "<a href='https://emploisfp-psjobs.cfp-psc.gc.ca/psrs-srfp/applicant/page2440?fromMenu=true&toggleLanguage=en' title='Consultez Emplois GC pour obtenir de plus amples renseignements.' target='_blank' rel='noopener noreferrer'>Consultez Emplois GC</a>",
             'fswep' => "<a href='https://www.canada.ca/en/public-service-commission/jobs/services/recruitment/students/federal-student-work-program.html' title='Consultez le Programme fédéral d'expérience de travail étudiant (PFETE) pour obtenir de plus amples renseignements sur les possibilités offertes aux étudiants.' target='_blank'>consulter aussi le Programme fédéral d’expérience de travail étudiant</a>"
         ]
     ],

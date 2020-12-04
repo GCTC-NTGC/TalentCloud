@@ -259,7 +259,7 @@
                                 {% if experienceBlockcertLink == null %}
                                     <p data-c-color="gray">N/A</p>
                                 {% else %}
-                                    <p><a href="{{ experienceBlockcertLink }}" title="View this blockcert." target="_blank">My Blockcert</a></p>
+                                    <p><a href="{{ experienceBlockcertLink }}" title="View this blockcert." target="_blank" rel="noopener noreferrer">My Blockcert</a></p>
                                 {% endif %}
                             </div>
                         {% elseif experienceType == "work" %}
@@ -484,7 +484,7 @@
                                 {% if experienceAwardLink == null %}
                                     <p data-c-color="gray">N/A</p>
                                 {% else %}
-                                    <p><a href="{{ experienceAwardLink }}" title="View this award." target="_blank">My Award</a></p>
+                                    <p><a href="{{ experienceAwardLink }}" title="View this award." target="_blank" rel="noopener noreferrer">My Award</a></p>
                                 {% endif %}
                             </div>
                         {% endif %}
