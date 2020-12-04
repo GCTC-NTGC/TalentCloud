@@ -124,4 +124,19 @@ class ExperienceSkillsControllerTest extends TestCase
             ['id' => $experienceSkill->id, 'deleted_at' => null]
         );
     }
+
+    public function testAttachSkillToApplicantDuringStoreExperienceSkill()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $workSkillData = $this->makeExpSkillData($work->id, 'experience_work');
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('post', route('api.v1.experience-skill.store'), $workSkillData);
+        $response->assertOk();
+        $response->assertJsonFragment($workSkillData);
+        $id = $response->decodeResponseJson('id');
+        $this->assertDatabaseHas('applicants_skills', [
+            'applicant_id' => $work->experienceable->user->applicant->id,
+            'skill_id' => $workSkillData['skill_id']
+        ]);
+    }
 }
