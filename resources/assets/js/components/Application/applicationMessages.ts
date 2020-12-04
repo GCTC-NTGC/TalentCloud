@@ -303,3 +303,11 @@ export const loadingMessages = defineMessages({
       "A message to inform the user that the page is incomplete because data is still being loaded.",
   },
 });
+
+export const myBasicInformationMessages = defineMessages({
+  heading: {
+    id: "application.experience.heading",
+    defaultMessage: "My Basic Information",
+    description: "Heading for the My Information section of the Application.",
+  },
+});
