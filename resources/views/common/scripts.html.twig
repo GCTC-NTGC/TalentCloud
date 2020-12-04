@@ -4,21 +4,9 @@
     Scripts
 
 ============================================================================= #}
-
-<script async defer
-    src="{{ asset(mix('/js/bootstrap.js')) }}">
-</script>
-
-<script async defer
-    src="{{ asset(mix('/js/autocomplete.js')) }}">
-</script>
-
+<script async defer src="{{ asset(mix('/js/bootstrap.js')) }}"></script>
+<script async defer src="{{ asset(mix('/js/autocomplete.js')) }}"></script>
 {% if not disable_clone_js %}
-<script async defer
-    src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js">
-</script>
+    <script async defer src="https://cdn.jsdelivr.net/npm/clone-framework/dist/js/clone.min.js" integrity="sha384-UV3hZe0t1lpZzUQ1ipgExBI9qBIAA3l9lpEs3JSE+LwTF1CCW1GoIXAS0zYG7M8K" crossorigin="anonymous"></script>
 {% endif %}
-
-<script async defer
-    src="{{ asset(mix('/js/app.js')) }}">
-</script>
+<script async defer src="{{ asset(mix('/js/app.js')) }}"></script>
