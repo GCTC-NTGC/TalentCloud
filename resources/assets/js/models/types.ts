@@ -426,3 +426,7 @@ export interface Email {
   subject: string;
   body: string;
 }
+
+export interface ProfileBasicInformation {
+  citizenship_status: CitizenshipDeclaration;
+}
