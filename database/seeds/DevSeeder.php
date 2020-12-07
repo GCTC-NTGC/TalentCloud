@@ -206,6 +206,12 @@ class DevSeeder extends Seeder // phpcs:ignore
                 'applicant_id' => $applicantUser->applicant->id,
         ]));
 
+        // Get five skill ids at random.
+        $skills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
+
+        // Add skills to applicant user.
+        $applicantUser->applicant->skills()->attach($skills);
+
         // Ensure there are several jobs the hr advisor can claim.
         $hrDepartment = $hrUser->department_id;
         factory(JobPoster::class)->states(['byUpgradedManager', 'draft'])
@@ -223,17 +229,5 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
-
-        // Create relationship between applicants and skills.
-        for ($i=0; $i < 100; $i++) {
-            DB::table('applicant_skill')->updateOrInsert(
-                [
-                    'applicant_id' => Applicant::inRandomOrder()->get()->first()->id
-                ],
-                [
-                    'skill_id' => Skill::inRandomOrder()->get()->first()->id
-                ]
-            );
-        }
     }
 }
