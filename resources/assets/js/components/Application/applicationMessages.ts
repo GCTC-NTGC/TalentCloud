@@ -310,4 +310,9 @@ export const myBasicInformationMessages = defineMessages({
     defaultMessage: "My Basic Information",
     description: "Heading for the My Information section of the Application.",
   },
+  govtJobInfo: {
+    id: "application.experience.government-job-heading",
+    defaultMessage: "Government Job Information",
+    description: "Heading for the Government Job Information section of the Application.",
+  },
 });
