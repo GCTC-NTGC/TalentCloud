@@ -65,7 +65,7 @@ class ExperienceSkillsController extends Controller
             ])->first();
             if ($softDeletedExperienceSkill) {
                 $softDeletedExperienceSkill->restore();
-                if ($newExperienceSkill['justification'] !== null) {
+                if ($newExperienceSkill['justification'] !== null && $newExperienceSkill['justification'] !== '') {
                     $softDeletedExperienceSkill->justification = $newExperienceSkill['justification'];
                 }
                 $softDeletedExperienceSkill->save();
