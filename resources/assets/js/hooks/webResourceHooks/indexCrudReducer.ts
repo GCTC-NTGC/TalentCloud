@@ -301,7 +301,8 @@ function mergeUpdateReject<T extends { id: number }>(
     ...values,
     [action.meta.id]: {
       ...values[action.meta.id],
-      status: values[action.meta.id].pendingCount === 1 ? "error" : "pending",
+      status:
+        values[action.meta.id].pendingCount === 1 ? "rejected" : "pending",
       pendingCount: decrement(values[action.meta.id].pendingCount),
       error: action.payload,
     },
@@ -369,7 +370,8 @@ function mergeDeleteReject<T extends { id: number }>(
     ...values,
     [action.meta.id]: {
       ...values[action.meta.id],
-      status: values[action.meta.id].pendingCount === 1 ? "error" : "pending",
+      status:
+        values[action.meta.id].pendingCount === 1 ? "rejected" : "pending",
       pendingCount: decrement(values[action.meta.id].pendingCount),
       error: action.payload,
     },
