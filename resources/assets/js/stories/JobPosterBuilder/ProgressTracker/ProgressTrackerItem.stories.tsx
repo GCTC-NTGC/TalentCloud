@@ -21,7 +21,7 @@ const ProgressTrackerWrapper = (
 };
 
 const stories = storiesOf(
-  "Job Poster Builder|Progress Tracker/Item",
+  "Job Poster Builder/Progress Tracker/Item",
   module,
 ).addDecorator(withIntl);
 

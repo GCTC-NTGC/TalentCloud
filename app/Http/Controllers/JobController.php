@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
+use App\Models\JobApplicationVersion;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
@@ -202,14 +203,14 @@ class JobController extends Controller
                 ];
             } else {
                 $applyButton = [
-                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'href' => route('jobs.apply', $jobPoster->id),
                     'title' => $jobLang['apply']['apply_link_title'],
                     'text' => $jobLang['apply']['apply_link_label'],
                 ];
             }
         } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
-                'href' => route('job.application.edit.1', $jobPoster->id),
+                'href' => route('jobs.apply', $jobPoster->id),
                 'title' => $jobLang['apply']['login_link_title'],
                 'text' => $jobLang['apply']['login_link_label'],
             ];
@@ -535,7 +536,7 @@ class JobController extends Controller
         if (is_array($jobPoster['job_poster_key_tasks'])) {
             $lastTask = end($jobPoster['job_poster_key_tasks']);
             foreach ($jobPoster['job_poster_key_tasks'] as $task) {
-                $tasksString .= $task['description'].' '.($skillItem == $lastSkill ? '' : ' | ');
+                $tasksString .= $task['description'].' '.($task == $lastTask ? '' : ' | ');
             }
         }
 
@@ -612,5 +613,48 @@ class JobController extends Controller
         };
 
         return $structuredData;
+    }
+
+    /**
+     * Redirects an applicant to the proper page to start or continue their application.
+     *
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    protected function apply(JobPoster $jobPoster)
+    {
+        $applicantId = Auth::user()->applicant->id;
+        // Check if the current user already has an application.
+        $application = JobApplication::where('applicant_id', $applicantId)
+            ->where('job_poster_id', $jobPoster->id)->first();
+        $version2id = JobApplicationVersion::where('version', 2)->firstOrFail()->id;
+        if ($application === null) {
+            // If the job is still open, create a new application and redirect there.
+            if ($jobPoster->isOpen()) {
+                $newApplication = new JobApplication();
+                $newApplication->job_poster_id = $jobPoster->id;
+                $newApplication->applicant_id = $applicantId;
+                $newApplication->application_status_id = ApplicationStatus::where('name', 'draft')->firstOrFail()->id;
+                $newApplication->version_id = $version2id; // All applications created now should be version 2.
+                $newApplication->save();
+                $newApplication->attachSteps();
+
+                return redirect(route('applications.timeline', $newApplication->id));
+            }
+            // If the job is closed, redirect to Job Poster.
+            return redirect(route('jobs.summary', $jobPoster->id));
+        }
+
+        // If the application exists, is a draft, and job is still open, redirect to the Application UI.
+        if ($application->isDraft() && $jobPoster->isOpen()) {
+            if ($application->version_id === $version2id) {
+                return redirect(route('applications.timeline', $application->id));
+            }
+            return redirect(route('job.application.edit.1', $jobPoster->id));
+        }
+
+        // If the application exists but has already been submitted, or the job is closed,
+        // redirect to the Application Preview.
+        return redirect(route('applications.show', $application->id));
     }
 }

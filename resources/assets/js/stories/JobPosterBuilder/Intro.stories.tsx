@@ -9,7 +9,7 @@ import { fakeDepartments } from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
 import { fakeUser } from "../../fakeData/fakeUsers";
 
-const stories = storiesOf("Job Poster Builder|Intro", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Intro", module).addDecorator(
   withIntl,
 );
 

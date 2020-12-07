@@ -8,7 +8,7 @@ import { Job } from "../../models/types";
 import JobWorkEnv from "../../components/JobBuilder/WorkEnv/JobWorkEnv";
 
 const stories = storiesOf(
-  "Job Poster Builder|Work Environment",
+  "Job Poster Builder/Work Environment",
   module,
 ).addDecorator(withIntl);
 

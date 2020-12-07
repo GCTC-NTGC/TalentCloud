@@ -4,7 +4,7 @@ import { text } from "@storybook/addon-knobs";
 import StatusIcon, { IconStatus } from "../components/StatusIcon";
 
 const stories = storiesOf(
-  "Components|Status Icon",
+  "Components/Status Icon",
   module,
 ).addDecorator((storyFn) => (
   <div data-c-container="base(medium, left)">{storyFn()}</div>

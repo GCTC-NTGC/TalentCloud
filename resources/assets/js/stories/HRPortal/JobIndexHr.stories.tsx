@@ -6,7 +6,7 @@ import { action } from "@storybook/addon-actions";
 import JobIndexHr from "../../components/HRPortal/JobIndexHr";
 import { jobActions, unclaimedJobs } from "../../components/HRPortal/fixtures";
 
-const stories = storiesOf("HR Portal|Job Index", module).addDecorator(withIntl);
+const stories = storiesOf("HR Portal/Job Index", module).addDecorator(withIntl);
 
 stories
   .add(
@@ -14,7 +14,7 @@ stories
     (): React.ReactElement => (
       <JobIndexHr
         jobActions={jobActions}
-        unclaimedJobs={unclaimedJobs.map(unclaimed => ({
+        unclaimedJobs={unclaimedJobs.map((unclaimed) => ({
           ...unclaimed,
           claimJob: action(`Claim Job ${unclaimed.jobLink.text}`),
         }))}

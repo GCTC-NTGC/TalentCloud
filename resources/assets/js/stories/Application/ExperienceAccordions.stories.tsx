@@ -22,7 +22,7 @@ import ExperienceCommunityAccordion from "../../components/Application/Experienc
 import ExperienceAwardAccordion from "../../components/Application/ExperienceAccordions/ExperienceAwardAccordion";
 import ExperiencePersonalAccordion from "../../components/Application/ExperienceAccordions/ExperiencePersonalAccordion";
 
-const stories = storiesOf("Application|Experience Accordions", module)
+const stories = storiesOf("Application/Experience Accordions", module)
   .addDecorator(withIntl)
   .addDecorator((storyFn) => <div data-c-container="medium">{storyFn()}</div>);
 

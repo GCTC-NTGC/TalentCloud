@@ -73,8 +73,6 @@ Route::group(
             Route::view('application-08', 'applicant/application/08-review')->middleware('localOnly')->name('app8');
             /* Application (Signature & Submission) */
             Route::view('application-09', 'applicant/application/09-submit')->middleware('localOnly')->name('app9');
-            /* Application (Congrats) */
-            Route::get('application-10', 'ApplicationTimelineController@complete')->middleware('localOnly')->name('app10');
 
             /* Response Home */
             Route::view('response', 'response/index/index')->middleware('localOnly')->name('response.test');
@@ -82,11 +80,6 @@ Route::group(
             Route::view('response-screening', 'response/screening/index')->middleware('localOnly')->name('responseScreening');
 
             Route::view('response/api-test', 'applicant/str_api_test')->middleware('localOnly');
-
-            Route::get('applications/{jobApplication}', 'ApplicationTimelineController@show')
-                ->name('application.timeline');
-            Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                ->name('application.timeline.step');
         });
 
         Route::group(['prefix' => config('app.applicant_prefix')], function (): void {
@@ -138,6 +131,20 @@ Route::group(
                     Route::get('applications/{application}', 'ApplicationController@show')
                         ->middleware('can:view,application')
                         ->name('applications.show');
+
+                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline');
+                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,jobApplication')
+                        ->name('applications.timeline.next');
+                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,jobApplication')
+                        ->name('applications.timeline.step');
+
+
+                    Route::get('jobs/{jobPoster}/apply', 'JobController@apply')
+                        ->name('jobs.apply');
 
                     /* Step 01 */
                     Route::get('jobs/{jobPoster}/application/step-01', 'ApplicationByJobController@editBasics')->name('job.application.edit.1');
@@ -380,7 +387,10 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
@@ -625,7 +635,10 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
@@ -763,7 +776,7 @@ Route::group(
             function (): void {
                 // This page is non-localized, because the middleware that redirects to localized
                 // pages changes POSTs to GETs and messes up the request.
-                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                Route::match(['get','post'], 'jobs/create/as-manager/{manager}', 'JobController@createAsManager')
                     ->middleware('can:create,App\Models\JobPoster')
                     ->name('admin.jobs.create_as_manager');
 
@@ -1003,6 +1016,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+    Route::get('classifications', 'Api\ClassificationController@index');
+        //->middleware('can:view,application');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {

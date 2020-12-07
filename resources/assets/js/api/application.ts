@@ -3,6 +3,7 @@
 import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
+  ApplicationBasic,
   ApplicationNormalized,
   ApplicationReview,
   Email,
@@ -13,6 +14,7 @@ import { baseUrl } from "./base";
 export const parseApplication = (data: any): Application => data;
 export const parseApplicationNormalized = (data: any): ApplicationNormalized =>
   data;
+export const parseApplicationBasic = (data: any): ApplicationBasic => data;
 
 export const parseApplicationResponse = (
   data: any,

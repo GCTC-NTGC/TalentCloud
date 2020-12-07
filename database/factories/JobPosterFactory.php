@@ -64,7 +64,7 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
         'language_requirement_id' => LanguageRequirement::inRandomOrder()->first()->id,
         'remote_work_allowed' => $faker->boolean(50),
         'manager_id' => function () {
-            return factory(Manager::class)->create()->id;
+            return factory(Manager::class)->state('upgraded')->create()->id;
         },
         'team_size' => $faker->numberBetween(5, 30),
         'work_env_features' => $work_env_features,

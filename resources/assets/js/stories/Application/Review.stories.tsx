@@ -22,7 +22,7 @@ import ApplicationPreview from "../../components/Application/Review/ApplicationP
 import ApplicationReviewNav from "../../components/ApplicationReview/ApplicationReviewRoot";
 import fakeReviewStatuses from "../../fakeData/fakeReviewStatus";
 
-const stories = storiesOf("Application|Review", module).addDecorator(withIntl);
+const stories = storiesOf("Application/Review", module).addDecorator(withIntl);
 
 function sleep(ms): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -88,7 +88,7 @@ stories.add(
           jobQuestions={fakeJobQuestions()}
           skills={fakeSkills()}
           user={fakeUser()}
-          managerView
+          isSubmitted
         />
       </>
     );
@@ -117,7 +117,7 @@ stories.add(
           jobQuestions={fakeJobQuestions()}
           skills={fakeSkills()}
           user={fakeUser()}
-          managerView
+          isSubmitted
         />
       </>
     );

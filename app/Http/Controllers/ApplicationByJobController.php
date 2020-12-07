@@ -20,7 +20,6 @@ use App\Models\SkillDeclaration;
 use App\Models\WorkExperience;
 use App\Services\Validation\ApplicationValidator;
 use App\Services\Validation\Rules\GovernmentEmailRule;
-use App\Services\Validation\StrategicResponseApplicationValidator;
 use Facades\App\Services\WhichPortal;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -918,9 +917,7 @@ class ApplicationByJobController extends Controller
             ]);
 
             // Error out of this process now if application is not complete.
-            $validator = $jobPoster->isInStrategicResponseDepartment()
-                ? new StrategicResponseApplicationValidator()
-                : new ApplicationValidator();
+            $validator = new ApplicationValidator();
 
             $validatorInstance = $validator->validator($application);
             if (!$validatorInstance->passes()) {
