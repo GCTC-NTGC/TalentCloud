@@ -17,6 +17,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property int $depth - Represents skill category's nesting depth (used by Backpack as part of nested set model).
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
+ *  @property \Illuminate\Database\Eloquent\Collection $skills
  *
  */
 class SkillCategory extends BaseModel
