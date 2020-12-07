@@ -226,7 +226,7 @@ class DevSeeder extends Seeder // phpcs:ignore
 
         // Create relationship between applicants and skills.
         for ($i=0; $i < 100; $i++) {
-            DB::table('applicants_skills')->updateOrInsert(
+            DB::table('applicant_skill')->updateOrInsert(
                 [
                     'applicant_id' => Applicant::inRandomOrder()->get()->first()->id
                 ],

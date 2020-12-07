@@ -124,7 +124,7 @@ class Applicant extends BaseModel
 
     public function skills() // phpcs:ignore
     {
-        return $this->belongsToMany(\App\Models\Skill::class, 'applicants_skills');
+        return $this->belongsToMany(\App\Models\Skill::class, 'applicant_skill');
     }
 
     // Version 2 application models.
