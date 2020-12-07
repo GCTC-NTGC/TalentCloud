@@ -21,13 +21,9 @@ interface AssessmentPlanProps {
   portal: Portal;
 }
 
-const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
-  WrappedComponentProps> = ({
-  job,
-  notifications,
-  portal,
-  intl,
-}): React.ReactElement => {
+const AssessmentPlan: React.FunctionComponent<
+  AssessmentPlanProps & WrappedComponentProps
+> = ({ job, notifications, portal, intl }): React.ReactElement => {
   const jobTitle = (
     <span data-c-colour="c5" data-c-font-size="h3">
       {job && ` ${job.title[intl.locale]}`}
@@ -68,7 +64,7 @@ const AssessmentPlan: React.FunctionComponent<AssessmentPlanProps &
           <li>
             <strong>
               <FormattedMessage
-                id="assessmentPlan.assessmentPlanBuilder.title"
+                id="assessmentPlan.assessmentPlanBuilder.primaryTitle"
                 defaultMessage="Assessment Plan Builder"
                 description="Title of the Assessment Plan Builder"
               />
