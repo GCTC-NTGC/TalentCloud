@@ -77,7 +77,7 @@ const messages = defineMessages({
   },
 });
 
-const managerViewHeaders = defineMessages({
+const submittedApplicationHeaders = defineMessages({
   basicInfo: {
     id: "application.review.manager.basicInfoHeading",
     defaultMessage: "Basic Information",
@@ -201,7 +201,7 @@ interface ApplicationPreviewProps {
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
-  managerView?: boolean;
+  isSubmitted?: boolean;
 }
 
 const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
@@ -214,7 +214,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
   job,
   jobQuestions,
   jobApplicationAnswers,
-  managerView,
+  isSubmitted,
   skills,
   user,
   children,
@@ -316,11 +316,11 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
 
   return (
     <div data-c-container="medium">
-      {!managerView && (
+      {!isSubmitted && (
         <>
           <h2
             data-c-heading="h2"
-            data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
+            data-c-margin={!isSubmitted ? "top(3) bottom(1)" : "bottom(1)"}
           >
             <FormattedMessage
               id="application.review.heading"
@@ -342,7 +342,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
               description="Second line of the subheading for the Review page."
             />
           </p>
-          <p>
+          <p data-c-margin="bottom(2)">
             <FormattedMessage
               id="application.review.subheadingThree"
               defaultMessage={`Ask yourself, "If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?"`}
@@ -351,18 +351,15 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </p>
         </>
       )}
-      <div
-        data-c-grid="gutter(all, 1) middle"
-        data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
-      >
-        <div data-c-grid-item="tp(2of3) tl(4of5)">
+      <div data-c-grid="gutter(all, 1) middle">
+        <div data-c-grid-item="tp(2of3) tl(4of5)" data-c-margin="top(2)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(basicInfoMessages.heading)
-              : intl.formatMessage(managerViewHeaders.basicInfo)}
+              : intl.formatMessage(submittedApplicationHeaders.basicInfo)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
@@ -448,12 +445,12 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(experienceMessages.heading)
-              : intl.formatMessage(managerViewHeaders.experience)}
+              : intl.formatMessage(submittedApplicationHeaders.experience)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
@@ -608,12 +605,12 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(fitMessages.heading)
-              : intl.formatMessage(managerViewHeaders.fit)}
+              : intl.formatMessage(submittedApplicationHeaders.fit)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
@@ -663,17 +660,17 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView ? (
+            {!isSubmitted ? (
               <FormattedMessage
                 id="application.review.accountSettingsHeading"
                 defaultMessage="My Account Settings"
               />
             ) : (
-              intl.formatMessage(managerViewHeaders.accountSettings)
+              intl.formatMessage(submittedApplicationHeaders.accountSettings)
             )}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
@@ -730,7 +727,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           {intl.formatMessage(messages.communicationNotSet)}
         </p>
       )}
-      <p data-c-margin={!managerView ? "bottom(.5)" : "bottom(2)"}>
+      <p data-c-margin={!isSubmitted ? "bottom(.5)" : "bottom(2)"}>
         <i
           className={`fas fa-${user.job_alerts ? "check" : "times"}`}
           data-c-color={user.job_alerts ? "go" : "stop"}

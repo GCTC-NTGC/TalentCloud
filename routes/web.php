@@ -387,7 +387,10 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
@@ -632,7 +635,10 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
@@ -1006,9 +1012,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     Route::post('experience-skills/batch-store', 'Api\ExperienceSkillsController@batchStore')
         ->middleware('can:create,App\Models\ExperienceSkill')
         ->name('experience-skill.batch-store');
-    Route::put('experience-skills/batch-update', 'Api\ExperienceSkillsController@batchUpdate')
+    Route::post('experience-skills/batch-update', 'Api\ExperienceSkillsController@batchUpdate')
         ->name('experience-skill.batch-update');
-    Route::put('experience-skills/batch-destroy', 'Api\ExperienceSkillsController@batchDestroy')
+    Route::post('experience-skills/batch-destroy', 'Api\ExperienceSkillsController@batchDestroy')
         ->name('experience-skill.batch-destroy');
 
 
@@ -1050,7 +1056,10 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+    Route::put(
+        'applications/{application}/job-application-steps/{jobApplicationStep}',
+        'Api\ApplicationController@touchStep'
+    )
         ->middleware('can:view,application')
         ->name('job-application-step.update');
 });

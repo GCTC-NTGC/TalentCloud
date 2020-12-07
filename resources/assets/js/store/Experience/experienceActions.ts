@@ -370,7 +370,7 @@ export const batchUpdateExperienceSkills = (
   ExperienceSkill[],
   {}
 > =>
-  asyncPut(
+  asyncPost(
     getBatchUpdateExperienceSkillsEndpoint(),
     experienceSkills,
     BATCH_UPDATE_EXPERIENCE_SKILLS_STARTED,
@@ -404,7 +404,7 @@ export const batchDeleteExperienceSkills = (
   {},
   ExperienceSkill[]
 > =>
-  asyncPut(
+  asyncPost(
     getBatchDeleteExperienceSkillsEndpoint(),
     experienceSkills,
     BATCH_DELETE_EXPERIENCE_SKILLS_STARTED,
