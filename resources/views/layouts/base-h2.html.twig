@@ -8,15 +8,18 @@
     {% include "common/head" with {"hydrogen": true} %}
   {# </head> #}
   {# <body> #}
-  <div data-h2-system data-h2-menu-wrapper="top(sticky, split)">
-    {% include "common/h2-goc" %}
+  <div>
+    {# {% include "common/h2-goc" %}
     {% include "common/h2-alert" %}
-    {% include "common/h2-menu" %}
+    {% include "common/h2-menu" %} #}
     <main>
       {% block body %}{% endblock %}
     </main>
   </div>
   {% include "common/footer" %}
+  <div data-h2-system>
+    <div data-h2-dialog-overlay="black, .9"></div>
+  </div>
   {% include "common/scripts" %}
   {% block scripts %}{% endblock %}
   <script async defer
