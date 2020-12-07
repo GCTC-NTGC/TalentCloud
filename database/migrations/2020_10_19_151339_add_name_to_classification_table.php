@@ -128,7 +128,6 @@ class AddDescAndDefaultmsgToClassification extends Migration
     {
         Schema::table('classifications', function (Blueprint $table) {
             $table->dropColumn('name');
-            $table->dropColumn('description');
         });
     }
 }
