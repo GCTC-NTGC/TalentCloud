@@ -20,7 +20,7 @@ class CreateApplicantsSkillsTable extends Migration
                 ->references('id')
                 ->on('applicants')
                 ->onUpdate('CASCADE')
-                ->onDelete('NO ACTION');
+                ->onDelete('CASCADE');
             $table->integer('skill_id');
             $table->foreign('skill_id')
                 ->references('id')
