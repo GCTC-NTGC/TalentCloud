@@ -189,17 +189,21 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Create several applications for test user.
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->state('submitted')->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('submitted')->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->states(['version2', 'submitted'])->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['version2', 'submitted'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->state('draft')->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('draft')->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->states(['draft', 'version2'])->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['draft', 'version2'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
 
         // Ensure there are several jobs the hr advisor can claim.
