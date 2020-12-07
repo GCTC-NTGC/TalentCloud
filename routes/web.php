@@ -1016,6 +1016,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+    Route::get('classifications', 'Api\ClassificationController@index');
+        //->middleware('can:view,application');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {

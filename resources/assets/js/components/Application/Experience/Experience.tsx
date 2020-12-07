@@ -19,6 +19,7 @@ import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
+  //ClassificationId,
 } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
   messages as educationMessages,
@@ -57,6 +58,8 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 export function modalButtonProps(
   intl: IntlShape,
