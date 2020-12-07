@@ -425,7 +425,7 @@ function deleteExperienceSkill(
   };
 }
 
-function deleteBatchExperienceSkills(
+function batchDeleteExperienceSkills(
   state: EntityState,
   experienceSkills: ExperienceSkill[],
 ): EntityState {
@@ -521,7 +521,7 @@ export const entitiesReducer = (
       };
     case BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED:
       return {
-        ...deleteBatchExperienceSkills(state, action.meta),
+        ...batchDeleteExperienceSkills(state, action.meta),
       };
     default:
       return state;
