@@ -1,5 +1,8 @@
 import indexCrudReducer, {
   ActionTypes,
+  CreateFulfillAction,
+  CreateRejectAction,
+  CreateStartAction,
   IndexFulfillAction,
   IndexRejectAction,
   IndexStartAction,
@@ -255,6 +258,131 @@ describe("indexCrudReducer tests", (): void => {
       expect(indexCrudReducer(initialState, rejectedAction)).toEqual(
         rejectedState,
       );
+    });
+  });
+  describe("Test CREATE actions", (): void => {
+    it("CREATE START updates createMeta", () => {
+      const initialState: ResourceState<TestResource> = initializeState([]);
+      const expectState = {
+        ...initialState,
+        createMeta: {
+          status: "pending",
+          pendingCount: 1,
+          error: undefined,
+        },
+      };
+      const action: CreateStartAction<TestResource> = {
+        type: ActionTypes.CreateStart,
+        meta: { item: { id: 1, name: "one" } },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("two CREATE START actions increments pendingCount twice", () => {
+      const initialState: ResourceState<TestResource> = initializeState([]);
+      const expectState = {
+        ...initialState,
+        createMeta: {
+          status: "pending",
+          pendingCount: 2,
+          error: undefined,
+        },
+      };
+      const action: CreateStartAction<TestResource> = {
+        type: ActionTypes.CreateStart,
+        meta: { item: { id: 1, name: "one" } },
+      };
+      const state1 = indexCrudReducer(initialState, action);
+      const state2 = indexCrudReducer(state1, action);
+      expect(state2).toEqual(expectState);
+    });
+    it("CREATE FULFILLED decrements pending count, updates status, and saves new value", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        createMeta: {
+          status: "pending",
+          pendingCount: 1,
+          error: undefined,
+        },
+      };
+      const action: CreateFulfillAction<TestResource> = {
+        type: ActionTypes.CreateFulfill,
+        payload: { id: 1, name: "one" },
+        meta: { item: { id: 0, name: "one" } },
+      };
+      const expectState = {
+        ...initialState,
+        createMeta: {
+          status: "fulfilled",
+          pendingCount: 0,
+          error: undefined,
+        },
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "fulfilled",
+            pendingCount: 0,
+            error: undefined,
+          },
+        },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("CREATE REJECTED decrements pendingCount, sets status to rejected, and doesn't modify values", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([{ id: 1, name: "one" }]),
+        createMeta: {
+          status: "pending",
+          pendingCount: 1,
+          error: undefined,
+        },
+      };
+      const action: CreateRejectAction<TestResource> = {
+        type: ActionTypes.CreateReject,
+        payload: new Error("Something went wrong with a fake request"),
+        meta: { item: { id: 0, name: "two" } },
+      };
+      const expectState = {
+        ...initialState,
+        createMeta: {
+          status: "rejected",
+          pendingCount: 0,
+          error: action.payload,
+        },
+        // Values are unchanged
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("status remains 'pending' after CREATE FULFILLED and CREATE REJECTED if pendingCount was higher than 1", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        createMeta: {
+          status: "pending",
+          pendingCount: 2,
+          error: undefined,
+        },
+      };
+      const fulfilledAction: CreateFulfillAction<TestResource> = {
+        type: ActionTypes.CreateFulfill,
+        payload: { id: 1, name: "one" },
+        meta: { item: { id: 0, name: "one" } },
+      };
+      const fulfilledState = indexCrudReducer(initialState, fulfilledAction);
+      expect(fulfilledState.createMeta).toEqual({
+        status: "pending",
+        pendingCount: 1,
+        error: undefined,
+      });
+      const rejectedAction: CreateRejectAction<TestResource> = {
+        type: ActionTypes.CreateReject,
+        payload: new Error(),
+        meta: { item: { id: 0, name: "one" } },
+      };
+      const rejectedState = indexCrudReducer(initialState, rejectedAction);
+      expect(rejectedState.createMeta).toEqual({
+        status: "pending",
+        pendingCount: 1,
+        error: rejectedAction.payload,
+      });
     });
   });
 });
