@@ -14,7 +14,6 @@ use App\Models\ApplicationReview;
 use App\Models\Lookup\JobApplicationStep;
 use App\Services\Validation\ApplicationTimelineValidator;
 use App\Services\Validation\ApplicationValidator;
-use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
 
@@ -297,9 +296,7 @@ class JobApplication extends BaseModel
     {
         // TODO: determine whether sections are complete or invalid
         $jobPoster = $this->job_poster;
-        $validator = $jobPoster->isInStrategicResponseDepartment()
-            ? new StrategicResponseApplicationValidator()
-            : new ApplicationValidator();
+        $validator = new ApplicationValidator();
         $status = 'incomplete';
         switch ($section) {
             case 'basics':
