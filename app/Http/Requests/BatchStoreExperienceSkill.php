@@ -20,12 +20,15 @@ class BatchStoreExperienceSkill extends FormRequest
      */
     public function authorize()
     {
-        $result = true;
+        $user = $this->user();
+        if (!$user->can('create', ExperienceSkill::class)) {
+            return false;
+        }
+
         $experienceSkills = $this->all();
         foreach ($experienceSkills as $experienceSkill) {
             $experience_type = $experienceSkill['experience_type'];
             $experience_id = (int)$experienceSkill['experience_id'];
-            $user = $this->user();
             $experience = null;
             switch ($experience_type) {
                 case 'experience_work':
@@ -47,14 +50,13 @@ class BatchStoreExperienceSkill extends FormRequest
 
             if ($experience === null ||
                 $user === null ||
-                !$user->can('create', ExperienceSkill::class) ||
                 !$user->can('update', $experience)
             ) {
                 return false;
             }
         }
 
-        return $result;
+        return true;
     }
 
     /**
