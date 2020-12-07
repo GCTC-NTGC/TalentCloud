@@ -42,6 +42,6 @@ class SkillCategory extends BaseModel
 
     public function skills() // phpcs:ignore
     {
-        return $this->belongsToMany(\App\Models\Skill::class, 'skill_categories_skills');
+        return $this->belongsToMany(\App\Models\Skill::class, 'skill_skill_category');
     }
 }
