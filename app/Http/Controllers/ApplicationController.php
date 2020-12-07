@@ -21,7 +21,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Auth::user()->applicant->job_applications;
+        $applications = Auth::user()->applicant->job_applications->load('application_status');
         return view(
             'applicant/application_index',
             [
