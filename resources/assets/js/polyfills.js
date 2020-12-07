@@ -4,6 +4,7 @@ import "core-js"; // adds almost all polyfills
 // https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md#migrate-to-using-native-intl-apis
 if (!Intl.PluralRules) {
   require('@formatjs/intl-getcanonicallocales/polyfill');
+  require('@formatjs/intl-locale/polyfill');
   require("@formatjs/intl-pluralrules/polyfill");
   require("@formatjs/intl-pluralrules/locale-data/en");
   require("@formatjs/intl-pluralrules/locale-data/fr");

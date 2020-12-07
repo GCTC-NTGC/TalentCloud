@@ -18,7 +18,7 @@ import JobPreview from "../../JobPreview";
 import Modal from "../../Modal";
 import { RootState } from "../../../store/store";
 import { getJob as selectJob } from "../../../store/Job/jobSelector";
-import { Job } from "../../../models/types";
+import { Classification, Job } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { updateJob, createJob } from "../../../store/Job/jobActions";
 import { validationMessages } from "../../Form/Messages";
@@ -30,7 +30,6 @@ import {
   FrequencyId,
   TravelRequirementId,
   OvertimeRequirementId,
-  ClassificationId,
   getKeyByValue,
 } from "../../../models/lookupConstants";
 import { emptyJob } from "../../../models/jobUtil";
@@ -41,7 +40,6 @@ import {
   frequencyName,
   travelRequirementDescription,
   overtimeRequirementDescription,
-  classificationCodeOption,
 } from "../../../models/localizedConstants";
 import ContextBlockItem from "../../ContextBlock/ContextBlockItem";
 import CopyToClipboardButton from "../../CopyToClipboardButton";
@@ -54,10 +52,15 @@ import {
 import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
+import {
+  classificationsExtractKeyValueJsonArray,
+  classificationsExtractKeyValueJson,
+  getClassificationKey } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
+  classifications : Classification[];
   // Function to run after successful form validation.
   // It must return true if the submission was successful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
@@ -179,26 +182,25 @@ interface DetailsFormValues {
   overtime: OvertimeOptionType;
 }
 
-const classificationCode = (classification: number | string): string =>
-  getKeyByValue(ClassificationId, classification);
-
 const isClassificationSet = (values: DetailsFormValues): boolean => {
   return values.classification !== "" && values.level !== "";
 };
 
 const getEducationMsgForClassification = (
+  classifications : Classification[],
   classification: number | string,
   intl: IntlShape,
 ): string => {
-  return hasKey(educationMessages, classificationCode(Number(classification)))
+  return hasKey(educationMessages, getClassificationKey(classifications, Number(classification)))
     ? intl.formatMessage(
-        educationMessages[classificationCode(Number(classification))],
+        educationMessages[getClassificationKey(classifications, Number(classification))],
       )
     : intl.formatMessage(educationMessages.classificationNotFound);
 };
 
 const jobToValues = (
   job: Job | null,
+  classifications : Classification[],
   locale: "en" | "fr",
   intl: IntlShape,
 ): DetailsFormValues => {
@@ -250,7 +252,7 @@ const jobToValues = (
   if (
     values.classification &&
     values.educationRequirements ===
-      getEducationMsgForClassification(values.classification, intl)
+      getEducationMsgForClassification(classifications, values.classification, intl)
   ) {
     return {
       ...values,
@@ -308,6 +310,7 @@ const updateJobWithValues = (
 
 export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   job,
+  classifications,
   handleSubmit,
   handleReturn,
   handleModalCancel,
@@ -322,8 +325,10 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
   }
+
   const initialValues: DetailsFormValues = jobToValues(
     job || null,
+    classifications,
     locale,
     intl,
   );
@@ -342,9 +347,9 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .min(1, intl.formatMessage(validationMessages.tooShort))
       .max(36, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-    classification: Yup.number()
+      classification: Yup.number()
       .oneOf(
-        Object.values(ClassificationId),
+        Object.values(classificationsExtractKeyValueJson(classifications)),
         intl.formatMessage(validationMessages.invalidSelection),
       )
       .required(intl.formatMessage(validationMessages.required)),
@@ -410,7 +415,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   const handleEducationRequirements = (values: DetailsFormValues): string => {
     return values.educationRequirements.length > 0
       ? values.educationRequirements
-      : getEducationMsgForClassification(values.classification, intl);
+      : getEducationMsgForClassification(classifications, values.classification, intl);
   };
 
   const updateValuesAndReturn = (values: DetailsFormValues): void => {
@@ -517,13 +522,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={Object.values(ClassificationId).map((id: number): {
-                    value: number;
-                    label: string;
-                  } => ({
-                    value: id,
-                    label: intl.formatMessage(classificationCodeOption(id)),
-                  }))}
+                  options={classificationsExtractKeyValueJsonArray(classifications)}
                 />
                 <FastField
                   name="level"
@@ -581,6 +580,8 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                           wrapperMargin="bottom(normal)"
                           subtext={textToParagraphs(
                             getEducationMsgForClassification(
+                              //classificationsExtractKeyValue(classifications),
+                              classifications,
                               values.classification,
                               intl,
                             ),
@@ -623,6 +624,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               buttonMessages.buttonCopied,
                             )}
                             textToCopy={getEducationMsgForClassification(
+                              classifications,
                               values.classification,
                               intl,
                             )}
@@ -1004,6 +1006,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                         values.educationRequirements.length > 0
                           ? values.educationRequirements
                           : getEducationMsgForClassification(
+                              classifications,
                               values.classification,
                               intl,
                             )
@@ -1027,7 +1030,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                             )
                       }
                       classification={getKeyByValue(
-                        ClassificationId,
+                        classificationsExtractKeyValueJson(classifications),
                         values.classification,
                       )}
                       level={String(values.level)}

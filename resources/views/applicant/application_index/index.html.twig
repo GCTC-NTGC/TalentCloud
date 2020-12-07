@@ -15,7 +15,7 @@
                             <!-- Title -->
                             {% set draftCounter = 0 %}
                             {% for item in applications %}
-                                {% if item.application_status.name =="draft" and item.job_poster.close_date_time.isFuture() %}
+                                {% if item.application_status.name == "draft" and item.job_poster.close_date_time.isFuture() %}
                                     {% set draftCounter = draftCounter + 1 %}
                                 {% endif %}
                             {% endfor %}
