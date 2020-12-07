@@ -88,7 +88,7 @@ stories.add(
           jobQuestions={fakeJobQuestions()}
           skills={fakeSkills()}
           user={fakeUser()}
-          managerView
+          isSubmitted
         />
       </>
     );
@@ -117,7 +117,7 @@ stories.add(
           jobQuestions={fakeJobQuestions()}
           skills={fakeSkills()}
           user={fakeUser()}
-          managerView
+          isSubmitted
         />
       </>
     );

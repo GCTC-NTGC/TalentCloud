@@ -16,27 +16,20 @@ import {
   useReviewedApplication,
   useSkills,
 } from "../../hooks/applicationHooks";
-import { Portal } from "../../models/app";
-import { ReviewStatus } from "../../models/types";
-import { loadingMessages } from "../Application/applicationMessages";
-import ApplicationPreview from "../Application/Review/ApplicationPreview";
+import { loadingMessages } from "./applicationMessages";
+import ApplicationPreview from "./Review/ApplicationPreview";
 import RootContainer from "../RootContainer";
-import ApplicationReviewNav from "./ApplicationReviewRoot";
 
-interface ApplicationTimelineReviewRootProps {
+interface ApplicationPreviewRootProps {
   applicationId: number;
   applicantUserId: number;
   jobId: number;
-  reviewStatuses: ReviewStatus[];
-  portal: Portal;
 }
 
-const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimelineReviewRootProps> = ({
+const ApplicationPreviewRoot: React.FunctionComponent<ApplicationPreviewRootProps> = ({
   applicationId,
   applicantUserId,
   jobId,
-  portal,
-  reviewStatuses,
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch<DispatchType>();
@@ -84,11 +77,6 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
         job !== null &&
         applicantUser !== null && (
           <>
-            <ApplicationReviewNav
-              initApplication={application}
-              portal={portal}
-              reviewStatuses={reviewStatuses}
-            />
             <ApplicationPreview
               application={application}
               criteria={criteria}
@@ -109,15 +97,15 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   );
 };
 
-const renderApplicationReviewRoot = (
-  container: HTMLElement,
-  portal: Portal,
-): void => {
+if (document.getElementById("application-timeline-preview-container")) {
+  const container = document.getElementById(
+    "application-timeline-preview-container",
+  );
   if (
+    container != null &&
     container.hasAttribute("data-applicant-user-id") &&
     container.hasAttribute("data-application-id") &&
-    container.hasAttribute("data-job-id") &&
-    container.hasAttribute("data-review-statuses")
+    container.hasAttribute("data-job-id")
   ) {
     const applicantUserId = JSON.parse(
       container.getAttribute("data-applicant-user-id") as string,
@@ -126,36 +114,17 @@ const renderApplicationReviewRoot = (
       container.getAttribute("data-application-id") as string,
     );
     const jobId = JSON.parse(container.getAttribute("data-job-id") as string);
-    const reviewStatuses = JSON.parse(
-      container.getAttribute("data-review-statuses") as string,
-    );
     ReactDOM.render(
       <RootContainer>
-        <ApplicationTimelineReviewRoot
+        <ApplicationPreviewRoot
           applicationId={applicationId}
           applicantUserId={applicantUserId}
           jobId={jobId}
-          portal={portal}
-          reviewStatuses={reviewStatuses}
         />
       </RootContainer>,
       container,
     );
   }
-};
-
-const managerContainer = document.getElementById(
-  "application-timeline-review-container",
-);
-if (managerContainer !== null) {
-  renderApplicationReviewRoot(managerContainer, "manager");
 }
 
-const hrContainer = document.getElementById(
-  "application-timeline-review-container-hr",
-);
-if (hrContainer !== null) {
-  renderApplicationReviewRoot(hrContainer, "hr");
-}
-
-export default ApplicationTimelineReviewRoot;
+export default ApplicationPreviewRoot;
