@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 import { WrappedComponentProps, injectIntl } from "react-intl";
-import { Job, JobPosterKeyTask, Criteria } from "../../../models/types";
+import { Job, JobPosterKeyTask, Criteria, Classification } from "../../../models/types";
 import { JobDetails } from "./JobDetails";
 import { RootState } from "../../../store/store";
 import { DispatchType } from "../../../configureStore";
@@ -21,6 +21,8 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
+import { useDispatch } from "react-redux";
+import { getClassifications } from "../../../../js/store/Classification/classificationSelector"
 
 interface JobDetailsPageProps {
   jobId: number;
@@ -29,18 +31,24 @@ interface JobDetailsPageProps {
   keyTasks: JobPosterKeyTask[];
   // Criteria associated with the job, used to determine if its complete
   criteria: Criteria[];
+  classifications: Classification[];
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
+
 
 const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   WrappedComponentProps> = ({
   jobId,
   job,
+  classifications,
   handleUpdateJob,
   keyTasks,
   criteria,
   intl,
 }): React.ReactElement => {
+
+  const dispatch = useDispatch();
+
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
@@ -68,6 +76,7 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
       {job !== null && (
         <JobDetails
           job={job}
+          classifications={classifications}
           handleSubmit={handleSubmit}
           handleReturn={handleReturn}
           handleModalCancel={handleModalCancel}
@@ -87,10 +96,12 @@ const mapStateToPropsPage = (
   job: Job | null;
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
+  classifications: Classification[]
 } => ({
   job: getJob(state, ownProps),
   keyTasks: getTasksByJob(state, ownProps),
   criteria: getCriteriaByJob(state, ownProps),
+  classifications: getClassifications(state),
 });
 
 const mapDispatchToPropsPage = (

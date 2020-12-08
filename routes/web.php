@@ -776,7 +776,7 @@ Route::group(
             function (): void {
                 // This page is non-localized, because the middleware that redirects to localized
                 // pages changes POSTs to GETs and messes up the request.
-                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                Route::match(['get','post'], 'jobs/create/as-manager/{manager}', 'JobController@createAsManager')
                     ->middleware('can:create,App\Models\JobPoster')
                     ->name('admin.jobs.create_as_manager');
 
@@ -1016,6 +1016,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+    Route::get('classifications', 'Api\ClassificationController@index');
+        //->middleware('can:view,application');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
