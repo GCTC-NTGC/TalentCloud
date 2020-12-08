@@ -47,8 +47,6 @@ class VerifyCsrfToken extends Middleware
                     $config['same_site'] ?? null
                 )
             );
-
-            $request->session()->regenerate();
         }
         return $response;
     }
