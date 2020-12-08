@@ -7,6 +7,7 @@ use App\Http\Requests\StoreExperienceSkill;
 use App\Models\ExperienceSkill;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class ExperienceSkillsController extends Controller
 {
@@ -52,37 +53,40 @@ class ExperienceSkillsController extends Controller
 
     public function batchStore(BatchStoreExperienceSkill $request)
     {
-        $newExperienceSkills = $request->validated();
+        $validatedResult = $request->validated();
+        $newExperienceSkills = collect($validatedResult);
         $response = [];
 
-        foreach ($newExperienceSkills as $newExperienceSkill) {
-            // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
-            $softDeletedExperienceSkill = ExperienceSkill::withTrashed()
-                ->where([
-                ['skill_id', $newExperienceSkill['skill_id']],
-                ['experience_id', $newExperienceSkill['experience_id']],
-                ['experience_type', $newExperienceSkill['experience_type']]
-            ])->first();
-            if ($softDeletedExperienceSkill) {
-                $softDeletedExperienceSkill->restore();
-                if ($newExperienceSkill['justification'] !== null && $newExperienceSkill['justification'] !== '') {
-                    $softDeletedExperienceSkill->justification = $newExperienceSkill['justification'];
+        DB::transaction(function () use ($newExperienceSkills, &$response) {
+            foreach ($newExperienceSkills as $newExperienceSkill) {
+                // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
+                $softDeletedExperienceSkill = ExperienceSkill::withTrashed()
+                    ->where([
+                    ['skill_id', $newExperienceSkill['skill_id']],
+                    ['experience_id', $newExperienceSkill['experience_id']],
+                    ['experience_type', $newExperienceSkill['experience_type']]
+                ])->first();
+                if ($softDeletedExperienceSkill) {
+                    $softDeletedExperienceSkill->restore();
+                    if ($newExperienceSkill['justification'] !== null && $newExperienceSkill['justification'] !== '') {
+                        $softDeletedExperienceSkill->justification = $newExperienceSkill['justification'];
+                    }
+                    $softDeletedExperienceSkill->save();
+                    array_push($response, $softDeletedExperienceSkill);
+                } else {
+                    $experienceSkill = new ExperienceSkill($newExperienceSkill);
+                    $experienceSkill->skill_id = $newExperienceSkill['skill_id'];
+                    $experienceSkill->experience_id = $newExperienceSkill['experience_id'];
+                    $experienceSkill->experience_type = $newExperienceSkill['experience_type'];
+                    $experienceSkill->justification = $newExperienceSkill['justification'];
+                    $experienceSkill->save();
+                    $experienceSkill->fresh();
+                    array_push($response, $experienceSkill);
                 }
-                $softDeletedExperienceSkill->save();
-                array_push($response, $softDeletedExperienceSkill);
-            } else {
-                $experienceSkill = new ExperienceSkill($newExperienceSkill);
-                $experienceSkill->skill_id = $newExperienceSkill['skill_id'];
-                $experienceSkill->experience_id = $newExperienceSkill['experience_id'];
-                $experienceSkill->experience_type = $newExperienceSkill['experience_type'];
-                $experienceSkill->justification = $newExperienceSkill['justification'];
-                $experienceSkill->save();
-                $experienceSkill->fresh();
-                array_push($response, $experienceSkill);
             }
-        }
+        }, 3); // Retry transaction up to three times if deadlock occurs.
 
-        return new JsonResource($response);
+        return JsonResource::collection($response);
     }
 
     public function batchUpdate(Request $request)
