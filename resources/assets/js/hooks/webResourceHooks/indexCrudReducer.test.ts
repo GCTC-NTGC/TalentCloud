@@ -3,6 +3,9 @@ import indexCrudReducer, {
   CreateFulfillAction,
   CreateRejectAction,
   CreateStartAction,
+  DeleteFulfillAction,
+  DeleteRejectAction,
+  DeleteStartAction,
   IndexFulfillAction,
   IndexRejectAction,
   IndexStartAction,
@@ -633,6 +636,184 @@ describe("indexCrudReducer tests", (): void => {
         pendingCount: 1,
         error: rejectedAction.payload,
       });
+    });
+  });
+  describe("Test DELETE actions", () => {
+    it("DELETE START updates item-specific metadata", () => {
+      const initialState: ResourceState<TestResource> = initializeState([
+        { id: 1, name: "one" },
+      ]);
+      const expectState = {
+        ...initialState,
+        values: {
+          1: {
+            value: initialState.values[1].value,
+            status: "pending",
+            pendingCount: 1,
+            error: undefined,
+          },
+        },
+      };
+      const action: DeleteStartAction = {
+        type: ActionTypes.DeleteStart,
+        meta: { id: 1 },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("two DELETE START actions increment pendingCount twice", () => {
+      const initialState: ResourceState<TestResource> = initializeState([
+        { id: 1, name: "one" },
+      ]);
+      const expectState = {
+        ...initialState,
+        values: {
+          1: {
+            value: initialState.values[1].value,
+            status: "pending",
+            pendingCount: 2, // pendingCount is 2 this time
+            error: undefined,
+          },
+        },
+      };
+      const action: DeleteStartAction = {
+        type: ActionTypes.DeleteStart,
+        meta: { id: 1 },
+      };
+      const state1 = indexCrudReducer(initialState, action);
+      const state2 = indexCrudReducer(state1, action);
+      expect(state2).toEqual(expectState);
+    });
+    it("DELETE START overwrites an error status", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "rejected",
+            pendingCount: 0,
+            error: new Error(),
+          },
+        },
+      };
+      const expectState = {
+        ...initialState,
+        values: {
+          1: {
+            value: initialState.values[1].value,
+            status: "pending",
+            pendingCount: 1,
+            error: undefined, // Note the error has been erased after new request starts.
+          },
+        },
+      };
+      const action: DeleteStartAction = {
+        type: ActionTypes.DeleteStart,
+        meta: { id: 1 },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("DELETE FULFILLED removes value entry entirely", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "pending",
+            pendingCount: 1,
+            error: undefined,
+          },
+        },
+      };
+      const action: DeleteFulfillAction = {
+        type: ActionTypes.deleteFulfill,
+        meta: { id: 1 },
+      };
+      const expectState = {
+        ...initialState,
+        values: {},
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("DELETE FULFILLED doesn't affect other values", () => {
+      const initialState = initializeState([
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ]);
+      const action: DeleteFulfillAction = {
+        type: ActionTypes.deleteFulfill,
+        meta: { id: 1 },
+      };
+      const fulfilledState = indexCrudReducer(initialState, action);
+      expect(fulfilledState.values[2]).toEqual(initialState.values[2]);
+      expect(fulfilledState.values[1]).toBeUndefined();
+    });
+    it("DELETE FULFILLED doesn't change state (or throw error) if value doesn't exist", () => {
+      const initialState = initializeState([{ id: 1, name: "one" }]);
+      const action: DeleteFulfillAction = {
+        type: ActionTypes.deleteFulfill,
+        meta: { id: 5 },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(initialState);
+    });
+    it("DELETE REJECTED decrements pendingCount, sets status to rejected, and doesn't modify item value", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "pending",
+            pendingCount: 1,
+            error: undefined,
+          },
+        },
+      };
+      const action: DeleteRejectAction = {
+        type: ActionTypes.DeleteReject,
+        payload: new Error("Something went wrong"),
+        meta: { id: 1 },
+      };
+      const expectState = {
+        ...initialState,
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "rejected",
+            pendingCount: 0,
+            error: action.payload,
+          },
+        },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
+    });
+    it("status remains 'pending' after DELETE REJECTED if if pendingCount was higher than 1", () => {
+      const initialState: ResourceState<TestResource> = {
+        ...initializeState([]),
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "pending",
+            pendingCount: 3,
+            error: undefined,
+          },
+        },
+      };
+      const action: DeleteRejectAction = {
+        type: ActionTypes.DeleteReject,
+        payload: new Error("Something went wrong"),
+        meta: { id: 1 },
+      };
+      const expectState = {
+        ...initialState,
+        values: {
+          1: {
+            value: { id: 1, name: "one" },
+            status: "pending",
+            pendingCount: 2,
+            error: action.payload,
+          },
+        },
+      };
+      expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
   });
 });
