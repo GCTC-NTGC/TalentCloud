@@ -23,6 +23,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property \App\Models\ExperienceAward|\App\Models\ExperienceCommunity|\App\Models\ExperienceEducation|\App\Models\ExperiencePersonal|\App\Models\ExperienceWork $experience
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
  * @property \Illuminate\Database\Eloquent\Collection $skill_categories
+ * @property \Illuminate\Database\Eloquent\Collection $applicants
  */
 class Skill extends BaseModel
 {
@@ -99,6 +100,11 @@ class Skill extends BaseModel
     public function skill_categories() // phpcs:ignore
     {
         return $this->belongsToMany(\App\Models\SkillCategory::class, 'skill_skill_category');
+    }
+
+    public function applicants() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Applicant::class, 'applicant_skill');
     }
 
     /**
