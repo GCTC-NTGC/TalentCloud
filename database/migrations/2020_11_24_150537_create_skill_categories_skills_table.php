@@ -13,7 +13,7 @@ class CreateSkillCategoriesSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('skill_categories_skills', function (Blueprint $table) {
+        Schema::create('skill_skill_category', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('skill_id');
             $table->foreign('skill_id')
@@ -33,6 +33,6 @@ class CreateSkillCategoriesSkillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skill_categories_skills');
+        Schema::dropIfExists('skill_skill_category');
     }
 }
