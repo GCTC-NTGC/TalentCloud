@@ -74,7 +74,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           </p>
         </div>
         <div data-c-input="select">
-          <label htmlFor="SEL2">Citizenship Status:</label>
+          <label htmlFor="SEL2">{intl.formatMessage(myBasicInformationMessages.citizenStatus)}</label>
           <span>Required</span>
           <div data-c-grid-item="base(1of3)">
             <i className="fas fa-caret-down" />
@@ -86,11 +86,11 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
               <option>Not a citizen</option>
             </select>
           </div>
-          <span>This input has an error.</span>
+          <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
         </div>
         <div data-c-input="select">
           <label htmlFor="SEL2">
-            Are you a veteran or a member of the Canadian Armed forces?
+            {intl.formatMessage(myBasicInformationMessages.isVerteran)}
           </label>
           <span>Required</span>
           <div data-c-grid-item="base(1of3)">
@@ -100,7 +100,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
               <option>Yes</option>
             </select>
           </div>
-          <span>This input has an error.</span>
+          <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
         </div>
         <h2 data-c-heading="h2" data-c-margin="bottom(1)">
           {intl.formatMessage(myBasicInformationMessages.heading)}
@@ -108,7 +108,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
 
         <div data-c-grid-item="base(1of3)" data-c-input="radio">
           <label htmlFor="RG2">
-            Currently an employee of the Government of Canada
+            {intl.formatMessage(myBasicInformationMessages.isGCEmployee)}
           </label>
           <span>Required</span>
           <div id="RG2" role="radiogroup">
@@ -121,7 +121,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
               <span>Not a GC employee</span>
             </label>
           </div>
-          <span>This input has an error.</span>
+          <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
         </div>
 
         <label htmlFor="SEL2">Current classification and level</label>
@@ -141,16 +141,17 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
                   <a href="#" data-c-color="c1">
                     Remove
                   </a>
-                  <span>This input has an error.</span>
+                  <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
                 </div>
               </div>
             </li>
           </ol>
         </div>
-        <a href="#">+ Add Another Classification</a>
+        <a href="#">{intl.formatMessage(myBasicInformationMessages.addClassification)}</a>
       </div>
     </>
   );
 };
 
 export default ProfileBasicInformation;
+

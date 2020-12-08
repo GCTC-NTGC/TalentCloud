@@ -427,6 +427,17 @@ export interface Email {
   body: string;
 }
 
+export interface GocClassification {
+  classification : Classification;
+  level : Number;
+  order : Number; // Used to allow user to order the list of classifications
+}
+
 export interface ProfileBasicInformation {
   citizenship_status: CitizenshipDeclaration;
+  veteran_status: VeteranStatus;
+  current_gc_employee: Boolean;
+  current_classification: GocClassification;
+  previous_classifications: GocClassification[];
+
 }
