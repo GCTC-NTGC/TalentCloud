@@ -17,6 +17,7 @@ use Backpack\CRUD\app\Models\Traits\SpatieTranslatable\HasTranslations;
  * @property int $depth - Represents skill category's nesting depth (used by Backpack as part of nested set model).
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
+ *  @property \Illuminate\Database\Eloquent\Collection $skills
  *
  */
 class SkillCategory extends BaseModel
@@ -30,7 +31,7 @@ class SkillCategory extends BaseModel
     protected $fillable = [
         'key',
         'name',
-        'parent_category_id',
+        'parent_id',
     ];
 
     /**
@@ -39,4 +40,9 @@ class SkillCategory extends BaseModel
     public $translatable = [
         'name',
     ];
+
+    public function skills() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Skill::class, 'skill_skill_category');
+    }
 }

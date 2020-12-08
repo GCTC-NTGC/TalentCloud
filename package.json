@@ -82,7 +82,7 @@
         "redux-mock-store": "^1.5.4",
         "resolve-url-loader": "^3.1.2",
         "sass-loader": "^10.1.0",
-        "snyk": "^1.434.2",
+        "snyk": "^1.434.3",
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.9.4",
         "ts-jest": "^25.5.1",
@@ -126,7 +126,7 @@
         "reselect": "^4.0.0",
         "sweetalert2": "^10.12.3",
         "universal-router": "^9.0.1",
-        "yup": "^0.32.5"
+        "yup": "^0.32.6"
     },
     "jest": {
         "preset": "ts-jest",
