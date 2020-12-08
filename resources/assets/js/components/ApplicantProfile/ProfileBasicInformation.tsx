@@ -4,6 +4,45 @@ import { myBasicInformationMessages } from "../Application/applicationMessages";
 
 export interface ProfileBasicInformationProps {}
 
+export interface ClassificationDropdownsProps {}
+
+export const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({}) => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <div data-c-grid-item="base(1of3)" data-c-grid="gutter top">
+        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
+          <div>
+            <i className="fas fa-caret-down" />
+            <select required id="SEL2">
+              <option>CS</option>
+              <option>AS</option>
+              <option>EC</option>
+              <option>EX</option>
+              <option>ENG</option>
+            </select>
+          </div>
+          <span>This input has an error.</span>
+        </div>
+        <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
+          <div>
+            <i className="fas fa-caret-down" />
+            <select required id="SEL2">
+              <option>01</option>
+              <option>02</option>
+              <option>03</option>
+              <option>04</option>
+              <option>05</option>
+            </select>
+          </div>
+          <span>This input has an error.</span>
+        </div>
+      </div>
+    </>
+  );
+};
+
 export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({}) => {
   const intl = useIntl();
 
@@ -86,85 +125,26 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
         </div>
 
         <label htmlFor="SEL2">Current classification and level</label>
-        <div data-c-grid-item="base(1of3)" data-c-grid="gutter top">
-          <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
-            <div>
-              <i className="fas fa-caret-down" />
-              <select required id="SEL2">
-                <option>CS</option>
-                <option>AS</option>
-                <option>EC</option>
-                <option>EX</option>
-                <option>ENG</option>
-              </select>
-            </div>
-            <span>This input has an error.</span>
-          </div>
-          <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
-            <div>
-              <i className="fas fa-caret-down" />
-              <select required id="SEL2">
-                <option>01</option>
-                <option>02</option>
-                <option>03</option>
-                <option>04</option>
-                <option>05</option>
-              </select>
-            </div>
-            <span>This input has an error.</span>
-          </div>
-        </div>
+        <ClassificationDropdowns />
 
         <label htmlFor="SEL2">Add previous Government classifications</label>
         <div id="list-previous-gov-class">
           <ol>
             <li>
-                {/* Turn this into a reuseable component */}
-              <div data-c-grid-item="base(1of3)" data-c-grid="gutter top">
+              {/* Turn this into a reuseable component */}
+              <div data-c-grid="gutter top">
+                <ClassificationDropdowns data-c-grid-item="base(2of2) tl(2of3)" />
                 <div
                   data-c-grid-item="base(1of1) tl(1of3)"
                   data-c-input="select"
                 >
-                  <div>
-                    <i className="fas fa-caret-down" />
-                    <select required id="SEL2">
-                      <option>CS</option>
-                      <option>AS</option>
-                      <option>EC</option>
-                      <option>EX</option>
-                      <option>ENG</option>
-                    </select>
-                  </div>
-                  <span>This input has an error.</span>
-                </div>
-                <div
-                  data-c-grid-item="base(1of1) tl(1of3)"
-                  data-c-input="select"
-                >
-                  <div>
-                    <i className="fas fa-caret-down" />
-                    <select required id="SEL2">
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                      <option>04</option>
-                      <option>05</option>
-                    </select>
-                  </div>
-                  <span>This input has an error.</span>
-                </div>
-                <div
-                  data-c-grid-item="base(1of1) tl(1of3)"
-                  data-c-input="select"
-                >
-                  <div>
-                    <a href="#" data-c-color="c1">Remove</a>
-                  </div>
+                  <a href="#" data-c-color="c1">
+                    Remove
+                  </a>
                   <span>This input has an error.</span>
                 </div>
               </div>
             </li>
-            <li></li>
           </ol>
         </div>
         <a href="#">+ Add Another Classification</a>
