@@ -74,8 +74,6 @@ class ApplicationValidatorTest extends TestCase
 
     public function testSkillsComplete(): void
     {
-        $validator = new ApplicationValidator();
-
         $applicant = factory(Applicant::class)->create();
         $validator = new ApplicationValidator();
 
