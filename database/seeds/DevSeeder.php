@@ -13,6 +13,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Seeder;
@@ -188,18 +189,28 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Create several applications for test user.
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->state('submitted')->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('submitted')->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->states(['version2', 'submitted'])->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['version2', 'submitted'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->state('draft')->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('draft')->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)->states(['draft', 'version2'])->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['draft', 'version2'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
+
+        // Get five skill ids at random.
+        $skills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
+
+        // Add skills to applicant user.
+        $applicantUser->applicant->skills()->attach($skills);
 
         // Ensure there are several jobs the hr advisor can claim.
         $hrDepartment = $hrUser->department_id;
