@@ -21,7 +21,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Auth::user()->applicant->job_applications;
+        $applications = Auth::user()->applicant->job_applications->load('application_status');
         return view(
             'applicant/application_index',
             [
@@ -33,19 +33,31 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Determine whether the user can view the jobApplication.
+     * Display the application preview.
      *
      * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function showWithJob(JobPoster $jobPoster, JobApplication $application)
+    public function show(JobApplication $application)
+    {
+        // If the application is version two then show the version two application review page.
+        if ($application->version_id !== null && $application->version_id == 2) {
+            return $this->showVersionTwo($application);
+        }
+        return $this->showVersionOne($application);
+    }
+
+    /**
+     * Display the application preview with the review toolbar.
+     *
+     * @param  \App\Models\JobPoster    $jobPoster Incoming JobPoster object.
+     * @param  \App\Models\JobApplication $application Incoming Application object.
+     * @return \Illuminate\Http\Response
+     */
+    public function showWithToolbar(JobPoster $jobPoster, JobApplication $application)
     {
         if ($jobPoster->job_applications->contains($application)) {
-            // If the application is version two then show the version two application review page.
-            if ($application->version_id !== null && $application->version_id == 2) {
-                return $this->showVersionTwo($application);
-            }
             return $this->show($application);
         } else {
             return abort(404);
@@ -53,41 +65,49 @@ class ApplicationController extends Controller
     }
 
     /**
-     * "Display version two of application, from Manager perspective, with review toolbar included."
+     * Display specified application (version 2)
+     *
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
     public function showVersionTwo(JobApplication $application)
     {
-        return view(
-            'manager/application_timeline_review',
-            [
-                'applicant' => $application->applicant,
-                'application' => $application,
-                'application_template' => Lang::get('applicant/application_template'),
-                'job_id' => $application->job_poster_id,
-                'review_statuses' => ReviewStatus::all(),
-                'is_hr_portal' => WhichPortal::isHrPortal(),
-            ]
-        );
+        if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
+            return view(
+                'manager/application_timeline_review',
+                [
+                    'applicant' => $application->applicant,
+                    'application' => $application,
+                    'application_template' => Lang::get('applicant/application_template'),
+                    'job_id' => $application->job_poster_id,
+                    'review_statuses' => ReviewStatus::all(),
+                    'is_hr_portal' => WhichPortal::isHrPortal(),
+                ]
+            );
+        } else {
+            return view(
+                'applicant/application_timeline_preview',
+                [
+                    'applicant' => $application->applicant,
+                    'application' => $application,
+                    'application_template' => Lang::get('applicant/application_template'),
+                    'job_id' => $application->job_poster_id,
+                ]
+            );
+        }
     }
 
     /**
-     * Display specified application
+     * Display specified application (version 1)
      *
      * @param  \App\Models\JobApplication $application Incoming Application object.
      * @return \Illuminate\Http\Response
      */
-    public function show(JobApplication $application)
+    public function showVersionOne(JobApplication $application)
     {
         $response_poster = false;
         $show_review = true;
         $jobPoster = $application->job_poster;
-
-        if ($jobPoster->isInStrategicResponseDepartment()) {
-            $response_poster = true;
-            $show_review = false;
-        }
 
         $essential_criteria = $jobPoster->criteria->filter(function ($value, $key) {
             return $value->criteria_type->name == 'essential'
@@ -102,9 +122,7 @@ class ApplicationController extends Controller
         $view = WhichPortal::isManagerPortal() || WhichPortal::isHrPortal() ?
             'manager/application_post' : 'applicant/application_preview';
 
-        $application_view = $response_poster
-            ? 'applicant/strategic_response_application/application_view/application_layout'
-            : 'common/application/view/view_layout';
+        $application_view = 'common/application/view/view_layout';
 
         if (WhichPortal::isManagerPortal() || WhichPortal::isHrPortal()) {
             // Load things required for review component.

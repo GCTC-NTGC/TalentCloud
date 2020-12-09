@@ -36,6 +36,10 @@ import deptReducer, {
   DeptState,
   initDeptState,
 } from "./Department/deptReducer";
+import classificationReducer, {
+  ClassificationState,
+  initClassificationState,
+} from "./Classification/classificationReducer";
 import { ManagerAction } from "./Manager/managerActions";
 import { UserAction } from "./User/userActions";
 import {
@@ -104,6 +108,7 @@ export interface RootState {
   educationType: EducationTypeState;
   error: ErrorState;
   department: DeptState;
+  classification: ClassificationState;
   manager: ManagerState;
   users: UserState;
   hrAdvisor: HrAdvisorState;
@@ -125,6 +130,7 @@ export const initState = (): RootState => ({
   educationType: initEducationTypeState(),
   error: initErrors(),
   department: initDeptState(),
+  classification: initClassificationState(),
   manager: initManagerState(),
   users: initUserState(),
   hrAdvisor: initHrAdvisorState(),
@@ -147,6 +153,7 @@ export const rootReducer = (): Reducer<RootState> =>
     educationType: educationTypeReducer,
     error: errorReducer,
     department: deptReducer,
+    classification: classificationReducer,
     manager: managerReducer,
     users: userReducer,
     hrAdvisor: hrAdvisorReducer,
