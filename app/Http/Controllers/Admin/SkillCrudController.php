@@ -76,8 +76,8 @@ class SkillCrudController extends CrudController
                 'model' => 'App\Models\SkillCategory',
                 'pivot' => true,
                 'options' => (function ($query) {
-                    // Exclude skill categories with no children.
-                    return $query->whereNotNull('parent_id')->get();
+                    // Exclude skill categories with no parent.
+                    return $query->where('parent_id', '!=', 0)->get();
                 }),
             ]);
 
