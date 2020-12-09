@@ -13,14 +13,14 @@ class CreateApplicantsSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicants_skills', function (Blueprint $table) {
+        Schema::create('applicant_skill', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('applicant_id');
             $table->foreign('applicant_id')
                 ->references('id')
                 ->on('applicants')
                 ->onUpdate('CASCADE')
-                ->onDelete('NO ACTION');
+                ->onDelete('CASCADE');
             $table->integer('skill_id');
             $table->foreign('skill_id')
                 ->references('id')
@@ -38,6 +38,6 @@ class CreateApplicantsSkillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicants_skills');
+        Schema::dropIfExists('applicant_skill');
     }
 }

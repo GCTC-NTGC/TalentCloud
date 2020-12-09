@@ -15,6 +15,6 @@ $factory->define(SkillDeclaration::class, function (Faker\Generator $faker) {
             return factory(Applicant::class)->create()->id;
         },
         'skillable_type' => 'applicant',
-        'description' => $faker->text(100),
+        'description' => $faker->words(50, true),
     ];
 });
