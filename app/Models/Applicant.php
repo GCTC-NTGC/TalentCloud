@@ -32,6 +32,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
  * @property \Illuminate\Database\Eloquent\Collection $classifications
+ * @property \Illuminate\Database\Eloquent\Collection $skills
  *
  * Version 2 application models.
  * @property \Illuminate\Database\Eloquent\Collection $experiences_work
@@ -135,6 +136,11 @@ class Applicant extends BaseModel
         ->withPivot(['level', 'order'])
         ->as('gov_classification')
         ->withTimestamps();
+    }
+
+    public function skills() // phpcs:ignore
+    {
+        return $this->belongsToMany(\App\Models\Skill::class, 'applicant_skill');
     }
 
     // Version 2 application models.

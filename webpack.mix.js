@@ -74,6 +74,10 @@ mix
     "resources/assets/js/components/ApplicantProfile/ProfileExperiencePage.tsx",
     "public/js",
   )
+  .ts(
+    "resources/assets/js/components/Application/ApplicationPreviewRoot.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     sassOptions: {
