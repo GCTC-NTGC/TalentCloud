@@ -208,10 +208,10 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Get five skill ids at random.
-        $skills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
+        $applicantSkills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
 
         // Add skills to applicant user.
-        $applicantUser->applicant->skills()->attach($skills);
+        $applicantUser->applicant->skills()->attach($applicantSkills);
 
         // Ensure there are several jobs the hr advisor can claim.
         $hrDepartment = $hrUser->department_id;
@@ -248,5 +248,15 @@ class DevSeeder extends Seeder // phpcs:ignore
             'parent_id' => $skillCategoryParentSecond->first()->id,
             'depth' => 2
         ]);
+
+        // Create relationship between skill and skill category.
+        $skills = Skill::all();
+        foreach ($skills as $skill) {
+            /*
+            Include skill categories created.
+            Exclude skill categories created that do not have children.
+            */
+            $skill->skill_categories()->attach([rand(3, 10)]);
+        }
     }
 }
