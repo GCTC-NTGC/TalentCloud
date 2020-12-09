@@ -15,18 +15,16 @@ class AddNewFieldsToApplicants extends Migration
     {
         Schema::table('applicants', function (Blueprint $table) {
             $table->integer('citizenship_declaration_id')->unsigned()->nullable();
-			$table->integer('veteran_status_id')->unsigned()->nullable();
+		    $table->integer('veteran_status_id')->unsigned()->nullable();
             $table->foreign('citizenship_declaration_id')
                 ->references('id')
                 ->on('citizenship_declarations')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->onUpdate('CASCADE');
 
             $table->foreign('veteran_status_id')
                 ->references('id')
                 ->on('veteran_statuses')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->onUpdate('CASCADE');
         });
     }
 
