@@ -24,14 +24,14 @@ class AddApplicantClassificationTable extends Migration
             $table->foreign('applicant_id')
                 ->references('id')
                 ->on('applicants')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
 
             $table->foreign('classification_id')
                 ->references('id')
                 ->on('classifications')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->onUpdate('CASCADE')
+                ->onDelete('NO ACTION');
         });
     }
 
