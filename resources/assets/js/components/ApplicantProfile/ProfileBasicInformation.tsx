@@ -46,6 +46,21 @@ export const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsP
 export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({}) => {
   const intl = useIntl();
 
+  const gcClassifications = (function getGcClassifications() {
+    [
+      {
+        classification : {"key": "CS"},
+        level : 1,
+        order : 0,
+      },
+      {
+        classification : {"key": "AS"},
+        level : 1,
+        order : 0,
+      }
+    ]
+  })()
+
   return (
     <>
       <div>

@@ -311,8 +311,37 @@ export const myBasicInformationMessages = defineMessages({
     description: "Heading for the My Information section of the Application.",
   },
   govtJobInfo: {
-    id: "application.experience.government-job-heading",
+    id: "application.experience.govtJobInfo",
     defaultMessage: "Government Job Information",
     description: "Heading for the Government Job Information section of the Application.",
   },
+  isVerteran: {
+    id: "application.experience.isVeteran",
+    defaultMessage: "Are you a veteran or a member of the Canadian Armed forces?",
+    description: "Label for the Government Job Information section of the Application to confirm if application is a veteran.",
+  },
+  inputEreror: {
+    id: "application.experience.inputEreror",
+    defaultMessage: "This input has an error.",
+    description: "Label displayed when the user selects an option that results in an error",
+  },
+  citizenStatus: {
+    id: "application.experience.citizenStatus",
+    defaultMessage: "Citizenship Status:",
+    description: "Label for the Government Job Information section of the Application to confirm if application citizenship status.",
+  },
+  addClassification: {
+    id: "application.experience.addClassification",
+    defaultMessage: "+ Add Another Classification",
+    description: "Label for the Government Job Information section of the Application to add experience working as a given classification.",
+  },
+  isGCEmployee: {
+    id: "application.experience.isGCEmployee",
+    defaultMessage: "Currently an employee of the Government of Canada",
+    description: "Label for the Government Job Information section of the Application to add confirm if application is a Government of Canada employee.",
+  },
 });
+
+
+
+
