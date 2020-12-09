@@ -134,7 +134,7 @@ class ExperienceSkillsControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonFragment($workSkillData);
         $id = $response->decodeResponseJson('id');
-        $this->assertDatabaseHas('applicants_skills', [
+        $this->assertDatabaseHas('applicant_skill', [
             'applicant_id' => $work->experienceable->user->applicant->id,
             'skill_id' => $workSkillData['skill_id']
         ]);
