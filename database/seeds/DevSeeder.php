@@ -248,22 +248,5 @@ class DevSeeder extends Seeder // phpcs:ignore
             'parent_id' => $skillCategoryParentSecond->first()->id,
             'depth' => 2
         ]);
-
-        // Create relationship between skills and skill categories.
-        $skills = DB::table('skills')->select('id', 'skill_type_id')->get();
-        foreach ($skills as $skill) {
-            DB::table('skill_categories_skills')->updateOrInsert(
-                [
-                    'skill_id' => $skill->id
-                ],
-                [
-                    /*
-                    Include skill categories created.
-                    Exclude skill categories created that do not have children.
-                    */
-                    'skill_category_id' => rand(3, 10)
-                ]
-            );
-        }
     }
 }
