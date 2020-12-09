@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchStoreExperienceSkill;
+use App\Http\Requests\BatchUpdateExperienceSkill;
 use App\Http\Requests\StoreExperienceSkill;
 use App\Models\ExperienceSkill;
 use Illuminate\Http\Request;
@@ -13,24 +14,27 @@ class ExperienceSkillsController extends Controller
 {
     public function store(StoreExperienceSkill $request)
     {
-        $data = $request->validated();
+        $validatedData = $request->validated();
         // Restore soft deleted experienceSkill if it exists, otherwise create a new one.
         $softDeletedExperienceSkill = ExperienceSkill::onlyTrashed()
             ->where([
-            ['skill_id', $data['skill_id']],
-            ['experience_id', $data['experience_id']],
-            ['experience_type', $data['experience_type']]
+            ['skill_id', $validatedData['skill_id']],
+            ['experience_id', $validatedData['experience_id']],
+            ['experience_type', $validatedData['experience_type']]
         ])->first();
         if ($softDeletedExperienceSkill) {
+            if ($validatedData['justification'] !== null && $validatedData['justification'] !== '') {
+                $softDeletedExperienceSkill->justification = $validatedData['justification'];
+            }
             $softDeletedExperienceSkill->restore();
             $softDeletedExperienceSkill->save();
             return new JsonResource($softDeletedExperienceSkill->fresh());
         } else {
-            $experienceSkill = new ExperienceSkill($data);
-            $experienceSkill->skill_id = $data['skill_id'];
-            $experienceSkill->experience_id = $data['experience_id'];
-            $experienceSkill->experience_type = $data['experience_type'];
-            $experienceSkill->justification = $data['justification'];
+            $experienceSkill = new ExperienceSkill($validatedData);
+            $experienceSkill->skill_id = $validatedData['skill_id'];
+            $experienceSkill->experience_id = $validatedData['experience_id'];
+            $experienceSkill->experience_type = $validatedData['experience_type'];
+            $experienceSkill->justification = $validatedData['justification'];
             $experienceSkill->save();
             return new JsonResource($experienceSkill->fresh());
         }
@@ -100,7 +104,6 @@ class ExperienceSkillsController extends Controller
                 $updatedExperienceSkill = $inputData->firstWhere('id', $experienceSkill->id);
                 $experienceSkill->fill($updatedExperienceSkill);
                 $experienceSkill->save();
-            array_push($response, $experienceSkill);
             }
         }, 3); // Retry transaction up to three times if deadlock occurs.
 
