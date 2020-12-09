@@ -114,7 +114,7 @@ class ExperienceSkillsController extends Controller
         ]);
         $experienceSkills = ExperienceSkill::whereIn('id', $experienceSkillIds);
         foreach ($experienceSkills as $experienceSkill) {
-            $this->authorize('update', $experienceSkill);
+            $this->authorize('delete', $experienceSkill);
         }
         $experienceSkills->delete();
         return response()->json(['success' => 'success'], 200);
