@@ -89,22 +89,22 @@ class ExperienceSkillsController extends Controller
         return JsonResource::collection($response);
     }
 
-    public function batchUpdate(Request $request)
+    public function batchUpdate(BatchUpdateExperienceSkill $request)
     {
-        $newExperienceSkills = $request->validate([
-            '*.id' => 'required|exists:App\Models\ExperienceSkill,id',
-            '*.justification' => 'nullable|string',
-        ]);
-        $response = [];
+        $validatedResult = $request->validated();
+        $inputData = collect($validatedResult);
+        $experienceSkills = ExperienceSkill::whereIn('id', $inputData->pluck('id')->all())->get();
 
-        foreach ($newExperienceSkills as $newExperienceSkill) {
-            $experienceSkill = ExperienceSkill::where('id', $newExperienceSkill['id'])->first();
-            $this->authorize('update', $experienceSkill);
-            $experienceSkill->fill($newExperienceSkill);
-            $experienceSkill->save();
+        DB::transaction(function () use ($experienceSkills, $inputData) {
+            foreach ($experienceSkills as $experienceSkill) {
+                $updatedExperienceSkill = $inputData->firstWhere('id', $experienceSkill->id);
+                $experienceSkill->fill($updatedExperienceSkill);
+                $experienceSkill->save();
             array_push($response, $experienceSkill);
-        }
-        return new JsonResource($response);
+            }
+        }, 3); // Retry transaction up to three times if deadlock occurs.
+
+        return JsonResource::collection($experienceSkills->fresh());
     }
 
     public function batchDestroy(Request $request)
