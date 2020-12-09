@@ -33,13 +33,13 @@ class SkillCategoryControllerTest extends TestCase
      */
     protected function makeSkillCategoryData()
     {
-        return (array) factory(SkillCategory::class, 1)->create();
+        return factory(SkillCategory::class, 1)->create();
     }
 
     /**
      * Test get skill category index.
      */
-    public function testGetIndex()
+    public function testGetSkillCategoryIndex()
     {
         $response = $this->json(
             'get',
@@ -49,16 +49,17 @@ class SkillCategoryControllerTest extends TestCase
     }
 
     /**
-     * Test get skill category.
+     * Test get skill category item.
      */
-    public function testGetSkillCategory()
+    public function testGetSkillCategoryItem()
     {
-        $skillCategoryData = $this->makeSkillCategoryData();
+        $skillCategoryData = $this->makeSkillCategoryData()->toArray();
         $response = $this->json(
             'get',
             $this->baseUrl . '/skill-categories',
             $skillCategoryData
         );
         $response->assertOk();
+        $response->assertJson($skillCategoryData);
     }
 }
