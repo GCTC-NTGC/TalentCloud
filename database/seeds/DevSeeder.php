@@ -13,6 +13,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\SkillCategory;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -229,5 +230,17 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+         // Create first parent skill category.
+        $skillCategoryParentFirst = factory(SkillCategory::class, 1)->create();
+
+        // Create second parent skill category.
+        $skillCategoryParentSecond = factory(SkillCategory::class, 1)->create();
+
+        // Create child categories for the first parent category.
+        factory(SkillCategory::class, 4)->create(['parent_id' => $skillCategoryParentFirst->first()->id]);
+
+        // Create child categories for the second parent category.
+        factory(SkillCategory::class, 4)->create(['parent_id' => $skillCategoryParentSecond->first()->id]);
     }
 }
