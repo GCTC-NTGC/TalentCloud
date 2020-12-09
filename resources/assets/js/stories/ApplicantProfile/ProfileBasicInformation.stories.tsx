@@ -5,6 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { useState as useStorybookState } from "@storybook/addons";
 import { fakeBasicInformation } from "../../fakeData/fakeBasicInformation";
 import ProfileBasicInformation from "../../components/ApplicantProfile/ProfileBasicInformation";
+import fakeGocClassifications from "../../fakeData/fakeBasicInformation";
 
 const stories = storiesOf("Applicant Profile/Basic Information", module).addDecorator(
   withIntl,
@@ -13,10 +14,13 @@ const stories = storiesOf("Applicant Profile/Basic Information", module).addDeco
 stories.add(
   "Basic",
   (): React.ReactElement => {
-    const [experiences, setExperiences] = useStorybookState(fakeBasicInformation());
+    const [basicInformations, setBasicInformations] = useStorybookState(fakeBasicInformation());
+    const [classifications, setClassifications] = useStorybookState(fakeGocClassifications());
+
+    const gocClassifications = [];
 
     return (
-      <ProfileBasicInformation
+      <ProfileBasicInformation gocClassifications={gocClassifications}
       />
     );
   },

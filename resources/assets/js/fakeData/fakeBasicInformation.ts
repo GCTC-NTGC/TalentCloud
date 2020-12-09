@@ -6,7 +6,7 @@ import {
   CitizenshipDeclaration
 } from "../models/types";
 
-export const fakePreviousGcClassifications = (
+const fakePreviousGcClassifications = (
 ): GocClassification[] => (
   [
     {
@@ -22,7 +22,7 @@ export const fakePreviousGcClassifications = (
   ]
 );
 
-export const fakeCurrentGcClassifications = (
+const fakeCurrentGcClassifications = (
   ): GocClassification => (
       {
         classification : {"key": "CS"},
@@ -31,28 +31,27 @@ export const fakeCurrentGcClassifications = (
       }
   );
 
-export const fakeVereranStatus = (
+const fakeVereranStatus = (
   ): VeteranStatus => ({
     id: 1,
     name: "none",
   });
 
-export const fakeCitizenshipDeclaration = (
+const fakeCitizenshipDeclaration = (
   ): CitizenshipDeclaration => ({
     id: 1,
     name: "citizen",
   });
 
-export const fakeBasicInformation = (): ProfileBasicInformation => {
-  let profileBasicInformation : ProfileBasicInformation = <ProfileBasicInformation>{};
+let profileBasicInformation : ProfileBasicInformation = <ProfileBasicInformation>{};
+profileBasicInformation.citizenship_status = fakeCitizenshipDeclaration()
+profileBasicInformation.veteran_status = fakeVereranStatus()
+profileBasicInformation.current_gc_employee = true
+profileBasicInformation.current_classification = fakeCurrentGcClassifications()
+profileBasicInformation.previous_classifications = fakePreviousGcClassifications()
 
-  profileBasicInformation.citizenship_status = fakeCitizenshipDeclaration()
-  profileBasicInformation.veteran_status = fakeVereranStatus()
-  profileBasicInformation.current_gc_employee = true
-  profileBasicInformation.previous_classifications = fakePreviousGcClassifications()
-  profileBasicInformation.current_classification = fakeCurrentGcClassifications()
-
-  return profileBasicInformation
-};
+export const fakeBasicInformation = (): ProfileBasicInformation[] => [
+  profileBasicInformation
+];
 
 export default fakeBasicInformation;

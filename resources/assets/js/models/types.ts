@@ -439,5 +439,4 @@ export interface ProfileBasicInformation {
   current_gc_employee: Boolean;
   current_classification: GocClassification;
   previous_classifications: GocClassification[];
-
 }

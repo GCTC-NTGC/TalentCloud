@@ -1,13 +1,22 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { GocClassification, CitizenshipDeclaration, VeteranStatus } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
 
-export interface ProfileBasicInformationProps {}
+export interface ProfileBasicInformationProps {
+  gocClassifications : GocClassification[]
+}
 
-export interface ClassificationDropdownsProps {}
+export interface ClassificationDropdownsProps {
+  gocClassifications : GocClassification[]
+}
 
-export const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({}) => {
+const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
+  gocClassifications
+}) => {
   const intl = useIntl();
+
+  gocClassifications = [];
 
   return (
     <>
@@ -43,23 +52,12 @@ export const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsP
   );
 };
 
-export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({}) => {
+export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({
+  gocClassifications
+}) => {
   const intl = useIntl();
 
-  const gcClassifications = (function getGcClassifications() {
-    [
-      {
-        classification : {"key": "CS"},
-        level : 1,
-        order : 0,
-      },
-      {
-        classification : {"key": "AS"},
-        level : 1,
-        order : 0,
-      }
-    ]
-  })()
+  gocClassifications = [];
 
   return (
     <>
@@ -140,7 +138,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
         </div>
 
         <label htmlFor="SEL2">Current classification and level</label>
-        <ClassificationDropdowns />
+        <ClassificationDropdowns gocClassifications={gocClassifications} />
 
         <label htmlFor="SEL2">Add previous Government classifications</label>
         <div id="list-previous-gov-class">
@@ -148,7 +146,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
             <li>
               {/* Turn this into a reuseable component */}
               <div data-c-grid="gutter top">
-                <ClassificationDropdowns data-c-grid-item="base(2of2) tl(2of3)" />
+                <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
                 <div
                   data-c-grid-item="base(1of1) tl(1of3)"
                   data-c-input="select"
