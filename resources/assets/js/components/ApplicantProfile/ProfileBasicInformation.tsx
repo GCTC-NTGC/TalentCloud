@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { GocClassification, CitizenshipDeclaration, VeteranStatus } from "../../models/types";
+import { GocClassification } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
 
 export interface ProfileBasicInformationProps {
@@ -16,7 +16,41 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 }) => {
   const intl = useIntl();
 
-  gocClassifications = [];
+  console.log("gocClassifications ... ")
+  console.dir(gocClassifications)
+
+  const handleSelectedClassification : any = function(e : any){
+    this.setState({selectedClassification:e.target.value});
+  }
+
+  const getSelectedClassification : any = function() {
+    //return this.state.selectedClassification
+    return ""
+  }
+
+  let uniqueClassifications : string[] = [];
+  gocClassifications.forEach(function(item : GocClassification) {
+    console.log("Checking ... " + item.classification.key)
+    if (!uniqueClassifications.includes(item.classification.key)) {
+      uniqueClassifications.push(item.classification.key)
+    }
+  })
+
+  function getLevelsOfClassification(classificationKey : string) {
+    let correspondingGocClassifications : GocClassification[] = [];
+    gocClassifications.forEach(function( item : GocClassification) {
+      if (item.classification.key == classificationKey) {
+        correspondingGocClassifications.push(item)
+      }
+    })
+
+    let correspondingLevels : Number[] = [];
+    correspondingGocClassifications.forEach(function(correspondingGocClassification : GocClassification) {
+      correspondingLevels.push(correspondingGocClassification.level)
+    })
+
+    return correspondingLevels
+  }
 
   return (
     <>
@@ -24,12 +58,19 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select required id="SEL2">
+            <select required id="SEL2" onChange={handleSelectedClassification} >
+              {
+                gocClassifications.map(item => {
+                  <option>{item.classification.key}</option>
+                })
+              }
+              {/*
               <option>CS</option>
               <option>AS</option>
               <option>EC</option>
               <option>EX</option>
-              <option>ENG</option>
+              <option>The only option</option>
+              */}
             </select>
           </div>
           <span>This input has an error.</span>
@@ -38,11 +79,18 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
           <div>
             <i className="fas fa-caret-down" />
             <select required id="SEL2">
+              {
+                getLevelsOfClassification(getSelectedClassification()).map(item => {
+                  <option>{item}</option>
+                })
+              }
+              {/*
               <option>01</option>
               <option>02</option>
               <option>03</option>
               <option>04</option>
               <option>05</option>
+               */}
             </select>
           </div>
           <span>This input has an error.</span>
@@ -56,8 +104,6 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
   gocClassifications
 }) => {
   const intl = useIntl();
-
-  gocClassifications = [];
 
   return (
     <>
