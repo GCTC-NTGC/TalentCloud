@@ -82,4 +82,24 @@ describe("singleResourceHook", () => {
     });
     expect(result.current.status).toEqual("pending");
   });
+  it("refresh() returns fetch result and updates hook value", async () => {
+    const initialValue = { name: "Talent Cloud", age: 3 };
+    const newValue = { name: "Talent Cloud 2", age: 100 };
+    fetchMock.mock(endpoint, newValue);
+    const { result, waitForNextUpdate, waitFor } = renderHook(() =>
+      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+    );
+    expect(result.current.value).toEqual(initialValue);
+    expect(result.current.status).toEqual("initial");
+    // await act(async () => {
+    //   result.current.refresh();
+    //   await waitFor(() => result.current.status === "fulfilled");
+    // });
+    await act(async () => {
+      const refreshValue = await result.current.refresh();
+      expect(refreshValue).toEqual(newValue);
+    });
+    expect(result.current.status).toEqual("fulfilled");
+    expect(result.current.value).toEqual(newValue);
+  });
 });
