@@ -1047,6 +1047,8 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
+    Route::post('application-reviews/batch-update', 'Api\ApplicationReviewController@batchUpdate')
+        ->name('application-reviews.batch-update');
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
