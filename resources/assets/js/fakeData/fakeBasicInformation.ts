@@ -10,12 +10,28 @@ const fakePreviousGcClassifications = (
 ): GocClassification[] => (
   [
     {
-      classification : {"key": "CS"},
+      classification : {
+        id: 5,
+        key: "CS",
+        name:
+        {
+          en: "",
+          fr: "",
+        }
+      },
       level : 1,
       order : 0,
     },
     {
-      classification : {"key": "AS"},
+      classification : {
+        id: 1,
+        key: "AS",
+        name:
+        {
+          en: "",
+          fr: "",
+        }
+      },
       level : 1,
       order : 0,
     }
@@ -25,7 +41,15 @@ const fakePreviousGcClassifications = (
 const fakeCurrentGcClassifications = (
   ): GocClassification => (
       {
-        classification : {"key": "CS"},
+        classification : {
+          id: 5,
+          key: "CS",
+          name:
+          {
+            en: "",
+            fr: "",
+          }
+        },
         level : 2,
         order : 0,
       }
