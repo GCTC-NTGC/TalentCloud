@@ -66,35 +66,32 @@ describe("singleResourceHook", () => {
     expect(fetchMock.called()).toBe(false);
     expect(result.current.status).toEqual("initial");
   });
-  it("Status changes to 'updating' when refresh() is called", async () => {
+  it("Status changes to 'pending' when refresh() is called", async () => {
     fetchMock.mock("*", {});
     const initialValue = { name: "Talent Cloud", age: 3 };
     const parseResponse = () => ({ name: "Talent Cloud 2", age: 100 });
-    const { result } = renderHook(() =>
+    const { result, waitForNextUpdate } = renderHook(() =>
       useResource(endpoint, initialValue, {
         parseResponse,
         skipInitialFetch: true,
       }),
     );
     expect(result.current.status).toEqual("initial");
-    act(() => {
+    await act(async () => {
       result.current.refresh();
+      await waitForNextUpdate();
+      expect(result.current.status).toEqual("pending");
     });
-    expect(result.current.status).toEqual("pending");
   });
   it("refresh() returns fetch result and updates hook value", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
     const newValue = { name: "Talent Cloud 2", age: 100 };
     fetchMock.mock(endpoint, newValue);
-    const { result, waitForNextUpdate, waitFor } = renderHook(() =>
+    const { result } = renderHook(() =>
       useResource(endpoint, initialValue, { skipInitialFetch: true }),
     );
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
-    // await act(async () => {
-    //   result.current.refresh();
-    //   await waitFor(() => result.current.status === "fulfilled");
-    // });
     await act(async () => {
       const refreshValue = await result.current.refresh();
       expect(refreshValue).toEqual(newValue);
