@@ -91,7 +91,7 @@ export function reducer<T>(
     case ActionTypes.UpdateFulfill:
       return {
         value: action.payload,
-        status: state.pendingCount === 1 ? "fulfilled" : "pending",
+        status: state.pendingCount <= 1 ? "fulfilled" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: undefined,
       };
@@ -99,7 +99,7 @@ export function reducer<T>(
     case ActionTypes.UpdateReject:
       return {
         value: state.value,
-        status: state.pendingCount === 1 ? "rejected" : "pending",
+        status: state.pendingCount <= 1 ? "rejected" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: action.payload,
       };

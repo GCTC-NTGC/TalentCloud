@@ -275,7 +275,7 @@ function mergeUpdateFulfill<T extends { id: number }>(
     [action.meta.id]: {
       value: action.payload,
       status:
-        values[action.meta.id].pendingCount === 1 ? "fulfilled" : "pending",
+        values[action.meta.id].pendingCount <= 1 ? "fulfilled" : "pending",
       pendingCount: decrement(values[action.meta.id].pendingCount),
       error: undefined,
     },
@@ -301,8 +301,7 @@ function mergeUpdateReject<T extends { id: number }>(
     ...values,
     [action.meta.id]: {
       ...values[action.meta.id],
-      status:
-        values[action.meta.id].pendingCount === 1 ? "rejected" : "pending",
+      status: values[action.meta.id].pendingCount <= 1 ? "rejected" : "pending",
       pendingCount: decrement(values[action.meta.id].pendingCount),
       error: action.payload,
     },
@@ -370,8 +369,7 @@ function mergeDeleteReject<T extends { id: number }>(
     ...values,
     [action.meta.id]: {
       ...values[action.meta.id],
-      status:
-        values[action.meta.id].pendingCount === 1 ? "rejected" : "pending",
+      status: values[action.meta.id].pendingCount <= 1 ? "rejected" : "pending",
       pendingCount: decrement(values[action.meta.id].pendingCount),
       error: action.payload,
     },
@@ -433,7 +431,7 @@ export function reducer<T extends { id: number }>(
         ...state,
         indexMeta: {
           ...state.indexMeta,
-          status: state.indexMeta.pendingCount === 1 ? "fulfilled" : "pending",
+          status: state.indexMeta.pendingCount <= 1 ? "fulfilled" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: undefined,
         },
@@ -444,7 +442,7 @@ export function reducer<T extends { id: number }>(
         ...state,
         indexMeta: {
           ...state.indexMeta,
-          status: state.indexMeta.pendingCount === 1 ? "rejected" : "pending",
+          status: state.indexMeta.pendingCount <= 1 ? "rejected" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: action.payload,
         },
@@ -464,7 +462,7 @@ export function reducer<T extends { id: number }>(
       return {
         ...state,
         createMeta: {
-          status: state.createMeta.pendingCount === 1 ? "fulfilled" : "pending",
+          status: state.createMeta.pendingCount <= 1 ? "fulfilled" : "pending",
           pendingCount: decrement(state.createMeta.pendingCount),
           error: undefined,
         },
@@ -474,7 +472,7 @@ export function reducer<T extends { id: number }>(
       return {
         ...state,
         createMeta: {
-          status: state.createMeta.pendingCount === 1 ? "rejected" : "pending",
+          status: state.createMeta.pendingCount <= 1 ? "rejected" : "pending",
           pendingCount: decrement(state.createMeta.pendingCount),
           error: action.payload,
         },
