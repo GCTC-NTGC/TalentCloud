@@ -129,8 +129,8 @@ export function useResourceIndex<T extends { id: number }>(
             payload: error,
             meta: { item: newValue },
           });
+          handleError(error);
         }
-        handleError(error);
         throw error;
       }
       const entity = parseEntityResponse(json) as T;
@@ -159,8 +159,8 @@ export function useResourceIndex<T extends { id: number }>(
           type: ActionTypes.IndexReject,
           payload: error,
         });
+        handleError(error);
       }
-      handleError(error);
       throw error;
     }
     const index = parseIndexResponse(json) as T[];
@@ -193,8 +193,8 @@ export function useResourceIndex<T extends { id: number }>(
             payload: error,
             meta,
           });
+          handleError(error);
         }
-        handleError(error);
         throw error;
       }
       const value = parseEntityResponse(json) as T;
@@ -230,8 +230,8 @@ export function useResourceIndex<T extends { id: number }>(
             payload: error,
             meta: { id },
           });
+          handleError(error);
         }
-        handleError(error);
         throw error;
       }
       if (isSubscribed.current) {

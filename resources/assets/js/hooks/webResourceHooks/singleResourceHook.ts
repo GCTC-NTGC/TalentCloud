@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { useFetch } from "react-async";
-import { fetchParameters, FetchError } from "../../helpers/httpRequests";
+import { Reducer, useCallback, useEffect, useReducer, useRef } from "react";
+import {
+  FetchError,
+  getRequest,
+  processJsonResponse,
+} from "../../helpers/httpRequests";
 import { identity } from "../../helpers/queries";
-import reducer from "./indexCrudReducer";
 import { Json, ResourceStatus } from "./types";
 
 export interface ResourceState<T> {
@@ -63,12 +65,22 @@ function decrement(num: number): number {
   return num <= 0 ? 0 : num - 1;
 }
 
+export function initialState<T>(initialValue: T): ResourceState<T> {
+  return {
+    value: initialValue,
+    status: "initial",
+    pendingCount: 0,
+    error: undefined,
+  };
+}
+
 export function reducer<T>(
   state: ResourceState<T>,
   action: AsyncAction<T>,
 ): ResourceState<T> {
   switch (action.type) {
     case ActionTypes.GetStart:
+    case ActionTypes.UpdateStart: // TODO: For now GET and UPDATE actions can be treated the same. If we want to add optimistic updates, this can change.
       return {
         value: state.value,
         status: "pending",
@@ -76,6 +88,7 @@ export function reducer<T>(
         error: undefined,
       };
     case ActionTypes.GetFulfill:
+    case ActionTypes.UpdateFulfill:
       return {
         value: action.payload,
         status: state.pendingCount === 1 ? "fulfilled" : "pending",
@@ -83,6 +96,7 @@ export function reducer<T>(
         error: undefined,
       };
     case ActionTypes.GetReject:
+    case ActionTypes.UpdateReject:
       return {
         value: state.value,
         status: state.pendingCount === 1 ? "rejected" : "pending",
@@ -94,45 +108,96 @@ export function reducer<T>(
   }
 }
 
+function doNothing(): void {
+  /* do nothing */
+}
+
 export function useResource<T>(
   endpoint: string,
   initialValue: T,
   overrides?: {
     parseResponse?: (response: Json) => T; // Defaults to the identity function.
     skipInitialFetch?: boolean; // Defaults to false. Override if you want to keep the initialValue until refresh is called manually.
+    handleError?: (error: Error | FetchError) => void; // In addition to using the error returned by the hook, you may provide a callback called on every new error.
   },
 ): {
   value: T;
   status: ResourceStatus;
   error: undefined | Error | FetchError;
-  update: (newValue: T) => void;
-  refresh: () => void;
+  update: (newValue: T) => Promise<T>;
+  refresh: () => Promise<T>;
 } {
-  const internalParseResponse = overrides?.parseResponse ?? identity;
-  const skipInitialFetch = overrides?.skipInitialFetch === true;
+  const parseResponse = overrides?.parseResponse ?? identity;
+  const doInitialRefresh = overrides?.skipInitialFetch !== true;
+  const handleError = overrides?.handleError ?? doNothing;
   const isSubscribed = useRef(true);
-  const [value, setValue] = useState(initialValue);
-  const { error, status, reload, run } = useFetch(
-    endpoint,
-    fetchParameters("GET"),
-    {
-      onResolve: (data) => {
-        if (isSubscribed.current) {
-          setValue(internalParseResponse(data));
-        }
-      },
-      initialValue: null, // Setting this prevents fetch from happening on first render. (We call it later if necessary.)
-    },
-  );
-  const refresh = reload;
-  const update = (newValue: T): void => run(fetchParameters("PUT", newValue));
 
-  // Despite the usual useEffect guidelines, this should only run on first render or when endpoint changes.
-  // Changing skipInitialFetch after the first render should not cause a refresh.
+  const [state, dispatch] = useReducer<
+    Reducer<ResourceState<T>, AsyncAction<T>>
+  >(reducer, initialState(initialValue));
+
+  const refresh = useCallback(async (): Promise<T> => {
+    dispatch({ type: ActionTypes.GetStart });
+    let json: Json;
+    try {
+      json = await getRequest(endpoint).then(processJsonResponse);
+    } catch (error) {
+      if (isSubscribed.current) {
+        dispatch({
+          type: ActionTypes.GetReject,
+          payload: error,
+        });
+        handleError(error);
+      }
+      throw error;
+    }
+    const responseValue = parseResponse(json) as T;
+    if (isSubscribed.current) {
+      dispatch({
+        type: ActionTypes.GetFulfill,
+        payload: responseValue,
+      });
+    }
+    return responseValue;
+  }, [endpoint, parseResponse, handleError]);
+
+  const update = useCallback(
+    async (newValue): Promise<T> => {
+      dispatch({ type: ActionTypes.UpdateStart, meta: { item: newValue } });
+      let json: Json;
+      try {
+        json = await getRequest(endpoint).then(processJsonResponse);
+      } catch (error) {
+        if (isSubscribed.current) {
+          dispatch({
+            type: ActionTypes.UpdateReject,
+            payload: error,
+            meta: { item: newValue },
+          });
+          handleError(error);
+        }
+        throw error;
+      }
+      const responseValue = parseResponse(json) as T;
+      if (isSubscribed.current) {
+        dispatch({
+          type: ActionTypes.UpdateFulfill,
+          payload: responseValue,
+          meta: { item: newValue },
+        });
+      }
+      return responseValue;
+    },
+    [endpoint, parseResponse, handleError],
+  );
+
+  // Despite the usual guidlines, this should only be reconsidered if endpoint changes.
+  // Changing doInitialRefresh after the first run (or the refresh function) should not cause this to rerun.
   useEffect(() => {
-    if (!skipInitialFetch) {
+    if (doInitialRefresh) {
       refresh();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint]);
 
   // Unsubscribe from promises when this hook is unmounted.
@@ -142,7 +207,13 @@ export function useResource<T>(
     };
   }, []);
 
-  return { value, status, error, update, refresh };
+  return {
+    value: state.value,
+    status: state.status,
+    error: state.error,
+    update,
+    refresh,
+  };
 }
 
 export default useResource;
