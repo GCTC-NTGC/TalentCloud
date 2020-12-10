@@ -1,6 +1,7 @@
 import fetchMock from "fetch-mock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import useResource from "./singleResourceHook";
+import { FetchError } from "../../helpers/httpRequests";
 
 describe("singleResourceHook", () => {
   afterEach((): void => {
@@ -98,5 +99,33 @@ describe("singleResourceHook", () => {
     });
     expect(result.current.status).toEqual("fulfilled");
     expect(result.current.value).toEqual(newValue);
+  });
+  it("Returns an error and 'rejected' status when fetch returns a server error", async () => {
+    const initialValue = { name: "Talent Cloud", age: 3 };
+    fetchMock.once(endpoint, 500);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResource(endpoint, initialValue),
+    );
+    expect(result.current.value).toEqual(initialValue);
+    expect(result.current.status).toEqual("pending");
+    await waitForNextUpdate();
+    expect(result.current.value).toEqual(initialValue);
+    expect(result.current.status).toEqual("rejected");
+    expect(result.current.error instanceof FetchError).toBe(true);
+  });
+  it("refresh() rejects with an error when fetch returns a server error", async () => {
+    const initialValue = { name: "Talent Cloud", age: 3 };
+    fetchMock.once(endpoint, 500);
+    const { result } = renderHook(() =>
+      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+    );
+    expect(result.current.value).toEqual(initialValue);
+    expect(result.current.status).toEqual("initial");
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toBeInstanceOf(FetchError);
+    });
+    expect(result.current.value).toEqual(initialValue);
+    expect(result.current.status).toEqual("rejected");
+    expect(result.current.error instanceof FetchError).toBe(true);
   });
 });

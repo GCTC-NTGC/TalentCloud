@@ -248,7 +248,7 @@ export function useResourceIndex<T extends { id: number }>(
   // Changing doInitialRefresh after the first run (or refresh) should not cause this to rerun.
   useEffect(() => {
     if (doInitialRefresh) {
-      refresh();
+      refresh().catch(doNothing);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint]);
