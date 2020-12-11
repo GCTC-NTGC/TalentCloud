@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\Classification;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
@@ -169,4 +170,11 @@ $factory->afterCreating(Manager::class, function ($manager) : void {
     $manager->work_environment()->save(factory(WorkEnvironment::class)->create([
         'manager_id' => $manager->id,
     ]));
+});
+
+$factory->afterCreating(Applicant::class, function ($applicant, Faker\Generator $faker) : void {
+    $applicant->classifications()->attach([
+        Classification::inRandomOrder()->first()->id => ['level' => $faker->numberBetween(0, 9), 'order' => 0],
+        Classification::inRandomOrder()->first()->id => ['level' => $faker->numberBetween(0, 9), 'order' => 1],
+    ]);
 });
