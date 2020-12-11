@@ -16,9 +16,6 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 }) => {
   const intl = useIntl();
 
-  console.log("gocClassifications ... ")
-  console.dir(gocClassifications)
-
   const handleSelectedClassification : any = function(e : any){
     this.setState({selectedClassification:e.target.value});
   }
@@ -28,11 +25,26 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
     return ""
   }
 
-  let uniqueClassifications : string[] = [];
+  let uniqueClassifications : any[] = [];
+
+  // Iterate over goc classifications to extract the desired values
   gocClassifications.forEach(function(item : GocClassification) {
-    console.log("Checking ... " + item.classification.key)
-    if (!uniqueClassifications.includes(item.classification.key)) {
-      uniqueClassifications.push(item.classification.key)
+    var jsonObj = {id: item.classification.id, key: item.classification.key}
+
+    var flag = 1
+
+    // iterate over the new array to make sure the current pair has not already been added
+    uniqueClassifications.forEach(function (item) {
+      if ( (JSON.stringify(item) == JSON.stringify(jsonObj)) ) {
+        flag = 0
+        return
+      }
+      flag = 1
+    })
+
+    // If the flag equals one, then it is a new key value pair. Add the record to the array, as it is unique
+    if (flag == 1) {
+      uniqueClassifications.push(jsonObj)
     }
   })
 
@@ -58,19 +70,10 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select required id="SEL2" onChange={handleSelectedClassification} >
-              {
-                gocClassifications.map(item => {
-                  <option>{item.classification.key}</option>
-                })
-              }
-              {/*
-              <option>CS</option>
-              <option>AS</option>
-              <option>EC</option>
-              <option>EX</option>
-              <option>The only option</option>
-              */}
+            <select  required id="SEL2" onChange={handleSelectedClassification} >
+              {uniqueClassifications.map(item =>
+                <option key={item.id} value={item.id}>{item.key}</option>
+              )};
             </select>
           </div>
           <span>This input has an error.</span>
