@@ -132,10 +132,9 @@ class Applicant extends BaseModel
 
     public function classifications() //phpcs:ignore
     {
-        return $this->belongsToMany(\App\Models\Classification::class)
-        ->withPivot(['level', 'order'])
-        ->as('gov_classification')
-        ->withTimestamps();
+        return $this->belongsToMany(\App\Models\Classification::class, 'applicant_classification')
+            ->withPivot(['level', 'order'])
+            ->as('gov_classification');
     }
 
     public function skills() // phpcs:ignore

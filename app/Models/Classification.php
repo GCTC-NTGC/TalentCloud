@@ -45,9 +45,8 @@ class Classification extends BaseModel
 
     public function applicants() //phpcs:ignore
     {
-        return $this->belongsToMany(\App\Models\Applicant::class)
+        return $this->belongsToMany(\App\Models\Applicant::class, 'applicant_classification')
         ->withPivot(['level', 'order'])
-        ->as('gov_classification')
-        ->withTimestamps();
+        ->as('gov_classification');
     }
 }
