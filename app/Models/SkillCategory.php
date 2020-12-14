@@ -41,6 +41,11 @@ class SkillCategory extends BaseModel
         'name',
     ];
 
+    /**
+     * @var string
+     */
+    protected $table = 'skill_categories';
+
     public function skills() // phpcs:ignore
     {
         return $this->belongsToMany(\App\Models\Skill::class, 'skill_skill_category');
