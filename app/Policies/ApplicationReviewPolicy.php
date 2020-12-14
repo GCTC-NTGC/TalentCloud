@@ -21,11 +21,7 @@ class ApplicationReviewPolicy extends BasePolicy
     public function update(User $user, ApplicationReview $applicationReview)
     {
         $user->loadMissing('manager');
-        // TODO: Is there business logic around who can update/create application reviews?
-        // Does it need to be the manager who created the Job Poster, or can it be any manager/HR advisor?
-        // $applicationReview->loadMissing('job_application.job_poster.manager');
-        // return $user->isUpgradedManager() &&
-        //     $applicationReview->job_application->job_poster->manager->id === $user->manager->id;
-        return $user->isUpgradedManager();
+        $applicationReview->loadMissing('job_application.job_poster');
+        return $user->can('reviewApplicationsFor', $applicationReview->job_application->job_poster);
     }
 }
