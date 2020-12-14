@@ -13,6 +13,7 @@ use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\SkillCategory;
 use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
@@ -207,10 +208,10 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Get five skill ids at random.
-        $skills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
+        $applicantSkills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
 
         // Add skills to applicant user.
-        $applicantUser->applicant->skills()->attach($skills);
+        $applicantUser->applicant->skills()->attach($applicantSkills);
 
         // Ensure there are several jobs the hr advisor can claim.
         $hrDepartment = $hrUser->department_id;
@@ -229,5 +230,33 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+         // Create first parent skill category.
+        $skillCategoryParentFirst = factory(SkillCategory::class, 1)->create(['depth' => 1]);
+
+        // Create second parent skill category.
+        $skillCategoryParentSecond = factory(SkillCategory::class, 1)->create(['depth' => 1]);
+
+        // Create child categories for the first parent category.
+        factory(SkillCategory::class, 4)->create([
+            'parent_id' => $skillCategoryParentFirst->first()->id,
+            'depth' => 2
+        ]);
+
+        // Create child categories for the second parent category.
+        factory(SkillCategory::class, 4)->create([
+            'parent_id' => $skillCategoryParentSecond->first()->id,
+            'depth' => 2
+        ]);
+
+        // Create relationship between skill and skill category.
+        $skills = Skill::all();
+        foreach ($skills as $skill) {
+            /*
+            Include skill categories created.
+            Exclude skill categories created that do not have children.
+            */
+            $skill->skill_categories()->attach([rand(3, 10)]);
+        }
     }
 }
