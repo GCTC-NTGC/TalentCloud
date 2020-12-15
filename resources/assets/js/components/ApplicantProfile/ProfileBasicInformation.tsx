@@ -1,10 +1,16 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ChangeEvent, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { GocClassification } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
+import { removeDuplicatesById } from "../../helpers/queries";
 
 export interface ProfileBasicInformationProps {
   gocClassifications : GocClassification[]
+}
+
+interface ClassificationDropdownKeyValue {
+  id: number,
+  key: string,
 }
 
 export interface ClassificationDropdownsProps {
@@ -16,51 +22,40 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 }) => {
   const intl = useIntl();
 
-  const handleSelectedClassification : any = function(e : any){
-    this.setState({selectedClassification:e.target.value});
+  const safeParseInt = function(str : string | null) : number {
+    if (str == null) return 0
+    else if (typeof str == "string") return parseInt(str)
+    else return -1
   }
 
-  const getSelectedClassification : any = function() {
-    //return this.state.selectedClassification
-    return ""
+  const [selectedClassification, setSelectedClassification] = useState<string | null>(
+    null,
+  );
+
+  const handleSelectedClassification = function(e : ChangeEvent<HTMLSelectElement>){
+    setSelectedClassification(e.target.value)
+
   }
 
-  let uniqueClassifications : any[] = [];
+  const uniqueClassifications = removeDuplicatesById(
+    gocClassifications.map((item) => ({
+      id: item.classification.id,
+      key: item.classification.key,
+    })),
+  );
 
-  // Iterate over goc classifications to extract the desired values
-  gocClassifications.forEach(function(item : GocClassification) {
-    var jsonObj = {id: item.classification.id, key: item.classification.key}
+  function getLevelsOfClassification(classificationKey : number | null) : string[] {
 
-    var flag = 1
+    const correspondingGocClassifications = gocClassifications.filter(
+      item => item.classification.id == classificationKey
+    )
 
-    // iterate over the new array to make sure the current pair has not already been added
-    uniqueClassifications.forEach(function (item) {
-      if ( (JSON.stringify(item) == JSON.stringify(jsonObj)) ) {
-        flag = 0
-        return
-      }
-      flag = 1
-    })
-
-    // If the flag equals one, then it is a new key value pair. Add the record to the array, as it is unique
-    if (flag == 1) {
-      uniqueClassifications.push(jsonObj)
-    }
-  })
-
-  function getLevelsOfClassification(classificationKey : string) {
-    let correspondingGocClassifications : GocClassification[] = [];
-    gocClassifications.forEach(function( item : GocClassification) {
-      if (item.classification.key == classificationKey) {
-        correspondingGocClassifications.push(item)
-      }
-    })
-
-    let correspondingLevels : Number[] = [];
+    let correspondingLevels : string[] = [];
     correspondingGocClassifications.forEach(function(correspondingGocClassification : GocClassification) {
-      correspondingLevels.push(correspondingGocClassification.level)
+      correspondingLevels.push(correspondingGocClassification.level.toString())
     })
 
+    console.dir(correspondingLevels)
     return correspondingLevels
   }
 
@@ -83,17 +78,10 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
             <i className="fas fa-caret-down" />
             <select required id="SEL2">
               {
-                getLevelsOfClassification(getSelectedClassification()).map(item => {
-                  <option>{item}</option>
+                getLevelsOfClassification(safeParseInt(selectedClassification)).map(item => {
+                  <option key={item} value={item}>{item}</option>
                 })
               }
-              {/*
-              <option>01</option>
-              <option>02</option>
-              <option>03</option>
-              <option>04</option>
-              <option>05</option>
-               */}
             </select>
           </div>
           <span>This input has an error.</span>

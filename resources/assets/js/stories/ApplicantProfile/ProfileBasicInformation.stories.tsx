@@ -17,8 +17,6 @@ stories.add(
     const [basicInformations, setBasicInformations] = useStorybookState(fakeBasicInformation());
     const [gocClassifications]  = useStorybookState(fakeGocClassifications());
 
-    console.dir(gocClassifications)
-
     return (
       <ProfileBasicInformation gocClassifications={gocClassifications}
       />
