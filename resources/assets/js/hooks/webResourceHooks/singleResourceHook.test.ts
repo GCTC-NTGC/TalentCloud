@@ -16,7 +16,7 @@ describe("singleResourceHook", () => {
       "*",
       {},
       {
-        delay: 500,
+        delay: 10,
       },
     );
     const initialValue = { name: "Talent Cloud", age: 3 };
@@ -34,7 +34,7 @@ describe("singleResourceHook", () => {
       "*",
       {},
       {
-        delay: 500,
+        delay: 10,
       },
     );
     const initialValue = { name: "Talent Cloud", age: 3 };
@@ -102,7 +102,7 @@ describe("singleResourceHook", () => {
   });
   it("Returns an error and 'rejected' status when fetch returns a server error", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
-    fetchMock.once(endpoint, 500);
+    fetchMock.once(endpoint, 10);
     const { result, waitForNextUpdate } = renderHook(() =>
       useResource(endpoint, initialValue),
     );
@@ -115,7 +115,7 @@ describe("singleResourceHook", () => {
   });
   it("refresh() rejects with an error when fetch returns a server error", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
-    fetchMock.once(endpoint, 500);
+    fetchMock.once(endpoint, 10);
     const { result } = renderHook(() =>
       useResource(endpoint, initialValue, { skipInitialFetch: true }),
     );
@@ -128,4 +128,26 @@ describe("singleResourceHook", () => {
     expect(result.current.status).toEqual("rejected");
     expect(result.current.error instanceof FetchError).toBe(true);
   });
+  it("If refresh() is called twice, and one request returns, status remains pending", async () => {
+    fetchMock.once(endpoint, {},{
+      delay: 10,
+    });
+    // Second call will take longer.
+    fetchMock.mock("*", {},{
+      delay: 20,
+    });
+    const { result } = renderHook(() =>
+      useResource(endpoint, null, { skipInitialFetch: true }),
+    );
+    await act(async () => {
+      const refreshPromise1 = result.current.refresh();
+      const refreshPromise2 = result.current.refresh();
+      await refreshPromise1;
+      expect(result.current.status).toEqual("pending");
+      await refreshPromise2;
+      expect(result.current.status).toEqual("fulfilled");
+    });
+  });
+
+  // it("update() changes status to pending")
 });
