@@ -293,4 +293,42 @@ describe("singleResourceHook", () => {
     expect(updateError).toBeInstanceOf(FetchError);
     expect(updateError.response.status).toBe(500);
   });
+  it("A successful refresh will overwrite a previous error state", async () => {
+    const responseValue = {name: "Talent Cloud", age: 3};
+    // First request fails, second succeeds
+    fetchMock.once(endpoint, 404);
+    fetchMock.mock("*", responseValue);
+    const { result, waitFor } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    await waitFor(() => result.current.status === "rejected");
+    expect(result.current.value).toBe(null);
+    expect(result.current.error).not.toBeUndefined();
+
+    await act(async () => {
+      await result.current.refresh();
+    });
+    expect(result.current.status).toBe("fulfilled");
+    expect(result.current.value).toEqual(responseValue);
+    expect(result.current.error).toBeUndefined();
+  });
+  it("A successful update will overwrite a previous error state", async () => {
+    const responseValue = {name: "Talent Cloud", age: 3};
+    // First request fails, second succeeds
+    fetchMock.once(endpoint, 404);
+    fetchMock.mock("*", responseValue);
+    const { result, waitFor } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    await waitFor(() => result.current.status === "rejected");
+    expect(result.current.value).toBe(null);
+    expect(result.current.error).not.toBeUndefined();
+
+    await act(async () => {
+      await result.current.update(null);
+    });
+    expect(result.current.status).toBe("fulfilled");
+    expect(result.current.value).toEqual(responseValue);
+    expect(result.current.error).toBeUndefined();
+  });
 });
