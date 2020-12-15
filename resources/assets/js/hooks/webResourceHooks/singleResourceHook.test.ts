@@ -260,7 +260,37 @@ describe("singleResourceHook", () => {
       expect(result.current.status).toEqual("fulfilled");
     });
   });
-  // it("handleError is called on any fetch errors, if its passed in", async () => {
+  it("handleError is called on any fetch errors, if its passed in", async () => {
+    fetchMock.get(endpoint, 404);
+    fetchMock.putOnce(endpoint, 500);
+    const handleError = jest.fn();
+    const { result, waitFor } = renderHook(() =>
+      useResource(endpoint, null, { handleError }),
+    );
+    await waitFor(() => result.current.status === "rejected");
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError).toBeInstanceOf(FetchError);
+    expect(initialError.response.status).toBe(404);
 
-  // });
+    await act(async () => {
+      await result.current.refresh().catch(() => { /* Do nothing*/});
+    });
+    // handleError was called again on refresh.
+    expect(handleError.mock.calls.length).toBe(2);
+    const refreshError = handleError.mock.calls[1][0];
+    expect(refreshError).toBeInstanceOf(FetchError);
+    expect(refreshError.response.status).toBe(404);
+
+    await act(async () => {
+      await result.current.update(null).catch(() => { /* Do nothing*/});
+    });
+    // handleError was called again on update.
+    expect(handleError.mock.calls.length).toBe(3);
+    const updateError = handleError.mock.calls[2][0];
+    expect(updateError).toBeInstanceOf(FetchError);
+    expect(updateError.response.status).toBe(500);
+  });
 });
