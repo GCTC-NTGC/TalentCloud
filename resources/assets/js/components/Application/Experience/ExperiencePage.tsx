@@ -19,10 +19,10 @@ import {
 } from "../../../models/types";
 import {
   createExperience,
-  createExperienceSkill,
   updateExperience,
-  deleteExperienceSkill,
   deleteExperience,
+  batchCreateExperienceSkills,
+  batchDeleteExperienceSkills,
 } from "../../../store/Experience/experienceActions";
 import { getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
@@ -134,15 +134,18 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
         const newExperience = (await result.payload).experience;
-        const saveRequests = newLinkedSkills.map((skill) => {
-          const expSkill = newExpSkill(skill.id, newExperience);
-          return dispatch(createExperienceSkill(expSkill));
+        const expSkills: ExperienceSkill[] = newLinkedSkills.map((skill) => {
+          return newExpSkill(skill.id, newExperience);
         });
-        await Promise.allSettled(saveRequests);
+        if (expSkills.length > 0) {
+          dispatch(batchCreateExperienceSkills(expSkills));
+        }
       }
     } else {
+      const allRequests: Promise<any>[] = [];
       // If the experience already exists it can simply be updated.
       const updateExpRequest = dispatch(updateExperience(experience));
+      allRequests.push(updateExpRequest);
       // Determine which skills were already linked to the experience
       const prevExpSkills = experienceSkills.filter(
         (expSkill) =>
@@ -156,32 +159,35 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const newSkillIds = newLinkedSkills.map(getId);
 
       // Delete skills that were removed.
-      const deleteRequests = prevExpSkills
-        .filter((expSkill) => !newSkillIds.includes(expSkill.skill_id))
-        .map((expSkill) =>
-          dispatch(
-            deleteExperienceSkill(
-              expSkill.id,
-              expSkill.experience_id,
-              expSkill.experience_type,
-            ),
-          ),
+      const expSkillsToDelete = prevExpSkills.filter(
+        (expSkill) => !newSkillIds.includes(expSkill.skill_id),
+      );
+      if (expSkillsToDelete.length > 0) {
+        const batchDeleteExpSkillsRequest = dispatch(
+          batchDeleteExperienceSkills(expSkillsToDelete),
         );
+        allRequests.push(batchDeleteExpSkillsRequest);
+      }
+
       // Created new Experience Skills for skills which don't exist yet.
-      const createRequests = newSkillIds
-        .filter((newSkillId) => !prevSkillIds.includes(newSkillId))
-        .map((newSkillId) =>
-          experience
-            ? dispatch(
-                createExperienceSkill(newExpSkill(newSkillId, experience)),
-              )
-            : Promise.reject(),
+      const newExpSkills: ExperienceSkill[] = [];
+      const newExpSkillIds = newSkillIds.filter(
+        (newSkillId) => !prevSkillIds.includes(newSkillId),
+      );
+      newExpSkillIds.forEach((expSkillId) => {
+        if (experience) {
+          newExpSkills.push(newExpSkill(expSkillId, experience));
+        }
+      });
+
+      if (newExpSkills.length > 0) {
+        const batchCreateExpSkillsRequest = dispatch(
+          batchCreateExperienceSkills(newExpSkills),
         );
-      await Promise.allSettled([
-        updateExpRequest,
-        ...deleteRequests,
-        ...createRequests,
-      ]);
+        allRequests.push(batchCreateExpSkillsRequest);
+      }
+
+      await Promise.allSettled(allRequests);
     }
   };
   const handleDelete = async (
