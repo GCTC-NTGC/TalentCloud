@@ -3,6 +3,7 @@ import {
   FetchError,
   getRequest,
   processJsonResponse,
+  putRequest,
 } from "../../helpers/httpRequests";
 import { identity } from "../../helpers/queries";
 import { Json, ResourceStatus } from "./types";
@@ -166,7 +167,7 @@ export function useResource<T>(
       dispatch({ type: ActionTypes.UpdateStart, meta: { item: newValue } });
       let json: Json;
       try {
-        json = await getRequest(endpoint).then(processJsonResponse);
+        json = await putRequest(endpoint, newValue).then(processJsonResponse);
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
