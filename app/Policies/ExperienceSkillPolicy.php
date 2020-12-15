@@ -50,7 +50,8 @@ class ExperienceSkillPolicy extends BasePolicy
      * Determine whether the user can delete the ExperienceSkill.
      *
      * @param  \App\Models\User  $user
-     * @param  ExperienceSkill $experienceSkill@return mixed
+     * @param  ExperienceSkill $experienceSkill
+     * @return mixed
      */
     public function delete(User $user, $experienceSkill)
     {
