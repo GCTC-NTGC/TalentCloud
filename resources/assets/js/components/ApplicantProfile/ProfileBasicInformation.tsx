@@ -34,7 +34,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 
   const handleSelectedClassification = function(e : ChangeEvent<HTMLSelectElement>){
     setSelectedClassification(e.target.value)
-
+    getLevelsOfClassification(parseInt(e.target.value))
   }
 
   const uniqueClassifications = removeDuplicatesById(
@@ -55,7 +55,6 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
       correspondingLevels.push(correspondingGocClassification.level.toString())
     })
 
-    console.dir(correspondingLevels)
     return correspondingLevels
   }
 
@@ -66,6 +65,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
           <div>
             <i className="fas fa-caret-down" />
             <select  required id="SEL2" onChange={handleSelectedClassification} >
+              <option></option>
               {uniqueClassifications.map(item =>
                 <option key={item.id} value={item.id}>{item.key}</option>
               )};
@@ -77,10 +77,11 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
           <div>
             <i className="fas fa-caret-down" />
             <select required id="SEL2">
+              <option></option>
               {
-                getLevelsOfClassification(safeParseInt(selectedClassification)).map(item => {
+                getLevelsOfClassification(safeParseInt(selectedClassification)).map(item =>
                   <option key={item} value={item}>{item}</option>
-                })
+                )
               }
             </select>
           </div>
