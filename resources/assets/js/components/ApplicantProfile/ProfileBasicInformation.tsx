@@ -13,6 +13,7 @@ export interface ProfileBasicInformationProps {
 
 export interface ClassificationDropdownsProps {
   gocClassifications : GocClassification[]
+  selectedItem?: GocClassification
 }
 
 export interface PreviousGcExperienceProps {
@@ -66,7 +67,11 @@ const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
           <li>
             {/* Turn this into a reuseable component */}
             <div data-c-grid="gutter top">
-              <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
+              <ClassificationDropdowns
+                gocClassifications={gocClassifications}
+                selectedItem={experience}
+                data-c-grid-item="base(2of2) tl(2of3)"
+              />
               <div
                 data-c-grid-item="base(1of1) tl(1of3)"
                 data-c-input="select"
@@ -89,7 +94,8 @@ const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
 };
 
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
-  gocClassifications
+  gocClassifications,
+  selectedItem
 }) => {
 
   const safeParseInt = function(str : string | null) : number {
@@ -133,7 +139,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select  required id="SEL2" onChange={handleSelectedClassification} >
+            <select value={selectedItem?.classification.id} required id="SEL2" onChange={handleSelectedClassification} >
               <option></option>
               {uniqueClassifications.map(item =>
                 <option key={item.id} value={item.id}>{item.key}</option>
@@ -145,7 +151,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select required id="SEL2">
+            <select value={selectedItem?.level} required id="SEL2">
               <option></option>
               {
                 getLevelsOfClassification(safeParseInt(selectedClassification)).map(item =>
