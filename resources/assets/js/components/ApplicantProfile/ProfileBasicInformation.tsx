@@ -1,13 +1,12 @@
 import React, { FunctionComponent, ChangeEvent, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { GocClassification } from "../../models/types";
+import { GocClassification, ProfileBasicInformation as ProfileBasicInformationProp } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
 import { removeDuplicatesById } from "../../helpers/queries";
-import { FastField, Field, Formik, Form } from "formik";
-import SelectInput from "../Form/SelectInput";
 
 export interface ProfileBasicInformationProps {
   gocClassifications : GocClassification[],
+  basicInformation: ProfileBasicInformationProp,
   name: string,
   email: string,
 }
@@ -18,15 +17,39 @@ export interface ClassificationDropdownsProps {
 
 export interface PreviousGcExperienceProps {
   gocClassifications : GocClassification[],
+  previousExperienceProp: GocClassification[],
   wasGcEmployee: boolean
 }
 
 const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
+  previousExperienceProp,
   gocClassifications,
   wasGcEmployee
 }) => {
 
   const intl = useIntl();
+
+  const [previousExperience, setPreviousExperience] = useState<GocClassification[]>(previousExperienceProp);
+
+  const removeExperience = function(e : React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    console.dir(e)
+  }
+
+  const addExperience = function(e : React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+    previousExperience.push({
+      classification: {
+        id: 0,
+        key: "",
+        name: {
+          en: "",
+          fr: ""
+        },
+      },
+      level: 0,
+      order: 0,
+    })
+    setPreviousExperience(previousExperience)
+  }
 
   if (!wasGcEmployee)
     return (<></>)
@@ -37,32 +60,33 @@ const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
     <ClassificationDropdowns gocClassifications={gocClassifications} />
 
     <label htmlFor="SEL2">Add previous Government classifications</label>
-        <div id="list-previous-gov-class">
-          <ol>
-            <li>
-              {/* Turn this into a reuseable component */}
-              <div data-c-grid="gutter top">
-                <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
-                <div
-                  data-c-grid-item="base(1of1) tl(1of3)"
-                  data-c-input="select"
-                >
-                  <button data-c-button="solid(c1)">
-                    <i className="fa fa-trash" /> Remove
-                  </button>
-                  <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
-                </div>
+      <div id="list-previous-gov-class">
+      {previousExperience.map( experience =>
+        <ol>
+          <li>
+            {/* Turn this into a reuseable component */}
+            <div data-c-grid="gutter top">
+              <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
+              <div
+                data-c-grid-item="base(1of1) tl(1of3)"
+                data-c-input="select"
+              >
+                <button data-c-button="solid(c1)" onClick={removeExperience}>
+                  <i className="fa fa-trash" /> Remove
+                </button>
+                <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
               </div>
-            </li>
-          </ol>
-        </div>
-        <a data-c-button="solid(c1)" href="#">
-          {intl.formatMessage(myBasicInformationMessages.addClassification)}
-        </a>
+            </div>
+          </li>
+        </ol>
+      )}
+      </div>
+      <a data-c-button="solid(c1)" onClick={addExperience}>
+        {intl.formatMessage(myBasicInformationMessages.addClassification)}
+      </a>
     </>
   );
 };
-
 
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
   gocClassifications
@@ -139,6 +163,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 
 export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({
   gocClassifications,
+  basicInformation,
   name,
   email
 }) => {
@@ -231,6 +256,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
 
         <PreviousGcExperience
           gocClassifications={gocClassifications}
+          previousExperienceProp={basicInformation.previous_classifications}
           wasGcEmployee={wasGcEmployee}
         />
 

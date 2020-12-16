@@ -14,7 +14,7 @@ const stories = storiesOf("Applicant Profile/Basic Information", module).addDeco
 stories.add(
   "Basic",
   (): React.ReactElement => {
-    const [basicInformations, setBasicInformations] = useStorybookState(fakeBasicInformation());
+    const [basicInformation, setBasicInformations] = useStorybookState(fakeBasicInformation());
     const [gocClassifications]  = useStorybookState(fakeGocClassifications());
 
     return (
@@ -22,6 +22,7 @@ stories.add(
         name="Gerardi Escandon"
         email="jerbo@personal.com"
         gocClassifications={gocClassifications}
+        basicInformation={basicInformation}
       />
     );
   },
