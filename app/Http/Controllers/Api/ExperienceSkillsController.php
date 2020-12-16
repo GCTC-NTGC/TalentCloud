@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreExperienceSkill;
 use App\Models\ExperienceSkill;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,13 +22,16 @@ class ExperienceSkillsController extends Controller
         ])->first();
 
         // Attach skill to applicant if not already attached.
-        $applicant = $request->user()->applicant;
-        $skillApplicantRelationshipExists = $applicant->skills()
-            ->wherePivot('applicant_id', $applicant->id)
-            ->wherePivot('skill_id', $data['skill_id'])
+        $experience = new Experience();
+        $experienceInstance = $experience->getExperienceInstance($data['experience_type'], $data['experience_id']);
+        $applicantInstance = $experience->getApplicantInstance($experienceInstance);
+        if ($applicantInstance !== null) {
+            $skillApplicantRelationshipExists = $applicantInstance->skills()
+            ->where('skills.id', $data['skill_id'])
             ->exists();
-        if ($applicant != null && $skillApplicantRelationshipExists != 1) {
-            $applicant->skills()->attach($data['skill_id']);
+            if ($skillApplicantRelationshipExists !== true) {
+                $applicantInstance->skills()->attach($data['skill_id']);
+            }
         }
 
         if ($softDeletedExperienceSkill) {
