@@ -3,14 +3,13 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { GocClassification } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
 import { removeDuplicatesById } from "../../helpers/queries";
+import { FastField, Field, Formik, Form } from "formik";
+import SelectInput from "../Form/SelectInput";
 
 export interface ProfileBasicInformationProps {
-  gocClassifications : GocClassification[]
-}
-
-interface ClassificationDropdownKeyValue {
-  id: number,
-  key: string,
+  gocClassifications : GocClassification[],
+  name: string,
+  email: string,
 }
 
 export interface ClassificationDropdownsProps {
@@ -20,7 +19,6 @@ export interface ClassificationDropdownsProps {
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
   gocClassifications
 }) => {
-  const intl = useIntl();
 
   const safeParseInt = function(str : string | null) : number {
     if (str == null) return 0
@@ -93,7 +91,9 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 };
 
 export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({
-  gocClassifications
+  gocClassifications,
+  name,
+  email
 }) => {
   const intl = useIntl();
 
@@ -112,10 +112,10 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
         </p>
         <div>
           <p>
-            Name: <b data-c-color="c1">Gerardi Escandon</b>{" "}
+            Name: <b data-c-color="c1"> {name} </b>{" "}
           </p>
           <p>
-            Personal Email: <b data-c-color="c1">jerbo@personal.com</b>{" "}
+            Personal Email: <b data-c-color="c1"> {email} </b>{" "}
           </p>
           <p>
             To change these go to:{" "}
@@ -128,6 +128,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           <label htmlFor="SEL2">{intl.formatMessage(myBasicInformationMessages.citizenStatus)}</label>
           <span>Required</span>
           <div data-c-grid-item="base(1of3)">
+
             <i className="fas fa-caret-down" />
             <select required id="SEL2">
               <option disabled selected>
@@ -189,16 +190,18 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
                   data-c-grid-item="base(1of1) tl(1of3)"
                   data-c-input="select"
                 >
-                  <a href="#" data-c-color="c1">
-                    Remove
-                  </a>
+                  <button data-c-button="solid(c1)">
+                    <i className="fa fa-trash" /> Remove
+                  </button>
                   <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
                 </div>
               </div>
             </li>
           </ol>
         </div>
-        <a href="#">{intl.formatMessage(myBasicInformationMessages.addClassification)}</a>
+        <a data-c-button="solid(c1)" href="#">
+          {intl.formatMessage(myBasicInformationMessages.addClassification)}
+        </a>
       </div>
     </>
   );

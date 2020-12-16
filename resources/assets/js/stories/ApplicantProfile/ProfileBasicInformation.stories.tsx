@@ -18,7 +18,10 @@ stories.add(
     const [gocClassifications]  = useStorybookState(fakeGocClassifications());
 
     return (
-      <ProfileBasicInformation gocClassifications={gocClassifications}
+      <ProfileBasicInformation
+        name="Gerardi Escandon"
+        email="jerbo@personal.com"
+        gocClassifications={gocClassifications}
       />
     );
   },
