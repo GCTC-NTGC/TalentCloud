@@ -16,6 +16,54 @@ export interface ClassificationDropdownsProps {
   gocClassifications : GocClassification[]
 }
 
+export interface PreviousGcExperienceProps {
+  gocClassifications : GocClassification[],
+  wasGcEmployee: boolean
+}
+
+const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
+  gocClassifications,
+  wasGcEmployee
+}) => {
+
+  const intl = useIntl();
+
+  if (!wasGcEmployee)
+    return (<></>)
+
+  return (
+    <>
+    <label htmlFor="SEL2">Current classification and level</label>
+    <ClassificationDropdowns gocClassifications={gocClassifications} />
+
+    <label htmlFor="SEL2">Add previous Government classifications</label>
+        <div id="list-previous-gov-class">
+          <ol>
+            <li>
+              {/* Turn this into a reuseable component */}
+              <div data-c-grid="gutter top">
+                <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
+                <div
+                  data-c-grid-item="base(1of1) tl(1of3)"
+                  data-c-input="select"
+                >
+                  <button data-c-button="solid(c1)">
+                    <i className="fa fa-trash" /> Remove
+                  </button>
+                  <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <a data-c-button="solid(c1)" href="#">
+          {intl.formatMessage(myBasicInformationMessages.addClassification)}
+        </a>
+    </>
+  );
+};
+
+
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
   gocClassifications
 }) => {
@@ -32,7 +80,6 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 
   const handleSelectedClassification = function(e : ChangeEvent<HTMLSelectElement>){
     setSelectedClassification(e.target.value)
-    getLevelsOfClassification(parseInt(e.target.value))
   }
 
   const uniqueClassifications = removeDuplicatesById(
@@ -96,6 +143,12 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
   email
 }) => {
   const intl = useIntl();
+
+  const [wasGcEmployee, setWasGcEmployee] = useState<boolean>(false);
+
+  const currentEmployeeClickHandler = function(){
+    setWasGcEmployee(true)
+  }
 
   return (
     <>
@@ -165,7 +218,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           <span>Required</span>
           <div id="RG2" role="radiogroup">
             <label htmlFor="rB1">
-              <input id="rB1" required name="radioB" type="radio" />
+              <input id="rB1" required name="radioB" type="radio" onClick={currentEmployeeClickHandler} />
               <span>Current GC Employee</span>
             </label>
             <label htmlFor="rB2">
@@ -176,32 +229,11 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
         </div>
 
-        <label htmlFor="SEL2">Current classification and level</label>
-        <ClassificationDropdowns gocClassifications={gocClassifications} />
+        <PreviousGcExperience
+          gocClassifications={gocClassifications}
+          wasGcEmployee={wasGcEmployee}
+        />
 
-        <label htmlFor="SEL2">Add previous Government classifications</label>
-        <div id="list-previous-gov-class">
-          <ol>
-            <li>
-              {/* Turn this into a reuseable component */}
-              <div data-c-grid="gutter top">
-                <ClassificationDropdowns gocClassifications={gocClassifications} data-c-grid-item="base(2of2) tl(2of3)" />
-                <div
-                  data-c-grid-item="base(1of1) tl(1of3)"
-                  data-c-input="select"
-                >
-                  <button data-c-button="solid(c1)">
-                    <i className="fa fa-trash" /> Remove
-                  </button>
-                  <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
-                </div>
-              </div>
-            </li>
-          </ol>
-        </div>
-        <a data-c-button="solid(c1)" href="#">
-          {intl.formatMessage(myBasicInformationMessages.addClassification)}
-        </a>
       </div>
     </>
   );
