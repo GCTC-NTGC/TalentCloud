@@ -821,6 +821,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
               data-c-margin="left(1)"
               type="button"
               onClick={(): void => {
+                // If all required skills have been connected to an experience, then continue.
+                // Else, show error alert.
                 if (disconnectedRequiredSkills.length === 0) {
                   handleContinue();
                 } else {
