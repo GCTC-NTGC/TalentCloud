@@ -53,7 +53,12 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
   const job = useJob(jobId);
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
-  const experienceSkills = useExperienceSkills(applicationId, application);
+  const experienceSkills = useExperienceSkills(
+    applicationId,
+    application,
+  ).filter((expSkill) =>
+    criteria.find((criterion) => criterion.skill_id === expSkill.skill_id),
+  );
   const skills = useSkills();
   const steps = useJobApplicationSteps();
 
