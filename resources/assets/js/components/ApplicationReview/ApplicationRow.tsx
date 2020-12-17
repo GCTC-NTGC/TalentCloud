@@ -146,7 +146,7 @@ interface FormValues {
 
 interface ApplicationRowProps {
   application: Application;
-  handleUpdateReview: (review: ApplicationReview) => Promise<ApplicationReview>;
+  handleUpdateReview: (review: ApplicationReview) => Promise<void>;
   portal: Portal;
 }
 
