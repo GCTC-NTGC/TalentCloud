@@ -38,7 +38,7 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
     console.dir(e)
   }
 
-  const addExperience = function(e : React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+  const addExperience = function(/*e : React.MouseEvent<HTMLAnchorElement, MouseEvent>*/) {
     previousExperience.push({
       classification: {
         id: 0,
@@ -67,7 +67,6 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
       {previousExperience.map( experience =>
         <ol>
           <li>
-            {/* Turn this into a reuseable component */}
             <div data-c-grid="gutter top">
               <ClassificationDropdowns
                 gocClassifications={gocClassifications}
@@ -106,9 +105,14 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
     else return -1
   }
 
-  const [selectedClassification, setSelectedClassification] = useState<string | null>(
-    null,
-  );
+  const getInitialSelectedClassification = () : string | null => {
+    if (selectedItem?.classification.id) {
+      return selectedItem?.classification.id.toString()
+    }
+    return null
+  }
+
+  const [selectedClassification, setSelectedClassification] = useState<string | null>(getInitialSelectedClassification());
 
   const handleSelectedClassification = function(e : ChangeEvent<HTMLSelectElement>){
     setSelectedClassification(e.target.value)
@@ -141,7 +145,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select value={selectedItem?.classification.id} required id="SEL2" onChange={handleSelectedClassification} >
+            <select defaultValue={selectedItem?.classification.id} required id="SEL2" onChange={handleSelectedClassification} >
               <option></option>
               {uniqueClassifications.map(item =>
                 <option key={item.id} value={item.id}>{item.key}</option>
@@ -153,7 +157,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
             <i className="fas fa-caret-down" />
-            <select value={selectedItem?.level} required id="SEL2">
+            <select defaultValue={selectedItem?.level} required id="SEL2">
               <option></option>
               {
                 getLevelsOfClassification(safeParseInt(selectedClassification)).map(item =>
@@ -255,9 +259,6 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           <span>Required</span>
           <div id="RG2" role="radiogroup">
             <label htmlFor="rB1">
-
-
-
               <input id="rB1" required name="radioB" type="radio" defaultChecked={currentGcEmployee} onChange={() => setCurrentGcEmployee(true)} />
               <span>Current GC Employee</span>
             </label>
