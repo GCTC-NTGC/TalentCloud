@@ -130,11 +130,9 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
-    public function classifications() //phpcs:ignore
+    public function applicant_classifications() //phpcs:ignore
     {
-        return $this->belongsToMany(\App\Models\Classification::class, 'applicant_classification')
-            ->withPivot(['level', 'order'])
-            ->as('gov_classification');
+        return $this->hasMany(\App\Models\ApplicantClassification::class);
     }
 
     public function skills() // phpcs:ignore
