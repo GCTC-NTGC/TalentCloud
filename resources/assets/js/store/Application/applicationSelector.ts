@@ -1,6 +1,5 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import createCachedSelector from "re-reselect";
-import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
 import {
@@ -104,6 +103,10 @@ export const getApplicationsByJob = createCachedSelector(
       .filter(notEmpty);
   },
 )((state, ownProps): number => ownProps.jobId);
+
+export const isFetchingApplications = (state: RootState): boolean => {
+  return ui(state).fetchingApplications;
+};
 
 export const getAllReferenceEmails = (
   state: RootState,
