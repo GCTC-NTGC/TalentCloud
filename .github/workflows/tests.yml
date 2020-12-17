@@ -214,7 +214,7 @@ jobs:
      - name: Setup Node.js
        uses: actions/setup-node@v1
        with:
-        node-version: 12.6.0
+        node-version: 14.15.1
 
      - name: Install npm dependencies
        if: steps.npm-cache.outputs.cache-hit != 'true'
