@@ -14,10 +14,12 @@ class AddApplicantClassificationsTable extends Migration
     public function up()
     {
         Schema::create('applicant_classifications', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('applicant_id');
             $table->integer('classification_id');
             $table->integer('level');
             $table->integer('order');
+            $table->timestamps();
         });
 
         Schema::table('applicant_classifications', function (Blueprint $table) {
