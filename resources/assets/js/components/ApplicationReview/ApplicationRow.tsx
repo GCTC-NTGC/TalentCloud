@@ -188,7 +188,8 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       application.application_review?.review_status_id ===
       ReviewStatusId.StillIn,
     "fa-exclamation-circle":
-      application.application_review === undefined || application.application_review?.review_status_id === null,
+      application.application_review === undefined ||
+      application.application_review?.review_status_id === null,
   });
 
   const noteButtonText =
@@ -269,6 +270,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   return (
     <Formik
       initialValues={initialValues}
+      enableReinitialize
       onSubmit={(values, { setSubmitting, resetForm }): void => {
         const review = updateApplicationReview(
           application.application_review || emptyReview,
@@ -351,7 +353,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
 
             <div className="box lg-2of11 applicant-decision">
               <FastField
-                id={`review_status_${application.id}`}
+                id={`review-status-${application.id}`}
                 name="reviewStatus"
                 label={intl.formatMessage(messages.decision)}
                 component={SelectInput}
