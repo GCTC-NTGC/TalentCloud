@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddApplicantClassificationTable extends Migration
+class AddApplicantClassificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class AddApplicantClassificationTable extends Migration
      */
     public function up()
     {
-        Schema::create('applicant_classification', function (Blueprint $table) {
+        Schema::create('applicant_classifications', function (Blueprint $table) {
             $table->integer('applicant_id');
             $table->integer('classification_id');
             $table->integer('level');
             $table->integer('order');
         });
 
-        Schema::table('applicant_classification', function (Blueprint $table) {
+        Schema::table('applicant_classifications', function (Blueprint $table) {
             $table->foreign('applicant_id')
                 ->references('id')
                 ->on('applicants')
@@ -42,6 +42,6 @@ class AddApplicantClassificationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applicant_classification');
+        Schema::dropIfExists('applicant_classifications');
     }
 }
