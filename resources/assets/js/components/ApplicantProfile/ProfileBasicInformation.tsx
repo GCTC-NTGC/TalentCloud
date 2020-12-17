@@ -16,14 +16,16 @@ export interface ClassificationDropdownsProps {
   selectedItem?: GocClassification
 }
 
-export interface PreviousGcExperienceProps {
+export interface GcExperienceProps {
   gocClassifications : GocClassification[],
   previousExperienceProp: GocClassification[],
+  currentGcClassification: GocClassification,
   wasGcEmployee: boolean
 }
 
-const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
+const GcExperience: FunctionComponent<GcExperienceProps> = ({
   previousExperienceProp,
+  currentGcClassification,
   gocClassifications,
   wasGcEmployee
 }) => {
@@ -58,7 +60,7 @@ const PreviousGcExperience: FunctionComponent<PreviousGcExperienceProps> = ({
   return (
     <>
     <label htmlFor="SEL2">Current classification and level</label>
-    <ClassificationDropdowns gocClassifications={gocClassifications} />
+    <ClassificationDropdowns selectedItem={currentGcClassification} gocClassifications={gocClassifications} />
 
     <label htmlFor="SEL2">Add previous Government classifications</label>
       <div id="list-previous-gov-class">
@@ -175,11 +177,15 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
 }) => {
   const intl = useIntl();
 
-  const [wasGcEmployee, setWasGcEmployee] = useState<boolean>(false);
+  const getInitialEmployeeState = () : boolean => {
+    if (basicInformation.current_classification) {
+      return true
+    }
 
-  const currentEmployeeClickHandler = function(){
-    setWasGcEmployee(true)
+    return false
   }
+
+  const [currentGcEmployee, setCurrentGcEmployee] = useState<boolean>(getInitialEmployeeState());
 
   return (
     <>
@@ -249,21 +255,25 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           <span>Required</span>
           <div id="RG2" role="radiogroup">
             <label htmlFor="rB1">
-              <input id="rB1" required name="radioB" type="radio" onClick={currentEmployeeClickHandler} />
+
+
+
+              <input id="rB1" required name="radioB" type="radio" defaultChecked={currentGcEmployee} onChange={() => setCurrentGcEmployee(true)} />
               <span>Current GC Employee</span>
             </label>
             <label htmlFor="rB2">
-              <input id="rB2" required name="radioB" type="radio" />
+              <input id="rB2" required name="radioB" type="radio" onChange={() => setCurrentGcEmployee(false)} />
               <span>Not a GC employee</span>
             </label>
           </div>
           <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
         </div>
 
-        <PreviousGcExperience
+        <GcExperience
           gocClassifications={gocClassifications}
           previousExperienceProp={basicInformation.previous_classifications}
-          wasGcEmployee={wasGcEmployee}
+          currentGcClassification={basicInformation.current_classification}
+          wasGcEmployee={currentGcEmployee}
         />
 
       </div>
