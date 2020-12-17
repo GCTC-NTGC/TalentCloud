@@ -23,6 +23,64 @@ return [
             'label' => 'Pour en savoir davantage'
         ]
     ],
+    "results" => [
+      "title" => "Coup d'œil furtif : les résultats des expériences",
+      "checkback" => "Revenez au début de 2021 pour lire notre rapport complet sur les résultats!",
+      "intro" => "Le nuage de talents a été lancé en 2017 pour explorer de nouvelles approches en matière de recrutement de talents et de mobilité au gouvernement du Canada. Découvrez quelques-uns des leçons que nous avons tirées de l’expérience sur les processus de dotation réels dans quinze ministères différents.",
+      "sections" => [
+        "do" => [
+          "title" => "Ce que nous faisons",
+          "items" => [
+            "01" => "Au cours des trois dernières années, notre équipe a expérimenté des questions liées à l’avenir du travail, à la reconnaissance des compétences interopérables, à la réduction de la durée du processus de dotation, à l’amélioration de la diversité et de l’inclusion, aux résultats d’embauche, à la réduction des préjugés et, en général, à une gestion plus efficace des choses",
+            "02" => "En 2020, lorsque le Canada a connu une augmentation sans précédent du travail à distance en raison de la COVID-19 et que l’accent a été mis à l’échelle nationale sur la nécessité pour les institutions de mettre en œuvre des approches antiracistes efficaces et responsables. Le nuage des talents s’intéresse à ces questions depuis longtemps, et nous sommes bien placés pour aider."
+          ]
+        ],
+        "reduction" => [
+          "title" => "Réduction importante et constante de la durée du processus de dotation",
+          "items" => [
+            "01" => "Les leçons tirées sont applicables et évolutives dans toutes les classifications et tous les ministères.",
+            "02" => "Nous avons automatisé certaines des parties les plus longues du processus d’embauche. Maintenant, les gestionnaires sont régulièrement en mesure de trouver leur meilleur candidat dans les 30 à 50 jours. Ils doivent encore passer par l’autorisation de sécurité, et parfois des tests de langue, mais nous avons eu beaucoup de succès à accélérer les pièces sous notre contrôle.",
+            "03" => "Ces automatismes sont en grande partie basés sur les observations des interactions entre les gestionnaires et les conseillers en RH et ciblent le côté comportemental et communicatif du processus.",
+            "04" => "Les profils des gestionnaires et les renseignements sur la culture d’équipe et le contexte opérationnel sont très importants pour les candidats et génèrent un groupe de candidats de meilleure qualité.",
+            "05" => "Les meilleurs candidats commencent à abandonner le processus dans les deux semaines si l’on ne communique pas avec eux au sujet des prochaines étapes, et ils acceptent rarement des offres de processus qui durent plus de deux mois. Il s’agit d’un point de référence pour le gouvernement, s’il veut conserver les meilleurs talents (par opposition aux talents les moins qualifiés) dans la majorité de ses processus de demande."
+          ]
+        ],
+        "diversity" => [
+          "title" => "Diversité accrue concernant les candidats embauchés, y compris la diversité régionale, les parcours de vie non conventionnels et les divers milieux éducatifs.",
+          "items" => [
+            "01" => "Les groupes de l’équité en matière d’emploi constituent une partie importante de la diversité, mais cela va plus loin.",
+            "02" => "Depuis le lancement du site, nous avons mis en place des interventions spécifiques pour encourager les talents de divers horizons à postuler à des emplois sur le nuage de talents.",
+            "03" => "Le nuage de talents a expérimenté une nouvelle approche à la fois en ce qui concerne les renseignements sur les offres d’emploi et la façon dont les candidats présentent des preuves en fonction des exigences de l’emploi. D’après les renseignements déclarés par le gestionnaire et l’analyse qualitative, cela a produit une diversité accrue tant dans le bassin de candidats que dans la sélection définitive d’embauche que ne l’avaient généralement constaté les gestionnaires dans les processus d’embauche normalisés du GC. embauchés au moyen du nuage de talents. De nombreux candidats ont également déclaré ne jamais avoir présenté de demande d’emploi au gouvernement du Canada auparavant et ont écrit pour dire qu’ils se sentaient « vus » par la nouvelle approche de dotation, même s’ils n’étaient pas sélectionnés comme candidats finaux. Même si cette nouvelle approche est prometteuse, un test à plus grande échelle (avec une taille d’échantillon statistiquement plus grande) sera nécessaire avant que la nouvelle théorie puisse être prouvée pour produire de meilleurs résultats en matière de diversité.",
+            "04" => "Même si la sélection au moyen de la nouvelle approche a parfois été difficile pour les gestionnaires, ils ont constamment signalé des niveaux élevés de bonheur avec les embauches qu’ils ont obtenus au moyen du nuage de talents. Cela a été démontré par des gestionnaires qui retournaient deux et même trois fois pour avoir accès à des talents difficiles à trouver.",
+            "05" => "En janvier 2021, un nouveau processus de demande, assorti d’un nouveau calendrier et d’une nouvelle interface de compétences, sera ajouté à la plateforme, tenant compte des résultats de la recherche des deux dernières années. La nouvelle interface produit de bons résultats, et l’équipe est impatiente de publier le modèle mis à niveau, et de communiquer la théorie méthodologique derrière son approche de réduction des préjugés."
+          ]
+        ],
+        "hires" => [
+          "title" => "De grands talents sont embauchés partout au pays",
+          "items" => [
+            "01" => "Bien avant la COVID-19, nous avons encouragé les gestionnaires à rendre les possibilités d’emploi « accessibles à distance » (c’est-à-dire que les candidats peuvent travailler n’importe où dans le monde) en inscrivant « Oui » comme valeur par défaut dans la rubrique « Travail à distance autorisé ».",
+            "02" => "Les candidats pouvaient facilement voir si le travail à distance était autorisé dans les annonces d’emploi du nuage de talents, à un moment où ces renseignements n’apparaissaient pas dans les offres d’emploi du gouvernement.",
+            "03" => "À la suite de ces interventions, 30 % des annonces d’emploi du nuage de talents ont permis un travail à distance, même avant que la COVID-19 ne fasse du travail à distance la nouvelle norme gouvernementale pour les opérations de 2020.",
+            "04" => "Lorsque le travail à distance a été autorisé sur une affiche d’emploi du nuage de talents, 80 % des gestionnaires ont choisi un candidat éloigné, ce qui laisse croire qu’un grand bassin de talents inexploité se répartit à travers le Canada (au-delà de la région de la capitale nationale). Cette approche présente de nombreux avantages, y compris l’apport de perspectives régionales diversifiées aux équipes gouvernementales qui élaborent des politiques et des services pour les Canadiens d’un océan à l’autre.",
+            "05" => "Le nuage de talents, en tant qu’un des premiers à adopter le travail à distance et une équipe qui a aidé les gestionnaires à embaucher des travailleurs à distance, communique les leçons apprises aux équipes qui s’adaptent encore à cette nouvelle réalité sous la COVID-19."
+          ]
+        ],
+        "reserve" => [
+          "title" => "Réserve de talents du GC",
+          "items" => [
+            "01" => "En réponse à l’effet de la COVID-19 sur les opérations du GC, nous avons réaffecté et amélioré les fonctions du nuage de talents afin de créer la Réserve de talents du GC.",
+            "02" => "Il nous a fallu un peu plus de deux semaines pour construire un centre centralisé de tri des talents pour la réponse à la COVID-19. La réserve de talents du GC a été mise en service le 31 mars.",
+            "03" => "La Réserve du GC a été active d’avril à août 2020, dans le cadre d’un effort d’intervention rapide visant à soutenir la mobilité des talents numériques du GC aux ministères ayant des besoins critiques. À mesure que les ministères se stabilisaient, le site n’était plus nécessaire. Le code et les leçons apprises sont maintenant réorientés vers une solution à plus long terme pour l’identification des compétences et la mobilité des talents, en prévision de l’intervention en cas de crise future et des besoins permanents.",
+            "04" => "Nous avons mis sur pied une plateforme de gestion des talents coordonnée par guichet unique et dédiée, qui permet de trier les besoins en talents dans l’ensemble du gouvernement du Canada. Il a permis un flux de talents de secteurs à faible priorité à des secteurs aux besoins essentiels, appuyés par le suivi des données et la coordination centrale. Il offrait aux ministères un moyen rapide et efficace d’acquérir des talents qualifiés et disponibles pour une grande variété de besoins et offrait aux fonctionnaires un moyen de faire du bénévolat là où l’aide était le plus nécessaire.",
+            "05" => "Des affiches ont été créées pour les flux de travail en demande. Pour chaque flux de travail, on a demandé aux bénévoles de présenter leur nom à un niveau débutant, intermédiaire ou avancé.",
+            "06" => "La réserve de talents du GC était en direct du 31 mars au 4 juin 2020. Au cours de cette période, 19 flux de travail ont été identifiés comme étant des domaines présentant un besoin critique et affichés sur le site Web. Au total, 328 employés du GC ont créé des profils sur le site et 92 demandes ont été présentées. De ce nombre, 34 bénévoles ont fait évaluer leur demande et étaient prêts à être affectés.",
+            "07" => "Aucun bénévole n’a été déplacé à la suite de la réserve de talents du GC. La paperasserie des RH était problématique pour ceux qui ont essayé d’utiliser la plateforme pour déplacer les talents entre les ministères. Au lieu d’utiliser une mesure rapide comme un retour sur investissement, le processus une fois que le bénévole a été sélectionné devait être officiel.",
+            "08" => "La plupart des ministères ont déplacé les talents à l’interne, et lorsque les talents ont été déplacés entre les ministères, il s’agissait d’une conversation entre les cadres supérieurs.",
+            "09" => "Mais surtout, aussi vite que l’équipe s’est déplacée pour construire la réserve de talents du GC, nous n’avons pas été assez rapides. Nous ne pouvions pas l’être, parce que l’outil devait être en place avant la fermeture du pays à la mi-mars. Les outils de réponse aux crises doivent être disponibles et à l’esprit de ceux qui interviennent."
+          ]
+        ],
+      ]
+    ],
     'browse' => [
         'title' => 'Emplois récemment affichés',
         'browse_link' => [
