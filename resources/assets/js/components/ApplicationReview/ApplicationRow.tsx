@@ -188,7 +188,7 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
       application.application_review?.review_status_id ===
       ReviewStatusId.StillIn,
     "fa-exclamation-circle":
-      application.application_review?.review_status_id === null,
+      application.application_review === undefined || application.application_review?.review_status_id === null,
   });
 
   const noteButtonText =

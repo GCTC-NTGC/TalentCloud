@@ -9,7 +9,6 @@ import {
   fakeApplication1,
   fakeApplicationReview,
 } from "../../fakeData/fakeApplications";
-import { ApplicationReview } from "../../models/types";
 import { ReviewStatusId } from "../../models/lookupConstants";
 
 const stories = storiesOf("Review Applications|Row", module).addDecorator(
@@ -20,10 +19,9 @@ function sleep(ms): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const promiseAction = (name: string, review: ApplicationReview) => async () => {
+const promiseAction = (name: string) => async () => {
   sleep(1000);
   action(name)();
-  return review;
 };
 
 const sampleApplication = fakeApplication1();
@@ -70,8 +68,7 @@ stories
             application={veteranApplication}
             handleUpdateReview={() =>
               promiseAction(
-                "Update Review",
-                veteranApplication.application_review!,
+                "Update Review"
               )()
             }
             portal={select("Portal", ["manager", "hr"], "manager")}
@@ -89,8 +86,7 @@ stories
             application={priorityApplication}
             handleUpdateReview={() =>
               promiseAction(
-                "Update Review",
-                priorityApplication.application_review!,
+                "Update Review"
               )()
             }
             portal={select("Portal", ["manager", "hr"], "manager")}
@@ -107,7 +103,7 @@ stories
           <ApplicationRow
             application={reviewed}
             handleUpdateReview={() =>
-              promiseAction("Update Review", reviewed.application_review!)()
+              promiseAction("Update Review")()
             }
             portal={select("Portal", ["manager", "hr"], "manager")}
           />
