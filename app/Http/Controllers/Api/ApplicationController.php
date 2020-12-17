@@ -168,7 +168,7 @@ class ApplicationController extends Controller
             $this->setAvailability($application);
         }
 
-        $review->fresh();
+        $review = $review->fresh();
         $review->loadMissing('department');
 
         return new JsonResource($review);
