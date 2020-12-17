@@ -12,7 +12,7 @@ const stories = storiesOf("Applicant Profile/Basic Information", module).addDeco
 );
 
 stories.add(
-  "Basic",
+  "Current GC Employee",
   (): React.ReactElement => {
     const [basicInformation, setBasicInformations] = useStorybookState(fakeBasicInformation());
     const [gocClassifications]  = useStorybookState(fakeGocClassifications());
