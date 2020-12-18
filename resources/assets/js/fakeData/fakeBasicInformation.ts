@@ -65,12 +65,7 @@ profileBasicInformation.current_gc_employee = true;
 profileBasicInformation.current_classification = fakeCurrentGcClassifications();
 profileBasicInformation.previous_classifications = fakePreviousGcClassifications();
 
-export const fakeBasicInformation = (): ProfileBasicInformation => profileBasicInformation
-
-/*
-[
-  profileBasicInformation,
-];
-*/
+export const fakeBasicInformation = (): ProfileBasicInformation =>
+  profileBasicInformation;
 
 export default fakeBasicInformation;
