@@ -735,7 +735,7 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
 
-  // Hack fix to focus on error message after it has been added to the DOM.
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
   useEffect(() => {
     if (hasError) {
       focusOnElement("experience-step-form-error");
