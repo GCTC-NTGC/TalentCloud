@@ -70,8 +70,8 @@ function doNothing(): void {
 export function useResourceIndex<T extends { id: number }>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
-    initialValue?: T[]; // Defaults to an empty list.
-    forceInitialRefresh: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
+    initialValue?: T[]; // Defaults to an empty list. If this is overriden, initial fetch is skipped (unless forceInitialRefresh is set to true).
+    forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
     parseIndexResponse?: (response: Json) => T[]; // Defaults to the identity function.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
     resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
