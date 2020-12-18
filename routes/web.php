@@ -1010,6 +1010,15 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
 
+    Route::post('experience-skills/batch-store', 'Api\ExperienceSkillsController@batchStore')
+        ->middleware('can:create,App\Models\ExperienceSkill')
+        ->name('experience-skill.batch-store');
+    Route::post('experience-skills/batch-update', 'Api\ExperienceSkillsController@batchUpdate')
+        ->name('experience-skill.batch-update');
+    Route::post('experience-skills/batch-destroy', 'Api\ExperienceSkillsController@batchDestroy')
+        ->name('experience-skill.batch-destroy');
+
+
     Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
         ->middleware('can:create,App\Models\JobApplicationAnswer')
         ->name('job-application-answers.store');
@@ -1056,11 +1065,16 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
+    Route::post('application-reviews/batch-update', 'Api\ApplicationReviewController@batchUpdate')
+        ->name('application-reviews.batch-update');
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+    Route::put(
+        'applications/{application}/job-application-steps/{jobApplicationStep}',
+        'Api\ApplicationController@touchStep'
+    )
         ->middleware('can:view,application')
         ->name('job-application-step.update');
 });

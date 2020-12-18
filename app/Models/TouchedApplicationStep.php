@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\BaseModel;
 
 /**
- * Class Step
+ * Class TouchedApplicationStep
  *
  * @property int $job_application_id
  * @property int $step_id
@@ -37,6 +37,4 @@ class TouchedApplicationStep extends BaseModel
     {
         return $this->belongsTo(\App\Models\Lookup\JobApplicationStep::class);
     }
-
-
 }

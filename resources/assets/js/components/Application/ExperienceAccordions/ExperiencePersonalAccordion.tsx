@@ -144,6 +144,7 @@ export const ProfilePersonalAccordion: React.FC<ProfilePersonalAccordionProps> =
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-mountain"
