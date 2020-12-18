@@ -80,7 +80,7 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
                 >
                   <i className="fa fa-trash" /> Remove
                 </button>
-                <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+                <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
               </div>
             </div>
           </li>
@@ -122,10 +122,10 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
 
   return (
     <>
-    <label htmlFor="SEL2">Current classification and level</label>
+    <label htmlFor="SEL2">{intl.formatMessage(myBasicInformationMessages.currentClassificationAndLevel)}</label>
     <ClassificationDropdowns selectedItem={currentGcClassification} gocClassifications={gocClassifications} />
 
-    <label htmlFor="SEL2">Add previous Government classifications</label>
+    <label htmlFor="SEL2">{intl.formatMessage(myBasicInformationMessages.addPreviousGcExperience)}</label>
       <div id="list-previous-gov-class">
         <ol>
           {createPreviousExperienceDropdowns(previousExperience)}
@@ -142,6 +142,8 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
   gocClassifications,
   selectedItem
 }) => {
+
+  const intl = useIntl();
 
   const safeParseInt = function(str : string | null) : number {
     if (str == null) return 0
@@ -196,7 +198,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
               )};
             </select>
           </div>
-          <span>This input has an error.</span>
+          <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
         </div>
         <div data-c-grid-item="base(1of1) tl(1of2)" data-c-input="select">
           <div>
@@ -210,7 +212,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
               }
             </select>
           </div>
-          <span>This input has an error.</span>
+          <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
         </div>
       </div>
     </>
@@ -258,15 +260,15 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           </p>
           <div>
             <p>
-              Name: <b data-c-color="c1"> {name} </b>{" "}
+            {intl.formatMessage(myBasicInformationMessages.name)}: <b data-c-color="c1"> {name} </b>{" "}
             </p>
             <p>
-              Personal Email: <b data-c-color="c1"> {email} </b>{" "}
+              {intl.formatMessage(myBasicInformationMessages.personalEmail)}: <b data-c-color="c1"> {email} </b>{" "}
             </p>
             <p>
-              To change these go to:{" "}
+              {intl.formatMessage(myBasicInformationMessages.toChangeGoTo)}:{" "}
               <a data-c-color="c1" href="#">
-                Account Settings
+                {intl.formatMessage(myBasicInformationMessages.accountSettings)}
               </a>
             </p>
           </div>
@@ -325,7 +327,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
                 <span>Not a GC employee</span>
               </label>
             </div>
-            <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+            <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
           </div>
 
           <GcExperience
