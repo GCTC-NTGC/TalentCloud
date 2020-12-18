@@ -47,33 +47,74 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
 
   const [previousExperience, setPreviousExperience] = useState<GocClassification[]>(previousExperienceProp);
 
-  const removeExperience = function(e : React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    console.dir(e)
+  const removeExperience = function(gocClassification : GocClassification) {
+    setPreviousExperience(
+      previousExperience.filter(experience => {
+        return !(
+          experience.classification.key == gocClassification.classification.key
+          && experience.level == gocClassification.level
+        )
+      })
+    )
   }
 
-  const addExperience = function(/*e : React.MouseEvent<HTMLAnchorElement, MouseEvent>*/) {
+  const createPreviousExperienceDropdowns = (previousGcExperience : GocClassification[]) => {
 
-    console.dir(previousExperience)
-
-    let lPreviousExperience = previousExperience
-
-    lPreviousExperience.push({
-      classification: {
-        id: 0,
-        key: "",
-        name: {
-          en: "",
-          fr: ""
-        },
-      },
-      level: 0,
-      order: 0,
+    return previousGcExperience.map( experience => {
+      return (
+        <>
+          <li>
+            <div data-c-grid="gutter top">
+              <ClassificationDropdowns
+                gocClassifications={gocClassifications}
+                selectedItem={experience}
+                data-c-grid-item="base(2of2) tl(2of3)"
+              />
+              <div
+                data-c-grid-item="base(1of1) tl(1of3)"
+                data-c-input="select"
+              >
+                <button
+                  data-c-button="solid(c1)"
+                  onClick={() => removeExperience(experience)}
+                >
+                  <i className="fa fa-trash" /> Remove
+                </button>
+                <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+              </div>
+            </div>
+          </li>
+        </>
+      )
     })
-    setPreviousExperience(lPreviousExperience)
+  }
 
-    console.log("**************************************")
+  const addExperience = function() {
 
-    console.dir(previousExperience)
+    // If the user has not populated their most recent experience, prevent adding a second empty row
+    if (previousExperience.filter(experience => {
+      return experience.classification.id == 0
+    }).length > 0) {
+      return
+    }
+
+    setPreviousExperience(
+      [
+        ...previousExperience,
+        {
+          classification: {
+            id: 0,
+            key: "",
+            name: {
+              en: "",
+              fr: ""
+            },
+          },
+          level: 0,
+          order: 0,
+        }
+      ]
+    )
   }
 
   if (!wasGcEmployee)
@@ -86,32 +127,13 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
 
     <label htmlFor="SEL2">Add previous Government classifications</label>
       <div id="list-previous-gov-class">
-      {previousExperience.map( experience =>
         <ol>
-          <li>
-            <div data-c-grid="gutter top">
-              <ClassificationDropdowns
-                gocClassifications={gocClassifications}
-                selectedItem={experience}
-                data-c-grid-item="base(2of2) tl(2of3)"
-              />
-              <div
-                data-c-grid-item="base(1of1) tl(1of3)"
-                data-c-input="select"
-              >
-                <button data-c-button="solid(c1)" onClick={removeExperience}>
-                  <i className="fa fa-trash" /> Remove
-                </button>
-                <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
-              </div>
-            </div>
-          </li>
+          {createPreviousExperienceDropdowns(previousExperience)}
         </ol>
-      )}
       </div>
-      <a data-c-button="solid(c1)" onClick={addExperience}>
+      <button data-c-button="solid(c1)" onClick={addExperience}>
         {intl.formatMessage(myBasicInformationMessages.addClassification)}
-      </a>
+      </button>
     </>
   );
 };
@@ -319,4 +341,3 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
 };
 
 export default ProfileBasicInformation;
-
