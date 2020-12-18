@@ -233,6 +233,9 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
+     - name: Map hostname
+       run: echo '127.0.0.1 talent.test' >> /etc/hosts
+
      - name: Generate key
        run: php artisan key:generate
 
@@ -263,7 +266,7 @@ jobs:
      - name: Run browser tests
        uses: DevExpress/testcafe-action@latest
        with:
-        args: "chrome --allow-insecure-localhost --ignore-certificate-errors tests/Browser/*.js -u -e -q"
+        args: "chrome --allow-insecure-localhost --ignore-certificate-errors tests/Browser/*.js -u -e -q --hostname talent.test"
 
      - name: Send Slack notification
        if: failure()
