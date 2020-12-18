@@ -234,7 +234,7 @@ jobs:
           ${{ runner.os }}-
 
      - name: Map hostname
-       run: echo '127.0.0.1 talent.test' >> /etc/hosts
+       run: sudo echo '127.0.0.1 talent.test' >> /etc/hosts
 
      - name: Generate key
        run: php artisan key:generate
