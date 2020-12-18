@@ -54,7 +54,7 @@ const ApplicationReviewRoot: React.FC<ApplicationReviewRootProps> = ({
 
 export default ApplicationReviewRoot;
 
-const container = document.getElementById("review-applications-container");
+const container = document.getElementById("application-review-container");
 if (container !== null) {
   if ("applicationId" in container.dataset && "portal" in container.dataset) {
     const applicationId = Number(container.dataset.applicationId as string);
