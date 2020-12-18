@@ -4,10 +4,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Review from "../../components/Application/Review/Review";
-import {
-  fakeApplication,
-  fakeApplication1,
-} from "../../fakeData/fakeApplications";
+import { fakeApplication1 } from "../../fakeData/fakeApplications";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
@@ -19,8 +16,7 @@ import {
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import { fakeUser, fakeUsers } from "../../fakeData/fakeUsers";
 import ApplicationPreview from "../../components/Application/Review/ApplicationPreview";
-import ApplicationReviewNav from "../../components/ApplicationReview/ApplicationReviewRoot";
-import fakeReviewStatuses from "../../fakeData/fakeReviewStatus";
+import ApplicationReviewWithNav from "../../components/ApplicationReview/ApplicationReviewWithNav";
 
 const stories = storiesOf("Application/Review", module).addDecorator(withIntl);
 
@@ -71,10 +67,12 @@ stories.add(
     const application = fakeApplication1();
     return (
       <>
-        <ApplicationReviewNav
-          initApplication={application}
+        <ApplicationReviewWithNav
+          application={application}
           portal="manager"
-          reviewStatuses={fakeReviewStatuses()}
+          handleUpdateApplicationReview={promiseAction(
+            "Handle Update Application Review",
+          )}
         />
         <ApplicationPreview
           application={application}
@@ -100,10 +98,12 @@ stories.add(
     const application = fakeApplication1();
     return (
       <>
-        <ApplicationReviewNav
-          initApplication={application}
+        <ApplicationReviewWithNav
+          application={application}
           portal="hr"
-          reviewStatuses={fakeReviewStatuses()}
+          handleUpdateApplicationReview={promiseAction(
+            "Handle Update Application Review",
+          )}
         />
         <ApplicationPreview
           application={application}
