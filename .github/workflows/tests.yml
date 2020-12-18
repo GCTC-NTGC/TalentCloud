@@ -257,8 +257,17 @@ jobs:
      - name: Compile webpack assets
        run: npm run prod
 
+     - name: Get hostname
+       run: echo $HOSTNAME
+
+     - name: Map new hostname
+       run: docker exec <> /bin/sh -c "echo 127.0.0.1 talent.test >> /etc/hosts"
+
      - name: Start a web server
        run: php artisan serve &
+
+     - name: Get hostname (after start web server)
+       run: echo $HOSTNAME
 
      - name: Run browser tests
        uses: DevExpress/testcafe-action@latest
