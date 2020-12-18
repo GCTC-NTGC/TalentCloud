@@ -7,12 +7,14 @@ import SelectInput from "../Form/SelectInput";
 import { FastField, Formik } from "formik";
 import messages, {
   citizenshipDeclaration,
+  veteranStatus
 } from "../Application/BasicInfo/basicInfoMessages";
 import {
   basicInfoMessages,
 } from "../Application/applicationMessages";
 import {
   CitizenshipId,
+  VeteranId,
 } from "../../models/lookupConstants";
 
 export interface ProfileBasicInformationProps {
@@ -246,51 +248,41 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
               </a>
             </p>
           </div>
-          <FastField
-            id="citizenship"
-            name="citizenship"
-            component={SelectInput}
-            required
-            label={intl.formatMessage(basicInfoMessages.citizenshipLabel)}
-            grid="base(1of1)"
-            nullSelection={intl.formatMessage(messages.nullSelectOption)}
-            options={Object.values(CitizenshipId).map((id: number): {
-              value: number;
-              label: string;
-            } => ({
-              value: id,
-              label: intl.formatMessage(citizenshipDeclaration(id)),
-            }))}
-          />
-          <div data-c-input="select">
-            <label htmlFor="SEL2">{intl.formatMessage(myBasicInformationMessages.citizenStatus)}</label>
-            <span>Required</span>
-            <div data-c-grid-item="base(1of3)">
-
-              <i className="fas fa-caret-down" />
-              <select required id="SEL2">
-                <option disabled selected>
-                  Select a status...
-                </option>
-                <option>Canadian Citizen</option>
-                <option>Not a citizen</option>
-              </select>
-            </div>
-            <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+          <div data-c-grid-item="base(1of3)">
+            <FastField
+              id="citizenship"
+              name="citizenship"
+              component={SelectInput}
+              required
+              label={intl.formatMessage(basicInfoMessages.citizenshipLabel)}
+              grid="base(1of1)"
+              nullSelection={intl.formatMessage(messages.nullSelectOption)}
+              options={Object.values(CitizenshipId).map((id: number): {
+                value: number;
+                label: string;
+              } => ({
+                value: id,
+                label: intl.formatMessage(citizenshipDeclaration(id)),
+              }))}
+            />
           </div>
-          <div data-c-input="select">
-            <label htmlFor="SEL2">
-              {intl.formatMessage(myBasicInformationMessages.isVerteran)}
-            </label>
-            <span>Required</span>
-            <div data-c-grid-item="base(1of3)">
-              <i className="fas fa-caret-down" />
-              <select required id="SEL2">
-                <option>No</option>
-                <option>Yes</option>
-              </select>
-            </div>
-            <span>{intl.formatMessage(myBasicInformationMessages.inputEreror)}</span>
+          <div data-c-grid-item="base(1of3)">
+            <FastField
+              id="veteranStatus"
+              name="veteranStatus"
+              component={SelectInput}
+              required
+              label={intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
+              grid="base(1of1)"
+              nullSelection={intl.formatMessage(messages.nullSelectOption)}
+              options={Object.values(VeteranId).map((id: number): {
+                value: number;
+                label: string;
+              } => ({
+                value: id,
+                label: intl.formatMessage(veteranStatus(id)),
+              }))}
+            />
           </div>
           <h2 data-c-heading="h2" data-c-margin="bottom(1)">
             {intl.formatMessage(myBasicInformationMessages.heading)}
