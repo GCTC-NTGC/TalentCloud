@@ -7,7 +7,8 @@ import SelectInput from "../Form/SelectInput";
 import { FastField, Formik } from "formik";
 import messages, {
   citizenshipDeclaration,
-  veteranStatus
+  veteranStatus,
+  gcEmployeeStatus
 } from "../Application/BasicInfo/basicInfoMessages";
 import {
   basicInfoMessages,
@@ -15,6 +16,7 @@ import {
 import {
   CitizenshipId,
   VeteranId,
+  currentGcEmployeeId,
 } from "../../models/lookupConstants";
 
 export interface ProfileBasicInformationProps {
@@ -231,112 +233,141 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
     if (basicInformation.current_classification) {
       return true
     }
-
     return false
   }
 
   const [currentGcEmployee, setCurrentGcEmployee] = useState<boolean>(getInitialEmployeeState());
 
+  let initialValues = {
+    "citizenship" : basicInformation.citizenship_status.id,
+    "veteranStatus" : basicInformation.citizenship_status.id,
+    "currentGcEmployeeStatus" : basicInformation.current_gc_employee.id
+  }
+
   return (
     <>
       <Formik
-        initialValues={basicInformation}
+        initialValues={initialValues}
         onSubmit={(values): void => {
-          const basicInformationValues: ProfileBasicInformationProp = {
+          const basicInformationValues = {
             ...values,
           };
+
         }}
       >
-        <div>
-          <h2 data-c-heading="h2" data-c-margin="bottom(1)">
-            {intl.formatMessage(myBasicInformationMessages.heading)}
-          </h2>
-          <p data-c-margin="bottom(1)">
-            <FormattedMessage
-              id="profile.experience.preamble"
-              defaultMessage="This profile is also shared when you submit a job application."
-              description="First section of text on the 'My Basic Information' of the Application Timeline."
-            />
-          </p>
+        {props => (
           <div>
-            <p>
-            {intl.formatMessage(myBasicInformationMessages.name)}: <b data-c-color="c1"> {name} </b>{" "}
+            <h2 data-c-heading="h2" data-c-margin="bottom(1)">
+              {intl.formatMessage(myBasicInformationMessages.heading)}
+            </h2>
+            <p data-c-margin="bottom(1)">
+              <FormattedMessage
+                id="profile.experience.preamble"
+                defaultMessage="This profile is also shared when you submit a job application."
+                description="First section of text on the 'My Basic Information' of the Application Timeline."
+              />
             </p>
-            <p>
-              {intl.formatMessage(myBasicInformationMessages.personalEmail)}: <b data-c-color="c1"> {email} </b>{" "}
-            </p>
-            <p>
-              {intl.formatMessage(myBasicInformationMessages.toChangeGoTo)}:{" "}
-              <a data-c-color="c1" href="#">
-                {intl.formatMessage(myBasicInformationMessages.accountSettings)}
-              </a>
-            </p>
-          </div>
-          <div data-c-grid-item="base(1of3)">
-            <FastField
-              id="citizenship"
-              name="citizenship"
-              component={SelectInput}
-              required
-              label={intl.formatMessage(basicInfoMessages.citizenshipLabel)}
-              grid="base(1of1)"
-              nullSelection={intl.formatMessage(messages.nullSelectOption)}
-              options={Object.values(CitizenshipId).map((id: number): {
-                value: number;
-                label: string;
-              } => ({
-                value: id,
-                label: intl.formatMessage(citizenshipDeclaration(id)),
-              }))}
-            />
-          </div>
-          <div data-c-grid-item="base(1of3)">
-            <FastField
-              id="veteranStatus"
-              name="veteranStatus"
-              component={SelectInput}
-              required
-              label={intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
-              grid="base(1of1)"
-              nullSelection={intl.formatMessage(messages.nullSelectOption)}
-              options={Object.values(VeteranId).map((id: number): {
-                value: number;
-                label: string;
-              } => ({
-                value: id,
-                label: intl.formatMessage(veteranStatus(id)),
-              }))}
-            />
-          </div>
-          <h2 data-c-heading="h2" data-c-margin="bottom(1)">
-            {intl.formatMessage(myBasicInformationMessages.heading)}
-          </h2>
-
-          <div data-c-grid-item="base(1of3)" data-c-input="radio">
-            <label htmlFor="RG2">
-              {intl.formatMessage(myBasicInformationMessages.isGCEmployee)}
-            </label>
-            <span>Required</span>
-            <div id="RG2" role="radiogroup">
-              <label htmlFor="rB1">
-                <input id="rB1" required name="radioB" type="radio" defaultChecked={currentGcEmployee} onChange={() => setCurrentGcEmployee(true)} />
-                <span>Current GC Employee</span>
-              </label>
-              <label htmlFor="rB2">
-                <input id="rB2" required name="radioB" type="radio" onChange={() => setCurrentGcEmployee(false)} />
-                <span>Not a GC employee</span>
-              </label>
+            <div>
+              <p>
+              {intl.formatMessage(myBasicInformationMessages.name)}: <b data-c-color="c1"> {name} </b>{" "}
+              </p>
+              <p>
+                {intl.formatMessage(myBasicInformationMessages.personalEmail)}: <b data-c-color="c1"> {email} </b>{" "}
+              </p>
+              <p>
+                {intl.formatMessage(myBasicInformationMessages.toChangeGoTo)}:{" "}
+                <a data-c-color="c1" href="#">
+                  {intl.formatMessage(myBasicInformationMessages.accountSettings)}
+                </a>
+              </p>
             </div>
-            <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
-          </div>
+            <div data-c-grid-item="base(1of3)">
+              <FastField
+                id="citizenship"
+                name="citizenship"
+                component={SelectInput}
+                required
+                label={intl.formatMessage(basicInfoMessages.citizenshipLabel)}
+                grid="base(1of1)"
+                nullSelection={intl.formatMessage(messages.nullSelectOption)}
+                options={Object.values(CitizenshipId).map((id: number): {
+                  value: number;
+                  label: string;
+                } => ({
+                  value: id,
+                  label: intl.formatMessage(citizenshipDeclaration(id)),
+                }))}
+              />
+            </div>
+            <div data-c-grid-item="base(1of3)">
+              <FastField
+                id="veteranStatus"
+                name="veteranStatus"
+                component={SelectInput}
+                required
+                label={intl.formatMessage(basicInfoMessages.veteranStatusLabel)}
+                grid="base(1of1)"
+                nullSelection={intl.formatMessage(messages.nullSelectOption)}
+                options={Object.values(VeteranId).map((id: number): {
+                  value: number;
+                  label: string;
+                } => ({
+                  value: id,
+                  label: intl.formatMessage(veteranStatus(id)),
+                }))}
+              />
+            </div>
+            <h2 data-c-heading="h2" data-c-margin="bottom(1)">
+              {intl.formatMessage(myBasicInformationMessages.heading)}
+            </h2>
 
-          <GcExperience
-            gocClassifications={gocClassifications}
-            previousExperienceProp={basicInformation.previous_classifications}
-            currentGcClassification={basicInformation.current_classification}
-            wasGcEmployee={currentGcEmployee}
-          />
-        </div>
+            <div data-c-grid-item="base(1of3)">
+              <FastField
+                id="currentGcEmployeeId"
+                name="currentGcEmployeeStatus"
+                component={SelectInput}
+                required
+                label={intl.formatMessage(basicInfoMessages.gcEmployeeStatus)}
+                grid="base(1of1)"
+                nullSelection={intl.formatMessage(messages.nullSelectOption)}
+                options={Object.values(currentGcEmployeeId).map((id: number): {
+                  value: number;
+                  label: string;
+                } => ({
+                  value: id,
+                  label: intl.formatMessage(gcEmployeeStatus(id)),
+                }))}
+              />
+            </div>
+
+            {/*  // For reference. Remove before merge
+            <div data-c-grid-item="base(1of3)" data-c-input="radio">
+              <label htmlFor="RG2">
+                {intl.formatMessage(myBasicInformationMessages.isGCEmployee)}
+              </label>
+              <span>Required</span>
+              <div id="RG2" role="radiogroup">
+                <label htmlFor="rB1">
+                  <input id="rB1" required name="radioB" type="radio" defaultChecked={currentGcEmployee} onChange={() => setCurrentGcEmployee(true)} />
+                  <span>Current GC Employee</span>
+                </label>
+                <label htmlFor="rB2">
+                  <input id="rB2" required name="radioB" type="radio" onChange={() => setCurrentGcEmployee(false)} />
+                  <span>Not a GC employee</span>
+                </label>
+              </div>
+              <span>{intl.formatMessage(myBasicInformationMessages.inputError)}</span>
+            </div>
+            */}
+
+            <GcExperience
+              gocClassifications={gocClassifications}
+              previousExperienceProp={basicInformation.previous_classifications}
+              currentGcClassification={basicInformation.current_classification}
+              wasGcEmployee={currentGcEmployee}
+            />
+          </div>
+        )}
       </Formik>
     </>
   );

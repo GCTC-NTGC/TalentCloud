@@ -430,15 +430,21 @@ export interface Email {
 }
 
 export interface GocClassification {
-  classification : Classification;
-  level : Number;
-  order : Number; // Used to allow user to order the list of classifications
+  classification: Classification;
+  level: number;
+  order: number; // Used to allow user to order the list of classifications
+}
+
+type GCEmployeeStatusName = "yes" | "no" | "previous";
+export interface GCEmployeeStatus {
+  id: number;
+  name: GCEmployeeStatusName;
 }
 
 export interface ProfileBasicInformation {
   citizenship_status: CitizenshipDeclaration;
   veteran_status: VeteranStatus;
-  current_gc_employee: Boolean;
+  current_gc_employee: GCEmployeeStatus;
   current_classification: GocClassification;
   previous_classifications: GocClassification[];
 }

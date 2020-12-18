@@ -207,6 +207,11 @@ export const basicInfoMessages = defineMessages({
     description:
       "Heading for language requirements section in Application form.",
   },
+  gcEmployeeStatus: {
+    id: "application.basicInfo.gcEmployeeStatus",
+    defaultMessage: "Are you a GC employee?",
+    description: "Label for the gc employee status select box.",
+  },
 });
 
 export const experienceMessages = defineMessages({
@@ -320,7 +325,7 @@ export const myBasicInformationMessages = defineMessages({
     defaultMessage: "Are you a veteran or a member of the Canadian Armed forces?",
     description: "Label for the Government Job Information section of the Application to confirm if application is a veteran.",
   },
-  inputEreror: {
+  inputError: {
     id: "application.experience.inputEreror",
     defaultMessage: "This input has an error.",
     description: "Label displayed when the user selects an option that results in an error",
@@ -340,7 +345,42 @@ export const myBasicInformationMessages = defineMessages({
     defaultMessage: "Currently an employee of the Government of Canada",
     description: "Label for the Government Job Information section of the Application to add confirm if application is a Government of Canada employee.",
   },
+  completionLabel: {
+    id: "application.experience.completionLabel",
+    defaultMessage: "Completion Status",
+  },
+  completionDefault: {
+    id: "application.experience.completionDefault",
+    defaultMessage: "Select a completion status...",
+  },
+  addPreviousGcExperience: {
+    id: "application.experience.addPreviousGcExperience",
+    defaultMessage: "Add previous Government classifications",
+  },
+  currentClassificationAndLevel: {
+    id: "application.experience.currentClassificationAndLevel",
+    defaultMessage: "Current classification and level",
+  },
+  accountSettings: {
+    id: "application.experience.accountSettings",
+    defaultMessage: "Account Settings",
+  },
+  toChangeGoTo: {
+    id: "application.experience.toChangeGoTo",
+    defaultMessage: "To change these go to",
+  },
+  personalEmail: {
+    id: "application.experience.personalEmail",
+    defaultMessage: "Personal Email",
+  },
+  name: {
+    id: "application.experience.name",
+    defaultMessage: "Name",
+  },
 });
+
+
+
 
 
 

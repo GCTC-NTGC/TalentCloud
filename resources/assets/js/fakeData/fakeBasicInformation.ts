@@ -4,6 +4,7 @@ import {
   GocClassification,
   VeteranStatus,
   CitizenshipDeclaration,
+  GCEmployeeStatus,
 } from "../models/types";
 
 const fakePreviousGcClassifications = (): GocClassification[] => [
@@ -51,6 +52,11 @@ const fakeVereranStatus = (): VeteranStatus => ({
   name: "none",
 });
 
+const fakeGcCurrentEmployeeStatus = (): GCEmployeeStatus => ({
+  id: 1,
+  name: "yes",
+});
+
 const fakeCitizenshipDeclaration = (): CitizenshipDeclaration => ({
   id: 1,
   name: "citizen",
@@ -61,7 +67,7 @@ const profileBasicInformation: ProfileBasicInformation = <
 >{};
 profileBasicInformation.citizenship_status = fakeCitizenshipDeclaration();
 profileBasicInformation.veteran_status = fakeVereranStatus();
-profileBasicInformation.current_gc_employee = true;
+profileBasicInformation.current_gc_employee = fakeGcCurrentEmployeeStatus();
 profileBasicInformation.current_classification = fakeCurrentGcClassifications();
 profileBasicInformation.previous_classifications = fakePreviousGcClassifications();
 
