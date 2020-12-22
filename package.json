@@ -83,7 +83,7 @@
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.30.0",
         "sass-loader": "^10.1.0",
-        "snyk": "^1.437.2",
+        "snyk": "^1.437.3",
         "storybook-addon-intl": "^2.4.1",
         "testcafe": "^1.9.4",
         "ts-jest": "^25.5.1",
