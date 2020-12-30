@@ -435,7 +435,7 @@ export interface GocClassification {
   order: number; // Used to allow user to order the list of classifications
 }
 
-type GCEmployeeStatusName = "yes" | "no" | "previous";
+export type GCEmployeeStatusName = "yes" | "no" | "previous";
 export interface GCEmployeeStatus {
   id: number;
   name: GCEmployeeStatusName;
