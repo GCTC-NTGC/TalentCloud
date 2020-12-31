@@ -1,3 +1,5 @@
+import { yupToFormErrors } from "formik";
+
 export const ClassificationId = {
   AS: 1,
   BI: 2,
@@ -194,6 +196,12 @@ export const VeteranId = {
   current: 2,
   past: 3,
 };
+
+export enum currentEmployeeIdEnum {
+  Yes = 1,
+  No = 2,
+  Previous = 3,
+}
 
 export const currentGcEmployeeId = {
   yes: 1,

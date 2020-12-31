@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from "react-intl";
 import {
   GocClassification,
   ProfileBasicInformation as ProfileBasicInformationProp,
-  GCEmployeeStatusName
 } from "../../models/types";
 import { myBasicInformationMessages } from "../Application/applicationMessages";
 import { removeDuplicatesById } from "../../helpers/queries";
@@ -18,6 +17,7 @@ import { basicInfoMessages } from "../Application/applicationMessages";
 import {
   CitizenshipId,
   VeteranId,
+  currentEmployeeIdEnum,
   currentGcEmployeeId,
 } from "../../models/lookupConstants";
 
@@ -37,10 +37,14 @@ export interface GcExperienceProps {
   gocClassifications: GocClassification[];
   previousExperienceProp: GocClassification[];
   currentGcClassification: GocClassification;
-  wasGcEmployee: GCEmployeeStatusName;
+  wasGcEmployee: number; // 1 == yes, 2 == no, 3 == previous
 }
 
-
+interface ProfileBasicInformationInitialValues {
+  citizenship: number;
+  veteranStatus: number;
+  currentGcEmployeeStatus: number;
+}
 
 const GcExperience: FunctionComponent<GcExperienceProps> = ({
   previousExperienceProp,
@@ -124,9 +128,9 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
     ]);
   };
 
-  if (wasGcEmployee == "no") return <></>;
+  if (wasGcEmployee == currentEmployeeIdEnum.No) return <></>;
 
-  if (wasGcEmployee == "previous") {
+  if (wasGcEmployee == currentEmployeeIdEnum.Previous) {
     return (
       <>
         <label htmlFor="SEL2">
@@ -168,7 +172,6 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
       </>
     );
   }
-
 };
 
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
@@ -280,29 +283,31 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
 }) => {
   const intl = useIntl();
 
-  const getInitialEmployeeState = (): GCEmployeeStatusName => {
+  const getInitialEmployeeState = (): currentEmployeeIdEnum => {
     if (basicInformation.current_classification && basicInformation.previous_classifications.length > 0) {
-      return "yes";
+      return currentEmployeeIdEnum.Yes;
     }
     else if (basicInformation.current_classification && basicInformation.previous_classifications.length == 0) {
-      return "previous";
+      return currentEmployeeIdEnum.Previous;
     }
     else {
-      return "no";
+      return currentEmployeeIdEnum.No;
     }
   };
 
-  const [currentGcEmployee, setCurrentGcEmployee] = useState<GCEmployeeStatusName>(
+  const [currentGcEmployee, setCurrentGcEmployee] = useState<number>(
     getInitialEmployeeState(),
   );
 
-  const onChangeSetCurrentGCEmployee = (e : React.ChangeEvent<HTMLSelectElement>, field : any) => {
-    if (field.value == 1) setCurrentGcEmployee("yes")
-    if (field.value == 2) setCurrentGcEmployee("no")
-    if (field.value == 3) setCurrentGcEmployee("previous")
+  const onChangeSetCurrentGCEmployee = (
+    e : React.ChangeEvent<HTMLSelectElement>,
+    field : any
+  ) => {
+    setCurrentGcEmployee(parseInt(e.target.value))
+    field.onChange(e);
   }
 
-  let initialValues = {
+  let initialValues : ProfileBasicInformationInitialValues = {
     citizenship: basicInformation.citizenship_status.id,
     veteranStatus: basicInformation.citizenship_status.id,
     currentGcEmployeeStatus: basicInformation.current_gc_employee.id,
@@ -318,7 +323,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
           };
         }}
       >
-        {({ errors, values, touched, setValues }) => (
+        {({ errors, values, touched, setValues, handleChange }) => (
           <Form>
             <h2 data-c-heading="h2" data-c-margin="bottom(1)">
               {intl.formatMessage(myBasicInformationMessages.heading)}

@@ -203,7 +203,7 @@ getOrThrowError(gcEmployeeStatuses, gcEmployeeStatusId, "invalid GC employee Sta
 
 export const gcEmployeeStatuses = defineMessages({
   [currentGcEmployeeId.yes]: {
-    id: "application.basicInfo.gcEmployeeStatus.current",
+    id: "application.basicInfo.gcEmployeeStatus.yes",
     defaultMessage:
       "Yes - I am currently an employee of the Government of Canada.",
     description: "Select option text for the 'Yes' GC employee status.",
