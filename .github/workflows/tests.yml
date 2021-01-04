@@ -257,19 +257,13 @@ jobs:
      - name: Compile webpack assets
        run: npm run prod
 
-     - name: Get hostname
-       run: echo $HOSTNAME
-
      - name: Start a web server
-       run: php artisan serve &
-
-     - name: Get hostname (post-start web server)
-       run: echo $HOSTNAME
+       run: php artisan serve --host=talent.test &
 
      - name: Run browser tests
        uses: DevExpress/testcafe-action@latest
        with:
-        args: "chrome:headless --allow-insecure-localhost --ignore-certificate-errors tests/Browser/*.js -u -e -q"
+        args: "chrome:headless --hostname talent.test --allow-insecure-localhost --ignore-certificate-errors tests/Browser/*.js -u -e -q"
 
      - name: Send Slack notification
        if: failure()
