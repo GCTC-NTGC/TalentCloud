@@ -266,7 +266,7 @@ jobs:
      - name: Start a web server
        run: php artisan serve &
 
-     - name: Get hostname (after start web server)
+     - name: Get hostname (post-start web server)
        run: echo $HOSTNAME
 
      - name: Run browser tests
