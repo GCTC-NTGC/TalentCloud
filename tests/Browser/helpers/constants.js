@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export const HOMEPAGE = `http://127.0.0.1:8000`; // process.env.APP_URL;
+export const HOMEPAGE = process.env.APP_URL;
 
 export const MANAGER_HOME = `${HOMEPAGE}/manager`;
 export const HR_HOME = `${HOMEPAGE}/hr`;
