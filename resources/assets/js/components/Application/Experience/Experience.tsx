@@ -1,7 +1,12 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/camelcase */
-import * as React from "react";
-import { FormattedMessage, useIntl, IntlShape } from "react-intl";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  FormattedMessage,
+  useIntl,
+  IntlShape,
+  defineMessage,
+} from "react-intl";
 import {
   Skill,
   ExperienceEducation,
@@ -19,6 +24,7 @@ import {
   CriteriaTypeId,
   getKeyByValue,
   ClassificationId,
+  // ClassificationId,
 } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
   messages as educationMessages,
@@ -57,6 +63,8 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
+import { RootState } from "../../../store/store";
+import { focusOnElement } from "../../../helpers/forms";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -210,17 +218,20 @@ export type ExperienceSubmitData =
   | AwardExperienceSubmitData;
 
 interface ExperienceProps {
-  experiences: Experience[];
+  assetSkills: Skill[];
+  disconnectedRequiredSkills: Skill[];
   educationStatuses: EducationStatus[];
   educationTypes: EducationType[];
+  hasError?: boolean;
+  essentialSkills: Skill[];
+  experiences: Experience[];
   experienceSkills: ExperienceSkill[];
-  criteria: Criteria[];
-  skills: Skill[];
   jobId: number;
   jobClassificationId: number | null;
   jobEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
+  skills: Skill[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
@@ -229,19 +240,22 @@ interface ExperienceProps {
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
-  experiences,
+  assetSkills,
+  disconnectedRequiredSkills,
+  hasError,
   educationStatuses,
   educationTypes,
+  essentialSkills,
+  experiences,
   experienceSkills,
-  criteria,
-  skills,
-  handleSubmitExperience,
-  handleDeleteExperience,
   jobId,
   jobClassificationId,
   jobEducationRequirements,
   recipientTypes,
   recognitionTypes,
+  skills,
+  handleSubmitExperience,
+  handleDeleteExperience,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -251,7 +265,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
       ? getKeyByValue(ClassificationId, jobClassificationId)
       : "";
 
-  const [experienceData, setExperienceData] = React.useState<
+  const [experienceData, setExperienceData] = useState<
     | (Experience & {
         savedOptionalSkills: Skill[];
         savedRequiredSkills: Skill[];
@@ -259,38 +273,13 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     | null
   >(null);
 
-  const [isModalVisible, setIsModalVisible] = React.useState<{
+  const [isModalVisible, setIsModalVisible] = useState<{
     id: Experience["type"] | "";
     visible: boolean;
   }>({
     id: "",
     visible: false,
   });
-
-  const filteredSkills = criteria.reduce(
-    (result, criterion): { essential: Skill[]; asset: Skill[] } => {
-      const skillOfCriterion = getSkillOfCriteria(criterion, skills);
-      if (skillOfCriterion) {
-        if (criterion.criteria_type_id === CriteriaTypeId.Essential) {
-          result.essential.push(skillOfCriterion);
-        }
-        if (criterion.criteria_type_id === CriteriaTypeId.Asset) {
-          result.asset.push(skillOfCriterion);
-        }
-      }
-      return result;
-    },
-    { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
-  );
-
-  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
-  const assetSkills = removeDuplicatesById(filteredSkills.asset);
-
-  const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
-    experiences,
-    experienceSkills,
-    essentialSkills,
-  );
 
   const openModal = (id: Experience["type"]): void => {
     setIsModalVisible({ id, visible: true });
@@ -327,7 +316,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   );
 
   const modalButtons = modalButtonProps(intl);
-
   const modalRoot = document.getElementById("modal-root");
 
   return (
@@ -415,6 +403,48 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
             }}
           />
         </p>
+        {hasError && (
+          <div
+            // This alert message needs the tabindex attribute for it to be focusable.
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={0}
+            data-c-alert="error"
+            data-c-radius="rounded"
+            role="alert"
+            data-c-margin="bottom(1)"
+            id="experience-step-form-error"
+            style={{ display: "block" }}
+          >
+            <div data-c-padding="all(.5)">
+              <p data-c-alignment="base(left)">
+                <FormattedMessage
+                  id="application.experience.errorMessage"
+                  defaultMessage="To continue, please connect the following required skill(s) to an experience:"
+                  description="Error message displayed to user when experience step validation fails"
+                />
+                {` `}
+                {disconnectedRequiredSkills.map((skill, index) => {
+                  const and = " and ";
+                  const lastElement =
+                    index === disconnectedRequiredSkills.length - 1;
+                  return (
+                    <React.Fragment key={skill.id}>
+                      {lastElement &&
+                        disconnectedRequiredSkills.length > 1 &&
+                        and}
+                      <span key={skill.id} data-c-font-weight="bold">
+                        {localizeFieldNonNull(locale, skill, "name")}
+                      </span>
+                      {!lastElement &&
+                        disconnectedRequiredSkills.length > 2 &&
+                        ", "}
+                    </React.Fragment>
+                  );
+                })}
+              </p>
+            </div>
+          </div>
+        )}
         {/* Experience Modal Buttons */}
         <div data-c-grid="gutter(all, 1)">
           {Object.values(modalButtons).map((buttonProps) => {
@@ -703,14 +733,51 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   handleReturn,
 }) => {
   const intl = useIntl();
+  const [hasError, setHasError] = useState(false);
+
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement("experience-step-form-error");
+    }
+  }, [hasError]);
+
+  const filteredSkills = criteria.reduce(
+    (result, criterion): { essential: Skill[]; asset: Skill[] } => {
+      const skillOfCriterion = getSkillOfCriteria(criterion, skills);
+      if (skillOfCriterion) {
+        if (criterion.criteria_type_id === CriteriaTypeId.Essential) {
+          result.essential.push(skillOfCriterion);
+        }
+        if (criterion.criteria_type_id === CriteriaTypeId.Asset) {
+          result.asset.push(skillOfCriterion);
+        }
+      }
+      return result;
+    },
+    { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
+  );
+
+  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
+  const assetSkills = removeDuplicatesById(filteredSkills.asset);
+
+  const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
+    experiences,
+    experienceSkills,
+    essentialSkills,
+  );
+
   return (
     <>
       <MyExperience
+        assetSkills={assetSkills}
+        disconnectedRequiredSkills={disconnectedRequiredSkills}
+        hasError={hasError}
         experiences={experiences}
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
         experienceSkills={experienceSkills}
-        criteria={criteria}
+        essentialSkills={essentialSkills}
         skills={skills}
         jobId={jobId}
         jobClassificationId={jobClassificationId}
@@ -753,7 +820,16 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
               data-c-radius="rounded"
               data-c-margin="left(1)"
               type="button"
-              onClick={(): void => handleContinue()}
+              onClick={(): void => {
+                // If all required skills have been connected to an experience, then continue.
+                // Else, show error alert.
+                if (disconnectedRequiredSkills.length === 0) {
+                  handleContinue();
+                } else {
+                  setHasError(true);
+                  focusOnElement("experience-step-form-error");
+                }
+              }}
             >
               {intl.formatMessage(navigationMessages.continue)}
             </button>

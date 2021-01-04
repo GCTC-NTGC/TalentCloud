@@ -1,12 +1,16 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\ApplicantClassification;
+use App\Models\Classification;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Manager;
 use App\Models\HrAdvisor;
+use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\Frequency;
+use App\Models\Lookup\VeteranStatus;
 use App\Models\TeamCulture;
 use App\Models\WorkEnvironment;
 use Illuminate\Support\Facades\Hash;
@@ -78,6 +82,8 @@ $factory->define(Applicant::class, function (Faker\Generator $faker) {
         'user_id' => function () {
             return factory(User::class)->states('applicant')->create()->id;
         },
+        'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
+        'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
     ];
 });
 
@@ -165,4 +171,15 @@ $factory->afterCreating(Manager::class, function ($manager) : void {
     $manager->work_environment()->save(factory(WorkEnvironment::class)->create([
         'manager_id' => $manager->id,
     ]));
+});
+
+$factory->afterCreating(Applicant::class, function ($applicant, Faker\Generator $faker) : void {
+    $randNum = $faker->numberBetween(0, 2);
+    for ($i = 0; $i <= $randNum; $i++) {
+        $applicant_classification = new ApplicantClassification();
+        $applicant_classification->classification_id = Classification::inRandomOrder()->first()->id;
+        $applicant_classification->level = $faker->numberBetween(1, 9);
+        $applicant_classification->order = $i;
+        $applicant->applicant_classifications()->save($applicant_classification);
+    }
 });

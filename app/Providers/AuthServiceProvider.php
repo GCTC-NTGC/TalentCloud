@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Applicant;
+use App\Models\ApplicationReview;
 use App\Models\Course;
 use App\Models\Degree;
 use App\Models\Manager;
@@ -47,6 +48,7 @@ use App\Policies\ExperiencePolicy;
 use App\Policies\ExperienceSkillPolicy;
 use App\Policies\HrAdvisorPolicy;
 use App\Policies\JobApplicationAnswerPolicy;
+use App\Policies\ApplicationReviewPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -78,7 +80,8 @@ class AuthServiceProvider extends ServiceProvider
         ExperienceCommunity::class => ExperiencePolicy::class,
         ExperienceEducation::class => ExperiencePolicy::class,
         ExperienceSkill::class => ExperienceSkillPolicy::class,
-        JobApplicationAnswer::class => JobApplicationAnswerPolicy::class
+        JobApplicationAnswer::class => JobApplicationAnswerPolicy::class,
+        ApplicationReview::class => ApplicationReviewPolicy::class
     ];
 
     /**

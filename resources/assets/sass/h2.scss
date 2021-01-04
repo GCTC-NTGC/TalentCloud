@@ -1,0 +1,10 @@
+@use "../../../node_modules/@hydrogen-design-system/system/dist/import/latest/core/styles/defaults" with (
+  $theme-color-1: #5b1647,
+  $theme-color-2: #96043e,
+  $theme-color-3: #c90035,
+  $layout-small: 50rem,
+  $layout-large: 90rem,
+  $hover-font-color: #5ea8e4,
+  $hover-bg-color: #5ea8e4
+);
+@use "../../../node_modules/@hydrogen-design-system/system/dist/import/latest/system.scss";

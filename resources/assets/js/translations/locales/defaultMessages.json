@@ -572,6 +572,11 @@
         "id": "application.experience.softSkillsList"
       },
       {
+        "defaultMessage": "To continue, please connect the following required skill(s) to an experience:",
+        "description": "Error message displayed to user when experience step validation fails",
+        "id": "application.experience.errorMessage"
+      },
+      {
         "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
         "description": "Message displayed when application has no experiences.",
         "id": "application.experience.noExperiences"
@@ -1754,12 +1759,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -3512,7 +3517,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -5370,81 +5375,6 @@
         "defaultMessage": "No, travel is not required for the position.",
         "description": "The form label displayed on 'no travel required' travel options",
         "id": "jobBuilder.details.travelNoneRequiredLabel"
-      },
-      {
-        "defaultMessage": "AS - Administrative Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.AS"
-      },
-      {
-        "defaultMessage": "BI - Biological Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.BI"
-      },
-      {
-        "defaultMessage": "CO - Commerce",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CO"
-      },
-      {
-        "defaultMessage": "CR - Clerical and Regulatory",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CR"
-      },
-      {
-        "defaultMessage": "CS - Computer Systems",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.CS"
-      },
-      {
-        "defaultMessage": "EC - Economics and Social Science Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EC"
-      },
-      {
-        "defaultMessage": "EX - Executive",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EX"
-      },
-      {
-        "defaultMessage": "FO - Forestry",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.FO"
-      },
-      {
-        "defaultMessage": "IS - Information Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.IS"
-      },
-      {
-        "defaultMessage": "PC - Physical Sciences",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PC"
-      },
-      {
-        "defaultMessage": "PE - Personnel Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PE"
-      },
-      {
-        "defaultMessage": "PM - Programme Administration",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.PM"
-      },
-      {
-        "defaultMessage": "AD - Administrative Services",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.AD"
-      },
-      {
-        "defaultMessage": "EN-ENG - Engineering",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.EN-ENG"
-      },
-      {
-        "defaultMessage": "FI - Financial Management",
-        "description": "Job Classification from list of Classifications",
-        "id": "jobBuilder.details.classificationOptions.FI"
       },
       {
         "defaultMessage": "Job Poster Builder",

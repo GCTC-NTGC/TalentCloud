@@ -387,7 +387,10 @@ Route::group(
                             ->name('manager.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('manager.applications.show');
@@ -632,7 +635,10 @@ Route::group(
                             ->name('hr_advisor.jobs.applications');
 
                         /* View Application */
-                        Route::get('jobs/{jobPoster}/applications/{application}', 'ApplicationController@showWithJob')
+                        Route::get(
+                            'jobs/{jobPoster}/applications/{application}',
+                            'ApplicationController@showWithToolbar'
+                        )
                             ->middleware('can:manage,jobPoster')
                             ->middleware('can:view,application')
                             ->name('hr_advisor.applications.show');
@@ -770,7 +776,7 @@ Route::group(
             function (): void {
                 // This page is non-localized, because the middleware that redirects to localized
                 // pages changes POSTs to GETs and messes up the request.
-                Route::post('jobs/create/as-manager/{manager}', 'JobController@createAsManager')
+                Route::match(['get','post'], 'jobs/create/as-manager/{manager}', 'JobController@createAsManager')
                     ->middleware('can:create,App\Models\JobPoster')
                     ->name('admin.jobs.create_as_manager');
 
@@ -817,6 +823,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
     Route::get('departments', 'Api\DepartmentController@index');
     Route::get('job-poster-statuses', 'Api\JobStatusController@index');
     Route::get('skills', 'Api\SkillController@index');
+    Route::get('skill-categories', 'Api\SkillCategoryController@index');
 
     // Resource Routes are protected by policies in controllers instead of middleware.
     Route::resource('assessments', 'AssessmentController')->except([
@@ -1003,6 +1010,15 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:delete,experienceSkill')
         ->name('experience-skill.destroy');
 
+    Route::post('experience-skills/batch-store', 'Api\ExperienceSkillsController@batchStore')
+        ->middleware('can:create,App\Models\ExperienceSkill')
+        ->name('experience-skill.batch-store');
+    Route::post('experience-skills/batch-update', 'Api\ExperienceSkillsController@batchUpdate')
+        ->name('experience-skill.batch-update');
+    Route::post('experience-skills/batch-destroy', 'Api\ExperienceSkillsController@batchDestroy')
+        ->name('experience-skill.batch-destroy');
+
+
     Route::post('job-application-answers', 'Api\JobApplicationAnswerController@store')
         ->middleware('can:create,App\Models\JobApplicationAnswer')
         ->name('job-application-answers.store');
@@ -1010,6 +1026,9 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->where('jobApplicationAnswer', '[0-9]+')
         ->middleware('can:update,jobApplicationAnswer')
         ->name('job-application-answers.update');
+
+    Route::get('classifications', 'Api\ClassificationController@index');
+        //->middleware('can:view,application');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
@@ -1037,11 +1056,16 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
         ->where('application', '[0-9]+')
         ->middleware('can:review,application')
         ->name('application.review.update');
+    Route::post('application-reviews/batch-update', 'Api\ApplicationReviewController@batchUpdate')
+        ->name('application-reviews.batch-update');
     Route::get('applications/{application}/experience', 'Api\ExperienceController@indexForApplication')
         ->where('application', '[0-9]+')
         ->middleware('can:view,application')
         ->name('application.experience.index');
-    Route::put('applications/{application}/job-application-steps/{jobApplicationStep}', 'Api\ApplicationController@touchStep')
+    Route::put(
+        'applications/{application}/job-application-steps/{jobApplicationStep}',
+        'Api\ApplicationController@touchStep'
+    )
         ->middleware('can:view,application')
         ->name('job-application-step.update');
 });
