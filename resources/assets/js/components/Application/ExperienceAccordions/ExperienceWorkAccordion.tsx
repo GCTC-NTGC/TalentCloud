@@ -119,6 +119,7 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-briefcase"

@@ -1,11 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
-import {
-  Locales,
-  getLocale,
-  localizeFieldNonNull,
-} from "../../../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 import {
   ExperienceEducation,
@@ -172,6 +168,7 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-book"
@@ -239,6 +236,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   );
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.id}-${experience.type}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-book"

@@ -21,7 +21,7 @@ export const useLocation = (): Location<any> => {
 };
 
 // Scroll to element specified in the url hash, if possible
-export const useUrlHash = (): void => {
+export const useUrlHash = (): string => {
   const location = useLocation();
   const [hashFound, setHashFound] = useState(false);
   useEffect((): void => {
@@ -36,6 +36,7 @@ export const useUrlHash = (): void => {
       }
     }
   }, [location.hash, hashFound]);
+  return location.hash;
 };
 
 export const navigate = (url: string): void => {
