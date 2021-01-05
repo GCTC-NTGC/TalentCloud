@@ -6166,16 +6166,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.14.2",
+            "version": "v2.14.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "393c9086ff7b50ce7f2ceaaa75cc809948c252a2"
+                "reference": "8bc568d460d88b25c00c046256ec14a787ea60d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/393c9086ff7b50ce7f2ceaaa75cc809948c252a2",
-                "reference": "393c9086ff7b50ce7f2ceaaa75cc809948c252a2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8bc568d460d88b25c00c046256ec14a787ea60d9",
+                "reference": "8bc568d460d88b25c00c046256ec14a787ea60d9",
                 "shasum": ""
             },
             "require": {
@@ -6237,7 +6237,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-05T10:26:31+00:00"
+            "time": "2021-01-05T15:34:33+00:00"
         },
         {
             "name": "venturecraft/revisionable",
