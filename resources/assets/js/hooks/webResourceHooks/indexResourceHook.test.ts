@@ -216,6 +216,88 @@ describe("indexResourceHook", () => {
     expect(initialError).toBeInstanceOf(FetchError);
     expect(initialError.response.status).toBe(404);
   });
+  it("when refresh() returns a server error, handleError is called", async () => {
+    fetchMock.once("*", 404);
+    const handleError = jest.fn();
+    const initialValue = [
+      { id: 1, name: "one" },
+      { id: 2, name: "two" },
+    ];
+    const { result } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue, handleError }),
+    );
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toBeInstanceOf(FetchError);
+    });
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError).toBeInstanceOf(FetchError);
+    expect(initialError.response.status).toBe(404);
+  });
+  it("when refresh() triggers a Fetch error, handleError is called", async () => {
+    fetchMock.once("*", { throws: new Error("Failed to fetch") });
+    const handleError = jest.fn();
+    const initialValue = [
+      { id: 1, name: "one" },
+      { id: 2, name: "two" },
+    ];
+    const { result } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue, handleError }),
+    );
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
+    });
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError.message).toBe("Failed to fetch");
+  });
+  it("when refresh() returns invalid JSON, handleError is called", async () => {
+    fetchMock.once("*", "This is the response");
+    const handleError = jest.fn();
+    const initialValue = [
+      { id: 1, name: "one" },
+      { id: 2, name: "two" },
+    ];
+    const { result } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue, handleError }),
+    );
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
+    });
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError.message.startsWith("invalid json response body")).toBe(
+      true,
+    );
+  });
+  it("when refresh() returns an object with no id, handleError is called", async () => {
+    fetchMock.once("*", [
+      { id: 1, name: "one valid JSON" },
+      { name: "two valid JSON but no id" },
+    ]);
+    const handleError = jest.fn();
+    const initialValue = [
+      { id: 1, name: "one" },
+      { id: 2, name: "two" },
+    ];
+    const { result } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue, handleError }),
+    );
+    await act(async () => {
+      await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
+    });
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError.message).toBe(UNEXPECTED_FORMAT_ERROR);
+  });
   it("If refresh() is called twice, and one request returns, status remains pending", async () => {
     fetchMock.once(endpoint, [], {
       delay: 10,
@@ -503,7 +585,7 @@ describe("indexResourceHook", () => {
     ];
     const updateValue = { id: 2, name: "UPDATE two" };
     // First request fails, second succeeds
-    fetchMock.once(`${endpoint}/2`, 404);
+    fetchMock.putOnce(`${endpoint}/2`, 404);
     fetchMock.mock("*", updateValue);
     const { result } = renderHook(() =>
       useResourceIndex(endpoint, { initialValue }),
