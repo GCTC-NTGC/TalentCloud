@@ -11,7 +11,7 @@ import {
 } from "../../fakeData/fakeApplications";
 import { ReviewStatusId } from "../../models/lookupConstants";
 
-const stories = storiesOf("Review Applications|Row", module).addDecorator(
+const stories = storiesOf("Review Applications/Row", module).addDecorator(
   withIntl,
 );
 
@@ -66,11 +66,7 @@ stories
         <div className="applicant-category">
           <ApplicationRow
             application={veteranApplication}
-            handleUpdateReview={() =>
-              promiseAction(
-                "Update Review"
-              )()
-            }
+            handleUpdateReview={() => promiseAction("Update Review")()}
             portal={select("Portal", ["manager", "hr"], "manager")}
           />
         </div>
@@ -84,11 +80,7 @@ stories
         <div className="applicant-category">
           <ApplicationRow
             application={priorityApplication}
-            handleUpdateReview={() =>
-              promiseAction(
-                "Update Review"
-              )()
-            }
+            handleUpdateReview={() => promiseAction("Update Review")()}
             portal={select("Portal", ["manager", "hr"], "manager")}
           />
         </div>
@@ -102,9 +94,7 @@ stories
         <div className="applicant-category">
           <ApplicationRow
             application={reviewed}
-            handleUpdateReview={() =>
-              promiseAction("Update Review")()
-            }
+            handleUpdateReview={() => promiseAction("Update Review")()}
             portal={select("Portal", ["manager", "hr"], "manager")}
           />
         </div>
