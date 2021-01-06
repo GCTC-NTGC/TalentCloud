@@ -67,6 +67,7 @@ function doNothing(): void {
   /* do nothing */
 }
 
+// The value dispatched to the reducer must have an id, or the reducer cannot place it correctly.
 function isValidEntity(value: any): boolean {
   return hasKey(value, "id");
 }
@@ -75,7 +76,8 @@ function isValidEntityList(value: any): boolean {
   return Array.isArray(value) && value.every(isValidEntity);
 }
 
-const UNEXPECTED_FORMAT_ERROR = "Response from server was not expected format";
+export const UNEXPECTED_FORMAT_ERROR =
+  "Response from server was not expected format";
 
 export function useResourceIndex<T extends { id: number }>(
   endpoint: string, // API endpoint that returns a list of T.
