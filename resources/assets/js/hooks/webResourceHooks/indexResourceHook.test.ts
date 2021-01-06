@@ -585,13 +585,15 @@ describe("indexResourceHook", () => {
     ];
     const updateValue = { id: 2, name: "UPDATE two" };
     // First request fails, second succeeds
-    fetchMock.putOnce(`${endpoint}/2`, 404);
+    fetchMock.putOnce(`${endpoint}/${updateValue.id}`, 404);
     fetchMock.mock("*", updateValue);
     const { result } = renderHook(() =>
       useResourceIndex(endpoint, { initialValue }),
     );
     await act(async () => {
-      await result.current.update(updateValue);
+      expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
+        FetchError,
+      );
     });
     expect(result.current.entityStatus[2]).toBe("rejected");
     await act(async () => {
