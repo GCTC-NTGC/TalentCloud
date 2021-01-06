@@ -22,19 +22,15 @@ describe("indexResourceHook", () => {
   const endpoint = "https://talent.test/api/test";
 
   it("Initially returns no values and a status of 'pending'", () => {
-    fetchMock.mock(
-      "*",
-      {},
-      {
-        delay: 10,
-      },
-    );
+    fetchMock.mock("*", [], {
+      delay: 10,
+    });
     const { result } = renderHook(() => useResourceIndex(endpoint));
     expect(result.current.values).toEqual({});
     expect(result.current.indexStatus).toEqual("pending");
   });
   it("If initial value is set, returns that value and does not automatically fetch.", () => {
-    fetchMock.mock("*", {});
+    fetchMock.mock("*", []);
     const initialValue = [
       { id: 1, name: "one" },
       { id: 2, name: "two" },
@@ -112,9 +108,12 @@ describe("indexResourceHook", () => {
     expect(result.current.values).toEqual(arrayToIndexedObj(expectValue));
   });
   it("Initial fetch is a GET request to the provided endpoint", async () => {
-    fetchMock.getOnce(endpoint, {});
-    const { result, waitFor } = renderHook(() => useResourceIndex(endpoint));
-    await waitFor(() => result.current.indexStatus === "fulfilled");
+    fetchMock.getOnce(endpoint, []);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResourceIndex(endpoint),
+    );
+    await waitForNextUpdate();
+    expect(result.current.indexStatus).toBe("fulfilled");
     expect(fetchMock.called()).toBe(true);
   });
   it("After initial fetch, all values have entityStatus of 'fulfilled'", async () => {
@@ -131,62 +130,56 @@ describe("indexResourceHook", () => {
       2: "fulfilled",
     });
   });
-  // it("Status changes to 'pending' when refresh() is called", async () => {
-  //   fetchMock.mock("*", {});
-  //   const initialValue = { name: "Talent Cloud", age: 3 };
-  //   const parseResponse = () => ({ name: "Talent Cloud 2", age: 100 });
-  //   const { result, waitForNextUpdate } = renderHook(() =>
-  //     useResource(endpoint, initialValue, {
-  //       parseResponse,
-  //       skipInitialFetch: true,
-  //     }),
-  //   );
-  //   expect(result.current.status).toEqual("initial");
-  //   await act(async () => {
-  //     result.current.refresh();
-  //     await waitForNextUpdate();
-  //     expect(result.current.status).toEqual("pending");
-  //   });
-  // });
-  // it("refresh() triggers a GET request to endpoint", async () => {
-  //   fetchMock.getOnce(endpoint, {});
-  //   const { result } = renderHook(() =>
-  //     useResource(endpoint, null, { skipInitialFetch: true }),
-  //   );
-  //   await act(async () => {
-  //     await result.current.refresh();
-  //   });
-  //   expect(fetchMock.called()).toBe(true);
-  // });
-  // it("refresh() returns fetch result and updates hook value", async () => {
-  //   const initialValue = { name: "Talent Cloud", age: 3 };
-  //   const newValue = { name: "Talent Cloud 2", age: 100 };
-  //   fetchMock.mock(endpoint, newValue);
-  //   const { result } = renderHook(() =>
-  //     useResource(endpoint, initialValue, { skipInitialFetch: true }),
-  //   );
-  //   expect(result.current.value).toEqual(initialValue);
-  //   expect(result.current.status).toEqual("initial");
-  //   await act(async () => {
-  //     const refreshValue = await result.current.refresh();
-  //     expect(refreshValue).toEqual(newValue);
-  //   });
-  //   expect(result.current.status).toEqual("fulfilled");
-  //   expect(result.current.value).toEqual(newValue);
-  // });
-  // it("Returns an error and 'rejected' status when fetch returns a server error", async () => {
-  //   const initialValue = { name: "Talent Cloud", age: 3 };
-  //   fetchMock.once(endpoint, 404);
-  //   const { result, waitForNextUpdate } = renderHook(() =>
-  //     useResource(endpoint, initialValue),
-  //   );
-  //   expect(result.current.value).toEqual(initialValue);
-  //   expect(result.current.status).toEqual("pending");
-  //   await waitForNextUpdate();
-  //   expect(result.current.value).toEqual(initialValue);
-  //   expect(result.current.status).toEqual("rejected");
-  //   expect(result.current.error instanceof FetchError).toBe(true);
-  // });
+  it("Returns a 'rejected' status and calls handleError when initial fetch returns a server error", async () => {
+    fetchMock.once(endpoint, 404);
+    const handleError = jest.fn();
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResourceIndex(endpoint, { handleError }),
+    );
+    expect(result.current.values).toEqual({});
+    expect(result.current.indexStatus).toEqual("pending");
+    await waitForNextUpdate();
+    expect(result.current.values).toEqual({});
+    expect(result.current.indexStatus).toEqual("rejected");
+    // handleError was called once on initial fetch.
+    expect(handleError.mock.calls.length).toBe(1);
+    // Get error from argument to mocked function.
+    const initialError = handleError.mock.calls[0][0];
+    expect(initialError).toBeInstanceOf(FetchError);
+    expect(initialError.response.status).toBe(404);
+  });
+  it("Calling refresh() triggers a GET request to endpoint and sets status to 'pending'", async () => {
+    fetchMock.getOnce(endpoint, []);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue: [] }),
+    );
+    expect(result.current.indexStatus).toBe("initial");
+    await act(async () => {
+      result.current.refresh();
+      await waitForNextUpdate();
+      expect(result.current.indexStatus).toEqual("pending");
+    });
+    expect(fetchMock.called()).toBe(true);
+  });
+  it("refresh() returns fetch result and updates hook value", async () => {
+    const responseValue = [
+      { id: 1, name: "one" },
+      { id: 2, name: "two" },
+    ];
+    fetchMock.mock(endpoint, responseValue);
+    const { result } = renderHook(() =>
+      useResourceIndex(endpoint, { initialValue: [] }),
+    );
+    expect(result.current.values).toEqual({});
+    expect(result.current.indexStatus).toEqual("initial");
+    await act(async () => {
+      const refreshValue = await result.current.refresh();
+      expect(refreshValue).toEqual(responseValue);
+    });
+    expect(result.current.indexStatus).toEqual("fulfilled");
+    expect(result.current.values).toEqual(arrayToIndexedObj(responseValue));
+  });
+
   // it("refresh() rejects with an error when fetch returns a server error", async () => {
   //   const initialValue = { name: "Talent Cloud", age: 3 };
   //   fetchMock.once(endpoint, 404);

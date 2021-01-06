@@ -14,7 +14,7 @@ import {
   processJsonResponse,
   putRequest,
 } from "../../helpers/httpRequests";
-import { identity } from "../../helpers/queries";
+import { hasKey, identity } from "../../helpers/queries";
 import indexCrudReducer, {
   initializeState,
   ResourceState,
@@ -67,6 +67,16 @@ function doNothing(): void {
   /* do nothing */
 }
 
+function isValidEntity(value: any): boolean {
+  return hasKey(value, "id");
+}
+
+function isValidEntityList(value: any): boolean {
+  return Array.isArray(value) && value.every(isValidEntity);
+}
+
+const UNEXPECTED_FORMAT_ERROR = "Response from server was not expected format";
+
 export function useResourceIndex<T extends { id: number }>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
@@ -116,12 +126,16 @@ export function useResourceIndex<T extends { id: number }>(
         type: ActionTypes.CreateStart,
         meta: { item: newValue },
       });
-      let json: Json;
+      let entity: T;
       try {
-        json = await postRequest(
+        const json = await postRequest(
           resolveCreateEndpoint(endpoint, newValue),
           newValue,
         ).then(processJsonResponse);
+        entity = parseEntityResponse(json);
+        if (!isValidEntity(entity)) {
+          throw new Error(UNEXPECTED_FORMAT_ERROR);
+        }
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
@@ -133,7 +147,6 @@ export function useResourceIndex<T extends { id: number }>(
         }
         throw error;
       }
-      const entity = parseEntityResponse(json) as T;
       if (isSubscribed.current) {
         dispatch({
           type: ActionTypes.CreateFulfill,
@@ -150,9 +163,13 @@ export function useResourceIndex<T extends { id: number }>(
     dispatch({
       type: ActionTypes.IndexStart,
     });
-    let json: Json;
+    let index: T[];
     try {
-      json = await getRequest(endpoint).then(processJsonResponse);
+      const json = await getRequest(endpoint).then(processJsonResponse);
+      index = parseIndexResponse(json);
+      if (!isValidEntityList(index)) {
+        throw new Error(UNEXPECTED_FORMAT_ERROR);
+      }
     } catch (error) {
       if (isSubscribed.current) {
         dispatch({
@@ -163,7 +180,6 @@ export function useResourceIndex<T extends { id: number }>(
       }
       throw error;
     }
-    const index = parseIndexResponse(json) as T[];
     if (isSubscribed.current) {
       dispatch({
         type: ActionTypes.IndexFulfill,
@@ -180,12 +196,16 @@ export function useResourceIndex<T extends { id: number }>(
         type: ActionTypes.UpdateStart,
         meta,
       });
-      let json: Json;
+      let value: T;
       try {
-        json = await putRequest(
+        const json = await putRequest(
           resolveEntityEndpoint(endpoint, newValue.id),
           newValue,
         ).then(processJsonResponse);
+        value = parseEntityResponse(json);
+        if (!isValidEntity(value)) {
+          throw new Error(UNEXPECTED_FORMAT_ERROR);
+        }
       } catch (error) {
         if (isSubscribed.current) {
           dispatch({
@@ -197,7 +217,6 @@ export function useResourceIndex<T extends { id: number }>(
         }
         throw error;
       }
-      const value = parseEntityResponse(json) as T;
       if (isSubscribed.current) {
         dispatch({
           type: ActionTypes.UpdateFulfill,
