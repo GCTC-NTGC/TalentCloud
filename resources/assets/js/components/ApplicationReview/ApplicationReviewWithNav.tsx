@@ -41,20 +41,14 @@ const ApplicationReviewWithNav: React.FC<ApplicationReviewWithNavProps> = ({
       <div>
         <div className="manager-application-preview-actions flex-grid">
           <div className="box small-1of3">
-            <button
-              className="button--blue light-bg"
-              type="button"
-              onClick={() => {
-                window.location.href = jobApplicationsUrl;
-              }}
-            >
+            <a className="button--blue light-bg" href={jobApplicationsUrl}>
               {`< `}
               <FormattedMessage
                 id="application.review.backToApplicantList"
                 defaultMessage="Save and Go Back to Applicant List"
                 description="Back Button text"
               />
-            </button>
+            </a>
           </div>
           <div className="box small-2of3">
             <a
