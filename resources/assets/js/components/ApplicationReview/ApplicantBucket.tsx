@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { Application, ApplicationReview } from "../../models/types";
 import ApplicationRow from "./ApplicationRow";
@@ -25,6 +25,8 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   prioritizeVeterans,
   portal,
 }: ApplicantBucketProps): React.ReactElement | null => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (applications.length === 0) {
     return null;
   }
@@ -34,12 +36,15 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
     : applicationCompare;
   const sortedApplications = applications.slice().sort(compareFunction);
   return (
-    <div className="accordion applicant-bucket">
+    <div className={`accordion applicant-bucket${isExpanded ? " active" : ""}`}>
       <button
-        aria-expanded="false"
+        aria-expanded={isExpanded}
         className="accordion-trigger"
         tabIndex={0}
         type="button"
+        onClick={(): void => {
+          setIsExpanded(!isExpanded);
+        }}
       >
         <span className="bucket-title">
           {title} ({applications.length})
@@ -57,7 +62,7 @@ const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
       </button>
 
       {/* Accordion Content */}
-      <div aria-hidden="true" className="accordion-content">
+      <div aria-hidden={!isExpanded} className="accordion-content">
         <p>{description}</p>
 
         {sortedApplications.map(
