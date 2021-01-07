@@ -18,7 +18,7 @@ class ApplicantProfile extends JsonResource
         return [
             'citizenship_declaration_id' => $this->citizenship_declaration_id,
             'veteran_status_id' => $this->veteran_status_id,
-            'classifications' => new JsonResource($this->whenLoaded('classifications')),
+            'applicant_classifications' => new JsonResource($this->whenLoaded('applicant_classifications')),
         ];
     }
 }
