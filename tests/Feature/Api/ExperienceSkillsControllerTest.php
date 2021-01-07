@@ -10,7 +10,6 @@ use App\Models\ExperienceWork;
 use App\Models\Skill;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
 
 class ExperienceSkillsControllerTest extends TestCase
 {
@@ -123,6 +122,21 @@ class ExperienceSkillsControllerTest extends TestCase
             'experience_skills',
             ['id' => $experienceSkill->id, 'deleted_at' => null]
         );
+    }
+
+    public function testAttachSkillToApplicantDuringStoreExperienceSkill()
+    {
+        $work = factory(ExperienceWork::class)->create();
+        $workSkillData = $this->makeExpSkillData($work->id, 'experience_work');
+        $response = $this->actingAs($work->experienceable->user)
+            ->json('post', route('api.v1.experience-skill.store'), $workSkillData);
+        $response->assertOk();
+        $response->assertJsonFragment($workSkillData);
+        $id = $response->decodeResponseJson('id');
+        $this->assertDatabaseHas('applicant_skill', [
+            'applicant_id' => $work->experienceable_id,
+            'skill_id' => $workSkillData['skill_id']
+        ]);
     }
 
     public function testBatchStoreExperienceSkill()
