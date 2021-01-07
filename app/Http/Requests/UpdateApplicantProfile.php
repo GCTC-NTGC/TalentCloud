@@ -2,10 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Classification;
-use App\Models\Lookup\CitizenshipDeclaration;
-use App\Models\Lookup\VeteranStatus;
-use App\Services\Validation\Rules\ValidIdRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateApplicantProfile extends FormRequest
@@ -29,11 +25,13 @@ class UpdateApplicantProfile extends FormRequest
     public function rules()
     {
         return [
-            'citizenship_declaration_id' => ['required', new ValidIdRule(CitizenshipDeclaration::class)],
-            'veteran_status_id' => ['required', new ValidIdRule(VeteranStatus::class)],
-            'classifications.*.id' => ['required', new ValidIdRule(Classification::class)],
-            'classifications.*.level' => 'required|integer|min:0|max:9',
-            'classifications.*.order' => 'required|integer|min:0|max:9',
+            'citizenship_declaration_id' => 'required|exists:citizenship_declarations,id',
+            'veteran_status_id' => 'required|exists:veteran_statuses,id',
+            'applicant_classifications.*.id' => 'required|integer',
+            'applicant_classifications.*.applicant_id' => 'required|exists:applicants,id',
+            'applicant_classifications.*.classification_id' => 'required|exists:classifications,id',
+            'applicant_classifications.*.level' => 'required|integer|min:1|max:9',
+            'applicant_classifications.*.order' => 'required|integer|min:0|max:9',
         ];
     }
 }
