@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateApplicantProfile;
 use App\Http\Resources\ApplicantProfile as ApplicantProfileResource;
 use App\Models\Applicant;
-use Illuminate\Support\Facades\Log;
+use App\Models\ApplicantClassification;
 
 class ApplicantController extends Controller
 {
@@ -20,7 +20,7 @@ class ApplicantController extends Controller
      */
     public function getProfile(Applicant $applicant)
     {
-          $applicant->loadMissing('classifications');
+          $applicant->loadMissing('applicant_classifications');
           return new ApplicantProfileResource($applicant);
     }
 
@@ -32,24 +32,45 @@ class ApplicantController extends Controller
      */
     public function updateProfile(UpdateApplicantProfile $request, Applicant $applicant)
     {
-        $data = $request->validated();
-        // Create associated list of classifications with meta data.
-        // Then sync new classifications to applicant, which removes all associations from the intermediate table
-        // that are not in validatedClassifications.
-        $validatedClassifications = [];
-        foreach ($data['classifications'] as $classification) {
-            $validatedClassifications[$classification['id']] = [
-                'level' => $classification['level'],
-                'order' => $classification['order'],
-            ];
+        $validatedRequest = $request->validated();
+        // If there are no applicant classifications in the request,
+        // then delete all applicant classifications attached to applicant.
+        if (!array_key_exists('applicant_classifications', $validatedRequest)) {
+            $applicant->applicant_classifications()->delete();
+        } else {
+            $newApplicantClassifications = collect($validatedRequest['applicant_classifications']);
+            $oldApplicantClassifications = $applicant->applicant_classifications;
+
+            // Delete old applicant classifications that were not resubmitted.
+            foreach ($oldApplicantClassifications as $applicantClassification) {
+                $newApplicantClassification = $newApplicantClassifications->firstWhere(
+                    'id',
+                    $applicantClassification['id']
+                );
+                if (!$newApplicantClassification) {
+                    $applicantClassification->delete();
+                }
+            }
+
+            // Update old applicant classifications and/or create them if it doesn't exist.
+            $newApplicantClassifications->map(function ($applicantClassification) use ($applicant) {
+                $newApplicantClassification = ApplicantClassification::firstOrNew(
+                    ['id' => $applicantClassification['id']]
+                );
+                $newApplicantClassification->applicant_id = $applicantClassification['applicant_id'];
+                $newApplicantClassification->classification_id = $applicantClassification['classification_id'];
+                $newApplicantClassification->fill($applicantClassification);
+                $newApplicantClassification->save();
+                $applicant->applicant_classifications()->save($newApplicantClassification);
+            });
         }
-        $applicant->classifications()->sync($validatedClassifications, true);
-        $applicant->citizenship_declaration_id = $data['citizenship_declaration_id'];
-        $applicant->veteran_status_id = $data['veteran_status_id'];
+
+        $applicant->citizenship_declaration_id = $validatedRequest['citizenship_declaration_id'];
+        $applicant->veteran_status_id = $validatedRequest['veteran_status_id'];
         $applicant->save();
 
-        $applicant->fresh();
-        $applicant->loadMissing('classifications');
+        $applicant->refresh();
+        $applicant->loadMissing('applicant_classifications');
 
         return new ApplicantProfileResource($applicant);
     }
