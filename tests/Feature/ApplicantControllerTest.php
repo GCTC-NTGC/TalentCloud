@@ -7,8 +7,6 @@ use App\Models\Classification;
 use App\Models\Lookup\CitizenshipDeclaration;
 use App\Models\Lookup\VeteranStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class ApplicantControllerTest extends TestCase
@@ -44,21 +42,80 @@ class ApplicantControllerTest extends TestCase
         $response->assertJsonFragment([
             'citizenship_declaration_id' => $applicant->citizenship_declaration_id,
             'veteran_status_id' => $applicant->veteran_status_id,
-            'classifications' => $applicant->classifications->toArray(),
+            'applicant_classifications' => $applicant->applicant_classifications->toArray(),
         ]);
     }
 
     public function testUpdateProfile(): void
     {
         $applicant = factory(Applicant::class)->create();
+        $applicant->applicant_classifications()->delete();
 
+        // Ensure that submitting applicant classifications creates new elements.
+        $newApplicantClassification = [
+            'id' => 12345,
+            'applicant_id' => $applicant->id,
+            'classification_id' => Classification::inRandomOrder()->first()->id,
+            'level' => 5,
+            'order' => 1,
+        ];
         $updateData = [
             'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
             'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
-            'classifications' => [
-                ['id' => 1, 'level' => 1, 'order' => 0],
-                ['id' => 2, 'level' => 2, 'order' => 1],
+            'applicant_classifications' => [
+                0 => $newApplicantClassification
             ],
+        ];
+        $response = $this->actingAs($applicant->user)
+            ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
+        $response->assertOk();
+
+        $expectedData = [
+            'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
+            'veteran_status_id' => $updateData['veteran_status_id'],
+            'applicant_classifications' => $applicant->applicant_classifications->toArray(),
+        ];
+        $response->assertJsonFragment($expectedData);
+        $this->assertDatabaseHas(
+            'applicant_classifications',
+            $applicant->applicant_classifications->first()->toArray()
+        );
+
+        // Ensure that submitting applicant classifications deletes elements that were not resubmitted
+        // and creates new elements/updates old elements.
+        $oldApplicantClassification = $applicant->applicant_classifications->first()->toArray();
+        $updateData = [
+            'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
+            'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
+            'applicant_classifications' => [
+                0 => $oldApplicantClassification,
+                1 => $newApplicantClassification,
+            ],
+        ];
+        $response = $this->actingAs($applicant->user)
+            ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
+        $response->assertOk();
+
+        $applicant->refresh();
+        $expectedData = [
+            'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
+            'veteran_status_id' => $updateData['veteran_status_id'],
+            'applicant_classifications' => $applicant->applicant_classifications->toArray(),
+        ];
+        $response->assertJsonFragment($expectedData);
+        foreach ($applicant->applicant_classifications->toArray() as $applicantClassification) {
+            $this->assertDatabaseHas(
+                'applicant_classifications',
+                $applicantClassification
+            );
+        }
+
+        // Ensure that submitting no applicant classifications deletes all
+        // previous applicant classifications attached to applicant.
+        $updateData = [
+            'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
+            'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
+            'applicant_classifications' => [],
         ];
 
         $response = $this->actingAs($applicant->user)
@@ -68,14 +125,10 @@ class ApplicantControllerTest extends TestCase
         $expectedData = [
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
-            'classifications' => $applicant->classifications->toArray(),
+            'applicant_classifications' => [],
         ];
-        $response->assertJsonFragment($expectedData);
 
-        $gov_classifications = $applicant->classifications->map(function ($classification) {
-            return $classification->gov_classification;
-        });
-        $this->assertDatabaseHas('applicant_classification', $gov_classifications[0]->toArray());
-        $this->assertDatabaseHas('applicant_classification', $gov_classifications[1]->toArray());
+        $response->assertJsonFragment($expectedData);
+        $this->assertDatabaseCount('applicant_classifications', 0);
     }
 }
