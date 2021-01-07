@@ -286,110 +286,116 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
           });
       }}
     >
-      {({ values, dirty, isSubmitting, setFieldValue }): React.ReactElement => (
-        <Form className="applicant-summary">
-          <AlertWhenUnsaved />
-          <div className="flex-grid middle gutter">
-            <div className="box lg-1of11 applicant-status">
-              <i className={statusIconClass} />
-            </div>
+      {({ values, dirty, isSubmitting, setFieldValue }): React.ReactElement => {
+        const buttonDisabled = !dirty || isSubmitting;
 
-            <div className="box lg-2of11 applicant-information">
-              <span
-                className="name"
-                data-name={`${application.applicant.user.first_name} ${application.applicant.user.last_name}`}
-              >
-                {application.applicant.user.first_name}{" "}
-                {application.applicant.user.last_name}
-              </span>
-              <a
-                href={`mailto: ${application.applicant.user.email}`}
-                title={intl.formatMessage(messages.emailCandidate)}
-                data-email={`${application.applicant.user.email}`}
-                className="email"
-              >
-                {application.applicant.user.email}
-              </a>
-              {/* This span only shown for priority applicants */}
-              {application.applicant.user.is_priority && (
-                <span className="priority-status">
-                  <i
-                    aria-hidden="true"
-                    className="fab fa-product-hunt"
-                    title={intl.formatMessage(messages.priorityLogo)}
-                  />
-                  {intl.formatMessage(messages.priorityStatus)}
+        return (
+          <Form className="applicant-summary">
+            <AlertWhenUnsaved />
+            <div className="flex-grid middle gutter">
+              <div className="box lg-1of11 applicant-status">
+                <i className={statusIconClass} />
+              </div>
+
+              <div className="box lg-2of11 applicant-information">
+                <span
+                  className="name"
+                  data-name={`${application.applicant.user.first_name} ${application.applicant.user.last_name}`}
+                >
+                  {application.applicant.user.first_name}{" "}
+                  {application.applicant.user.last_name}
                 </span>
-              )}
-              {/* This span only shown for veterans */}
-              {(application.veteran_status.name === "current" ||
-                application.veteran_status.name === "past") && (
-                <span className="veteran-status">
-                  <img
-                    alt={intl.formatMessage(messages.veteranLogo)}
-                    src={imageUrl("icon_veteran.svg")}
-                  />{" "}
-                  {intl.formatMessage(messages.veteranStatus)}
-                </span>
-              )}
-            </div>
+                <a
+                  href={`mailto: ${application.applicant.user.email}`}
+                  title={intl.formatMessage(messages.emailCandidate)}
+                  data-email={`${application.applicant.user.email}`}
+                  className="email"
+                >
+                  {application.applicant.user.email}
+                </a>
+                {/* This span only shown for priority applicants */}
+                {application.applicant.user.is_priority && (
+                  <span className="priority-status">
+                    <i
+                      aria-hidden="true"
+                      className="fab fa-product-hunt"
+                      title={intl.formatMessage(messages.priorityLogo)}
+                    />
+                    {intl.formatMessage(messages.priorityStatus)}
+                  </span>
+                )}
+                {/* This span only shown for veterans */}
+                {(application.veteran_status.name === "current" ||
+                  application.veteran_status.name === "past") && (
+                  <span className="veteran-status">
+                    <img
+                      alt={intl.formatMessage(messages.veteranLogo)}
+                      src={imageUrl("icon_veteran.svg")}
+                    />{" "}
+                    {intl.formatMessage(messages.veteranStatus)}
+                  </span>
+                )}
+              </div>
 
-            <div className="box lg-2of11 applicant-links">
-              <a
-                title={intl.formatMessage(messages.viewApplicationTitle)}
-                href={applicationUrl}
-              >
-                <i className="fas fa-file-alt" />
-                {intl.formatMessage(messages.viewApplicationText)}
-              </a>
-              <a
-                title={intl.formatMessage(messages.viewProfileTitle)}
-                href={applicantUrl}
-              >
-                <i className="fas fa-user" />
-                {intl.formatMessage(messages.viewProfile)}
-              </a>
-            </div>
+              <div className="box lg-2of11 applicant-links">
+                <a
+                  title={intl.formatMessage(messages.viewApplicationTitle)}
+                  href={applicationUrl}
+                >
+                  <i className="fas fa-file-alt" />
+                  {intl.formatMessage(messages.viewApplicationText)}
+                </a>
+                <a
+                  title={intl.formatMessage(messages.viewProfileTitle)}
+                  href={applicantUrl}
+                >
+                  <i className="fas fa-user" />
+                  {intl.formatMessage(messages.viewProfile)}
+                </a>
+              </div>
 
-            <div className="box lg-2of11 applicant-decision">
-              <FastField
-                id={`review-status-${application.id}`}
-                name="reviewStatus"
-                label={intl.formatMessage(messages.decision)}
-                component={SelectInput}
-                nullSelection={intl.formatMessage(messages.notReviewed)}
-                options={reviewOptions}
-              />
-            </div>
+              <div className="box lg-2of11 applicant-decision">
+                <FastField
+                  id={`review-status-${application.id}`}
+                  name="reviewStatus"
+                  label={intl.formatMessage(messages.decision)}
+                  component={SelectInput}
+                  nullSelection={intl.formatMessage(messages.notReviewed)}
+                  options={reviewOptions}
+                />
+              </div>
 
-            <div className="box lg-2of11 applicant-notes">
-              <button
-                className="button--outline"
-                type="button"
-                onClick={(): void =>
-                  handleNotesButtonClick(values.notes, setFieldValue)
-                }
-              >
-                {noteButtonText}
-              </button>
-            </div>
+              <div className="box lg-2of11 applicant-notes">
+                <button
+                  className="button--outline"
+                  type="button"
+                  onClick={(): void =>
+                    handleNotesButtonClick(values.notes, setFieldValue)
+                  }
+                >
+                  {noteButtonText}
+                </button>
+              </div>
 
-            <div className="box lg-2of11 applicant-save-button">
-              <button
-                className="button--blue light-bg"
-                type="submit"
-                disabled={!dirty || isSubmitting}
-              >
-                <span>
-                  {dirty
-                    ? intl.formatMessage(messages.save)
-                    : intl.formatMessage(messages.saved)}
-                </span>
-              </button>
+              <div className="box lg-2of11 applicant-save-button">
+                <button
+                  className={`button--blue light-bg${
+                    buttonDisabled ? " disabled" : ""
+                  }`}
+                  type="submit"
+                  disabled={buttonDisabled}
+                >
+                  <span>
+                    {dirty
+                      ? intl.formatMessage(messages.save)
+                      : intl.formatMessage(messages.saved)}
+                  </span>
+                </button>
+              </div>
             </div>
-          </div>
-        </Form>
-      )}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
