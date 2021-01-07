@@ -3,6 +3,7 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import { FetchError } from "../../helpers/httpRequests";
 import useResourceIndex, { UNEXPECTED_FORMAT_ERROR } from "./indexResourceHook";
 import { getId, mapToObject } from "../../helpers/queries";
+import { CREATE_EXISTING_ITEM_ERROR } from "./indexCrudReducer";
 
 interface TestResource {
   id: number;
@@ -372,7 +373,7 @@ describe("indexResourceHook", () => {
     });
   });
   describe("test create callback", () => {
-    it("create() changes createStatus to pending, and to fulfilled when it completes", async () => {
+    it("create() changes createStatus from initial to pending, and to fulfilled when it completes", async () => {
       fetchMock.mock("*", { id: 1, name: "one" });
       const { result, waitForNextUpdate } = renderHook(() =>
         useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
@@ -386,7 +387,188 @@ describe("indexResourceHook", () => {
         expect(result.current.createStatus).toBe("fulfilled");
       });
     });
-    it("create() triggers a POST request to endpoint", () => {});
+    it("create() triggers a POST request to endpoint", async () => {
+      fetchMock.postOnce(endpoint, { id: 1, name: "one" });
+      const { result } = renderHook(() =>
+        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+      );
+      await act(async () => {
+        await result.current.create({ id: 0, name: "one" });
+      });
+      expect(fetchMock.called()).toBe(true);
+    });
+    it("If resolveCreateEndpoint is set, create() triggers a POST request to the resulting endpoint", async () => {
+      const resolveCreateEndpoint = (baseEndpoint, newEntity) =>
+        `${baseEndpoint}/createTest/${newEntity.name}`;
+      const newEntity = { id: 0, name: "one" };
+      fetchMock.postOnce(resolveCreateEndpoint(endpoint, newEntity), {
+        id: 1,
+        name: "one",
+      });
+      const { result } = renderHook(() =>
+        useResourceIndex<TestResource>(endpoint, {
+          initialValue: [],
+          resolveCreateEndpoint,
+        }),
+      );
+      await act(async () => {
+        await result.current.create(newEntity);
+      });
+      expect(fetchMock.called()).toBe(true);
+    });
+    it("create() returns fetch result and adds to values when it completes", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const createValue = { id: 0, name: "three" };
+      // NOTE: The value returned from server may be slightly different from what we send it - likely a different id.
+      const responseValue = { id: 3, name: "three" };
+      fetchMock.postOnce(endpoint, responseValue);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        const createResponseValue = await result.current.create(createValue);
+        expect(createResponseValue).toEqual(responseValue);
+      });
+      // Ensure the new value is the one returned from request, not what we tried to send.
+      expect(result.current.values[3]).toEqual(responseValue);
+    });
+    it("create() rejects with an error (leaving values unchanged) when fetch returns a server error", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const createValue = { id: 3, name: "three" };
+      fetchMock.postOnce("*", 404);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
+          FetchError,
+        );
+      });
+      // Values should be unchanged from initial values because create request failed, though createStatus should be different.
+      expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
+      expect(result.current.createStatus).toEqual("rejected");
+    });
+    it("when create() returns a server error, handleError is called", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const createValue = { id: 3, name: "three" };
+      fetchMock.postOnce("*", 404);
+      const handleError = jest.fn();
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
+          FetchError,
+        );
+      });
+
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(FetchError);
+      expect(initialError.response.status).toBe(404);
+    });
+    it("when create() triggers a Fetch error, it is handled correctly", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const createValue = { id: 3, name: "three" };
+      fetchMock.postOnce("*", { throws: new Error("Failed to fetch") });
+      const handleError = jest.fn();
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
+          Error,
+        );
+      });
+
+      // Values should be unchanged from initial values because create request failed, though createStatus should be different.
+      expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
+      expect(result.current.createStatus).toEqual("rejected");
+
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(Error);
+      expect(initialError.message).toBe("Failed to fetch");
+    });
+    it("when create() returns invalid JSON, error is handled correctly", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const createValue = { id: 3, name: "three" };
+      fetchMock.postOnce("*", "This response is not JSON");
+      const handleError = jest.fn();
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
+          Error,
+        );
+      });
+
+      // Values should be unchanged from initial values because create request failed, though createStatus should be different.
+      expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
+      expect(result.current.createStatus).toEqual("rejected");
+
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(Error);
+      expect(
+        initialError.message.startsWith("invalid json response body"),
+      ).toBe(true);
+    });
+    it("when create() returns an object with an id which already exists in values, an error is thrown which cannot be handled correctly :(", async () => {
+      expect.assertions(1);
+
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const duplicateValue = { id: 2, name: "two" };
+      fetchMock.postOnce("*", duplicateValue);
+      const handleError = jest.fn();
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(
+          result.current.create(duplicateValue),
+        ).rejects.toBeInstanceOf(Error);
+      });
+      // Values should be unchanged from initial values because create request failed, though createStatus should be different.
+      expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
+      expect(result.current.createStatus).toEqual("rejected");
+
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(Error);
+      expect(
+        initialError.message.startsWith(
+          "Cannot create new item as an existing item shares the same id.",
+        ),
+      ).toBe(true);
+    });
   });
   describe("test update callback", () => {
     it("update() changes status of specific entity to pending, and then fulfilled, without affecting status of others", async () => {
@@ -509,7 +691,7 @@ describe("indexResourceHook", () => {
       expect(initialError).toBeInstanceOf(FetchError);
       expect(initialError.response.status).toBe(404);
     });
-    it("when update() triggers a Fetch error, handleError is called", async () => {
+    it("when update() triggers a Fetch error, error is handled correctly", async () => {
       fetchMock.putOnce("*", { throws: new Error("Failed to fetch") });
       const handleError = jest.fn();
       const initialValue = [
@@ -531,7 +713,61 @@ describe("indexResourceHook", () => {
       const initialError = handleError.mock.calls[0][0];
       expect(initialError.message).toBe("Failed to fetch");
     });
-    it("when update() returns invalid JSON, handleError is called", async () => {
+    it("when update() is called with an object whose id doesn't exist yet, error is thrown and handled correctly", async () => {
+      const handleError = jest.fn();
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const newValue = { id: 3, name: "three" };
+      fetchMock.putOnce("*", newValue);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.update(newValue)).rejects.toBeInstanceOf(
+          Error,
+        );
+      });
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(
+        initialError.message.startsWith(
+          "Cannot update an item that doesn't exist yet.",
+        ),
+      ).toBe(true);
+    });
+    it("when update() RETURNS an object whose id doesn't exist yet, error is thrown and handled correctly", async () => {
+      const handleError = jest.fn();
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const updateValue = { id: 2, name: "UPDATE two" };
+      const newValue = { id: 3, name: "three" };
+      fetchMock.putOnce("*", newValue);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        // Call update a valid value, though fetch will return a new value.
+        await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
+          Error,
+        );
+      });
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(
+        initialError.message.startsWith(
+          "Cannot update an item that doesn't exist yet.",
+        ),
+      ).toBe(true);
+    });
+    it("when update() returns invalid JSON, error is handled correctly", async () => {
       fetchMock.putOnce("*", "This is the response");
       const handleError = jest.fn();
       const initialValue = [
@@ -555,7 +791,7 @@ describe("indexResourceHook", () => {
         initialError.message.startsWith("invalid json response body"),
       ).toBe(true);
     });
-    it("when update() returns an object with no id, handleError is called", async () => {
+    it("when update() returns an object with no id, error is handled correctly", async () => {
       fetchMock.putOnce("*", { name: "This is valid JSON now" });
       const handleError = jest.fn();
       const initialValue = [
