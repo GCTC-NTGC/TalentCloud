@@ -122,13 +122,19 @@ class ApplicantControllerTest extends TestCase
             ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
         $response->assertOk();
 
+        $applicant->refresh();
         $expectedData = [
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
             'applicant_classifications' => [],
         ];
-
         $response->assertJsonFragment($expectedData);
-        $this->assertDatabaseCount('applicant_classifications', 0);
+        $this->assertEmpty($applicant->applicant_classifications);
+        foreach ($applicant->applicant_classifications->toArray() as $applicantClassification) {
+            $this->assertDatabaseMissing(
+                'applicant_classifications',
+                $applicantClassification
+            );
+        }
     }
 }
