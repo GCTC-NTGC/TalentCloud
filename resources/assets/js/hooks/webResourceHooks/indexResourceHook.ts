@@ -93,6 +93,7 @@ export function useResourceIndex<T extends { id: number }>(
 ): {
   values: IndexedObject<T>;
   indexStatus: ResourceStatus; // The state of any requests to reload the entire index.
+  createStatus: ResourceStatus; // If ANY create requests are in progress, this is 'pending'. Otherwise, it is 'fulfilled' or 'rejected' depending on the last request to complete.
   entityStatus: IndexedObject<ResourceStatus>; // Note that if indexStatus is 'pending', every entity status will also be 'pending'.
   create: (newValue: T) => Promise<T>;
   refresh: () => Promise<T[]>; // Reloads the entire index.
@@ -120,6 +121,7 @@ export function useResourceIndex<T extends { id: number }>(
 
   const values = useMemo(() => valuesSelector(state), [state]);
   const indexStatus = state.indexMeta.status;
+  const createStatus = state.createMeta.status;
   const entityStatus = useMemo(() => statusSelector(state), [state]);
 
   const create = useCallback(
@@ -284,6 +286,7 @@ export function useResourceIndex<T extends { id: number }>(
   return {
     values,
     indexStatus,
+    createStatus,
     entityStatus,
     create,
     refresh,
