@@ -518,6 +518,8 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                   data-c-border="all(thin, solid, c1)"
                   data-c-colour="c1"
                   data-c-font-size="small"
+                  data-c-display="inline-block"
+                  data-c-alignment="center"
                 >
                   {intl.formatMessage(getSkillLevelName(criterion, skill))}
                 </span>
