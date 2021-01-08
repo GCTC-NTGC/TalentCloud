@@ -4741,6 +4741,26 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "View Application",
         "description": "Label for 'View Application' link.",
         "id": "responseScreening.bucket.viewApplicationLabel"
