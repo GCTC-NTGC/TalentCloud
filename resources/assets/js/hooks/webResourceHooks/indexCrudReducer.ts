@@ -199,9 +199,9 @@ function mergeIndexPayload<T extends { id: number }>(
 
 /**
  * Updates values in response to CREATE FULFILLED action.
- * - Throws an error if the newly created item has the same id as an existing item, since we cannot know which version to keep.
- *   This error should never happen during normal interaction with a REST api.
- * - Otherwise adds the new item to values, with "fulfilled" status.
+ * - Adds the new item to values, with "fulfilled" status.
+ * - Note: If newly created item has the same id as an existing item, update that item instead.
+ *    This should never happen during normal interaction with a REST api.
  * @param values
  * @param payload
  */
@@ -210,10 +210,17 @@ function mergeCreatePayload<T extends { id: number }>(
   payload: T,
 ): StateValues<T> {
   if (hasKey(values, payload.id)) {
-    // Something has gone wrong if an existing item has the same id as the newly created one.
-    throw new Error(
-      "Cannot create new item as an existing item shares the same id. Try refreshing the whole index.",
-    );
+    // It doesn't really make sense for the result of a create request to already exist...
+    // But we have to trust the latest response from the server. Update the existing item.
+    return {
+      ...values,
+      [payload.id]: {
+        value: payload,
+        status: values[payload.id].pendingCount <= 1 ? "fulfilled" : "pending",
+        pendingCount: decrement(values[payload.id].pendingCount),
+        error: undefined,
+      },
+    };
   }
   return {
     ...values,
@@ -228,8 +235,8 @@ function mergeCreatePayload<T extends { id: number }>(
 
 /**
  * Updates values in response to UPDATE START action.
- * - Throws error if item being updated does not exist.
- * - Otherwise updates metadata for updated item
+ * - Updates metadata for updated item.
+ * - Does nothing if the item does not yet exist.
  * @param values
  * @param action
  */
@@ -238,9 +245,9 @@ function mergeUpdateStart<T extends { id: number }>(
   action: UpdateStartAction<T>,
 ): StateValues<T> {
   if (!hasKey(values, action.meta.id)) {
-    throw new Error(
-      "Cannot update an item that doesn't exist yet. Maybe you tried to update an item after deleting it?",
-    );
+    // Do not update values. We don't want to create a new value in case the request fails and it doesn't represent anything on the server.
+    // NOTE: if we move to optimistic updates, we should add to values here.
+    return values;
   }
   return {
     ...values,
@@ -256,8 +263,7 @@ function mergeUpdateStart<T extends { id: number }>(
 }
 /**
  * Updates values in response to UPDATE FULFILLED action.
- * - Throws error if item being updated does not exist.
- * - Otherwise updates metadata for updated item and overwrites value with payload.
+ * - Updates metadata for updated item and overwrites value with payload.
  * @param values
  * @param action
  */
@@ -266,9 +272,16 @@ function mergeUpdateFulfill<T extends { id: number }>(
   action: UpdateFulfillAction<T>,
 ): StateValues<T> {
   if (!hasKey(values, action.meta.id)) {
-    throw new Error(
-      "Cannot update an item that doesn't exist yet. Maybe you tried to update an item after deleting it?",
-    );
+    // Even though it didn't exist in local state yet, if the server says it exists, it exists.
+    return {
+      ...values,
+      [action.meta.id]: {
+        value: action.payload,
+        status: "fulfilled",
+        pendingCount: 0,
+        error: undefined,
+      },
+    };
   }
   return {
     ...values,
