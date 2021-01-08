@@ -551,6 +551,46 @@ describe("indexResourceHook", () => {
       expect(result.current.values[2]).toEqual(duplicateValue);
       expect(result.current.createStatus).toEqual("fulfilled");
     });
+    it("If multiple create requests are started, createStatus remains pending untill all are complete", async () => {
+      const createOne = { id: 0, name: "one" };
+      const createTwo = { id: 0, name: "two" };
+      // NOTE: The value returned from server may be slightly different from what we send it - likely a different id.
+      fetchMock.postOnce(endpoint, createOne);
+      fetchMock.post("*", createTwo, { delay: 5 });
+      const { result } = renderHook(() =>
+        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+      );
+      await act(async () => {
+        const createPromise1 = result.current.create(createOne);
+        const createPromise2 = result.current.create(createTwo);
+        await createPromise1;
+        expect(result.current.values).toEqual(arrayToIndexedObj([createOne]));
+        expect(result.current.createStatus).toEqual("pending");
+        await createPromise2;
+        expect(result.current.values).toEqual(
+          arrayToIndexedObj([createOne, createTwo]),
+        );
+        expect(result.current.createStatus).toEqual("fulfilled");
+      });
+    });
+    it("A successful create() will overwrite a previous error state", async () => {
+      const createOne = { id: 0, name: "one" };
+      const createTwo = { id: 0, name: "two" };
+      // NOTE: The value returned from server may be slightly different from what we send it - likely a different id.
+      fetchMock.postOnce(endpoint, 404);
+      fetchMock.post("*", createTwo, { delay: 5 });
+      const { result } = renderHook(() =>
+        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+      );
+      await act(async () => {
+        await expect(result.current.create(createOne)).rejects.toThrow();
+        expect(result.current.values).toEqual({});
+        expect(result.current.createStatus).toEqual("rejected");
+        await result.current.create(createTwo);
+        expect(result.current.values).toEqual(arrayToIndexedObj([createTwo]));
+        expect(result.current.createStatus).toEqual("fulfilled");
+      });
+    });
   });
   describe("test update callback", () => {
     it("update() changes status of specific entity to pending, and then fulfilled, without affecting status of others", async () => {
