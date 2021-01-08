@@ -3,6 +3,7 @@ const sass = require("node-sass");
 const cssnano = require("cssnano");
 const autoprefixer = require("autoprefixer");
 const path = require("path");
+const dartSass = require("sass");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -70,6 +71,14 @@ mix
     "resources/assets/js/components/Application/ApplicationRoot.tsx",
     "public/js",
   )
+  .ts(
+    "resources/assets/js/components/ApplicantProfile/ProfileExperiencePage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/Application/ApplicationPreviewRoot.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     sassOptions: {
@@ -111,6 +120,27 @@ mix
         ],
       }),
     ],
+  })
+  .sass("resources/assets/sass/h2.scss", "public/css", {
+    implementation: dartSass
+  })
+  .options({
+    processCssUrls: false,
+    postCss: [
+      autoprefixer({
+        browsers: ['last 3 versions', '> 1%']
+      }),
+      cssnano({
+        preset: [
+          "default",
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
+      }),
+    ],
   });
 
 mix.webpackConfig({
@@ -118,7 +148,6 @@ mix.webpackConfig({
     alias: {
       "@": path.resolve(__dirname, "resources/assets/js"),
     },
-    mainFields: ["browser", "main", "module"],
   },
 });
 

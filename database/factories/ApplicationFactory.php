@@ -12,8 +12,10 @@ use App\Models\JobApplicationAnswer;
 use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\CitizenshipDeclaration;
+use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\PreferredLanguage;
 use App\Models\Lookup\SecurityClearance;
+use App\Models\Lookup\SkillType;
 use App\Models\Lookup\VeteranStatus;
 use App\Models\SkillDeclaration;
 
@@ -23,6 +25,8 @@ $factory->define(JobApplication::class, function (Faker\Generator $faker) {
             return factory(JobPoster::class)->states('live')->create()->id;
         },
         'language_requirement_confirmed' => true,
+        'education_requirement_confirmed' => true,
+        'language_test_confirmed' => false,
         'application_status_id' => ApplicationStatus::where('name', 'submitted')->firstOrFail()->id,
         'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
         'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
@@ -72,6 +76,9 @@ $factory->state(JobApplication::class, 'strategic_response', function (Faker\Gen
 $factory->state(JobApplication::class, 'version2', [
     'version_id' => 2,
 ]);
+$factory->state(JobApplication::class, 'version1', [
+    'version_id' => 1,
+]);
 
 $factory->afterCreating(JobApplication::class, function ($application): void {
     foreach ($application->job_poster->job_poster_questions as $question) {
@@ -105,11 +112,19 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
             ExperienceAward::class,
             ExperienceCommunity::class
         ];
-        foreach ($application->job_poster->criteria as $criterion) {
-            // $index = $faker->numberBetween(0, 4);
+        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
+        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
+        $jobCriteria = $application->job_poster->criteria;
+        $requiredCriteria = $jobCriteria
+            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
+                return $criterion->criteria_type_id === $essentialCriteriaType
+                    && $criterion->skill->skill_type_id === $hardSkillType;
+            })
+            ->all();
+
+        foreach ($requiredCriteria as $criterion) {
             $index = rand(0, 4);
             $experience = factory($experienceTypes[$index])->create([
-            // $experience = factory(ExperienceWork::class)->create([
                 'experienceable_id' => $application->applicant_id,
                 'experienceable_type' => 'applicant',
             ]);
@@ -119,6 +134,10 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
                 'experience_id' => $experience->id,
             ]);
         }
+
+        // Version 2 applications need to track which application steps have been touched.
+        $application->attachSteps();
+        $application->refresh();
     }
 
     // If application is not a draft, it needs a snapshot of the profile.
@@ -129,5 +148,6 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
         } else {
             $application->saveProfileSnapshot();
         }
+        $application->refresh();
     }
 });

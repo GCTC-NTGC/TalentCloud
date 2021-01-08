@@ -25,11 +25,17 @@ class ApplicantProfileMenuComposer
         $profileMenu['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
         $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
+        // Set archive variable to group sidebar
+        $profileMenu['about']['archive'] = true;
+        $profileMenu['experience']['archive'] = false;
+        $profileMenu['skills']['archive'] = true;
+        $profileMenu['references']['archive'] = true;
+        $profileMenu['portfolio']['archive'] = true;
+
         // Set active on the proper item
         switch (Route::currentRouteName()) {
             case ('profile.about'):
             case ('profile.about.edit'):
-            case ('profile.about.update'):
                 $profileMenu['about']['active'] = true;
                 break;
             case ('profile.experience'):

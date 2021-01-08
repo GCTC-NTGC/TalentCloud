@@ -1,3 +1,21 @@
+export const ClassificationId = {
+  AS: 1,
+  BI: 2,
+  CO: 3,
+  CR: 4,
+  CS: 5,
+  EC: 6,
+  EX: 7,
+  FO: 8,
+  IS: 9,
+  PC: 10,
+  PE: 11,
+  PM: 12,
+  AD: 13,
+  "EN-ENG": 14,
+  FI: 15,
+};
+
 export enum ReviewStatusId {
   ScreenedOut = 1,
   StillThinking = 2,
@@ -113,24 +131,6 @@ export const OvertimeRequirementId = {
   none: 3,
 };
 
-export const ClassificationId = {
-  AS: 1,
-  BI: 2,
-  CO: 3,
-  CR: 4,
-  CS: 5,
-  EC: 6,
-  EX: 7,
-  FO: 8,
-  IS: 9,
-  PC: 10,
-  PE: 11,
-  PM: 12,
-  AD: 13,
-  "EN-ENG": 14,
-  FI: 15,
-};
-
 export const CommentTypeId = {
   question: 1,
   recommendation: 2,
@@ -203,8 +203,29 @@ export const ApplicationStatusId = {
   rejected: 5,
 };
 
+export const ApplicationStepId = {
+  basic: 1,
+  experience: 2,
+  skills: 3,
+  fit: 4,
+  review: 5,
+  submission: 6,
+};
+
+export type ApplicationStep =
+  | "basic"
+  | "experience"
+  | "skills"
+  | "fit"
+  | "review"
+  | "submission";
+
+export type ProgressBarStatus = "default" | "complete" | "error" | "current";
+
 export function getKeyByValue(object, value): string {
-  return Object.keys(object).find((key) => object[key] === value) ?? "";
+  return (
+    Object.keys(object).find((key) => object[key] === value) ?? "key not found."
+  );
 }
 
 export function enumToIds(enumType: object): number[] {

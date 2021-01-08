@@ -1,5 +1,6 @@
 /* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
 import createCachedSelector from "re-reselect";
+import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
 import {
@@ -10,6 +11,10 @@ import {
 } from "../../models/types";
 import { PropType } from "../../models/app";
 import { hasKey, getId, notEmpty } from "../../helpers/queries";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 const entities = (state: RootState): EntityState => state.applications.entities;
 // eslint-disable-next-line
@@ -135,3 +140,11 @@ export const allIsSendingReferenceEmailByApplication = (
 ): { [applicationId: number]: boolean } => {
   return ui(state).sendingReferenceEmailForApplication;
 };
+
+export const getJobApplicationSteps = (
+  state: RootState,
+): { [step in ApplicationStep]: ProgressBarStatus } =>
+  entities(state).jobApplicationSteps;
+
+export const getStepsAreUpdating = (state: RootState): boolean =>
+  ui(state).updatingSteps;

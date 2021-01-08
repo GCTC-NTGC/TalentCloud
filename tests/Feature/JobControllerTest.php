@@ -2,19 +2,20 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Mail\JobPosterReviewRequested;
+use App\Models\Applicant;
+use App\Models\HrAdvisor;
+use App\Models\JobApplication;
+use App\Models\JobPoster;
+
+use App\Models\Manager;
+
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Mail;
-
 use Jenssegers\Date\Date;
-
-use App\Models\Applicant;
-use App\Models\JobPoster;
-use App\Models\Manager;
-use App\Models\User;
-use App\Mail\JobPosterReviewRequested;
-use App\Models\HrAdvisor;
+use Tests\TestCase;
 
 class JobControllerTest extends TestCase
 {
@@ -44,7 +45,7 @@ class JobControllerTest extends TestCase
                 'manager_id' => $this->otherManager->id
             ]);
 
-        $this->liveJob = factory(JobPoster::class)->states('live')->create();
+        $this->liveJob = factory(JobPoster::class)->state('live')->create();
     }
 
     /**
@@ -72,7 +73,7 @@ class JobControllerTest extends TestCase
     {
         $response = $this->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['login_link_title']));
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['login_link_title']);
     }
 
     /**
@@ -87,7 +88,7 @@ class JobControllerTest extends TestCase
         $response = $this->actingAs($applicant->user)
             ->get('jobs/' . $this->liveJob->id);
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/job_post')['apply']['apply_link_title']));
+        $response->assertSee(Lang::get('applicant/job_post')['apply']['apply_link_title']);
     }
 
     /**
@@ -101,8 +102,8 @@ class JobControllerTest extends TestCase
             ->get('manager/jobs');
         $response->assertStatus(200);
 
-        $response->assertSee(e($this->jobPoster->title));
-        $response->assertDontSeeText(e($this->otherJobPoster->title));
+        $response->assertSee($this->jobPoster->title);
+        $response->assertDontSeeText($this->otherJobPoster->title);
     }
 
     /**
@@ -195,5 +196,57 @@ class JobControllerTest extends TestCase
         $adminUser = factory(User::class)->state('admin')->create();
         $adminResponse = $this->actingAs($adminUser)->get(route('hr_advisor.jobs.index'));
         $adminResponse->assertRedirect(route('hr_advisor.first_visit'));
+    }
+
+    public function testApply()
+    {
+        $job = factory(JobPoster::class)->state('live')->create();
+        $applicant = factory(Applicant::class)->create();
+
+        // If an applicant applies to a live job, an application should be created
+        // they should be redirected to application.
+        $response = $this->actingAs($applicant->user)->get(route('jobs.apply', $job->id));
+        $this->assertDatabaseHas('job_applications', [
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id,
+        ]);
+        $application = JobApplication::where([
+            'job_poster_id' => $job->id,
+            'applicant_id' => $applicant->id,
+            'version_id' => 2, // And the new application should be version 2.
+        ])->first();
+        $response->assertRedirect(route('applications.timeline', $application->id));
+
+        // If an applicant applies to a live job they've already started an application for,
+        // they should be redirected to where they can continue it.
+        $response = $this->actingAs($applicant->user)->get(route('jobs.apply', $job->id));
+        $response->assertRedirect(route('applications.timeline', $application->id));
+
+        // If an applicant applies to a job they've already submitted for,
+        // they should be redirected to preview.
+        $jobSubmitted = factory(JobPoster::class)->state('live')->create();
+        $submitted = factory(JobApplication::class)->states(['version2', 'submitted'])->create([
+            'job_poster_id' => $jobSubmitted->id,
+        ]);
+        $response = $this->actingAs($submitted->applicant->user)->get(route('jobs.apply', $jobSubmitted->id));
+        $response->assertRedirect(route('applications.show', $submitted->id));
+
+        // If an applicant tries to continue an application for a job that has closed,
+        // they should be redirected to preview.
+        $jobClosed = factory(JobPoster::class)->state('closed')->create();
+        $appClosed = factory(JobApplication::class)->states(['version2', 'draft'])->create([
+            'job_poster_id' => $jobClosed->id,
+        ]);
+        $response = $this->actingAs($appClosed->applicant->user)->get(route('jobs.apply', $jobClosed->id));
+        $response->assertRedirect(route('applications.show', $appClosed->id));
+
+        // If, somehow, there is an existing version 1 application for a job that is still open,
+        // applicant should be redirected to old Application UI.
+        $jobOld = factory(JobPoster::class)->state('live')->create();
+        $appOld = factory(JobApplication::class)->states(['version1', 'draft'])->create([
+            'job_poster_id' => $jobOld->id,
+        ]);
+        $response = $this->actingAs($appOld->applicant->user)->get(route('jobs.apply', $jobOld->id));
+        $response->assertRedirect(route('job.application.edit.1', $jobOld->id));
     }
 }

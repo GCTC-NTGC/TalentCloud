@@ -15,7 +15,7 @@ const items: ProgressTrackerItem[] = [
 ];
 
 const stories = storiesOf(
-  "Job Poster Builder|Progress Tracker",
+  "Job Poster Builder/Progress Tracker",
   module,
 ).addDecorator(withIntl);
 

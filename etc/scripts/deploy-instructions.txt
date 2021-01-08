@@ -12,7 +12,7 @@ sudo chmod 775 deploy.sh
 sudo chmod 775 deploy_talentcloud.sh
 sudo ./deploy_talentcloud.sh
 
-
+FOR THIS RELEASE ONLY: Departments need to be tagged and ordered after deployment in Backpack in order for the FAQ page to display the correct information.
 
 To deploy the Reserve app instead:
 Same as above, except the zipped folder should be named TalentReserve.zip, and run ./deploy_reserve.sh instead.

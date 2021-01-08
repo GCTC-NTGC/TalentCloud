@@ -14,7 +14,6 @@ import {
 } from "../../../models/types";
 import { navigationMessages } from "../applicationMessages";
 import CheckboxInput from "../../Form/CheckboxInput";
-import { getLocale } from "../../../helpers/localize";
 import ApplicationPreview, { ExperienceView } from "./ApplicationPreview";
 
 const messages = defineMessages({
@@ -44,11 +43,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   handleQuit,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
   return (
     <>
       <hr data-c-hr="thin(c1)" data-c-margin="tb(2)" />
-      <div>
+      <div data-c-margin="bottom(2)">
         <Formik
           initialValues={{ shareWithManagers: false }}
           onSubmit={(values, { setSubmitting }): void => {
@@ -153,7 +151,7 @@ interface ReviewProps {
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
-  managerView?: boolean;
+  isSubmitted?: boolean;
   handleSave: (values: ReviewFormValues) => Promise<void>;
   handleContinue: () => void;
   handleReturn: () => void;
@@ -170,7 +168,7 @@ const Review: React.FunctionComponent<ReviewProps> = ({
   job,
   jobQuestions,
   jobApplicationAnswers,
-  managerView,
+  isSubmitted,
   skills,
   user,
   handleSave,
@@ -192,7 +190,7 @@ const Review: React.FunctionComponent<ReviewProps> = ({
         jobQuestions={jobQuestions}
         skills={skills}
         user={user}
-        managerView={managerView}
+        isSubmitted={isSubmitted}
       >
         <ReviewForm
           handleSave={handleSave}

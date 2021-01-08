@@ -32,7 +32,7 @@ class ReferencePolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class ReferencePolicy extends BasePolicy
      */
     public function update(User $user, Reference $reference)
     {
-        return $user->isApplicant()
-            && $reference->referenceable instanceof Applicant
-            && $reference->referenceable->user->is($user);
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class ReferencePolicy extends BasePolicy
      */
     public function delete(User $user, Reference $reference)
     {
-        return $user->isApplicant()
-            && $reference->referenceable instanceof Applicant
-            && $reference->referenceable->user->is($user);
+        return false;
     }
 }

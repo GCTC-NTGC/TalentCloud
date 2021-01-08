@@ -24,6 +24,7 @@ import {
   managerEditProfile,
   jobBuilderEnv,
   imageUrl,
+  managerJobSummary,
 } from "../../../helpers/routes";
 import {
   find,
@@ -752,8 +753,9 @@ interface JobReviewProps {
   handleReturn: () => void;
 }
 
-export const JobReview: React.FunctionComponent<JobReviewProps &
-  WrappedComponentProps> = ({
+export const JobReview: React.FunctionComponent<
+  JobReviewProps & WrappedComponentProps
+> = ({
   job,
   manager,
   tasks,
@@ -849,24 +851,24 @@ export const JobReview: React.FunctionComponent<JobReviewProps &
             data-c-alignment="base(centre) tp(right)"
             data-c-grid-item="tp(1of2)"
           >
-            {/* Modal trigger, same as last step. */}
-            <button
-              id="submit"
-              data-c-button="solid(c2)"
+            <a
+              href={managerJobSummary(locale, job.id)}
+              title=""
+              data-c-button="solid(c1)"
+              data-c-dialog-action="close"
               data-c-radius="rounded"
-              type="button"
-              disabled={!validForSubmission}
-              onClick={(): void => setIsModalVisible(true)}
+              style={{ textDecoration: "none" }}
             >
               <FormattedMessage
                 id="jobBuilder.review.button.submit"
-                defaultMessage="Looks good!"
+                defaultMessage="Save and Return to Summary"
                 description="Label of Job Review Submission Button"
               />
-            </button>
+            </a>
           </div>
         </div>
       </div>
+      {/* Congrats modal below is temporarily being removed from the review page, until it can be repurposed on the summary page. */}
       <div
         data-c-dialog-overlay={
           isModalVisible || isSurveyModalVisible ? "active" : ""

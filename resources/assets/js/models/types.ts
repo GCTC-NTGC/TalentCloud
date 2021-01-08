@@ -19,7 +19,7 @@ export interface Applicant {
   user: User;
 }
 
-export type Application = {
+export interface ApplicationBasic {
   id: number;
   job_poster_id: number;
   application_status_id: number;
@@ -27,22 +27,28 @@ export type Application = {
   veteran_status_id: number | null;
   preferred_language_id: number;
   applicant_id: number;
-  applicant_snapshot_id: number;
   submission_signature: string;
   submission_date: string;
   experience_saved: boolean;
+  applicant_snapshot_id: number;
   language_requirement_confirmed: boolean;
   language_test_confirmed: boolean;
   education_requirement_confirmed: boolean;
+  version_id: number | null;
+  user_name: string | null;
+  user_email: string | null;
+  share_with_managers: boolean;
   created_at: Date;
   updated_at: Date;
-  veteran_status: VeteranStatus;
-  citizenship_declaration: CitizenshipDeclaration;
+}
+
+export interface Application extends ApplicationBasic {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
+  veteran_status: VeteranStatus;
+  citizenship_declaration: CitizenshipDeclaration;
   meets_essential_criteria: boolean;
-  share_with_managers: boolean;
-};
+}
 
 export type ApplicationNormalized = Omit<Application, "application_review">;
 
@@ -98,7 +104,9 @@ export interface AwardRecognitionType {
 }
 
 export interface Classification {
+  id: number;
   key: string;
+  name: localizedFieldNonNull;
 }
 
 type CitizenshipDeclarationName =
@@ -192,6 +200,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  submitted_applications_count: number | null;
   created_at: Date;
   city: localizedField;
   title: localizedField;

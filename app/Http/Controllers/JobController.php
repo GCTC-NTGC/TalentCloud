@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobApplication;
+use App\Models\JobApplicationVersion;
 use App\Models\JobPoster;
 use App\Models\JobPosterQuestion;
 use App\Models\Lookup\ApplicationStatus;
@@ -97,6 +98,7 @@ class JobController extends Controller
     /**
      * Display a listing of a hr advisor's JobPosters.
      *
+     * @param  \Illuminate\Http\Request $request Incoming request object.
      * @return \Illuminate\Http\Response
      */
     public function hrIndex(Request $request)
@@ -104,12 +106,10 @@ class JobController extends Controller
         $hrAdvisor = $request->user()->hr_advisor;
         return view('hr_advisor/job_index', [
             'jobs_l10n' => Lang::get('hr_advisor/job_index'),
-            'hr_advisor_id' => $hrAdvisor->id
+            'hr_advisor_id' => $hrAdvisor->id,
+            'disable_clone_js' => true,
         ]);
     }
-
-
-
 
     /**
      * Delete a draft Job Poster.
@@ -168,6 +168,8 @@ class JobController extends Controller
 
         $jobLang = Lang::get('applicant/job_post');
 
+        $skillsLang = Lang::get('common/skills');
+
         $applyButton = [];
         if (WhichPortal::isManagerPortal()) {
             $applyButton = [
@@ -201,14 +203,14 @@ class JobController extends Controller
                 ];
             } else {
                 $applyButton = [
-                    'href' => route('job.application.edit.1', $jobPoster->id),
+                    'href' => route('jobs.apply', $jobPoster->id),
                     'title' => $jobLang['apply']['apply_link_title'],
                     'text' => $jobLang['apply']['apply_link_label'],
                 ];
             }
         } elseif (Auth::guest() && $jobPoster->isOpen()) {
             $applyButton = [
-                'href' => route('job.application.edit.1', $jobPoster->id),
+                'href' => route('jobs.apply', $jobPoster->id),
                 'title' => $jobLang['apply']['login_link_title'],
                 'text' => $jobLang['apply']['login_link_label'],
             ];
@@ -240,7 +242,7 @@ class JobController extends Controller
                 [
                     'job_post' => $jobLang,
                     'frequencies' => Lang::get('common/lookup/frequency'),
-                    'skill_template' => Lang::get('common/skills'),
+                    'skill_template' => $skillsLang,
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
@@ -255,12 +257,13 @@ class JobController extends Controller
                 [
                     'job_post' => $jobLang,
                     'frequencies' => Lang::get('common/lookup/frequency'),
-                    'skill_template' => Lang::get('common/skills'),
+                    'skill_template' => $skillsLang,
                     'job' => $jobPoster,
                     'manager' => $jobPoster->manager,
                     'criteria' => $criteria,
                     'apply_button' => $applyButton,
                     'custom_breadcrumbs' => $custom_breadcrumbs,
+                    'structured_data' => $this->buildStructuredData($jobPoster),
                 ]
             );
         } else {
@@ -324,7 +327,7 @@ class JobController extends Controller
         $jobPoster = new JobPoster();
         $jobPoster->manager_id = $manager->id;
 
-        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB
+        // Save manager-specific info to the job poster - equivalent to the intro step of the JPB.
         $divisionEn = $manager->getTranslation('division', 'en');
         $divisionFr = $manager->getTranslation('division', 'fr');
         $jobPoster->fill([
@@ -475,5 +478,183 @@ class JobController extends Controller
         ];
 
         return Response::download($filename, $filename, $headers);
+    }
+
+    /**
+     * Build Job Poster's structured data
+     *
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @return array
+     */
+    protected function buildStructuredData(JobPoster $jobPoster)
+    {
+        $gocLang = Lang::get('common/goc');
+
+        $jobLang = Lang::get('applicant/job_post');
+
+        $essential = $jobPoster->criteria->filter(
+            function ($value) {
+                return $value->criteria_type->name == 'essential';
+            }
+        )->sortBy('id');
+        $asset = $jobPoster->criteria->filter(
+            function ($value) {
+                return $value->criteria_type->name == 'asset';
+            }
+        )->sortBy('id');
+
+        $skillsArray = [];
+        foreach ($essential as $criterion) {
+            $skillsArray[] = [
+                'skill' => $criterion['skill']['name'],
+                'level' => $criterion->level_name,
+            ];
+        }
+        foreach ($asset as $criterion) {
+            $skillsArray[] = [
+                'skill' => $criterion['skill']['name'],
+                'level' => $criterion->level_name,
+            ];
+        }
+
+        $skillsString = '';
+        if (!empty($skillsArray)) {
+            $lastSkill = end($skillsArray);
+            foreach ($skillsArray as $skillItem) {
+                $skillsString .= $skillItem['skill'].' - '.$skillItem['level'].($skillItem == $lastSkill ? '.' : ', ');
+            }
+        }
+
+        $benefitsString = '';
+        if (is_array($jobLang['structured_data']['benefits'])) {
+            foreach ($jobLang['structured_data']['benefits'] as $benefit) {
+                $benefitsString .= $benefit.' ';
+            }
+        }
+
+        $tasksString = '';
+        if (is_array($jobPoster['job_poster_key_tasks'])) {
+            $lastTask = end($jobPoster['job_poster_key_tasks']);
+            foreach ($jobPoster['job_poster_key_tasks'] as $task) {
+                $tasksString .= $task['description'].' '.($task == $lastTask ? '' : ' | ');
+            }
+        }
+
+        $securityClearanceString = $jobLang['structured_data']['security_clearance_requirement_level'].': '
+        .$jobPoster['security_clearance']['value'].'. '
+        .$jobLang['structured_data']['security_clearance_requirement_description'];
+
+        $structuredData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'JobPosting',
+            '@id' => url()->current(),
+            'url' => url('/'),
+            'inLanguage' => app()->getLocale(),
+            'applicantLocationRequirements' => [
+                '@type' => 'Country',
+                'sameAs' => 'https://www.wikidata.org/wiki/Q16',
+                'name' => 'Canada'
+            ],
+            'applicationContact' => [
+                '@type' => 'ContactPoint',
+                'email' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca'
+            ],
+            'baseSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'CAD',
+                'minValue' => $jobPoster['salary_min'],
+                'maxValue' => $jobPoster['salary_max'],
+            ],
+            'datePosted' => $jobPoster['open_date_time'],
+            'employerOverview' => $jobLang['structured_data']['employer_overview'],
+            'employmentType' => $jobLang['structured_data']['employment_type'],
+            'estimatedSalary' => [
+                '@type' => 'MonetaryAmount',
+                'currency' => 'CAD',
+                'minValue' => $jobPoster['salary_min'],
+                'maxValue' => $jobPoster['salary_max']
+            ],
+            'hiringOrganization' => [
+                '@type' => 'GovernmentOrganization',
+                'name' => $jobPoster['manager']['user']['department']['name'],
+                'parentOrganization' => [
+                    '@type' => 'GovernmentOrganization',
+                    'name' => $jobLang['structured_data']['parent_organization'],
+                    'url' => $gocLang['logo_link'],
+                    'logo' => asset('/images/logo_canada_colour.png'),
+                ]
+            ],
+            'industry' => $jobLang['structured_data']['industry'],
+            'jobBenefits' => $benefitsString,
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressLocality' => $jobPoster['city'],
+                    'addressRegion' => $jobPoster['province']['value'],
+                    'addressCountry' => 'CA'
+                ]
+            ],
+            'jobStartDate' => $jobPoster['start_date_time'],
+            'qualifications' => $jobPoster['education'],
+            'responsibilities' => $tasksString,
+            'salaryCurrency' => 'CAD',
+            'securityClearanceRequirement' => $securityClearanceString,
+            'skills' => $skillsString,
+            'specialCommitments' => $jobLang['structured_data']['special_commitments'],
+            'title' => $jobPoster['title'],
+            'totalJobOpenings' => '1',
+            'validThrough' => $jobPoster['close_date_time'],
+            'description' => $jobPoster['hire_impact'] ? nl2br($jobPoster['hire_impact']) : '',
+        ];
+
+        if ($jobPoster['remote_work_allowed'] == true) {
+            $structuredData['jobLocationType'] = 'TELECOMMUTE';
+        };
+
+        return $structuredData;
+    }
+
+    /**
+     * Redirects an applicant to the proper page to start or continue their application.
+     *
+     * @param  \App\Models\JobPoster $jobPoster Job Poster object.
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    protected function apply(JobPoster $jobPoster)
+    {
+        $applicantId = Auth::user()->applicant->id;
+        // Check if the current user already has an application.
+        $application = JobApplication::where('applicant_id', $applicantId)
+            ->where('job_poster_id', $jobPoster->id)->first();
+        $version2id = JobApplicationVersion::where('version', 2)->firstOrFail()->id;
+        if ($application === null) {
+            // If the job is still open, create a new application and redirect there.
+            if ($jobPoster->isOpen()) {
+                $newApplication = new JobApplication();
+                $newApplication->job_poster_id = $jobPoster->id;
+                $newApplication->applicant_id = $applicantId;
+                $newApplication->application_status_id = ApplicationStatus::where('name', 'draft')->firstOrFail()->id;
+                $newApplication->version_id = $version2id; // All applications created now should be version 2.
+                $newApplication->save();
+                $newApplication->attachSteps();
+
+                return redirect(route('applications.timeline', $newApplication->id));
+            }
+            // If the job is closed, redirect to Job Poster.
+            return redirect(route('jobs.summary', $jobPoster->id));
+        }
+
+        // If the application exists, is a draft, and job is still open, redirect to the Application UI.
+        if ($application->isDraft() && $jobPoster->isOpen()) {
+            if ($application->version_id === $version2id) {
+                return redirect(route('applications.timeline', $application->id));
+            }
+            return redirect(route('job.application.edit.1', $jobPoster->id));
+        }
+
+        // If the application exists but has already been submitted, or the job is closed,
+        // redirect to the Application Preview.
+        return redirect(route('applications.show', $application->id));
     }
 }

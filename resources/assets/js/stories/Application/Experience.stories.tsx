@@ -3,8 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { useIntl } from "react-intl";
-import MyExperience, {
+import ExperienceStep, {
   ExperienceSubmitData,
 } from "../../components/Application/Experience/Experience";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -24,7 +23,7 @@ import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
-const stories = storiesOf("Application|My Experience", module).addDecorator(
+const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
 );
 
@@ -88,9 +87,8 @@ const handleDeleteExperience = async (
 stories.add(
   "Experience Step",
   (): React.ReactElement => {
-    const intl = useIntl();
     return (
-      <MyExperience
+      <ExperienceStep
         experiences={experiences}
         experienceSkills={experienceSkills}
         criteria={fakeCriteria()}
@@ -107,7 +105,7 @@ stories.add(
         }}
         jobId={1}
         jobClassificationId={ClassificationId.CS}
-        jobEducationRequirements={intl.formatMessage(educationMessages.CS)}
+        jobEducationRequirements={educationMessages.CS.defaultMessage}
         recipientTypes={recipientTypes}
         recognitionTypes={recogntitionTypes}
         handleContinue={action("Save and Continue")}

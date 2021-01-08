@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Models\Applicant;
+use App\Models\Lookup\Relationship;
+use App\Models\Reference;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
-use App\Models\Applicant;
-use App\Models\Reference;
-use App\Models\Lookup\Relationship;
+use Tests\TestCase;
 
 class ReferencesControllerTest extends TestCase
 {
@@ -38,10 +38,10 @@ class ReferencesControllerTest extends TestCase
         $response = $this->actingAs($this->applicant->user)
             ->get(route('profile.references.edit', $this->applicant->id));
         $response->assertStatus(200);
-        $response->assertSee(e(Lang::get('applicant/profile_references.reference_section.section_description')));
+        $response->assertSee(Lang::get('applicant/profile_references.reference_section.section_description'));
 
         foreach ($this->applicant->references as $reference) {
-            $response->assertSee(e($reference->name));
+            $response->assertSee($reference->name);
         }
     }
 
@@ -89,7 +89,7 @@ class ReferencesControllerTest extends TestCase
     {
         $faker = \Faker\Factory::create();
         $projects = [];
-        for ($i=0; $i<3; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $projects[] = [
                 'name' => $faker->sentence(),
                 'start_date' => $faker->dateTimeBetween('-3 years', '-1 years')->format('Y-m-d'),
@@ -103,77 +103,5 @@ class ReferencesControllerTest extends TestCase
             'relationship_id' => Relationship::inRandomOrder()->first()->id,
             'projects' => $projects,
         ];
-    }
-
-    /**
-     * Ensure applicant can create new Reference
-     *
-     * @return void
-     */
-    public function testCreateReference(): void
-    {
-        $input = $this->makeReferenceForm();
-        $response = $this->actingAs($this->applicant->user)->json('POST', 'references', $input);
-        $response->assertOk();
-        $refDb = collect($input)->forget('projects')->toArray();
-        $refDb['referenceable_id'] = $this->applicant->id;
-        $refDb['referenceable_type'] = 'applicant';
-        $this->assertDatabaseHas('references', $refDb);
-        foreach ($input['projects'] as $project) {
-            $project['projectable_id'] = $this->applicant->id;
-            $project['projectable_type'] = 'applicant';
-            $this->assertDatabaseHas('projects', $project);
-        }
-    }
-
-    /**
-     * Ensure applicant can update old Reference
-     *
-     * @return void
-     */
-    public function testUpdateReference(): void
-    {
-        $ref = factory(Reference::class)->create([
-            'referenceable_id' => $this->applicant->id,
-        ]);
-        $oldProjects = $ref->projects;
-        $input = $this->makeReferenceForm();
-        $response = $this->actingAs($this->applicant->user)->json('PUT', "references/$ref->id", $input);
-        $response->assertOk();
-        $refDb = collect($input)->forget('projects')->toArray();
-        $refDb['id'] = $ref->id;
-        $refDb['referenceable_id'] = $this->applicant->id;
-        $refDb['referenceable_type'] = 'applicant';
-        // Ensure reference with same id but new values exists in db
-        $this->assertDatabaseHas('references', $refDb);
-        // Ensure projects submitted in new request all exist
-        foreach ($input['projects'] as $project) {
-            $project['projectable_id'] = $this->applicant->id;
-            $project['projectable_type'] = 'applicant';
-            $this->assertDatabaseHas('projects', $project);
-        }
-        // Ensure old projects have been deleted
-        foreach ($oldProjects as $project) {
-            $this->assertDatabaseMissing('projects', ['id' => $project->id]);
-        }
-    }
-
-    /**
-     * Ensure applicant can delete old Reference
-     *
-     * @return void
-     */
-    public function testDeleteReference(): void
-    {
-        $ref = factory(Reference::class)->create([
-            'referenceable_id' => $this->applicant->id,
-        ]);
-        $oldProjects = $ref->projects;
-        $response = $this->actingAs($this->applicant->user)->json('DELETE', "references/$ref->id");
-        $this->assertDatabaseMissing('references', ['id' => $ref->id]);
-        // Ensure projects have been deleted along with reference
-        foreach ($oldProjects as $project) {
-            $this->assertDatabaseMissing('projects', ['id' => $project->id]);
-        }
     }
 }

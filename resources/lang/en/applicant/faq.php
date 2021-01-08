@@ -607,20 +607,8 @@ return [
                         'copy' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.\n\nPartner departments with signed MOUs are:"
                     ],
                     '2' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '0' => 'Treasury Board Secretariat (host department)',
-                            '1' => 'Transport Canada',
-                            '2' => 'Global Affairs Canada',
-                            '3' => 'Natural Resources Canada',
-                            '4' => 'Canada Border Services Agency',
-                            '5' => 'Shared Services Canada',
-                            '6' => 'National Research Council',
-                            '7' => 'Employment and Social Development Canada',
-                            '8' => 'The Royal Canadian Mounted Police',
-                            '9' => 'Public Services and Procurement Canada',
-                            '10' => 'Department of Justice'
-                        ]
+                        'type' => 'partners',
+                        'host_partner_title' => 'host partner'
                     ]
                 ]
             ],

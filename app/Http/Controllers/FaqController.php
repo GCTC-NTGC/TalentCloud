@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Lookup\Department;
 use Illuminate\Support\Facades\Lang;
 
 class FaqController extends Controller
@@ -20,6 +21,10 @@ class FaqController extends Controller
                 'faq' => Lang::get('applicant/faq'),
                 'breadcrumb_home' => route('home'),
                 'applicant_sidebar_active' => 'active',
+                'partner_departments' => Department::where('is_partner', true)
+                ->orderBy('lft', 'asc')
+                ->select('name', 'is_host')
+                ->get(),
             ]
         );
     }

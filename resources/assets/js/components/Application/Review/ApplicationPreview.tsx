@@ -29,14 +29,16 @@ import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEduc
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
-import {
-  Locales,
-  localizeFieldNonNull,
-  getLocale,
-  localizeField,
-} from "../../../helpers/localize";
+import { getLocale, localizeField } from "../../../helpers/localize";
 import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
+import { Link } from "../../../helpers/router";
+import {
+  accountSettings,
+  applicationBasic,
+  applicationExperience,
+  applicationFit,
+} from "../../../helpers/routes";
 
 const messages = defineMessages({
   edit: {
@@ -73,33 +75,28 @@ const messages = defineMessages({
     description:
       "Text displayed if a user has not yet selected a communication preference in their profile.",
   },
-  shareCheckboxLabel: {
-    id: "application.review.shareCheckboxLabel",
-    defaultMessage:
-      "I would like Talent Cloud to share my application with other Government of Canada managers looking for similar sets of skills.",
-  },
 });
 
-const managerViewHeaders = defineMessages({
+const submittedApplicationHeaders = defineMessages({
   basicInfo: {
-    id: "application.review.basicInfoHeading",
+    id: "application.review.manager.basicInfoHeading",
     defaultMessage: "Basic Information",
     description:
       "Manager's heading for the Basic Info section of the Application.",
   },
   experience: {
-    id: "application.review.experienceHeading",
+    id: "application.review.manager.experienceHeading",
     defaultMessage: "Experience",
     description:
       "Manager's heading for the Experience section of the Application.",
   },
   fit: {
-    id: "application.review.fitHeading",
+    id: "application.review.manager.fitHeading",
     defaultMessage: "Fit",
     description: "Manager's heading for the Fit section of the Application.",
   },
   accountSettings: {
-    id: "application.review.accountSettingsHeading",
+    id: "application.review.manager.accountSettingsHeading",
     defaultMessage: "Account Settings",
     description:
       "Manager's heading for the Account Settings section of the Application.",
@@ -111,7 +108,6 @@ interface ExperienceAccordionProps {
   experienceSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   skills: Skill[];
-  locale: Locales;
 }
 
 const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
@@ -119,29 +115,15 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   experienceSkills,
   irrelevantSkillCount,
   skills,
-  locale,
 }) => {
   switch (experience.type) {
     case "experience_award":
       return (
         <ExperienceAwardAccordion
-          title={experience.title}
-          recipient={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recipient_type",
-          )}
-          issuer={experience.issued_by}
-          scope={localizeFieldNonNull(
-            locale,
-            experience,
-            "award_recognition_type",
-          )}
-          awardedDate={experience.awarded_date}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -151,16 +133,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_community":
       return (
         <ExperienceCommunityAccordion
-          title={experience.title}
-          group={experience.group}
-          project={experience.project}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -170,22 +146,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_education":
       return (
         <ExperienceEducationAccordion
-          educationType={localizeFieldNonNull(
-            locale,
-            experience,
-            "education_type",
-          )}
-          areaOfStudy={experience.area_of_study}
-          institution={experience.institution}
-          status={localizeFieldNonNull(locale, experience, "education_status")}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
-          thesisTitle={experience.thesis_title}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleDelete={async (): Promise<void> => {}}
@@ -195,16 +159,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_personal":
       return (
         <ExperiencePersonalAccordion
-          title={experience.title}
-          description={experience.description}
-          isShareable={experience.is_shareable}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -214,16 +172,10 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
     case "experience_work":
       return (
         <ExperienceWorkAccordion
-          title={experience.title}
-          organization={experience.organization}
-          group={experience.group}
-          startDate={experience.start_date}
-          endDate={experience.end_date}
-          isActive={experience.is_active}
+          experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
           irrelevantSkillCount={irrelevantSkillCount}
-          isEducationJustification={experience.is_education_requirement}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -249,7 +201,7 @@ interface ApplicationPreviewProps {
   jobApplicationAnswers: JobApplicationAnswer[];
   skills: Skill[];
   user: User;
-  managerView?: boolean;
+  isSubmitted?: boolean;
 }
 
 const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
@@ -262,7 +214,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
   job,
   jobQuestions,
   jobApplicationAnswers,
-  managerView,
+  isSubmitted,
   skills,
   user,
   children,
@@ -296,6 +248,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-all-experience"
         data-experience-view="experience"
         onClick={handleViewClick}
+        key="experienceButton"
       >
         <FormattedMessage
           id="application.review.experienceViewButton"
@@ -315,6 +268,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-skill-experience"
         data-experience-view="skills"
         onClick={handleViewClick}
+        key="skillsButton"
       >
         <FormattedMessage
           id="application.review.skillsViewButton"
@@ -334,6 +288,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
         className="gtag-application-review-education-experience"
         data-experience-view="education"
         onClick={handleViewClick}
+        key="educationButton"
       >
         <FormattedMessage
           id="application.review.educationViewButton"
@@ -356,16 +311,16 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       }
     });
 
-    return <>{...buttonView}</>;
+    return <>{buttonView}</>;
   };
 
   return (
     <div data-c-container="medium">
-      {!managerView && (
+      {!isSubmitted && (
         <>
           <h2
             data-c-heading="h2"
-            data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
+            data-c-margin={!isSubmitted ? "top(3) bottom(1)" : "bottom(1)"}
           >
             <FormattedMessage
               id="application.review.heading"
@@ -387,7 +342,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
               description="Second line of the subheading for the Review page."
             />
           </p>
-          <p>
+          <p data-c-margin="bottom(2)">
             <FormattedMessage
               id="application.review.subheadingThree"
               defaultMessage={`Ask yourself, "If I was a manager, and I knew nothing about the applicant other than this application, would I think they could do a good job?"`}
@@ -396,30 +351,27 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </p>
         </>
       )}
-      <div
-        data-c-grid="gutter(all, 1) middle"
-        data-c-margin={!managerView ? "top(3) bottom(1)" : "bottom(1)"}
-      >
-        <div data-c-grid-item="tp(2of3) tl(4of5)">
+      <div data-c-grid="gutter(all, 1) middle">
+        <div data-c-grid-item="tp(2of3) tl(4of5)" data-c-margin="top(2)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(basicInfoMessages.heading)
-              : intl.formatMessage(managerViewHeaders.basicInfo)}
+              : intl.formatMessage(submittedApplicationHeaders.basicInfo)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-02"
+            <Link
+              href={applicationBasic(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -493,24 +445,24 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(experienceMessages.heading)
-              : intl.formatMessage(managerViewHeaders.experience)}
+              : intl.formatMessage(submittedApplicationHeaders.experience)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-04"
+            <Link
+              href={applicationExperience(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -553,7 +505,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                   experienceSkills={relevantSkills}
                   skills={skills}
                   irrelevantSkillCount={irrelevantSkillCount}
-                  locale={locale}
                 />
               );
             })}
@@ -645,7 +596,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                     experienceSkills={relevantSkills}
                     skills={skills}
                     irrelevantSkillCount={irrelevantSkillCount}
-                    locale={locale}
                   />
                 );
               })}
@@ -655,24 +605,24 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView
+            {!isSubmitted
               ? intl.formatMessage(fitMessages.heading)
-              : intl.formatMessage(managerViewHeaders.fit)}
+              : intl.formatMessage(submittedApplicationHeaders.fit)}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
-            <a
-              href="https://talent.test/demo/application-07"
+            <Link
+              href={applicationFit(locale, application.id)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
             >
               {intl.formatMessage(messages.edit)}
-            </a>
+            </Link>
           </div>
         )}
       </div>
@@ -710,23 +660,23 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
       <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
-            {!managerView ? (
+            {!isSubmitted ? (
               <FormattedMessage
                 id="application.review.accountSettingsHeading"
-                defaultMessage="Account Settings"
+                defaultMessage="My Account Settings"
               />
             ) : (
-              intl.formatMessage(managerViewHeaders.accountSettings)
+              intl.formatMessage(submittedApplicationHeaders.accountSettings)
             )}
           </h3>
         </div>
-        {!managerView && (
+        {!isSubmitted && (
           <div
             data-c-grid-item="tp(1of3) tl(1of5)"
             data-c-align="base(center) tp(right)"
           >
             <a
-              href="https://talent.test/demo/application-07"
+              href={accountSettings(locale)}
               title={intl.formatMessage(messages.editTitle)}
               data-c-color="c2"
               data-c-font-weight="bold"
@@ -777,7 +727,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           {intl.formatMessage(messages.communicationNotSet)}
         </p>
       )}
-      <p data-c-margin={!managerView ? "bottom(.5)" : "bottom(2)"}>
+      <p data-c-margin={!isSubmitted ? "bottom(.5)" : "bottom(2)"}>
         <i
           className={`fas fa-${user.job_alerts ? "check" : "times"}`}
           data-c-color={user.job_alerts ? "go" : "stop"}

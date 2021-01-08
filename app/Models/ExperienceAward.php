@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
+use App\Models\Experience;
 
 /**
  * Class ExperienceAward
@@ -27,7 +27,7 @@ use App\Models\BaseModel;
  *
  * @method string experienceTypeName
  */
-class ExperienceAward extends BaseModel
+class ExperienceAward extends Experience
 {
     protected $casts = [
         'title' => 'string',

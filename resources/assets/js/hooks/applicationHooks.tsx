@@ -32,8 +32,13 @@ import {
   getApplicationIsUpdating,
   getApplicationNormalized,
   getJobApplicationAnswers,
+  getJobApplicationSteps,
+  getStepsAreUpdating,
 } from "../store/Application/applicationSelector";
-import { fetchApplication } from "../store/Application/applicationActions";
+import {
+  fetchApplication,
+  touchApplicationStep,
+} from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
@@ -41,7 +46,12 @@ import {
   getJobPosterQuestionsByJob,
 } from "../store/Job/jobSelector";
 import { fetchJob } from "../store/Job/jobActions";
-import { ApplicationStatusId } from "../models/lookupConstants";
+import {
+  ApplicationStatusId,
+  ApplicationStep,
+  ApplicationStepId,
+  ProgressBarStatus,
+} from "../models/lookupConstants";
 import {
   getExperienceByApplicant,
   getExperienceByApplication,
@@ -180,7 +190,7 @@ export function useJobApplicationAnswers(
 
 export function useApplicationUser(applicationId: number): User | null {
   const application = useApplication(applicationId);
-  const user = application?.applicant.user ?? null;
+  const user = application?.applicant?.user ?? null;
   return user;
 }
 
@@ -257,6 +267,32 @@ export function useFetchExperienceConstants(
     educationTypes,
     educationStatuses,
   };
+}
+
+export function useJobApplicationSteps(): {
+  [step in ApplicationStep]: ProgressBarStatus;
+} {
+  return useSelector(getJobApplicationSteps);
+}
+
+/**
+ * Dispatches an api request that will record the step as touched, setting it to "complete" or "error",
+ * and gets the validation status of the application steps.
+ *
+ * Returns true if the request is currently in progress, false otherwise.
+ *
+ * NOTE: this hook only runs once, when the component is first mounted.
+ */
+export function useTouchApplicationStep(
+  applicationId: number,
+  step: ApplicationStep,
+  dispatch: DispatchType,
+): boolean {
+  const stepsAreUpdating = useSelector(getStepsAreUpdating);
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
+  }, [applicationId, step, dispatch]);
+  return stepsAreUpdating;
 }
 
 /**
