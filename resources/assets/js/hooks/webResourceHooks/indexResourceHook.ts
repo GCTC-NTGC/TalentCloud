@@ -79,13 +79,56 @@ function isValidEntityList(value: any): boolean {
 export const UNEXPECTED_FORMAT_ERROR =
   "Response from server was not expected format";
 
+/**
+ * This hook keeps a local list of entities in sync with a REST api representing a single resource.
+ *
+ * *** Interaction with API ***
+ * The API can be interacted with in 4 ways:
+ *   - Refreshing, getting a complete list of entities
+ *   - Creating a new entity that is added to the list
+ *   - Updating a specific entity in the list
+ *   - Deleting a specific entity in the list
+ *
+ * The only required argument is the API endpoint. By default, the CRUD operations (Create, Read, Update, Delete) follow normal REST conventions:
+ *   - Create submits a POST request to endpoint
+ *   - Refresh submits a GET request to endpoint
+ *   - Update submits a PUT request to endpoint/id
+ *   - Delete submits a DELETE request to endpoint/id
+ * The urls used may be modified by overriding resolveEntityEndpoint (for update and delete requests) and resolveCreateEndpoint.
+ * This may allow, for example, for using query parameters in some of these urls.
+ * Note: The HTTP verbs used cannot be changed.
+ *
+ * The api requests MUST return valid JSON (except for delete requests), or the request will be considered to have failed.
+ * The response to refresh requests must be a JSON List, and update and create requests must return the resulting entity as a json object.
+ * However, the JSON objects may be preprocessed before being stored localy, by overriding parseEntityResponse and/or parseIndexResponse.
+ *
+ * *** Hook Values and Statuses *** *
+ * values: This represents the list of entities compresing the resource.
+ *   Note: values is not an array. It is an object with each entity indexed by id, so specific items may be retrieved more easily.
+ *   Note: By default, values starts out empty and the hook immediately triggers a refresh callback.
+ *   Note: An initialValue may be provided, which supresses that initial refresh, unless forceInitialRefresh is ALSO overridden with true.
+ *   Note: Setting forceInitialRefresh to false has no effect. Set initialValue to [] instead.
+ *
+ * indexStatus, createStatus, and entityStatus: These tell you whether any requests are currently in progress, and if not whether the last completed request was successful.
+ *   Note: entityStatus covers both update and delete requests, and contains a status value for each entity, indexed by id.
+ *
+ * *** Callbacks *** *
+ * create, refresh, update, deleteResource: These callbacks trigger requests to the api, updating values and the status properties accordingly.
+ *   Note: while conventional "reactive" programming would control UI based only on the current values and status properties, these callbacks also return promises
+ *         which allow code to respond to the success or failure of specific requests.
+ *
+ * *** Error Handling ***
+ * You may watch for statuses of "rejected" to determing whether an error occured during certain reqeusts.
+ * To respond to any details of potential errors, override handleError.
+ * Note: If the error was caused by a non-200 response from the server, handleError will recieve an instance of FetchError, which contains the entire response object.
+ */
 export function useResourceIndex<T extends { id: number }>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
     initialValue?: T[]; // Defaults to an empty list. If this is overriden, initial fetch is skipped (unless forceInitialRefresh is set to true).
     forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
-    parseIndexResponse?: (response: Json) => T[]; // Defaults to the identity function.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
+    parseIndexResponse?: (response: Json) => T[]; // Defaults to (response) => response.map(parseEntityResponse)
     resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
     resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string; // Defaults to identical to endpoint. Used for create (POST) requests.
     handleError?: (error: Error | FetchError) => void;
@@ -104,8 +147,13 @@ export function useResourceIndex<T extends { id: number }>(
   const doInitialRefresh =
     overrides?.initialValue === undefined ||
     overrides?.forceInitialRefresh === true;
-  const parseIndexResponse = overrides?.parseIndexResponse ?? identity;
   const parseEntityResponse = overrides?.parseEntityResponse ?? identity;
+  const parseIndexResponse = useMemo(
+    () =>
+      overrides?.parseIndexResponse ??
+      ((response: Json): T[] => response.map(parseEntityResponse)),
+    [overrides?.parseIndexResponse, parseEntityResponse],
+  );
   const resolveEntityEndpoint =
     overrides?.resolveEntityEndpoint ?? defaultEntityEndpoint;
   const resolveCreateEndpoint =
