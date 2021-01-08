@@ -17,6 +17,8 @@ import {
   TravelRequirementId,
   LocationId,
   ResponseScreeningBuckets as ResponseBuckets,
+  ReviewStatusId,
+  ReviewStatusName,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 import { Experience } from "./types";
@@ -992,6 +994,41 @@ export const ResponseScreeningBuckets = {
         "Descriptive text for the 'Does Not Qualify' response screening bucket.",
     },
   }),
+};
+
+export const ReviewStatusMessages = defineMessages({
+  screened_out: {
+    id: "reviewStatus.screenedOut",
+    defaultMessage: "Screened Out",
+    description: "Select option text for the 'Screened Out' review status.",
+  },
+  still_thinking: {
+    id: "reviewStatus.stillThinking",
+    defaultMessage: "Still Thinking",
+    description: "Select option text for the 'Still Thinking' review status.",
+  },
+  still_in: {
+    id: "reviewStatus.stillIn",
+    defaultMessage: "Still In",
+    description: "Select option text for the 'Still In' review status.",
+  },
+});
+
+export const ReviewStatuses: {
+  [key in ReviewStatusName]: { id: ReviewStatusId; name: MessageDescriptor };
+} = {
+  screened_out: {
+    id: ReviewStatusId.ScreenedOut,
+    name: ReviewStatusMessages.screened_out,
+  },
+  still_thinking: {
+    id: ReviewStatusId.StillThinking,
+    name: ReviewStatusMessages.still_thinking,
+  },
+  still_in: {
+    id: ReviewStatusId.StillIn,
+    name: ReviewStatusMessages.still_in,
+  },
 };
 
 export const ResponseReviewStatusMessages = defineMessages({

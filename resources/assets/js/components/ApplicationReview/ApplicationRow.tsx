@@ -13,6 +13,7 @@ import {
   imageUrl,
 } from "../../helpers/routes";
 import { ReviewStatusId } from "../../models/lookupConstants";
+import { ReviewStatuses } from "../../models/localizedConstants";
 import AlertWhenUnsaved from "../Form/AlertWhenUnsaved";
 import SelectInput from "../Form/SelectInput";
 
@@ -172,9 +173,18 @@ const ApplicationRow: React.FC<ApplicationRowProps> = ({
   );
 
   const reviewOptions = [
-    { value: 1, label: "Screened Out" },
-    { value: 2, label: "Still Thinking" },
-    { value: 3, label: "Still In" },
+    {
+      value: ReviewStatuses.screened_out.id,
+      label: intl.formatMessage(ReviewStatuses.screened_out.name),
+    },
+    {
+      value: ReviewStatuses.still_thinking.id,
+      label: intl.formatMessage(ReviewStatuses.still_thinking.name),
+    },
+    {
+      value: ReviewStatuses.still_in.id,
+      label: intl.formatMessage(ReviewStatuses.still_in.name),
+    },
   ];
 
   const statusIconClass = classNames("fas", {
