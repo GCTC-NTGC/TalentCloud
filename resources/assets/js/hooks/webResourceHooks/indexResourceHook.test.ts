@@ -2,7 +2,7 @@ import fetchMock from "fetch-mock";
 import { act, renderHook } from "@testing-library/react-hooks";
 import { FetchError } from "../../helpers/httpRequests";
 import useResourceIndex, { UNEXPECTED_FORMAT_ERROR } from "./indexResourceHook";
-import { getId, mapToObject } from "../../helpers/queries";
+import { getId, hasKey, mapToObject } from "../../helpers/queries";
 
 interface TestResource {
   id: number;
@@ -850,6 +850,163 @@ describe("indexResourceHook", () => {
       });
       expect(result.current.entityStatus[2]).toBe("fulfilled");
       expect(result.current.values[2]).toEqual(updateValue);
+    });
+  });
+  describe("test deleteResource callback", () => {
+    it("deleteResource() changes status of specific entity from initial to pending. Status and value are removed when it completes.", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      fetchMock.mock("*", 200, { delay: 5 });
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      expect(result.current.entityStatus[2]).toEqual("initial");
+      expect(result.current.entityStatus[1]).toEqual("initial");
+      expect(result.current.indexStatus).toEqual("initial");
+      await act(async () => {
+        result.current.deleteResource(2);
+        await waitForNextUpdate();
+        expect(result.current.entityStatus[2]).toEqual("pending");
+        expect(result.current.entityStatus[1]).toEqual("initial");
+        expect(result.current.indexStatus).toEqual("initial");
+        await waitForNextUpdate();
+        expect(hasKey(result.current.entityStatus, 2)).toBe(false);
+        expect(hasKey(result.current.values, 2)).toBe(false);
+        expect(result.current.entityStatus[1]).toEqual("initial");
+        expect(result.current.indexStatus).toEqual("initial");
+      });
+    });
+    it("deleteResource() triggers a DELETE request to endpoint with id appended", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      fetchMock.deleteOnce(`${endpoint}/2`, 200);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        await result.current.deleteResource(2);
+      });
+      expect(fetchMock.called()).toBe(true);
+    });
+    it("If resolveEntityEndpoint is set, deleteResource() triggers a DELETE request to resulting endpoint", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const resolveEntityEndpoint = (baseEndpoint, id) =>
+        `${baseEndpoint}/resolveEntityTest/${id}`;
+      fetchMock.deleteOnce(resolveEntityEndpoint(endpoint, 2), 200);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, resolveEntityEndpoint }),
+      );
+      await act(async () => {
+        await result.current.deleteResource(2);
+      });
+      expect(fetchMock.called()).toBe(true);
+    });
+    it("deleteResource() resolves when entity is removed from values", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      fetchMock.mock("*", 200, { delay: 5 });
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        await result.current.deleteResource(2);
+        expect(hasKey(result.current.entityStatus, 2)).toBe(false);
+        expect(hasKey(result.current.values, 2)).toBe(false);
+      });
+    });
+    it("deleteResource() rejects with an error (leaving values unchanged) when fetch returns a server error", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      fetchMock.deleteOnce("*", 404);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
+          FetchError,
+        );
+      });
+      expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
+      expect(result.current.entityStatus[2]).toEqual("rejected");
+    });
+    it("when deleteResource() returns a server error, handleError is called", async () => {
+      fetchMock.deleteOnce("*", 500);
+      const handleError = jest.fn();
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
+          FetchError,
+        );
+      });
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(FetchError);
+      expect(initialError.response.status).toBe(500);
+    });
+    it("when deleteResource() triggers a Fetch error, handleError is called", async () => {
+      fetchMock.deleteOnce("*", { throws: new Error("Failed to fetch") });
+      const handleError = jest.fn();
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, handleError }),
+      );
+      await act(async () => {
+        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
+          Error,
+        );
+      });
+      // handleError was called once on initial fetch.
+      expect(handleError.mock.calls.length).toBe(1);
+      // Get error from argument to mocked function.
+      const initialError = handleError.mock.calls[0][0];
+      expect(initialError).toBeInstanceOf(Error);
+      expect(initialError).toEqual(new Error("Failed to fetch"));
+    });
+    it("if deleteResource() is called multiple times on the same id, status should remain pending until one succeeds. Later callbacks should not change values.", async () => {
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      // First call will fail, subsequent calls will succeed.
+      fetchMock.deleteOnce(`${endpoint}/2`, 500);
+      fetchMock.delete("*", 200, { delay: 5 });
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue }),
+      );
+      await act(async () => {
+        const deletePromise1 = result.current.deleteResource(2);
+        const deletePromise2 = result.current.deleteResource(2);
+        const deletePromise3 = result.current.deleteResource(2);
+        await expect(deletePromise1).rejects.toThrow();
+        expect(result.current.entityStatus[2]).toBe("pending");
+        await deletePromise2;
+        const expectValue = { 1: { id: 1, name: "one" } };
+        expect(result.current.values).toEqual(expectValue);
+        await deletePromise3;
+        expect(result.current.values).toEqual(expectValue);
+      });
     });
   });
 });
