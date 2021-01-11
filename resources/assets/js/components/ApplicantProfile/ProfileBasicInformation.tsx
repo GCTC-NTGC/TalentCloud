@@ -1,19 +1,22 @@
 import React, { FunctionComponent, ChangeEvent, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { FastField, Formik, Form } from "formik";
 import {
   GocClassification,
   ProfileBasicInformation as ProfileBasicInformationProp,
 } from "../../models/types";
-import { myBasicInformationMessages } from "../Application/applicationMessages";
+import {
+  myBasicInformationMessages,
+  basicInfoMessages,
+} from "../Application/applicationMessages";
 import { removeDuplicatesById } from "../../helpers/queries";
 import SelectInput from "../Form/SelectInput";
-import { FastField, Formik, Field, Form } from "formik";
 import messages, {
   citizenshipDeclaration,
   veteranStatus,
   gcEmployeeStatus,
 } from "../Application/BasicInfo/basicInfoMessages";
-import { basicInfoMessages } from "../Application/applicationMessages";
+
 import {
   CitizenshipId,
   VeteranId,
@@ -58,13 +61,13 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
     GocClassification[]
   >(previousExperienceProp);
 
-  const removeExperience = function (gocClassification: GocClassification) {
+  const removeExperience = (gocClassification: GocClassification): void => {
     setPreviousExperience(
       previousExperience.filter((experience) => {
         return !(
-          experience.classification.key ==
+          experience.classification.key ===
             gocClassification.classification.key &&
-          experience.level == gocClassification.level
+          experience.level === gocClassification.level
         );
       }),
     );
@@ -72,7 +75,7 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
 
   const createPreviousExperienceDropdowns = (
     previousGcExperience: GocClassification[],
-  ) => {
+  ): JSX.Element[] => {
     return previousGcExperience.map((experience) => {
       return (
         <>
@@ -85,8 +88,9 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
               />
               <div data-c-grid-item="base(1of1) tl(1of3)" data-c-input="select">
                 <button
+                  type="button"
                   data-c-button="solid(c1)"
-                  onClick={() => removeExperience(experience)}
+                  onClick={(): void => removeExperience(experience)}
                 >
                   <i className="fa fa-trash" /> Remove
                 </button>
@@ -101,11 +105,11 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
     });
   };
 
-  const addExperience = function () {
+  const addExperience = (): JSX.Element | undefined => {
     // If the user has not populated their most recent experience, prevent adding a second empty row
     if (
       previousExperience.filter((experience) => {
-        return experience.classification.id == 0;
+        return experience.classification.id === 0;
       }).length > 0
     ) {
       return;
@@ -128,9 +132,9 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
     ]);
   };
 
-  if (wasGcEmployee == currentEmployeeIdEnum.No) return <></>;
+  if (wasGcEmployee === currentEmployeeIdEnum.No) return <></>;
 
-  if (wasGcEmployee == currentEmployeeIdEnum.Previous) {
+  if (wasGcEmployee === currentEmployeeIdEnum.Previous) {
     return (
       <>
         <label htmlFor="SEL2">
@@ -141,7 +145,7 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
         <div id="list-previous-gov-class">
           <ol>{createPreviousExperienceDropdowns(previousExperience)}</ol>
         </div>
-        <button data-c-button="solid(c1)" onClick={addExperience}>
+        <button type="button" data-c-button="solid(c1)" onClick={addExperience}>
           {intl.formatMessage(myBasicInformationMessages.addClassification)}
         </button>
       </>
@@ -149,33 +153,30 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
   }
 
   // if wasGcEmployee == "yes" (the only remainig option)
-  else {
-    return (
-      <>
-        <label htmlFor="SEL2">
-          {intl.formatMessage(
-            myBasicInformationMessages.currentClassificationAndLevel,
-          )}
-        </label>
-        <ClassificationDropdowns
-          selectedItem={currentGcClassification}
-          gocClassifications={gocClassifications}
-        />
 
-        <label htmlFor="SEL2">
-          {intl.formatMessage(
-            myBasicInformationMessages.addPreviousGcExperience,
-          )}
-        </label>
-        <div id="list-previous-gov-class">
-          <ol>{createPreviousExperienceDropdowns(previousExperience)}</ol>
-        </div>
-        <button data-c-button="solid(c1)" onClick={addExperience}>
-          {intl.formatMessage(myBasicInformationMessages.addClassification)}
-        </button>
-      </>
-    );
-  }
+  return (
+    <>
+      <label htmlFor="SEL2">
+        {intl.formatMessage(
+          myBasicInformationMessages.currentClassificationAndLevel,
+        )}
+      </label>
+      <ClassificationDropdowns
+        selectedItem={currentGcClassification}
+        gocClassifications={gocClassifications}
+      />
+
+      <label htmlFor="SEL2">
+        {intl.formatMessage(myBasicInformationMessages.addPreviousGcExperience)}
+      </label>
+      <div id="list-previous-gov-class">
+        <ol>{createPreviousExperienceDropdowns(previousExperience)}</ol>
+      </div>
+      <button type="button" data-c-button="solid(c1)" onClick={addExperience}>
+        {intl.formatMessage(myBasicInformationMessages.addClassification)}
+      </button>
+    </>
+  );
 };
 
 const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> = ({
@@ -184,10 +185,10 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
 }) => {
   const intl = useIntl();
 
-  const safeParseInt = function (str: string | null): number {
+  const safeParseInt = (str: string | null): number => {
     if (str == null) return 0;
-    else if (typeof str == "string") return parseInt(str);
-    else return -1;
+    if (typeof str === "string") return parseInt(str, 10);
+    return -1;
   };
 
   const getInitialSelectedClassification = (): string | null => {
@@ -201,9 +202,9 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
     string | null
   >(getInitialSelectedClassification());
 
-  const handleSelectedClassification = function (
+  const handleSelectedClassification = (
     e: ChangeEvent<HTMLSelectElement>,
-  ) {
+  ): void => {
     setSelectedClassification(e.target.value);
   };
 
@@ -218,14 +219,16 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
     classificationKey: number | null,
   ): string[] {
     const correspondingGocClassifications = gocClassifications.filter(
-      (item) => item.classification.id == classificationKey,
+      (item) => item.classification.id === classificationKey,
     );
 
-    let correspondingLevels: string[] = [];
+    const correspondingLevels: string[] = [];
 
-    correspondingGocClassifications.map( gocClassification => {
-      correspondingLevels.push(gocClassification.level.toString());
-    } )
+    correspondingGocClassifications.map(
+      (gocClassification: GocClassification) => {
+        return correspondingLevels.push(gocClassification.level.toString());
+      },
+    );
 
     return correspondingLevels;
   }
@@ -242,7 +245,11 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
               id="SEL2"
               onChange={handleSelectedClassification}
             >
-              <option value="" disabled></option>
+              <option disabled>
+                {intl.formatMessage(
+                  myBasicInformationMessages.selectLevelPrompt,
+                )}
+              </option>
               {uniqueClassifications.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.key}
@@ -259,7 +266,11 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
           <div>
             <i className="fas fa-caret-down" />
             <select defaultValue={selectedItem?.level} required id="SEL2">
-              <option></option>
+              <option disabled>
+                {intl.formatMessage(
+                  myBasicInformationMessages.selectLevelPrompt,
+                )}
+              </option>
               {getLevelsOfClassification(
                 safeParseInt(selectedClassification),
               ).map((item) => (
@@ -293,12 +304,12 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
   const onChangeSetCurrentGCEmployee = (
     e: React.ChangeEvent<HTMLSelectElement>,
     field: any,
-  ) => {
-    setCurrentGcEmployee(parseInt(e.target.value));
+  ): void => {
+    setCurrentGcEmployee(parseInt(e.target.value, 10));
     field.onChange(e);
   };
 
-  let initialValues: ProfileBasicInformationInitialValues = {
+  const initialValues: ProfileBasicInformationInitialValues = {
     citizenship: basicInformation.citizenship_status.id,
     veteranStatus: basicInformation.citizenship_status.id,
     currentGcEmployeeStatus: basicInformation.current_gc_employee.id,
@@ -309,12 +320,13 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
       <Formik
         initialValues={initialValues}
         onSubmit={(values): void => {
+          // eslint-disable-next-line no-unused-vars
           const basicInformationValues = {
             ...values,
           };
         }}
       >
-        {({ errors, values, touched, setValues, handleChange }) => (
+        {(): React.ReactElement => (
           <Form>
             <h2 data-c-heading="h2" data-c-margin="bottom(1)">
               {intl.formatMessage(myBasicInformationMessages.heading)}
@@ -337,6 +349,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
               </p>
               <p>
                 {intl.formatMessage(myBasicInformationMessages.toChangeGoTo)}:{" "}
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a data-c-color="c1" href="#">
                   {intl.formatMessage(
                     myBasicInformationMessages.accountSettings,
@@ -385,7 +398,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
             </h2>
 
             <FastField required name="currentGcEmployeeStatus" placeholder="F">
-              {({ field }) => (
+              {({ field }): React.ReactElement => (
                 <div data-c-grid-item="base(1of3)">
                   <div
                     data-c-input="select"
@@ -401,10 +414,16 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
                       <i className="fa fa-caret-down" />
                       <select
                         {...field}
-                        onChange={(e) => onChangeSetCurrentGCEmployee(e, field)}
+                        onChange={(e): void =>
+                          onChangeSetCurrentGCEmployee(e, field)
+                        }
                         id="currentGcEmployeeStatus"
                       >
-                        <option value=""></option>
+                        <option disabled>
+                          {intl.formatMessage(
+                            myBasicInformationMessages.selectGcEmployeeStatus,
+                          )}
+                        </option>
                         {Object.values(currentGcEmployeeId).map((i) => (
                           <option key={i} value={i}>
                             {intl.formatMessage(gcEmployeeStatus(i))}
