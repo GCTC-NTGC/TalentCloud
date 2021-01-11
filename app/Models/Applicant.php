@@ -31,7 +31,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
- * @property \Illuminate\Database\Eloquent\Collection $classifications
+ * @property \Illuminate\Database\Eloquent\Collection $applicant_classifications
  * @property \Illuminate\Database\Eloquent\Collection $skills
  *
  * Version 2 application models.
