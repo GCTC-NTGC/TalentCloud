@@ -142,24 +142,24 @@ const createOptions = (
   options: string[],
   messages: Record<string, MessageDescriptor>,
   intl: IntlShape,
-): { name: string; label: string }[] => {
-  return options.map((name: string): { name: string; label: string } => ({
-    name,
-    label: intl.formatMessage(messages[name]),
+): { value: string; label: string }[] => {
+  return options.map((value: string): { value: string; label: string } => ({
+    value,
+    label: intl.formatMessage(messages[value]),
   }));
 };
 
 export const phyEnvDescriptions = (
   intl: IntlShape,
-): { name: string; label: string }[] =>
+): { value: string; label: string }[] =>
   createOptions(physEnvOptions, physEnvMessages, intl);
 export const techDescriptions = (
   intl: IntlShape,
-): { name: string; label: string }[] =>
+): { value: string; label: string }[] =>
   createOptions(techOptions, techMessages, intl);
 export const amenitiesDescriptions = (
   intl: IntlShape,
-): { name: string; label: string }[] =>
+): { value: string; label: string }[] =>
   createOptions(amenitiesOptions, amenitiesMessages, intl);
 
 interface WorkEnvSection {
@@ -174,12 +174,12 @@ const WorkEnvSection: React.FunctionComponent<WorkEnvSection> = ({
   envDescription,
 }): React.ReactElement => {
   const intl = useIntl();
-  const phyEnvData: { name: string; label: string }[] = phyEnvDescriptions(
+  const phyEnvData: { value: string; label: string }[] = phyEnvDescriptions(
     intl,
   );
-  const techData: { name: string; label: string }[] = techDescriptions(intl);
+  const techData: { value: string; label: string }[] = techDescriptions(intl);
   const amenitiesData: {
-    name: string;
+    value: string;
     label: string;
   }[] = amenitiesDescriptions(intl);
 
@@ -206,10 +206,10 @@ const WorkEnvSection: React.FunctionComponent<WorkEnvSection> = ({
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
             {phyEnvData.map(
-              ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedEnvOptions.includes(name);
+              ({ label, value }): React.ReactElement => {
+                const checked: boolean = selectedEnvOptions.includes(value);
                 return (
-                  <div data-c-grid-item="tp(1of2)" key={name}>
+                  <div data-c-grid-item="tp(1of2)" key={value}>
                     <div
                       className={`job-builder-check ${
                         checked ? "checked" : ""
@@ -236,10 +236,10 @@ const WorkEnvSection: React.FunctionComponent<WorkEnvSection> = ({
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
             {techData.map(
-              ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedEnvOptions.includes(name);
+              ({ label, value }): React.ReactElement => {
+                const checked: boolean = selectedEnvOptions.includes(value);
                 return (
-                  <div data-c-grid-item="tp(1of2)" key={name}>
+                  <div data-c-grid-item="tp(1of2)" key={value}>
                     <div
                       className={`job-builder-check ${
                         checked ? "checked" : ""
@@ -266,10 +266,10 @@ const WorkEnvSection: React.FunctionComponent<WorkEnvSection> = ({
         <div data-c-margin="left(quarter)">
           <div data-c-grid="gutter">
             {amenitiesData.map(
-              ({ label, name }): React.ReactElement => {
-                const checked: boolean = selectedEnvOptions.includes(name);
+              ({ label, value }): React.ReactElement => {
+                const checked: boolean = selectedEnvOptions.includes(value);
                 return (
-                  <div data-c-grid-item="tp(1of2)" key={name}>
+                  <div data-c-grid-item="tp(1of2)" key={value}>
                     <div
                       className={`job-builder-check ${
                         checked ? "checked" : ""

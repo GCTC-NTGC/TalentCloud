@@ -29,7 +29,6 @@ const StatusPill: React.FC<StatusPillProps> = ({ text, status }) => (
 export interface JobCardProps {
   id: number;
   activity: Activity;
-  applicants: number;
   classification: string;
   draft: Link;
   managerTime: number;
@@ -37,6 +36,7 @@ export interface JobCardProps {
   preview: Link;
   screeningPlan: Link;
   summary: Link;
+  applicants: Link;
   status: JobPosterStatus;
   title: string;
   userTime: number;
@@ -44,7 +44,6 @@ export interface JobCardProps {
 
 const JobCard: React.FC<JobCardProps> = ({
   activity,
-  applicants,
   classification,
   draft,
   managerTime,
@@ -53,6 +52,7 @@ const JobCard: React.FC<JobCardProps> = ({
   screeningPlan,
   status,
   summary,
+  applicants,
   title,
   userTime,
 }) => {
@@ -120,20 +120,19 @@ const JobCard: React.FC<JobCardProps> = ({
                 {screeningPlan.text}
               </span>
             )}
-            <span data-c-color="gray" data-c-margin="right(half)">
-              <FormattedMessage
-                id="jobCard.applicants"
-                defaultMessage={`{applicants, plural,
-                  =0 {No Applicants}
-                  one {# Applicant}
-                  other {# Applicants}
-                }`}
-                description="Text displaying how many applicants have applied to this Job."
-                values={{
-                  applicants,
-                }}
-              />
-            </span>
+            {applicants.url.length > 0 ? (
+              <a
+                href={applicants.url}
+                title={applicants.title}
+                data-c-margin="right(half)"
+              >
+                {applicants.text}
+              </a>
+            ) : (
+              <span data-c-color="gray" data-c-margin="right(half)">
+                {applicants.text}
+              </span>
+            )}
           </p>
         </div>
         <div data-c-grid-item="tl(3of10)">
@@ -142,7 +141,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small">
                 <FormattedMessage
                   id="jobCard.managerTime"
-                  defaultMessage={`Time with Manager: {managerTime, plural, one {# day} other {# days}}`}
+                  defaultMessage="Time with Manager: {managerTime, plural, one {# day} other {# days}}"
                   description="Text displaying how long a job post has been claimed by a manager."
                   values={{
                     managerTime,
@@ -152,7 +151,7 @@ const JobCard: React.FC<JobCardProps> = ({
               <p data-c-font-size="small" className={owned ? "pulse" : ""}>
                 <FormattedMessage
                   id="jobCard.userTime"
-                  defaultMessage={`Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>`}
+                  defaultMessage="Time with you: <s>{userTime, plural, one {# day} other {# days}}</s>"
                   description="Text displaying how long a job has been claimed by the current user."
                   values={{
                     s: (msg): JSX.Element => <span>{msg}</span>,

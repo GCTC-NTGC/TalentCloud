@@ -10,7 +10,7 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         {% block socialMeta %}{% endblock %}
-        {% include "common/head" %}
+        {% include "common/head" with {"hydrogen": true} %}
     {# /head #}
     {# Page Body #}
     {% block body %}{% endblock %}

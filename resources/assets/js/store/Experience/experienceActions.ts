@@ -24,6 +24,11 @@ import {
   getExperienceEndpoint,
   getExperienceSkillEndpoint,
   parseExperienceSkill,
+  getCreateExperienceEndpoint,
+  parseBatchExperienceSkills,
+  getBatchCreateExperienceSkillsEndpoint,
+  getBatchUpdateExperienceSkillsEndpoint,
+  getBatchDeleteExperienceSkillsEndpoint,
 } from "../../api/experience";
 
 export const FETCH_EXPERIENCE_BY_APPLICANT_STARTED =
@@ -106,6 +111,7 @@ export type CreateExperienceAction = AsyncFsaActions<
 
 export const createExperience = (
   experience: Experience,
+  applicantId: number,
 ): RSAActionTemplate<
   typeof CREATE_EXPERIENCE_STARTED,
   typeof CREATE_EXPERIENCE_SUCCEEDED,
@@ -114,7 +120,7 @@ export const createExperience = (
   { type: Experience["type"] }
 > =>
   asyncPost(
-    getExperienceEndpoint(null, experience.type),
+    getCreateExperienceEndpoint(applicantId, experience.type),
     experience,
     CREATE_EXPERIENCE_STARTED,
     CREATE_EXPERIENCE_SUCCEEDED,
@@ -122,19 +128,6 @@ export const createExperience = (
     parseSingleExperience,
     { type: experience.type },
   );
-
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-export const createWorkExperience = (experience: ExperienceWork) =>
-  createExperience(experience);
-export const createEducationExperience = (experience: ExperienceEducation) =>
-  createExperience(experience);
-export const createCommunityExperience = (experience: ExperienceCommunity) =>
-  createExperience(experience);
-export const createAwardExperience = (experience: ExperienceAward) =>
-  createExperience(experience);
-export const createPersonalExperience = (experience: ExperiencePersonal) =>
-  createExperience(experience);
-/* eslint-enable @typescript-eslint/explicit-function-return-type */
 
 export const UPDATE_EXPERIENCE_STARTED = "EXPERIENCE: UPDATE STARTED";
 export const UPDATE_EXPERIENCE_SUCCEEDED = "EXPERIENCE: UPDATE SUCCEEDED";
@@ -319,6 +312,108 @@ export const deleteExperienceSkill = (
     { id, experienceId, experienceType },
   );
 
+export const BATCH_CREATE_EXPERIENCE_SKILLS_STARTED =
+  "EXPERIENCE SKILL: BATCH CREATE STARTED";
+export const BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED =
+  "EXPERIENCE SKILL: BATCH CREATE SUCCEEDED";
+export const BATCH_CREATE_EXPERIENCE_SKILLS_FAILED =
+  "EXPERIENCE SKILL: BATCH CREATE FAILED";
+
+export type BatchCreateExperienceSkillsAction = AsyncFsaActions<
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_FAILED,
+  ExperienceSkill[],
+  {}
+>;
+
+export const batchCreateExperienceSkills = (
+  experienceSkills: ExperienceSkill[],
+): RSAActionTemplate<
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_CREATE_EXPERIENCE_SKILLS_FAILED,
+  ExperienceSkill[],
+  {}
+> =>
+  asyncPost(
+    getBatchCreateExperienceSkillsEndpoint(),
+    experienceSkills,
+    BATCH_CREATE_EXPERIENCE_SKILLS_STARTED,
+    BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED,
+    BATCH_CREATE_EXPERIENCE_SKILLS_FAILED,
+    parseBatchExperienceSkills,
+    {},
+  );
+
+export const BATCH_UPDATE_EXPERIENCE_SKILLS_STARTED =
+  "EXPERIENCE SKILL: BATCH UPDATE STARTED";
+export const BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED =
+  "EXPERIENCE SKILL: BATCH UPDATE SUCCEEDED";
+export const BATCH_UPDATE_EXPERIENCE_SKILLS_FAILED =
+  "EXPERIENCE SKILL: BATCH UPDATE FAILED";
+
+export type BatchUpdateExperienceSkillsAction = AsyncFsaActions<
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_FAILED,
+  ExperienceSkill[],
+  {}
+>;
+
+export const batchUpdateExperienceSkills = (
+  experienceSkills: ExperienceSkill[],
+): RSAActionTemplate<
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_UPDATE_EXPERIENCE_SKILLS_FAILED,
+  ExperienceSkill[],
+  {}
+> =>
+  asyncPost(
+    getBatchUpdateExperienceSkillsEndpoint(),
+    experienceSkills,
+    BATCH_UPDATE_EXPERIENCE_SKILLS_STARTED,
+    BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED,
+    BATCH_UPDATE_EXPERIENCE_SKILLS_FAILED,
+    parseBatchExperienceSkills,
+    {},
+  );
+
+export const BATCH_DELETE_EXPERIENCE_SKILLS_STARTED =
+  "EXPERIENCE SKILL: BATCH DELETE STARTED";
+export const BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED =
+  "EXPERIENCE SKILL: BATCH DELETE SUCCEEDED";
+export const BATCH_DELETE_EXPERIENCE_SKILLS_FAILED =
+  "EXPERIENCE SKILL: BATCH DELETE FAILED";
+
+export type BatchDeleteExperienceSkillsAction = AsyncFsaActions<
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_FAILED,
+  {},
+  ExperienceSkill[]
+>;
+
+export const batchDeleteExperienceSkills = (
+  experienceSkills: ExperienceSkill[],
+): RSAActionTemplate<
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_STARTED,
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED,
+  typeof BATCH_DELETE_EXPERIENCE_SKILLS_FAILED,
+  {},
+  ExperienceSkill[]
+> =>
+  asyncPost(
+    getBatchDeleteExperienceSkillsEndpoint(),
+    experienceSkills,
+    BATCH_DELETE_EXPERIENCE_SKILLS_STARTED,
+    BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED,
+    BATCH_DELETE_EXPERIENCE_SKILLS_FAILED,
+    () => ({}),
+    experienceSkills,
+  );
+
 export type ExperienceAction =
   | FetchExperienceByApplicantAction
   | FetchExperienceByApplicationAction
@@ -327,4 +422,7 @@ export type ExperienceAction =
   | DeleteExperienceAction
   | CreateExperienceSkillAction
   | UpdateExperienceSkillAction
-  | DeleteExperienceSkillAction;
+  | DeleteExperienceSkillAction
+  | BatchCreateExperienceSkillsAction
+  | BatchUpdateExperienceSkillsAction
+  | BatchDeleteExperienceSkillsAction;

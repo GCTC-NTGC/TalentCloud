@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
@@ -40,25 +41,6 @@ export interface AwardRecipientType {
 export interface AwardRecognitionType {
   id: number;
   name: localizedFieldNonNull;
-}
-
-interface AwardExperienceModalProps {
-  modalId: string;
-  experienceAward: ExperienceAward | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
-  jobId: number;
-  jobClassification: string;
-  requiredSkills: Skill[];
-  savedRequiredSkills: Skill[];
-  optionalSkills: Skill[];
-  savedOptionalSkills: Skill[];
-  experienceableId: number;
-  experienceableType: ExperienceAward["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: AwardExperienceSubmitData) => Promise<void>;
 }
 
 export const messages = defineMessages({
@@ -122,6 +104,77 @@ export interface AwardDetailsFormValues {
   awardedDate: string;
 }
 
+const DetailsSubform: FunctionComponent<{
+  recipientTypes: AwardRecipientType[];
+  recognitionTypes: AwardRecognitionType[];
+}> = ({ recipientTypes, recognitionTypes }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  return (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="award-title"
+          type="text"
+          name="title"
+          component={TextInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="award-recipientTypeId"
+          name="recipientTypeId"
+          label={intl.formatMessage(messages.recipientTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.recipientTypePlaceholder)}
+          options={recipientTypes.map((type) => ({
+            value: type.id,
+            label: localizeFieldNonNull(locale, type, "name"),
+          }))}
+        />
+        <FastField
+          id="award-issuedBy"
+          type="text"
+          name="issuedBy"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.issuerLabel)}
+          placeholder={intl.formatMessage(messages.issuerPlaceholder)}
+        />
+        <FastField
+          id="award-recognitionTypeId"
+          name="recognitionTypeId"
+          label={intl.formatMessage(messages.recognitionTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(
+            messages.recognitionTypePlaceholder,
+          )}
+          options={recognitionTypes.map((status) => ({
+            value: status.id,
+            label: localizeFieldNonNull(locale, status, "name"),
+          }))}
+        />
+        <FastField
+          id="award-awardedDate"
+          name="awardedDate"
+          component={DateInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.awardedDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
 type AwardExperienceFormValues = SkillFormValues &
   EducationFormValues &
   AwardDetailsFormValues;
@@ -144,6 +197,19 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
+const experienceToDetails = (
+  experience: ExperienceAward,
+  creatingNew: boolean,
+): AwardDetailsFormValues => {
+  return {
+    title: experience.title,
+    recipientTypeId: creatingNew ? "" : experience.award_recipient_type_id,
+    issuedBy: experience.issued_by,
+    recognitionTypeId: creatingNew ? "" : experience.award_recognition_type_id,
+    awardedDate: toInputDateString(experience.awarded_date),
+  };
+};
+
 const dataToFormValues = (
   data: AwardExperienceSubmitData,
   locale: Locales,
@@ -156,17 +222,28 @@ const dataToFormValues = (
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement: experienceAward.is_education_requirement,
-    title: experienceAward.title,
-    recipientTypeId: creatingNew ? "" : experienceAward.award_recipient_type_id,
-    issuedBy: experienceAward.issued_by,
-    recognitionTypeId: creatingNew
-      ? ""
-      : experienceAward.award_recognition_type_id,
-    awardedDate: toInputDateString(experienceAward.awarded_date),
+    ...experienceToDetails(data.experienceAward, creatingNew),
   };
 };
 
-/* eslint-disable @typescript-eslint/camelcase */
+const detailsToExperience = (
+  formValues: AwardDetailsFormValues,
+  originalExperience: ExperienceAward,
+): ExperienceAward => {
+  return {
+    ...originalExperience,
+    title: formValues.title,
+    award_recipient_type_id: formValues.recipientTypeId
+      ? Number(formValues.recipientTypeId)
+      : 1,
+    issued_by: formValues.issuedBy,
+    award_recognition_type_id: formValues.recognitionTypeId
+      ? Number(formValues.recognitionTypeId)
+      : 1,
+    awarded_date: fromInputDateString(formValues.awardedDate),
+  };
+};
+
 const formValuesToData = (
   formValues: AwardExperienceFormValues,
   originalExperience: ExperienceAward,
@@ -177,16 +254,7 @@ const formValuesToData = (
     matchValueToModel(locale, "name", name, skills);
   return {
     experienceAward: {
-      ...originalExperience,
-      title: formValues.title,
-      award_recipient_type_id: formValues.recipientTypeId
-        ? Number(formValues.recipientTypeId)
-        : 1,
-      issued_by: formValues.issuedBy,
-      award_recognition_type_id: formValues.recognitionTypeId
-        ? Number(formValues.recognitionTypeId)
-        : 1,
-      awarded_date: fromInputDateString(formValues.awardedDate),
+      ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
     savedRequiredSkills: formValues.requiredSkills
@@ -215,7 +283,107 @@ const newExperienceAward = (
   experienceable_type: experienceableType,
   type: "experience_award",
 });
-/* eslint-enable @typescript-eslint/camelcase */
+
+interface ProfileAwardModalProps {
+  modalId: string;
+  experienceAward: ExperienceAward | null;
+  recipientTypes: AwardRecipientType[];
+  recognitionTypes: AwardRecognitionType[];
+  experienceableId: number;
+  experienceableType: ExperienceAward["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: ExperienceAward) => Promise<void>;
+}
+
+export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
+  modalId,
+  experienceAward,
+  recipientTypes,
+  recognitionTypes,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experienceAward ?? newExperienceAward(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(
+    originalExperience,
+    experienceAward === null,
+  );
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-trophy"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform
+                recipientTypes={recipientTypes}
+                recognitionTypes={recognitionTypes}
+              />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
+interface AwardExperienceModalProps {
+  modalId: string;
+  experienceAward: ExperienceAward | null;
+  recipientTypes: AwardRecipientType[];
+  recognitionTypes: AwardRecognitionType[];
+  jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  experienceableId: number;
+  experienceableType: ExperienceAward["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: AwardExperienceSubmitData) => Promise<void>;
+}
 
 export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   modalId,
@@ -224,6 +392,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   recognitionTypes,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -260,70 +429,6 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
     ...validationShape(intl),
   });
 
-  const detailsSubform = (
-    <div data-c-container="medium">
-      <div data-c-grid="gutter(all, 1) middle">
-        <FastField
-          id="title"
-          type="text"
-          name="title"
-          component={TextInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.titleLabel)}
-          placeholder={intl.formatMessage(messages.titlePlaceholder)}
-        />
-        <FastField
-          id="recipientTypeId"
-          name="recipientTypeId"
-          label={intl.formatMessage(messages.recipientTypeLabel)}
-          grid="tl(1of2)"
-          component={SelectInput}
-          required
-          nullSelection={intl.formatMessage(messages.recipientTypePlaceholder)}
-          options={recipientTypes.map((type) => ({
-            value: type.id,
-            label: localizeFieldNonNull(locale, type, "name"),
-          }))}
-        />
-        <FastField
-          id="issuedBy"
-          type="text"
-          name="issuedBy"
-          component={TextInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.issuerLabel)}
-          placeholder={intl.formatMessage(messages.issuerPlaceholder)}
-        />
-        <FastField
-          id="recognitionTypeId"
-          name="recognitionTypeId"
-          label={intl.formatMessage(messages.recognitionTypeLabel)}
-          grid="tl(1of2)"
-          component={SelectInput}
-          required
-          nullSelection={intl.formatMessage(
-            messages.recognitionTypePlaceholder,
-          )}
-          options={recognitionTypes.map((status) => ({
-            value: status.id,
-            label: localizeFieldNonNull(locale, status, "name"),
-          }))}
-        />
-        <FastField
-          id="awardedDate"
-          name="awardedDate"
-          component={DateInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.awardedDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <Modal
       id={modalId}
@@ -335,7 +440,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
     >
       <ExperienceModalHeader
         title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
+        iconClass="fa-trophy"
       />
       <Formik
         enableReinitialize
@@ -348,6 +453,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -357,13 +463,21 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform
+                recipientTypes={recipientTypes}
+                recognitionTypes={recognitionTypes}
+              />
               <SkillSubform
+                keyPrefix="award"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="award"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

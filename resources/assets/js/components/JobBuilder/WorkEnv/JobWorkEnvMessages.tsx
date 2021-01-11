@@ -69,6 +69,12 @@ export const formMessages = defineMessages({
       "Based on your selections, we'll create a short paragraph summarizing your work culture. You can edit this paragraph to customize it to your team.",
     description: "Subtext 2 displayed of the our culture section.",
   },
+  cultureSummaryDefault: {
+    id: "jobBuilder.workEnv.cultureSummaryDefault",
+    defaultMessage: "Please make selections above...",
+    description:
+      "Displayed in culture summary before radio inputs are selected.",
+  },
   fastPacedSteadyLabel: {
     id: "jobBuilder.workEnv.fastPacedSteadyLabel",
     defaultMessage: "Fast-paced vs. Steady:",
@@ -335,5 +341,18 @@ export const collaborativenessMessages = defineMessages({
     id: "jobBuilder.collaborativeness.04.description",
     defaultMessage:
       "Members of our team own their piece of the puzzle. It doesn't really matter how we get our work done as long as it's high quality.",
+  },
+});
+
+export const buttonMessages = defineMessages({
+  buttonCopied: {
+    id: "jobBuilder.workEnv.button.copied",
+    defaultMessage: "Copied!",
+    description: "Confirmation for Button to copy text to clipboard.",
+  },
+  buttonCopyToClipboard: {
+    id: "jobBuilder.workEnv.button.copyToClipboard",
+    defaultMessage: "Copy to Clipboard",
+    description: "Button to copy text to clipboard.",
   },
 });

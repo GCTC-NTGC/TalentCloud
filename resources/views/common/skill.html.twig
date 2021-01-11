@@ -79,7 +79,7 @@
         {% if locale == "application" and application_step == "4" and criterion == false %}template{% endif %}
         {% if skill_declaration %}complete{% endif %}
         modal-target-object"
-    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="{{ route("skill_declarations.destroy", ":id") }}" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
+    data-item-saved="{{ skill_declaration ? "true" : "" }}" data-item-url="" data-item-id="{{ skill_declaration ? skill_declaration.id : 0 }}">
     <button class="accordion-trigger" data-c-accordion-trigger tabindex="0" type="button"
         {% if skill_declaration == false %}
             aria-expanded="true"
@@ -127,7 +127,7 @@
         <hr data-c-hr="thin(gray)">
         <div>
             <form
-            action="{{ skill_declaration ? route("skill_declarations.update", skill_declaration) : route("skill_declarations.create") }}"
+            action=""
             method="POST">
                 {# Skill Content (Readable) #}
                 {% if locale == "application-view" %}
@@ -287,7 +287,7 @@
                             {# Add a Work Sample Trigger #}
                             {% if applicant.work_samples|length > 0 %}
                                 <div data-c-grid-item="base(1of1) tl(1of2)" data-c-align="base(center) tl(right)">
-                                    <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button">
+                                    <button class="profile-relative__add-trigger" data-c-button="outline(c1)" data-c-radius="rounded" type="button" disabled>
                                         {{ relative_template.sample.add_label }}
                                     </button>
                                 </div>
@@ -325,7 +325,7 @@
                         <div data-c-grid="gutter(all, 1)">
                             {% if locale != "application" %}
                                 <div data-c-grid-item="base(1of1) pl(1of2)" data-c-align="base(center) pl(left)">
-                                    <button class="modal-trigger" data-modal-id="deleteSkill" data-c-button="outline(stop)" data-c-radius="rounded" type="button">
+                                    <button class="modal-trigger" data-modal-id="deleteSkill" data-c-button="outline(stop)" data-c-radius="rounded" type="button" disabled>
                                         <span>{{ skill_template.action_01 }}</span>
                                     </button>
                                 </div>
@@ -333,7 +333,7 @@
                             {% else %}
                                 <div data-c-grid-item="base(1of1)" data-c-align="base(center) pl(right)">
                             {% endif %}
-                                <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}">
+                                <button data-c-button="solid(c1)" data-c-radius="rounded" name="submit" type="submit" value="{{ name_prefix }}" disabled>
                                     <span>
                                         <span class="submit-default">{{ skill_template.action_02 }}</span>
                                         <span class="submit-working">{{ skill_template.action_02_working }}</span>

@@ -13,6 +13,7 @@ class DepartmentCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\ReorderOperation;
 
     /**
      * Prepare the admin interface by setting the associated
@@ -46,6 +47,24 @@ class DepartmentCrudController extends CrudController
                 'name' => 'preference',
                 'type' => 'textarea',
                 'label' => 'Preference',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'allow_indeterminate',
+                'type' => 'checkbox',
+                'label' => 'Allow Indeterminate: allow Indeterminate length jobs to be created within this department.',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'is_partner',
+                'type' => 'checkbox',
+                'label' => 'Is this department a Talent Cloud partner?',
+            ]);
+
+            $this->crud->addField([
+                'name' => 'is_host',
+                'type' => 'checkbox',
+                'label' => 'Is this department a Talent Cloud host?',
             ]);
         });
     }
@@ -96,6 +115,38 @@ class DepartmentCrudController extends CrudController
             'orderable' => false,
             'limit' => 70,
         ]);
+
+        $this->crud->addColumn([
+            'name' => 'allow_indeterminate',
+            'type' => 'check',
+            'label' => 'Allow Indeterminate',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_partner',
+            'type' => 'check',
+            'label' => 'Partner Department',
+        ]);
+
+        $this->crud->addColumn([
+            'name' => 'is_host',
+            'type' => 'check',
+            'label' => 'Talent Cloud Host',
+        ]);
+
+        // Add filter for departments that are partners
+        $this->crud->addFilter(
+            [
+                'type' => 'simple',
+                'name' => 'partners',
+                'label'=> 'Partner Departments'
+            ],
+            false,
+            function () {
+                $this->crud->addClause('where', 'is_partner', '=', true);
+            }
+        );
+
     }
 
     public function setupCreateOperation()
@@ -106,5 +157,11 @@ class DepartmentCrudController extends CrudController
     public function setupUpdateOperation()
     {
         $this->crud->setValidation(UpdateRequest::class);
+    }
+
+    protected function setupReorderOperation()
+    {
+        $this->crud->set('reorder.label', 'name');
+        $this->crud->set('reorder.max_level', 1);
     }
 }

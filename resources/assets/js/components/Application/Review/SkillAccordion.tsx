@@ -9,7 +9,7 @@ import {
   localizeFieldNonNull,
   getLocale,
 } from "../../../helpers/localize";
-import { titleBarDateRange } from "../ExperienceAccordions/BaseExperienceAccordion";
+import { titleBarDateRange } from "../ExperienceAccordions/ExperienceAccordionCommon";
 
 const skillAccordionMessages = defineMessages({
   justificationMissing: {
@@ -655,7 +655,7 @@ const SkillAccordion: React.FC<SkillAccordionProps> = ({
 
   return (
     <div
-      data-c-accordion=""
+      data-c-accordion
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
@@ -663,7 +663,7 @@ const SkillAccordion: React.FC<SkillAccordionProps> = ({
     >
       <button
         aria-expanded={isExpanded}
-        data-c-accordion-trigger=""
+        data-c-accordion-trigger
         tabIndex={0}
         type="button"
         onClick={(): void => {

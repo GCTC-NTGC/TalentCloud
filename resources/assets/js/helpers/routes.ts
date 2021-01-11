@@ -215,8 +215,7 @@ export function applicationIndex(locale: Locales): string {
 }
 
 function baseApplicationUrl(locale: Locales, applicationId) {
-  // TODO: remove "demo" from url.
-  return `${baseUrl()}/${locale}/demo/applications/${applicationId}`;
+  return `${baseUrl()}/${locale}/applications/${applicationId}`;
 }
 export function applicationWelcome(
   locale: Locales,
@@ -273,8 +272,7 @@ export function applicationNextSteps(
   locale: Locales,
   applicationId: number,
 ): string {
-  // TODO: Link to a non-demo Next Steps page.
-  return `${baseUrl()}/${locale}/demo/application-10`;
+  return `${baseApplicationUrl(locale, applicationId)}/next`;
 }
 
 /**

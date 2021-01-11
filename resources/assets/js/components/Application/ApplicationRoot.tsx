@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import { Routes } from "universal-router";
 import { useIntl, defineMessages } from "react-intl";
 import RootContainer from "../RootContainer";
-import { RouterResult, useRouter, Link } from "../../helpers/router";
+import { RouterResult, useRouter } from "../../helpers/router";
 import IntroPage from "./Intro/IntroPage";
 import ScrollToTop from "../ScrollToTop";
 import BasicInfoPage from "./BasicInfo/BasicInfoPage";
-import { applicationWelcome, applicationSkills } from "../../helpers/routes";
+import { applicationWelcome } from "../../helpers/routes";
 import { Locales } from "../../helpers/localize";
 import ExperienceIntroPage from "./Experience/ExperienceIntroPage";
 import ExperiencePage from "./Experience/ExperiencePage";
@@ -15,6 +15,7 @@ import SkillsPage from "./Skills/SkillsPage";
 import FitPage from "./Fit/FitPage";
 import ReviewPage from "./Review/ReviewPage";
 import FinalSubmitPage from "./FinalSubmit/FinalSubmitPage";
+import SkillsIntroPage from "./Skills/SkillsIntroPage";
 
 const pageTitles = defineMessages({
   welcomeTitle: {
@@ -66,7 +67,7 @@ const pageTitles = defineMessages({
 
 const routes: Routes<{}, RouterResult> = [
   {
-    path: "/:locale/demo/applications/:id", // TODO: remove demo from url.
+    path: "/:locale/applications/:id",
     children: [
       {
         path: "/welcome",
@@ -100,20 +101,7 @@ const routes: Routes<{}, RouterResult> = [
         path: "/skills-intro",
         action: ({ params }) => ({
           title: pageTitles.skillsIntroTitle,
-          component: (
-            <>
-              <p>PLACEHOLDER FOR SKILLS INTRO STEP</p>
-              <Link
-                href={applicationSkills(
-                  params.locale as Locales,
-                  Number(params.id),
-                )}
-                title=""
-              >
-                Continue
-              </Link>
-            </>
-          ),
+          component: <SkillsIntroPage applicationId={Number(params.id)} />,
         }),
       },
       {

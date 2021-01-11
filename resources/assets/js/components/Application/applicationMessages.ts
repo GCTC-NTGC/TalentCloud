@@ -18,6 +18,11 @@ export const accordionMessages = defineMessages({
     description:
       "Shows the date range for the title bar (assuming activity is ongoing).",
   },
+  detailsTitle: {
+    id: "application.accordion.detailsTitle",
+    defaultMessage: "Details of this Experience",
+    description: "Subtitle of the details section.",
+  },
   notApplicable: {
     id: "application.accordion.notApplicable",
     defaultMessage: "N/A",
@@ -104,7 +109,7 @@ export const accordionMessages = defineMessages({
   },
   educationType: {
     id: "application.accordion.educationType",
-    defaultMessage: "Education Experience",
+    defaultMessage: "Education",
   },
   educationTypeLabel: {
     id: "application.accordion.educationTypeLabel",
@@ -132,7 +137,7 @@ export const accordionMessages = defineMessages({
   },
   educationHasBlockcert: {
     id: "application.accordion.educationHasBlockcert",
-    defaultMessage: "I have a Blockcert and can provide it on request.",
+    defaultMessage: "Yes, I have a Blockcert and can provide it on request.",
   },
   personalType: {
     id: "application.accordion.personalType",
@@ -207,8 +212,52 @@ export const basicInfoMessages = defineMessages({
 export const experienceMessages = defineMessages({
   heading: {
     id: "application.experience.heading",
-    defaultMessage: "My Experience",
+    defaultMessage: "Your Experience",
     description: "Heading for the Experience section of the Application.",
+  },
+  educationTypeMissing: {
+    id: "application.experience.educationTypeMissing",
+    defaultMessage: "Education type not found",
+    description: "Error message for when the education type cannot be found.",
+  },
+  educationStatusMissing: {
+    id: "application.experience.educationStatusMissing",
+    defaultMessage: "Education status not found",
+    description: "Error message for when the education status cannot be found.",
+  },
+  awardRecipientMissing: {
+    id: "application.experience.awardRecipientMissing",
+    defaultMessage: "Award recipient not found",
+    description: "Error message for when the award recipient cannot be found.",
+  },
+  awardRecognitionMissing: {
+    id: "application.experience.awardRecognitionMissing",
+    defaultMessage: "Award recognition not found",
+    description:
+      "Error message for when the award recognition cannot be found.",
+  },
+  errorRenderingExperience: {
+    id: "application.experience.errorRenderingExperience",
+    defaultMessage: "Experience failed to render (experience type missing).",
+    description: "Error message displayed when experience fails to render.",
+  },
+});
+
+export const educationRequirementMessages = defineMessages({
+  missingClassification: {
+    id: "application.education.missingClassification",
+    defaultMessage: "UNKNOWN CLASSIFICATION",
+    description:
+      "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
+  },
+});
+
+export const skillMessages = defineMessages({
+  experienceSkillPlaceholder: {
+    id: "application.skills.experienceSkillPlaceholder",
+    defaultMessage: "Start writing here...",
+    description:
+      "Placeholder text for where the applicant describes how they used a Skill to achieve an Experience.",
   },
 });
 
@@ -243,5 +292,14 @@ export const navigationMessages = defineMessages({
     defaultMessage: "Save & Return to Previous Step",
     description:
       "The text displayed on the Save & Return button of the Application form.",
+  },
+});
+
+export const loadingMessages = defineMessages({
+  loading: {
+    id: "application.loading",
+    defaultMessage: "Just a second...",
+    description:
+      "A message to inform the user that the page is incomplete because data is still being loaded.",
   },
 });

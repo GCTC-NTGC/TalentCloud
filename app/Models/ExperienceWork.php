@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
+use App\Models\Experience;
 
 /**
  * Class ExperienceWork
@@ -26,7 +26,7 @@ use App\Models\BaseModel;
  *
  * @method string experienceTypeName
  */
-class ExperienceWork extends BaseModel
+class ExperienceWork extends Experience
 {
     protected $casts = [
         'title' => 'string',
@@ -65,11 +65,6 @@ class ExperienceWork extends BaseModel
     public function experienceable() //phpcs:ignore
     {
         return $this->morphTo();
-    }
-
-    public function skills()
-    {
-        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
     }
 
     public function experience_skills() //phpcs:ignore

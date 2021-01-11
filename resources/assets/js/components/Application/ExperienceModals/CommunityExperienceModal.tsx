@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
@@ -30,23 +31,6 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
-
-interface CommunityExperienceModalProps {
-  modalId: string;
-  experienceCommunity: ExperienceCommunity | null;
-  jobId: number;
-  jobClassification: string;
-  requiredSkills: Skill[];
-  savedRequiredSkills: Skill[];
-  optionalSkills: Skill[];
-  savedOptionalSkills: Skill[];
-  experienceableId: number;
-  experienceableType: ExperienceCommunity["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
-}
 
 export const messages = defineMessages({
   modalTitle: {
@@ -145,6 +129,21 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
+const experienceToDetails = (
+  experienceCommunity: ExperienceCommunity,
+): CommunityDetailsFormValues => {
+  return {
+    title: experienceCommunity.title,
+    group: experienceCommunity.group,
+    project: experienceCommunity.project,
+    startDate: toInputDateString(experienceCommunity.start_date),
+    isActive: experienceCommunity.is_active,
+    endDate: experienceCommunity.end_date
+      ? toInputDateString(experienceCommunity.end_date)
+      : "",
+  };
+};
+
 const dataToFormValues = (
   data: CommunityExperienceSubmitData,
   locale: Locales,
@@ -157,21 +156,30 @@ const dataToFormValues = (
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
+    ...experienceToDetails(data.experienceCommunity),
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement: experienceCommunity.is_education_requirement,
-    title: experienceCommunity.title,
-    group: experienceCommunity.group,
-    project: experienceCommunity.project,
-    startDate: toInputDateString(experienceCommunity.start_date),
-    isActive: experienceCommunity.is_active,
-    endDate: experienceCommunity.end_date
-      ? toInputDateString(experienceCommunity.end_date)
-      : "",
   };
 };
 
-/* eslint-disable @typescript-eslint/camelcase */
+const detailsToExperience = (
+  formValues: CommunityDetailsFormValues,
+  originalExperience: ExperienceCommunity,
+): ExperienceCommunity => {
+  return {
+    ...originalExperience,
+    title: formValues.title,
+    group: formValues.group,
+    project: formValues.project,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
+
 const formValuesToData = (
   formValues: CommunityExperienceFormValues,
   originalExperience: ExperienceCommunity,
@@ -182,15 +190,7 @@ const formValuesToData = (
     matchValueToModel(locale, "name", name, skills);
   return {
     experienceCommunity: {
-      ...originalExperience,
-      title: formValues.title,
-      group: formValues.group,
-      project: formValues.project,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
+      ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
     savedRequiredSkills: formValues.requiredSkills
@@ -218,13 +218,166 @@ const newCommunityExperience = (
   experienceable_type: experienceableType,
   type: "experience_community",
 });
-/* eslint-enable @typescript-eslint/camelcase */
+
+const DetailsSubform: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="community-title"
+          name="title"
+          type="text"
+          grid="base(1of1)"
+          component={TextInput}
+          required
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="community-group"
+          type="text"
+          name="group"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.groupLabel)}
+          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+        />
+        <FastField
+          id="community-project"
+          type="text"
+          name="project"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.projectLabel)}
+          placeholder={intl.formatMessage(messages.projectPlaceholder)}
+        />
+        <FastField
+          id="community-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="community-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="community-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
+interface ProfileCommunityModalProps {
+  modalId: string;
+  experienceCommunity: ExperienceCommunity | null;
+  experienceableId: number;
+  experienceableType: ExperienceCommunity["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: ExperienceCommunity) => Promise<void>;
+}
+
+export const ProfileCommunityModal: FunctionComponent<ProfileCommunityModalProps> = ({
+  modalId,
+  experienceCommunity,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experienceCommunity ??
+    newCommunityExperience(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(originalExperience);
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-people-carry"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+interface CommunityExperienceModalProps {
+  modalId: string;
+  experienceCommunity: ExperienceCommunity | null;
+  jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  experienceableId: number;
+  experienceableType: ExperienceCommunity["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
+}
 
 export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> = ({
   modalId,
   experienceCommunity,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -261,67 +414,6 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
     ...validationShape(intl),
   });
 
-  const detailsSubform = (
-    <div data-c-container="medium">
-      <div data-c-grid="gutter(all, 1) middle">
-        <FastField
-          id="title"
-          name="title"
-          type="text"
-          grid="base(1of1)"
-          component={TextInput}
-          required
-          label={intl.formatMessage(messages.titleLabel)}
-          placeholder={intl.formatMessage(messages.titlePlaceholder)}
-        />
-        <FastField
-          id="group"
-          type="text"
-          name="group"
-          component={TextInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.groupLabel)}
-          placeholder={intl.formatMessage(messages.groupPlaceholder)}
-        />
-        <FastField
-          id="project"
-          type="text"
-          name="project"
-          component={TextInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.projectLabel)}
-          placeholder={intl.formatMessage(messages.projectPlaceholder)}
-        />
-        <FastField
-          id="startDate"
-          name="startDate"
-          component={DateInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.startDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-        <Field
-          id="isActive"
-          name="isActive"
-          component={CheckboxInput}
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.isActiveLabel)}
-        />
-        <Field
-          id="endDate"
-          name="endDate"
-          component={DateInput}
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.endDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <Modal
       id={modalId}
@@ -346,6 +438,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -355,13 +448,18 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform />
               <SkillSubform
+                keyPrefix="community"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="community"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

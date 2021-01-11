@@ -53,7 +53,7 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
     <>
       {checkboxGroup ? (
         <div data-c-grid-item={grid}>
-          <label htmlFor={id}>
+          <label>
             <input
               id={id}
               name={name}
@@ -79,7 +79,7 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
             <FormattedMessage {...inputMessages.required} />
           </span>
           <div>
-            <label htmlFor={id}>
+            <label>
               <input
                 id={id}
                 name={name}

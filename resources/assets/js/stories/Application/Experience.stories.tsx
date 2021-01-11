@@ -3,7 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import MyExperience, {
+import ExperienceStep, {
   ExperienceSubmitData,
 } from "../../components/Application/Experience/Experience";
 import { fakeSkills } from "../../fakeData/fakeSkills";
@@ -20,8 +20,10 @@ import fakeExperienceSkills, {
 } from "../../fakeData/fakeExperienceSkills";
 import { Experience, Skill } from "../../models/types";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
+import { ClassificationId } from "../../models/lookupConstants";
+import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
 
-const stories = storiesOf("Application|My Experience", module).addDecorator(
+const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
 );
 
@@ -84,29 +86,32 @@ const handleDeleteExperience = async (
 
 stories.add(
   "Experience Step",
-  (): React.ReactElement => (
-    <MyExperience
-      experiences={experiences}
-      experienceSkills={experienceSkills}
-      criteria={fakeCriteria()}
-      skills={fakeSkills()}
-      educationStatuses={educationStatuses}
-      educationTypes={educationTypes}
-      handleSubmitExperience={async (data) => {
-        handleSubmitExperience(data);
-        action("Confirmed")(data);
-      }}
-      handleDeleteExperience={async (id, type) => {
-        handleDeleteExperience(id, type);
-        action("Experience Deleted")(id);
-      }}
-      jobId={1}
-      jobClassificationId={1}
-      recipientTypes={recipientTypes}
-      recognitionTypes={recogntitionTypes}
-      handleContinue={action("Save and Continue")}
-      handleQuit={action("Save and Quit")}
-      handleReturn={action("Save and Return")}
-    />
-  ),
+  (): React.ReactElement => {
+    return (
+      <ExperienceStep
+        experiences={experiences}
+        experienceSkills={experienceSkills}
+        criteria={fakeCriteria()}
+        skills={fakeSkills()}
+        educationStatuses={educationStatuses}
+        educationTypes={educationTypes}
+        handleSubmitExperience={async (data) => {
+          handleSubmitExperience(data);
+          action("Confirmed")(data);
+        }}
+        handleDeleteExperience={async (id, type) => {
+          handleDeleteExperience(id, type);
+          action("Experience Deleted")(id);
+        }}
+        jobId={1}
+        jobClassificationId={ClassificationId.CS}
+        jobEducationRequirements={educationMessages.CS.defaultMessage}
+        recipientTypes={recipientTypes}
+        recognitionTypes={recogntitionTypes}
+        handleContinue={action("Save and Continue")}
+        handleQuit={action("Save and Quit")}
+        handleReturn={action("Save and Return")}
+      />
+    );
+  },
 );

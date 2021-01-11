@@ -8,7 +8,7 @@ interface ExperienceIntroProps {
 const typesOfExperience = defineMessages({
   education: {
     id: "application.experience.intro.educationExperience",
-    defaultMessage: "Education Experience",
+    defaultMessage: "Education",
     description: "Type of experience: Education Experience.",
   },
   work: {
@@ -63,7 +63,7 @@ const ExperienceIntro: React.FunctionComponent<ExperienceIntroProps> = ({
         </p>
         <ul data-c-margin="bottom(1)">
           {Object.values(typesOfExperience).map((experience) => (
-            <li>{intl.formatMessage(experience)}</li>
+            <li key={experience.id}>{intl.formatMessage(experience)}</li>
           ))}
         </ul>
         <p>

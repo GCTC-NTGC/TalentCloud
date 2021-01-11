@@ -1,47 +1,22 @@
 import { IntlShape } from "react-intl";
-import { Application } from "../../../models/types";
-import {
-  ProgressBarProps,
-  stepNames,
-  ProgressBarStepStatus,
-} from "./ProgressBar";
+import { ProgressBarProps, stepNames } from "./ProgressBar";
 import {
   applicationBasic,
-  applicationExperienceIntro,
-  applicationSkills,
   applicationFit,
   applicationReview,
   applicationSubmission,
+  applicationExperience,
+  applicationSkills,
 } from "../../../helpers/routes";
 import { getLocale } from "../../../helpers/localize";
-
-function basicInfoStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
-function experienceStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
-function skillsStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
-function myFitStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
-function reviewStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
-function submissionStatus(application: Application): ProgressBarStepStatus {
-  // TODO: implement.
-  return "complete";
-}
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../../models/lookupConstants";
 
 export function makeProgressBarSteps(
-  application: Application,
+  applicationId: number,
+  steps: { [step in ApplicationStep]: ProgressBarStatus },
   intl: IntlShape,
   currentStep:
     | "welcome"
@@ -52,63 +27,70 @@ export function makeProgressBarSteps(
     | "review"
     | "submission"
     | "other",
+  stepsUpdateInProgress: boolean,
 ): ProgressBarProps["steps"] {
   const locale = getLocale(intl.locale);
+  const makeStatus = (step: ApplicationStep): ProgressBarStatus => {
+    return step === currentStep ? "current" : steps[step];
+  };
+  const isLoading = (step: ApplicationStep): boolean => {
+    return steps[step] !== "default" && stepsUpdateInProgress;
+  };
+
   return [
     {
       link: {
-        url: applicationBasic(locale, application.id),
+        url: applicationBasic(locale, applicationId),
         text: intl.formatMessage(stepNames.step01),
         title: intl.formatMessage(stepNames.step01),
       },
-      status:
-        currentStep === "basic" ? "current" : basicInfoStatus(application),
+      status: makeStatus("basic"),
+      loading: isLoading("basic"),
     },
     {
       link: {
-        url: applicationExperienceIntro(locale, application.id),
+        url: applicationExperience(locale, applicationId),
         text: intl.formatMessage(stepNames.step02),
         title: intl.formatMessage(stepNames.step02),
       },
-      status:
-        currentStep === "experience"
-          ? "current"
-          : experienceStatus(application),
+      status: makeStatus("experience"),
+      loading: isLoading("experience"),
     },
     {
       link: {
-        url: applicationSkills(locale, application.id),
+        url: applicationSkills(locale, applicationId),
         text: intl.formatMessage(stepNames.step03),
         title: intl.formatMessage(stepNames.step03),
       },
-      status: currentStep === "skills" ? "current" : skillsStatus(application),
+      status: makeStatus("skills"),
+      loading: isLoading("skills"),
     },
     {
       link: {
-        url: applicationFit(locale, application.id),
+        url: applicationFit(locale, applicationId),
         text: intl.formatMessage(stepNames.step04),
         title: intl.formatMessage(stepNames.step04),
       },
-      status: currentStep === "fit" ? "current" : myFitStatus(application),
+      status: makeStatus("fit"),
+      loading: isLoading("fit"),
     },
     {
       link: {
-        url: applicationReview(locale, application.id),
+        url: applicationReview(locale, applicationId),
         text: intl.formatMessage(stepNames.step05),
         title: intl.formatMessage(stepNames.step05),
       },
-      status: currentStep === "review" ? "current" : reviewStatus(application),
+      status: makeStatus("review"),
+      loading: isLoading("review"),
     },
     {
       link: {
-        url: applicationSubmission(locale, application.id),
+        url: applicationSubmission(locale, applicationId),
         text: intl.formatMessage(stepNames.step06),
         title: intl.formatMessage(stepNames.step06),
       },
-      status:
-        currentStep === "submission"
-          ? "current"
-          : submissionStatus(application),
+      status: makeStatus("submission"),
+      loading: isLoading("submission"),
     },
   ];
 }

@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
@@ -33,23 +34,6 @@ import { notEmpty } from "../../../helpers/queries";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 
-interface PersonalExperienceModalProps {
-  modalId: string;
-  experiencePersonal: ExperiencePersonal | null;
-  jobId: number;
-  jobClassification: string;
-  requiredSkills: Skill[];
-  savedRequiredSkills: Skill[];
-  optionalSkills: Skill[];
-  savedOptionalSkills: Skill[];
-  experienceableId: number;
-  experienceableType: ExperiencePersonal["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
-}
-
 export const messages = defineMessages({
   modalTitle: {
     id: "application.personalExperienceModal.modalTitle",
@@ -83,7 +67,7 @@ export const messages = defineMessages({
   isShareableInlineLabel: {
     id: "application.personalExperienceModal.isShareableInlineLabel",
     defaultMessage:
-      "This information is not sensitive in nature and I am comfortable sharing it with the staff managing this job application.",
+      "Please acknowledge that this information is not sensitive in nature as it may be shared with the staff managing this job application.",
   },
   startDateLabel: {
     id: "application.personalExperienceModal.startDateLabel",
@@ -104,6 +88,74 @@ export const messages = defineMessages({
   },
 });
 
+const DESCRIPTION_WORD_LIMIT = 100;
+
+const DetailsSubform: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="personal-title"
+          name="title"
+          type="text"
+          grid="base(1of1)"
+          component={TextInput}
+          required
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="personal-description"
+          type="text"
+          name="description"
+          component={TextAreaInput}
+          required
+          grid="tl(1of1)"
+          label={intl.formatMessage(messages.descriptionLabel)}
+          placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+          wordLimit={DESCRIPTION_WORD_LIMIT}
+        />
+        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+          <label>{intl.formatMessage(messages.isShareableLabel)}</label>
+          <FastField
+            id="personal-isShareable"
+            name="isShareable"
+            component={CheckboxInput}
+            grid="base(1of1)"
+            label={intl.formatMessage(messages.isShareableInlineLabel)}
+            checkboxGroup
+          />
+        </div>
+        <FastField
+          id="personal-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="personal-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="personal-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
 export interface PersonalDetailsFormValues {
   title: string;
   description: string;
@@ -121,8 +173,6 @@ export interface PersonalExperienceSubmitData {
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
 }
-
-const DESCRIPTION_WORD_LIMIT = 100;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
@@ -157,17 +207,10 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const dataToFormValues = (
-  data: PersonalExperienceSubmitData,
-  locale: Locales,
-): PersonalExperienceFormValues => {
-  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
+const experienceToDetails = (
+  experiencePersonal: ExperiencePersonal,
+): PersonalDetailsFormValues => {
   return {
-    requiredSkills: savedRequiredSkills.map(skillToName),
-    optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experiencePersonal.is_education_requirement,
     title: experiencePersonal.title,
     description: experiencePersonal.description,
     isShareable: experiencePersonal.is_shareable,
@@ -179,7 +222,38 @@ const dataToFormValues = (
   };
 };
 
-/* eslint-disable @typescript-eslint/camelcase */
+const dataToFormValues = (
+  data: PersonalExperienceSubmitData,
+  locale: Locales,
+): PersonalExperienceFormValues => {
+  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+  return {
+    ...experienceToDetails(data.experiencePersonal),
+    requiredSkills: savedRequiredSkills.map(skillToName),
+    optionalSkills: savedOptionalSkills.map(skillToName),
+    useAsEducationRequirement: experiencePersonal.is_education_requirement,
+  };
+};
+
+const detailsToExperience = (
+  formValues: PersonalDetailsFormValues,
+  originalExperience: ExperiencePersonal,
+): ExperiencePersonal => {
+  return {
+    ...originalExperience,
+    title: formValues.title,
+    description: formValues.description,
+    is_shareable: formValues.isShareable,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
+
 const formValuesToData = (
   formValues: PersonalExperienceFormValues,
   originalExperience: ExperiencePersonal,
@@ -190,15 +264,7 @@ const formValuesToData = (
     matchValueToModel(locale, "name", name, skills);
   return {
     experiencePersonal: {
-      ...originalExperience,
-      title: formValues.title,
-      description: formValues.description,
-      is_shareable: formValues.isShareable,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
+      ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
     savedRequiredSkills: formValues.requiredSkills
@@ -226,13 +292,103 @@ const newPersonalExperience = (
   experienceable_type: experienceableType,
   type: "experience_personal",
 });
-/* eslint-enable @typescript-eslint/camelcase */
+
+interface ProfilePersonalModalProps {
+  modalId: string;
+  experiencePersonal: ExperiencePersonal | null;
+  experienceableId: number;
+  experienceableType: ExperiencePersonal["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: ExperiencePersonal) => Promise<void>;
+}
+
+export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> = ({
+  modalId,
+  experiencePersonal,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experiencePersonal ??
+    newPersonalExperience(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(originalExperience);
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-mountain"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
+interface PersonalExperienceModalProps {
+  modalId: string;
+  experiencePersonal: ExperiencePersonal | null;
+  jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  experienceableId: number;
+  experienceableType: ExperiencePersonal["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
+}
 
 export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = ({
   modalId,
   experiencePersonal,
   jobId,
   jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
@@ -269,69 +425,6 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
     ...validationShape(intl),
   });
 
-  const detailsSubform = (
-    <div data-c-container="medium">
-      <div data-c-grid="gutter(all, 1) middle">
-        <FastField
-          id="title"
-          name="title"
-          type="text"
-          grid="base(1of1)"
-          component={TextInput}
-          required
-          label={intl.formatMessage(messages.titleLabel)}
-          placeholder={intl.formatMessage(messages.titlePlaceholder)}
-        />
-        <FastField
-          id="description"
-          type="text"
-          name="description"
-          component={TextAreaInput}
-          required
-          grid="tl(1of1)"
-          label={intl.formatMessage(messages.descriptionLabel)}
-          placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
-          wordLimit={DESCRIPTION_WORD_LIMIT}
-        />
-        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
-          <label>{intl.formatMessage(messages.isShareableLabel)}</label>
-          <FastField
-            id="isShareable"
-            name="isShareable"
-            component={CheckboxInput}
-            grid="base(1of1)"
-            label={intl.formatMessage(messages.isShareableInlineLabel)}
-            checkboxGroup
-          />
-        </div>
-        <FastField
-          id="startDate"
-          name="startDate"
-          component={DateInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.startDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-        <Field
-          id="isActive"
-          name="isActive"
-          component={CheckboxInput}
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.isActiveLabel)}
-        />
-        <Field
-          id="endDate"
-          name="endDate"
-          component={DateInput}
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.endDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <Modal
       id={modalId}
@@ -356,6 +449,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -365,13 +459,18 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform />
               <SkillSubform
+                keyPrefix="personal"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform jobClassification={jobClassification} />
+              <EducationSubform
+                keyPrefix="personal"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

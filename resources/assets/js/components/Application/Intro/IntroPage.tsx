@@ -1,12 +1,21 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
 import Intro from "./Intro";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { fakeApplication } from "../../../fakeData/fakeApplications";
 import { navigate } from "../../../helpers/router";
 import { getLocale } from "../../../helpers/localize";
 import { applicationBasic } from "../../../helpers/routes";
+import { DispatchType } from "../../../configureStore";
+import {
+  useApplication,
+  useFetchAllApplicationData,
+  useJob,
+  useJobApplicationSteps,
+} from "../../../hooks/applicationHooks";
+import { loadingMessages } from "../applicationMessages";
 
 interface IntroPageProps {
   applicationId: number;
@@ -17,19 +26,34 @@ export const IntroPage: React.FunctionComponent<IntroPageProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch<DispatchType>();
 
-  const application = fakeApplication(); // TODO: get real application.
+  // Fetch all un-loaded data that may be required for the Application.
+  useFetchAllApplicationData(applicationId, dispatch);
 
-  const handleContinue = (): void =>
-    navigate(applicationBasic(locale, applicationId));
-  const closeDate = new Date(); // TODO: get from application.
+  const application = useApplication(applicationId);
+  const job = useJob(application?.job_poster_id);
+  const steps = useJobApplicationSteps();
+
+  const handleContinue = async (): Promise<void> => {
+    return navigate(applicationBasic(locale, applicationId));
+  };
+  const closeDate = job?.close_date_time ?? null;
   return (
     <>
-      <ProgressBar
-        closeDateTime={closeDate}
-        currentTitle={intl.formatMessage(stepNames.welcome)}
-        steps={makeProgressBarSteps(application, intl, "other")}
-      />
+      {application !== null && (
+        <ProgressBar
+          closeDateTime={closeDate}
+          currentTitle={intl.formatMessage(stepNames.welcome)}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "other",
+            false,
+          )}
+        />
+      )}
       <Intro handleStart={handleContinue} />
     </>
   );

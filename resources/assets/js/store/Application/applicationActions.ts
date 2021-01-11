@@ -5,7 +5,14 @@ import {
   asyncPut,
   asyncPost,
 } from "../asyncAction";
-import { Application, ApplicationReview, Email } from "../../models/types";
+import {
+  Application,
+  ApplicationBasic,
+  ApplicationNormalized,
+  ApplicationReview,
+  Email,
+  JobApplicationAnswer,
+} from "../../models/types";
 import {
   getApplicationEndpoint,
   parseApplication,
@@ -18,7 +25,21 @@ import {
   parseReferenceEmails,
   getSendReferenceEmailEndpoint,
   parseSingleReferenceEmail,
+  getApplicationBasicEndpoint,
+  parseApplicationResponse,
+  getTouchApplicationStepEndpoint,
+  parseApplicationStep,
+  getApplicationSubmitEndpoint,
+  parseApplicationBasic,
 } from "../../api/application";
+import {
+  CreateJobApplicationAnswerAction,
+  UpdateJobApplicationAnswerAction,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -28,7 +49,11 @@ export type FetchApplicationAction = AsyncFsaActions<
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
+  },
   { id: number }
 >;
 
@@ -38,7 +63,11 @@ export const fetchApplication = (
   typeof FETCH_APPLICATION_STARTED,
   typeof FETCH_APPLICATION_SUCCEEDED,
   typeof FETCH_APPLICATION_FAILED,
-  Application,
+  {
+    application: Application;
+    jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [key in string]: ProgressBarStatus };
+  },
   { id: number }
 > =>
   asyncGet(
@@ -46,8 +75,70 @@ export const fetchApplication = (
     FETCH_APPLICATION_STARTED,
     FETCH_APPLICATION_SUCCEEDED,
     FETCH_APPLICATION_FAILED,
-    parseApplication,
+    parseApplicationResponse,
     { id },
+  );
+
+export const UPDATE_APPLICATION_STARTED = "APPLICATION: UPDATE STARTED";
+export const UPDATE_APPLICATION_SUCCEEDED = "APPLICATION: UPDATE SUCCEEDED";
+export const UPDATE_APPLICATION_FAILED = "APPLICATION: UPDATE FAILED";
+
+export type UpdateApplicationAction = AsyncFsaActions<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationBasic,
+  { id: number }
+>;
+
+export const updateApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof UPDATE_APPLICATION_STARTED,
+  typeof UPDATE_APPLICATION_SUCCEEDED,
+  typeof UPDATE_APPLICATION_FAILED,
+  ApplicationBasic,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationBasicEndpoint(application.id),
+    application,
+    UPDATE_APPLICATION_STARTED,
+    UPDATE_APPLICATION_SUCCEEDED,
+    UPDATE_APPLICATION_FAILED,
+    parseApplicationBasic,
+    { id: application.id },
+  );
+
+export const SUBMIT_APPLICATION_STARTED = "APPLICATION: SUBMIT STARTED";
+export const SUBMIT_APPLICATION_SUCCEEDED = "APPLICATION: SUBMIT SUCCEEDED";
+export const SUBMIT_APPLICATION_FAILED = "APPLICATION: SUBMIT FAILED";
+
+export type SubmitApplicationAction = AsyncFsaActions<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const submitApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationSubmitEndpoint(application.id),
+    application,
+    SUBMIT_APPLICATION_STARTED,
+    SUBMIT_APPLICATION_SUCCEEDED,
+    SUBMIT_APPLICATION_FAILED,
+    parseApplication,
+    { id: application.id },
   );
 
 export const FETCH_APPLICATIONS_FOR_JOB_STARTED =
@@ -188,9 +279,49 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
+export const TOUCH_JOB_APPLICATION_STEP_STARTED =
+  "APPLICATION: TOUCH STEP STARTED";
+export const TOUCH_JOB_APPLICATION_STEP_SUCCEEDED =
+  "APPLICATION: TOUCH STEP SUCCEEDED";
+export const TOUCH_JOB_APPLICATION_STEP_FAILED =
+  "APPLICATION: TOUCH STEP FAILED";
+
+export type TouchJobApplicationStepAction = AsyncFsaActions<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+>;
+
+export const touchApplicationStep = (
+  applicationId: number,
+  stepId: number,
+): RSAActionTemplate<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+> =>
+  asyncPut(
+    getTouchApplicationStepEndpoint(applicationId, stepId),
+    [],
+    TOUCH_JOB_APPLICATION_STEP_STARTED,
+    TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+    TOUCH_JOB_APPLICATION_STEP_FAILED,
+    parseApplicationStep,
+    { applicationId, stepId },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
+  | UpdateApplicationAction
+  | SubmitApplicationAction
   | UpdateApplicationReview
   | FetchReferenceEmailsAction
-  | SendReferenceEmailAction;
+  | SendReferenceEmailAction
+  | CreateJobApplicationAnswerAction
+  | UpdateJobApplicationAnswerAction
+  | TouchJobApplicationStepAction;

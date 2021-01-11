@@ -77,7 +77,7 @@ const renderAssessmentTypeBlock = (
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
             <FormattedMessage
-              id="criteria.essential"
+              id="assessmentPlan.summary.criteria.essential"
               defaultMessage="Essential Skills"
               description="What essential criteria are called."
             />
@@ -106,7 +106,7 @@ const renderAssessmentTypeBlock = (
         <div data-c-grid-item="tl(1of3)">
           <h5 data-c-font-size="h4" data-c-margin="top(normal) bottom(normal)">
             <FormattedMessage
-              id="criteria.asset"
+              id="assessmentPlan.summary.criteria.asset"
               defaultMessage="Asset Skills"
               description="What asset criteria are called."
             />
@@ -137,8 +137,9 @@ const renderAssessmentTypeBlock = (
   );
 };
 
-const AssessmentPlanTable: React.FunctionComponent<AssessmentPlanTableProps &
-  WrappedComponentProps> = ({
+const AssessmentPlanTable: React.FunctionComponent<
+  AssessmentPlanTableProps & WrappedComponentProps
+> = ({
   criteria,
   assessments,
   skills,

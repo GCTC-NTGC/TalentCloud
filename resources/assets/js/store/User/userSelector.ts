@@ -17,3 +17,17 @@ export const getUserById = (
   const usersById = getUsersById(state);
   return hasKey(usersById, userId) ? usersById[userId] : null;
 };
+
+export const getUserIsUpdating = (
+  state: RootState,
+  { userId }: { userId: number },
+): boolean => {
+  const updatingById = state.users.userIsUpdating;
+  return (
+    state.users.allUsersUpdating ||
+    (hasKey(updatingById, userId) && updatingById[userId])
+  );
+};
+
+export const getAllUsersUpdating = (state: RootState): boolean =>
+  state.users.allUsersUpdating;

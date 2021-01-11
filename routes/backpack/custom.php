@@ -27,4 +27,5 @@ Route::group([
     Route::crud('2fa', 'TwoFactorCrudController');
     Route::crud('applicant', 'ApplicantCrudController');
     Route::crud('job-application', 'JobApplicationCrudController');
+    Route::crud('skill-category', 'SkillCategoryCrudController');
 });
