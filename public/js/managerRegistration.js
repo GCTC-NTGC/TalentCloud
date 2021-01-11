@@ -124,11 +124,15 @@ var handleDeptChange = function (event) {
     if (event.target instanceof HTMLSelectElement) {
         var value = event.target.value;
         var NOT_IN_GOV = "0";
+        var govEmailInput = getGovEmailInput();
         if (value !== null && value !== "" && value !== NOT_IN_GOV) {
             showGovEmail();
         }
         else {
             hideGovEmail();
+            if (govEmailInput !== null) {
+                govEmailInput.value = "";
+            }
         }
     }
 };
