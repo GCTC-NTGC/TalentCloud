@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -61,7 +61,7 @@ class ReviewApplicationsRoot extends React.Component<
     super(props);
     this.state = {
       applications: props.initApplications,
-      savingStatuses: props.initApplications.map(application => ({
+      savingStatuses: props.initApplications.map((application) => ({
         applicationId: application.id,
         isSaving: false,
       })),
@@ -73,54 +73,17 @@ class ReviewApplicationsRoot extends React.Component<
     this.handleSavingStatusChange = this.handleSavingStatusChange.bind(this);
   }
 
-  protected updateReviewState(
-    applicationId: number,
-    review: ApplicationReview,
-  ): void {
-    const { applications } = this.state;
-    const updatedApplications = applications.map(application => {
-      if (application.id === applicationId) {
-        return Object.assign(application, { application_review: review });
-      }
-      return { ...application };
-    });
-    this.setState({ applications: updatedApplications });
-  }
-
   protected handleSavingStatusChange(
     applicationId: number,
     isSaving: boolean,
   ): void {
     const { savingStatuses } = this.state;
-    const statuses = savingStatuses.map(item =>
+    const statuses = savingStatuses.map((item) =>
       item.applicationId === applicationId
         ? { applicationId, isSaving }
         : { ...item },
     );
     this.setState({ savingStatuses: statuses });
-  }
-
-  protected submitReview(
-    applicationId: number,
-    review: ReviewSubmitForm,
-  ): void {
-    const { intl } = this.props;
-    this.handleSavingStatusChange(applicationId, true);
-    axios
-      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
-      .then(response => {
-        const newReview = response.data as ApplicationReview;
-        this.updateReviewState(applicationId, newReview);
-        this.handleSavingStatusChange(applicationId, false);
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: "error",
-          title: intl.formatMessage(localizations.oops),
-          text: intl.formatMessage(localizations.somethingWrong),
-        });
-        this.handleSavingStatusChange(applicationId, false);
-      });
   }
 
   protected handleStatusChange(
@@ -147,11 +110,11 @@ class ReviewApplicationsRoot extends React.Component<
   ): void {
     const { applications } = this.state;
     const { intl } = this.props;
-    const changedApplications = applications.filter(application =>
+    const changedApplications = applications.filter((application) =>
       applicationIds.includes(application.id),
     );
     let errorThrown = false;
-    changedApplications.map(application => {
+    changedApplications.map((application) => {
       const oldReview = application.application_review
         ? application.application_review
         : {};
@@ -164,7 +127,7 @@ class ReviewApplicationsRoot extends React.Component<
           routes.applicationReviewUpdate(intl.locale, application.id),
           submitReview,
         )
-        .then(response => {
+        .then((response) => {
           const newReview = response.data as ApplicationReview;
           this.updateReviewState(application.id, newReview);
           this.handleSavingStatusChange(application.id, false);
@@ -203,13 +166,50 @@ class ReviewApplicationsRoot extends React.Component<
     this.submitReview(applicationId, submitReview);
   }
 
+  protected submitReview(
+    applicationId: number,
+    review: ReviewSubmitForm,
+  ): void {
+    const { intl } = this.props;
+    this.handleSavingStatusChange(applicationId, true);
+    axios
+      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
+      .then((response) => {
+        const newReview = response.data as ApplicationReview;
+        this.updateReviewState(applicationId, newReview);
+        this.handleSavingStatusChange(applicationId, false);
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: intl.formatMessage(localizations.oops),
+          text: intl.formatMessage(localizations.somethingWrong),
+        });
+        this.handleSavingStatusChange(applicationId, false);
+      });
+  }
+
+  protected updateReviewState(
+    applicationId: number,
+    review: ApplicationReview,
+  ): void {
+    const { applications } = this.state;
+    const updatedApplications = applications.map((application) => {
+      if (application.id === applicationId) {
+        return Object.assign(application, { application_review: review });
+      }
+      return { ...application };
+    });
+    this.setState({ applications: updatedApplications });
+  }
+
   public render(): React.ReactElement {
     const { applications, savingStatuses } = this.state;
     const { reviewStatuses, job, portal, intl } = this.props;
 
     const reviewStatusOptions = reviewStatuses
-      .filter(status => status.id in ReviewStatusId)
-      .map(status => ({
+      .filter((status) => status.id in ReviewStatusId)
+      .map((status) => ({
         value: status.id,
         label: camelCase(status.name),
       }));

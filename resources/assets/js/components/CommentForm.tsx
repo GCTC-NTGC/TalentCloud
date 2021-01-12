@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
 import * as React from "react";
 import { connect } from "react-redux";
 import { Formik, Form, FastField } from "formik";

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
+/* eslint-disable camelcase */
 import { MessageDescriptor } from "react-intl";
 import {
   Job,

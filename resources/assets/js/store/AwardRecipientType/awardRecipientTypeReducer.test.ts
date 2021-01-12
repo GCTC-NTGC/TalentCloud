@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import awardRecipientTypeReducer, {
   initAwardRecipientTypeState,
 } from "./awardRecipientTypeReducer";

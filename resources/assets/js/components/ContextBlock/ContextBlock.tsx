@@ -22,6 +22,7 @@ const ContextBlock: React.FunctionComponent<ContextBlockProps> = ({
             ({ contextId, title, subtext }): React.ReactElement => {
               return (
                 <ContextBlockItem
+                  key={contextId}
                   contextId={contextId}
                   title={title}
                   subtext={subtext}

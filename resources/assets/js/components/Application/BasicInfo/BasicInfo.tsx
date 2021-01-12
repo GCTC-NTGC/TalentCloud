@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Formik, Form, FastField } from "formik";
@@ -21,7 +20,7 @@ import {
   VeteranId,
   LanguageRequirementId,
   getKeyByValue,
-  ClassificationId
+  ClassificationId,
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
 import { Job, ApplicationNormalized } from "../../../models/types";
@@ -30,7 +29,6 @@ import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { getLocale, localizeField } from "../../../helpers/localize";
 import { hasKey } from "../../../helpers/queries";
-
 
 interface BasicInfoProps {
   application: ApplicationNormalized;

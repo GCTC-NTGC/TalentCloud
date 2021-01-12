@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { baseUrl, ApiResponse, parseDateStrict, axios } from "./base";
 import { AssessmentPlanNotification } from "../models/types";
 
