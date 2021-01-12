@@ -932,8 +932,6 @@
   "openJobCard.unclaimed": "Non réclamé",
   "profile.experience.noExperiences": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
   "profile.experience.preamble": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
-  "profileExperience.skillExperienceModal.cancel": "Cancel",
-  "profileExperience.skillExperienceModal.delete": "Delete",
   "progressTracker.unreachableStep": "Doit compléter les étapes précédentes.",
   "province.ab": "Alberta",
   "province.ab.abreviation": "Alta.",

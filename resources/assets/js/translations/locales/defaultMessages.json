@@ -72,16 +72,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button text",
-        "id": "profileExperience.skillExperienceModal.cancel"
-      },
-      {
-        "defaultMessage": "Delete",
-        "description": "Delete button text",
-        "id": "profileExperience.skillExperienceModal.delete"
-      },
-      {
         "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
         "description": "First section of text on the experience step of the Application Timeline.",
         "id": "profile.experience.preamble"

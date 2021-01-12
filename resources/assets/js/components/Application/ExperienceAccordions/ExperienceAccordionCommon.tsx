@@ -35,7 +35,6 @@ interface ExperienceAccordionSkillsProps {
   irrelevantSkillCount: number;
   skillsById: { [id: number]: Skill };
   showSkillDetails: boolean;
-  handleEditSkill?: (experienceSkillId: number) => void;
 }
 
 export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps> = ({
@@ -44,7 +43,6 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
   irrelevantSkillCount,
   skillsById,
   showSkillDetails,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -69,21 +67,6 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
         <p data-c-font-style="italic" data-c-margin="top(.5)">
           {experienceSkill.justification}
         </p>
-        {handleEditSkill && (
-          <div data-c-margin="top(1)" data-c-alignment="base(centre) pl(right)">
-            <button
-              data-c-button="solid(c1)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleEditSkill(experienceSkill.id)}
-            >
-              <FormattedMessage
-                id="application.experienceAccordion.editExperienceSkill"
-                defaultMessage="Edit Skill"
-              />
-            </button>
-          </div>
-        )}
       </div>
     );
   };
@@ -417,7 +400,6 @@ interface ProfileExperienceAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
 }
 
 export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperienceAccordionProps> = ({
@@ -429,7 +411,6 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
   children,
 }) => {
   const intl = useIntl();
@@ -454,7 +435,6 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
         irrelevantSkillCount={0}
         skillsById={skillsById}
         showSkillDetails
-        handleEditSkill={handleEditSkill}
       />
     </ExperienceAccordionWrapper>
   );

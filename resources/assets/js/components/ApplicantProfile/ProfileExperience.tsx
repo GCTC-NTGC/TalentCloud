@@ -1,8 +1,6 @@
 /* eslint-disable camelcase */
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import * as Yup from "yup";
-import { Field, Form, Formik } from "formik";
 import {
   Experience,
   Skill,
@@ -27,32 +25,12 @@ import {
   EducationType,
   ProfileEducationModal,
 } from "../Application/ExperienceModals/EducationExperienceModal";
-import { find, hasKey, mapToObject, getId } from "../../helpers/queries";
-import Modal from "../Modal";
-import AlertWhenUnsaved from "../Form/AlertWhenUnsaved";
-import TextAreaInput from "../Form/TextAreaInput";
-import {
-  experienceMessages,
-  skillMessages,
-} from "../Application/applicationMessages";
-import { validationMessages } from "../Form/Messages";
-import { JUSTIFICATION_WORD_LIMIT } from "../Application/Skills/Skills";
-import { countNumberOfWords } from "../WordCounter/helpers";
-import WordCounter from "../WordCounter/WordCounter";
-import displayMessages from "../Application/Skills/skillsMessages";
-import {
-  getExperienceHeading,
-  getExperienceJustificationLabel,
-  getExperienceSubheading,
-} from "../../models/localizedConstants";
-import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
+import { mapToObject, getId } from "../../helpers/queries";
+import { experienceMessages } from "../Application/applicationMessages";
 import { toggleAccordion } from "../../helpers/forms";
 import { useUrlHash } from "../../helpers/router";
 
-import {
-  getExperienceOfExperienceSkill,
-  getExperienceSkillsOfExperience,
-} from "../Application/helpers";
+import { getExperienceSkillsOfExperience } from "../Application/helpers";
 import { ProfileWorkModal } from "../Application/ExperienceModals/WorkExperienceModal";
 import { ProfileCommunityModal } from "../Application/ExperienceModals/CommunityExperienceModal";
 import { ProfilePersonalModal } from "../Application/ExperienceModals/PersonalExperienceModal";
@@ -68,7 +46,6 @@ const profileExperienceAccordion = (
   skillsById: { [id: number]: Skill },
   handleEdit: () => void,
   handleDelete: () => Promise<void>,
-  handleEditSkill: (experienceSkillId: number) => void,
 ): React.ReactElement | null => {
   switch (experience.type) {
     case "experience_education":
@@ -78,7 +55,6 @@ const profileExperienceAccordion = (
           experience={experience}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleEditSkill={handleEditSkill}
           relevantSkills={relevantSkills}
           skillsById={skillsById}
         />
@@ -90,7 +66,6 @@ const profileExperienceAccordion = (
           experience={experience}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleEditSkill={handleEditSkill}
           relevantSkills={relevantSkills}
           skillsById={skillsById}
         />
@@ -102,7 +77,6 @@ const profileExperienceAccordion = (
           experience={experience}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleEditSkill={handleEditSkill}
           relevantSkills={relevantSkills}
           skillsById={skillsById}
         />
@@ -114,7 +88,6 @@ const profileExperienceAccordion = (
           experience={experience}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleEditSkill={handleEditSkill}
           relevantSkills={relevantSkills}
           skillsById={skillsById}
         />
@@ -126,7 +99,6 @@ const profileExperienceAccordion = (
           experience={experience}
           handleDelete={handleDelete}
           handleEdit={handleEdit}
-          handleEditSkill={handleEditSkill}
           relevantSkills={relevantSkills}
           skillsById={skillsById}
         />
@@ -135,223 +107,6 @@ const profileExperienceAccordion = (
       return null;
   }
 };
-
-const SkillExperienceModal: FunctionComponent<{
-  experienceSkill: ExperienceSkill | null;
-  experiences: Experience[];
-  skillsById: { [id: number]: Skill };
-  handleCancel: () => void;
-  handleConfirm: (data: ExperienceSkill) => Promise<void>;
-  handleDelete: () => Promise<void>;
-}> = ({
-  experienceSkill,
-  handleCancel,
-  handleConfirm,
-  handleDelete,
-  skillsById,
-  experiences,
-}) => {
-  const intl = useIntl();
-  const locale = getLocale(intl.locale);
-
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  const initialValues = {
-    justification: experienceSkill?.justification ?? "",
-  };
-
-  const experienceSkillSchema = Yup.object().shape({
-    justification: Yup.string()
-      .test(
-        "wordCount",
-        intl.formatMessage(validationMessages.overMaxWords, {
-          numberOfWords: JUSTIFICATION_WORD_LIMIT,
-        }),
-        (value: string) =>
-          countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
-      )
-      .required(intl.formatMessage(validationMessages.required)),
-  });
-
-  const experience =
-    experienceSkill !== null
-      ? getExperienceOfExperienceSkill(experienceSkill, experiences)
-      : null;
-  let textareaLabel = "";
-  let heading = "";
-  let subheading = "";
-
-  if (
-    experienceSkill !== null &&
-    experience !== null &&
-    hasKey(skillsById, experienceSkill.skill_id)
-  ) {
-    const skill = skillsById[experienceSkill.skill_id];
-    const skillName = localizeFieldNonNull(locale, skill, "name");
-    textareaLabel = getExperienceJustificationLabel(
-      experience,
-      intl,
-      skillName,
-    );
-    heading = getExperienceHeading(experience, intl);
-    subheading = getExperienceSubheading(experience, intl);
-  }
-
-  return (
-    <Modal
-      id="profile-experience-skill-modal"
-      parentElement={document.getElementById("modal-root")}
-      visible={experienceSkill !== null}
-      onModalConfirm={handleCancel}
-      onModalCancel={handleCancel}
-    >
-      <div
-        className="dialog-header"
-        data-c-background="c1(100)"
-        data-c-border="bottom(thin, solid, black)"
-        data-c-padding="tb(1)"
-      >
-        <div data-c-container="medium">
-          <h5
-            data-c-colour="white"
-            data-c-font-size="h3"
-            data-c-font-weight="bold"
-            data-c-dialog-focus
-          >
-            {heading}
-          </h5>
-          <p
-            data-c-margin="top(quarter)"
-            data-c-colour="white"
-            data-c-font-size="small"
-          >
-            {subheading}
-          </p>
-        </div>
-      </div>
-      {experienceSkill !== null && (
-        <Formik
-          initialValues={initialValues}
-          validationSchema={experienceSkillSchema}
-          onSubmit={(values, { setSubmitting, resetForm }): void => {
-            handleConfirm({
-              ...experienceSkill,
-              justification: values.justification,
-            })
-              .then(() => {
-                setSubmitting(false);
-                resetForm();
-              })
-              .catch(() => {
-                // If there is an error, don't reset the form, allowing user to retry.
-                setSubmitting(false);
-              });
-          }}
-        >
-          {({ dirty, isSubmitting, resetForm }): React.ReactElement => (
-            <Form>
-              <AlertWhenUnsaved />
-              <hr data-c-hr="thin(gray)" data-c-margin="bottom(1)" />
-              <div data-c-padding="lr(1)">
-                <Field
-                  id="experience-skill-textarea"
-                  name="justification"
-                  label={textareaLabel}
-                  component={TextAreaInput}
-                  placeholder={intl.formatMessage(
-                    skillMessages.experienceSkillPlaceholder,
-                  )}
-                  required
-                />
-              </div>
-              <div data-c-padding="all(1)">
-                <div data-c-grid="gutter(all, 1) middle">
-                  <div
-                    data-c-grid-item="tp(1of2)"
-                    data-c-align="base(center) tp(left)"
-                  >
-                    <button
-                      data-c-button="outline(c1)"
-                      data-c-radius="rounded"
-                      data-c-margin="right(1)"
-                      type="button"
-                      onClick={handleCancel}
-                      disabled={isSubmitting || isDeleting}
-                    >
-                      <span>
-                        <FormattedMessage
-                          id="profileExperience.skillExperienceModal.cancel"
-                          defaultMessage="Cancel"
-                          description="Cancel button text"
-                        />
-                      </span>
-                    </button>
-                    <button
-                      data-c-button="outline(stop)"
-                      data-c-radius="rounded"
-                      type="button"
-                      onClick={() => {
-                        setIsDeleting(true);
-                        handleDelete()
-                          .then(() => {
-                            setIsDeleting(false);
-                            resetForm();
-                          })
-                          .catch(() => {
-                            setIsDeleting(false);
-                          });
-                      }}
-                      disabled={isSubmitting || isDeleting}
-                    >
-                      <span>
-                        <FormattedMessage
-                          id="profileExperience.skillExperienceModal.delete"
-                          defaultMessage="Delete"
-                          description="Delete button text"
-                        />
-                      </span>
-                    </button>
-                  </div>
-                  <div
-                    data-c-grid-item="tp(1of2)"
-                    data-c-align="base(center) tp(right)"
-                  >
-                    <WordCounter
-                      elementId="experience-skill-textarea"
-                      maxWords={JUSTIFICATION_WORD_LIMIT}
-                      minWords={0}
-                      absoluteValue
-                      dataAttributes={{ "data-c-margin": "right(1)" }}
-                      underMaxMessage={intl.formatMessage(
-                        displayMessages.wordCountUnderMax,
-                      )}
-                      overMaxMessage={intl.formatMessage(
-                        displayMessages.wordCountOverMax,
-                      )}
-                    />
-                    <button
-                      data-c-button="solid(c1)"
-                      data-c-radius="rounded"
-                      type="submit"
-                      disabled={!dirty || isSubmitting || isDeleting}
-                    >
-                      <span>
-                        {dirty
-                          ? intl.formatMessage(displayMessages.save)
-                          : intl.formatMessage(displayMessages.saved)}
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      )}
-    </Modal>
-  );
-};
-
 export interface ProfileExperienceProps {
   experiences: Experience[];
   educationStatuses: EducationStatus[];
@@ -421,14 +176,6 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
 
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
-
-  const [editedExperienceSkillId, setEditedExperienceSkillId] = useState<
-    number | null
-  >(null);
-  const editedExpSkill =
-    editedExperienceSkillId !== null
-      ? find(experienceSkills, editedExperienceSkillId)
-      : null;
 
   const skillsById = mapToObject(skills, getId);
 
@@ -524,7 +271,6 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
                     skillsById,
                     handleEdit,
                     handleDelete,
-                    setEditedExperienceSkillId,
                   ) ?? errorAccordion()
                 );
               })}
@@ -550,13 +296,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
           </div>
         )}
       </div>
-      <div
-        data-c-dialog-overlay={
-          isModalVisible.visible || editedExperienceSkillId !== null
-            ? "active"
-            : ""
-        }
-      />
+      <div data-c-dialog-overlay={isModalVisible.visible ? "active" : ""} />
       <ProfileEducationModal
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
@@ -643,27 +383,6 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         visible={
           isModalVisible.visible && isModalVisible.id === modalButtons.award.id
         }
-      />
-      <SkillExperienceModal
-        experienceSkill={editedExpSkill}
-        handleCancel={() => setEditedExperienceSkillId(null)}
-        handleConfirm={async (expSkill): Promise<void> => {
-          return handleUpdateExperienceSkill(expSkill).then(() => {
-            setEditedExperienceSkillId(null);
-          });
-        }}
-        handleDelete={async (): Promise<void> => {
-          if (editedExperienceSkillId !== null) {
-            const expSkill = find(experienceSkills, editedExperienceSkillId);
-            if (expSkill) {
-              return handleDeleteExperienceSkill(expSkill).then(() => {
-                setEditedExperienceSkillId(null);
-              });
-            }
-          }
-        }}
-        experiences={experiences}
-        skillsById={skillsById}
       />
     </>
   );
