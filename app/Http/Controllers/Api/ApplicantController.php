@@ -61,7 +61,6 @@ class ApplicantController extends Controller
                 $newApplicantClassification->classification_id = $applicantClassification['classification_id'];
                 $newApplicantClassification->fill($applicantClassification);
                 $newApplicantClassification->save();
-                $applicant->applicant_classifications()->save($newApplicantClassification);
             });
         }
 
