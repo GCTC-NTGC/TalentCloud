@@ -103,7 +103,7 @@ class ApplicationController extends Controller
         }
 
         return new JobApplicationResource($application->fresh([
-            'applicant',
+            'applicant.user',
             'application_review',
             'citizenship_declaration',
             'veteran_status',
