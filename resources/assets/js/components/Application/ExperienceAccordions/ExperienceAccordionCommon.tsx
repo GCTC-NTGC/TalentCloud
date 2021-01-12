@@ -9,6 +9,7 @@ import {
 import { readableDate } from "../../../helpers/dates";
 import { ExperienceSkill, Skill } from "../../../models/types";
 import { getId, hasKey, mapToObject } from "../../../helpers/queries";
+import displayMessages from "../Skills/skillsMessages";
 
 export const titleBarDateRange = (
   startDate: Date,
@@ -29,6 +30,7 @@ export const titleBarDateRange = (
 };
 
 interface ExperienceAccordionSkillsProps {
+  sectionTitle: string;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   skillsById: { [id: number]: Skill };
@@ -37,6 +39,7 @@ interface ExperienceAccordionSkillsProps {
 }
 
 export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps> = ({
+  sectionTitle,
   relevantSkills,
   irrelevantSkillCount,
   skillsById,
@@ -113,11 +116,7 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
         data-c-font-weight="bold"
         data-c-margin="bottom(.5)"
       >
-        <FormattedMessage
-          id="application.experienceAccordion.skillsTitle"
-          defaultMessage="Skills for this Job"
-          description="Subtitle of the skills section."
-        />
+        {sectionTitle}
       </h4>
       <div data-c-grid="gutter(all, 1)">
         {showSkillDetails && relevantSkills.map(renderDetailedSkill)}
@@ -378,6 +377,7 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
   handleEdit,
   children,
 }) => {
+  const intl = useIntl();
   return (
     <ExperienceAccordionWrapper
       id={id}
@@ -389,6 +389,9 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
     >
       {children}
       <ExperienceAccordionSkills
+        sectionTitle={intl.formatMessage(
+          displayMessages.applicationSectionTitle,
+        )}
         relevantSkills={relevantSkills}
         irrelevantSkillCount={irrelevantSkillCount}
         skillsById={mapToObject(skills, getId)}
@@ -429,6 +432,7 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
   handleEditSkill,
   children,
 }) => {
+  const intl = useIntl();
   return (
     <ExperienceAccordionWrapper
       id={id}
@@ -445,6 +449,7 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
       />
       <hr data-c-hr="thin(gray)" data-c-margin="bottom(1) top(1)" />
       <ExperienceAccordionSkills
+        sectionTitle={intl.formatMessage(displayMessages.profileSectionTitle)}
         relevantSkills={relevantSkills}
         irrelevantSkillCount={0}
         skillsById={skillsById}
