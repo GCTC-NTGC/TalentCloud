@@ -52,10 +52,15 @@ class ApplicantController extends Controller
                 }
             }
 
+
             // Update old applicant classifications and/or create them if it doesn't exist.
-            $newApplicantClassifications->map(function ($applicantClassification) use ($applicant) {
+            // This should remove any duplicate classification-level combinations as well.
+            $newApplicantClassifications->map(function ($applicantClassification) {
                 $newApplicantClassification = ApplicantClassification::firstOrNew(
-                    ['id' => $applicantClassification['id']]
+                    [
+                        'classification_id' => $applicantClassification['classification_id'],
+                        'level' => $applicantClassification['level']
+                    ]
                 );
                 $newApplicantClassification->applicant_id = $applicantClassification['applicant_id'];
                 $newApplicantClassification->classification_id = $applicantClassification['classification_id'];

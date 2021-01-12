@@ -63,7 +63,7 @@ class ApplicantControllerTest extends TestCase
             'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
             'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
             'applicant_classifications' => [
-                0 => $newApplicantClassification
+                $newApplicantClassification
             ],
         ];
         $response = $this->actingAs($applicant->user)
@@ -83,14 +83,23 @@ class ApplicantControllerTest extends TestCase
         );
 
         // Ensure that submitting applicant classifications deletes elements that were not resubmitted
-        // and creates new elements/updates old elements.
+        // and creates new elements/updates old elements. Also, ensure duplicates are removed.
         $oldApplicantClassification = $applicant->applicant_classifications->first()->toArray();
+        $duplicateApplicantClassification = $oldApplicantClassification;
+        $newApplicantClassification = array_replace(
+            $newApplicantClassification,
+            [
+                'classification_id' => $oldApplicantClassification['classification_id'] + 1,
+                'level' => $newApplicantClassification['level'] + 1,
+            ]
+        );
         $updateData = [
             'citizenship_declaration_id' => CitizenshipDeclaration::inRandomOrder()->first()->id,
             'veteran_status_id' => VeteranStatus::inRandomOrder()->first()->id,
             'applicant_classifications' => [
-                0 => $oldApplicantClassification,
-                1 => $newApplicantClassification,
+                $oldApplicantClassification,
+                $duplicateApplicantClassification,
+                $newApplicantClassification,
             ],
         ];
         $response = $this->actingAs($applicant->user)
@@ -101,7 +110,10 @@ class ApplicantControllerTest extends TestCase
         $expectedData = [
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
-            'applicant_classifications' => array_except($updateData['applicant_classifications'], ['0.id', '1.id']),
+            'applicant_classifications' => [
+                array_except($oldApplicantClassification, ['id']),
+                array_except($newApplicantClassification, ['id']),
+            ],
         ];
 
         $response->assertJson($expectedData);
