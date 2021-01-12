@@ -37,7 +37,7 @@
         "@storybook/addons": "^6.1.14",
         "@storybook/react": "^6.1.14",
         "@storybook/theming": "^6.1.14",
-        "@testing-library/jest-dom": "^5.11.8",
+        "@testing-library/jest-dom": "^5.11.9",
         "@types/classnames": "^2.2.11",
         "@types/enzyme": "^3.10.8",
         "@types/fetch-mock": "^7.3.3",
