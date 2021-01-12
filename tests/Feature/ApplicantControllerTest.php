@@ -53,7 +53,7 @@ class ApplicantControllerTest extends TestCase
 
         // Ensure that submitting applicant classifications creates new elements.
         $newApplicantClassification = [
-            'id' => 12345,
+            'id' => 0,
             'applicant_id' => $applicant->id,
             'classification_id' => Classification::inRandomOrder()->first()->id,
             'level' => 5,
