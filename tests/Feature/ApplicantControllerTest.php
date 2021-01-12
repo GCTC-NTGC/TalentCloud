@@ -37,7 +37,7 @@ class ApplicantControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
 
         $response = $this->actingAs($applicant->user)
-            ->getJson("$this->baseUrl/applicant/$applicant->id/profile");
+            ->getJson(route('api.v1.applicant.profile', ['applicant' => $applicant]));
         $response->assertOk();
         $response->assertJsonFragment([
             'citizenship_declaration_id' => $applicant->citizenship_declaration_id,
@@ -67,18 +67,19 @@ class ApplicantControllerTest extends TestCase
             ],
         ];
         $response = $this->actingAs($applicant->user)
-            ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
+            ->putJson(route('api.v1.applicant.profile.update', ['applicant' => $applicant]), $updateData);
         $response->assertOk();
 
         $expectedData = [
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
-            'applicant_classifications' => $applicant->applicant_classifications->toArray(),
+            'applicant_classifications' => array_except($updateData['applicant_classifications'], ['0.id']),
         ];
-        $response->assertJsonFragment($expectedData);
+
+        $response->assertJson($expectedData);
         $this->assertDatabaseHas(
             'applicant_classifications',
-            $applicant->applicant_classifications->first()->toArray()
+            $expectedData['applicant_classifications'][0]
         );
 
         // Ensure that submitting applicant classifications deletes elements that were not resubmitted
@@ -93,22 +94,20 @@ class ApplicantControllerTest extends TestCase
             ],
         ];
         $response = $this->actingAs($applicant->user)
-            ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
+            ->putJson(route('api.v1.applicant.profile.update', ['applicant' => $applicant]), $updateData);
         $response->assertOk();
 
         $applicant->refresh();
         $expectedData = [
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
-            'applicant_classifications' => $applicant->applicant_classifications->toArray(),
+            'applicant_classifications' => array_except($updateData['applicant_classifications'], ['0.id', '1.id']),
         ];
-        $response->assertJsonFragment($expectedData);
-        foreach ($applicant->applicant_classifications->toArray() as $applicantClassification) {
-            $this->assertDatabaseHas(
-                'applicant_classifications',
-                $applicantClassification
-            );
-        }
+
+        $response->assertJson($expectedData);
+        $this->assertDatabaseHas('applicant_classifications', $expectedData['applicant_classifications'][0]);
+        $this->assertDatabaseHas('applicant_classifications', $expectedData['applicant_classifications'][1]);
+
 
         // Ensure that submitting no applicant classifications deletes all
         // previous applicant classifications attached to applicant.
@@ -119,7 +118,7 @@ class ApplicantControllerTest extends TestCase
         ];
 
         $response = $this->actingAs($applicant->user)
-            ->putJson("$this->baseUrl/applicant/$applicant->id/profile", $updateData);
+            ->putJson(route('api.v1.applicant.profile.update', ['applicant' => $applicant]), $updateData);
         $response->assertOk();
 
         $applicant->refresh();
@@ -128,13 +127,7 @@ class ApplicantControllerTest extends TestCase
             'veteran_status_id' => $updateData['veteran_status_id'],
             'applicant_classifications' => [],
         ];
-        $response->assertJsonFragment($expectedData);
+        $response->assertJson($expectedData);
         $this->assertEmpty($applicant->applicant_classifications);
-        foreach ($applicant->applicant_classifications->toArray() as $applicantClassification) {
-            $this->assertDatabaseMissing(
-                'applicant_classifications',
-                $applicantClassification
-            );
-        }
     }
 }
