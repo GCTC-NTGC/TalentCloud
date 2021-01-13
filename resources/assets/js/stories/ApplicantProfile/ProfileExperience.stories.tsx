@@ -4,9 +4,15 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import { useState as useStorybookState } from "@storybook/addons";
+import { Formik } from "formik";
+import { boolean } from "@storybook/addon-knobs";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
-import { fakeSkills } from "../../fakeData/fakeSkills";
+import {
+  fakeAssetSkills,
+  fakeEssentialSkills,
+  fakeSkills,
+} from "../../fakeData/fakeSkills";
 import ProfileExperience from "../../components/ApplicantProfile/ProfileExperience";
 import { Experience, ExperienceSkill } from "../../models/types";
 import {
@@ -16,6 +22,9 @@ import {
   recogntitionTypes,
 } from "../Application/ExperienceModals.stories";
 import { sleep } from "../helpers";
+import SkillSubform, {
+  ProfileSkillSubform,
+} from "../../components/Application/ExperienceModals/SkillSubform";
 
 const stories = storiesOf("Applicant Profile/Experience", module).addDecorator(
   withIntl,
@@ -180,3 +189,24 @@ stories.add(
     );
   },
 );
+stories.add("Application SkillSubform", () => {
+  return (
+    <Formik initialValues={{ work: [] }} onSubmit={() => {}}>
+      {() => (
+        <SkillSubform
+          keyPrefix="work"
+          jobId={1}
+          jobRequiredSkills={fakeEssentialSkills().map((s) => s.name.en)}
+          jobOptionalSkills={fakeAssetSkills().map((s) => s.name.en)}
+        />
+      )}
+    </Formik>
+  );
+});
+stories.add("Profile SkillSubform", () => {
+  return (
+    <Formik initialValues={{ work: [] }} onSubmit={() => {}}>
+      {() => <ProfileSkillSubform keyPrefix="work" skills={fakeSkills()} />}
+    </Formik>
+  );
+});
