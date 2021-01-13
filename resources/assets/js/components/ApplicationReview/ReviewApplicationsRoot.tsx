@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
 import { useIntl } from "react-intl";

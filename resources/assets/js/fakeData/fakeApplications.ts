@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,

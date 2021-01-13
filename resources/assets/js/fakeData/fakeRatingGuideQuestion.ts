@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { RatingGuideQuestion } from "../models/types";
 import { AssessmentTypeId } from "../models/lookupConstants";
 

@@ -104,13 +104,17 @@ const JobIndexHr: React.FunctionComponent<JobIndexHrProps> = ({
 }) => {
   const notCompletedJobActions: JobCardProps[] = useMemo(
     () =>
-      jobActions.filter(jobAction => jobAction.status.key !== JobStatus.Completed),
+      jobActions.filter(
+        (jobAction) => jobAction.status.key !== JobStatus.Completed,
+      ),
     [jobActions],
   );
 
   const completedJobActions: JobCardProps[] = useMemo(
     () =>
-      jobActions.filter(jobAction => jobAction.status.key === JobStatus.Completed),
+      jobActions.filter(
+        (jobAction) => jobAction.status.key === JobStatus.Completed,
+      ),
     [jobActions],
   );
 

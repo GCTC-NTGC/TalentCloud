@@ -43,12 +43,17 @@
 
 {# Stylesheets #}
 
-    {# App #}
+  <link
+    href="{{ asset(mix('/css/app.css')) }}"
+    rel="stylesheet"
+    type="text/css"/>
 
+  {% if hydrogen == true %}
     <link
-        href="{{ asset(mix('/css/app.css')) }}"
-        rel="stylesheet"
-        type="text/css"/>
+      href="{{ asset(mix('/css/h2.css')) }}"
+      rel="stylesheet"
+      type="text/css"/>
+  {% endif %}
 
 {# Google Fonts #}
 {#

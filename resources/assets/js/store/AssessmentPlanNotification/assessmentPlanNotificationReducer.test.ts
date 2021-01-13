@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dayjs from "dayjs";
 import { AssessmentPlanNotification } from "../../models/types";
 import { sortNotifications } from "./assessmentPlanNotificationReducer";

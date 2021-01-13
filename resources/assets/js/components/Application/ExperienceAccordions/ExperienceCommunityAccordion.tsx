@@ -131,6 +131,7 @@ export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps>
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-people-carry"

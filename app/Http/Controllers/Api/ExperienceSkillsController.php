@@ -6,6 +6,7 @@ use App\Http\Requests\BatchStoreExperienceSkill;
 use App\Http\Requests\BatchUpdateExperienceSkill;
 use App\Http\Requests\StoreExperienceSkill;
 use App\Models\ExperienceSkill;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,20 @@ class ExperienceSkillsController extends Controller
             ['experience_id', $validatedData['experience_id']],
             ['experience_type', $validatedData['experience_type']]
         ])->first();
+
+        // Attach skill to applicant if not already attached.
+        $experience = new Experience();
+        $experienceInstance = $experience->getExperienceInstance($validatedData['experience_type'], $validatedData['experience_id']);
+        $applicantInstance = $experience->getApplicantInstance($experienceInstance);
+        if ($applicantInstance !== null) {
+            $skillApplicantRelationshipExists = $applicantInstance->skills()
+            ->where('skills.id', $validatedData['skill_id'])
+            ->exists();
+            if ($skillApplicantRelationshipExists !== true) {
+                $applicantInstance->skills()->attach($validatedData['skill_id']);
+            }
+        }
+
         if ($softDeletedExperienceSkill) {
             if ($validatedData['justification'] !== null && $validatedData['justification'] !== '') {
                 $softDeletedExperienceSkill->justification = $validatedData['justification'];

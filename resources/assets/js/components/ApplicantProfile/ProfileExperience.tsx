@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useState, useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
@@ -46,6 +46,9 @@ import {
   getExperienceSubheading,
 } from "../../models/localizedConstants";
 import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
+import { toggleAccordion } from "../../helpers/forms";
+import { useUrlHash } from "../../helpers/router";
+
 import {
   getExperienceOfExperienceSkill,
   getExperienceSkillsOfExperience,
@@ -430,6 +433,33 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   const skillsById = mapToObject(skills, getId);
 
   const modalRoot = document.getElementById("modal-root");
+
+  // Open modal for editing if URI has a hash.
+  const uriHash = useUrlHash();
+  let experienceType: string;
+  let experienceId: number;
+
+  if (uriHash) {
+    const uriHashFragments = uriHash.substring(1).split("_");
+    // Get experience type from first two fragments of URI hash.
+    experienceType = `${uriHashFragments[0]}_${uriHashFragments[1]}`;
+    // Get experience id from third fragment of URI hash.
+    experienceId = Number(uriHashFragments[2]);
+  }
+
+  const experienceCurrent: Experience | undefined = experiences.find(
+    (experience) =>
+      experience.type === experienceType && experience.id === experienceId,
+  );
+
+  useEffect(() => {
+    if (uriHash && experienceCurrent) {
+      toggleAccordion(uriHash.substring(1));
+      // Open edit experience modal.
+      editExperience(experienceCurrent);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // useEffect should only run on mount and unmount.
 
   return (
     <>

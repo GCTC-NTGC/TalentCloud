@@ -50,8 +50,9 @@ interface JobBuilderReviewPageProps {
   handleFetchUser: (userId: number) => Promise<void>;
 }
 
-const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
-  WrappedComponentProps> = ({
+const JobBuilderReviewPage: React.FunctionComponent<
+  JobBuilderReviewPageProps & WrappedComponentProps
+> = ({
   jobId,
   job,
   skills,
@@ -139,7 +140,6 @@ const mapStateToProps = (
   departments: getDepartments(state),
   manager: getSelectedManager(state),
   user: getUserById(state, {
-    // eslint-disable-next-line camelcase, @typescript-eslint/camelcase
     userId: getSelectedManager(state)?.user_id || 0,
   }),
 });

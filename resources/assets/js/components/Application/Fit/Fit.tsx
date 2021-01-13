@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { createRef, useState, MutableRefObject } from "react";
 import { useIntl, FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";

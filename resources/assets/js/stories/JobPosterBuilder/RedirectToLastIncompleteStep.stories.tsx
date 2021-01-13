@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
+/* eslint-disable camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
