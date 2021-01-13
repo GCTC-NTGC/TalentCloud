@@ -1,4 +1,3 @@
-/* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import nprogress from "nprogress";

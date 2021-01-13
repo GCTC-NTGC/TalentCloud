@@ -34,8 +34,9 @@ interface RatingGuideAssessmentProps {
   createQuestion: () => void;
 }
 
-const RatingGuideAssessment: React.FunctionComponent<RatingGuideAssessmentProps &
-  WrappedComponentProps> = ({
+const RatingGuideAssessment: React.FunctionComponent<
+  RatingGuideAssessmentProps & WrappedComponentProps
+> = ({
   jobId,
   assessmentIndex,
   assessmentTypeId,

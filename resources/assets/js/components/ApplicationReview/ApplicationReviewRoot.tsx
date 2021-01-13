@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -67,39 +67,6 @@ class ApplicationReviewRoot extends React.Component<
     this.updateReviewState = this.updateReviewState.bind(this);
   }
 
-  protected updateReviewState(review: ApplicationReview): void {
-    const { application } = this.state;
-    const updatedApplication = Object.assign(application, {
-      application_review: review,
-    });
-    this.setState({
-      application: updatedApplication,
-    });
-  }
-
-  protected submitReview(review: ReviewSubmitForm): Promise<void> {
-    const { application } = this.state;
-    const { intl } = this.props;
-
-    this.setState({ isSaving: true });
-
-    return axios
-      .put(route.applicationReviewUpdate(intl.locale, application.id), review)
-      .then((response) => {
-        const newReview = response.data as ApplicationReview;
-        this.updateReviewState(newReview);
-        this.setState({ isSaving: false });
-      })
-      .catch(() => {
-        this.setState({ isSaving: false });
-        Swal.fire({
-          icon: "error",
-          title: intl.formatMessage(localizations.oops),
-          text: intl.formatMessage(localizations.somethingWrong),
-        });
-      });
-  }
-
   protected handleStatusChange(
     applicationId: number,
     statusId: number | null,
@@ -126,6 +93,39 @@ class ApplicationReviewRoot extends React.Component<
       notes,
     });
     this.submitReview(submitReview);
+  }
+
+  protected submitReview(review: ReviewSubmitForm): Promise<void> {
+    const { application } = this.state;
+    const { intl } = this.props;
+
+    this.setState({ isSaving: true });
+
+    return axios
+      .put(route.applicationReviewUpdate(intl.locale, application.id), review)
+      .then((response) => {
+        const newReview = response.data as ApplicationReview;
+        this.updateReviewState(newReview);
+        this.setState({ isSaving: false });
+      })
+      .catch(() => {
+        this.setState({ isSaving: false });
+        Swal.fire({
+          icon: "error",
+          title: intl.formatMessage(localizations.oops),
+          text: intl.formatMessage(localizations.somethingWrong),
+        });
+      });
+  }
+
+  protected updateReviewState(review: ApplicationReview): void {
+    const { application } = this.state;
+    const updatedApplication = Object.assign(application, {
+      application_review: review,
+    });
+    this.setState({
+      application: updatedApplication,
+    });
   }
 
   public render(): React.ReactElement {

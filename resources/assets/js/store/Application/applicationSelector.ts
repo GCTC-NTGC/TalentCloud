@@ -1,6 +1,5 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import createCachedSelector from "re-reselect";
-import { createSelector } from "reselect";
 import { RootState } from "../store";
 import { EntityState, UiState } from "./applicationReducer";
 import {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { connect } from "react-redux";
 import { defineMessages, WrappedComponentProps, injectIntl } from "react-intl";
@@ -88,8 +87,9 @@ const getAvailableCriteria = (
   return [...availableCriteria, answerCriterion];
 };
 
-const RatingGuideAnswer: React.FunctionComponent<RatingGuideAnswerProps &
-  WrappedComponentProps> = ({
+const RatingGuideAnswer: React.FunctionComponent<
+  RatingGuideAnswerProps & WrappedComponentProps
+> = ({
   answer,
   unansweredCriteria,
   answerCriterion,

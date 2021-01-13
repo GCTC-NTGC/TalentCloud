@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Review from "../../components/Application/Review/Review";
-import {
-  fakeApplication,
-  fakeApplication1,
-} from "../../fakeData/fakeApplications";
+import { fakeApplication1 } from "../../fakeData/fakeApplications";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";

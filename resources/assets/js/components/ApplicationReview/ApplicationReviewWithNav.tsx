@@ -52,24 +52,6 @@ class ApplicationReviewWithNav extends React.Component<
   }
 
   /**
-   * Returns true only if selectedStatusId matches the review
-   * status of props.application
-   */
-  protected isUnchanged = (): boolean => {
-    const { application } = this.props;
-    const { selectedStatusId } = this.state;
-    if (
-      application.application_review &&
-      application.application_review.review_status_id
-    ) {
-      return (
-        application.application_review.review_status_id === selectedStatusId
-      );
-    }
-    return selectedStatusId === undefined;
-  };
-
-  /**
    * When save is clicked, it is only necessary to save the status
    * @param event
    */
@@ -114,30 +96,6 @@ class ApplicationReviewWithNav extends React.Component<
     return onStatusChange(application.id, status);
   }
 
-  protected showNotes(): void {
-    const { application, onNotesChange, intl } = this.props;
-    const notes =
-      application.application_review && application.application_review.notes
-        ? application.application_review.notes
-        : "";
-    Swal.fire({
-      title: intl.formatMessage(messages.editNote),
-      icon: "question",
-      input: "textarea",
-      showCancelButton: true,
-      confirmButtonColor: "#0A6CBC",
-      cancelButtonColor: "#F94D4D",
-      cancelButtonText: intl.formatMessage(messages.cancelButton),
-      confirmButtonText: intl.formatMessage(messages.save),
-      inputValue: notes,
-    }).then((result: SweetAlertResult) => {
-      if (result && result.value !== undefined) {
-        const value = result.value ? result.value : null;
-        onNotesChange(application.id, value);
-      }
-    });
-  }
-
   protected handleLinkClicked(url: string): void {
     if (this.isUnchanged()) {
       window.location.href = url;
@@ -160,6 +118,48 @@ class ApplicationReviewWithNav extends React.Component<
         ? Number(event.target.value)
         : undefined;
     this.setState({ selectedStatusId: value });
+  }
+
+  /**
+   * Returns true only if selectedStatusId matches the review
+   * status of props.application
+   */
+  protected isUnchanged = (): boolean => {
+    const { application } = this.props;
+    const { selectedStatusId } = this.state;
+    if (
+      application.application_review &&
+      application.application_review.review_status_id
+    ) {
+      return (
+        application.application_review.review_status_id === selectedStatusId
+      );
+    }
+    return selectedStatusId === undefined;
+  };
+
+  protected showNotes(): void {
+    const { application, onNotesChange, intl } = this.props;
+    const notes =
+      application.application_review && application.application_review.notes
+        ? application.application_review.notes
+        : "";
+    Swal.fire({
+      title: intl.formatMessage(messages.editNote),
+      icon: "question",
+      input: "textarea",
+      showCancelButton: true,
+      confirmButtonColor: "#0A6CBC",
+      cancelButtonColor: "#F94D4D",
+      cancelButtonText: intl.formatMessage(messages.cancelButton),
+      confirmButtonText: intl.formatMessage(messages.save),
+      inputValue: notes,
+    }).then((result: SweetAlertResult) => {
+      if (result && result.value !== undefined) {
+        const value = result.value ? result.value : null;
+        onNotesChange(application.id, value);
+      }
+    });
   }
 
   public render(): React.ReactElement {

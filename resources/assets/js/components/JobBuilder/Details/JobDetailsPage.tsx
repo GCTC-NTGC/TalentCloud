@@ -1,8 +1,13 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { WrappedComponentProps, injectIntl } from "react-intl";
-import { Job, JobPosterKeyTask, Criteria, Classification } from "../../../models/types";
+import {
+  Job,
+  JobPosterKeyTask,
+  Criteria,
+  Classification,
+} from "../../../models/types";
 import { JobDetails } from "./JobDetails";
 import { RootState } from "../../../store/store";
 import { DispatchType } from "../../../configureStore";
@@ -21,8 +26,7 @@ import {
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { isJobBuilderComplete } from "../jobBuilderHelpers";
 import { navigate } from "../../../helpers/router";
-import { useDispatch } from "react-redux";
-import { getClassifications } from "../../../../js/store/Classification/classificationSelector"
+import { getClassifications } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsPageProps {
   jobId: number;
@@ -35,9 +39,9 @@ interface JobDetailsPageProps {
   handleUpdateJob: (newJob: Job) => Promise<boolean>;
 }
 
-
-const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
-  WrappedComponentProps> = ({
+const JobDetailsPage: React.FunctionComponent<
+  JobDetailsPageProps & WrappedComponentProps
+> = ({
   jobId,
   job,
   classifications,
@@ -46,7 +50,6 @@ const JobDetailsPage: React.FunctionComponent<JobDetailsPageProps &
   criteria,
   intl,
 }): React.ReactElement => {
-
   const dispatch = useDispatch();
 
   const { locale } = intl;
@@ -96,7 +99,7 @@ const mapStateToPropsPage = (
   job: Job | null;
   keyTasks: JobPosterKeyTask[];
   criteria: Criteria[];
-  classifications: Classification[]
+  classifications: Classification[];
 } => ({
   job: getJob(state, ownProps),
   keyTasks: getTasksByJob(state, ownProps),
