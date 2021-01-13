@@ -1,7 +1,6 @@
 import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { SearchResults } from "../components/SearchResults";
 import {
   fakeSkill,
   fakeSkill2,
@@ -9,9 +8,10 @@ import {
   fakeSkill4,
   fakeSkill5,
   fakeSkill6,
-} from "../fakeData/fakeSkills";
+} from "../../../fakeData/fakeSkills";
+import SkillSearchResults from "../../../components/ApplicantProfile/Skills/SkillSearchResults";
 
-const stories = storiesOf("Components/Search Results", module).addDecorator(
+const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
 );
 
@@ -25,8 +25,8 @@ const skills = [
 ];
 
 stories.add(
-  "Skills",
+  "Search Results",
   (): React.ReactElement => (
-    <SearchResults status="notSubmitted" results={skills} />
+    <SkillSearchResults status="notSubmitted" results={skills} />
   ),
 );

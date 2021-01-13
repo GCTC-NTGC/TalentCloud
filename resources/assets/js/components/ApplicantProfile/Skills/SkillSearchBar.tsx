@@ -2,11 +2,11 @@ import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages } from "react-intl";
-import { validationMessages } from "./Form/Messages";
-import TextInput from "./Form/TextInput";
-import { Skill } from "../models/types";
-import SearchResults from "./SearchResults";
-import { getLocale } from "../helpers/localize";
+import SkillSearchResults from "./SkillSearchResults";
+import { validationMessages } from "../../Form/Messages";
+import { getLocale } from "../../../helpers/localize";
+import TextInput from "../../Form/TextInput";
+import { Skill } from "../../../models/types";
 
 const formMessages = defineMessages({
   searchLabel: {
@@ -104,7 +104,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                 </div>
               </div>
             </div>
-            <SearchResults status={status} results={results} />
+            <SkillSearchResults status={status} results={results} />
           </Form>
         )}
       </Formik>

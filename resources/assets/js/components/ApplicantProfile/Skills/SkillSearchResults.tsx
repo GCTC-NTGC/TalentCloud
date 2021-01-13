@@ -1,8 +1,8 @@
 import * as React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
-import { getLocale, localizeFieldNonNull } from "../helpers/localize";
-import { Skill } from "../models/types";
+import { Skill } from "../../../models/types";
+import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 
 const resultMessages = defineMessages({
   resultTitle: {
@@ -32,12 +32,12 @@ const resultMessages = defineMessages({
   },
 });
 
-interface SearchResultsProps {
+interface SkillSearchResultsProps {
   status: string;
   results: Array<Skill> | null;
 }
 
-interface SearchResultItemProps {
+interface SkillSearchResultItemProps {
   item: {
     id: number;
     name: { en: string; fr: string };
@@ -46,9 +46,9 @@ interface SearchResultItemProps {
   };
 }
 
-const SearchResultItem: React.FunctionComponent<SearchResultItemProps> = ({
+const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps> = ({
   item,
-}: SearchResultItemProps): React.ReactElement => {
+}: SkillSearchResultItemProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const [check, setCheck] = React.useState(item.isChecked);
@@ -135,10 +135,10 @@ const SearchResultItem: React.FunctionComponent<SearchResultItemProps> = ({
   );
 };
 
-export const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
+export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps> = ({
   status,
   results,
-}: SearchResultsProps): React.ReactElement => {
+}: SkillSearchResultsProps): React.ReactElement => {
   const intl = useIntl();
   React.useEffect((): void => {
     h2ComponentAccordionAddTriggerEvent();
@@ -170,7 +170,7 @@ export const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
                   name: { en: string; fr: string };
                   description: { en: string; fr: string };
                   isChecked?: boolean;
-                }) => <SearchResultItem key={item.id} item={item} />,
+                }) => <SkillSearchResultItem key={item.id} item={item} />,
               )}
           </div>
         </div>
@@ -179,4 +179,4 @@ export const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   );
 };
 
-export default SearchResults;
+export default SkillSearchResults;

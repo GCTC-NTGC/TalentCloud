@@ -2,7 +2,6 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { SearchBar } from "../components/SearchBar";
 import {
   fakeSkill,
   fakeSkill2,
@@ -10,10 +9,11 @@ import {
   fakeSkill4,
   fakeSkill5,
   fakeSkill6,
-} from "../fakeData/fakeSkills";
-import { Skill } from "../models/types";
+} from "../../../fakeData/fakeSkills";
+import { Skill } from "../../../models/types";
+import SkillSearchBar from "../../../components/ApplicantProfile/Skills/SkillSearchBar";
 
-const stories = storiesOf("Components/Search Bar", module).addDecorator(
+const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
 );
 
@@ -41,8 +41,8 @@ const handleSubmit = (locale: string, search: string): Promise<Skill[]> => {
 };
 
 stories.add(
-  "Skills",
+  "Search Bar",
   (): React.ReactElement => (
-    <SearchBar inputTitle="Search Skills" handleSubmit={handleSubmit} />
+    <SkillSearchBar inputTitle="Search Skills" handleSubmit={handleSubmit} />
   ),
 );
