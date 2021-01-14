@@ -29,6 +29,7 @@ const formMessages = defineMessages({
 interface SearchBarProps {
   inputTitle: string;
   handleSubmit: (locale: string, search: string) => Promise<Skill[]>;
+  handleAddSkill: (skillId: number) => Promise<Skill>;
 }
 
 interface SearchBarValues {
@@ -39,6 +40,7 @@ interface SearchBarValues {
 export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   inputTitle,
   handleSubmit,
+  handleAddSkill,
 }: SearchBarProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -104,7 +106,11 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                 </div>
               </div>
             </div>
-            <SkillSearchResults status={status} results={results} />
+            <SkillSearchResults
+              status={status}
+              results={results}
+              handleAddSkill={handleAddSkill}
+            />
           </Form>
         )}
       </Formik>

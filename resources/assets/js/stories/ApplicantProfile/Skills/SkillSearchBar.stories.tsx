@@ -18,7 +18,7 @@ const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
 );
 
-const skills = [
+let skills = [
   { ...fakeSkill(), isChecked: true },
   { ...fakeSkill2(), isChecked: false },
   { ...fakeSkill3(), isChecked: false },
@@ -40,9 +40,25 @@ const handleSubmit = (locale: string, search: string): Promise<Skill[]> => {
   return Promise.resolve(skillMatches);
 };
 
+const handleAddSkill = (skillId: number): Promise<Skill> => {
+  const skillToAdd = skills.find((skillEntry) => skillEntry.id === skillId);
+  action("Add Skill")(skillToAdd);
+  if (skillToAdd !== undefined) {
+    skills = skills.map((skill) =>
+      skill.id === skillId ? { ...skill, isChecked: true } : skill,
+    );
+    return Promise.resolve(skillToAdd);
+  }
+  return Promise.reject(new Error("Could not find skill"));
+};
+
 stories.add(
   "Search Bar",
   (): React.ReactElement => (
-    <SkillSearchBar inputTitle="Search Skills" handleSubmit={handleSubmit} />
+    <SkillSearchBar
+      inputTitle="Search Skills"
+      handleSubmit={handleSubmit}
+      handleAddSkill={handleAddSkill}
+    />
   ),
 );

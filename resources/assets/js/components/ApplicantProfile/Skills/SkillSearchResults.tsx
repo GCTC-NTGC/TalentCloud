@@ -35,6 +35,7 @@ const resultMessages = defineMessages({
 interface SkillSearchResultsProps {
   status: string;
   results: Array<Skill> | null;
+  handleAddSkill: (skillId: number) => Promise<Skill>;
 }
 
 interface SkillSearchResultItemProps {
@@ -44,15 +45,17 @@ interface SkillSearchResultItemProps {
     description: { en: string; fr: string };
     isChecked?: boolean;
   };
+  handleAddSkill: (skillId: number) => Promise<Skill>;
 }
 
 const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps> = ({
   item,
+  handleAddSkill,
 }: SkillSearchResultItemProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const [check, setCheck] = React.useState(item.isChecked);
   const [added, setAdded] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   return (
     <div
@@ -89,7 +92,7 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
         <div data-h2-accordion-trigger-content>
           <p>
             <span>{localizeFieldNonNull(locale, item, "name")}</span>
-            {check === true && (
+            {(item.isChecked || added) && (
               <span data-h2-color="theme-1" data-h2-padding="b(left, 1)">
                 <i className="fas fa-check" />
               </span>
@@ -108,13 +111,20 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
           </div>
           <div data-h2-grid-item="b(1of3)" data-h2-align="b(right)">
             <div data-h2-grid-content data-h2-padding="b(right, 1)">
-              {added !== true && check !== true && (
+              {!added && !item.isChecked && (
                 <button
                   data-h2-button="gray-9, pill, medium, outline"
                   type="button"
+                  disabled={isSubmitting}
                   onClick={() => {
-                    setCheck(true);
-                    setAdded(true);
+                    setIsSubmitting(true);
+                    handleAddSkill(item.id)
+                      .then(() => {
+                        setAdded(true);
+                      })
+                      .catch(() => {
+                        setIsSubmitting(false);
+                      });
                   }}
                 >
                   <span data-h2-button-label>
@@ -122,7 +132,7 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
                   </span>
                 </button>
               )}
-              {added === true && (
+              {added && (
                 <p data-h2-padding="b(all, .5)" data-h2-font-weight="b(600)">
                   {intl.formatMessage(resultMessages.resultAccordionAdded)}
                 </p>
@@ -138,6 +148,7 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
 export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps> = ({
   status,
   results,
+  handleAddSkill,
 }: SkillSearchResultsProps): React.ReactElement => {
   const intl = useIntl();
   React.useEffect((): void => {
@@ -170,7 +181,13 @@ export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps
                   name: { en: string; fr: string };
                   description: { en: string; fr: string };
                   isChecked?: boolean;
-                }) => <SkillSearchResultItem key={item.id} item={item} />,
+                }) => (
+                  <SkillSearchResultItem
+                    key={item.id}
+                    item={item}
+                    handleAddSkill={handleAddSkill}
+                  />
+                ),
               )}
           </div>
         </div>
