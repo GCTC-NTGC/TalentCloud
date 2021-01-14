@@ -12,6 +12,7 @@ import {
 } from "../../../fakeData/fakeSkills";
 import { Skill } from "../../../models/types";
 import SkillSearchBar from "../../../components/ApplicantProfile/Skills/SkillSearchBar";
+import { matchStringsCaseDiacriticInsensitive } from "../../../helpers/localize";
 
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
@@ -27,15 +28,14 @@ const skills = [
 ];
 
 const handleSubmit = (locale: string, search: string): Promise<Skill[]> => {
-  const skillMatches = skills.filter((skill) => {
-    return (
-      skill.name[locale]
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .search(new RegExp(search, "i")) !== -1 ||
-      skill.name[locale].search(new RegExp(search, "i")) !== -1
-    );
-  });
+  const skillNamesLocale = skills.map((skill) => skill.name[locale]);
+  const skillStrings = matchStringsCaseDiacriticInsensitive(
+    search,
+    skillNamesLocale,
+  );
+  const skillMatches = skills.filter((skill) =>
+    skillStrings.includes(skill.name[locale]),
+  );
   action("Submit Search")(search);
   return Promise.resolve(skillMatches);
 };
