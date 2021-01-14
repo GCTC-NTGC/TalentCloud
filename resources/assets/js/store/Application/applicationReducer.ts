@@ -19,6 +19,7 @@ import {
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
+  BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
   FETCH_REFERENCE_EMAILS_SUCCEEDED,
   FETCH_REFERENCE_EMAILS_STARTED,
   FETCH_REFERENCE_EMAILS_FAILED,
@@ -225,6 +226,28 @@ export const entitiesReducer = (
             ...state.applicationReviews.idByApplicationId,
             [action.payload.job_application_id]: action.payload.id,
           },
+        },
+      };
+    case BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED:
+      return {
+        ...state,
+        applicationReviews: {
+          byId: {
+            ...state.applicationReviews.byId,
+            ...mapToObjectTrans(
+              action.payload,
+              getId,
+              (applicationReview => applicationReview),
+            ),
+          },
+          idByApplicationId: {
+            ...state.applicationReviews.idByApplicationId,
+            ...mapToObjectTrans(
+              action.payload,
+              (applicationReview => applicationReview.job_application_id),
+              getId,
+            ),
+          }
         },
       };
     case FETCH_REFERENCE_EMAILS_SUCCEEDED:

@@ -104,6 +104,10 @@ export const getApplicationsByJob = createCachedSelector(
   },
 )((state, ownProps): number => ownProps.jobId);
 
+export const isFetchingApplications = (state: RootState): boolean => {
+  return ui(state).fetchingApplications;
+};
+
 export const getAllReferenceEmails = (
   state: RootState,
 ): {

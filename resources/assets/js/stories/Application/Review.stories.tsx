@@ -15,8 +15,7 @@ import {
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import { fakeUser, fakeUsers } from "../../fakeData/fakeUsers";
 import ApplicationPreview from "../../components/Application/Review/ApplicationPreview";
-import ApplicationReviewNav from "../../components/ApplicationReview/ApplicationReviewRoot";
-import fakeReviewStatuses from "../../fakeData/fakeReviewStatus";
+import ApplicationReviewWithNav from "../../components/ApplicationReview/ApplicationReviewWithNav";
 
 const stories = storiesOf("Application/Review", module).addDecorator(withIntl);
 
@@ -67,10 +66,12 @@ stories.add(
     const application = fakeApplication1();
     return (
       <>
-        <ApplicationReviewNav
-          initApplication={application}
+        <ApplicationReviewWithNav
+          application={application}
           portal="manager"
-          reviewStatuses={fakeReviewStatuses()}
+          handleUpdateApplicationReview={promiseAction(
+            "Handle Update Application Review",
+          )}
         />
         <ApplicationPreview
           application={application}
@@ -96,10 +97,12 @@ stories.add(
     const application = fakeApplication1();
     return (
       <>
-        <ApplicationReviewNav
-          initApplication={application}
+        <ApplicationReviewWithNav
+          application={application}
           portal="hr"
-          reviewStatuses={fakeReviewStatuses()}
+          handleUpdateApplicationReview={promiseAction(
+            "Handle Update Application Review",
+          )}
         />
         <ApplicationPreview
           application={application}

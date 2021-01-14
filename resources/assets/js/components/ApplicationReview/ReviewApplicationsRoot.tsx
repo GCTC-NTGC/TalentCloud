@@ -1,281 +1,86 @@
 /* eslint camelcase: "off" */
 import React from "react";
 import ReactDOM from "react-dom";
-
-// Internationalizations
-import { injectIntl, defineMessages, WrappedComponentProps } from "react-intl";
-
-import camelCase from "lodash/camelCase";
-import Swal from "sweetalert2";
+import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
+import { DispatchType } from "../../configureStore";
 import {
-  Job,
-  Application,
-  ReviewStatus,
-  ApplicationReview,
-} from "../../models/types";
+  useFetchApplicationsByJob,
+  useFetchJob,
+} from "../../hooks/applicationHooks";
+import { loadingMessages } from "../Application/applicationMessages";
+import { ApplicationReview } from "../../models/types";
 import ReviewApplications from "./ReviewApplications";
-import { find } from "../../helpers/queries";
-import * as routes from "../../helpers/routes";
-import { classificationString } from "../../models/jobUtil";
-import { axios } from "../../api/base";
 import RootContainer from "../RootContainer";
 import { Portal } from "../../models/app";
-import { ReviewStatusId } from "../../models/lookupConstants";
+import {
+  updateApplicationReview,
+  batchUpdateApplicationReviews,
+} from "../../store/Application/applicationActions";
 
-interface ReviewApplicationsProps {
-  job: Job;
-  initApplications: Application[];
-  reviewStatuses: ReviewStatus[];
+interface ReviewApplicationsRootProps {
+  jobId: number;
   portal: Portal;
 }
 
-interface ReviewApplicationsState {
-  applications: Application[];
-  savingStatuses: { applicationId: number; isSaving: boolean }[];
-}
+const ReviewApplicationsRoot: React.FC<ReviewApplicationsRootProps> = ({
+  jobId,
+  portal,
+}): React.ReactElement => {
+  const intl = useIntl();
+  const dispatch = useDispatch<DispatchType>();
 
-interface ReviewSubmitForm {
-  review_status_id?: number | null;
-  notes?: string | null;
-}
+  const applications = useFetchApplicationsByJob(jobId, dispatch);
+  const job = useFetchJob(jobId, dispatch);
+  const handleUpdateApplicationReview = async (
+    editedApplicationReview: ApplicationReview,
+  ): Promise<void> => {
+    await dispatch(updateApplicationReview(editedApplicationReview));
+  };
+  const handleBatchUpdateApplicationReviews = async (
+    editedApplicationReviews: ApplicationReview[],
+  ): Promise<void> => {
+    await dispatch(batchUpdateApplicationReviews(editedApplicationReviews));
+  };
 
-const localizations = defineMessages({
-  oops: {
-    id: "review.applications.alert.oops",
-    defaultMessage: "Save",
-    description: "Dynamic Save button label",
-  },
-  somethingWrong: {
-    id: "review.applications.reviewSaveFailed",
-    defaultMessage:
-      "Something went wrong while saving a review. Try again later.",
-    description: "Dynamic Save button label",
-  },
-});
-
-class ReviewApplicationsRoot extends React.Component<
-  ReviewApplicationsProps & WrappedComponentProps,
-  ReviewApplicationsState
-> {
-  public constructor(props: ReviewApplicationsProps & WrappedComponentProps) {
-    super(props);
-    this.state = {
-      applications: props.initApplications,
-      savingStatuses: props.initApplications.map((application) => ({
-        applicationId: application.id,
-        isSaving: false,
-      })),
-    };
-    this.handleStatusChange = this.handleStatusChange.bind(this);
-    this.handleBulkStatusChange = this.handleBulkStatusChange.bind(this);
-    this.handleNotesChange = this.handleNotesChange.bind(this);
-    this.updateReviewState = this.updateReviewState.bind(this);
-    this.handleSavingStatusChange = this.handleSavingStatusChange.bind(this);
-  }
-
-  protected handleSavingStatusChange(
-    applicationId: number,
-    isSaving: boolean,
-  ): void {
-    const { savingStatuses } = this.state;
-    const statuses = savingStatuses.map((item) =>
-      item.applicationId === applicationId
-        ? { applicationId, isSaving }
-        : { ...item },
-    );
-    this.setState({ savingStatuses: statuses });
-  }
-
-  protected handleStatusChange(
-    applicationId: number,
-    statusId: number | null,
-  ): void {
-    const { applications } = this.state;
-    const application = find(applications, applicationId);
-    if (application === null) {
-      return;
-    }
-    const oldReview = application.application_review
-      ? application.application_review
-      : {};
-    const submitReview = Object.assign(oldReview, {
-      review_status_id: statusId,
-    });
-    this.submitReview(applicationId, submitReview);
-  }
-
-  protected handleBulkStatusChange(
-    applicationIds: number[],
-    statusId: number | null,
-  ): void {
-    const { applications } = this.state;
-    const { intl } = this.props;
-    const changedApplications = applications.filter((application) =>
-      applicationIds.includes(application.id),
-    );
-    let errorThrown = false;
-    changedApplications.map((application) => {
-      const oldReview = application.application_review
-        ? application.application_review
-        : {};
-      const submitReview = Object.assign(oldReview, {
-        review_status_id: statusId,
-      });
-      this.handleSavingStatusChange(application.id, true);
-      const request = axios
-        .put(
-          routes.applicationReviewUpdate(intl.locale, application.id),
-          submitReview,
-        )
-        .then((response) => {
-          const newReview = response.data as ApplicationReview;
-          this.updateReviewState(application.id, newReview);
-          this.handleSavingStatusChange(application.id, false);
-        })
-        .catch(() => {
-          this.handleSavingStatusChange(application.id, false);
-          // Only show error modal first time a request fails
-          if (!errorThrown) {
-            errorThrown = true;
-            Swal.fire({
-              icon: "error",
-              title: intl.formatMessage(localizations.oops),
-              text: intl.formatMessage(localizations.somethingWrong),
-            });
+  return (
+    <div data-clone>
+      {job === null || applications === null ? (
+        <h2
+          data-c-heading="h2"
+          data-c-align="center"
+          data-c-padding="top(2) bottom(2)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h2>
+      ) : (
+        <ReviewApplications
+          portal={portal}
+          job={job}
+          applications={applications}
+          handleUpdateReview={handleUpdateApplicationReview}
+          handleBatchUpdateApplicationReviews={
+            handleBatchUpdateApplicationReviews
           }
-        });
-      return request;
-    });
-  }
+        />
+      )}
+    </div>
+  );
+};
 
-  protected handleNotesChange(
-    applicationId: number,
-    notes: string | null,
-  ): void {
-    const { applications } = this.state;
-    const application = find(applications, applicationId);
-    if (application === null) {
-      return;
-    }
-    const oldReview = application.application_review
-      ? application.application_review
-      : {};
-    const submitReview = Object.assign(oldReview, {
-      notes,
-    });
-    this.submitReview(applicationId, submitReview);
-  }
+export default ReviewApplicationsRoot;
 
-  protected submitReview(
-    applicationId: number,
-    review: ReviewSubmitForm,
-  ): void {
-    const { intl } = this.props;
-    this.handleSavingStatusChange(applicationId, true);
-    axios
-      .put(routes.applicationReviewUpdate(intl.locale, applicationId), review)
-      .then((response) => {
-        const newReview = response.data as ApplicationReview;
-        this.updateReviewState(applicationId, newReview);
-        this.handleSavingStatusChange(applicationId, false);
-      })
-      .catch(() => {
-        Swal.fire({
-          icon: "error",
-          title: intl.formatMessage(localizations.oops),
-          text: intl.formatMessage(localizations.somethingWrong),
-        });
-        this.handleSavingStatusChange(applicationId, false);
-      });
-  }
+const container = document.getElementById("review-applications-container");
+if (container !== null) {
+  if ("jobId" in container.dataset && "portal" in container.dataset) {
+    const jobId = Number(container.dataset.jobId as string);
+    const portal = container.dataset.portal as Portal;
 
-  protected updateReviewState(
-    applicationId: number,
-    review: ApplicationReview,
-  ): void {
-    const { applications } = this.state;
-    const updatedApplications = applications.map((application) => {
-      if (application.id === applicationId) {
-        return Object.assign(application, { application_review: review });
-      }
-      return { ...application };
-    });
-    this.setState({ applications: updatedApplications });
-  }
-
-  public render(): React.ReactElement {
-    const { applications, savingStatuses } = this.state;
-    const { reviewStatuses, job, portal, intl } = this.props;
-
-    const reviewStatusOptions = reviewStatuses
-      .filter((status) => status.id in ReviewStatusId)
-      .map((status) => ({
-        value: status.id,
-        label: camelCase(status.name),
-      }));
-
-    return (
-      <ReviewApplications
-        jobId={job.id}
-        title={job.title[intl.locale]}
-        classification={classificationString(job)}
-        closeDateTime={job.close_date_time}
-        applications={applications}
-        reviewStatusOptions={reviewStatusOptions}
-        onStatusChange={this.handleStatusChange}
-        onBulkStatusChange={this.handleBulkStatusChange}
-        onNotesChange={this.handleNotesChange}
-        savingStatuses={savingStatuses}
-        portal={portal}
-      />
-    );
-  }
-}
-
-const renderReviewApplications = (
-  container: HTMLElement,
-  portal: Portal,
-): void => {
-  if (
-    container.hasAttribute("data-job") &&
-    container.hasAttribute("data-applications") &&
-    container.hasAttribute("data-review-statuses") &&
-    container.hasAttribute("data-locale")
-  ) {
-    const job = JSON.parse(container.getAttribute("data-job") as string);
-    const applications = JSON.parse(
-      container.getAttribute("data-applications") as string,
-    );
-    const reviewStatuses = JSON.parse(
-      container.getAttribute("data-review-statuses") as string,
-    );
-    const IntlReviewApplicationsRoot = injectIntl(ReviewApplicationsRoot);
     ReactDOM.render(
       <RootContainer>
-        <IntlReviewApplicationsRoot
-          job={job}
-          initApplications={applications}
-          reviewStatuses={reviewStatuses}
-          portal={portal}
-        />
+        <ReviewApplicationsRoot jobId={jobId} portal={portal} />
       </RootContainer>,
       container,
     );
   }
-};
-
-if (document.getElementById("review-applications-container")) {
-  const container = document.getElementById(
-    "review-applications-container",
-  ) as HTMLElement;
-  renderReviewApplications(container, "manager");
 }
-
-if (document.getElementById("review-applications-container-hr")) {
-  const hrContainer = document.getElementById(
-    "review-applications-container-hr",
-  ) as HTMLElement;
-  renderReviewApplications(hrContainer, "hr");
-}
-
-export default injectIntl(ReviewApplicationsRoot);
