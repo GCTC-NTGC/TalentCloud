@@ -71,7 +71,7 @@ class ApplicationController extends Controller
             if (!$applicationComplete) {
                 $userId = $application->applicant->user_id;
                 $msg = "Application $application->id for user $userId is invalid for submission: " .
-                implode('; ', $validator->detailedValidatorErrors($application));
+                    implode('; ', $validator->detailedValidatorErrors($application));
                 Log::info($msg);
 
                 throw ValidationException::withMessages($validator->detailedValidatorErrors($application));
@@ -94,14 +94,21 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
-        $application->loadMissing(
-            'applicant',
+        // Initialize an empty Application Review if none exists. This
+        // simplifies the front end logic when performing batch updates.
+        if ($application->application_review === null) {
+            $application->application_review = new ApplicationReview();
+            $application->application_review->job_application_id = $application->id;
+            $application->application_review->save();
+        }
+
+        return new JobApplicationResource($application->fresh([
+            'applicant.user',
             'application_review',
             'citizenship_declaration',
             'veteran_status',
             'job_application_answers'
-        );
-        return new JobApplicationResource($application);
+        ]));
     }
 
     /**
@@ -113,16 +120,24 @@ class ApplicationController extends Controller
      */
     public function index(JobPoster $jobPoster)
     {
-        $applications = $jobPoster->submitted_applications()
-            ->with([
-                'applicant.user',
-                'application_review.department',
-                'citizenship_declaration',
-                'veteran_status'
-            ])
-            ->get();
+        $applications = $jobPoster->submitted_applications()->get();
 
-        return JobApplicationResource::collection($applications);
+        // Initialize an empty Application Review if none exists. This
+        // simplifies the front end logic when performing batch updates.
+        foreach ($applications as $application) {
+            if ($application->application_review === null) {
+                $application->application_review = new ApplicationReview();
+                $application->application_review->job_application_id = $application->id;
+                $application->application_review->save();
+            }
+        }
+
+        return JobApplicationResource::collection($applications->fresh([
+            'applicant.user',
+            'application_review.department',
+            'citizenship_declaration',
+            'veteran_status'
+        ]));
     }
 
     /**
@@ -162,13 +177,14 @@ class ApplicationController extends Controller
         ]);
         $review->save();
 
-        if ($application->job_poster->department_id === $strategicResponseDepartmentId
+        if (
+            $application->job_poster->department_id === $strategicResponseDepartmentId
             && in_array($review->review_status_id, $availabilityStatuses->toArray())
         ) {
             $this->setAvailability($application);
         }
 
-        $review->fresh();
+        $review = $review->fresh();
         $review->loadMissing('department');
 
         return new JsonResource($review);

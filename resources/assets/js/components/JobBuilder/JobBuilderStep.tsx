@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import { FormattedMessage } from "react-intl";
 import { useDispatch } from "react-redux";
 import nprogress from "nprogress";
-import { Job, JobPosterKeyTask, Criteria, Classification } from "../../models/types";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { JobBuilderPage } from "./jobBuilderHelpers";
 import { DispatchType } from "../../configureStore";
 import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
@@ -33,7 +33,6 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   dataIsLoading,
   children,
 }): React.ReactElement => {
-
   useEffect((): void => {
     if (jobId !== null && job === null) {
       nprogress.start();

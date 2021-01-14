@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";

@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from "react";
 import {
   FormattedMessage,

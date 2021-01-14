@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { defineMessages, useIntl } from "react-intl";

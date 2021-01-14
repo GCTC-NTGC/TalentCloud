@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import isEqual from "lodash/isEqual";
 import { RatingGuideAnswer } from "../../models/types";
 import {

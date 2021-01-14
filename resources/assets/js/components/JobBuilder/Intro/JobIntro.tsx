@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import { Form, Formik, FastField } from "formik";
@@ -202,7 +201,7 @@ const JobIntro: React.FunctionComponent<JobIntroProps> = ({
 
   const getDepartmentName = (): string | undefined => {
     const departmentName = departments.find(
-      department => department.id === user.department_id,
+      (department) => department.id === user.department_id,
     );
     return departmentName
       ? localizeFieldNonNull(locale, departmentName, "name")

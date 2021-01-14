@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { ResponseData, baseUrl, ApiResponse, axios } from "./base";
 import { RatingGuideAnswer, RatingGuideQuestion } from "../models/types";
 

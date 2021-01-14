@@ -14,14 +14,12 @@
     <a id="skipLink"></a>
 
     <section
+        data-clone
         class="application__view-layout submitted">
         {% if show_review %}
-        <div id="{{ is_hr_portal
-                ? "application-review-container-hr"
-                : "application-review-container" }}"
-            data-application="{{ job_application|json_encode() }}"
-            data-review-statuses="{{ review_statuses|json_encode() }}"
-            data-locale="{{App.getLocale()}}"
+        <div id="application-review-container"
+            data-portal="{{ is_hr_portal ? "hr" : "manager" }}"
+            data-application-id="{{ job_application.id }}"
         >
         </div>
         {% endif %}

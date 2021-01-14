@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import { baseUrl, parseDate } from "./base";
 import { Experience, ExperienceSkill } from "../models/types";
 
