@@ -3,9 +3,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import ExperienceStep, {
-  ExperienceSubmitData,
-} from "../../components/Application/Experience/Experience";
+import ExperienceStep from "../../components/Application/Experience/Experience";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import {
   educationStatuses,
@@ -13,7 +11,6 @@ import {
   recipientTypes,
   recogntitionTypes,
 } from "./ExperienceModals.stories";
-import { EducationExperienceSubmitData } from "../../components/Application/ExperienceModals/EducationExperienceModal";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills, {
   createFakeExperienceSkill,
@@ -22,6 +19,7 @@ import { Experience, Skill } from "../../models/types";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
 import { ClassificationId } from "../../models/lookupConstants";
 import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import { ExperienceSubmitData } from "../../components/Application/ExperienceModals/ExperienceModalCommon";
 
 const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
@@ -58,14 +56,10 @@ const submitExperience = (
 };
 
 const handleSubmitExperience = async (
-  data: ExperienceSubmitData,
+  data: ExperienceSubmitData<Experience>,
 ): Promise<void> => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data as EducationExperienceSubmitData;
-  submitExperience(experienceEducation, [
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
+  submitExperience(experience, [
     ...savedRequiredSkills,
     ...savedOptionalSkills,
   ]);

@@ -19,6 +19,7 @@ import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -178,11 +179,6 @@ const DetailsSubform: FunctionComponent<{
 type AwardExperienceFormValues = SkillFormValues &
   EducationFormValues &
   AwardDetailsFormValues;
-export interface AwardExperienceSubmitData {
-  experienceAward: ExperienceAward;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
@@ -211,18 +207,18 @@ const experienceToDetails = (
 };
 
 const dataToFormValues = (
-  data: AwardExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceAward>,
   locale: Locales,
   creatingNew: boolean,
 ): AwardExperienceFormValues => {
-  const { experienceAward, savedRequiredSkills, savedOptionalSkills } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceAward.is_education_requirement,
-    ...experienceToDetails(data.experienceAward, creatingNew),
+    useAsEducationRequirement: experience.is_education_requirement,
+    ...experienceToDetails(data.experience, creatingNew),
   };
 };
 
@@ -249,11 +245,11 @@ const formValuesToData = (
   originalExperience: ExperienceAward,
   locale: Locales,
   skills: Skill[],
-): AwardExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceAward> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceAward: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -382,7 +378,9 @@ interface AwardExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: AwardExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceAward>,
+  ) => Promise<void>;
 }
 
 export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
@@ -415,7 +413,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
 
   const initialFormValues = dataToFormValues(
     {
-      experienceAward: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },

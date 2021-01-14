@@ -20,6 +20,7 @@ import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -61,7 +62,9 @@ interface EducationExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceEducation>,
+  ) => Promise<void>;
 }
 
 export const messages = defineMessages({
@@ -436,29 +439,20 @@ export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps
 type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
   EducationDetailsFormValues;
-export interface EducationExperienceSubmitData {
-  experienceEducation: ExperienceEducation;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 const dataToFormValues = (
-  data: EducationExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceEducation>,
   locale: Locales,
   creatingNew: boolean,
 ): EducationExperienceFormValues => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceEducation.is_education_requirement,
-    ...experienceToDetails(data.experienceEducation, creatingNew),
+    useAsEducationRequirement: experience.is_education_requirement,
+    ...experienceToDetails(data.experience, creatingNew),
   };
 };
 
@@ -467,11 +461,11 @@ const formValuesToData = (
   originalExperience: ExperienceEducation,
   locale: Locales,
   skills: Skill[],
-): EducationExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceEducation> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceEducation: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -515,7 +509,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
 
   const initialFormValues = dataToFormValues(
     {
-      experienceEducation: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },

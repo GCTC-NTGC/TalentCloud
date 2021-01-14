@@ -20,6 +20,7 @@ import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -97,11 +98,6 @@ export interface CommunityDetailsFormValues {
 type CommunityExperienceFormValues = SkillFormValues &
   EducationFormValues &
   CommunityDetailsFormValues;
-export interface CommunityExperienceSubmitData {
-  experienceCommunity: ExperienceCommunity;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
@@ -145,21 +141,17 @@ const experienceToDetails = (
 };
 
 const dataToFormValues = (
-  data: CommunityExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceCommunity>,
   locale: Locales,
 ): CommunityExperienceFormValues => {
-  const {
-    experienceCommunity,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
-    ...experienceToDetails(data.experienceCommunity),
+    ...experienceToDetails(data.experience),
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceCommunity.is_education_requirement,
+    useAsEducationRequirement: experience.is_education_requirement,
   };
 };
 
@@ -185,11 +177,11 @@ const formValuesToData = (
   originalExperience: ExperienceCommunity,
   locale: Locales,
   skills: Skill[],
-): CommunityExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceCommunity> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceCommunity: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -369,7 +361,9 @@ interface CommunityExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceCommunity>,
+  ) => Promise<void>;
 }
 
 export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> = ({
@@ -401,7 +395,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
 
   const initialFormValues = dataToFormValues(
     {
-      experienceCommunity: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },

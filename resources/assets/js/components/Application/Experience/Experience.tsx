@@ -30,26 +30,21 @@ import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
   EducationStatus,
-  EducationExperienceSubmitData,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
   messages as workMessages,
-  WorkExperienceSubmitData,
 } from "../ExperienceModals/WorkExperienceModal";
 import CommunityExperienceModal, {
   messages as communityMessages,
-  CommunityExperienceSubmitData,
 } from "../ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal, {
   messages as personalMessages,
-  PersonalExperienceSubmitData,
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
   AwardRecipientType,
   AwardRecognitionType,
-  AwardExperienceSubmitData,
 } from "../ExperienceModals/AwardExperienceModal";
 import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
 import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
@@ -65,6 +60,7 @@ import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 import { RootState } from "../../../store/store";
 import { focusOnElement } from "../../../helpers/forms";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -210,13 +206,6 @@ const applicationExperienceAccordion = (
   }
 };
 
-export type ExperienceSubmitData =
-  | EducationExperienceSubmitData
-  | WorkExperienceSubmitData
-  | CommunityExperienceSubmitData
-  | PersonalExperienceSubmitData
-  | AwardExperienceSubmitData;
-
 interface ExperienceProps {
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
@@ -236,7 +225,9 @@ interface ExperienceProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
@@ -708,7 +699,9 @@ interface ExperienceStepProps {
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
