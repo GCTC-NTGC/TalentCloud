@@ -12,7 +12,7 @@ import {
   fakeEssentialSkills,
   fakeSkills,
 } from "../../fakeData/fakeSkills";
-import ProfileExperience from "../../components/ApplicantProfile/ProfileExperience";
+import ProfileExperience from "../../components/ApplicantProfile/Experience/ProfileExperience";
 import { Experience, ExperienceSkill } from "../../models/types";
 import {
   educationStatuses,
