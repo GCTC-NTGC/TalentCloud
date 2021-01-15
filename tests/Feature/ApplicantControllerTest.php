@@ -111,7 +111,7 @@ class ApplicantControllerTest extends TestCase
             'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
             'veteran_status_id' => $updateData['veteran_status_id'],
             'applicant_classifications' => [
-                array_except($oldApplicantClassification, ['id']),
+                $oldApplicantClassification,
                 array_except($newApplicantClassification, ['id']),
             ],
         ];
@@ -120,6 +120,37 @@ class ApplicantControllerTest extends TestCase
         $this->assertDatabaseHas('applicant_classifications', $expectedData['applicant_classifications'][0]);
         $this->assertDatabaseHas('applicant_classifications', $expectedData['applicant_classifications'][1]);
 
+        // Ensure that updating an existing applicant classification works correctly.
+        $updatedApplicantClassification = array_replace(
+            $oldApplicantClassification,
+            [
+                'level' => $oldApplicantClassification['level'] + 1,
+            ]
+        );
+        $updateData = [
+            'citizenship_declaration_id' => $applicant->citizenship_declaration_id,
+            'veteran_status_id' => $applicant->veteran_status_id,
+            'applicant_classifications' => [$updatedApplicantClassification],
+        ];
+        $response = $this->actingAs($applicant->user)
+            ->putJson(route('api.v1.applicant.profile.update', ['applicant' => $applicant]), $updateData);
+        $response->assertOk();
+
+        $applicant->refresh();
+        $expectedData = [
+            'citizenship_declaration_id' => $updateData['citizenship_declaration_id'],
+            'veteran_status_id' => $updateData['veteran_status_id'],
+            'applicant_classifications' => [
+                array_except($updatedApplicantClassification, ['updated_at'])
+            ],
+        ];
+        $response->assertJson($expectedData);
+        $this->assertDatabaseHas(
+            'applicant_classifications',
+            array_except($updatedApplicantClassification, ['updated_at'])
+        );
+        $this->assertDatabaseMissing('applicant_classifications', $oldApplicantClassification);
+        $this->assertDatabaseMissing('applicant_classifications', array_except($newApplicantClassification, ['id']));
 
         // Ensure that submitting no applicant classifications deletes all
         // previous applicant classifications attached to applicant.
