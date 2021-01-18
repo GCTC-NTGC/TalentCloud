@@ -5,7 +5,7 @@ import {
   processJsonResponse,
   putRequest,
 } from "../../helpers/httpRequests";
-import { identity } from "../../helpers/queries";
+import { decrement, identity } from "../../helpers/queries";
 import { Json, ResourceStatus } from "./types";
 
 export interface ResourceState<T> {
@@ -56,15 +56,6 @@ export type AsyncAction<T> =
   | UpdateStartAction<T>
   | UpdateFulfillAction<T>
   | UpdateRejectAction<T>;
-
-/**
- * Decrement the number if it above zero, else return 0.
- * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
- * @param num
- */
-function decrement(num: number): number {
-  return num <= 0 ? 0 : num - 1;
-}
 
 export function initialState<T>(initialValue: T): ResourceState<T> {
   return {
@@ -198,15 +189,14 @@ export function useResource<T>(
     if (doInitialRefresh) {
       refresh().catch(doNothing);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endpoint]);
 
-  // Unsubscribe from promises when this hook is unmounted.
-  useEffect(() => {
+    // Unsubscribe from promises when this hook is unmounted.
     return (): void => {
       isSubscribed.current = false;
     };
-  }, []);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
 
   return {
     value: state.value,

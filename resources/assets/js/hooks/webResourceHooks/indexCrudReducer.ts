@@ -1,5 +1,6 @@
 import { FetchError } from "../../helpers/httpRequests";
 import {
+  decrement,
   deleteProperty,
   filterObjectProps,
   getId,
@@ -22,7 +23,7 @@ export enum ActionTypes {
   UpdateReject = "UPDATE_REJECT",
 
   DeleteStart = "DELETE_START",
-  deleteFulfill = "DELETE_FULFILL",
+  DeleteFulfill = "DELETE_FULFILL",
   DeleteReject = "DELETE_REJECT",
 }
 
@@ -138,15 +139,6 @@ export function initializeState<T extends { id: number }>(
 }
 
 type StateValues<T> = ResourceState<T>["values"];
-
-/**
- * Decrement the number if it above zero, else return 0.
- * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
- * @param num
- */
-function decrement(num: number): number {
-  return num <= 0 ? 0 : num - 1;
-}
 
 function mergeIndexItem<T extends { id: number }>(
   values: StateValues<T>,

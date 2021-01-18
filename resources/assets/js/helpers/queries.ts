@@ -227,3 +227,12 @@ export function removeDuplicatesById<T extends { id: number }>(
   };
   return items.reduce(reducer, { contents: [], ids: [] }).contents;
 }
+
+/**
+ * Decrement the number if it above zero, else return 0.
+ * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
+ * @param num
+ */
+export function decrement(num: number): number {
+  return num <= 0 ? 0 : num - 1;
+}

@@ -321,15 +321,14 @@ export function useResourceIndex<T extends { id: number }>(
     if (doInitialRefresh) {
       refresh().catch(doNothing);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endpoint]);
 
-  // Unsubscribe from promises when this hook is unmounted.
-  useEffect(() => {
+    // Unsubscribe from promises when this hook is unmounted.
     return (): void => {
       isSubscribed.current = false;
     };
-  }, []);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
 
   return {
     values,
