@@ -1,4 +1,4 @@
-<div data-h2-system>
+<div data-h2-system id="browserBanner">
   <div
     data-h2-padding="b(tb, 1)"
     style="background-color: #1c51a0">
@@ -20,11 +20,17 @@
         type="button">
         <span data-h2-button-label>Learn more about this decision.</span>
       </button>
+
       <button
         data-h2-button="white, round, small, clear"
-        type="button">
+        type="button"
+        id="browserDismissButton"
+      >
         <span data-h2-button-label>Dismiss</span>
       </button>
     </div>
   </div>
 </div>
+{% block scripts %}
+    <script src="{{ asset(mix('/js/browserMessage.js')) }}"></script>
+{% endblock %}
