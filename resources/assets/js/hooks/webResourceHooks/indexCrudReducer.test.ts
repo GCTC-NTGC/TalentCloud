@@ -725,7 +725,7 @@ describe("indexCrudReducer tests", (): void => {
         },
       };
       const action: DeleteFulfillAction = {
-        type: ActionTypes.deleteFulfill,
+        type: ActionTypes.DeleteFulfill,
         meta: { id: 1 },
       };
       const expectState = {
@@ -740,7 +740,7 @@ describe("indexCrudReducer tests", (): void => {
         { id: 2, name: "two" },
       ]);
       const action: DeleteFulfillAction = {
-        type: ActionTypes.deleteFulfill,
+        type: ActionTypes.DeleteFulfill,
         meta: { id: 1 },
       };
       const fulfilledState = indexCrudReducer(initialState, action);
@@ -750,7 +750,7 @@ describe("indexCrudReducer tests", (): void => {
     it("DELETE FULFILLED doesn't change state (or throw error) if value doesn't exist", () => {
       const initialState = initializeState([{ id: 1, name: "one" }]);
       const action: DeleteFulfillAction = {
-        type: ActionTypes.deleteFulfill,
+        type: ActionTypes.DeleteFulfill,
         meta: { id: 5 },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(initialState);
