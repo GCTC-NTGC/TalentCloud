@@ -104,11 +104,12 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                 </div>
               </div>
             </div>
-            <SkillSearchResults
-              status={status}
-              results={results}
-              handleAddSkill={handleAddSkill}
-            />
+            {status === "submitted" && (
+              <SkillSearchResults
+                results={results}
+                handleAddSkill={handleAddSkill}
+              />
+            )}
           </Form>
         )}
       </Formik>

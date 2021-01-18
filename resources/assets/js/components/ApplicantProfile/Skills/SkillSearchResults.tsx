@@ -33,7 +33,6 @@ const resultMessages = defineMessages({
 });
 
 interface SkillSearchResultsProps {
-  status: string;
   results: Array<Skill> | null;
   handleAddSkill: (skillId: number) => Promise<Skill>;
 }
@@ -146,7 +145,6 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
 };
 
 export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps> = ({
-  status,
   results,
   handleAddSkill,
 }: SkillSearchResultsProps): React.ReactElement => {
@@ -161,10 +159,10 @@ export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps
         <div data-h2-grid-content>
           <div data-h2-padding="b(bottom, .5)">
             <p>
-              {results && results.length === 0 && status === "submitted" && (
+              {results && results.length === 0 && (
                 <span>{intl.formatMessage(resultMessages.resultEmpty)}</span>
               )}
-              {results && results.length !== 0 && status === "submitted" && (
+              {results && results.length !== 0 && (
                 <span>
                   {intl.formatMessage(resultMessages.resultTitle)}:{" "}
                   {results.length}

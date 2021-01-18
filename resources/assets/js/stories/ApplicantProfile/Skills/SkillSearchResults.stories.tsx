@@ -38,10 +38,6 @@ const handleAddSkill = (skillId: number): Promise<Skill> => {
 stories.add(
   "Search Results",
   (): React.ReactElement => (
-    <SkillSearchResults
-      status="notSubmitted"
-      results={skills}
-      handleAddSkill={handleAddSkill}
-    />
+    <SkillSearchResults results={skills} handleAddSkill={handleAddSkill} />
   ),
 );
