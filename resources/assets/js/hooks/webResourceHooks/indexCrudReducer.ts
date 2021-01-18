@@ -72,7 +72,7 @@ export type DeleteStartAction = {
   meta: { id: number };
 };
 export type DeleteFulfillAction = {
-  type: ActionTypes.deleteFulfill;
+  type: ActionTypes.DeleteFulfill;
   meta: { id: number };
 };
 export type DeleteRejectAction = {
@@ -502,7 +502,7 @@ export function reducer<T extends { id: number }>(
         ...state,
         values: mergeDeleteStart(state.values, action),
       };
-    case ActionTypes.deleteFulfill:
+    case ActionTypes.DeleteFulfill:
       return {
         ...state,
         values: mergeDeleteFulfill(state.values, action),

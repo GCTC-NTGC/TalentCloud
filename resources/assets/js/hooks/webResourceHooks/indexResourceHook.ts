@@ -307,7 +307,7 @@ export function useResourceIndex<T extends { id: number }>(
       }
       if (isSubscribed.current) {
         dispatch({
-          type: ActionTypes.deleteFulfill,
+          type: ActionTypes.DeleteFulfill,
           meta: { id },
         });
       }
