@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { HrAdvisor } from "../models/types";
 
 export const fakeHrAdvisor = (

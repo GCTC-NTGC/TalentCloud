@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, @typescript-eslint/camelcase, camelcase, jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable jsx-a11y/label-has-associated-control, @typescript-eslint/no-non-null-assertion, react/no-array-index-key, camelcase, jsx-a11y/no-noninteractive-tabindex */
 import React, { useState, useRef } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import {
-  Field,
   Form,
   Formik,
   FieldArray,

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { Application } from "../../models/types";
-import { SelectOption } from "../Select";
+import { Application, ApplicationReview } from "../../models/types";
 import { applicationBucket } from "./helpers";
 import ApplicantBucket from "./ApplicantBucket";
 import { ReviewStatusId } from "../../models/lookupConstants";
@@ -14,14 +13,10 @@ interface ReviewCategoryProps {
   description: string;
   showScreenOutAll: boolean;
   applications: Application[];
-  reviewStatusOptions: SelectOption[];
-  onStatusChange: (applicationId: number, statusId: number | null) => void;
-  onBulkStatusChange: (
-    applicationIds: number[],
-    statusId: number | null,
-  ) => void;
-  onNotesChange: (applicationId: number, notes: string | null) => void;
-  savingStatuses: { applicationId: number; isSaving: boolean }[];
+  handleBatchUpdateApplicationReviews: (
+    applicationReviews: ApplicationReview[],
+  ) => Promise<void>;
+  handleUpdateReview: (review: ApplicationReview) => Promise<void>;
   prioritizeVeterans: boolean;
   portal: Portal;
 }
@@ -100,12 +95,9 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   description,
   showScreenOutAll,
   applications,
-  reviewStatusOptions,
-  onStatusChange,
-  onBulkStatusChange,
-  onNotesChange,
-  savingStatuses,
+  handleBatchUpdateApplicationReviews,
   prioritizeVeterans,
+  handleUpdateReview,
   portal,
 }: ReviewCategoryProps): React.ReactElement | null => {
   const intl = useIntl();
@@ -115,8 +107,14 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
   }
 
   const screenOutAll = (): void => {
-    const applicationIds = applications.map((application) => application.id);
-    onBulkStatusChange(applicationIds, ReviewStatusId.ScreenedOut);
+    const screenedOutApplications = applications.map(
+      (application) =>
+        ({
+          ...application.application_review,
+          review_status_id: ReviewStatusId.ScreenedOut,
+        } as ApplicationReview),
+    );
+    handleBatchUpdateApplicationReviews(screenedOutApplications);
   };
 
   const handleScreenOutAllClick = (): void => {
@@ -223,10 +221,7 @@ const ReviewCategory: React.StatelessComponent<ReviewCategoryProps> = ({
         <ApplicantBucket
           key={bucket.id}
           {...bucket}
-          reviewStatusOptions={reviewStatusOptions}
-          onStatusChange={onStatusChange}
-          onNotesChange={onNotesChange}
-          savingStatuses={savingStatuses}
+          handleUpdateReview={handleUpdateReview}
           prioritizeVeterans={prioritizeVeterans}
           portal={portal}
         />

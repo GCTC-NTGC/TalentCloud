@@ -1,7 +1,7 @@
-/* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React from "react";
 import ReactDOM from "react-dom";
 import InfoModal from "../InfoModal";
+import keyFromString from "../../helpers/components";
 
 interface SkillsInfoModalProps {
   /** HTML ID for modal attributes */
@@ -34,7 +34,11 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
       <div className="modal-info__wrapper">
         {Object.values(subtext).map(
           (item: string): React.ReactElement => {
-            return <p className="modal-info__subtext">{item}</p>;
+            return (
+              <p key={keyFromString(item)} className="modal-info__subtext">
+                {item}
+              </p>
+            );
           },
         )}
         <div className="modal-info__list-wrapper">
@@ -49,7 +53,7 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
                     {Object.values(exampleList.examples).map(
                       (example: any): React.ReactElement => {
                         return (
-                          <li>
+                          <li key={keyFromString(example.content)}>
                             <p className="list-item__title">
                               {i === 0 ? (
                                 <i className="far fa-check-circle" />
@@ -62,7 +66,12 @@ const SkillsInfoModal: React.FunctionComponent<SkillsInfoModalProps> = ({
                               Object.values(example.content).map(
                                 (item: string): React.ReactElement => {
                                   return (
-                                    <p className="list-item__content">{item}</p>
+                                    <p
+                                      key={keyFromString(item)}
+                                      className="list-item__content"
+                                    >
+                                      {item}
+                                    </p>
                                   );
                                 },
                               )
