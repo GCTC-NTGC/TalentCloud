@@ -24,6 +24,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         // Pass App locale to all views.
         View::share('appLocale', App::getLocale());
 
+        // Pass User Agent Internet Explorer to all views.
+        View::share('is_internet_explorer', detectInternetExplorer());
+
         // Governement of Canada header bar.
         View::composer(
             ['common/goc', 'common/header', 'response/header'],
