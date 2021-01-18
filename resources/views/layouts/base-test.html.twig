@@ -17,6 +17,11 @@
         {% include "common/goc" %}
         {# Beta Alert Banner #}
         {% include "common/alert" %}
+        {# IE Banner and Dialog #}
+		{% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+			{% include "common/h2-ie-banner" %}
+			{% include "common/h2-ie-dialog" %}
+		{% endif %}
         {# Page Header #}
         {% block header %}{% endblock %}
         {# Skip to Content Link #}

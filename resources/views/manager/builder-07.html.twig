@@ -1,6 +1,6 @@
 <!-- UPDATE 06-26 -->
 <!-- This step is obsolete, as it's been moved to Job Info. -->
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 
 {% block title %}
 
@@ -11,8 +11,11 @@
 {% block body %}
 
     {% include "common/goc" %}
-{% include "common/alert" %}
-
+    {% include "common/alert" %}
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     <div data-clone>
         <div data-c-background="white(100)">
             <!-- Heading (see step 00 for info) -->

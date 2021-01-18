@@ -4,13 +4,17 @@
     Manager: Home
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 {% block title %}
     {{ home_l10n.home_title }}
 {% endblock %}
 {% block body %}
     {% include "common/goc" %}
     {% include "common/alert" %}
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     {# {% include "common/home/hero" %} #}
     <div data-clone>
         <div data-c-background="white(100)">

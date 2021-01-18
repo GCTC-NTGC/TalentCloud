@@ -4,12 +4,16 @@
     Static: Terms of Service
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 {% block title %}{{ tos.tos_title }}{% endblock %}
 {% block body %}
 
     {% include "common/goc" %}
     {% include "common/alert" %}
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     {% include "common/header" with {'header':tos} %}
 
     {# Terms of Service #}

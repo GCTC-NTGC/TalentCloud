@@ -4,15 +4,17 @@
     Account Settings
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 {% block title %}
     {{ settings.title }}
 {% endblock %}
 {% block body %}
-    {# FIP Banner #}
     {% include "common/goc" %}
-    {# BETA Alert Banner #}
     {% include "common/alert" %}
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     {# Page Header #}
     {% include "common/header" with {"header": settings} %}
 	<div data-clone>

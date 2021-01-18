@@ -4,7 +4,7 @@
     Review Applicants
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 {% block title %}
 	{{ jobs_l10n.review_applicants }}:
 	{{ job.title }}
@@ -12,7 +12,10 @@
 {% block body %}
 	{% include "common/goc" %}
     {% include "common/alert" %}
-
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':jobs_l10n.review_applicants, ':job':job.title}) }} %}
 
     <a id="skipLink"></a>

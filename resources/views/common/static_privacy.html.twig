@@ -4,12 +4,16 @@
     Static: Privacy Policy
 
 ============================================================================= #}
-{% extends "layouts/base" %}
+{% extends "layouts/base-h2" %}
 {% block title %}{{ privacy.privacy_title }}{% endblock %}
 {% block body %}
 
     {% include "common/goc" %}
     {% include "common/alert" %}
+    {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
+        {% include "common/h2-ie-banner" %}
+        {% include "common/h2-ie-dialog" %}
+    {% endif %}
     {% include "common/header" with {'header':privacy} %}
 
     {# Privacy Policy #}
