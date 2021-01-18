@@ -33,7 +33,6 @@ interface SearchBarProps {
 }
 
 interface SearchBarValues {
-  locale: string;
   search: string;
 }
 
@@ -45,7 +44,6 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const initialValues: SearchBarValues = {
-    locale,
     search: "",
   };
   const validationSchema = Yup.object().shape({
@@ -62,7 +60,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values, { setStatus, setSubmitting }) => {
-          await handleSubmit(values.locale, values.search)
+          await handleSubmit(locale, values.search)
             .then((searchMatches) => {
               setStatus("submitted");
               setResults(searchMatches);
