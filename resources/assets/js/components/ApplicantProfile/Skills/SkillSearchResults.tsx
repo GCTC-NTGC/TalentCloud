@@ -54,7 +54,7 @@ const SkillSearchResultItem: React.FunctionComponent<SkillSearchResultItemProps>
 }: SkillSearchResultItemProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const [added, setAdded] = React.useState(false);
+  const [added, setAdded] = React.useState(false); // This is needed in order to show different UI if an item has just recently been added versus having been added in the past (isChecked).
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   return (
