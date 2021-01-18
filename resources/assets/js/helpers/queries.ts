@@ -110,9 +110,9 @@ export function mapObjectValues<A, B>(
   );
 }
 
-interface IndexedObject<T> {
+type IndexedObject<T> = {
   [key: string]: T;
-}
+};
 
 /**
  * Maps an array of items into an object, with each transformed into an attribute
@@ -226,4 +226,13 @@ export function removeDuplicatesById<T extends { id: number }>(
     return result;
   };
   return items.reduce(reducer, { contents: [], ids: [] }).contents;
+}
+
+/**
+ * Decrement the number if it above zero, else return 0.
+ * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
+ * @param num
+ */
+export function decrement(num: number): number {
+  return num <= 0 ? 0 : num - 1;
 }
