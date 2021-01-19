@@ -1033,7 +1033,7 @@
   "results.accordion.add": "Ajouter",
   "results.accordion.added": "Added!",
   "results.accordion.expand": "Cliquez pour voir...",
-  "results.empty": "Nothing found",
+  "results.empty": "No skills match your search term. Please try searching for a different skill.",
   "results.title": "Résultats",
   "review.applications.alert.oops": "Enregistrer",
   "review.applications.applicationsAfterClosed": "Applications pour : {jobTitle} {jobClassification}",

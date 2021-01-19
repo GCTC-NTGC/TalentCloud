@@ -12,7 +12,8 @@ const resultMessages = defineMessages({
   },
   resultEmpty: {
     id: "results.empty",
-    defaultMessage: "Nothing found",
+    defaultMessage:
+      "No skills match your search term. Please try searching for a different skill.",
     description: "The message displayed if no results returned.",
   },
   resultAccordionExpand: {
