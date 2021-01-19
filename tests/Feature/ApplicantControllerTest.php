@@ -49,7 +49,7 @@ class ApplicantControllerTest extends TestCase
     public function testUpdateProfile(): void
     {
         $applicant = factory(Applicant::class)->create();
-        $applicant->applicant_classifications()->delete();
+        $applicant->applicant_classifications()->delete(); // Start with empty list.
 
         // Ensure that submitting applicant classifications creates new elements.
         $newApplicantClassification = [

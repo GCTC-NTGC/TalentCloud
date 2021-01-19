@@ -38,34 +38,44 @@ class ApplicantController extends Controller
         if (!array_key_exists('applicant_classifications', $validatedRequest)) {
             $applicant->applicant_classifications()->delete();
         } else {
-            $newApplicantClassifications = collect($validatedRequest['applicant_classifications']);
+            $newApplicantClassifications = collect($validatedRequest['applicant_classifications'])->unique(
+                // Remove all duplicate classification-level combinations from the collection.
+                function ($newApplicantClassification) {
+                    return $newApplicantClassification['classification_id'].$newApplicantClassification['level'];
+                }
+            );
             $oldApplicantClassifications = $applicant->applicant_classifications;
 
             // Delete old applicant classifications that were not resubmitted.
-            foreach ($oldApplicantClassifications as $applicantClassification) {
+            foreach ($oldApplicantClassifications as $oldApplicantClassification) {
                 $newApplicantClassification = $newApplicantClassifications->firstWhere(
                     'id',
-                    $applicantClassification['id']
+                    $oldApplicantClassification['id']
                 );
-                if (!$newApplicantClassification) {
-                    $applicantClassification->delete();
+                if ($newApplicantClassification === null) {
+                    $oldApplicantClassification->delete();
                 }
             }
 
 
             // Update old applicant classifications and/or create them if it doesn't exist.
-            // This should remove any duplicate classification-level combinations as well.
-            $newApplicantClassifications->map(function ($applicantClassification) {
-                $newApplicantClassification = ApplicantClassification::firstOrNew(
-                    [
-                        'classification_id' => $applicantClassification['classification_id'],
-                        'level' => $applicantClassification['level']
-                    ]
+            $newApplicantClassifications->map(function ($newApplicantClassification) use ($oldApplicantClassifications) {
+                $oldApplicantClassification = $oldApplicantClassifications->firstWhere(
+                    'id',
+                    $newApplicantClassification['id']
                 );
-                $newApplicantClassification->applicant_id = $applicantClassification['applicant_id'];
-                $newApplicantClassification->classification_id = $applicantClassification['classification_id'];
-                $newApplicantClassification->fill($applicantClassification);
-                $newApplicantClassification->save();
+                if ($oldApplicantClassification) {
+                    $oldApplicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
+                    $oldApplicantClassification->classification_id = $newApplicantClassification['classification_id'];
+                    $oldApplicantClassification->fill($newApplicantClassification);
+                    $oldApplicantClassification->save();
+                } else {
+                    $applicantClassification = new ApplicantClassification();
+                    $applicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
+                    $applicantClassification->classification_id = $newApplicantClassification['classification_id'];
+                    $applicantClassification->fill($newApplicantClassification);
+                    $applicantClassification->save();
+                }
             });
         }
 
