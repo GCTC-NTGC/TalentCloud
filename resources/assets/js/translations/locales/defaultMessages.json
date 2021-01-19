@@ -1719,6 +1719,126 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Talent cloud priority logo",
+        "description": "Title for Priority Logo Img",
+        "id": "application.review.priorityStatus.priorityLogoTitle"
+      },
+      {
+        "defaultMessage": "Priority",
+        "description": "Priority",
+        "id": "application.review.priorityStatus.priority"
+      },
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "application.review.veteranStatus.veteranLogoAlt"
+      },
+      {
+        "defaultMessage": "Veteran",
+        "description": "Veteran",
+        "id": "application.review.veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "application.review.emailCandidateLinkTitle"
+      },
+      {
+        "defaultMessage": "View Application",
+        "description": "Button text View Application",
+        "id": "application.review.viewApplication"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "application.review.viewApplicationLinkTitle"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Button text View Profile",
+        "id": "application.review.viewProfile"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "application.review.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "application.review.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "application.review.reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "application.review.button.cancel"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "application.review.button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate warning",
+        "id": "application.review.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "application.review.screenInConfirm"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationRow.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Under Consideration",
         "description": "Under consideration category title",
         "id": "review.applications.underConsideration.title"
@@ -5535,6 +5655,21 @@
         "defaultMessage": "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
         "description": "Descriptive text for the 'Does Not Qualify' response screening bucket.",
         "id": "responseScreening.buckets.doesNotQualify.description"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Select option text for the 'Screened Out' review status.",
+        "id": "reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Select option text for the 'Still Thinking' review status.",
+        "id": "reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Select option text for the 'Still In' review status.",
+        "id": "reviewStatus.stillIn"
       },
       {
         "defaultMessage": "Does Not Qualify",

@@ -32,9 +32,9 @@
 			{# Skip to Content Link #}
 			<a id="skipLink"></a>
 			{# CTA Statement Banner ========================================= #}
-			<div class="gradient-left-right" data-c-padding="tb(1)">
+			<div data-c-padding="tb(1)">
 				<div data-c-align="base(center)" data-c-container="large">
-					<p data-c-colour="white">{{ home.slogan.copy }}
+					<p data-c-colour="c2">{{ home.slogan.copy }}
 						<a href="{{ home.slogan.link.href }}" title="{{ home.slogan.link.title }}">{{ home.slogan.link.label }}</a>.
 					</p>
 				</div>
@@ -59,6 +59,63 @@
 					</div>
 				</div>
 			{% endif %}
+      {# Results Summary #}
+      <section
+        class="gradient-left-right"
+        data-c-align="center"
+        data-c-padding="tb(3)"
+        style="position: relative;">
+        <img
+          alt=""
+          src="{{ asset("/images/results-texture.png") }}"
+          style="position: absolute; bottom: 0; left: 0; min-width: 100%" />
+        <div data-c-container="medium">
+          <h2
+            data-c-color="white"
+            data-c-font-size="h2">{{ home.results.title }}</h2>
+          <p
+            data-c-color="white"
+            data-c-margin="tb(1)">{{ home.results.checkback }}!</p>
+          <p
+            data-c-color="white"
+            data-c-margin="tb(1)">{{ home.results.intro }}</p>
+          <div
+            data-c-accordion-group
+            data-c-align="left">
+              {% for section in home.results.sections %}
+                <div
+                  data-c-accordion
+                  data-c-background="white(100)"
+                  data-c-card
+                  data-c-margin="top(.5)"
+                  data-c-radius="rounded">
+                    <button
+                      aria-expanded="false"
+                      data-c-accordion-trigger tabindex="0"
+                      type="button">
+                        <div data-c-padding="all(1)">
+                            <p
+                              data-c-font-weight="bold"
+                              data-c-font-style="underline">{{ section.title }}</p>
+                        </div>
+                        <span data-c-visibility="invisible">Click to view...</span>
+                        <i aria-hidden="true" data-c-accordion-add data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">+</i>
+                        <i aria-hidden="true" data-c-accordion-remove data-c-colour="c1" data-c-font-size="h3" data-c-font-weight="bold">-</i>
+                    </button>
+                    <div aria-hidden="true" data-c-accordion-content data-c-padding="rl(1)">
+                        <div data-c-padding="bottom(1)">
+                            <ul>
+                              {% for item in section.items %}
+                                <li>{{ item }}</li>
+                              {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+          </div>
+        </div>
+      </section>
 			{# Browse Jobs ================================================== #}
 			<section class="home-browse" data-c-background="white(100)" data-c-padding="tb(3)" data-c-border="bottom(thin, solid, grey)">
 				{% if christmas_time %}

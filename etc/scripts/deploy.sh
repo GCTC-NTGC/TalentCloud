@@ -51,8 +51,9 @@ echo "Moving contents of $SRC to app directory...";
 sudo mv $SRC/* $APP_DIR/;
 
 echo "Moving old Storage files back into new app directory...";
+sudo rm -rf $APP_DIR/storage/*;
 sudo mv ./storage_backup/* $APP_DIR/storage;
-sudo rm ./storage_backup;
+sudo rm -rf ./storage_backup;
 
 echo "Deleting empty src directory...";
 sudo rm -R $SRC;

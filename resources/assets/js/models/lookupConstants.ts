@@ -24,6 +24,11 @@ export enum ReviewStatusId {
 
 export type ReviewStatusName = "screened_out" | "still_thinking" | "still_in";
 
+export type ReviewStatus = {
+  id: ReviewStatusId;
+  name: ReviewStatusName;
+};
+
 export enum ResponseReviewStatusId {
   ScreenedOut = 1,
   ReadyForReference = 4,

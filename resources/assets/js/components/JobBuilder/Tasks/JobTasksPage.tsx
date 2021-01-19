@@ -34,8 +34,9 @@ interface JobTasksPageProps {
   ) => Promise<JobPosterKeyTask[]>;
 }
 
-const JobTasksPage: React.FunctionComponent<JobTasksPageProps &
-  WrappedComponentProps> = ({
+const JobTasksPage: React.FunctionComponent<
+  JobTasksPageProps & WrappedComponentProps
+> = ({
   jobId,
   job,
   keyTasks,

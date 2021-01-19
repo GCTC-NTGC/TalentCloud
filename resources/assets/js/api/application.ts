@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
@@ -54,6 +53,9 @@ export const parseApplicationStep = (
   data: any,
 ): { [step in ApplicationStep]: ProgressBarStatus } => data;
 
+export const parseBatchApplicationReviews = (data: any): ApplicationReview[] =>
+  data.map(parseApplicationReview);
+
 export const getApplicationEndpoint = (id: number): string =>
   `${baseUrl(2)}/applications/${id}`;
 
@@ -83,3 +85,6 @@ export const getTouchApplicationStepEndpoint = (
   stepId: number,
 ): string =>
   `${getApplicationEndpoint(applicationId)}/job-application-steps/${stepId}`;
+
+export const getBatchUpdateApplicationReviewsEndpoint = (): string =>
+  `${baseUrl(2)}/application-reviews/batch-update`;
