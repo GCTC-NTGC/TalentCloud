@@ -1,4 +1,3 @@
-/* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import nprogress from "nprogress";
@@ -518,6 +517,8 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                   data-c-border="all(thin, solid, c1)"
                   data-c-colour="c1"
                   data-c-font-size="small"
+                  data-c-display="inline-block"
+                  data-c-alignment="center"
                 >
                   {intl.formatMessage(getSkillLevelName(criterion, skill))}
                 </span>

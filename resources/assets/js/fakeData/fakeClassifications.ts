@@ -10,14 +10,17 @@ export const fakeClassification1 = (): Classification => ({
 });
 
 export const fakeClassification2 = (): Classification => ({
-    id: 7,
-    key: "EX",
-    name: {
-      en: "Executive",
-      fr: "",
-    },
-  });
+  id: 7,
+  key: "EX",
+  name: {
+    en: "Executive",
+    fr: "",
+  },
+});
 
-  export const fakeClassifications = (): Classification[] => [fakeClassification1(), fakeClassification2()];
+export const fakeClassifications = (): Classification[] => [
+  fakeClassification1(),
+  fakeClassification2(),
+];
 
-  export default fakeClassifications;
+export default fakeClassifications;

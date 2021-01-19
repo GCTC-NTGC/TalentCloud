@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";

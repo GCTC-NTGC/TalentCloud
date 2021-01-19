@@ -1,5 +1,5 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
-import React, { useEffect, useMemo } from "react";
+/* eslint camelcase: "off" */
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import RootContainer from "../../RootContainer";
@@ -32,7 +32,6 @@ import {
 } from "../../../store/Application/applicationSelector";
 import { RootState } from "../../../store/store";
 import { getDepartments } from "../../../store/Department/deptSelector";
-import { fakeReferenceEmail } from "../../../fakeData/fakeApplications";
 import { hasKey } from "../../../helpers/queries";
 
 interface ResponseScreeningPageProps {

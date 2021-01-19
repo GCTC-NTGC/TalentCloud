@@ -97,6 +97,8 @@ class JobPolicy extends BasePolicy
      */
     public function reviewApplicationsFor(User $user, JobPoster $jobPoster)
     {
+        $user->loadMissing('user_role');
+        $jobPoster->loadMissing('manager.user');
         // Managers can only review applications their own jobs.
         // HR Advisors can review applications for jobs they manage.
         $authManager = $user->isManager() && $jobPoster->manager->user->id == $user->id;

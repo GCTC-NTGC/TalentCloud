@@ -26,7 +26,11 @@ import { getSkills } from "../../store/Skill/skillSelector";
 import { getRatingGuideQuestionsByJob } from "../../store/RatingGuideQuestion/ratingGuideQuestionSelectors";
 import { getRatingGuideAnswersByJob } from "../../store/RatingGuideAnswer/ratingGuideAnswerSelectors";
 import { copyElementContents } from "../../helpers/clipboard";
-import { Locales, getLocale, localizeFieldNonNull } from "../../helpers/localize";
+import {
+  Locales,
+  getLocale,
+  localizeFieldNonNull,
+} from "../../helpers/localize";
 
 export interface ClipboardTableRowProps {
   id: string;
@@ -80,7 +84,9 @@ export const clipboardData = (
                   criteriaType(narrativeCriterion.criteria_type_id),
                 ),
           skillName:
-            narrativeSkill === undefined ? "" : localizeFieldNonNull(locale, narrativeSkill, "name"),
+            narrativeSkill === undefined
+              ? ""
+              : localizeFieldNonNull(locale, narrativeSkill, "name"),
           skillDescription:
             narrativeSkill === undefined
               ? ""
@@ -150,7 +156,9 @@ export const clipboardData = (
             ? ""
             : formatMessage(criteriaType(criterionByAnswer.criteria_type_id)),
         skillName:
-          skillByCriterion === undefined ? "" : localizeFieldNonNull(locale, skillByCriterion, "name"),
+          skillByCriterion === undefined
+            ? ""
+            : localizeFieldNonNull(locale, skillByCriterion, "name"),
         skillDescription:
           skillByCriterion === undefined
             ? ""
@@ -249,8 +257,9 @@ interface TableProps {
   narrativeReview?: Assessment[];
 }
 
-const RatingGuideClipboard: React.FunctionComponent<TableProps &
-  WrappedComponentProps> = ({
+const RatingGuideClipboard: React.FunctionComponent<
+  TableProps & WrappedComponentProps
+> = ({
   assessments,
   criteria,
   skills,

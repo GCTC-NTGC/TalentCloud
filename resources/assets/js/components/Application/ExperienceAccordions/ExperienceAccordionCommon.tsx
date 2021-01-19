@@ -244,6 +244,7 @@ export const ExperienceAccordionButtons: React.FC<ExperienceAccordionButtonsProp
 };
 
 interface AccordionWrapperProps {
+  id?: string;
   title: ReactNode | string;
   subtitle: string;
   relatedSkillCount: number;
@@ -252,6 +253,7 @@ interface AccordionWrapperProps {
 }
 
 export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
+  id,
   title,
   subtitle,
   relatedSkillCount,
@@ -267,7 +269,8 @@ export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
-      className={`${isExpanded && "active"}`}
+      className={isExpanded ? "active" : ""}
+      id={id}
     >
       <button
         tabIndex={0}
@@ -346,6 +349,7 @@ export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
 };
 
 interface ApplicationExperienceAccordionProps {
+  id?: string;
   title: ReactNode | string;
   subtitle: string;
   iconClass: string;
@@ -360,6 +364,7 @@ interface ApplicationExperienceAccordionProps {
 }
 
 export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccordionProps> = ({
+  id,
   title,
   subtitle,
   iconClass,
@@ -375,6 +380,7 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
 }) => {
   return (
     <ExperienceAccordionWrapper
+      id={id}
       title={title}
       subtitle={subtitle}
       relatedSkillCount={relevantSkills.length}
@@ -400,6 +406,7 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
 };
 
 interface ProfileExperienceAccordionProps {
+  id: string;
   title: ReactNode | string;
   subtitle: string;
   iconClass: string;
@@ -411,6 +418,7 @@ interface ProfileExperienceAccordionProps {
 }
 
 export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperienceAccordionProps> = ({
+  id,
   title,
   subtitle,
   iconClass,
@@ -423,6 +431,7 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
 }) => {
   return (
     <ExperienceAccordionWrapper
+      id={id}
       title={title}
       subtitle={subtitle}
       relatedSkillCount={relevantSkills.length}

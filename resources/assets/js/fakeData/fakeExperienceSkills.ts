@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { ExperienceSkill, Skill, Experience } from "../models/types";
