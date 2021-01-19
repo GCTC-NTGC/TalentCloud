@@ -155,7 +155,7 @@ export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps
   const intl = useIntl();
   React.useEffect((): void => {
     h2ComponentAccordionAddTriggerEvent();
-  }, [results]);
+  });
 
   return (
     <div data-h2-grid="b(middle, contained, padded, .25)">
