@@ -34,10 +34,13 @@ import {
   getJobApplicationAnswers,
   getJobApplicationSteps,
   getStepsAreUpdating,
+  getApplicationsByJob,
+  isFetchingApplications,
 } from "../store/Application/applicationSelector";
 import {
   fetchApplication,
   touchApplicationStep,
+  fetchApplicationsForJob,
 } from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
@@ -348,7 +351,29 @@ export function useFetchApplication(
 }
 
 /**
- * Return an Job from the redux store, and fetch it from backend if it is not yet in the store.
+ * Return an array of Applications related to a given Job ID from the redux store.
+ * Fetch them from the backend if they are not yet in the store.
+ * @param jobId
+ * @param dispatch
+ */
+export function useFetchApplicationsByJob(
+  jobId: number,
+  dispatch: DispatchType,
+): Application[] | null {
+  const applications = useSelector((state: RootState) =>
+    getApplicationsByJob(state, { jobId }),
+  );
+  const applicationsAreFetching = useSelector(isFetchingApplications);
+  useEffect(() => {
+    if (applications.length === 0 && !applicationsAreFetching) {
+      dispatch(fetchApplicationsForJob(jobId));
+    }
+  }, [applications, jobId, applicationsAreFetching, dispatch]);
+  return applications;
+}
+
+/**
+ * Return a Job from the redux store, and fetch it from backend if it is not yet in the store.
  * @param jobId
  * @param dispatch
  */
@@ -370,7 +395,7 @@ export function useFetchJob(
 }
 
 /**
- * Return all Experience relavant to an Application from the redux store, and fetch it from backend if it is not yet in the store.
+ * Return all Experience relevant to an Application from the redux store, and fetch it from backend if it is not yet in the store.
  * @param applicationId
  * @param application
  * @param dispatch

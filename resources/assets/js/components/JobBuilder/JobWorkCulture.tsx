@@ -31,8 +31,9 @@ const remoteWorkMessages = defineMessages({
   },
 });
 
-export const JobWorkCulture: React.FunctionComponent<JobWorkCultureProps &
-  WrappedComponentProps> = ({ job, intl }): React.ReactElement => {
+export const JobWorkCulture: React.FunctionComponent<
+  JobWorkCultureProps & WrappedComponentProps
+> = ({ job, intl }): React.ReactElement => {
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unknown intl.locale");

@@ -15,7 +15,8 @@ type Category = "primary" | "optional" | "screened-out";
  *
  */
 export function applicationBucket(application: Application): Bucket {
-  if (!application.meets_essential_criteria) {
+  // TODO: Un-hardcode the application version ID.
+  if (!application.meets_essential_criteria && application.version_id === 1) {
     if (application.citizenship_declaration.name !== "citizen") {
       return "non-citizen";
     }

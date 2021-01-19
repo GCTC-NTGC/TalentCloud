@@ -190,7 +190,6 @@ const experienceTypeGuards = {
 };
 
 function massageType(experienceType: Experience["type"]): EntityType {
-  /* eslint-disable @typescript-eslint/camelcase */
   const mapping: { [key in Experience["type"]]: EntityType } = {
     experience_work: "work",
     experience_education: "education",
@@ -198,7 +197,6 @@ function massageType(experienceType: Experience["type"]): EntityType {
     experience_award: "award",
     experience_personal: "personal",
   };
-  /* eslint-enable @typescript-eslint/camelcase */
   return mapping[experienceType];
 }
 
@@ -375,7 +373,6 @@ function setExperienceSkills(
   };
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 const experienceSkillKeys = {
   experience_work: "idsByWork",
   experience_education: "idsByEducation",
@@ -383,7 +380,6 @@ const experienceSkillKeys = {
   experience_award: "idsByAward",
   experience_personal: "idsByPersonal",
 };
-/* eslint-enable @typescript-eslint/camelcase */
 
 function deleteExpSkillsForExperience(
   state: EntityState,

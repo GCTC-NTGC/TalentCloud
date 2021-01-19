@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useRef } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import * as Yup from "yup";
