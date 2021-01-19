@@ -10,9 +10,10 @@ import {
   fakeSkill5,
   fakeSkill6,
 } from "../../../fakeData/fakeSkills";
-import { Skill, SkillSearchResult } from "../../../models/types";
+import { Skill } from "../../../models/types";
 import SkillSearchBar from "../../../components/ApplicantProfile/Skills/SkillSearchBar";
 import { matchStringsCaseDiacriticInsensitive } from "../../../helpers/localize";
+import { SkillSearchResult } from "../../../components/ApplicantProfile/Skills/SkillSearchResults";
 
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
