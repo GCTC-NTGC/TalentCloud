@@ -2,11 +2,11 @@ import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages } from "react-intl";
-import SkillSearchResults from "./SkillSearchResults";
+import SkillSearchResults, { SkillSearchResult } from "./SkillSearchResults";
 import { validationMessages } from "../../Form/Messages";
 import { getLocale } from "../../../helpers/localize";
 import TextInput from "../../Form/TextInput";
-import { Skill, SkillSearchResult } from "../../../models/types";
+import { Skill } from "../../../models/types";
 
 const formMessages = defineMessages({
   searchLabel: {
