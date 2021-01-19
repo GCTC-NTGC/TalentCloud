@@ -84,7 +84,6 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                     type="search"
                     name="search"
                     component={TextInput}
-                    required
                     label={intl.formatMessage(formMessages.searchLabel)}
                     placeholder={intl.formatMessage(
                       formMessages.searchPlaceholder,
