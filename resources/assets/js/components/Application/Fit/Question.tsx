@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
@@ -75,6 +74,7 @@ const Question: React.FunctionComponent<QuestionProps> = ({
 
   return (
     <Formik
+      enableReinitialize
       innerRef={formRef}
       initialValues={initialValues}
       validationSchema={validationSchema}

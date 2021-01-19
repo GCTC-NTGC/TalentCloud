@@ -174,7 +174,6 @@ const mapStateToProps = (
   manager: getSelectedManager(state),
   departments: getDepartments(state),
   user: getUserById(state, {
-    // eslint-disable-next-line camelcase, @typescript-eslint/camelcase
     userId: getSelectedManager(state)?.user_id || 0,
   }),
   keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],

@@ -52,10 +52,7 @@ export const jobBuilderIntroProgressState = (
   return job && isJobBuilderIntroComplete(job) ? "complete" : "error";
 };
 
-const jobDetailsValues = (
-  job: Job,
-  locale: Locales,
-) => [
+const jobDetailsValues = (job: Job, locale: Locales) => [
   job.term_qty,
   job.classification_id,
   job.classification_level,
@@ -106,10 +103,7 @@ export const jobBuilderDetailsProgressState = (
   return job && isJobBuilderDetailsComplete(job, locale) ? "complete" : "error";
 };
 
-const jobEnvValues = (
-  job: Job,
-  locale: Locales,
-) => [
+const jobEnvValues = (job: Job, locale: Locales) => [
   job.team_size,
   job.fast_vs_steady,
   job.horizontal_vs_vertical,

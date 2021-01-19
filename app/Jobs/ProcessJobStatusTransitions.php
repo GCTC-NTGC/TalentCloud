@@ -41,7 +41,7 @@ class ProcessJobStatusTransitions implements ShouldQueue
             ->where('open_date_time', '<=', $now)->get();
 
         // We want to call save on each model individually instead of doing a mass update in order to trigger
-        // any events that may be listening for eloquent model udpates.
+        // any events that may be listening for eloquent model updates.
         foreach ($jobsReadyForLive as $job) {
             $job->job_poster_status_id = $live->id;
             $job->save();

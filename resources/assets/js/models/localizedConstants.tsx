@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import { defineMessages, MessageDescriptor, IntlShape } from "react-intl";
 import {
   AssessmentTypeId,
@@ -15,9 +15,10 @@ import {
   FrequencyId,
   OvertimeRequirementId,
   TravelRequirementId,
-  ClassificationId,
   LocationId,
   ResponseScreeningBuckets as ResponseBuckets,
+  ReviewStatusId,
+  ReviewStatusName,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 import { Experience } from "./types";
@@ -744,93 +745,6 @@ export const travelRequirementDescription = (
     "invalid TravelRequirementId",
   );
 
-export const classificationCodes = defineMessages({
-  [ClassificationId.AS]: {
-    id: "jobBuilder.details.classificationOptions.AS",
-    defaultMessage: "AS - Administrative Services",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.BI]: {
-    id: "jobBuilder.details.classificationOptions.BI",
-    defaultMessage: "BI - Biological Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.CO]: {
-    id: "jobBuilder.details.classificationOptions.CO",
-    defaultMessage: "CO - Commerce",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.CR]: {
-    id: "jobBuilder.details.classificationOptions.CR",
-    defaultMessage: "CR - Clerical and Regulatory",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.CS]: {
-    id: "jobBuilder.details.classificationOptions.CS",
-    defaultMessage: "CS - Computer Systems",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.EC]: {
-    id: "jobBuilder.details.classificationOptions.EC",
-    defaultMessage: "EC - Economics and Social Science Services",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.EX]: {
-    id: "jobBuilder.details.classificationOptions.EX",
-    defaultMessage: "EX - Executive",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.FO]: {
-    id: "jobBuilder.details.classificationOptions.FO",
-    defaultMessage: "FO - Forestry",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.IS]: {
-    id: "jobBuilder.details.classificationOptions.IS",
-    defaultMessage: "IS - Information Services",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.PC]: {
-    id: "jobBuilder.details.classificationOptions.PC",
-    defaultMessage: "PC - Physical Sciences",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.PE]: {
-    id: "jobBuilder.details.classificationOptions.PE",
-    defaultMessage: "PE - Personnel Administration",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.PM]: {
-    id: "jobBuilder.details.classificationOptions.PM",
-    defaultMessage: "PM - Programme Administration",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.AD]: {
-    id: "jobBuilder.details.classificationOptions.AD",
-    defaultMessage: "AD - Administrative Services",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId["EN-ENG"]]: {
-    id: "jobBuilder.details.classificationOptions.EN-ENG",
-    defaultMessage: "EN-ENG - Engineering",
-    description: "Job Classification from list of Classifications",
-  },
-  [ClassificationId.FI]: {
-    id: "jobBuilder.details.classificationOptions.FI",
-    defaultMessage: "FI - Financial Management",
-    description: "Job Classification from list of Classifications",
-  },
-});
-
-export const classificationCodeOption = (
-  classificationId: number,
-): MessageDescriptor =>
-  getOrThrowError(
-    classificationCodes,
-    classificationId,
-    "invalid ClassificationId",
-  );
-
 export const generalLocations = defineMessages({
   [LocationId.jobGeneric]: {
     id: "activityfeed.locations.review",
@@ -1080,6 +994,41 @@ export const ResponseScreeningBuckets = {
         "Descriptive text for the 'Does Not Qualify' response screening bucket.",
     },
   }),
+};
+
+export const ReviewStatusMessages = defineMessages({
+  screened_out: {
+    id: "reviewStatus.screenedOut",
+    defaultMessage: "Screened Out",
+    description: "Select option text for the 'Screened Out' review status.",
+  },
+  still_thinking: {
+    id: "reviewStatus.stillThinking",
+    defaultMessage: "Still Thinking",
+    description: "Select option text for the 'Still Thinking' review status.",
+  },
+  still_in: {
+    id: "reviewStatus.stillIn",
+    defaultMessage: "Still In",
+    description: "Select option text for the 'Still In' review status.",
+  },
+});
+
+export const ReviewStatuses: {
+  [key in ReviewStatusName]: { id: ReviewStatusId; name: MessageDescriptor };
+} = {
+  screened_out: {
+    id: ReviewStatusId.ScreenedOut,
+    name: ReviewStatusMessages.screened_out,
+  },
+  still_thinking: {
+    id: ReviewStatusId.StillThinking,
+    name: ReviewStatusMessages.still_thinking,
+  },
+  still_in: {
+    id: ReviewStatusId.StillIn,
+    name: ReviewStatusMessages.still_in,
+  },
 };
 
 export const ResponseReviewStatusMessages = defineMessages({

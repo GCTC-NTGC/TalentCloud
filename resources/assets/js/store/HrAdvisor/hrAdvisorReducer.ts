@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { combineReducers } from "redux";
+import uniq from "lodash/uniq";
 import { HrAdvisor } from "../../models/types";
 import {
   HrAdvisorAction,
@@ -13,8 +13,6 @@ import {
   UNCLAIM_JOB_SUCCEEDED,
   UNCLAIM_JOB_FAILED,
 } from "./hrAdvisorActions";
-
-import uniq from "lodash/uniq";
 
 export interface EntityState {
   hrAdvisors: {
@@ -60,7 +58,7 @@ const addClaimedJob = (advisor: HrAdvisor, jobId: number): HrAdvisor => ({
 
 const removeClaimedJob = (advisor: HrAdvisor, jobId: number): HrAdvisor => ({
   ...advisor,
-  claimed_job_ids: advisor.claimed_job_ids.filter(id => id !== jobId),
+  claimed_job_ids: advisor.claimed_job_ids.filter((id) => id !== jobId),
 });
 
 export const entitiesReducer = (

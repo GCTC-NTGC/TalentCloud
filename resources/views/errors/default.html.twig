@@ -1,15 +1,25 @@
 {% extends "layouts/base" %}
 {% block title %}
-	{{ error.title }}
+	{{ exception.getStatusCode() }} - {{ error.title }}
 {% endblock %}
 {% block body %}
-	{% include "common/header" with {"header": error, "hide_breadcrumbs": true} %}
-	<section class="error">
+	{% include "common/header" with {"header": { "title" : exception.getStatusCode() ~ ' - ' ~ error.title }, "hide_breadcrumbs": true} %}
+	<section class="error-default">
 		<div class="container--copy">
 			<h2>
-				{{ exception.getStatusCode() }}
+				{{ error.header }}
 			</h2>
-			{% block error %}{% endblock %}
+			<p>
+				{{ error.paragraph1 }}
+			</p>
+			<ul>
+				{% for link in error.links %}
+					<li><a href="/{{ appLocale }}{{ link.url }}">{{ link.title }}</a></li>
+				{% endfor %}
+			</ul>
+			<p>
+				{{ error.paragraph2|replace({"%link0%": section.links[0] })|raw|nl2br }}
+			</p>
 		</div>
 	</section>
 {% endblock %}

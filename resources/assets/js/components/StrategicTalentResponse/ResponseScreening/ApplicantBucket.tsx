@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React, { useState, useRef } from "react";
 import { defineMessages, useIntl, FormattedMessage } from "react-intl";
 import { FastField, Formik, Form } from "formik";

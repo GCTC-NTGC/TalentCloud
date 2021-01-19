@@ -6,14 +6,14 @@
         "jest": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
         "airbnb",
-        "plugin:prettier/recommended",
         "prettier",
-        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended",
         "prettier/react",
-        "plugin:testcafe/recommended"
+        "prettier/@typescript-eslint",
+        "plugin:react/recommended",
+        "plugin:testcafe/recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -28,12 +28,15 @@
         "project": "./tsconfig.json"
     },
     "plugins": [
+        "prettier",
         "react",
-        "@typescript-eslint",
         "react-hooks",
-        "testcafe"
+        "testcafe",
+        "@typescript-eslint"
     ],
     "rules": {
+        "camelcase": "warn",
+        "consistent-return": "warn",
         "import/no-extraneous-dependencies": [
             "error",
             {
@@ -46,6 +49,7 @@
             "warn",
             "never"
         ],
+        "react/display-name": "off",
         "react/prop-types": "off",
         "react/jsx-filename-extension": [
             1,
@@ -57,6 +61,7 @@
             }
         ],
         "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
         "jsx-a11y/label-has-for": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
@@ -68,7 +73,6 @@
             }
         ],
         "no-param-reassign": "warn",
-        "@typescript-eslint/ban-ts-ignore": "warn",
         "jsx-a11y/no-noninteractive-element-to-interactive-role": [
             "error",
             {
@@ -106,7 +110,12 @@
                 ]
             }
         ],
-        "@typescript-eslint/no-empty-function": "warn"
+        "@typescript-eslint/no-empty-function": "warn",
+        "no-use-before-define": "off",
+        "@typescript-eslint/ban-types": "warn",
+        "@typescript-eslint/no-use-before-define": "warn",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error"
     },
     "settings": {
         "react": {

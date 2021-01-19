@@ -72,6 +72,14 @@ mix
     "resources/assets/js/components/Application/ApplicationRoot.tsx",
     "public/js",
   )
+  .ts(
+    "resources/assets/js/components/ApplicantProfile/ProfileExperiencePage.tsx",
+    "public/js",
+  )
+  .ts(
+    "resources/assets/js/components/Application/ApplicationPreviewRoot.tsx",
+    "public/js",
+  )
   .sass("resources/assets/sass/app.scss", "public/css", {
     implementation: sass,
     sassOptions: {
@@ -115,13 +123,13 @@ mix
     ],
   })
   .sass("resources/assets/sass/h2.scss", "public/css", {
-    implementation: dartSass,
+    implementation: dartSass
   })
   .options({
     processCssUrls: false,
     postCss: [
       autoprefixer({
-        browsers: ["last 3 versions", "> 1%"],
+        browsers: ['last 3 versions', '> 1%']
       }),
       cssnano({
         preset: [
@@ -141,7 +149,6 @@ mix.webpackConfig({
     alias: {
       "@": path.resolve(__dirname, "resources/assets/js"),
     },
-    mainFields: ["browser", "main", "module"],
   },
 });
 

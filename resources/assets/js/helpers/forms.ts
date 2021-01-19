@@ -15,6 +15,21 @@ export const focusOnElement = (elementId: string): void => {
 };
 
 /**
+ * Toggle accordion with given id.
+ * @param id
+ */
+export const toggleAccordion = (elementId: string): void => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.classList.toggle("active");
+    const { firstElementChild } = element;
+    if (firstElementChild) {
+      firstElementChild.setAttribute("aria-expanded", "true");
+    }
+  }
+};
+
+/**
  * Runs validation on all forms, then returns true if they are all valid.
  * TODO: Figure out how to focus the first (or last) invalid input, if any.
  * @param refs

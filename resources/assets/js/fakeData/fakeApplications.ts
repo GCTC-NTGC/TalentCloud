@@ -1,10 +1,18 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
+import { ApplicationStep, ProgressBarStatus } from "../models/lookupConstants";
 import {
   Application,
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  ReviewStatus,
 } from "../models/types";
+
+export const reviewStatuses: ReviewStatus[] = [
+  { id: 1, name: "screened_out" },
+  { id: 2, name: "still_thinking" },
+  { id: 3, name: "still_in" },
+];
 
 export const fakeApplicationReview = (
   overrides: Partial<ApplicationReview> = {},
@@ -43,6 +51,12 @@ export const fakeApplicationNormalized = (
   created_at: new Date("2020-01-01"),
   updated_at: new Date("2020-01-01"),
   share_with_managers: false,
+  language_requirement_confirmed: true,
+  language_test_confirmed: true,
+  education_requirement_confirmed: true,
+  version_id: 2,
+  user_email: null,
+  user_name: null,
   veteran_status: {
     id: 1,
     name: "none",
@@ -89,9 +103,6 @@ export const fakeApplicationNormalized = (
     },
   },
   meets_essential_criteria: true,
-  language_requirement_confirmed: true,
-  language_test_confirmed: true,
-  education_requirement_confirmed: true,
   ...overrides,
 });
 
@@ -142,10 +153,109 @@ export const fakeApplication3 = (
   });
 };
 
+export const fakeApplication4 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({
+    id: 4,
+    job_poster_id: 3,
+    applicant_id: 4,
+    applicant: {
+      ...fakeApplicationNormalized().applicant,
+      id: 4,
+      user: {
+        ...fakeApplicationNormalized().applicant.user,
+        first_name: "Brianne",
+        last_name: "Rice",
+        full_name: "Brianne Rice",
+        email: "Brianne.Rice@tbs-sct.gc.ca",
+        gov_email: "Brianne.Rice@tbs-sct.gc.ca",
+      },
+    },
+    application_review: {
+      ...fakeApplicationReview(),
+      id: 4,
+      job_application_id: 4,
+      review_status_id: reviewStatuses[1].id,
+      notes:
+        "Still considering this candidate pending completion of assessment.",
+      review_status: reviewStatuses[1],
+    },
+    ...overrides,
+  });
+};
+
+export const fakeApplication5 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({
+    id: 5,
+    job_poster_id: 3,
+    applicant_id: 5,
+    applicant: {
+      ...fakeApplicationNormalized().applicant,
+      id: 5,
+      user: {
+        ...fakeApplicationNormalized().applicant.user,
+        first_name: "Magnus",
+        last_name: "Bogan",
+        full_name: "Magnus Bogan",
+        email: "Magnus.Bogan@tbs-sct.gc.ca",
+        gov_email: "Magnus.Bogan@tbs-sct.gc.ca",
+      },
+    },
+    application_review: {
+      ...fakeApplicationReview(),
+      id: 5,
+      job_application_id: 5,
+      review_status_id: reviewStatuses[1].id,
+      notes:
+        "Still considering this candidate pending completion of assessment.",
+      review_status: reviewStatuses[1],
+    },
+    ...overrides,
+  });
+};
+
+export const fakeApplication6 = (
+  overrides: Partial<Application> = {},
+): Application => {
+  return fakeApplication({
+    id: 6,
+    job_poster_id: 3,
+    applicant_id: 6,
+    applicant: {
+      ...fakeApplicationNormalized().applicant,
+      id: 6,
+      user: {
+        ...fakeApplicationNormalized().applicant.user,
+        first_name: "Henriette",
+        last_name: "Brackus",
+        full_name: "Henriette Brackus",
+        email: "Henriette.Brackus@tbs-sct.gc.ca",
+        gov_email: "Henriette.Brackus@tbs-sct.gc.ca",
+      },
+    },
+    application_review: {
+      ...fakeApplicationReview(),
+      id: 6,
+      job_application_id: 6,
+      review_status_id: reviewStatuses[0].id,
+      notes:
+        "This candidate did not successfully complete the written assessment.",
+      review_status: reviewStatuses[0],
+    },
+    ...overrides,
+  });
+};
+
 export const fakeApplications = (): Application[] => [
   fakeApplication1(),
   fakeApplication2(),
   fakeApplication3(),
+  fakeApplication4(),
+  fakeApplication5(),
+  fakeApplication6(),
 ];
 
 const defaultEmailBody = `Dear *Name*:
@@ -226,6 +336,22 @@ export const fakeReferenceEmail = (overrides: Partial<Email>): Email => ({
   subject: "Reference Requested - GC Talent Reserve",
   body: defaultEmailBody,
   ...overrides,
+});
+
+export const fakeJobApplicationSteps = (
+  basic: ProgressBarStatus = "default",
+  experience: ProgressBarStatus = "default",
+  fit: ProgressBarStatus = "default",
+  skills: ProgressBarStatus = "default",
+  review: ProgressBarStatus = "default",
+  submission: ProgressBarStatus = "default",
+): { [step in ApplicationStep]: ProgressBarStatus } => ({
+  basic,
+  experience,
+  fit,
+  skills,
+  review,
+  submission,
 });
 
 export default fakeApplications;

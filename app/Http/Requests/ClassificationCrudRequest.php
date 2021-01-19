@@ -25,7 +25,7 @@ class ClassificationCrudRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'key' => 'required|between:2,6|alpha_dash|unique:classifications,key'
+            'key' => 'required|between:2,6|alpha_dash|unique:classifications,key' . (isset($this->id) ? ",{$this->id}" : '')
         ];
     }
 

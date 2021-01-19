@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -8,7 +7,7 @@ import { JobTasks } from "../../components/JobBuilder/Tasks/JobTasks";
 import { fakeJobTasks } from "../../fakeData/fakeJob";
 import { JobPosterKeyTask } from "../../models/types";
 
-const stories = storiesOf("Job Poster Builder|Tasks", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Tasks", module).addDecorator(
   withIntl,
 );
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import educationTypeReducer, {
   initEducationTypeState,
 } from "./educationTypeReducer";

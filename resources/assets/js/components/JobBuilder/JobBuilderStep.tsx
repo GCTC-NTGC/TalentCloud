@@ -1,128 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import nprogress from "nprogress";
-import {
-  Job,
-  JobPosterKeyTask,
-  Criteria,
-  Skill,
-  Department,
-} from "../../models/types";
+import { Job, JobPosterKeyTask, Criteria } from "../../models/types";
 import { JobBuilderPage } from "./jobBuilderHelpers";
-import {
-  getJob,
-  getTasksByJob,
-  getCriteriaByJob,
-} from "../../store/Job/jobSelector";
-import { getSkills } from "../../store/Skill/skillSelector";
 import { DispatchType } from "../../configureStore";
-import {
-  fetchJob,
-  fetchJobTasks,
-  fetchCriteria,
-  setSelectedJob,
-} from "../../store/Job/jobActions";
-import { fetchSkills } from "../../store/Skill/skillActions";
 import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
-import { getDepartments } from "../../store/Department/deptSelector";
-import { getDepartments as fetchDepartments } from "../../store/Department/deptActions";
-import { RootState } from "../../store/store";
+import {
+  useLoadCriteria,
+  useLoadDepartments,
+  useLoadClassifications,
+  useLoadJob,
+  useLoadSkills,
+  useLoadTasks,
+} from "../../hooks/jobBuilderHooks";
 
 interface JobBuilderStepProps {
   jobId: number | null;
   job: Job | null;
-  loadJob: (jobId: number) => Promise<void>;
   keyTasks: JobPosterKeyTask[];
-  loadTasks: (jobId: number) => Promise<void>;
   criteria: Criteria[];
-  loadCriteria: (jobId: number) => Promise<void>;
-  // List of known department options.
-  departments: Department[];
-  // This is called when departments is empty to fetch departments.
-  loadDepartments: () => Promise<void>;
-  skills: Skill[];
-  loadSkills: () => Promise<void>;
   currentPage: JobBuilderPage | null;
-  forceIsLoading?: boolean;
-  children: React.ReactNode;
+  dataIsLoading: boolean;
 }
 
 const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   jobId,
   job,
-  loadJob,
   keyTasks,
-  loadTasks,
   criteria,
-  loadCriteria,
-  loadSkills,
-  departments,
-  loadDepartments,
   currentPage,
-  forceIsLoading,
+  dataIsLoading,
   children,
 }): React.ReactElement => {
-  // Trigger fetching of job details
-  const [isLoadingJob, setIsLoadingJob] = useState(false);
-  useEffect((): (() => void) => {
-    let isSubscribed = true;
-    if (jobId) {
-      setIsLoadingJob(true);
-      loadJob(jobId).finally((): void => {
-        if (isSubscribed) {
-          setIsLoadingJob(false);
-        }
-      });
-    }
-    return (): void => {
-      isSubscribed = false;
-    };
-  }, [jobId, loadJob]);
-  const [isLoadingTasks, setIsLoadingTasks] = useState(false);
-  useEffect((): (() => void) => {
-    let isSubscribed = true;
-    if (jobId) {
-      setIsLoadingTasks(true);
-      loadTasks(jobId).finally((): void => {
-        if (isSubscribed) {
-          setIsLoadingTasks(false);
-        }
-      });
-    }
-    return (): void => {
-      isSubscribed = false;
-    };
-  }, [jobId, loadTasks]);
-  const [isLoadingCriteria, setIsLoadingCriteria] = useState(false);
-  useEffect((): (() => void) => {
-    let isSubscribed = true;
-    if (jobId) {
-      setIsLoadingCriteria(true);
-      loadCriteria(jobId).finally((): void => {
-        if (isSubscribed) {
-          setIsLoadingCriteria(false);
-        }
-      });
-    }
-    return (): void => {
-      isSubscribed = false;
-    };
-  }, [jobId, loadCriteria]);
-
-  const dataIsLoading =
-    forceIsLoading || isLoadingJob || isLoadingTasks || isLoadingCriteria;
-
-  // Trigger fetching of other resources needed for Job Builder
-  useEffect((): void => {
-    if (departments.length === 0) {
-      loadDepartments();
-    }
-  }, [departments, loadDepartments]);
-  useEffect((): void => {
-    loadSkills();
-  }, [loadSkills]);
-
   useEffect((): void => {
     if (jobId !== null && job === null) {
       nprogress.start();
@@ -168,53 +78,45 @@ const JobBuilderStep: React.FunctionComponent<JobBuilderStepProps> = ({
   );
 };
 
-const mapStateToProps = (
-  state: RootState,
-  { jobId }: { jobId: number | null },
-): {
-  job: Job | null;
-  keyTasks: JobPosterKeyTask[];
-  criteria: Criteria[];
-  skills: Skill[];
-  departments: Department[];
-} => ({
-  job: jobId !== null ? getJob(state, { jobId }) : null,
-  keyTasks: jobId !== null ? getTasksByJob(state, { jobId }) : [],
-  criteria: jobId !== null ? getCriteriaByJob(state, { jobId }) : [],
-  skills: getSkills(state),
-  departments: getDepartments(state),
-});
+export const JobBuilderStepContainer: FunctionComponent<{
+  jobId: number | null;
+  currentPage: JobBuilderPage | null;
+  forceIsLoading?: boolean;
+}> = ({ jobId, currentPage, forceIsLoading, children }) => {
+  const dispatch = useDispatch<DispatchType>();
 
-const mapDispatchToProps = (
-  dispatch: DispatchType,
-): {
-  loadJob: (jobId: number) => Promise<void>;
-  loadTasks: (jobId: number) => Promise<void>;
-  loadCriteria: (jobId: number) => Promise<void>;
-  loadSkills: () => Promise<void>;
-  loadDepartments: () => Promise<void>;
-} => ({
-  loadJob: async (jobId: number): Promise<void> => {
-    await dispatch(fetchJob(jobId));
-    dispatch(setSelectedJob(jobId));
-  },
-  loadTasks: async (jobId: number): Promise<void> => {
-    await dispatch(fetchJobTasks(jobId));
-  },
-  loadCriteria: async (jobId: number): Promise<void> => {
-    await dispatch(fetchCriteria(jobId));
-  },
-  loadSkills: async (): Promise<void> => {
-    await dispatch(fetchSkills());
-  },
-  loadDepartments: async (): Promise<void> => {
-    await dispatch(fetchDepartments());
-  },
-});
+  // Trigger fetching of job details
+  const { job, isLoadingJob } = useLoadJob(jobId, dispatch);
+  const { tasks, isLoadingTasks } = useLoadTasks(jobId, dispatch);
+  const { criteria, isLoadingCriteria } = useLoadCriteria(jobId, dispatch);
 
-export const JobBuilderStepContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(JobBuilderStep);
+  // Trigger fetching of other resources needed for Job Builder
+  const { isLoadingDepartments } = useLoadDepartments(dispatch);
+  const { isLoadingSkills } = useLoadSkills(dispatch);
+
+  const { isLoadingClassifications } = useLoadClassifications(dispatch);
+
+  const dataIsLoading =
+    forceIsLoading ||
+    isLoadingJob ||
+    isLoadingTasks ||
+    isLoadingCriteria ||
+    isLoadingDepartments ||
+    isLoadingSkills ||
+    isLoadingClassifications;
+
+  return (
+    <JobBuilderStep
+      jobId={jobId}
+      currentPage={currentPage}
+      job={job}
+      keyTasks={tasks}
+      criteria={criteria}
+      dataIsLoading={dataIsLoading}
+    >
+      {children}
+    </JobBuilderStep>
+  );
+};
 
 export default JobBuilderStepContainer;

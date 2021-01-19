@@ -457,7 +457,7 @@ class JobPoster extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function resolveRouteBinding($value) // phpcs:ignore
+    public function resolveRouteBinding($value, $field = null) // phpcs:ignore
     {
         return $this->withCount('submitted_applications')->where('id', $value)->first() ?? abort(404);
     }

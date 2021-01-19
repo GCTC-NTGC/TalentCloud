@@ -25,6 +25,8 @@ import {
   useJob,
   useJobApplicationAnswers,
   useJobPosterQuestions,
+  useJobApplicationSteps,
+  useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 
 interface FitPageProps {
@@ -46,6 +48,13 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
   const job = useJob(jobId);
   const jobPosterQuestions = useJobPosterQuestions(jobId);
   const answers = useJobApplicationAnswers(applicationId);
+  const steps = useJobApplicationSteps();
+
+  const stepsAreUpdating = useTouchApplicationStep(
+    applicationId,
+    "fit",
+    dispatch,
+  );
 
   const handleSubmit = async (answer: JobApplicationAnswer): Promise<void> => {
     const exists = answer.id !== -1;
@@ -54,14 +63,13 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
       : await dispatch(createJobApplicationAnswer(answer));
 
     if (!result.error) {
-      await dispatch(fetchApplication(applicationId));
       const payload = await result.payload;
       return payload;
     }
     return Promise.reject(result.payload);
   };
 
-  const handleContinue = (): void => {
+  const handleContinue = async (): Promise<void> => {
     navigate(applicationReview(locale, applicationId));
   };
   const handleReturn = (): void => {
@@ -80,7 +88,13 @@ export const FitPage: React.FunctionComponent<FitPageProps> = ({
         <ProgressBar
           closeDateTime={closeDate}
           currentTitle={intl.formatMessage(stepNames.step04)}
-          steps={makeProgressBarSteps(applicationId, application, intl, "fit")}
+          steps={makeProgressBarSteps(
+            applicationId,
+            steps,
+            intl,
+            "fit",
+            stepsAreUpdating,
+          )}
         />
       )}
       {showLoadingState && (

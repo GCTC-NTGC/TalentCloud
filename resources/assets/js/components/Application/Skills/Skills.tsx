@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React, {
   useState,
   useReducer,
@@ -11,6 +11,7 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
+import { useDispatch } from "react-redux";
 import {
   ExperienceSkill,
   Skill,
@@ -36,7 +37,7 @@ import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
   getExperiencesOfSkill,
-  getExperienceOfExperienceSkills,
+  getExperienceOfExperienceSkill,
 } from "../helpers";
 import {
   statusReducer,
@@ -57,8 +58,9 @@ import {
   mapToObjectTrans,
   notEmpty,
 } from "../../../helpers/queries";
+import { batchUpdateExperienceSkills } from "../../../store/Experience/experienceActions";
 
-const JUSTIFICATION_WORD_LIMIT = 100;
+export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
   menuSkills: { [skillId: number]: string };
@@ -272,10 +274,14 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
         )}
       </button>
       <Formik
+        enableReinitialize
         innerRef={formRef}
         initialValues={initialValues}
         validationSchema={experienceSkillSchema}
         onSubmit={(values, { setSubmitting, resetForm }): Promise<void> => {
+          if (initialValues.justification === values.justification) {
+            return Promise.resolve();
+          }
           const experienceSkillJustification = updateExperienceSkill(
             experienceSkill,
             values,
@@ -423,6 +429,7 @@ const Skills: React.FC<SkillsProps> = ({
   handleQuit,
   handleReturn,
 }) => {
+  const dispatch = useDispatch();
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
@@ -472,13 +479,44 @@ const Skills: React.FC<SkillsProps> = ({
     const refs = Array.from(refMap.values()).filter(notEmpty);
     const formsAreValid = await validateAllForms(refs);
     if (formsAreValid) {
-      try {
-        await submitAllForms(refs);
-        setIsSubmitting(false);
-        return Promise.resolve();
-      } catch {
-        setIsSubmitting(false);
-        return Promise.reject();
+      const experienceSkillsToUpdate: ExperienceSkill[] = experienceSkills.reduce(
+        (
+          accumulator: ExperienceSkill[],
+          currentValue: ExperienceSkill,
+        ): ExperienceSkill[] => {
+          const formRefEntry = Array.from(refMap.entries()).find(
+            ([experienceSkillId, formRef]) =>
+              experienceSkillId === currentValue.id,
+          );
+
+          if (formRefEntry !== null && formRefEntry !== undefined) {
+            const [experienceSkillId, formRef] = formRefEntry;
+            if (
+              formRef.current !== null &&
+              currentValue.justification !==
+                formRef.current.values.justification
+            ) {
+              accumulator.push({
+                ...currentValue,
+                justification: formRef.current.values.justification,
+              });
+              return accumulator;
+            }
+          }
+
+          return accumulator;
+        },
+        [],
+      );
+      if (experienceSkillsToUpdate.length > 0) {
+        try {
+          await dispatch(batchUpdateExperienceSkills(experienceSkillsToUpdate));
+          setIsSubmitting(false);
+          return Promise.resolve();
+        } catch {
+          setIsSubmitting(false);
+          return Promise.reject();
+        }
       }
     } else {
       // Set icon status for all invalid form elements.
@@ -523,7 +561,10 @@ const Skills: React.FC<SkillsProps> = ({
 
   // Ensure each experienceSkill has a corresponding form ref
   experienceSkills.forEach((expSkill) => {
-    if (!formRefs.current.has(expSkill.id)) {
+    if (
+      criteria.find((criterion) => criterion.skill_id === expSkill.skill_id) &&
+      !formRefs.current.has(expSkill.id)
+    ) {
       const ref = createRef<FormikProps<ExperienceSkillFormValues>>();
       formRefs.current.set(expSkill.id, ref);
     }
@@ -649,7 +690,7 @@ const Skills: React.FC<SkillsProps> = ({
                             status,
                             experienceSkill,
                           );
-                          const relevantExperience = getExperienceOfExperienceSkills(
+                          const relevantExperience = getExperienceOfExperienceSkill(
                             experienceSkill,
                             experiences,
                           );

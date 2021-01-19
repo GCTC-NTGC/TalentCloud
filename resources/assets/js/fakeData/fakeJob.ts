@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import {
   Job,
   Criteria,
@@ -27,6 +26,7 @@ export const fakeJob = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
+  submitted_applications_count: 1,
   team_size: 15,
   work_env_features: {
     openConcept: true,
@@ -132,6 +132,7 @@ export const fakeJob2 = (id = 1): Job => ({
   security_clearance_id: 1,
   language_requirement_id: 1,
   remote_work_allowed: true,
+  submitted_applications_count: 10,
   team_size: 40,
   work_env_features: {
     env_open_concept: false,

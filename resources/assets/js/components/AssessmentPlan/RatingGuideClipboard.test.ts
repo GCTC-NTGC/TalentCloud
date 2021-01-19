@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-undef */
 import { MessageDescriptor } from "react-intl";
 import {

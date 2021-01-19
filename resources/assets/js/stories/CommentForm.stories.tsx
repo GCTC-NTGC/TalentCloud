@@ -25,7 +25,7 @@ const handleCreateComment = (
   newComment: Comment,
 ): Promise<Comment> => Promise.resolve(newComment);
 
-const stories = storiesOf("Components|Comment Form", module).addDecorator(
+const stories = storiesOf("Components/Comment Form", module).addDecorator(
   withIntl,
 );
 
