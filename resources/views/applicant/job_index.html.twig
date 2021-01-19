@@ -19,12 +19,6 @@
 {% include "layouts/social" %}
 {% endblock %}
 	{% block body %}
-	{% include "common/goc" %}
-	{% include "common/alert" %}
-	{% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
-		{% include "common/h2-ie-banner" %}
-		{% include "common/h2-ie-dialog" %}
-	{% endif %}
 	{% include "common/header" with {'header': job_index} %}<a id="skipLink"> </a>
 	{% include "applicant/job_index/index" %}
 {% endblock %}

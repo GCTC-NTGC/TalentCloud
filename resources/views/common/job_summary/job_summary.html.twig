@@ -9,12 +9,6 @@
 	{{ menu.summary_title }}
 {% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-	{% include "common/alert" %}
-	{% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
-		{% include "common/h2-ie-banner" %}
-		{% include "common/h2-ie-dialog" %}
-	{% endif %}
 	<div data-clone>
 		<header data-c-overlay="black(90)" data-c-padding="bottom(triple)" style="background-image: url('https://images.unsplash.com/photo-1556742400-b5b7c5121f99?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=634&amp;q=80');">
 			{% include "common/menu" %}
