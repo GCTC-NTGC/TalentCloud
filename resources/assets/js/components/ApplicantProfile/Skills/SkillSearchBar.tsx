@@ -6,7 +6,7 @@ import SkillSearchResults from "./SkillSearchResults";
 import { validationMessages } from "../../Form/Messages";
 import { getLocale } from "../../../helpers/localize";
 import TextInput from "../../Form/TextInput";
-import { Skill } from "../../../models/types";
+import { Skill, SkillSearchResult } from "../../../models/types";
 
 const formMessages = defineMessages({
   searchLabel: {
@@ -28,7 +28,10 @@ const formMessages = defineMessages({
 
 interface SearchBarProps {
   inputTitle: string;
-  handleSubmit: (locale: string, search: string) => Promise<Skill[]>;
+  handleSubmit: (
+    locale: string,
+    search: string,
+  ) => Promise<SkillSearchResult[]>;
   handleAddSkill: (skillId: number) => Promise<Skill>;
 }
 
@@ -52,7 +55,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
       .min(2),
   });
 
-  const [results, setResults] = React.useState<Skill[]>([]);
+  const [results, setResults] = React.useState<SkillSearchResult[]>([]);
 
   return (
     <section>

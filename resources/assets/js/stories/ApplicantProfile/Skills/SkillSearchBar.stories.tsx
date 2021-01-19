@@ -10,7 +10,7 @@ import {
   fakeSkill5,
   fakeSkill6,
 } from "../../../fakeData/fakeSkills";
-import { Skill } from "../../../models/types";
+import { Skill, SkillSearchResult } from "../../../models/types";
 import SkillSearchBar from "../../../components/ApplicantProfile/Skills/SkillSearchBar";
 import { matchStringsCaseDiacriticInsensitive } from "../../../helpers/localize";
 
@@ -27,7 +27,10 @@ let skills = [
   { ...fakeSkill6(), isChecked: false },
 ];
 
-const handleSubmit = (locale: string, search: string): Promise<Skill[]> => {
+const handleSubmit = (
+  locale: string,
+  search: string,
+): Promise<SkillSearchResult[]> => {
   const skillNamesLocale = skills.map((skill) => skill.name[locale]);
   const skillStrings = matchStringsCaseDiacriticInsensitive(
     search,

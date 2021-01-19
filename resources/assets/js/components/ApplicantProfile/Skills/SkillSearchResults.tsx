@@ -1,7 +1,7 @@
 import * as React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
-import { Skill } from "../../../models/types";
+import { Skill, SkillSearchResult } from "../../../models/types";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 
 const resultMessages = defineMessages({
@@ -31,9 +31,8 @@ const resultMessages = defineMessages({
     description: "The message displayed if skill added.",
   },
 });
-
 interface SkillSearchResultsProps {
-  results: Array<Skill> | null;
+  results: SkillSearchResult[] | null;
   handleAddSkill: (skillId: number) => Promise<Skill>;
 }
 
@@ -42,7 +41,7 @@ interface SkillSearchResultItemProps {
     id: number;
     name: { en: string; fr: string };
     description: { en: string; fr: string };
-    isChecked?: boolean;
+    isChecked: boolean;
   };
   handleAddSkill: (skillId: number) => Promise<Skill>;
 }
@@ -178,7 +177,7 @@ export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps
                   id: number;
                   name: { en: string; fr: string };
                   description: { en: string; fr: string };
-                  isChecked?: boolean;
+                  isChecked: boolean;
                 }) => (
                   <SkillSearchResultItem
                     key={item.id}
