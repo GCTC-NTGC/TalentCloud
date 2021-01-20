@@ -6,10 +6,11 @@ import {
   ProfileSkillSubform,
   SkillFormValues,
   validationShape as skillValidationShape,
-  submitDataToFormSkills,
+  dataToFormSkills,
+  formSkillsToData,
 } from "./ProfileSkillSubform";
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
-import { ExperienceSubmitData } from "./ExperienceModalCommon";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -34,7 +35,17 @@ const dataToFormValues = (
 ): WorkExperienceFormValues => {
   return {
     ...experienceToDetails(data.experience),
-    ...submitDataToFormSkills(data, allSkills),
+    ...dataToFormSkills(data, allSkills),
+  };
+};
+
+const formValuesToData = (
+  formValues: WorkExperienceFormValues,
+  originalExperience: ExperienceWork,
+): ExperienceSubmitData<ExperienceWork> => {
+  return {
+    experience: detailsToExperience(formValues, originalExperience),
+    savedSkills: formSkillsToData(formValues),
   };
 };
 
@@ -48,7 +59,7 @@ interface ProfileWorkModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceWork) => Promise<void>;
+  onModalConfirm: (data: ExperienceSubmitData<ExperienceWork>) => Promise<void>;
 }
 
 export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
@@ -107,7 +118,7 @@ export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
         enableReinitialize
         initialValues={initialFormValues}
         onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
+          await onModalConfirm(formValuesToData(values, originalExperience));
           actions.setSubmitting(false);
           actions.resetForm();
         }}

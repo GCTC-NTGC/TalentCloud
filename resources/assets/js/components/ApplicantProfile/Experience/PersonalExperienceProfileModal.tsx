@@ -5,15 +5,16 @@ import * as Yup from "yup";
 import {
   ProfileSkillSubform,
   SkillFormValues,
-  submitDataToFormSkills,
+  dataToFormSkills,
   validationShape as skillValidationShape,
+  formSkillsToData,
 } from "./ProfileSkillSubform";
 import {
   Skill,
   ExperiencePersonal,
   ExperienceSkill,
 } from "../../../models/types";
-import { ExperienceSubmitData } from "./ExperienceModalCommon";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -38,7 +39,17 @@ const dataToFormValues = (
 ): PersonalExperienceFormValues => {
   return {
     ...experienceToDetails(data.experience),
-    ...submitDataToFormSkills(data, allSkills),
+    ...dataToFormSkills(data, allSkills),
+  };
+};
+
+const formValuesToData = (
+  formValues: PersonalExperienceFormValues,
+  originalExperience: ExperiencePersonal,
+): ExperienceSubmitData<ExperiencePersonal> => {
+  return {
+    experience: detailsToExperience(formValues, originalExperience),
+    savedSkills: formSkillsToData(formValues),
   };
 };
 
@@ -52,7 +63,9 @@ interface ProfilePersonalModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: ExperiencePersonal) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperiencePersonal>,
+  ) => Promise<void>;
 }
 
 export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> = ({
@@ -112,7 +125,7 @@ export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> 
         enableReinitialize
         initialValues={initialFormValues}
         onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
+          await onModalConfirm(formValuesToData(values, originalExperience));
           actions.setSubmitting(false);
           actions.resetForm();
         }}

@@ -13,7 +13,7 @@ import { Experience, Skill } from "../../../models/types";
 import TextAreaInput from "../../Form/TextAreaInput";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import { ExperienceSubmitData } from "./ExperienceModalCommon";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
   deleteProperty,
   getId,
@@ -44,7 +44,7 @@ export interface SkillFormValues {
   };
 }
 
-export const submitDataToFormSkills = (
+export const dataToFormSkills = (
   data: ExperienceSubmitData<Experience>,
   allSkills: Skill[],
 ): SkillFormValues => {
@@ -57,16 +57,18 @@ export const submitDataToFormSkills = (
   return { skills: mapToObjectTrans(allSkills, getId, skillToData) };
 };
 
-export const formSkillsToSubmitData = (
-  skillFormValues: SkillFormValues,
-): ExperienceSubmitData<Experience>["savedSkills"] =>
-  objectMap(skillFormValues.skills, (skillId, { selected, justification }) => ({
-    skillId: Number(skillId),
-    selected,
-    justification,
-  }))
-    .filter((x) => x.selected)
-    .map((x) => deleteProperty(x, "selected"));
+export const formSkillsToData = (
+  formValues: SkillFormValues,
+): ExperienceSubmitData<Experience>["savedSkills"] => {
+  return Object.entries(formValues.skills)
+    .filter(([skillId, values]) => values.selected)
+    .map(([skillId, values]) => {
+      return {
+        skillId: Number(skillId),
+        justification: values.justification,
+      };
+    });
+};
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 

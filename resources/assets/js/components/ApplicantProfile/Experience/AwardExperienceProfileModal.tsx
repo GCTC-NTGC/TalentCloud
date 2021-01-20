@@ -3,13 +3,14 @@ import { Formik, Form } from "formik";
 import { useIntl } from "react-intl";
 import * as Yup from "yup";
 import {
+  dataToFormSkills,
+  formSkillsToData,
   ProfileSkillSubform,
   SkillFormValues,
-  submitDataToFormSkills,
   validationShape as skillValidationShape,
 } from "./ProfileSkillSubform";
 import { Skill, ExperienceAward, ExperienceSkill } from "../../../models/types";
-import { ExperienceSubmitData } from "./ExperienceModalCommon";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -27,6 +28,7 @@ import {
   FormAwardRecipientType,
   FormAwardRecognitionType,
 } from "../../Application/ExperienceModals/AwardExperienceModal";
+import { objectMap } from "../../../helpers/queries";
 
 type AwardExperienceFormValues = SkillFormValues & AwardDetailsFormValues;
 
@@ -37,7 +39,17 @@ const dataToFormValues = (
 ): AwardExperienceFormValues => {
   return {
     ...experienceToDetails(data.experience, creatingNew),
-    ...submitDataToFormSkills(data, allSkills),
+    ...dataToFormSkills(data, allSkills),
+  };
+};
+
+const formValuesToData = (
+  formValues: AwardExperienceFormValues,
+  originalExperience: ExperienceAward,
+): ExperienceSubmitData<ExperienceAward> => {
+  return {
+    experience: detailsToExperience(formValues, originalExperience),
+    savedSkills: formSkillsToData(formValues),
   };
 };
 
@@ -53,7 +65,9 @@ interface ProfileAwardModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceAward) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceAward>,
+  ) => Promise<void>;
 }
 
 export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
@@ -115,7 +129,7 @@ export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
         enableReinitialize
         initialValues={initialFormValues}
         onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
+          await onModalConfirm(formValuesToData(values, originalExperience));
           actions.setSubmitting(false);
           actions.resetForm();
         }}
