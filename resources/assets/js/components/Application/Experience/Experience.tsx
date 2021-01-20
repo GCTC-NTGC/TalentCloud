@@ -26,9 +26,9 @@ import {
   // ClassificationId,
 } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
+  FormEducationStatus,
+  FormEducationType,
   messages as educationMessages,
-  EducationType,
-  EducationStatus,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
@@ -42,8 +42,8 @@ import PersonalExperienceModal, {
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
-  AwardRecipientType,
-  AwardRecognitionType,
+  FormAwardRecipientType,
+  FormAwardRecognitionType,
 } from "../ExperienceModals/AwardExperienceModal";
 import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
 import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
@@ -57,7 +57,6 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { RootState } from "../../../store/store";
 import { focusOnElement } from "../../../helpers/forms";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
@@ -208,8 +207,8 @@ const applicationExperienceAccordion = (
 interface ExperienceProps {
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   hasError?: boolean;
   essentialSkills: Skill[];
   experiences: Experience[];
@@ -217,8 +216,8 @@ interface ExperienceProps {
   jobId: number;
   jobClassificationId: number | null;
   jobEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   skills: Skill[];
   handleDeleteExperience: (
     id: number,
@@ -684,16 +683,16 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 
 interface ExperienceStepProps {
   experiences: Experience[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
   jobClassificationId: number | null;
   jobEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],

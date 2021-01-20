@@ -10,35 +10,35 @@ import {
   ExperienceCommunity,
   ExperiencePersonal,
   ExperienceAward,
-} from "../../models/types";
+} from "../../../models/types";
 import {
   modalButtonProps,
   ModalButton,
-} from "../Application/Experience/Experience";
-import {
-  AwardRecipientType,
-  AwardRecognitionType,
-  ProfileAwardModal,
-} from "../Application/ExperienceModals/AwardExperienceModal";
-import {
-  EducationStatus,
-  EducationType,
-  ProfileEducationModal,
-} from "../Application/ExperienceModals/EducationExperienceModal";
-import { mapToObject, getId } from "../../helpers/queries";
-import { experienceMessages } from "../Application/applicationMessages";
-import { toggleAccordion } from "../../helpers/forms";
-import { useUrlHash } from "../../helpers/router";
+} from "../../Application/Experience/Experience";
+import { mapToObject, getId } from "../../../helpers/queries";
+import { experienceMessages } from "../../Application/applicationMessages";
+import { toggleAccordion } from "../../../helpers/forms";
+import { useUrlHash } from "../../../helpers/router";
 
-import { getExperienceSkillsOfExperience } from "../Application/helpers";
-import { ProfileWorkModal } from "../Application/ExperienceModals/WorkExperienceModal";
-import { ProfileCommunityModal } from "../Application/ExperienceModals/CommunityExperienceModal";
-import { ProfilePersonalModal } from "../Application/ExperienceModals/PersonalExperienceModal";
-import { ProfileEducationAccordion } from "../Application/ExperienceAccordions/ExperienceEducationAccordion";
-import { ProfileWorkAccordion } from "../Application/ExperienceAccordions/ExperienceWorkAccordion";
-import { ProfileCommunityAccordion } from "../Application/ExperienceAccordions/ExperienceCommunityAccordion";
-import { ProfilePersonalAccordion } from "../Application/ExperienceAccordions/ExperiencePersonalAccordion";
-import { ProfileAwardAccordion } from "../Application/ExperienceAccordions/ExperienceAwardAccordion";
+import { getExperienceSkillsOfExperience } from "../../Application/helpers";
+import { ProfileEducationAccordion } from "../../Application/ExperienceAccordions/ExperienceEducationAccordion";
+import { ProfileWorkAccordion } from "../../Application/ExperienceAccordions/ExperienceWorkAccordion";
+import { ProfileCommunityAccordion } from "../../Application/ExperienceAccordions/ExperienceCommunityAccordion";
+import { ProfilePersonalAccordion } from "../../Application/ExperienceAccordions/ExperiencePersonalAccordion";
+import { ProfileAwardAccordion } from "../../Application/ExperienceAccordions/ExperienceAwardAccordion";
+import ProfileEducationModal from "./EducationExperienceProfileModal";
+import ProfileWorkModal from "./WorkExperienceProfileModal";
+import ProfileCommunityModal from "./CommunityExperienceProfileModal";
+import ProfilePersonalModal from "./PersonalExperienceProfileModal";
+import ProfileAwardModal from "./AwardExperienceProfileModal";
+import {
+  FormEducationStatus,
+  FormEducationType,
+} from "../../Application/ExperienceModals/EducationExperienceModal";
+import {
+  FormAwardRecipientType,
+  FormAwardRecognitionType,
+} from "../../Application/ExperienceModals/AwardExperienceModal";
 
 const profileExperienceAccordion = (
   experience: Experience,
@@ -109,12 +109,12 @@ const profileExperienceAccordion = (
 };
 export interface ProfileExperienceProps {
   experiences: Experience[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
   skills: Skill[];
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   handleCreateExperience: (data: Experience) => Promise<void>;
   handleUpdateExperience: (data: Experience) => Promise<void>;
   handleDeleteExperience: (
@@ -305,6 +305,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
+        userSkills={skills}
+        experienceSkills={experienceSkills}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
         onModalConfirm={
@@ -322,6 +324,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
+        userSkills={skills}
+        experienceSkills={experienceSkills}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
         onModalConfirm={
@@ -338,6 +342,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
+        userSkills={skills}
+        experienceSkills={experienceSkills}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
         onModalConfirm={
@@ -355,6 +361,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
+        userSkills={skills}
+        experienceSkills={experienceSkills}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
         onModalConfirm={
@@ -372,6 +380,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
+        userSkills={skills}
+        experienceSkills={experienceSkills}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
         onModalConfirm={

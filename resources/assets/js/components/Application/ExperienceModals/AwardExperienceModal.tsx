@@ -13,7 +13,12 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { Skill, ExperienceAward } from "../../../models/types";
+import {
+  Skill,
+  ExperienceAward,
+  AwardRecipientType,
+  AwardRecognitionType,
+} from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -30,18 +35,14 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
-import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-export interface AwardRecipientType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormAwardRecipientType = Pick<AwardRecipientType, "id" | "name">;
 
-export interface AwardRecognitionType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormAwardRecognitionType = Pick<
+  AwardRecognitionType,
+  "id" | "name"
+>;
 
 export const messages = defineMessages({
   modalTitle: {
@@ -104,9 +105,9 @@ export interface AwardDetailsFormValues {
   awardedDate: string;
 }
 
-const DetailsSubform: FunctionComponent<{
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+export const AwardDetailsSubform: FunctionComponent<{
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
 }> = ({ recipientTypes, recognitionTypes }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -180,7 +181,7 @@ type AwardExperienceFormValues = SkillFormValues &
   AwardDetailsFormValues;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const awardValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
   return {
@@ -192,7 +193,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experience: ExperienceAward,
   creatingNew: boolean,
 ): AwardDetailsFormValues => {
@@ -221,7 +222,7 @@ const dataToFormValues = (
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: AwardDetailsFormValues,
   originalExperience: ExperienceAward,
 ): ExperienceAward => {
@@ -261,7 +262,7 @@ const formValuesToData = (
   };
 };
 
-const newExperienceAward = (
+export const newExperienceAward = (
   experienceableId: number,
   experienceableType: ExperienceAward["experienceable_type"],
 ): ExperienceAward => ({
@@ -279,92 +280,11 @@ const newExperienceAward = (
   type: "experience_award",
 });
 
-interface ProfileAwardModalProps {
-  modalId: string;
-  experienceAward: ExperienceAward | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
-  experienceableId: number;
-  experienceableType: ExperienceAward["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceAward) => Promise<void>;
-}
-
-export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
-  modalId,
-  experienceAward,
-  recipientTypes,
-  recognitionTypes,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceAward ?? newExperienceAward(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(
-    originalExperience,
-    experienceAward === null,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-trophy"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform
-                recipientTypes={recipientTypes}
-                recognitionTypes={recognitionTypes}
-              />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
-
 interface AwardExperienceModalProps {
   modalId: string;
   experienceAward: ExperienceAward | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   jobId: number;
   jobClassification: string;
   jobEducationRequirements: string | null;
@@ -423,7 +343,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...awardValidationShape(intl),
   });
 
   return (
@@ -460,7 +380,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform
+              <AwardDetailsSubform
                 recipientTypes={recipientTypes}
                 recognitionTypes={recognitionTypes}
               />

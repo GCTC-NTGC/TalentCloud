@@ -14,7 +14,12 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { Skill, ExperienceEducation } from "../../../models/types";
+import {
+  Skill,
+  ExperienceEducation,
+  EducationType,
+  EducationStatus,
+} from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
@@ -31,24 +36,17 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
-import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-export interface EducationType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormEducationType = Pick<EducationType, "id" | "name">;
 
-export interface EducationStatus {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormEducationStatus = Pick<EducationStatus, "id" | "name">;
 
 interface EducationExperienceModalProps {
   modalId: string;
   experienceEducation: ExperienceEducation | null;
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
+  educationTypes: FormEducationType[];
+  educationStatuses: FormEducationStatus[];
   jobId: number;
   jobClassification: string;
   jobEducationRequirements: string | null;
@@ -145,9 +143,9 @@ export const messages = defineMessages({
   },
 });
 
-const DetailsSubform: FunctionComponent<{
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
+export const EducationDetailsSubform: FunctionComponent<{
+  educationTypes: FormEducationType[];
+  educationStatuses: FormEducationStatus[];
 }> = ({ educationTypes, educationStatuses }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -261,7 +259,7 @@ export interface EducationDetailsFormValues {
   hasBlockcert: boolean;
 }
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experience: ExperienceEducation,
   creatingNew: boolean,
 ): EducationDetailsFormValues => {
@@ -278,7 +276,7 @@ const experienceToDetails = (
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: EducationDetailsFormValues,
   originalExperience: ExperienceEducation,
 ): ExperienceEducation => {
@@ -303,7 +301,7 @@ const detailsToExperience = (
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const educationExperienceValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -331,7 +329,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const newExperienceEducation = (
+export const newExperienceEducation = (
   experienceableId: number,
   experienceableType: ExperienceEducation["experienceable_type"],
 ): ExperienceEducation => ({
@@ -352,88 +350,6 @@ const newExperienceEducation = (
   experienceable_type: experienceableType,
   type: "experience_education",
 });
-
-interface ProfileEducationModalProps {
-  modalId: string;
-  experienceEducation: ExperienceEducation | null;
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
-  experienceableId: number;
-  experienceableType: ExperienceEducation["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (experience: ExperienceEducation) => Promise<void>;
-}
-
-export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps> = ({
-  modalId,
-  experienceEducation,
-  educationTypes,
-  educationStatuses,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceEducation ??
-    newExperienceEducation(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(
-    originalExperience,
-    experienceEducation === null,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform
-                educationTypes={educationTypes}
-                educationStatuses={educationStatuses}
-              />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
 
 type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
@@ -519,7 +435,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...educationExperienceValidationShape(intl),
   });
 
   return (
@@ -556,7 +472,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform
+              <EducationDetailsSubform
                 educationTypes={educationTypes}
                 educationStatuses={educationStatuses}
               />

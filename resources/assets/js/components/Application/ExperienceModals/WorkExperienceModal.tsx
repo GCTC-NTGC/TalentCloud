@@ -99,7 +99,7 @@ type WorkExperienceFormValues = SkillFormValues &
   WorkDetailsFormValues;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const workValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -124,7 +124,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experienceWork: ExperienceWork,
 ): WorkDetailsFormValues => {
   return {
@@ -154,7 +154,7 @@ const dataToFormValues = (
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: WorkDetailsFormValues,
   originalExperience: ExperienceWork,
 ): ExperienceWork => {
@@ -193,7 +193,7 @@ const formValuesToData = (
   };
 };
 
-const newExperienceWork = (
+export const newExperienceWork = (
   experienceableId: number,
   experienceableType: ExperienceWork["experienceable_type"],
 ): ExperienceWork => ({
@@ -210,7 +210,7 @@ const newExperienceWork = (
   type: "experience_work",
 });
 
-const DetailsSubform: FunctionComponent = () => {
+export const WorkDetailsSubform: FunctionComponent = () => {
   const intl = useIntl();
   return (
     <div data-c-container="medium">
@@ -274,76 +274,6 @@ const DetailsSubform: FunctionComponent = () => {
   );
 };
 
-interface ProfileWorkModalProps {
-  modalId: string;
-  experienceWork: ExperienceWork | null;
-  experienceableId: number;
-  experienceableType: ExperienceWork["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceWork) => Promise<void>;
-}
-
-export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
-  modalId,
-  experienceWork,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceWork ?? newExperienceWork(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(originalExperience);
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-briefcase"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
 interface WorkExperienceModalProps {
   modalId: string;
   experienceWork: ExperienceWork | null;
@@ -400,7 +330,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...workValidationShape(intl),
   });
 
   return (
@@ -437,7 +367,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform />
+              <WorkDetailsSubform />
               <SkillSubform
                 keyPrefix="work"
                 jobId={jobId}

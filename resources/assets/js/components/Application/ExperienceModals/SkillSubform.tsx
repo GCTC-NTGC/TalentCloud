@@ -1,10 +1,9 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
 import * as Yup from "yup";
 import { jobShow } from "../../../helpers/routes";
-import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
+import { getLocale } from "../../../helpers/localize";
 import CheckboxGroupField from "../../Form/CheckboxGroupField";
-import { Skill } from "../../../models/types";
 
 const messages = defineMessages({
   linkToJobTitle: {
@@ -28,94 +27,6 @@ export interface SkillFormValues {
 export const validationShape = {
   requiredSkills: Yup.array().of(Yup.string()),
   optionalSkills: Yup.array().of(Yup.string()),
-};
-
-export interface ProfileSkillSubformProps {
-  keyPrefix: string;
-  skills: Skill[];
-}
-
-export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = ({
-  keyPrefix,
-  skills,
-}) => {
-  const intl = useIntl();
-  const locale = getLocale(intl.locale);
-
-  return (
-    <>
-      <div data-c-container="medium">
-        <p
-          data-c-margin="top(1) bottom(1)"
-          data-c-font-size="h4"
-          data-c-font-weight="bold"
-          data-c-color="c3"
-        >
-          <FormattedMessage
-            id="profile.experience.skillSubform.connectSubtitle"
-            defaultMessage="Connect your Skills to this Experience"
-            description="Subtitle of Connect-to-skills section."
-          />
-        </p>
-        <p data-c-margin="bottom(1)">
-          <FormattedMessage
-            id="profile.experience.skillSubform.connectDescription"
-            defaultMessage="Add any skills below that you learned or used in this experience. Hiring Managers see a lot of applicant profiles and you will need to set yourself apart if you want new job opportunities. You can do this by answering the following questions for each of the skills you add. This is the most important part of your profile if you're hoping a manager will find you."
-            description="Explanation for Connect-to-skills section."
-          />
-        </p>
-        <ul data-c-font-weight="bold" data-c-margin="bottom(1)">
-          <li>
-            <FormattedMessage
-              id="profile.experience.skillSubform.question1"
-              defaultMessage="What did you accomplish, create or deliver using this skill?"
-              description="A question the user should answer when connecting a Skill to Experience."
-            />
-          </li>
-          <li>
-            <FormattedMessage
-              id="profile.experience.skillSubform.question2"
-              defaultMessage="What tasks or activities did you do that relate to this skill?"
-              description="A question the user should answer when connecting a Skill to Experience."
-            />
-          </li>
-          <li>
-            <FormattedMessage
-              id="profile.experience.skillSubform.question3"
-              defaultMessage="Were there any special techniques or approaches that you used?"
-              description="A question the user should answer when connecting a Skill to Experience."
-            />
-          </li>
-          <li>
-            <FormattedMessage
-              id="profile.experience.skillSubform.question4"
-              defaultMessage="How much responsibility did you have in this role?"
-              description="A question the user should answer when connecting a Skill to Experience."
-            />
-          </li>
-        </ul>
-      </div>
-      <div data-c-container="medium">
-        <div data-c-grid="gutter(all, 1) middle">
-          <div data-c-grid-item="base(1of1)">
-            <CheckboxGroupField
-              id={keyPrefix}
-              groupLabel={intl.formatMessage(messages.skillCheckboxGroupLabel)}
-              grid="base(1of1)"
-              name="skills"
-              allBoxes={skills.map((skill) => {
-                const name = localizeFieldNonNull(locale, skill, "name");
-                return {
-                  value: name,
-                  label: name,
-                };
-              })}
-            />
-          </div>
-        </div>
-      </div>
-    </>
-  );
 };
 
 export interface ApplicationSkillSubformProps {

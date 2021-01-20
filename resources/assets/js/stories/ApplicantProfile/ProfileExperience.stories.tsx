@@ -21,9 +21,8 @@ import {
   recogntitionTypes,
 } from "../Application/ExperienceModals.stories";
 import { sleep } from "../helpers";
-import SkillSubform, {
-  ProfileSkillSubform,
-} from "../../components/Application/ExperienceModals/SkillSubform";
+import { ProfileSkillSubform } from "../../components/ApplicantProfile/Experience/ProfileSkillSubform";
+import ApplicationSkillSubform from "../../components/Application/ExperienceModals/SkillSubform";
 
 const stories = storiesOf("Applicant Profile/Experience", module).addDecorator(
   withIntl,
@@ -188,11 +187,11 @@ stories.add(
     );
   },
 );
-stories.add("Application SkillSubform", () => {
+stories.add("Application SkillSubform (for comparison)", () => {
   return (
     <Formik initialValues={{ work: [] }} onSubmit={() => {}}>
       {() => (
-        <SkillSubform
+        <ApplicationSkillSubform
           keyPrefix="work"
           jobId={1}
           jobRequiredSkills={fakeEssentialSkills().map((s) => s.name.en)}

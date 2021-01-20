@@ -99,7 +99,7 @@ type CommunityExperienceFormValues = SkillFormValues &
   CommunityDetailsFormValues;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const communityValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -124,7 +124,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experienceCommunity: ExperienceCommunity,
 ): CommunityDetailsFormValues => {
   return {
@@ -154,7 +154,7 @@ const dataToFormValues = (
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: CommunityDetailsFormValues,
   originalExperience: ExperienceCommunity,
 ): ExperienceCommunity => {
@@ -193,7 +193,7 @@ const formValuesToData = (
   };
 };
 
-const newCommunityExperience = (
+export const newCommunityExperience = (
   experienceableId: number,
   experienceableType: ExperienceCommunity["experienceable_type"],
 ): ExperienceCommunity => ({
@@ -210,7 +210,7 @@ const newCommunityExperience = (
   type: "experience_community",
 });
 
-const DetailsSubform: FunctionComponent = () => {
+export const CommunityDetailsSubform: FunctionComponent = () => {
   const intl = useIntl();
   return (
     <div data-c-container="medium">
@@ -274,77 +274,6 @@ const DetailsSubform: FunctionComponent = () => {
   );
 };
 
-interface ProfileCommunityModalProps {
-  modalId: string;
-  experienceCommunity: ExperienceCommunity | null;
-  experienceableId: number;
-  experienceableType: ExperienceCommunity["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceCommunity) => Promise<void>;
-}
-
-export const ProfileCommunityModal: FunctionComponent<ProfileCommunityModalProps> = ({
-  modalId,
-  experienceCommunity,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceCommunity ??
-    newCommunityExperience(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(originalExperience);
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-people-carry"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
 interface CommunityExperienceModalProps {
   modalId: string;
   experienceCommunity: ExperienceCommunity | null;
@@ -404,7 +333,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...communityValidationShape(intl),
   });
 
   return (
@@ -441,7 +370,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform />
+              <CommunityDetailsSubform />
               <SkillSubform
                 keyPrefix="community"
                 jobId={jobId}

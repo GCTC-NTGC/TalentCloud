@@ -2,19 +2,19 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useIntl } from "react-intl";
-import RootContainer from "../RootContainer";
+import RootContainer from "../../RootContainer";
 import ProfileExperience from "./ProfileExperience";
 import {
   useFetchExperienceConstants,
   useFetchSkills,
-} from "../../hooks/applicationHooks";
-import { RootState } from "../../store/store";
+} from "../../../hooks/applicationHooks";
+import { RootState } from "../../../store/store";
 import {
   getExperienceByApplicant,
   getExperienceSkillsByApplicant,
   getUpdatingByApplicant,
-} from "../../store/Experience/experienceSelector";
-import { Experience, ExperienceSkill } from "../../models/types";
+} from "../../../store/Experience/experienceSelector";
+import { Experience, ExperienceSkill } from "../../../models/types";
 import {
   createExperience,
   deleteExperience,
@@ -22,8 +22,8 @@ import {
   fetchExperienceByApplicant,
   updateExperience,
   updateExperienceSkill,
-} from "../../store/Experience/experienceActions";
-import { loadingMessages } from "../Application/applicationMessages";
+} from "../../../store/Experience/experienceActions";
+import { loadingMessages } from "../../Application/applicationMessages";
 
 const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   applicantId,
