@@ -9,24 +9,23 @@
         data-h2-font-weight="b(bold)">
         <i
           class="fab fa-internet-explorer"
-          data-h2-margin="b(right, .5)"></i>We noticed you're using Internet Explorer.</p>
+          data-h2-margin="b(right, .5)"></i>{{ internet_explorer.banner.title }}</p>
       <p
         data-h2-font-color="b(white)"
         data-h2-margin="b(top, .5) b(bottom, 1)">
-        Talent Cloud is phasing out support for Internet Explorer. If you find a bug, <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send Talent Cloud an email about an Internet Explorer bug.">please report it here</a>.</p>
+       {{ internet_explorer.banner.paragraph_1.text_1 }}. {{ internet_explorer.banner.paragraph_1.text_2 }}, <a href="mailto:{{ internet_explorer.banner.paragraph_1.link_email }}" title="{{ internet_explorer.banner.paragraph_1.link_title }}">{{ internet_explorer.banner.paragraph_1.link_text }}</a>.</p>
       <button
         data-h2-button="white, round, small, outline"
         data-h2-dialog-trigger="ieDialog"
         type="button">
-        <span data-h2-button-label>Learn more about this decision.</span>
+        <span data-h2-button-label>{{ internet_explorer.banner.dialog_trigger }}</span>
       </button>
-
       <button
         data-h2-button="white, round, small, clear"
         type="button"
         id="browserDismissButton"
       >
-        <span data-h2-button-label>Dismiss</span>
+        <span data-h2-button-label>{{ internet_explorer.banner.dismiss_trigger }}</span>
       </button>
     </div>
   </div>
