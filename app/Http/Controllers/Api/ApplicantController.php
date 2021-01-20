@@ -64,18 +64,13 @@ class ApplicantController extends Controller
                     'id',
                     $newApplicantClassification['id']
                 );
-                if ($oldApplicantClassification) {
-                    $oldApplicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
-                    $oldApplicantClassification->classification_id = $newApplicantClassification['classification_id'];
-                    $oldApplicantClassification->fill($newApplicantClassification);
-                    $oldApplicantClassification->save();
-                } else {
-                    $applicantClassification = new ApplicantClassification();
-                    $applicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
-                    $applicantClassification->classification_id = $newApplicantClassification['classification_id'];
-                    $applicantClassification->fill($newApplicantClassification);
-                    $applicantClassification->save();
+                if (!$oldApplicantClassification) {
+                    $oldApplicantClassification = new ApplicantClassification();
                 }
+                $oldApplicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
+                $oldApplicantClassification->classification_id = $newApplicantClassification['classification_id'];
+                $oldApplicantClassification->fill($newApplicantClassification);
+                $oldApplicantClassification->save();
             });
         }
 
