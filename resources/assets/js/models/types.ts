@@ -286,7 +286,6 @@ export interface Skill {
   is_future_skill: boolean;
   classifications: Classification[];
 }
-
 // Version of Assessment that hasn't been saved to server yet
 export interface TempAssessment {
   id: number;

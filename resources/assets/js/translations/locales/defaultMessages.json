@@ -87,6 +87,56 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "No skills match your search term. Please try searching for a different skill.",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchResults.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "words left",
         "description": "Message displayed on word counter when users under/matching the limit.",
         "id": "skillWordCounter.wordsLeft"
@@ -1864,12 +1914,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -3622,7 +3672,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -4842,6 +4892,56 @@
       }
     ],
     "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "Nothing found",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchResults.json"
   },
   {
     "descriptors": [
