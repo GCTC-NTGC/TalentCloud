@@ -60,17 +60,17 @@ class ApplicantController extends Controller
 
             // Update old applicant classifications and/or create them if it doesn't exist.
             $newApplicantClassifications->map(function ($newApplicantClassification) use ($oldApplicantClassifications) {
-                $oldApplicantClassification = $oldApplicantClassifications->firstWhere(
+                $applicantClassification = $oldApplicantClassifications->firstWhere(
                     'id',
                     $newApplicantClassification['id']
                 );
-                if (!$oldApplicantClassification) {
-                    $oldApplicantClassification = new ApplicantClassification();
+                if (!$applicantClassification) {
+                    $applicantClassification = new ApplicantClassification();
                 }
-                $oldApplicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
-                $oldApplicantClassification->classification_id = $newApplicantClassification['classification_id'];
-                $oldApplicantClassification->fill($newApplicantClassification);
-                $oldApplicantClassification->save();
+                $applicantClassification->applicant_id = $newApplicantClassification['applicant_id'];
+                $applicantClassification->classification_id = $newApplicantClassification['classification_id'];
+                $applicantClassification->fill($newApplicantClassification);
+                $applicantClassification->save();
             });
         }
 
