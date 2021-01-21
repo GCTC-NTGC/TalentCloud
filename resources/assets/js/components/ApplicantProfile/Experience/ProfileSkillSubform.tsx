@@ -175,32 +175,37 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
       <div data-c-container="medium">
         <div data-c-grid="gutter(all, 1) middle">
           <div data-c-grid>
-            {skills.map((skill) => (
-              <div key={skill.id} data-c-grid-item="tl(1of1)">
-                <div data-c-grid="gutter(all, 1)">
-                  <Field
-                    id={`${keyPrefix}-${skill.id}-selected`}
-                    component={CheckboxInput}
-                    name={`skills.${skill.id}.selected`}
-                    grid="tl(1of4)"
-                    label={localizeFieldNonNull(locale, skill, "name")}
-                  />
-                  <Field
-                    id={`${keyPrefix}-${skill.id}-justification`}
-                    type="text"
-                    name={`skills.${skill.id}.justification`}
-                    component={TextAreaInput}
-                    required={values.skills[skill.id].selected}
-                    grid="tl(3of4)"
-                    label={intl.formatMessage(messages.justificationLabel)}
-                    placeholder={intl.formatMessage(
-                      messages.justificationPlaceholder,
+            {skills.map((skill) => {
+              const isSelected = !!values.skills[skill.id]?.selected;
+              return (
+                <div key={skill.id} data-c-grid-item="tl(1of1)">
+                  <div data-c-grid="gutter(all, 1)">
+                    <Field
+                      id={`${keyPrefix}-${skill.id}-selected`}
+                      component={CheckboxInput}
+                      name={`skills.${skill.id}.selected`}
+                      grid="tl(1of4)"
+                      label={localizeFieldNonNull(locale, skill, "name")}
+                    />
+                    {isSelected && (
+                      <Field
+                        id={`${keyPrefix}-${skill.id}-justification`}
+                        type="text"
+                        name={`skills.${skill.id}.justification`}
+                        component={TextAreaInput}
+                        required={isSelected}
+                        grid="tl(3of4)"
+                        label={intl.formatMessage(messages.justificationLabel)}
+                        placeholder={intl.formatMessage(
+                          messages.justificationPlaceholder,
+                        )}
+                        wordLimit={JUSTIFICATION_WORD_LIMIT}
+                      />
                     )}
-                    wordLimit={JUSTIFICATION_WORD_LIMIT}
-                  />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

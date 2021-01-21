@@ -150,7 +150,7 @@ stories.add("Application SkillSubform (for comparison)", () => {
 });
 stories.add("Profile SkillSubform", () => {
   return (
-    <Formik initialValues={{ work: [] }} onSubmit={() => {}}>
+    <Formik initialValues={{ skills: {} }} onSubmit={() => {}}>
       {() => <ProfileSkillSubform keyPrefix="work" skills={fakeSkills()} />}
     </Formik>
   );
