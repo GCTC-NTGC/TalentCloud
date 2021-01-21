@@ -26,7 +26,7 @@ return [
         'paragraph_1' => 'Thanks for visiting Talent Cloud!',
         'paragraph_2' => [
             'text_1' => 'As Microsoft has begun',
-            'link_url' => 'https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666',
+            'link_url' => 'https://www.microsoft.com/en/microsoft-365/windows/end-of-ie-support',
             'link_title' => 'Read article about Microsoft phasing out support for Internet Explorer',
             'link_text' => 'phasing out support for Internet Explorer',
             'text_2' => 'we recommend using Talent Cloud from a modern web browser for the best experience. We recommend looking at any of the following:',
