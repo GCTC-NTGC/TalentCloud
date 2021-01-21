@@ -30,6 +30,7 @@ import {
   detailsToExperience,
   experienceToDetails,
 } from "../../Application/ExperienceModals/CommunityExperienceModal";
+import { getId } from "../../../helpers/queries";
 
 type CommunityExperienceFormValues = SkillFormValues &
   CommunityDetailsFormValues;
@@ -95,7 +96,7 @@ export const ProfileCommunityModal: FunctionComponent<ProfileCommunityModalProps
 
   const validationSchema = Yup.object().shape({
     ...communityValidationShape(intl),
-    ...skillValidationShape(intl),
+    ...skillValidationShape(intl, userSkills.map(getId)),
   });
 
   const initialFormValues = dataToFormValues(

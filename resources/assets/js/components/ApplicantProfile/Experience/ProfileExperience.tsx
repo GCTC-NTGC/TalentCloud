@@ -39,6 +39,7 @@ import {
   FormAwardRecipientType,
   FormAwardRecognitionType,
 } from "../../Application/ExperienceModals/AwardExperienceModal";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 
 const profileExperienceAccordion = (
   experience: Experience,
@@ -115,14 +116,16 @@ export interface ProfileExperienceProps {
   skills: Skill[];
   recipientTypes: FormAwardRecipientType[];
   recognitionTypes: FormAwardRecognitionType[];
-  handleCreateExperience: (data: Experience) => Promise<void>;
-  handleUpdateExperience: (data: Experience) => Promise<void>;
+  handleCreateExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
+  handleUpdateExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleUpdateExperienceSkill: (expSkill: ExperienceSkill) => Promise<void>;
-  handleDeleteExperienceSkill: (expSkill: ExperienceSkill) => Promise<void>;
 }
 
 export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
@@ -134,8 +137,6 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   handleCreateExperience,
   handleUpdateExperience,
   handleDeleteExperience,
-  handleUpdateExperienceSkill,
-  handleDeleteExperienceSkill,
   recipientTypes,
   recognitionTypes,
 }) => {
@@ -164,9 +165,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
     setIsModalVisible({ id: "", visible: false });
   };
 
-  const updateExperience = (data) =>
+  const updateExperience = (data: ExperienceSubmitData<Experience>) =>
     handleUpdateExperience(data).then(closeModal);
-  const createExperience = (data) =>
+  const createExperience = (data: ExperienceSubmitData<Experience>) =>
     handleCreateExperience(data).then(closeModal);
 
   const editExperience = (experience: Experience): void => {

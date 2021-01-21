@@ -6,7 +6,7 @@ import {
   IntlShape,
 } from "react-intl";
 import * as Yup from "yup";
-import { Field, FieldArray } from "formik";
+import { Field, useFormikContext } from "formik";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import { Experience, Skill } from "../../../models/types";
@@ -14,12 +14,7 @@ import TextAreaInput from "../../Form/TextAreaInput";
 import CheckboxInput from "../../Form/CheckboxInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
-import {
-  deleteProperty,
-  getId,
-  mapToObjectTrans,
-  objectMap,
-} from "../../../helpers/queries";
+import { getId, mapToObjectTrans } from "../../../helpers/queries";
 
 const messages = defineMessages({
   justificationLabel: {
@@ -61,7 +56,7 @@ export const formSkillsToData = (
   formValues: SkillFormValues,
 ): ExperienceSubmitData<Experience>["savedSkills"] => {
   return Object.entries(formValues.skills)
-    .filter(([skillId, values]) => values.selected)
+    .filter(([, values]) => values.selected)
     .map(([skillId, values]) => {
       return {
         skillId: Number(skillId),
@@ -72,33 +67,41 @@ export const formSkillsToData = (
 
 const JUSTIFICATION_WORD_LIMIT = 100;
 
-export const validationShape = (intl: IntlShape) => {
+const singleSkillValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const overWordLimit = intl.formatMessage(validationMessages.overMaxWords, {
     numberOfWords: JUSTIFICATION_WORD_LIMIT,
   });
+  return Yup.object().shape({
+    selected: Yup.boolean(),
+    justification: Yup.string().when("selected", {
+      is: true,
+      then: Yup.string()
+        .test(
+          "wordCount",
+          overWordLimit,
+          (value: string) =>
+            countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
+        )
+        .required(requiredMsg),
+      otherwise: Yup.string().test(
+        "wordCount",
+        overWordLimit,
+        (value: string) =>
+          countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
+      ), // Enforce word limit even if justification isn't required.
+    }),
+  });
+};
+
+export const validationShape = (intl: IntlShape, skillIds: number[]) => {
+  const skillValidation = singleSkillValidationShape(intl);
   return {
-    skills: Yup.array().of(
-      Yup.object().shape({
-        selected: Yup.boolean(),
-        justification: Yup.string().when("selected", {
-          is: true,
-          then: Yup.string()
-            .test(
-              "wordCount",
-              overWordLimit,
-              (value: string) =>
-                countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
-            )
-            .required(requiredMsg),
-          otherwise: Yup.string().test(
-            "wordCount",
-            overWordLimit,
-            (value: string) =>
-              countNumberOfWords(value) <= JUSTIFICATION_WORD_LIMIT,
-          ), // Enforce word limit even if justification isn't required.
-        }),
-      }),
+    skills: Yup.object().shape(
+      skillIds.reduce((validationObj, skillId) => {
+        validationObj[skillId] = skillValidation;
+        return validationObj;
+      }, {}),
     ),
   };
 };
@@ -114,6 +117,7 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const { values } = useFormikContext<SkillFormValues>();
 
   return (
     <>
@@ -170,39 +174,34 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
       </div>
       <div data-c-container="medium">
         <div data-c-grid="gutter(all, 1) middle">
-          <FieldArray
-            name="skills"
-            render={(arrayHelpers) => (
-              <div data-c-grid>
-                {skills.map((skill) => (
-                  <div key={skill.id} data-c-grid-item="tl(1of1)">
-                    <div data-c-grid="gutter(all, 1)">
-                      <Field
-                        id={`${keyPrefix}-${skill.id}-selected`}
-                        component={CheckboxInput}
-                        name={`skills.${skill.id}.selected`}
-                        grid="tl(1of4)"
-                        label={localizeFieldNonNull(locale, skill, "name")}
-                      />
-                      <Field
-                        id={`${keyPrefix}-${skill.id}-justification`}
-                        type="text"
-                        name={`skills.${skill.id}.justification`}
-                        component={TextAreaInput}
-                        required
-                        grid="tl(3of4)"
-                        label={intl.formatMessage(messages.justificationLabel)}
-                        placeholder={intl.formatMessage(
-                          messages.justificationPlaceholder,
-                        )}
-                        wordLimit={JUSTIFICATION_WORD_LIMIT}
-                      />
-                    </div>
-                  </div>
-                ))}
+          <div data-c-grid>
+            {skills.map((skill) => (
+              <div key={skill.id} data-c-grid-item="tl(1of1)">
+                <div data-c-grid="gutter(all, 1)">
+                  <Field
+                    id={`${keyPrefix}-${skill.id}-selected`}
+                    component={CheckboxInput}
+                    name={`skills.${skill.id}.selected`}
+                    grid="tl(1of4)"
+                    label={localizeFieldNonNull(locale, skill, "name")}
+                  />
+                  <Field
+                    id={`${keyPrefix}-${skill.id}-justification`}
+                    type="text"
+                    name={`skills.${skill.id}.justification`}
+                    component={TextAreaInput}
+                    required={values.skills[skill.id].selected}
+                    grid="tl(3of4)"
+                    label={intl.formatMessage(messages.justificationLabel)}
+                    placeholder={intl.formatMessage(
+                      messages.justificationPlaceholder,
+                    )}
+                    wordLimit={JUSTIFICATION_WORD_LIMIT}
+                  />
+                </div>
               </div>
-            )}
-          />
+            ))}
+          </div>
         </div>
       </div>
     </>

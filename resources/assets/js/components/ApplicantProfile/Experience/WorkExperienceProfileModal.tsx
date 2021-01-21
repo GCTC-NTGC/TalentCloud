@@ -26,6 +26,7 @@ import {
   detailsToExperience,
   WorkDetailsSubform,
 } from "../../Application/ExperienceModals/WorkExperienceModal";
+import { getId } from "../../../helpers/queries";
 
 type WorkExperienceFormValues = SkillFormValues & WorkDetailsFormValues;
 
@@ -87,7 +88,7 @@ export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
 
   const validationSchema = Yup.object().shape({
     ...workValidationShape(intl),
-    ...skillValidationShape(intl),
+    ...skillValidationShape(intl, userSkills.map(getId)),
   });
 
   const initialFormValues = dataToFormValues(

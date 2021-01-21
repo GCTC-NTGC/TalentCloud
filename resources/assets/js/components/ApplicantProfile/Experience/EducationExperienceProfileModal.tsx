@@ -32,6 +32,7 @@ import {
   FormEducationType,
   FormEducationStatus,
 } from "../../Application/ExperienceModals/EducationExperienceModal";
+import { getId } from "../../../helpers/queries";
 
 type EducationExperienceFormValues = SkillFormValues &
   EducationDetailsFormValues;
@@ -102,7 +103,7 @@ export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps
 
   const validationSchema = Yup.object().shape({
     ...educationExperienceValidationShape(intl),
-    ...skillValidationShape(intl),
+    ...skillValidationShape(intl, userSkills.map(getId)),
   });
 
   const initialFormValues = dataToFormValues(

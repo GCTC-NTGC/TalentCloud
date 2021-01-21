@@ -16,14 +16,16 @@ import {
 } from "../../../store/Experience/experienceSelector";
 import { Experience, ExperienceSkill } from "../../../models/types";
 import {
+  batchCreateExperienceSkills,
+  batchDeleteExperienceSkills,
+  batchUpdateExperienceSkills,
   createExperience,
   deleteExperience,
-  deleteExperienceSkill,
   fetchExperienceByApplicant,
   updateExperience,
-  updateExperienceSkill,
 } from "../../../store/Experience/experienceActions";
 import { loadingMessages } from "../../Application/applicationMessages";
+import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 
 const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   applicantId,
@@ -77,33 +79,117 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     educationStatuses,
   } = useFetchExperienceConstants(dispatch);
 
-  const handleCreateExperience = async (data: Experience): Promise<void> => {
-    return dispatch(createExperience(data, applicantId));
+  const newExpSkill = (
+    exp: Experience,
+    skillId: number,
+    justification: string,
+  ): ExperienceSkill => ({
+    id: 0,
+    skill_id: skillId,
+    experience_id: exp.id,
+    experience_type: exp.type,
+    justification,
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+
+  const handleCreateExperience = async (
+    data: ExperienceSubmitData<Experience>,
+  ): Promise<void> => {
+    // If the experience is brand new, it (and related experience skills) must be created on server.
+    const result = await dispatch(
+      createExperience(data.experience, applicantId),
+    );
+    if (!result.error) {
+      const createdExperience = (await result.payload).experience;
+      const expSkills: ExperienceSkill[] = data.savedSkills.map((skill) => {
+        return newExpSkill(
+          createdExperience,
+          skill.skillId,
+          skill.justification,
+        );
+      });
+      if (expSkills.length > 0) {
+        dispatch(batchCreateExperienceSkills(expSkills));
+      }
+    }
   };
-  const handleUpdateExperience = async (data: Experience): Promise<void> => {
-    return dispatch(updateExperience(data));
+  const handleUpdateExperience = async ({
+    experience,
+    savedSkills,
+  }: ExperienceSubmitData<Experience>): Promise<void> => {
+    const allRequests: Promise<any>[] = [];
+    // If the experience already exists it can simply be updated.
+    const updateExpRequest = dispatch(updateExperience(experience));
+    allRequests.push(updateExpRequest);
+    // Determine which skills were already linked to the experience
+    const prevExpSkills = experienceSkills.filter(
+      (expSkill) =>
+        expSkill.experience_id === experience.id &&
+        expSkill.experience_type === experience.type,
+    );
+    const prevSkillIds = prevExpSkills.map((expSkill) => expSkill.skill_id);
+    const newSkillIds = savedSkills.map((x) => x.skillId);
+
+    // Delete skills that were removed.
+    const expSkillsToDelete = prevExpSkills.filter(
+      (expSkill) => !newSkillIds.includes(expSkill.id),
+    );
+    if (expSkillsToDelete.length > 0) {
+      const batchDeleteExpSkillsRequest = dispatch(
+        batchDeleteExperienceSkills(expSkillsToDelete),
+      );
+      allRequests.push(batchDeleteExpSkillsRequest);
+    }
+
+    // Created new Experience Skills for skills which don't exist yet.
+    const createdSkills = savedSkills
+      .filter((savedSkill) => !prevSkillIds.includes(savedSkill.skillId))
+      .map((savedSkill) =>
+        newExpSkill(experience, savedSkill.skillId, savedSkill.justification),
+      );
+    if (createdSkills.length > 0) {
+      const batchCreateExpSkillsRequest = dispatch(
+        batchCreateExperienceSkills(createdSkills),
+      );
+      allRequests.push(batchCreateExpSkillsRequest);
+    }
+
+    // Update Experience Skills which already existed but for which justifications have changed.
+    const updatedSkills = prevExpSkills
+      .filter((expSkill) => newSkillIds.includes(expSkill.skill_id))
+      .reduce(
+        (modifiedSkills: ExperienceSkill[], expSkill: ExperienceSkill) => {
+          const matchingSavedSkill = savedSkills.find(
+            (x) => x.skillId === expSkill.skill_id,
+          );
+          if (
+            matchingSavedSkill !== undefined &&
+            expSkill.justification !== matchingSavedSkill.justification
+          ) {
+            modifiedSkills.push({
+              ...expSkill,
+              justification: matchingSavedSkill.justification,
+            });
+          }
+          return modifiedSkills;
+        },
+        [],
+      );
+    if (updatedSkills.length > 0) {
+      const batchUpdateExpSkillsRequest = dispatch(
+        batchUpdateExperienceSkills(updatedSkills),
+      );
+      allRequests.push(batchUpdateExpSkillsRequest);
+    }
+
+    await Promise.allSettled(allRequests);
   };
   const handleDeleteExperience = async (
     id: number,
     type: Experience["type"],
   ): Promise<void> => {
     return dispatch(deleteExperience(id, type));
-  };
-  const handleUpdateExperienceSkill = async (
-    expSkill: ExperienceSkill,
-  ): Promise<void> => {
-    return dispatch(updateExperienceSkill(expSkill));
-  };
-  const handleDeleteExperienceSkill = async (
-    expSkill: ExperienceSkill,
-  ): Promise<void> => {
-    return dispatch(
-      deleteExperienceSkill(
-        expSkill.id,
-        expSkill.experience_id,
-        expSkill.experience_type,
-      ),
-    );
   };
 
   const experienceConstantsLoaded =
@@ -127,8 +213,6 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
           handleCreateExperience={handleCreateExperience}
           handleUpdateExperience={handleUpdateExperience}
           handleDeleteExperience={handleDeleteExperience}
-          handleUpdateExperienceSkill={handleUpdateExperienceSkill}
-          handleDeleteExperienceSkill={handleDeleteExperienceSkill}
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
         />

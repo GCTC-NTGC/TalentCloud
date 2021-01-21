@@ -28,7 +28,7 @@ import {
   FormAwardRecipientType,
   FormAwardRecognitionType,
 } from "../../Application/ExperienceModals/AwardExperienceModal";
-import { objectMap } from "../../../helpers/queries";
+import { getId } from "../../../helpers/queries";
 
 type AwardExperienceFormValues = SkillFormValues & AwardDetailsFormValues;
 
@@ -97,7 +97,7 @@ export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
 
   const validationSchema = Yup.object().shape({
     ...awardValidationShape(intl),
-    ...skillValidationShape(intl),
+    ...skillValidationShape(intl, userSkills.map(getId)),
   });
 
   const initialFormValues = dataToFormValues(

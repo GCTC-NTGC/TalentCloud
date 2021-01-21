@@ -30,6 +30,7 @@ import {
   personalValidationShape,
   newPersonalExperience,
 } from "../../Application/ExperienceModals/PersonalExperienceModal";
+import { getId } from "../../../helpers/queries";
 
 type PersonalExperienceFormValues = SkillFormValues & PersonalDetailsFormValues;
 
@@ -94,7 +95,7 @@ export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> 
 
   const validationSchema = Yup.object().shape({
     ...personalValidationShape(intl),
-    ...skillValidationShape(intl),
+    ...skillValidationShape(intl, userSkills.map(getId)),
   });
 
   const initialFormValues = dataToFormValues(
