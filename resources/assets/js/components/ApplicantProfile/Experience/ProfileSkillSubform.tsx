@@ -177,16 +177,23 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
           <div data-c-grid>
             {skills.map((skill) => {
               const isSelected = !!values.skills[skill.id]?.selected;
+              // We don't use the CheckboxInput component here because we need more custom styling,
+              // mostly because this is ~sort~ of a checkbox group, but its not just checkboxes.
               return (
                 <div key={skill.id} data-c-grid-item="tl(1of1)">
                   <div data-c-grid="gutter(all, 1)">
-                    <Field
-                      id={`${keyPrefix}-${skill.id}-selected`}
-                      component={CheckboxInput}
-                      name={`skills.${skill.id}.selected`}
-                      grid="tl(1of4)"
-                      label={localizeFieldNonNull(locale, skill, "name")}
-                    />
+                    <div data-c-grid-item="tl(1of4)">
+                      <label>
+                        <Field
+                          id={`${keyPrefix}-${skill.id}-selected`}
+                          type="checkbox"
+                          name={`skills.${skill.id}.selected`}
+                        />
+                        <span data-c-padding="left(.5)">
+                          {localizeFieldNonNull(locale, skill, "name")}
+                        </span>
+                      </label>
+                    </div>
                     {isSelected && (
                       <Field
                         id={`${keyPrefix}-${skill.id}-justification`}
