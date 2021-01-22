@@ -19,7 +19,7 @@ export const fakeSkillCategory = (
   },
   description: {
     en: "Skills and aptitudes applicable to all type of occupations.",
-    fr: "",
+    fr: "Compétences et aptitudes applicables à tout type de professions.",
   },
   parent_id: 0,
   lft: 0,
@@ -39,7 +39,8 @@ export const fakeSkillCategory2 = (
   },
   description: {
     en: "On the job work skills and knowledge specific to the digital sector.",
-    fr: "",
+    fr:
+      "Sur le lieu de travail, les compétences et connaissances professionnelles spécifiques au secteur numérique.",
   },
   parent_id: 0,
   lft: 0,
@@ -58,8 +59,10 @@ export const fakeSkillCategory3 = (
     fr: "Travailler au sein du gouvernement",
   },
   description: {
-    en: "",
-    fr: "",
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
   },
   parent_id: 1,
   lft: 0,
@@ -78,8 +81,10 @@ export const fakeSkillCategory4 = (
     fr: "Personnel",
   },
   description: {
-    en: "",
-    fr: "",
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
   },
   parent_id: 1,
   lft: 0,
@@ -98,8 +103,10 @@ export const fakeSkillCategory5 = (
     fr: "Developer",
   },
   description: {
-    en: "",
-    fr: "",
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
   },
   parent_id: 2,
   lft: 0,
