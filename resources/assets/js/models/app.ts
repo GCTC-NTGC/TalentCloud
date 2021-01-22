@@ -13,7 +13,7 @@ export interface Link {
 
 export type ValuesOf<T> = T[keyof T];
 
-export type Portal = "applicant" | "manager" | "hr";
+export type Portal = "manager" | "hr";
 
 export interface localizedField {
   en: string | null;

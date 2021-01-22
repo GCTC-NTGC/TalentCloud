@@ -60,7 +60,7 @@ const messages = defineMessages({
   },
 });
 interface FindSkillsModalProps {
-  portal: Portal;
+  portal: "applicant" | "manager";
   oldSkills: Skill[];
   skillCategories: SkillCategory[];
   handleSubmit: (values: Skill[]) => Promise<void>;
