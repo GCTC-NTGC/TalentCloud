@@ -6,11 +6,14 @@ use App\Models\Applicant;
 use App\Models\Assessment;
 use App\Models\Course;
 use App\Models\Degree;
+use App\Models\Lookup\Department;
 use App\Models\HrAdvisor;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\Reference;
+use App\Models\SkillCategory;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Illuminate\Database\Seeder;
@@ -64,15 +67,25 @@ class DevSeeder extends Seeder // phpcs:ignore
      */
     public function run(): void
     {
+        /*
+        Get random department_id.
+        Use departmentId to ensure any jobs that are attached to a given user belong to that user's department.
+        */
+        $departmentId = Department::inRandomOrder()->first()->id;
+
         $adminUser = User::where('email', $this->adminEmail)->first();
         if ($adminUser === null) {
-            $adminUser = factory(User::class)->state('admin')->create(['email' => $this->adminEmail]);
+            $adminUser = factory(User::class)->state('admin')->create([
+                'email' => $this->adminEmail,
+                'department_id' => $departmentId,
+            ]);
         }
 
         $hrUser = User::where('email', $this->hrAdvisorEmail)->first();
         if ($hrUser === null) {
             $hrUser = factory(User::class)->state('hr_advisor')->create([
                 'email' => $this->hrAdvisorEmail,
+                'department_id' => $departmentId,
             ]);
             $hrUser->hr_advisor()->save(factory(HrAdvisor::class)->create([
                 'user_id' => $hrUser->id,
@@ -82,14 +95,18 @@ class DevSeeder extends Seeder // phpcs:ignore
         $managerUser = User::where('email', $this->managerEmail)->first();
         // Create the test manager if it does not exist yet.
         if ($managerUser === null) {
-            $managerUser = factory(User::class)->state('upgradedManager')->create(['email' => $this->managerEmail]);
+            $managerUser = factory(User::class)->state('upgradedManager')->create([
+                'email' => $this->managerEmail,
+                'department_id' => $departmentId,
+            ]);
             $managerUser->manager()->save(factory(Manager::class)->create([
-                'user_id' => $managerUser->id
+                'user_id' => $managerUser->id,
             ]));
         }
 
         factory(JobPoster::class, 3)->state('live')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
@@ -103,7 +120,8 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         });
         factory(JobPoster::class, 3)->state('closed')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ])->each(function ($job): void {
             $job->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
                 'job_poster_id' => $job->id
@@ -117,10 +135,12 @@ class DevSeeder extends Seeder // phpcs:ignore
             ]));
         });
         factory(JobPoster::class, 3)->state('draft')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ]);
         factory(JobPoster::class, 3)->state('review_requested')->create([
-            'manager_id' => $managerUser->manager->id
+            'manager_id' => $managerUser->manager->id,
+            'department_id' => $departmentId,
         ]);
 
         // Create a Job Poster with an Assessment Plan.
@@ -169,12 +189,28 @@ class DevSeeder extends Seeder // phpcs:ignore
         ]));
 
         // Create several applications for test user.
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 3)->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('submitted')->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
-        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 2)->state('draft')->create([
-            'applicant_id' => $applicantUser->applicant->id,
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['version2', 'submitted'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
         ]));
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->state('draft')->create([
+                'applicant_id' => $applicantUser->applicant->id,
+        ]));
+        $applicantUser->applicant->job_applications()->saveMany(factory(JobApplication::class, 1)
+            ->states(['draft', 'version2'])->create([
+                'applicant_id' => $applicantUser->applicant->id,
+        ]));
+
+        // Get five skill ids at random.
+        $applicantSkills = Skill::inRandomOrder()->limit(5)->get()->pluck('id')->toArray();
+
+        // Add skills to applicant user.
+        $applicantUser->applicant->skills()->attach($applicantSkills);
 
         // Ensure there are several jobs the hr advisor can claim.
         $hrDepartment = $hrUser->department_id;
@@ -193,5 +229,33 @@ class DevSeeder extends Seeder // phpcs:ignore
         $hrClosedJob->job_applications()->saveMany(factory(JobApplication::class, 5))->create([
             'job_poster_id' => $hrClosedJob->id
         ]);
+
+         // Create first parent skill category.
+        $skillCategoryParentFirst = factory(SkillCategory::class, 1)->create(['depth' => 1]);
+
+        // Create second parent skill category.
+        $skillCategoryParentSecond = factory(SkillCategory::class, 1)->create(['depth' => 1]);
+
+        // Create child categories for the first parent category.
+        factory(SkillCategory::class, 4)->create([
+            'parent_id' => $skillCategoryParentFirst->first()->id,
+            'depth' => 2
+        ]);
+
+        // Create child categories for the second parent category.
+        factory(SkillCategory::class, 4)->create([
+            'parent_id' => $skillCategoryParentSecond->first()->id,
+            'depth' => 2
+        ]);
+
+        // Create relationship between skill and skill category.
+        $skills = Skill::all();
+        foreach ($skills as $skill) {
+            /*
+            Include skill categories created.
+            Exclude skill categories created that do not have children.
+            */
+            $skill->skill_categories()->attach([rand(3, 10)]);
+        }
     }
 }

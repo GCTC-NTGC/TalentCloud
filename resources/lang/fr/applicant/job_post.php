@@ -156,12 +156,30 @@ return [
         'view_link_label'  => "Voir votre l'application",
     ],
     'no_info' => 'Aucune information fournie.',
-
     'strategic_response' => [
         'various_departments' => 'GC – Divers ministères',
         'various' => 'Divers',
         'current_employee_alert' => 'Vous devez être un employé actuel du gouvernement du Canada avec une autorisation de sécurité valide.',
         'management_approval_alert' => 'L\'équipe de gestion de votre ministère d\'attache devra approuver votre placement temporaire auprès d\'un autre ministère ou équipe.',
         'heads_up' => 'Juste pour vous informer!'
+    ],
+    'structured_data' => [
+        'parent_organization' => 'Gouvernement du Canada',
+        'industry' => 'Gouvernement',
+        'special_commitments' => 'On accordera la préférence aux anciens combattants et aux citoyens canadiens dans cet ordre.',
+        'employer_overview' => 'Possibilités d\'emploi au gouvernement du Canada.',
+        'employment_type' => 'Temporaire à temps plein',
+        'security_clearance_requirement_level' => 'Cote de sécurité requise ',
+        'security_clearance_requirement_description' => 'Vous n’avez pas besoin d’une cote de sécurité valide pour poser votre candidature. Une demande de cote de sécurité sera soumise en votre nom dans le cadre du processus d’embauche.',
+        'benefits' => [
+            'Jours fériés payés',
+            'Congés payés',
+            'Soins de santé',
+            'Soins dentaires',
+            'Régime de pension de retraite',
+            'Régime d’assurance-invalidité',
+            'Assurance-invalidité de longue durée (AILD)',
+            'Exceptions pour les employés de retour au travail"',
+        ],
     ]
 ];

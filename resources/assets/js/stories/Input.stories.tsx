@@ -5,7 +5,7 @@ import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
 import Input from "../components/Input";
 
-const stories = storiesOf("Form Components|Input", module).addDecorator(
+const stories = storiesOf("Form Components/Input", module).addDecorator(
   withIntl,
 );
 
@@ -49,6 +49,29 @@ stories
           minLength={number("Minimum Length", 0)}
           maxLength={number("Maximum Length", 30)}
           value={text("Value", "hello@world.test")}
+          errorText={text("Error Text", "")}
+          onChange={action("Contents changed")}
+          onBlur={action("Lost focus")}
+        />
+      </div>
+    ),
+  )
+  .add(
+    "Search",
+    (): React.ReactElement => (
+      <div data-c-grid="gutter" data-c-padding="left(double)">
+        <Input
+          id={text("ID", "sample-search-input")}
+          name={text("Name", "What a name")}
+          label={text("Label", "Label")}
+          required={boolean("Required", false)}
+          invalid={boolean("Invalid", false)}
+          placeholder={text("Placeholder", "Write what you will")}
+          grid="base(1of1) tl(1of3)"
+          type={text("Type", "search")}
+          minLength={number("Minimum Length", 0)}
+          maxLength={number("Maximum Length", 30)}
+          value={text("Value", "Hello search")}
           errorText={text("Error Text", "")}
           onChange={action("Contents changed")}
           onBlur={action("Lost focus")}

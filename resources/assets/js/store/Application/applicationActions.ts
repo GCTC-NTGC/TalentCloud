@@ -7,6 +7,7 @@ import {
 } from "../asyncAction";
 import {
   Application,
+  ApplicationBasic,
   ApplicationNormalized,
   ApplicationReview,
   Email,
@@ -26,11 +27,21 @@ import {
   parseSingleReferenceEmail,
   getApplicationBasicEndpoint,
   parseApplicationResponse,
+  getTouchApplicationStepEndpoint,
+  parseApplicationStep,
+  getApplicationSubmitEndpoint,
+  parseApplicationBasic,
+  getBatchUpdateApplicationReviewsEndpoint,
+  parseBatchApplicationReviews,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
   UpdateJobApplicationAnswerAction,
 } from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export const FETCH_APPLICATION_STARTED = "APPLICATION: GET STARTED";
 export const FETCH_APPLICATION_SUCCEEDED = "APPLICATION: GET SUCCEEDED";
@@ -43,6 +54,7 @@ export type FetchApplicationAction = AsyncFsaActions<
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
   },
   { id: number }
 >;
@@ -56,6 +68,7 @@ export const fetchApplication = (
   {
     application: Application;
     jobApplicationAnswers: JobApplicationAnswer[];
+    jobApplicationSteps: { [key in string]: ProgressBarStatus };
   },
   { id: number }
 > =>
@@ -76,7 +89,7 @@ export type UpdateApplicationAction = AsyncFsaActions<
   typeof UPDATE_APPLICATION_STARTED,
   typeof UPDATE_APPLICATION_SUCCEEDED,
   typeof UPDATE_APPLICATION_FAILED,
-  ApplicationNormalized,
+  ApplicationBasic,
   { id: number }
 >;
 
@@ -86,7 +99,7 @@ export const updateApplication = (
   typeof UPDATE_APPLICATION_STARTED,
   typeof UPDATE_APPLICATION_SUCCEEDED,
   typeof UPDATE_APPLICATION_FAILED,
-  ApplicationNormalized,
+  ApplicationBasic,
   { id: number }
 > =>
   asyncPut(
@@ -95,6 +108,37 @@ export const updateApplication = (
     UPDATE_APPLICATION_STARTED,
     UPDATE_APPLICATION_SUCCEEDED,
     UPDATE_APPLICATION_FAILED,
+    parseApplicationBasic,
+    { id: application.id },
+  );
+
+export const SUBMIT_APPLICATION_STARTED = "APPLICATION: SUBMIT STARTED";
+export const SUBMIT_APPLICATION_SUCCEEDED = "APPLICATION: SUBMIT SUCCEEDED";
+export const SUBMIT_APPLICATION_FAILED = "APPLICATION: SUBMIT FAILED";
+
+export type SubmitApplicationAction = AsyncFsaActions<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+>;
+
+export const submitApplication = (
+  application: ApplicationNormalized,
+): RSAActionTemplate<
+  typeof SUBMIT_APPLICATION_STARTED,
+  typeof SUBMIT_APPLICATION_SUCCEEDED,
+  typeof SUBMIT_APPLICATION_FAILED,
+  ApplicationNormalized,
+  { id: number }
+> =>
+  asyncPut(
+    getApplicationSubmitEndpoint(application.id),
+    application,
+    SUBMIT_APPLICATION_STARTED,
+    SUBMIT_APPLICATION_SUCCEEDED,
+    SUBMIT_APPLICATION_FAILED,
     parseApplication,
     { id: application.id },
   );
@@ -169,6 +213,40 @@ export const updateApplicationReview = (
     },
   );
 
+export const BATCH_UPDATE_APPLICATION_REVIEWS_STARTED =
+  "APPLICATION REVIEW: BATCH UPDATE STARTED";
+export const BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED =
+  "APPLICATION REVIEW: BATCH UPDATE SUCCEEDED";
+export const BATCH_UPDATE_APPLICATION_REVIEWS_FAILED =
+  "APPLICATION REVIEW: BATCH UPDATE FAILED";
+
+export type BatchUpdateApplicationReviewsAction = AsyncFsaActions<
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  ApplicationReview[],
+  {}
+>;
+
+export const batchUpdateApplicationReviews = (
+  applicationReviews: ApplicationReview[]
+): RSAActionTemplate<
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  ApplicationReview[],
+  {}
+> =>
+asyncPost(
+  getBatchUpdateApplicationReviewsEndpoint(),
+  applicationReviews,
+  BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  parseBatchApplicationReviews,
+  {},
+);
+
 export const FETCH_REFERENCE_EMAILS_STARTED =
   "APPLICATION: GET REFERENCE EMAILS STARTED";
 export const FETCH_REFERENCE_EMAILS_SUCCEEDED =
@@ -237,12 +315,50 @@ export const sendReferenceEmail = (
     { applicationId, referenceType },
   );
 
+export const TOUCH_JOB_APPLICATION_STEP_STARTED =
+  "APPLICATION: TOUCH STEP STARTED";
+export const TOUCH_JOB_APPLICATION_STEP_SUCCEEDED =
+  "APPLICATION: TOUCH STEP SUCCEEDED";
+export const TOUCH_JOB_APPLICATION_STEP_FAILED =
+  "APPLICATION: TOUCH STEP FAILED";
+
+export type TouchJobApplicationStepAction = AsyncFsaActions<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+>;
+
+export const touchApplicationStep = (
+  applicationId: number,
+  stepId: number,
+): RSAActionTemplate<
+  typeof TOUCH_JOB_APPLICATION_STEP_STARTED,
+  typeof TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  typeof TOUCH_JOB_APPLICATION_STEP_FAILED,
+  { [step in ApplicationStep]: ProgressBarStatus },
+  { applicationId: number; stepId: number }
+> =>
+  asyncPut(
+    getTouchApplicationStepEndpoint(applicationId, stepId),
+    [],
+    TOUCH_JOB_APPLICATION_STEP_STARTED,
+    TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+    TOUCH_JOB_APPLICATION_STEP_FAILED,
+    parseApplicationStep,
+    { applicationId, stepId },
+  );
+
 export type ApplicationAction =
   | FetchApplicationAction
   | FetchApplicationsForJobAction
   | UpdateApplicationAction
+  | SubmitApplicationAction
   | UpdateApplicationReview
+  | BatchUpdateApplicationReviewsAction
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction
-  | UpdateJobApplicationAnswerAction;
+  | UpdateJobApplicationAnswerAction
+  | TouchJobApplicationStepAction;

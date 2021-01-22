@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { createRef, useState, MutableRefObject } from "react";
 import { useIntl, FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";
@@ -16,7 +15,7 @@ interface FitProps {
   jobQuestions: JobPosterQuestion[];
   jobApplicationAnswers: JobApplicationAnswer[];
   handleSubmit: (values: JobApplicationAnswer) => Promise<void>;
-  handleContinue: () => void;
+  handleContinue: () => Promise<void>;
   handleQuit: () => void;
   handleReturn: () => void;
 }

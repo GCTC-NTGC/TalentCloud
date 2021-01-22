@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FormattedMessage, useIntl, defineMessages } from "react-intl";
@@ -72,7 +71,7 @@ export const ActivityList: React.FunctionComponent<ActivityListProps> = ({
     if (comments.length > 0) {
       const userIds: number[] = [];
       // eslint-disable-next-line array-callback-return
-      comments.map(comment => {
+      comments.map((comment) => {
         if (userIds.indexOf(comment.user_id) === -1) {
           userIds.push(comment.user_id);
         }

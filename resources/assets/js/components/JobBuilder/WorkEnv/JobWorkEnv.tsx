@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
+/* eslint-disable jsx-a11y/label-has-associated-control, camelcase */
 import React, { useState, useRef } from "react";
 import { Form, Formik, FormikTouched, FormikErrors, FastField } from "formik";
 import * as Yup from "yup";
@@ -42,6 +42,7 @@ import {
   experimentalMessages,
   facingMessages,
   collaborativenessMessages,
+  buttonMessages,
 } from "./JobWorkEnvMessages";
 import CheckboxGroupField from "../../Form/CheckboxGroupField";
 
@@ -759,20 +760,12 @@ const JobWorkEnv = ({
                   data-c-margin="top(normal)"
                 >
                   <CopyToClipboardButton
-                    actionText={
-                      <FormattedMessage
-                        id="button.copyToClipboard"
-                        defaultMessage="Copy to Clipboard"
-                        description="Button to copy text to clipboard."
-                      />
-                    }
-                    postActionText={
-                      <FormattedMessage
-                        id="button.copied"
-                        defaultMessage="Copied!"
-                        description="Confirmation for Button to copy text to clipboard."
-                      />
-                    }
+                    actionText={intl.formatMessage(
+                      buttonMessages.buttonCopyToClipboard,
+                    )}
+                    postActionText={intl.formatMessage(
+                      buttonMessages.buttonCopied,
+                    )}
                     textToCopy={buildCultureSummary(values)}
                   />
                 </div>

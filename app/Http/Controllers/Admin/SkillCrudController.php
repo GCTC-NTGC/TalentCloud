@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\SkillCrudRequest as StoreRequest;
 use App\Http\Requests\SkillCrudRequest as UpdateRequest;
 use App\Models\Classification;
+use App\Models\SkillCategory;
 use App\Models\Lookup\SkillType;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Support\Facades\App;
@@ -64,6 +65,20 @@ class SkillCrudController extends CrudController
                 'attribute' => 'key',
                 'model' => 'App\Models\Classification',
                 'pivot' => true,
+            ]);
+
+            $this->crud->addField([
+                'name' => 'skill_categories',
+                'type' => 'select2_multiple',
+                'label' => 'Skill Categories (select all that apply)',
+                'entity' => 'skills',
+                'attribute' => 'name',
+                'model' => 'App\Models\SkillCategory',
+                'pivot' => true,
+                'options' => (function ($query) {
+                    // Exclude skill categories with no parent.
+                    return $query->where('parent_id', '!=', 0)->get();
+                }),
             ]);
 
             $this->crud->addField([

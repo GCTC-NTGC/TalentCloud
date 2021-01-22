@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Jenssegers\Date\Date;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\JobPosterStatus;
 use App\Services\JobStatusTransitionManager;
@@ -290,19 +291,51 @@ class JobPosterCrudController extends CrudController
 
     public function update()
     {
-        $open_date = $this->crud->getRequest()->request->get('open_date_time');
-        $close_date = $this->crud->getRequest()->request->get('close_date_time');
-        $start_date = $this->crud->getRequest()->request->get('start_date_time');
-        $this->crud->getRequest()->request->remove('open_date_time');
-        $this->crud->getRequest()->request->remove('close_date_time');
-        $this->crud->getRequest()->request->remove('start_date_time');
-        // Manipulates the input fields to save the "end of day" timestamp for
-        // open/close/start dates.
-        $this->crud->getRequest()->request->add([
-            'open_date_time' => $open_date !== null ? ptDayStartToUtcTime($open_date) : null,
-            'close_date_time' => $close_date !== null ? ptDayEndToUtcTime($close_date) : null,
-            'start_date_time' => $start_date !== null ? ptDayStartToUtcTime($start_date) : null,
-        ]);
+        $open_date_time = $this->crud->request->request->get('open_date_time');
+        $close_date_time = $this->crud->request->request->get('close_date_time');
+        $start_date_time = $this->crud->request->request->get('start_date_time');
+
+        $job = $this->crud->getCurrentEntry();
+
+        $open_date_current = new Date("$job->open_date_time");
+        $close_date_current = new Date("$job->close_date_time");
+        $start_date_current = new Date("$job->start_date_time");
+
+        if ($open_date_current->format('Y-m-d') !== $open_date_time) {
+            $this->crud->request->request->remove('open_date_time');
+            // Manipulates the input field to save the "start of day" timestamp.
+            $this->crud->request->request->add([
+                'open_date_time' => $open_date_time !== null ? ptDayStartToUtcTime($open_date_time) : null
+            ]);
+        } else {
+            $this->crud->request->request->add([
+                'open_date_time' => $open_date_current
+            ]);
+        }
+
+        if ($close_date_current->format('Y-m-d') !== $close_date_time) {
+            $this->crud->request->request->remove('close_date_time');
+            // Manipulates the input field to save the "end of day" timestamp.
+            $this->crud->request->request->add([
+                'close_date_time' => $close_date_time !== null ? ptDayEndToUtcTime($close_date_time) : null
+            ]);
+        } else {
+            $this->crud->request->request->add([
+                'close_date_time' => $close_date_current
+            ]);
+        }
+
+        if ($start_date_current->format('Y-m-d') !== $start_date_time) {
+            $this->crud->request->request->remove('start_date_time');
+            // Manipulates the input field to save the "start of day" timestamp.
+            $this->crud->request->request->add([
+                'start_date_time' => $start_date_time !== null ? ptDayStartToUtcTime($start_date_time) : null
+            ]);
+        } else {
+            $this->crud->request->request->add([
+                'start_date_time' => $start_date_current
+            ]);
+        }
 
         $response = $this->traitUpdate();
 

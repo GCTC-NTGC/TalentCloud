@@ -32,8 +32,16 @@ import {
   getApplicationIsUpdating,
   getApplicationNormalized,
   getJobApplicationAnswers,
+  getJobApplicationSteps,
+  getStepsAreUpdating,
+  getApplicationsByJob,
+  isFetchingApplications,
 } from "../store/Application/applicationSelector";
-import { fetchApplication } from "../store/Application/applicationActions";
+import {
+  fetchApplication,
+  touchApplicationStep,
+  fetchApplicationsForJob,
+} from "../store/Application/applicationActions";
 import {
   getCriteriaByJob,
   getJob,
@@ -41,7 +49,12 @@ import {
   getJobPosterQuestionsByJob,
 } from "../store/Job/jobSelector";
 import { fetchJob } from "../store/Job/jobActions";
-import { ApplicationStatusId } from "../models/lookupConstants";
+import {
+  ApplicationStatusId,
+  ApplicationStep,
+  ApplicationStepId,
+  ProgressBarStatus,
+} from "../models/lookupConstants";
 import {
   getExperienceByApplicant,
   getExperienceByApplication,
@@ -180,7 +193,7 @@ export function useJobApplicationAnswers(
 
 export function useApplicationUser(applicationId: number): User | null {
   const application = useApplication(applicationId);
-  const user = application?.applicant.user ?? null;
+  const user = application?.applicant?.user ?? null;
   return user;
 }
 
@@ -259,6 +272,32 @@ export function useFetchExperienceConstants(
   };
 }
 
+export function useJobApplicationSteps(): {
+  [step in ApplicationStep]: ProgressBarStatus;
+} {
+  return useSelector(getJobApplicationSteps);
+}
+
+/**
+ * Dispatches an api request that will record the step as touched, setting it to "complete" or "error",
+ * and gets the validation status of the application steps.
+ *
+ * Returns true if the request is currently in progress, false otherwise.
+ *
+ * NOTE: this hook only runs once, when the component is first mounted.
+ */
+export function useTouchApplicationStep(
+  applicationId: number,
+  step: ApplicationStep,
+  dispatch: DispatchType,
+): boolean {
+  const stepsAreUpdating = useSelector(getStepsAreUpdating);
+  useEffect(() => {
+    dispatch(touchApplicationStep(applicationId, ApplicationStepId[step]));
+  }, [applicationId, step, dispatch]);
+  return stepsAreUpdating;
+}
+
 /**
  * Return an Application (normalized, ie without Review) from the redux store, and fetch it from backend if it is not yet in the store.
  * @param applicationId
@@ -312,7 +351,29 @@ export function useFetchApplication(
 }
 
 /**
- * Return an Job from the redux store, and fetch it from backend if it is not yet in the store.
+ * Return an array of Applications related to a given Job ID from the redux store.
+ * Fetch them from the backend if they are not yet in the store.
+ * @param jobId
+ * @param dispatch
+ */
+export function useFetchApplicationsByJob(
+  jobId: number,
+  dispatch: DispatchType,
+): Application[] | null {
+  const applications = useSelector((state: RootState) =>
+    getApplicationsByJob(state, { jobId }),
+  );
+  const applicationsAreFetching = useSelector(isFetchingApplications);
+  useEffect(() => {
+    if (applications.length === 0 && !applicationsAreFetching) {
+      dispatch(fetchApplicationsForJob(jobId));
+    }
+  }, [applications, jobId, applicationsAreFetching, dispatch]);
+  return applications;
+}
+
+/**
+ * Return a Job from the redux store, and fetch it from backend if it is not yet in the store.
  * @param jobId
  * @param dispatch
  */
@@ -334,7 +395,7 @@ export function useFetchJob(
 }
 
 /**
- * Return all Experience relavant to an Application from the redux store, and fetch it from backend if it is not yet in the store.
+ * Return all Experience relevant to an Application from the redux store, and fetch it from backend if it is not yet in the store.
  * @param applicationId
  * @param application
  * @param dispatch

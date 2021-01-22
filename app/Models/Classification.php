@@ -42,4 +42,9 @@ class Classification extends BaseModel
     {
         return $this->belongsToMany(\App\Models\JobPoster::class);
     }
+
+    public function applicant_classifications() //phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\ApplicantClassification::class);
+    }
 }

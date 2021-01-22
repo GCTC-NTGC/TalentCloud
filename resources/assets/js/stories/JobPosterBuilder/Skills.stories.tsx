@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -14,7 +13,7 @@ import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
 import { Criteria } from "../../models/types";
 import { localizeFieldNonNull } from "../../helpers/localize";
 
-const stories = storiesOf("Job Poster Builder|Skills", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Skills", module).addDecorator(
   withIntl,
 );
 
@@ -41,7 +40,7 @@ const classificationOptions = {
 };
 
 function sleep(ms): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const handleSubmit = async (criteria: Criteria[]): Promise<Criteria[]> => {

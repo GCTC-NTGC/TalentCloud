@@ -607,20 +607,8 @@ return [
                         'copy' => "Le Nuage de talents est financé par des protocoles d'entente (PE) avec les ministères partenaires. Il ne s'agit pas de frais de service pour le personnel qui utilise la plateforme. Il s'agit d'un groupe de ministères qui cofinancent une solution de rechange expérimentale au modèle traditionnel des RH. Selon ce modèle, seuls les ministères partenaires peuvent embaucher du personnel à l'aide du Nuage de talents.\n\nLes ministères partenaires qui ont signé des PE sont les suivants :"
                     ],
                     '2' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '0' => 'Secrétariat du Conseil du Trésor (ministère hôte)',
-                            '1' => 'Transports Canada',
-                            '2' => 'Affaires mondiales Canada',
-                            '3' => 'Ressources naturelles Canada',
-                            '4' => 'Agence des services frontaliers du Canada',
-                            '5' => 'Services partagés Canada',
-                            '6' => 'Conseil national de recherches Canada',
-                            '7' => 'Emploi et Développement social Canada',
-                            '8' => 'Gendarmerie royale du Canada',
-                            '9' => 'Services publics et Approvisionnement Canada',
-                            '10' => 'Ministère de la Justice'
-                        ]
+                        'type' => 'partners',
+                        'host_partner_title' => 'ministère hôte'
                     ]
                 ]
             ],

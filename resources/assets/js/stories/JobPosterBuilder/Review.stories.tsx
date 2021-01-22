@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
+/* eslint-disable camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -11,7 +11,7 @@ import fakeDepartments from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
 import { fakeUser } from "../../fakeData/fakeUsers";
 
-const stories = storiesOf("Job Poster Builder|Review", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Review", module).addDecorator(
   withIntl,
 );
 

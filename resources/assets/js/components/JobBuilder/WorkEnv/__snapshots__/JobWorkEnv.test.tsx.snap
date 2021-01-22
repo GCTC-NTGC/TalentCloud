@@ -80,6 +80,7 @@ exports[`Job Index Page should render JobWorkEnv correctly 1`] = `
           "salary_min": 85000,
           "security_clearance_id": 1,
           "start_date_time": 2019-07-01T07:00:00.000Z,
+          "submitted_applications_count": 1,
           "team_impact": Object {
             "en": "Internally, our primary goal is to optimize and build applications to best support our clients and ensure we are able to leverage the most of latest technologies. At the government-wide level, we want to be a model that demonstrates that privacy considerations are not an obstacle to technological progress.",
             "fr": "À l’interne, notre but premier est d’optimiser et bâtir les applications de manière à supporter le mieux possible nos clients et de s’assurer d’être en mesure de tirer parti du meilleur des dernières technologies. À l’échelle du gouvernement, nous désirons être un modèle prouvant que les considérations liées à vie privée ne sont pas un obstacle au progrès technologique.",

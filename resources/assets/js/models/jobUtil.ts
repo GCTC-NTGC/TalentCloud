@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase, camelcase */
+/* eslint-disable camelcase */
 import { MessageDescriptor } from "react-intl";
 import {
   Job,
@@ -68,6 +68,7 @@ export const emptyJob = (): Job => {
     security_clearance_id: null,
     language_requirement_id: null,
     remote_work_allowed: true,
+    submitted_applications_count: null,
     team_size: null,
     work_env_features: null,
     fast_vs_steady: null,

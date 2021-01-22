@@ -32,7 +32,7 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function create(User $user)
     {
-        return $user->isApplicant();
+        return false;
     }
 
     /**
@@ -44,9 +44,7 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function update(User $user, SkillDeclaration $skillDeclaration)
     {
-        return $user->isApplicant()
-            && $skillDeclaration->skillable instanceof Applicant
-            && $skillDeclaration->skillable->user->is($user);
+        return false;
     }
 
     /**
@@ -58,8 +56,6 @@ class SkillDeclarationPolicy extends BasePolicy
      */
     public function delete(User $user, SkillDeclaration $skillDeclaration)
     {
-        return $user->isApplicant()
-            && $skillDeclaration->skillable instanceof Applicant
-            && $skillDeclaration->skillable->user->is($user);
+        return false;
     }
 }

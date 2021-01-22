@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Application } from "../../models/types";
-import { SelectOption } from "../Select";
-import ApplicationReview from "./ApplicationReview";
-import { whereFirst } from "../../helpers/queries";
+import { Application, ApplicationReview } from "../../models/types";
+import ApplicationRow from "./ApplicationRow";
 import {
   applicationCompare,
   applicationComparePrioritizeVeterans,
@@ -14,25 +12,21 @@ interface ApplicantBucketProps {
   title: string;
   description: string;
   applications: Application[];
-  reviewStatusOptions: SelectOption[];
-  onStatusChange: (applicationId: number, statusId: number | null) => void;
-  onNotesChange: (applicationId: number, notes: string | null) => void;
-  savingStatuses: { applicationId: number; isSaving: boolean }[];
+  handleUpdateReview: (review: ApplicationReview) => Promise<void>;
   prioritizeVeterans: boolean;
   portal: Portal;
 }
 
-const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
+const ApplicantBucket: React.FC<ApplicantBucketProps> = ({
   title,
   description,
   applications,
-  reviewStatusOptions,
-  onStatusChange,
-  onNotesChange,
-  savingStatuses,
+  handleUpdateReview,
   prioritizeVeterans,
   portal,
 }: ApplicantBucketProps): React.ReactElement | null => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (applications.length === 0) {
     return null;
   }
@@ -42,12 +36,15 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
     : applicationCompare;
   const sortedApplications = applications.slice().sort(compareFunction);
   return (
-    <div className="accordion applicant-bucket">
+    <div className={`accordion applicant-bucket${isExpanded ? " active" : ""}`}>
       <button
-        aria-expanded="false"
+        aria-expanded={isExpanded}
         className="accordion-trigger"
         tabIndex={0}
         type="button"
+        onClick={(): void => {
+          setIsExpanded(!isExpanded);
+        }}
       >
         <span className="bucket-title">
           {title} ({applications.length})
@@ -65,21 +62,15 @@ const ApplicantBucket: React.StatelessComponent<ApplicantBucketProps> = ({
       </button>
 
       {/* Accordion Content */}
-      <div aria-hidden="true" className="accordion-content">
+      <div aria-hidden={!isExpanded} className="accordion-content">
         <p>{description}</p>
 
         {sortedApplications.map(
           (application: Application): React.ReactElement => (
-            <ApplicationReview
+            <ApplicationRow
               key={application.id}
               application={application}
-              reviewStatusOptions={reviewStatusOptions}
-              onStatusChange={onStatusChange}
-              onNotesChange={onNotesChange}
-              isSaving={
-                whereFirst(savingStatuses, "applicationId", application.id)
-                  .isSaving
-              }
+              handleUpdateReview={handleUpdateReview}
               portal={portal}
             />
           ),

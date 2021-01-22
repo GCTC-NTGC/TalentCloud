@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -8,7 +7,7 @@ import { fakeApplicationNormalized } from "../../fakeData/fakeApplications";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
 
-const stories = storiesOf("Application|Basic Info", module).addDecorator(
+const stories = storiesOf("Application/Basic Info", module).addDecorator(
   withIntl,
 );
 

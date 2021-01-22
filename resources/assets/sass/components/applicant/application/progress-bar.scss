@@ -71,3 +71,13 @@
         }
     }
 }
+
+.blinking-animation {
+    display:inline-block;
+    animation: blink 1.5s ease-in infinite;
+  }
+
+  @keyframes blink {
+    from, to { opacity: 1 }
+    50% { opacity: 0.3 }
+  }

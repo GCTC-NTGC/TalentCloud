@@ -57,8 +57,8 @@
         <div data-c-overlay="black(80)" data-c-padding="bottom(3)" style="background-image: url('{{ asset("/images/bg_crowd.jpg") }}');">
             {% include "common/menu" %}
             <div data-c-container="large" data-c-align="base(center)">
-                <h1 data-c-heading="h1" data-c-margin="top(3)">Thanks for Applying!</h1>
-                <p data-c-color="white" data-c-margin="top(1)">You've successfully applied to: <span data-c-font-weight="bold">Front-end Developer</span> at <span data-c-font-weight="bold">Treasury Board of Canada Secretariat</span></p>
+                <h1 data-c-heading="h1" data-c-margin="top(3)">{{ header.complete.title }}</h1>
+                <p data-c-color="white" data-c-margin="top(1)">{{ header.application_success }} <span data-c-font-weight="bold">{{ jobPoster.title }}</span> at <span data-c-font-weight="bold">{{ jobPoster.department.name }}</span></p>
             </div>
         </div>
     </div>

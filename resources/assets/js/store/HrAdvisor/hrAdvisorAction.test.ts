@@ -31,9 +31,7 @@ describe("async hrAdvisor actions", (): void => {
   });
 
   describe("GET_HR_ADVISOR actions", (): void => {
-    it("Should dispatch GET_HR_ADVISOR_STARTED when first called, and GET_HR_ADVISOR_SUCCEEDED when request succeeds", (): Promise<
-      void
-    > => {
+    it("Should dispatch GET_HR_ADVISOR_STARTED when first called, and GET_HR_ADVISOR_SUCCEEDED when request succeeds", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -67,9 +65,7 @@ describe("async hrAdvisor actions", (): void => {
         expect(store.getActions()).toMatchObject(expectedActions);
       });
     });
-    it("Should dispatch GET_HR_ADVISOR_FAILED when request returns non-200 status", (): Promise<
-      void
-    > => {
+    it("Should dispatch GET_HR_ADVISOR_FAILED when request returns non-200 status", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -98,9 +94,7 @@ describe("async hrAdvisor actions", (): void => {
     });
   });
   describe("CLAIM_JOB actions", (): void => {
-    it("Should dispatch CLAIM_JOB_STARTED when first called, and CLAIM_JOB_SUCCEEDED when request succeeds", (): Promise<
-      void
-    > => {
+    it("Should dispatch CLAIM_JOB_STARTED when first called, and CLAIM_JOB_SUCCEEDED when request succeeds", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -135,9 +129,7 @@ describe("async hrAdvisor actions", (): void => {
         expect(store.getActions()).toMatchObject(expectedActions);
       });
     });
-    it("Should dispatch CLAIM_JOB_FAILED when request returns non-200 status", (): Promise<
-      void
-    > => {
+    it("Should dispatch CLAIM_JOB_FAILED when request returns non-200 status", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -169,9 +161,7 @@ describe("async hrAdvisor actions", (): void => {
     });
   });
   describe("UNCLAIM_JOB actions", (): void => {
-    it("Should dispatch UNCLAIM_JOB_STARTED when first called, and UNCLAIM_JOB_SUCCEEDED when request succeeds", (): Promise<
-      void
-    > => {
+    it("Should dispatch UNCLAIM_JOB_STARTED when first called, and UNCLAIM_JOB_SUCCEEDED when request succeeds", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -206,9 +196,7 @@ describe("async hrAdvisor actions", (): void => {
         expect(store.getActions()).toMatchObject(expectedActions);
       });
     });
-    it("Should dispatch UNCLAIM_JOB_FAILED when request returns non-200 status", (): Promise<
-      void
-    > => {
+    it("Should dispatch UNCLAIM_JOB_FAILED when request returns non-200 status", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 

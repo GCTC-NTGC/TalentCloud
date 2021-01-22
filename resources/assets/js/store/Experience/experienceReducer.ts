@@ -30,6 +30,9 @@ import {
   DELETE_EXPERIENCE_SKILL_STARTED,
   UPDATE_EXPERIENCE_SKILL_FAILED,
   DELETE_EXPERIENCE_SKILL_FAILED,
+  BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED,
+  BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED,
 } from "./experienceActions";
 import {
   mapToObject,
@@ -187,7 +190,6 @@ const experienceTypeGuards = {
 };
 
 function massageType(experienceType: Experience["type"]): EntityType {
-  /* eslint-disable @typescript-eslint/camelcase */
   const mapping: { [key in Experience["type"]]: EntityType } = {
     experience_work: "work",
     experience_education: "education",
@@ -195,7 +197,6 @@ function massageType(experienceType: Experience["type"]): EntityType {
     experience_award: "award",
     experience_personal: "personal",
   };
-  /* eslint-enable @typescript-eslint/camelcase */
   return mapping[experienceType];
 }
 
@@ -372,7 +373,6 @@ function setExperienceSkills(
   };
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 const experienceSkillKeys = {
   experience_work: "idsByWork",
   experience_education: "idsByEducation",
@@ -380,7 +380,6 @@ const experienceSkillKeys = {
   experience_award: "idsByAward",
   experience_personal: "idsByPersonal",
 };
-/* eslint-enable @typescript-eslint/camelcase */
 
 function deleteExpSkillsForExperience(
   state: EntityState,
@@ -408,7 +407,7 @@ function deleteExperienceSkill(
   experienceSkillId: number,
   experienceId: number,
   experienceType: ExperienceSkill["experience_type"],
-) {
+): EntityState["experienceSkills"] {
   const experienceKey = experienceSkillKeys[experienceType];
   return {
     ...state.experienceSkills,
@@ -420,6 +419,23 @@ function deleteExperienceSkill(
     },
     byId: deleteProperty(state.experienceSkills.byId, experienceSkillId),
   };
+}
+
+function batchDeleteExperienceSkills(
+  state: EntityState,
+  experienceSkills: ExperienceSkill[],
+): EntityState {
+  return experienceSkills.reduce((newState, expSkill) => {
+    return {
+      ...newState,
+      experienceSkills: deleteExperienceSkill(
+        newState,
+        expSkill.id,
+        expSkill.experience_id,
+        expSkill.experience_type,
+      ),
+    };
+  }, state);
 }
 
 export const entitiesReducer = (
@@ -492,6 +508,16 @@ export const entitiesReducer = (
           action.meta.experienceId,
           action.meta.experienceType,
         ),
+      };
+    case BATCH_CREATE_EXPERIENCE_SKILLS_SUCCEEDED:
+    case BATCH_UPDATE_EXPERIENCE_SKILLS_SUCCEEDED:
+      return {
+        ...state,
+        experienceSkills: setExperienceSkills(state, action.payload),
+      };
+    case BATCH_DELETE_EXPERIENCE_SKILLS_SUCCEEDED:
+      return {
+        ...batchDeleteExperienceSkills(state, action.meta),
       };
     default:
       return state;

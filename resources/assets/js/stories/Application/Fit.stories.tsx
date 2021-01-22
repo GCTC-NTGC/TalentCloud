@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -9,7 +8,7 @@ import {
   fakeJobApplicationAnswers,
 } from "../../fakeData/fakeJob";
 
-const stories = storiesOf("Application|Fit", module).addDecorator(withIntl);
+const stories = storiesOf("Application/Fit", module).addDecorator(withIntl);
 
 stories.add(
   "Fit",
@@ -19,10 +18,13 @@ stories.add(
       jobQuestions={fakeJobQuestions()}
       jobApplicationAnswers={fakeJobApplicationAnswers()}
       handleSubmit={async (x) => {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-        action("Confirmed")(x);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Submit Answer(s)")(x);
       }}
-      handleContinue={action("Save and Continue")}
+      handleContinue={async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Save and Continue");
+      }}
       handleQuit={action("Save and Quit")}
       handleReturn={action("Save and Return")}
     />

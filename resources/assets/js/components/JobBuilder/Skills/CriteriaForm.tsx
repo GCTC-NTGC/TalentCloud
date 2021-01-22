@@ -125,7 +125,6 @@ export const criteriaToValues = (
       : essentialSkillIdToKey(criteria.skill_level_id),
 });
 
-/* eslint-disable @typescript-eslint/camelcase */
 const updateCriteriaWithValues = (
   locale: "en" | "fr",
   criteria: Criteria,
@@ -165,7 +164,6 @@ const newCriteria = (jobPosterId: number, skillId: number): Criteria => ({
     fr: null,
   },
 });
-/* eslint-enable @typescript-eslint/camelcase */
 
 export const CriteriaForm: React.FunctionComponent<CriteriaFormProps> = ({
   jobPosterId,

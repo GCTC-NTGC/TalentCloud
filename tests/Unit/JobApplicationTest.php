@@ -350,15 +350,7 @@ class JobApplicationTest extends TestCase
         $application->saveProfileSnapshotTimeline();
         $this->assertEquals(0, $application->fresh()->experiences_award->count());
         // Ensure experience_skills were deleted from experience award.
-        $this->assertDatabaseMissing(
-            'experience_skills',
-            [
-                'skill_id' => $experienceSkill->skill_id,
-                'experience_id' => $experience->id,
-                'experience_type' => 'experience_award',
-            ]
-        );
-        $this->assertDatabaseMissing(
+        $this->assertSoftDeleted(
             'experience_skills',
             ['id' => $experienceSkill->id]
         );

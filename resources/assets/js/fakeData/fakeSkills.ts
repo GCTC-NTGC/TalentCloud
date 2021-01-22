@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Skill } from "../models/types";
 import { SkillTypeId } from "../models/lookupConstants";
 
@@ -18,7 +17,7 @@ export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: false,
-  classifications: [{ key: "CS" }],
+  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
   ...overrides,
 });
 
@@ -37,7 +36,7 @@ export const fakeSkill2 = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: false,
-  classifications: [{ key: "CS" }],
+  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
   ...overrides,
 });
 
@@ -56,7 +55,7 @@ export const fakeSkill3 = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: true,
   is_culture_skill: false,
-  classifications: [{ key: "CS" }, { key: "EX" }],
+  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
   ...overrides,
 });
 
@@ -77,7 +76,9 @@ export const fakeSkill4 = (overrides: Partial<Skill> = {}): Skill => ({
   is_culture_skill: true,
   classifications: [
     {
-      key: "EX",
+      id: 1,
+      key: "CS",
+      name: { en: "", fr: "" },
     },
   ],
   ...overrides,
@@ -97,7 +98,9 @@ export const fakeSkill5 = (): Skill => ({
   is_culture_skill: true,
   classifications: [
     {
+      id: 1,
       key: "CS",
+      name: { en: "", fr: "" },
     },
   ],
 });
@@ -116,7 +119,9 @@ export const fakeSkill6 = (): Skill => ({
   is_culture_skill: true,
   classifications: [
     {
+      id: 2,
       key: "EX",
+      name: { en: "", fr: "" },
     },
   ],
 });

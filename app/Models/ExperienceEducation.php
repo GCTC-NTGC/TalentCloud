@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
+use App\Models\Experience;
 
 /**
  * Class ExperienceEducation
@@ -31,7 +31,7 @@ use App\Models\BaseModel;
  *
  * @method string experienceTypeName
  */
-class ExperienceEducation extends BaseModel
+class ExperienceEducation extends Experience
 {
     protected $casts = [
         'education_type_id' => 'int',
