@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import FindSkillsModal from "../../components/ApplicantProfile/FindSkillsModal";
+import FindSkillsModal from "../../components/FindSkillsModal";
 import { fakeSkill2, fakeSkill4 } from "../../fakeData/fakeSkills";
 import { fakeSkillCategories } from "../../fakeData/fakeSkillCategories";
 

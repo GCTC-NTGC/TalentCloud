@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { getLocale } from "../../helpers/localize";
-import { Portal } from "../../models/app";
-import { Skill, SkillCategory } from "../../models/types";
+import { getLocale } from "../helpers/localize";
+import { Portal } from "../models/app";
+import { Skill, SkillCategory } from "../models/types";
 
 const messages = defineMessages({
   modalButtonLabel: {
