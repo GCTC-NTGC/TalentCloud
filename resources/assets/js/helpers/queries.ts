@@ -1,3 +1,6 @@
+import { localizedField, localizedFieldNonNull } from "../models/app";
+import { localizeFieldNonNull, localizeField, Locales } from "./localize";
+
 /**
  * Shortcut function that returns the id attribute of an object.
  * @param item
@@ -226,4 +229,59 @@ export function removeDuplicatesById<T extends { id: number }>(
     return result;
   };
   return items.reduce(reducer, { contents: [], ids: [] }).contents;
+}
+
+/**
+ * Wrapper function to be passed to Array.sort() for objects with
+ * a "name" property of type localizedField or localizedFieldNonNull.
+ *
+ * @param locale
+ */
+export function sortLocalizedAlphabetical(
+  locale: Locales,
+): <T extends { name: localizedField | localizedFieldNonNull }>(
+  first: T,
+  second: T,
+) => number {
+  return function (first, second) {
+    let firstName: string | null | undefined;
+    let secondName: string | null | undefined;
+
+    if (first.name.en !== null && first.name.fr !== null) {
+      firstName = localizeFieldNonNull(
+        locale,
+        first,
+        "name",
+      ).toLocaleUpperCase();
+    } else {
+      firstName = localizeField(locale, first, "name")?.toLocaleUpperCase();
+    }
+
+    if (second.name.en !== null && second.name.fr !== null) {
+      secondName = localizeFieldNonNull(
+        locale,
+        second,
+        "name",
+      ).toLocaleUpperCase();
+    } else {
+      secondName = localizeField(locale, second, "name")?.toLocaleUpperCase();
+    }
+
+    if (
+      firstName !== null &&
+      firstName !== undefined &&
+      secondName !== null &&
+      secondName !== undefined
+    ) {
+      if (firstName < secondName) {
+        return -1;
+      }
+
+      if (firstName > secondName) {
+        return 1;
+      }
+    }
+
+    return 0;
+  };
 }
