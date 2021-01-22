@@ -287,6 +287,24 @@ export interface Skill {
   classifications: Classification[];
 }
 
+export interface SkillCategory {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  parent_id: number | null;
+  lft: number;
+  rgt: number;
+  depth: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface SkillSkillCategory {
+  id: number;
+  skill_id: number;
+  skill_category_id: number;
+}
+
 // Version of Assessment that hasn't been saved to server yet
 export interface TempAssessment {
   id: number;
