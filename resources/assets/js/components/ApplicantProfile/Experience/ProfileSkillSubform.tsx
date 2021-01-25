@@ -6,7 +6,7 @@ import {
   IntlShape,
 } from "react-intl";
 import * as Yup from "yup";
-import { Field, useFormikContext } from "formik";
+import { FastField, Field, useFormikContext } from "formik";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import { Experience, Skill } from "../../../models/types";
@@ -106,6 +106,52 @@ export const validationShape = (intl: IntlShape, skillIds: number[]) => {
   };
 };
 
+const SkillFormCell: FunctionComponent<{
+  skill: Skill;
+  keyPrefix: string;
+}> = ({ skill, keyPrefix }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  const { values } = useFormikContext<SkillFormValues>();
+  const isSelected = !!values.skills[skill.id]?.selected;
+  // We don't use the CheckboxInput component here because we need more custom styling,
+  // mostly because this is ~sort~ of a checkbox group, but its not just checkboxes.
+  return (
+    <div key={skill.id} data-c-grid-item="tl(1of1)">
+      <div data-c-grid="gutter(all, 1)">
+        <div data-c-grid-item="tl(1of4)">
+          <label>
+            <FastField
+              id={`${keyPrefix}-${skill.id}-selected`}
+              type="checkbox"
+              name={`skills.${skill.id}.selected`}
+            />
+            <span data-c-padding="left(.5)">
+              {localizeFieldNonNull(locale, skill, "name")}
+            </span>
+          </label>
+        </div>
+        <div data-c-grid-item="tl(3of4)">
+          <div data-c-visibility={!isSelected ? "hidden" : ""}>
+            <Field
+              id={`${keyPrefix}-${skill.id}-justification`}
+              type="text"
+              name={`skills.${skill.id}.justification`}
+              component={TextAreaInput}
+              required={isSelected}
+              label={intl.formatMessage(messages.justificationLabel)}
+              placeholder={intl.formatMessage(
+                messages.justificationPlaceholder,
+              )}
+              wordLimit={JUSTIFICATION_WORD_LIMIT}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export interface ProfileSkillSubformProps {
   keyPrefix: string;
   skills: Skill[];
@@ -115,10 +161,6 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
   keyPrefix,
   skills,
 }) => {
-  const intl = useIntl();
-  const locale = getLocale(intl.locale);
-  const { values } = useFormikContext<SkillFormValues>();
-
   return (
     <>
       <div data-c-container="medium">
@@ -175,44 +217,13 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
       <div data-c-container="medium">
         <div data-c-grid="gutter(all, 1) middle">
           <div data-c-grid>
-            {skills.map((skill) => {
-              const isSelected = !!values.skills[skill.id]?.selected;
-              // We don't use the CheckboxInput component here because we need more custom styling,
-              // mostly because this is ~sort~ of a checkbox group, but its not just checkboxes.
-              return (
-                <div key={skill.id} data-c-grid-item="tl(1of1)">
-                  <div data-c-grid="gutter(all, 1)">
-                    <div data-c-grid-item="tl(1of4)">
-                      <label>
-                        <Field
-                          id={`${keyPrefix}-${skill.id}-selected`}
-                          type="checkbox"
-                          name={`skills.${skill.id}.selected`}
-                        />
-                        <span data-c-padding="left(.5)">
-                          {localizeFieldNonNull(locale, skill, "name")}
-                        </span>
-                      </label>
-                    </div>
-                    {isSelected && (
-                      <Field
-                        id={`${keyPrefix}-${skill.id}-justification`}
-                        type="text"
-                        name={`skills.${skill.id}.justification`}
-                        component={TextAreaInput}
-                        required={isSelected}
-                        grid="tl(3of4)"
-                        label={intl.formatMessage(messages.justificationLabel)}
-                        placeholder={intl.formatMessage(
-                          messages.justificationPlaceholder,
-                        )}
-                        wordLimit={JUSTIFICATION_WORD_LIMIT}
-                      />
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            {skills.map((skill) => (
+              <SkillFormCell
+                key={skill.id}
+                skill={skill}
+                keyPrefix={keyPrefix}
+              />
+            ))}
           </div>
         </div>
       </div>

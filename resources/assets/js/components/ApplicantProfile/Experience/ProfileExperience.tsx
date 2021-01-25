@@ -113,7 +113,7 @@ export interface ProfileExperienceProps {
   educationStatuses: FormEducationStatus[];
   educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
-  skills: Skill[];
+  userSkills: Skill[];
   recipientTypes: FormAwardRecipientType[];
   recognitionTypes: FormAwardRecognitionType[];
   handleCreateExperience: (
@@ -133,7 +133,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   educationStatuses,
   educationTypes,
   experienceSkills,
-  skills,
+  userSkills,
   handleCreateExperience,
   handleUpdateExperience,
   handleDeleteExperience,
@@ -178,7 +178,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
 
-  const skillsById = mapToObject(skills, getId);
+  const skillsById = mapToObject(userSkills, getId);
 
   const modalRoot = document.getElementById("modal-root");
 
@@ -306,7 +306,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
-        userSkills={skills}
+        userSkills={userSkills}
         experienceSkills={experienceSkills}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
@@ -325,7 +325,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
-        userSkills={skills}
+        userSkills={userSkills}
         experienceSkills={experienceSkills}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
@@ -343,7 +343,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
-        userSkills={skills}
+        userSkills={userSkills}
         experienceSkills={experienceSkills}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
@@ -362,7 +362,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
-        userSkills={skills}
+        userSkills={userSkills}
         experienceSkills={experienceSkills}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
@@ -381,7 +381,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         experienceableType={
           experienceData?.experienceable_type ?? "application"
         }
-        userSkills={skills}
+        userSkills={userSkills}
         experienceSkills={experienceSkills}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}

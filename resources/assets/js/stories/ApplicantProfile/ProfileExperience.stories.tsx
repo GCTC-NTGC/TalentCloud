@@ -111,7 +111,7 @@ stories.add(
       <ProfileExperience
         experiences={experiences}
         experienceSkills={experienceSkills}
-        skills={fakeSkills()}
+        userSkills={fakeSkills()}
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
         handleCreateExperience={handleCreateExperience(

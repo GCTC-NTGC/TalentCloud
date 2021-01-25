@@ -33,7 +33,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   const intl = useIntl();
   const dispatch = useDispatch();
 
-  const skills = useFetchSkills(dispatch);
+  const skills = useFetchSkills(dispatch); // TODO: change this to getting USER SKILLs
 
   const experiencesByType = useSelector((state: RootState) =>
     getExperienceByApplicant(state, { applicantId }),
@@ -207,7 +207,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
         <ProfileExperience
           experiences={experiences}
           experienceSkills={experienceSkills}
-          skills={skills}
+          userSkills={skills}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
           handleCreateExperience={handleCreateExperience}
