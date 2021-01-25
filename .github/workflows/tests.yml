@@ -45,7 +45,7 @@ jobs:
           ${{ runner.os }}-composer-
 
     - name: Install dependencies
-      uses: MilesChou/composer-action/7.2/install@master
+      uses: MilesChou/composer-action/7.2/install@v1.0.2
       with:
         args: install --no-interaction --prefer-dist --no-progress --no-suggest
 
