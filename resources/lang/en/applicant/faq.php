@@ -589,7 +589,7 @@ return [
                 ],
                 'links' => [
                     '0' => "<a href=\"#partners\" title=\"See Talent Cloud's partner departments.\">check out the FAQ section of the Talent Cloud website</a>",
-                    '1' => "<a href=\"".route('manager.home')."\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
+                    '1' => "<a href=\"" . route('manager.home') . "\" title=\"Visit Talent Cloud's manager portal.\">Talent Cloud's manager portal</a>",
                     '2' => '<a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Send an email to Talent Cloud.">talent.cloud-nuage.de.talents@tbs-sct.gc.ca</a>'
                 ]
             ],
@@ -607,22 +607,8 @@ return [
                         'copy' => "Talent Cloud is funded through Memorandums of Understanding (MOUs) with partner departments. This isn't a fee for service to staff using the platform. This is a group of departments co-funding an experimental alternative to the traditional HR model. Under this model, only partner departments may staff using Talent Cloud.\n\nPartner departments with signed MOUs are:"
                     ],
                     '2' => [
-                        'type' => 'ul',
-                        'items' => [
-                            '0' => 'Treasury Board Secretariat (host department)',
-                            '1' => 'Transport Canada',
-                            '2' => 'Global Affairs Canada',
-                            '3' => 'Natural Resources Canada',
-                            '4' => 'Canada Border Services Agency',
-                            '5' => 'Department of National Defense',
-                            '6' => 'Shared Services Canada',
-                            '7' => 'Health Canada',
-                            '8' => 'National Research Council',
-                            '9' => 'Employment and Social Development Canada',
-                            '10' => 'The Royal Canadian Mounted Police',
-                            '11' => 'Public Services and Procurement Canada',
-                            '12' => 'Department of Justice'
-                        ]
+                        'type' => 'partners',
+                        'host_partner_title' => 'host partner'
                     ]
                 ]
             ],

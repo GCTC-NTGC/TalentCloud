@@ -34,6 +34,8 @@ export interface InputProps {
   errorText?: string;
   /** data-clone-grid-item value: https://designwithclone.ca/#flexbox-grid */
   grid?: string;
+  /** The font type for the text input */
+  font?: string;
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /** Event listener which fires when a input loses focus */
@@ -55,6 +57,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   maxLength,
   min,
   max,
+  font,
   onBlur,
   onChange,
 }): React.ReactElement => (
@@ -82,6 +85,7 @@ const Input: React.FunctionComponent<InputProps> = ({
         max={max}
         onChange={onChange}
         onBlur={onBlur}
+        data-c-font={font}
       />
     </div>
     <span>{errorText || <FormattedMessage {...inputMessages.error} />}</span>

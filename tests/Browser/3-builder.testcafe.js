@@ -115,11 +115,11 @@ test("Job Poster Builder - New Job", async (t) => {
     .ok()
     .typeText(Selector("input").withAttribute("id", "teamSize"), "77")
     .wait(200)
-    .click(Selector("input").withAttribute("id", "smudging"))
+    .click(Selector("input").withAttribute("value", "smudging"))
     .wait(200)
-    .click(Selector("input").withAttribute("id", "collaboration"))
+    .click(Selector("input").withAttribute("value", "collaboration"))
     .wait(200)
-    .click(Selector("input").withAttribute("id", "downtown"))
+    .click(Selector("input").withAttribute("value", "downtown"))
     .wait(200)
     // For some reason, deleting and retyping the teamSize input gets it recognized correctly
     .selectText(Selector("input").withAttribute("id", "teamSize"))
@@ -253,19 +253,11 @@ test("Job Poster Builder - New Job", async (t) => {
     .ok()
     .expect(Selector("p").withText("Design Manager").visible)
     .ok()
-    .click(Selector("button").withText("Looks good!"))
-    // Review confirmation.
-    .expect(
-      Selector("h5").withText("Congrats! Are You Ready to Submit?").visible,
-    )
-    .ok()
+    .click(Selector("a").withText("Save and Return to Summary"))
     .wait(200)
-    .click(Selector("button").withText("Yes, Submit"))
-    .wait(200)
-    .click(Selector("a").withText("Go back to My Job Posters"))
-    // Taken back to the Job index page
-    .expect(Selector("h1").withText("My Job Posters").visible)
+    // Taken back to Job Summary page.
+    .expect(Selector("h1").withText("AS-3 - Product Designer").visible)
     .ok()
-    .expect(Selector("a").withText("Product Designer").visible)
+    .expect(Selector("h2").withText("Job Summary").visible)
     .ok();
 });

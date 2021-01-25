@@ -3,6 +3,7 @@ import {
   ApplicationNormalized,
   ApplicationReview,
   Email,
+  JobApplicationAnswer,
 } from "../../models/types";
 import {
   ApplicationAction,
@@ -12,6 +13,9 @@ import {
   FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED,
   FETCH_APPLICATIONS_FOR_JOB_STARTED,
   FETCH_APPLICATIONS_FOR_JOB_FAILED,
+  UPDATE_APPLICATION_SUCCEEDED,
+  UPDATE_APPLICATION_STARTED,
+  UPDATE_APPLICATION_FAILED,
   UPDATE_APPLICATION_REVIEW_SUCCEEDED,
   UPDATE_APPLICATION_REVIEW_STARTED,
   UPDATE_APPLICATION_REVIEW_FAILED,
@@ -21,6 +25,10 @@ import {
   SEND_REFERENCE_EMAIL_STARTED,
   SEND_REFERENCE_EMAIL_SUCCEEDED,
   SEND_REFERENCE_EMAIL_FAILED,
+  TOUCH_JOB_APPLICATION_STEP_SUCCEEDED,
+  TOUCH_JOB_APPLICATION_STEP_STARTED,
+  TOUCH_JOB_APPLICATION_STEP_FAILED,
+  SUBMIT_APPLICATION_SUCCEEDED,
 } from "./applicationActions";
 import {
   mapToObject,
@@ -29,11 +37,23 @@ import {
   mapToObjectTrans,
   deleteProperty,
 } from "../../helpers/queries";
+import {
+  CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+  UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED,
+} from "../JobApplicationAnswer/jobApplicationAnswerActions";
+import {
+  ApplicationStep,
+  ProgressBarStatus,
+} from "../../models/lookupConstants";
 
 export interface EntityState {
   applications: {
     [id: number]: ApplicationNormalized;
   };
+  jobApplicationAnswers: {
+    [id: number]: JobApplicationAnswer;
+  };
+  jobApplicationSteps: { [step in ApplicationStep]: ProgressBarStatus };
   applicationReviews: {
     byId: {
       [id: number]: ApplicationReview;
@@ -67,6 +87,7 @@ export interface UiState {
   sendingReferenceEmailForApplication: {
     [applicationId: number]: boolean;
   };
+  updatingSteps: boolean;
 }
 
 export interface ApplicationState {
@@ -76,6 +97,15 @@ export interface ApplicationState {
 
 export const initEntities = (): EntityState => ({
   applications: {},
+  jobApplicationAnswers: {},
+  jobApplicationSteps: {
+    basic: "default",
+    experience: "default",
+    skills: "default",
+    fit: "default",
+    review: "default",
+    submission: "default",
+  },
   applicationReviews: {
     byId: {},
     idByApplicationId: {},
@@ -95,6 +125,7 @@ export const initUi = (): UiState => ({
   fetchingApplications: false,
   fetchingReferenceEmailsForApplication: {},
   sendingReferenceEmailForApplication: {},
+  updatingSteps: false,
 });
 
 export const initApplicationState = (): ApplicationState => ({
@@ -112,25 +143,29 @@ export const entitiesReducer = (
         ...state,
         applications: {
           ...state.applications,
-          [action.payload.id]: deleteProperty(
-            action.payload,
+          [action.payload.application.id]: deleteProperty(
+            action.payload.application,
             "application_review",
           ),
         },
-        applicationReviews:
-          action.payload.application_review !== undefined
-            ? {
-                byId: {
-                  ...state.applicationReviews.byId,
-                  [action.payload.application_review.id]:
-                    action.payload.application_review,
-                },
-                idByApplicationId: {
-                  ...state.applicationReviews.idByApplicationId,
-                  [action.payload.id]: action.payload.application_review.id,
-                },
-              }
-            : state.applicationReviews,
+        applicationReviews: action.payload.application.application_review
+          ? {
+              byId: {
+                ...state.applicationReviews.byId,
+                [action.payload.application.application_review.id]:
+                  action.payload.application.application_review,
+              },
+              idByApplicationId: {
+                ...state.applicationReviews.idByApplicationId,
+                [action.payload.application.id]:
+                  action.payload.application.application_review.id,
+              },
+            }
+          : state.applicationReviews,
+        jobApplicationAnswers: {
+          ...mapToObject(action.payload.jobApplicationAnswers, getId),
+        },
+        jobApplicationSteps: action.payload.jobApplicationSteps,
       };
     case FETCH_APPLICATIONS_FOR_JOB_SUCCEEDED:
       return {
@@ -166,6 +201,18 @@ export const entitiesReducer = (
           },
         },
       };
+    case UPDATE_APPLICATION_SUCCEEDED:
+    case SUBMIT_APPLICATION_SUCCEEDED:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          [action.payload.id]: {
+            ...state.applications[action.payload.id],
+            ...action.payload,
+          },
+        },
+      };
     case UPDATE_APPLICATION_REVIEW_SUCCEEDED:
       return {
         ...state,
@@ -198,6 +245,23 @@ export const entitiesReducer = (
           },
         },
       };
+    case CREATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+    case UPDATE_JOB_APPLICATION_ANSWER_SUCCEEDED:
+      return {
+        ...state,
+        jobApplicationAnswers: {
+          ...state.jobApplicationAnswers,
+          [action.payload.id]: action.payload,
+        },
+      };
+    case TOUCH_JOB_APPLICATION_STEP_SUCCEEDED:
+      return {
+        ...state,
+        jobApplicationSteps: {
+          ...state.jobApplicationSteps,
+          ...action.payload,
+        },
+      };
     default:
       return state;
   }
@@ -215,6 +279,7 @@ export const uiReducer = (
           ...state.applicationIsUpdating,
           [action.meta.id]: true,
         },
+        updatingSteps: true,
       };
     case FETCH_APPLICATION_SUCCEEDED:
     case FETCH_APPLICATION_FAILED:
@@ -224,6 +289,7 @@ export const uiReducer = (
           ...state.applicationIsUpdating,
           [action.meta.id]: false,
         },
+        updatingSteps: false,
       };
     case FETCH_APPLICATIONS_FOR_JOB_STARTED:
       return {
@@ -235,6 +301,23 @@ export const uiReducer = (
       return {
         ...state,
         fetchingApplications: false,
+      };
+    case UPDATE_APPLICATION_STARTED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: true,
+        },
+      };
+    case UPDATE_APPLICATION_SUCCEEDED:
+    case UPDATE_APPLICATION_FAILED:
+      return {
+        ...state,
+        applicationIsUpdating: {
+          ...state.applicationIsUpdating,
+          [action.meta.id]: false,
+        },
       };
     case UPDATE_APPLICATION_REVIEW_STARTED:
       return {
@@ -286,6 +369,17 @@ export const uiReducer = (
           ...state.sendingReferenceEmailForApplication,
           [action.meta.applicationId]: false,
         },
+      };
+    case TOUCH_JOB_APPLICATION_STEP_STARTED:
+      return {
+        ...state,
+        updatingSteps: true,
+      };
+    case TOUCH_JOB_APPLICATION_STEP_SUCCEEDED:
+    case TOUCH_JOB_APPLICATION_STEP_FAILED:
+      return {
+        ...state,
+        updatingSteps: false,
       };
     default:
       return state;

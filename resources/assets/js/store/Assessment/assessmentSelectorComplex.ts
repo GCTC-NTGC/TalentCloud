@@ -4,7 +4,7 @@ import { getCriteriaIdsByJob } from "../Job/jobSelector";
 import { Assessment } from "../../models/types";
 
 /**
- * Returns current verisons of all assessments.
+ * Returns current versions of all assessments.
  * ie edited version if possible,
  * and not including those undergoing delete requests
  */

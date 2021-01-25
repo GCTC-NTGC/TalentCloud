@@ -63,6 +63,8 @@
 
         @media #{$l-tablet} {
             display: block;
+            max-height: 100vh;
+            overflow: auto;
             position: sticky;
             top: 0;
         }

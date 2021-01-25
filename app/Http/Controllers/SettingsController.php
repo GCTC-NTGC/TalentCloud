@@ -49,6 +49,7 @@ class SettingsController extends Controller
             'submit_personal' => route(WhichPortal::prefixRoute('settings.personal.update'), $user),
             'submit_password' => route(WhichPortal::prefixRoute('settings.password.update'), $user),
             'submit_government' => route(WhichPortal::prefixRoute('settings.government.update'), $user),
+            'submit_contact_preferences' => route(WhichPortal::prefixRoute('settings.contact_preferences.update'), $user),
             'submit_delete' => route('settings.account.delete', $user),
             'activate_two_factor' => route(WhichPortal::prefixRoute('two_factor.activate')),
             'deactivate_two_factor' => route(WhichPortal::prefixRoute('two_factor.deactivate')),
@@ -135,6 +136,32 @@ class SettingsController extends Controller
         }
 
         return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_government'));
+    }
+
+    /**
+     * Update contact information.
+     *
+     * @param \Illuminate\Http\Request $request Incoming request.
+     * @param \App\Models\User $user Incoming User.
+     * @return \Illuminate\Http\Response
+     */
+    public function updateContactPreferences(Request $request, User $user)
+    {
+        $validData = $request->validate([
+            'contact_language' => [
+                'required',
+                'string',
+                Rule::in(['en', 'fr']),
+            ],
+            'job_alerts' => 'boolean|in:0,1',
+        ]);
+
+        if ($validData) {
+            $user->update(['contact_language' => $validData['contact_language']]);
+            $user->update(['job_alerts' => $validData['job_alerts']]);
+        }
+
+        return redirect()->route(WhichPortal::prefixRoute('settings.edit'))->withSuccess(Lang::get('success.update_contact_preferences'));
     }
 
     /**

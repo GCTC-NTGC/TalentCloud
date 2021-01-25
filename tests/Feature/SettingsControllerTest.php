@@ -76,7 +76,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_personal')));
+        $response->assertSee(Lang::get('success.update_personal'));
         // Data was updated.
         $this->assertDatabaseHas('users', $data);
     }
@@ -101,7 +101,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Data was not updated.
         $this->assertDatabaseMissing('users', $data);
     }
@@ -126,7 +126,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Data was not updated.
         $this->assertDatabaseMissing('users', $data);
     }
@@ -151,7 +151,54 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.personal.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
+        // Data was not updated.
+        $this->assertDatabaseMissing('users', $data);
+    }
+
+    /**
+     * Ensure update contact preferences succeeds with valid data.
+     *
+     * @return void
+     */
+    public function testUpdateContactPreferencesWithValidData(): void
+    {
+        $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => 'fr',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Success notification visible.
+        $response->assertSee(Lang::get('success.update_contact_preferences'));
+        // Data was updated.
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Ensure missing contact language is invalid.
+     *
+     * @return void
+     */
+    public function testContactPreferencesNotValidWhenContactLanguageIsEmpty(): void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+        $data = [
+            'contact_language' => '',
+            'job_alerts' => true,
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.contact_preferences.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Error message visible.
+        $response->assertSee(Lang::get('forms.alert'));
         // Data was not updated.
         $this->assertDatabaseMissing('users', $data);
     }
@@ -177,7 +224,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_password')));
+        $response->assertSee(Lang::get('success.update_password'));
         // Password was updated.
         $this->assertDatabaseMissing('users', $password);
     }
@@ -203,7 +250,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Password was not updated.
         $this->assertDatabaseHas('users', $password);
     }
@@ -229,7 +276,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Password was not updated.
         $this->assertDatabaseHas('users', $password);
     }
@@ -255,7 +302,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Password was not updated.
         $this->assertDatabaseHas('users', $password);
     }
@@ -281,7 +328,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.password.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Password was not updated.
         $this->assertDatabaseHas('users', $password);
     }
@@ -297,16 +344,16 @@ class SettingsControllerTest extends TestCase
         $response = $this->actingAs($this->applicant->user)
             ->get(route('settings.edit'));
         $response->assertOk();
-        $response->assertDontSee(Lang::get(e('common/settings.heading.government')));
+        $response->assertDontSee(Lang::get('common/settings.heading.government'));
         // Manager, visible (with gov_email).
         $response = $this->actingAs($this->manager->user)->get(route('manager.settings.edit', $this->manager->user));
         $response->assertOk();
-        $response->assertSee(Lang::get(e('common/settings.heading.government')));
+        $response->assertSee(Lang::get('common/settings.heading.government'));
         // Applicant, visible (with gov_email).
         $this->applicant->user->gov_email = 'applicant@tbs-sct.gc.ca';
         $response = $this->actingAs($this->applicant->user)->get(route('settings.edit'));
         $response->assertOk();
-        $response->assertSee(Lang::get(e('common/settings.heading.government')));
+        $response->assertSee(Lang::get('common/settings.heading.government'));
     }
 
     /**
@@ -328,7 +375,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.government.update', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_government')));
+        $response->assertSee(Lang::get('success.update_government'));
         // Government info was updated.
         $this->assertDatabaseHas('users', $data);
     }
@@ -351,7 +398,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.government.update', $this->applicant->user), $data);
         $response->assertOk();
         // Error message visible.
-        $response->assertSee(e(Lang::get('forms.alert')));
+        $response->assertSee(Lang::get('forms.alert'));
         // Password was not updated.
         $this->assertDatabaseMissing('users', $data);
     }
@@ -375,7 +422,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('manager.settings.personal.update', $this->manager->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_personal')));
+        $response->assertSee(Lang::get('success.update_personal'));
         // Data was updated.
         $this->assertDatabaseHas('users', $data);
     }
@@ -401,7 +448,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('manager.settings.password.update', $this->manager->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_password')));
+        $response->assertSee(Lang::get('success.update_password'));
         // Password was updated.
         $this->assertDatabaseMissing('users', $password);
     }
@@ -425,7 +472,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('manager.settings.government.update', $this->manager->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.update_government')));
+        $response->assertSee(Lang::get('success.update_government'));
         // Government info was updated.
         $this->assertDatabaseHas('users', $data);
     }
@@ -453,7 +500,7 @@ class SettingsControllerTest extends TestCase
             ->post(route('settings.account.delete', $this->applicant->user), $data);
         $response->assertOk();
         // Success notification visible.
-        $response->assertSee(e(Lang::get('success.delete_account')));
+        $response->assertSee(Lang::get('success.delete_account'));
         // Data was scrambled.
         $this->assertDatabaseMissing('users', $userData);
     }

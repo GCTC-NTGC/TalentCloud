@@ -150,6 +150,8 @@ class RegisterController extends AuthController
         $user->first_name = $data['first_name'];
         $user->last_name = $data['last_name'];
         $user->email = $data['email'];
+        $user->contact_language = $data['contact_language'];
+        $user->job_alerts = $data['job_alerts'];
         $user->password = Hash::make($data['password']);
 
         // Default to basic user.

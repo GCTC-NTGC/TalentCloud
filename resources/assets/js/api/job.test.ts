@@ -685,6 +685,40 @@ describe("api/job", (): void => {
           },
         },
       ],
+      job_poster_questions: [
+        {
+          id: 1,
+          job_poster_id: 1,
+          created_at: "2020-09-09T20:53:31+00:00",
+          updated_at: "2020-09-09T20:53:31+00:00",
+          question: {
+            en:
+              "Minus perspiciatis ut quo sed cumque. Est vel et iste quo et deleniti hic. Qui asperiores nulla rerum rem asperiores eaque.",
+            fr:
+              "Alias temporibus laudantium omnis ratione. Doloremque eaque libero quia exercitationem minima. Aut qui in facilis.",
+          },
+          description: {
+            en: "Nisi perspiciatis itaque laborum cumque reiciendis.",
+            fr: "Aliquam quas reiciendis tenetur labore et.",
+          },
+        },
+        {
+          id: 2,
+          job_poster_id: 1,
+          created_at: "2020-09-09T20:53:31+00:00",
+          updated_at: "2020-09-09T20:53:31+00:00",
+          question: {
+            en:
+              "Ut delectus omnis harum ut sed quo porro nobis. Qui odio voluptas quidem nam et alias. Cupiditate at dolorum labore quia.",
+            fr:
+              "Consequuntur quis porro sed modi omnis voluptas. Illo nemo est et molestiae voluptatem facere corporis. Pariatur omnis magnam est veritatis. Facere qui sapiente alias nam iste.",
+          },
+          description: {
+            en: "Fugiat voluptatum excepturi atque.",
+            fr: "Qui laudantium ea aut.",
+          },
+        },
+      ],
     });
     it("Can parse a real example of a job response without throwing an error", (): void => {
       expect((): void => {

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\BaseModel;
+use App\Models\Experience;
 
 /**
  * Class ExperienceAward
@@ -20,10 +20,14 @@ use App\Models\BaseModel;
  * @property \Jenssegers\Date\Date $updated_at
  *
  * @property \App\Models\Applicant|\App\Models\JobApplication $experienceable
+ * @property \App\Models\Lookup\AwardRecipientType $award_recipient_type
+ * @property \App\Models\Lookup\AwardRecognitionType $award_recognition_type
  * @property \Illuminate\Database\Eloquent\Collection $skills
  * @property \Illuminate\Database\Eloquent\Collection $experience_skills
+ *
+ * @method string experienceTypeName
  */
-class ExperienceAward extends BaseModel
+class ExperienceAward extends Experience
 {
     protected $casts = [
         'title' => 'string',
@@ -45,6 +49,18 @@ class ExperienceAward extends BaseModel
 
     protected $table = 'experiences_award';
 
+    public static function boot()
+    {
+        parent::boot();
+
+        // Delete associated ExperienceSkills when this is deleted.
+        static::deleting(function ($award): void {
+            foreach ($award->experience_skills as $es) {
+                $es->delete();
+            }
+        });
+    }
+
     public function award_recipient_type() //phpcs:ignore
     {
         return $this->belongsTo(\App\Models\Lookup\AwardRecipientType::class);
@@ -60,13 +76,17 @@ class ExperienceAward extends BaseModel
         return $this->morphTo();
     }
 
-    public function skills()
-    {
-        return $this->morphToMany(\App\Models\Skill::class, 'experience', 'experience_skills');
-    }
-
     public function experience_skills() //phpcs:ignore
     {
         return $this->morphMany(\App\Models\ExperienceSkill::class, 'experience');
+    }
+
+    /**
+     * Returns the name of this experience type. Used to distinguish from other Experience models.
+     * @return string Returns the string 'experience_award'.
+     */
+    public function experienceTypeName(): string
+    {
+        return 'experience_award';
     }
 }

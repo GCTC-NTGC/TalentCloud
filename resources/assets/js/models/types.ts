@@ -19,29 +19,36 @@ export interface Applicant {
   user: User;
 }
 
-export type Application = {
+export interface ApplicationBasic {
   id: number;
   job_poster_id: number;
   application_status_id: number;
-  citizenship_declaration_id: number;
-  veteran_status_id: number;
+  citizenship_declaration_id: number | null;
+  veteran_status_id: number | null;
   preferred_language_id: number;
   applicant_id: number;
-  applicant_snapshot_id: number;
   submission_signature: string;
   submission_date: string;
   experience_saved: boolean;
+  applicant_snapshot_id: number;
   language_requirement_confirmed: boolean;
   language_test_confirmed: boolean;
   education_requirement_confirmed: boolean;
+  version_id: number | null;
+  user_name: string | null;
+  user_email: string | null;
+  share_with_managers: boolean;
   created_at: Date;
   updated_at: Date;
-  veteran_status: VeteranStatus;
-  citizenship_declaration: CitizenshipDeclaration;
+}
+
+export interface Application extends ApplicationBasic {
   applicant: Applicant;
   application_review: ApplicationReview | undefined;
+  veteran_status: VeteranStatus;
+  citizenship_declaration: CitizenshipDeclaration;
   meets_essential_criteria: boolean;
-};
+}
 
 export type ApplicationNormalized = Omit<Application, "application_review">;
 
@@ -80,8 +87,26 @@ export interface AssessmentPlanNotification {
   created_at: Date;
 }
 
-export interface Classification {
+export interface AwardRecipientType {
+  id: number;
   key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
+export interface AwardRecognitionType {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
+export interface Classification {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
 }
 
 type CitizenshipDeclarationName =
@@ -119,6 +144,22 @@ export interface Department {
   id: number;
   name: localizedFieldNonNull;
   impact: localizedFieldNonNull;
+}
+
+export interface EducationStatus {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
+}
+
+export interface EducationType {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  created_at: Date | null;
+  updated_at: Date | null;
 }
 
 export interface HrAdvisor {
@@ -159,6 +200,7 @@ export interface Job {
   flexible_hours_frequency_id: number | null;
   travel_requirement_id: number | null;
   overtime_requirement_id: number | null;
+  submitted_applications_count: number | null;
   created_at: Date;
   city: localizedField;
   title: localizedField;
@@ -174,7 +216,7 @@ export interface Job {
 
 export interface JobApplicationAnswer {
   id: number;
-  job_poster_questions_id: number;
+  job_poster_question_id: number;
   job_application_id: number;
   answer: string | null;
 }
@@ -266,6 +308,8 @@ export interface User {
   not_in_gov: boolean;
   gov_email: string;
   department_id: number | null;
+  contact_language: string | null;
+  job_alerts: boolean;
   user_role: {
     id: number;
     key: string;
@@ -308,9 +352,11 @@ export interface ExperienceWork extends ExperienceBase {
 export interface ExperienceEducation extends ExperienceBase {
   id: number;
   education_type_id: number;
+  education_type: localizedFieldNonNull;
   area_of_study: string;
   institution: string;
   education_status_id: number;
+  education_status: localizedFieldNonNull;
   is_active: boolean;
   thesis_title: string;
   has_blockcert: boolean;
@@ -334,8 +380,10 @@ export interface ExperienceAward extends ExperienceBase {
   id: number;
   title: string;
   award_recipient_type_id: number;
+  award_recipient_type: localizedFieldNonNull;
   issued_by: string;
   award_recognition_type_id: number;
+  award_recognition_type: localizedFieldNonNull;
   awarded_date: Date;
   type: "experience_award";
 }
@@ -359,10 +407,11 @@ export type Experience =
   | ExperiencePersonal;
 
 export interface ExperienceSkill {
+  id: number;
   skill_id: number;
   experience_id: number;
   experience_type: string;
-  justification: string;
+  justification: string | null;
   created_at: Date;
   updated_at: Date;
 }

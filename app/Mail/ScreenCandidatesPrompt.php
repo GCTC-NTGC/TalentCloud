@@ -55,7 +55,7 @@ class ScreenCandidatesPrompt extends Mailable implements ShouldQueue
         }
 
         // Get date 2 weeks after job poster closes.
-        $date_in_two_weeks = humanizeLastDay($this->job->close_date_time->addWeeks(2));
+        $date_in_two_weeks = humanizeLastDay($this->job->close_date_time->addWeeks(2), 'en');
         $date_in_two_weeks_fr = humanizeLastDay($this->job->close_date_time->addWeeks(2), 'fr');
 
         // Number of applicants.

@@ -4,7 +4,7 @@ import { withIntl } from "storybook-addon-intl";
 import { text, number } from "@storybook/addon-knobs";
 import JobPreview from "../../components/JobPreview";
 
-const stories = storiesOf("Job Poster Builder|Preview", module).addDecorator(
+const stories = storiesOf("Job Poster Builder/Preview", module).addDecorator(
   withIntl,
 );
 

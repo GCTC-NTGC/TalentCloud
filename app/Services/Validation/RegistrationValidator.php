@@ -4,6 +4,7 @@ namespace App\Services\Validation;
 
 use App\Services\Validation\Rules\PasswordFormatRule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RegistrationValidator
 {
@@ -14,6 +15,12 @@ class RegistrationValidator
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'contact_language' => [
+                'required',
+                'string',
+                Rule::in(['en', 'fr']),
+            ],
+            'job_alerts' => 'boolean|in:0,1',
             'password' => [
                 'required',
                 'min:8',

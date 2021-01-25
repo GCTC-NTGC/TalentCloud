@@ -9,7 +9,7 @@ import {
   jobPosterStatuses,
 } from "../components/HRPortal/fixtures";
 
-const stories = storiesOf("Components|Unclaimed Job Card", module).addDecorator(
+const stories = storiesOf("Components/Unclaimed Job Card", module).addDecorator(
   withIntl,
 );
 

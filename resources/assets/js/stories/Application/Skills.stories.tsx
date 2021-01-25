@@ -9,7 +9,7 @@ import fakeExperienceSkills from "../../fakeData/fakeExperienceSkills";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import { ExperienceSkill } from "../../models/types";
 
-const stories = storiesOf("Application|Skills", module).addDecorator(withIntl);
+const stories = storiesOf("Application/Skills", module).addDecorator(withIntl);
 
 const handleUpdateExperienceJustification = (
   experience: ExperienceSkill,
@@ -20,9 +20,9 @@ const handleUpdateExperienceJustification = (
 
 const handleRemoveExperienceJustification = (
   experience: ExperienceSkill,
-): Promise<ExperienceSkill> => {
+): Promise<void> => {
   action("Removed")();
-  return Promise.resolve(experience);
+  return Promise.resolve();
 };
 
 stories.add(
@@ -35,6 +35,9 @@ stories.add(
       skills={fakeSkills()}
       handleUpdateExperienceJustification={handleUpdateExperienceJustification}
       handleRemoveExperienceJustification={handleRemoveExperienceJustification}
+      handleContinue={action("Continue")}
+      handleQuit={action("Quit")}
+      handleReturn={action("Return")}
     />
   ),
 );

@@ -51,7 +51,7 @@ export const ExperienceDetailsIntro: React.FC<{ description: string }> = ({
             data-c-color="c3"
           >
             <FormattedMessage
-              id="experienceModal.detailsSubtitle"
+              id="application.experienceModal.detailsSubtitle"
               defaultMessage="Experience Details"
               description="Subtitle of Experience Details section."
             />
@@ -69,7 +69,7 @@ export const ExperienceModalFooter: React.FC<{
     <Modal.Footer>
       <Modal.FooterCancelBtn disabled={buttonsDisabled}>
         <FormattedMessage
-          id="experienceModal.cancel"
+          id="application.experienceModal.cancel"
           defaultMessage="Cancel"
           description="Cancel button text"
         />
@@ -86,7 +86,7 @@ export const ExperienceModalFooter: React.FC<{
           type="submit"
         >
           <FormattedMessage
-            id="experienceModal.save"
+            id="application.experienceModal.save"
             defaultMessage="Save Experience"
             description="Save button text"
           />

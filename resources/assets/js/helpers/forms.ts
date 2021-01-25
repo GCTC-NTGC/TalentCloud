@@ -1,6 +1,7 @@
 import { FormikProps, FormikValues } from "formik";
 import isEmpty from "lodash/isEmpty";
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
+import { notEmpty } from "./queries";
 
 /**
  * Focuses on a element with given id.
@@ -14,17 +15,35 @@ export const focusOnElement = (elementId: string): void => {
 };
 
 /**
+ * Toggle accordion with given id.
+ * @param id
+ */
+export const toggleAccordion = (elementId: string): void => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    element.classList.toggle("active");
+    const { firstElementChild } = element;
+    if (firstElementChild) {
+      firstElementChild.setAttribute("aria-expanded", "true");
+    }
+  }
+};
+
+/**
  * Runs validation on all forms, then returns true if they are all valid.
  * TODO: Figure out how to focus the first (or last) invalid input, if any.
  * @param refs
  */
 export const validateAllForms = (
-  refs: MutableRefObject<FormikProps<FormikValues>>[],
+  refs: RefObject<FormikProps<FormikValues>>[],
 ): Promise<boolean> => {
   return Promise.all(
-    refs.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
-      ref.current.validateForm(),
-    ),
+    refs
+      .filter(notEmpty)
+      .map(
+        (ref: RefObject<FormikProps<FormikValues>>): Promise<any> =>
+          ref.current !== null ? ref.current.validateForm() : Promise.resolve(),
+      ),
   ).then((errors) => errors.every(isEmpty));
 };
 
@@ -33,12 +52,14 @@ export const validateAllForms = (
  * @param refs
  */
 export const submitAllForms = (
-  refs: React.MutableRefObject<FormikProps<FormikValues>>[],
+  refs: React.RefObject<FormikProps<FormikValues>>[],
 ): Promise<void[]> => {
   return Promise.all(
-    refs.map((ref: MutableRefObject<FormikProps<FormikValues>>) =>
+    refs.filter(notEmpty).map((ref: RefObject<FormikProps<FormikValues>>) => {
       // TODO: Might need to make one mass submission by combining all values into an array.
-      ref.current.submitForm(),
-    ),
+      return ref.current !== null
+        ? ref.current.submitForm()
+        : Promise.resolve();
+    }),
   );
 };

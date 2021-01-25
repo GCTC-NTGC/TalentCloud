@@ -1,0 +1,24 @@
+// =============================================================================
+
+    // Applicant Profile Component: Archived
+
+// =============================================================================
+div#archived-component {
+
+    img#archived-icon {
+        height: 90px;
+        width: 90px;
+        /* This below line confuses scss. Put in style tag in archived.html.twig file */
+        //filter: invert(11%) sepia(97%) saturate(5013%) hue-rotate(335deg) brightness(87%) contrast(107%);
+        display: inline-block;
+    }
+
+    p#archived-message {
+        display: inline;
+    }
+
+    div#archived-message-div {
+        margin-top: 15px;
+    }
+
+}

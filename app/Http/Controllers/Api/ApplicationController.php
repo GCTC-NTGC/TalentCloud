@@ -12,9 +12,13 @@ use App\Models\JobPoster;
 use App\Models\Lookup\ApplicationStatus;
 use App\Models\Lookup\Department;
 use App\Models\Lookup\ReviewStatus;
+use App\Models\Lookup\JobApplicationStep;
+use App\Services\Validation\ApplicationTimelineValidator;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ApplicationController extends Controller
 {
@@ -40,15 +44,43 @@ class ApplicationController extends Controller
      */
     public function updateBasic(UpdateJobApplicationBasic $request, JobApplication $application)
     {
-        $request->validated();
-        $application->fill([
-            'citizenship_declaration_id' => $request->input('citizenship_declaration_id'),
-            'veteran_status_id' => $request->input('veteran_status_id'),
-            'language_requirement_confirmed' => $request->input('language_requirement_confirmed', false),
-            'language_test_confirmed' => $request->input('language_test_confirmed', false),
-            'education_requirement_confirmed' => $request->input('education_requirement_confirmed', false),
-        ]);
+        $data = $request->validated();
+        $application->fill($data);
         $application->save();
+
+        return new JobApplicationBasicResource($application);
+    }
+
+    /**
+     * Validate and submit the Application.
+     *
+     * @param Request        $request     Incoming request object.
+     * @param JobApplication $application Incoming Job Application object.
+     *
+     * @return mixed
+     */
+    public function submit(Request $request, JobApplication $application)
+    {
+        if ($application->application_status->name == 'draft') {
+            $validator = new ApplicationTimelineValidator();
+            $data = $request->validate($validator->affirmationRules);
+            $application->fill($data);
+            $application->save();
+
+            $applicationComplete = $validator->validateComplete($application);
+            if (!$applicationComplete) {
+                $userId = $application->applicant->user_id;
+                $msg = "Application $application->id for user $userId is invalid for submission: " .
+                implode('; ', $validator->detailedValidatorErrors($application));
+                Log::info($msg);
+
+                throw ValidationException::withMessages($validator->detailedValidatorErrors($application));
+            }
+
+            $application->application_status_id = ApplicationStatus::where('name', 'submitted')->firstOrFail()->id;
+            $application->save();
+            $application->saveProfileSnapshotTimeline();
+        }
 
         return new JobApplicationBasicResource($application);
     }
@@ -62,7 +94,13 @@ class ApplicationController extends Controller
      */
     public function show(JobApplication $application)
     {
-        $application->loadMissing('applicant', 'application_review', 'citizenship_declaration', 'veteran_status');
+        $application->loadMissing(
+            'applicant',
+            'application_review',
+            'citizenship_declaration',
+            'veteran_status',
+            'job_application_answers'
+        );
         return new JobApplicationResource($application);
     }
 
@@ -163,5 +201,21 @@ class ApplicationController extends Controller
                 ['applicant_id', $application->applicant->id]
             ]);
         })->update(['review_status_id' => $unavailableStatusId]);
+    }
+
+    /**
+     * Update the job application step
+     *
+     * @param Step $step Incoming Job Application Step
+     * @return mixed
+     */
+    public function touchStep(Request $request, JobApplication $application, JobApplicationStep $jobApplicationStep)
+    {
+        $touchedApplicationStep = $application->touched_application_steps
+            ->where('step_id', $jobApplicationStep->id)
+            ->first();
+        $touchedApplicationStep->update(['touched' => true]);
+
+        return new JsonResource($application->jobApplicationSteps());
     }
 }

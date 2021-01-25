@@ -1,9 +1,9 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -34,12 +34,12 @@ import { notEmpty } from "../../../helpers/queries";
 import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-interface EducationType {
+export interface EducationType {
   id: number;
   name: localizedFieldNonNull;
 }
 
-interface EducationStatus {
+export interface EducationStatus {
   id: number;
   name: localizedFieldNonNull;
 }
@@ -50,11 +50,12 @@ interface EducationExperienceModalProps {
   educationTypes: EducationType[];
   educationStatuses: EducationStatus[];
   jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
   optionalSkills: Skill[];
   savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
   experienceableId: number;
   experienceableType: ExperienceEducation["experienceable_type"];
   parentElement: Element | null;
@@ -63,84 +64,188 @@ interface EducationExperienceModalProps {
   onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
 }
 
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
-    id: "educationExperienceModal.modalTitle",
-    defaultMessage: "Add Edcuation Experience",
+    id: "application.educationExperienceModal.modalTitle",
+    defaultMessage: "Add Education",
   },
   modalDescription: {
-    id: "educationExperienceModal.modalDescription",
+    id: "application.educationExperienceModal.modalDescription",
     defaultMessage:
       'Got creds? Share your degree, certificates, online courses, a trade apprenticeship, licences or alternative credentials. If you’ve learned something from a recognized educational provider, include your experiences here.  (Learned something from your community or on your own? Share this as a "Community Experience" or "Personal Experience".)',
   },
   educationTypeLabel: {
-    id: "educationExperienceModal.educationTypeLabel",
+    id: "application.educationExperienceModal.educationTypeLabel",
     defaultMessage: "Type of Education",
   },
   educationTypeDefault: {
-    id: "educationExperienceModal.educationTypeDefault",
+    id: "application.educationExperienceModal.educationTypeDefault",
     defaultMessage: "Select an education type...",
     description: "Default selection in the Education Type dropdown menu.",
   },
   areaStudyLabel: {
-    id: "educationExperienceModal.areaStudyLabel",
+    id: "application.educationExperienceModal.areaStudyLabel",
     defaultMessage: "Area of Study",
   },
   areaStudyPlaceholder: {
-    id: "educationExperienceModal.areaStudyPlaceholder",
+    id: "application.educationExperienceModal.areaStudyPlaceholder",
     defaultMessage: "e.g. Organic Chemistry",
   },
   institutionLabel: {
-    id: "educationExperienceModal.institutionLabel",
+    id: "application.educationExperienceModal.institutionLabel",
     defaultMessage: "Institution",
   },
   institutionPlaceholder: {
-    id: "educationExperienceModal.institutionPlaceholder",
+    id: "application.educationExperienceModal.institutionPlaceholder",
     defaultMessage: "e.g. Bishop's University",
   },
   completionLabel: {
-    id: "educationExperienceModal.completionLabel",
+    id: "application.educationExperienceModal.completionLabel",
     defaultMessage: "Completion Status",
   },
   completionDefault: {
-    id: "educationExperienceModal.completionDefault",
+    id: "application.educationExperienceModal.completionDefault",
     defaultMessage: "Select a completion status...",
   },
   thesisLabel: {
-    id: "educationExperienceModal.thesisLabel",
+    id: "application.educationExperienceModal.thesisLabel",
     defaultMessage: "Thesis Title (Optional)",
   },
   thesisPlaceholder: {
-    id: "educationExperienceModal.thesisPlaceholder",
+    id: "application.educationExperienceModal.thesisPlaceholder",
     defaultMessage: "e.g. How bats navigate between each other during flight",
   },
   blockcertLabel: {
-    id: "educationExperienceModal.blockcertLabel",
+    id: "application.educationExperienceModal.blockcertLabel",
     defaultMessage: "Blockcert Link (Optional)",
   },
   blockcertInlineLabel: {
-    id: "educationExperienceModal.blockcertInlineLabel",
+    id: "application.educationExperienceModal.blockcertInlineLabel",
     defaultMessage:
-      "I have a Blockcert and can provide it on request. (Optional)",
+      "Yes, I have a Blockcert and can provide it on request. (Optional)",
   },
   startDateLabel: {
-    id: "educationExperienceModal.startDateLabel",
+    id: "application.educationExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "educationExperienceModal.datePlaceholder",
+    id: "application.educationExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "educationExperienceModal.isActiveLabel",
+    id: "application.educationExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "educationExperienceModal.endDateLabel",
+    id: "application.educationExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
+
+const DetailsSubform: FunctionComponent<{
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
+}> = ({ educationTypes, educationStatuses }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  return (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="education-educationTypeId"
+          name="educationTypeId"
+          label={intl.formatMessage(messages.educationTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.educationTypeDefault)}
+          options={educationTypes.map((type) => ({
+            value: type.id,
+            label: localizeFieldNonNull(locale, type, "name"),
+          }))}
+        />
+        <FastField
+          id="education-areaOfStudy"
+          type="text"
+          name="areaOfStudy"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.areaStudyLabel)}
+          placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
+        />
+        <FastField
+          id="education-institution"
+          type="text"
+          name="institution"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.institutionLabel)}
+          placeholder={intl.formatMessage(messages.institutionPlaceholder)}
+        />
+        <FastField
+          id="education-educationStatusId"
+          name="educationStatusId"
+          label={intl.formatMessage(messages.completionLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.completionDefault)}
+          options={educationStatuses.map((status) => ({
+            value: status.id,
+            label: localizeFieldNonNull(locale, status, "name"),
+          }))}
+        />
+        <FastField
+          id="education-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="education-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="education-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <FastField
+          id="education-thesisTitle"
+          type="text"
+          name="thesisTitle"
+          component={TextInput}
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.thesisLabel)}
+          placeholder={intl.formatMessage(messages.thesisPlaceholder)}
+        />
+        <div data-c-grid-item="base(1of1)">
+          <FastField
+            id="education-hasBlockcert"
+            name="hasBlockcert"
+            component={CheckboxInput}
+            grid="base(1of1)"
+            label={intl.formatMessage(messages.blockcertInlineLabel)}
+            checkboxBorder
+            borderLabel={intl.formatMessage(messages.blockcertLabel)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export interface EducationDetailsFormValues {
   educationTypeId: number | "";
@@ -154,14 +259,46 @@ export interface EducationDetailsFormValues {
   hasBlockcert: boolean;
 }
 
-type EducationExperienceFormValues = SkillFormValues &
-  EducationFormValues &
-  EducationDetailsFormValues;
-interface EducationExperienceSubmitData {
-  experienceEducation: ExperienceEducation;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
+const experienceToDetails = (
+  experience: ExperienceEducation,
+  creatingNew: boolean,
+): EducationDetailsFormValues => {
+  return {
+    educationTypeId: creatingNew ? "" : experience.education_type_id,
+    areaOfStudy: experience.area_of_study,
+    institution: experience.institution,
+    educationStatusId: creatingNew ? "" : experience.education_status_id,
+    thesisTitle: experience.thesis_title ?? "",
+    hasBlockcert: experience.has_blockcert,
+    startDate: toInputDateString(experience.start_date),
+    isActive: experience.is_active,
+    endDate: experience.end_date ? toInputDateString(experience.end_date) : "",
+  };
+};
+
+const detailsToExperience = (
+  formValues: EducationDetailsFormValues,
+  originalExperience: ExperienceEducation,
+): ExperienceEducation => {
+  return {
+    ...originalExperience,
+    education_type_id: formValues.educationTypeId
+      ? Number(formValues.educationTypeId)
+      : 1,
+    area_of_study: formValues.areaOfStudy,
+    institution: formValues.institution,
+    education_status_id: formValues.educationStatusId
+      ? Number(formValues.educationStatusId)
+      : 1,
+    thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
+    has_blockcert: formValues.hasBlockcert,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const validationShape = (intl: IntlShape) => {
@@ -192,6 +329,119 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
+const newExperienceEducation = (
+  experienceableId: number,
+  experienceableType: ExperienceEducation["experienceable_type"],
+): ExperienceEducation => ({
+  id: 0,
+  education_type_id: 0,
+  education_type: { en: "", fr: "" },
+  area_of_study: "",
+  institution: "",
+  education_status_id: 0,
+  education_status: { en: "", fr: "" },
+  thesis_title: "",
+  has_blockcert: false,
+  is_active: false,
+  start_date: new Date(),
+  end_date: null,
+  is_education_requirement: false,
+  experienceable_id: experienceableId,
+  experienceable_type: experienceableType,
+  type: "experience_education",
+});
+
+interface ProfileEducationModalProps {
+  modalId: string;
+  experienceEducation: ExperienceEducation | null;
+  educationTypes: EducationType[];
+  educationStatuses: EducationStatus[];
+  experienceableId: number;
+  experienceableType: ExperienceEducation["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (experience: ExperienceEducation) => Promise<void>;
+}
+
+export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps> = ({
+  modalId,
+  experienceEducation,
+  educationTypes,
+  educationStatuses,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experienceEducation ??
+    newExperienceEducation(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(
+    originalExperience,
+    experienceEducation === null,
+  );
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-book"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform
+                educationTypes={educationTypes}
+                educationStatuses={educationStatuses}
+              />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
+type EducationExperienceFormValues = SkillFormValues &
+  EducationFormValues &
+  EducationDetailsFormValues;
+export interface EducationExperienceSubmitData {
+  experienceEducation: ExperienceEducation;
+  savedRequiredSkills: Skill[];
+  savedOptionalSkills: Skill[];
+}
+
 const dataToFormValues = (
   data: EducationExperienceSubmitData,
   locale: Locales,
@@ -208,23 +458,10 @@ const dataToFormValues = (
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
     useAsEducationRequirement: experienceEducation.is_education_requirement,
-    educationTypeId: creatingNew ? "" : experienceEducation.education_type_id,
-    areaOfStudy: experienceEducation.area_of_study,
-    institution: experienceEducation.institution,
-    educationStatusId: creatingNew
-      ? ""
-      : experienceEducation.education_status_id,
-    thesisTitle: experienceEducation.thesis_title ?? "",
-    hasBlockcert: experienceEducation.has_blockcert,
-    startDate: toInputDateString(experienceEducation.start_date),
-    isActive: experienceEducation.is_active,
-    endDate: experienceEducation.end_date
-      ? toInputDateString(experienceEducation.end_date)
-      : "",
+    ...experienceToDetails(data.experienceEducation, creatingNew),
   };
 };
 
-/* eslint-disable @typescript-eslint/camelcase */
 const formValuesToData = (
   formValues: EducationExperienceFormValues,
   originalExperience: ExperienceEducation,
@@ -235,22 +472,7 @@ const formValuesToData = (
     matchValueToModel(locale, "name", name, skills);
   return {
     experienceEducation: {
-      ...originalExperience,
-      education_type_id: formValues.educationTypeId
-        ? Number(formValues.educationTypeId)
-        : 1,
-      area_of_study: formValues.areaOfStudy,
-      institution: formValues.institution,
-      education_status_id: formValues.educationStatusId
-        ? Number(formValues.educationStatusId)
-        : 1,
-      thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
-      has_blockcert: formValues.hasBlockcert,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
+      ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
     savedRequiredSkills: formValues.requiredSkills
@@ -262,38 +484,18 @@ const formValuesToData = (
   };
 };
 
-const newExperienceEducation = (
-  experienceableId: number,
-  experienceableType: ExperienceEducation["experienceable_type"],
-): ExperienceEducation => ({
-  id: 0,
-  education_type_id: 0,
-  area_of_study: "",
-  institution: "",
-  education_status_id: 0,
-  thesis_title: "",
-  has_blockcert: false,
-  is_active: false,
-  start_date: new Date(),
-  end_date: null,
-  is_education_requirement: false,
-  experienceable_id: experienceableId,
-  experienceable_type: experienceableType,
-  type: "experience_education",
-});
-/* eslint-enable @typescript-eslint/camelcase */
-
 export const EducationExperienceModal: React.FC<EducationExperienceModalProps> = ({
   modalId,
   experienceEducation,
   educationTypes,
   educationStatuses,
   jobId,
+  jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -327,102 +529,6 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
     ...validationShape(intl),
   });
 
-  const detailsSubform = (
-    <div data-c-container="medium">
-      <div data-c-grid="gutter(all, 1) middle">
-        <FastField
-          id="educationTypeId"
-          name="educationTypeId"
-          label={intl.formatMessage(messages.educationTypeLabel)}
-          grid="tl(1of2)"
-          component={SelectInput}
-          required
-          nullSelection={intl.formatMessage(messages.educationTypeDefault)}
-          options={educationTypes.map((type) => ({
-            value: type.id,
-            label: localizeFieldNonNull(locale, type, "name"),
-          }))}
-        />
-        <FastField
-          id="areaOfStudy"
-          type="text"
-          name="areaOfStudy"
-          component={TextInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.areaStudyLabel)}
-          placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
-        />
-        <FastField
-          id="institution"
-          type="text"
-          name="institution"
-          component={TextInput}
-          required
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.institutionLabel)}
-          placeholder={intl.formatMessage(messages.institutionPlaceholder)}
-        />
-        <FastField
-          id="educationStatusId"
-          name="educationStatusId"
-          label={intl.formatMessage(messages.completionLabel)}
-          grid="tl(1of2)"
-          component={SelectInput}
-          required
-          nullSelection={intl.formatMessage(messages.completionDefault)}
-          options={educationStatuses.map((status) => ({
-            value: status.id,
-            label: localizeFieldNonNull(locale, status, "name"),
-          }))}
-        />
-        <FastField
-          id="startDate"
-          name="startDate"
-          component={DateInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.startDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-        <Field
-          id="isActive"
-          name="isActive"
-          component={CheckboxInput}
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.isActiveLabel)}
-        />
-        <Field
-          id="endDate"
-          name="endDate"
-          component={DateInput}
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.endDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-        <FastField
-          id="thesisTitle"
-          type="text"
-          name="thesisTitle"
-          component={TextInput}
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.thesisLabel)}
-          placeholder={intl.formatMessage(messages.thesisPlaceholder)}
-        />
-        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
-          <label>{intl.formatMessage(messages.blockcertLabel)}</label>
-          <FastField
-            id="hasBlockcert"
-            name="hasBlockcert"
-            component={CheckboxInput}
-            grid="base(1of1)"
-            label={intl.formatMessage(messages.blockcertInlineLabel)}
-          />
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <Modal
       id={modalId}
@@ -447,6 +553,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -456,13 +563,21 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform
+                educationTypes={educationTypes}
+                educationStatuses={educationStatuses}
+              />
               <SkillSubform
+                keyPrefix="education"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform
+                keyPrefix="education"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

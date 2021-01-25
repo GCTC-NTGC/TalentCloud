@@ -233,8 +233,6 @@ return [
          */
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
     ],
 
     /*

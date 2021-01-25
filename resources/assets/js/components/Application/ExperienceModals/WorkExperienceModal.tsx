@@ -1,9 +1,9 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
 import {
-  EducationSubformProps,
   EducationFormValues,
   EducationSubform,
   validationShape as educationValidationShape,
@@ -32,72 +32,55 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 
-interface WorkExperienceModalProps {
-  modalId: string;
-  experienceWork: ExperienceWork | null;
-  jobId: number;
-  requiredSkills: Skill[];
-  savedRequiredSkills: Skill[];
-  optionalSkills: Skill[];
-  savedOptionalSkills: Skill[];
-  experienceRequirments: EducationSubformProps;
-  experienceableId: number;
-  experienceableType: ExperienceWork["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
-}
-
-const messages = defineMessages({
+export const messages = defineMessages({
   modalTitle: {
-    id: "workExperienceModal.modalTitle",
+    id: "application.workExperienceModal.modalTitle",
     defaultMessage: "Add Work Experience",
   },
   modalDescription: {
-    id: "workExperienceModal.modalDescription",
+    id: "application.workExperienceModal.modalDescription",
     defaultMessage:
       'Did work? Share your experiences gained from full-time positions, part-time positions, self-employment, fellowships or internships.  (Did some volunteering? Share this as a "Community Experience".)',
   },
   jobTitleLabel: {
-    id: "workExperienceModal.jobTitleLabel",
+    id: "application.workExperienceModal.jobTitleLabel",
     defaultMessage: "My Role/Job Title",
   },
   jobTitlePlaceholder: {
-    id: "workExperienceModal.jobTitlePlaceholder",
+    id: "application.workExperienceModal.jobTitlePlaceholder",
     defaultMessage: "e.g. Front-end Development",
   },
   orgNameLabel: {
-    id: "workExperienceModal.orgNameLabel",
+    id: "application.workExperienceModal.orgNameLabel",
     defaultMessage: "Organization/Company",
   },
   orgNamePlaceholder: {
-    id: "workExperienceModal.orgNamePlaceholder",
+    id: "application.workExperienceModal.orgNamePlaceholder",
     defaultMessage: "e.g. Government of Canada",
   },
   groupLabel: {
-    id: "workExperienceModal.groupLabel",
+    id: "application.workExperienceModal.groupLabel",
     defaultMessage: "Team, Group, or Division",
   },
   groupPlaceholder: {
-    id: "workExperienceModal.groupPlaceholder",
+    id: "application.workExperienceModal.groupPlaceholder",
     defaultMessage: "e.g. Talent Cloud",
   },
   startDateLabel: {
-    id: "workExperienceModal.startDateLabel",
+    id: "application.workExperienceModal.startDateLabel",
     defaultMessage: "Select a Start Date",
   },
   datePlaceholder: {
-    id: "workExperienceModal.datePlaceholder",
+    id: "application.workExperienceModal.datePlaceholder",
     defaultMessage: "yyyy-mm-dd",
   },
   isActiveLabel: {
-    id: "workExperienceModal.isActiveLabel",
+    id: "application.workExperienceModal.isActiveLabel",
     defaultMessage: "This experience is still ongoing, or...",
     description: "Label for checkbox that indicates work is still ongoing.",
   },
   endDateLabel: {
-    id: "workExperienceModal.endDateLabel",
+    id: "application.workExperienceModal.endDateLabel",
     defaultMessage: "Select an End Date",
   },
 });
@@ -114,7 +97,7 @@ export interface WorkDetailsFormValues {
 type WorkExperienceFormValues = SkillFormValues &
   EducationFormValues &
   WorkDetailsFormValues;
-interface WorkExperienceSubmitData {
+export interface WorkExperienceSubmitData {
   experienceWork: ExperienceWork;
   savedRequiredSkills: Skill[];
   savedOptionalSkills: Skill[];
@@ -146,17 +129,10 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const dataToFormValues = (
-  data: WorkExperienceSubmitData,
-  locale: Locales,
-): WorkExperienceFormValues => {
-  const { experienceWork, savedRequiredSkills, savedOptionalSkills } = data;
-  const skillToName = (skill: Skill): string =>
-    localizeFieldNonNull(locale, skill, "name");
+const experienceToDetails = (
+  experienceWork: ExperienceWork,
+): WorkDetailsFormValues => {
   return {
-    requiredSkills: savedRequiredSkills.map(skillToName),
-    optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceWork.is_education_requirement,
     title: experienceWork.title,
     organization: experienceWork.organization,
     group: experienceWork.group,
@@ -168,7 +144,38 @@ const dataToFormValues = (
   };
 };
 
-/* eslint-disable @typescript-eslint/camelcase */
+const dataToFormValues = (
+  data: WorkExperienceSubmitData,
+  locale: Locales,
+): WorkExperienceFormValues => {
+  const { experienceWork, savedRequiredSkills, savedOptionalSkills } = data;
+  const skillToName = (skill: Skill): string =>
+    localizeFieldNonNull(locale, skill, "name");
+  return {
+    ...experienceToDetails(data.experienceWork),
+    requiredSkills: savedRequiredSkills.map(skillToName),
+    optionalSkills: savedOptionalSkills.map(skillToName),
+    useAsEducationRequirement: experienceWork.is_education_requirement,
+  };
+};
+
+const detailsToExperience = (
+  formValues: WorkDetailsFormValues,
+  originalExperience: ExperienceWork,
+): ExperienceWork => {
+  return {
+    ...originalExperience,
+    title: formValues.title,
+    organization: formValues.organization,
+    group: formValues.group,
+    start_date: fromInputDateString(formValues.startDate),
+    is_active: formValues.isActive,
+    end_date: formValues.endDate
+      ? fromInputDateString(formValues.endDate)
+      : null,
+  };
+};
+
 const formValuesToData = (
   formValues: WorkExperienceFormValues,
   originalExperience: ExperienceWork,
@@ -179,15 +186,7 @@ const formValuesToData = (
     matchValueToModel(locale, "name", name, skills);
   return {
     experienceWork: {
-      ...originalExperience,
-      title: formValues.title,
-      organization: formValues.organization,
-      group: formValues.group,
-      start_date: fromInputDateString(formValues.startDate),
-      is_active: formValues.isActive,
-      end_date: formValues.endDate
-        ? fromInputDateString(formValues.endDate)
-        : null,
+      ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
     savedRequiredSkills: formValues.requiredSkills
@@ -215,17 +214,169 @@ const newExperienceWork = (
   experienceable_type: experienceableType,
   type: "experience_work",
 });
-/* eslint-enable @typescript-eslint/camelcase */
+
+const DetailsSubform: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-c-container="medium">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="work-title"
+          type="text"
+          name="title"
+          component={TextInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.jobTitleLabel)}
+          placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
+        />
+        <FastField
+          id="work-organization"
+          type="text"
+          name="organization"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.orgNameLabel)}
+          placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
+        />
+        <FastField
+          id="work-group"
+          type="text"
+          name="group"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.groupLabel)}
+          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+        />
+        <FastField
+          id="work-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="work-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="work-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
+interface ProfileWorkModalProps {
+  modalId: string;
+  experienceWork: ExperienceWork | null;
+  experienceableId: number;
+  experienceableType: ExperienceWork["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: ExperienceWork) => Promise<void>;
+}
+
+export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
+  modalId,
+  experienceWork,
+  experienceableId,
+  experienceableType,
+  parentElement,
+  visible,
+  onModalCancel,
+  onModalConfirm,
+}) => {
+  const intl = useIntl();
+
+  const originalExperience =
+    experienceWork ?? newExperienceWork(experienceableId, experienceableType);
+
+  const initialFormValues = experienceToDetails(originalExperience);
+
+  const validationSchema = Yup.object().shape({
+    ...validationShape(intl),
+  });
+
+  return (
+    <Modal
+      id={modalId}
+      parentElement={parentElement}
+      visible={visible}
+      onModalCancel={onModalCancel}
+      onModalConfirm={onModalCancel}
+      className="application-experience-dialog"
+    >
+      <ExperienceModalHeader
+        title={intl.formatMessage(messages.modalTitle)}
+        iconClass="fa-briefcase"
+      />
+      <Formik
+        enableReinitialize
+        initialValues={initialFormValues}
+        onSubmit={async (values, actions): Promise<void> => {
+          await onModalConfirm(detailsToExperience(values, originalExperience));
+          actions.setSubmitting(false);
+          actions.resetForm();
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formikProps): React.ReactElement => (
+          <Form>
+            <Modal.Body>
+              <ExperienceDetailsIntro
+                description={intl.formatMessage(messages.modalDescription)}
+              />
+              <DetailsSubform />
+            </Modal.Body>
+            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+interface WorkExperienceModalProps {
+  modalId: string;
+  experienceWork: ExperienceWork | null;
+  jobId: number;
+  jobClassification: string;
+  jobEducationRequirements: string | null;
+  requiredSkills: Skill[];
+  savedRequiredSkills: Skill[];
+  optionalSkills: Skill[];
+  savedOptionalSkills: Skill[];
+  experienceableId: number;
+  experienceableType: ExperienceWork["experienceable_type"];
+  parentElement: Element | null;
+  visible: boolean;
+  onModalCancel: () => void;
+  onModalConfirm: (data: WorkExperienceSubmitData) => Promise<void>;
+}
 
 export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
   modalId,
   experienceWork,
   jobId,
+  jobClassification,
+  jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
   optionalSkills,
   savedOptionalSkills,
-  experienceRequirments,
   experienceableId,
   experienceableType,
   parentElement,
@@ -257,67 +408,6 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
     ...validationShape(intl),
   });
 
-  const detailsSubform = (
-    <div data-c-container="medium">
-      <div data-c-grid="gutter(all, 1) middle">
-        <FastField
-          id="title"
-          type="text"
-          name="title"
-          component={TextInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.jobTitleLabel)}
-          placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
-        />
-        <FastField
-          id="organization"
-          type="text"
-          name="organization"
-          component={TextInput}
-          required
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.orgNameLabel)}
-          placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
-        />
-        <FastField
-          id="group"
-          type="text"
-          name="group"
-          component={TextInput}
-          required
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.groupLabel)}
-          placeholder={intl.formatMessage(messages.groupPlaceholder)}
-        />
-        <FastField
-          id="startDate"
-          name="startDate"
-          component={DateInput}
-          required
-          grid="base(1of1)"
-          label={intl.formatMessage(messages.startDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-        <Field
-          id="isActive"
-          name="isActive"
-          component={CheckboxInput}
-          grid="tl(1of2)"
-          label={intl.formatMessage(messages.isActiveLabel)}
-        />
-        <Field
-          id="endDate"
-          name="endDate"
-          component={DateInput}
-          grid="base(1of2)"
-          label={intl.formatMessage(messages.endDateLabel)}
-          placeholder={intl.formatMessage(messages.datePlaceholder)}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <Modal
       id={modalId}
@@ -342,6 +432,7 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
             ]),
           );
           actions.setSubmitting(false);
+          actions.resetForm();
         }}
         validationSchema={validationSchema}
       >
@@ -351,13 +442,18 @@ export const WorkExperienceModal: React.FC<WorkExperienceModalProps> = ({
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              {detailsSubform}
+              <DetailsSubform />
               <SkillSubform
+                keyPrefix="work"
                 jobId={jobId}
                 jobRequiredSkills={requiredSkills.map(skillToName)}
                 jobOptionalSkills={optionalSkills.map(skillToName)}
               />
-              <EducationSubform {...experienceRequirments} />
+              <EducationSubform
+                keyPrefix="work"
+                jobClassification={jobClassification}
+                jobEducationRequirements={jobEducationRequirements}
+              />
             </Modal.Body>
             <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
           </Form>

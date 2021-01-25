@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import configureMockStore from "redux-mock-store";
 import { apiMiddleware, ApiError } from "redux-api-middleware";
 import thunk from "redux-thunk";
@@ -14,7 +15,11 @@ import {
 } from "./jobActions";
 import { getJobEndpoint } from "../../api/job";
 import { initState } from "../store";
-import { fakeJob, fakeCriterion } from "../../fakeData/fakeJob";
+import {
+  fakeJob,
+  fakeCriterion,
+  fakeJobQuestions,
+} from "../../fakeData/fakeJob";
 
 describe("async job actions", (): void => {
   const middlewares = [thunk, apiMiddleware];
@@ -50,9 +55,11 @@ describe("async job actions", (): void => {
       const jobId = 1;
       const job = fakeJob(jobId);
       const criterion = fakeCriterion(jobId);
+      const jobPosterQuestions = fakeJobQuestions(jobId);
       const body = {
         ...job,
         criteria: [criterion],
+        job_poster_questions: jobPosterQuestions,
       };
 
       // We build the mock for the fetch request.
@@ -66,7 +73,11 @@ describe("async job actions", (): void => {
         { type: FETCH_JOB_STARTED, meta: { id: jobId } },
         {
           type: FETCH_JOB_SUCCEEDED,
-          payload: { job, criteria: [criterion] },
+          payload: {
+            job,
+            criteria: [criterion],
+            jobPosterQuestions,
+          },
           meta: { id: jobId },
         },
       ];

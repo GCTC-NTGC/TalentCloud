@@ -21,7 +21,7 @@ export const useLocation = (): Location<any> => {
 };
 
 // Scroll to element specified in the url hash, if possible
-export const useUrlHash = (): void => {
+export const useUrlHash = (): string => {
   const location = useLocation();
   const [hashFound, setHashFound] = useState(false);
   useEffect((): void => {
@@ -36,33 +36,7 @@ export const useUrlHash = (): void => {
       }
     }
   }, [location.hash, hashFound]);
-};
-
-export interface RouterResult {
-  title: MessageDescriptor;
-  component: ReactElement;
-}
-export const useRouter = (
-  routes: Routes<any, RouterResult>,
-  intl: IntlShape,
-): React.ReactElement | null => {
-  const location = useLocation();
-  const router = useMemo(() => new UniversalRouter(routes), [routes]);
-  const [component, setComponent] = useState<React.ReactElement | null>(null);
-  const path = location.pathname;
-  // Render the result of routing
-  useEffect((): void => {
-    router.resolve(path).then((result): void => {
-      // Dynamically update the page title and header on step changes
-      const title = intl.formatMessage(result.title);
-      document.title = title;
-      const h1 = document.querySelector("h1");
-      if (h1) h1.innerHTML = title;
-      setComponent(result.component);
-    });
-  }, [intl, location, router]);
-
-  return component;
+  return location.hash;
 };
 
 export const navigate = (url: string): void => {
@@ -77,14 +51,49 @@ export const redirect = (url: string): void => {
   HISTORY.replace(path);
 };
 
+export interface RouterResult {
+  title: MessageDescriptor;
+  component: ReactElement;
+  redirect?: string;
+}
+
+export const useRouter = (
+  routes: Routes<any, RouterResult>,
+  intl: IntlShape,
+): React.ReactElement | null => {
+  const location = useLocation();
+  const router = useMemo(() => new UniversalRouter(routes), [routes]);
+  const [component, setComponent] = useState<React.ReactElement | null>(null);
+  const path = location.pathname;
+  // Render the result of routing
+  useEffect((): void => {
+    router.resolve(path).then((result): void => {
+      if (result.redirect) {
+        redirect(result.redirect);
+      } else {
+        // Dynamically update the page title and header on step changes
+        const title = intl.formatMessage(result.title);
+        document.title = title;
+        const h1 = document.querySelector("h1");
+        if (h1) h1.innerHTML = title;
+        setComponent(result.component);
+      }
+    });
+  }, [intl, location, router]);
+
+  return component;
+};
+
 export const Link: React.FC<{ href: string; title: string }> = ({
   href,
   title,
   children,
+  ...props
 }): React.ReactElement => (
   <a
     href={href}
     title={title}
+    {...props}
     onClick={(event): void => {
       event.preventDefault();
       navigate(href);

@@ -11,8 +11,9 @@ use App\Events\ApplicationRetrieved;
 use App\Events\ApplicationSaved;
 use App\Models\Applicant;
 use App\Models\ApplicationReview;
+use App\Models\Lookup\JobApplicationStep;
+use App\Services\Validation\ApplicationTimelineValidator;
 use App\Services\Validation\ApplicationValidator;
-use App\Services\Validation\StrategicResponseApplicationValidator;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
 
@@ -45,6 +46,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $gov_email
  * @property boolean $physical_office_willing
  * @property int $security_clearance_id
+ * @property boolean $share_with_managers
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
  *
@@ -73,6 +75,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $experiences_education
  * @property \Illuminate\Database\Eloquent\Collection $experiences_award
  * @property \Illuminate\Database\Eloquent\Collection $experiences_community
+ * @property \Illuminate\Database\Eloquent\Collection $touched_application_steps
  */
 class JobApplication extends BaseModel
 {
@@ -110,6 +113,7 @@ class JobApplication extends BaseModel
         'gov_email' => 'string',
         'physical_office_willing' => 'boolean',
         'security_clearance_id' => 'int',
+        'share_with_managers' => 'boolean',
     ];
     protected $fillable = [
         'citizenship_declaration_id',
@@ -118,6 +122,7 @@ class JobApplication extends BaseModel
         'language_requirement_confirmed',
         'language_test_confirmed',
         'education_requirement_confirmed',
+        'version_id',
         'veteran_status_id',
         'preferred_language_id',
         'submission_signature',
@@ -132,6 +137,7 @@ class JobApplication extends BaseModel
         'gov_email',
         'physical_office_willing',
         'security_clearance_id',
+        'share_with_managers',
     ];
 
     /**
@@ -230,7 +236,7 @@ class JobApplication extends BaseModel
 
     public function job_application_version() //phpcs:ignore
     {
-        return $this->hasOne(\App\Models\JobApplicationVersion::class);
+        return $this->hasOne(\App\Models\JobApplicationVersion::class, 'version_id');
     }
 
     public function security_clearance() //phpcs:ignore
@@ -268,6 +274,11 @@ class JobApplication extends BaseModel
             ->orderBy('end_date', 'desc');
     }
 
+    public function touched_application_steps() //phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\TouchedApplicationStep::class);
+    }
+
     /**
      * Return either 'complete', 'incomplete' or 'error', depending on the
      * status of the requested section.
@@ -285,9 +296,7 @@ class JobApplication extends BaseModel
     {
         // TODO: determine whether sections are complete or invalid
         $jobPoster = $this->job_poster;
-        $validator = $jobPoster->isInStrategicResponseDepartment()
-            ? new StrategicResponseApplicationValidator()
-            : new ApplicationValidator();
+        $validator = new ApplicationValidator();
         $status = 'incomplete';
         switch ($section) {
             case 'basics':
@@ -465,5 +474,140 @@ class JobApplication extends BaseModel
             $newSkillDecs = $old->skill_declarations->map($findNewSkillDeclarationFromOld);
             $newSample->skill_declarations()->sync($newSkillDecs);
         }
+    }
+
+    /**
+     * Save copies of Experiences and its linked skills (ExperienceSkills) to this application.
+     *
+     * @return void
+     */
+    public function saveProfileSnapshotTimeline(): void
+    {
+        $this->refresh();
+        $applicant = $this->applicant->fresh();
+        $this->user_name = $applicant->user->full_name;
+        $this->user_email = $applicant->user->email;
+        $this->save();
+
+        $deleteExperiences = function ($experiences) {
+            foreach ($experiences as $experience) {
+                $experience->delete();
+            }
+        };
+
+        // Delete experiences in previous snapshot.
+        $deleteExperiences($this->experiences_award);
+        $deleteExperiences($this->experiences_community);
+        $deleteExperiences($this->experiences_education);
+        $deleteExperiences($this->experiences_personal);
+        $deleteExperiences($this->experiences_work);
+
+        $replicateAndSaveExperience = function ($experiences, $experience_type) {
+            // Iterate through applicant experiences, replicate the experience, and save to the application.
+            foreach ($experiences as $experience) {
+                $experienceCopy = $experience->replicate();
+                $this->{$experience_type}()->save($experienceCopy);
+                // Iterate through original experience experienceSkills list, replicate it, and save to the new copy.
+                foreach ($experience->experience_skills as $experienceSkill) {
+                    $experienceSkillCopy = $experienceSkill->replicate();
+                    $experienceCopy->experience_skills()->save($experienceSkillCopy);
+                }
+            }
+        };
+
+        $replicateAndSaveExperience($applicant->experiences_award, 'experiences_award');
+        $replicateAndSaveExperience($applicant->experiences_community, 'experiences_community');
+        $replicateAndSaveExperience($applicant->experiences_education, 'experiences_education');
+        $replicateAndSaveExperience($applicant->experiences_personal, 'experiences_personal');
+        $replicateAndSaveExperience($applicant->experiences_work, 'experiences_work');
+    }
+
+    /**
+     * Attach steps to new application (version 2).
+     *
+     * @return void
+    */
+    public function attachSteps(): void
+    {
+        if ($this->touched_application_steps->isEmpty()) {
+            $basicStep = new TouchedApplicationStep();
+            $basicStep->step_id = JobApplicationStep::where('name', 'basic')->first()->id;
+            $this->touched_application_steps()->save($basicStep);
+
+            $experienceStep = new TouchedApplicationStep();
+            $experienceStep->step_id = JobApplicationStep::where('name', 'experience')->first()->id;
+            $this->touched_application_steps()->save($experienceStep);
+
+            $skillsStep = new TouchedApplicationStep();
+            $skillsStep->step_id = JobApplicationStep::where('name', 'skills')->first()->id;
+            $this->touched_application_steps()->save($skillsStep);
+
+            $fitStep = new TouchedApplicationStep();
+            $fitStep->step_id = JobApplicationStep::where('name', 'fit')->first()->id;
+            $this->touched_application_steps()->save($fitStep);
+
+            $reviewStep = new TouchedApplicationStep();
+            $reviewStep->step_id = JobApplicationStep::where('name', 'review')->first()->id;
+            $this->touched_application_steps()->save($reviewStep);
+
+            $submissionStep = new TouchedApplicationStep();
+            $submissionStep->step_id = JobApplicationStep::where('name', 'submission')->first()->id;
+            $this->touched_application_steps()->save($submissionStep);
+            $this->save();
+            $this->refresh();
+        };
+    }
+
+    /**
+     * Calculates and returns an associative array of application steps (version 2) with the value equal
+     * to it's status ('default', 'complete', 'error').
+     *
+     * @return string $jobApplicationSteps
+     */
+    public function jobApplicationSteps(): array
+    {
+        $this->attachSteps();
+        $setState = function (bool $touched, bool $isValid) {
+            return !$touched ? 'default' : ($isValid ? 'complete' : 'error');
+        };
+
+        $validator = new ApplicationTimelineValidator();
+
+        $basicValidator = $validator->basicsComplete($this);
+        $experienceValidator = $validator->experienceComplete($this);
+        $skillsValidator = $validator->skillsComplete($this);
+        $fitValidator = $validator->fitComplete($this);
+        $reviewValidator = $basicValidator && $experienceValidator && $skillsValidator && $fitValidator;
+        $submissionValidator = $validator->affirmationComplete($this);
+
+        $basicTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'basic')->first()->id)
+            ->first()->touched;
+        $experienceTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'experience')->first()->id)
+            ->first()->touched;
+        $skillsTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'skills')->first()->id)
+            ->first()->touched;
+        $fitTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'fit')->first()->id)
+            ->first()->touched;
+        $reviewTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'review')->first()->id)
+            ->first()->touched;
+        $submissionTouched = $this->touched_application_steps
+            ->where('step_id', JobApplicationStep::where('name', 'submission')->first()->id)
+            ->first()->touched;
+
+        $jobApplicationSteps = [
+            'basic' => $setState($basicTouched, $basicValidator),
+            'experience' => $setState($experienceTouched, $experienceValidator),
+            'skills' => $setState($skillsTouched, $skillsValidator),
+            'fit' => $setState($fitTouched, $fitValidator),
+            'review' => $setState($reviewTouched, $reviewValidator),
+            'submission' => $setState($submissionTouched, $submissionValidator)
+        ];
+
+        return $jobApplicationSteps;
     }
 }

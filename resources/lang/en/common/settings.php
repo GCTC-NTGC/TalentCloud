@@ -35,7 +35,20 @@ return [
         'four' => 'contact Talent Cloud directly', // repeats in title attribute
         'five' => 'We require you to get in touch because your department determines how you interact with job posters, applicants, and HR advisors. In order to have this information changed, we need to verify your department independently of the platform.',
 
+     ],
+    'gov_email_label' => 'Government Email',
+    'government_save' => 'Save Government Information',
+    'contact_preferences' => 'Contact Preferences',
+    'contact_preferences_copy' => 'Below are a few preferences for how Talent Cloud communicated with you:',
+    'contact_language_label' => 'Which language would you prefer to be contacted in?',
+    'contact_language_null_selection' => 'Select a language...',
+    'contact_languages' => [
+    'en' => 'English',
+    'fr' => 'French',
     ],
+    'job_alerts_copy' => 'By default, Talent Cloud will occasionally contact you about opportunities that are similar to those that you apply to. If you would like to opt out of these communication emails, please check the box below.',
+    'job_alerts_label' => 'I do not want Talent Cloud to contact me about jobs related to the ones I apply to.',
+    'save_contact_preferences' => 'Save Contact Preferences',
     'gov_email_label' => 'Government Email',
     'government_save' => 'Save Government Information',
     'password_copy' => [
