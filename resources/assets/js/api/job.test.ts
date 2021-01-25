@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dayjs from "dayjs";
 import { parseJobResponse } from "./job";
 

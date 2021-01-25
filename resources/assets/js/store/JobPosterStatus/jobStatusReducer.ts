@@ -1,5 +1,10 @@
 import { JobPosterStatus } from "../../models/types";
-import { JobPosterStatusAction, FETCH_JOB_POSTER_STATUSES_STARTED, FETCH_JOB_POSTER_STATUSES_SUCCEEDED, FETCH_JOB_POSTER_STATUSES_FAILED } from "./jobStatusActions";
+import {
+  JobPosterStatusAction,
+  FETCH_JOB_POSTER_STATUSES_STARTED,
+  FETCH_JOB_POSTER_STATUSES_SUCCEEDED,
+  FETCH_JOB_POSTER_STATUSES_FAILED,
+} from "./jobStatusActions";
 import { mapToObject, getId } from "../../helpers/queries";
 
 export interface JobStatusState {

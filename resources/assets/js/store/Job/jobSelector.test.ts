@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import {
   getJob,
   getCriteria,
@@ -202,7 +201,7 @@ describe("Job Selectors", (): void => {
           ui: {
             ...initUi(),
             jobUpdating: {
-              [12]: false,
+              12: false,
             },
           },
         },
@@ -217,7 +216,7 @@ describe("Job Selectors", (): void => {
           ui: {
             ...initUi(),
             jobUpdating: {
-              [12]: true,
+              12: true,
             },
           },
         },
@@ -233,7 +232,7 @@ describe("Job Selectors", (): void => {
             ...initUi(),
             jobIndexUpdating: true,
             jobUpdating: {
-              [12]: false,
+              12: false,
             },
           },
         },

@@ -30,7 +30,10 @@ import {
 } from "../store/Job/jobActions";
 import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
 import { fetchSkills } from "../store/Skill/skillActions";
-import { getClassifications, classificationsIsLoading } from "../store/Classification/classificationSelector";
+import {
+  getClassifications,
+  classificationsIsLoading,
+} from "../store/Classification/classificationSelector";
 import { loadClassificationsIntoState } from "../store/Classification/classificationActions";
 
 export function useLoadJob(
@@ -136,11 +139,10 @@ export function useLoadDepartments(
 
 export function useLoadClassifications(
   dispatch: DispatchType,
-) : {
+): {
   classifications: Classification[];
   isLoadingClassifications: boolean;
 } {
-
   const classifications = useSelector(getClassifications);
   const isLoading = useSelector(classificationsIsLoading);
 

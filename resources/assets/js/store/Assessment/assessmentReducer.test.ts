@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Assessment } from "../../models/types";
 import assessmentReducer, {
   initState as initAssessment,

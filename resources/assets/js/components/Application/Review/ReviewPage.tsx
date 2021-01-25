@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";

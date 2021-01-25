@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase, @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { User } from "../models/types";
 import { find } from "../helpers/queries";
 

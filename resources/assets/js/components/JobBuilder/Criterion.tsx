@@ -14,8 +14,9 @@ interface CriterionProps {
   skill: Skill;
 }
 
-export const Criterion: React.FunctionComponent<CriterionProps &
-  WrappedComponentProps> = ({ criterion, skill, intl }): React.ReactElement => {
+export const Criterion: React.FunctionComponent<
+  CriterionProps & WrappedComponentProps
+> = ({ criterion, skill, intl }): React.ReactElement => {
   const locale = getLocale(intl.locale);
 
   return (

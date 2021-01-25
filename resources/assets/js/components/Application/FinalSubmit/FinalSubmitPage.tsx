@@ -22,6 +22,7 @@ import {
 } from "../../../hooks/applicationHooks";
 import { submitApplication as submitApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
+import keyFromString from "../../../helpers/components";
 
 interface FinalSubmitPageProps {
   applicationId: number;
@@ -33,7 +34,7 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const dispatch = useDispatch();
-  const [applicationErrors, setApplicationErrors] = useState([]);
+  const [applicationErrors, setApplicationErrors] = useState<string[]>([]);
 
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
@@ -117,9 +118,10 @@ export const FinalSubmitPage: React.FunctionComponent<FinalSubmitPageProps> = ({
             >
               <div data-c-padding="all(.5)">
                 <ul>
-                  {applicationErrors.flat().map((error) => (
-                    <li>{error}</li>
-                  ))}
+                  {applicationErrors.flat().map((error) => {
+                    const key = keyFromString(error);
+                    return <li key={key}>{error}</li>;
+                  })}
                 </ul>
               </div>
             </div>

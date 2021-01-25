@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import React, {
   useState,
   useReducer,

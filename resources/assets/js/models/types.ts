@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import {
   ReviewStatusId,
   ReviewStatusName,
@@ -286,7 +286,6 @@ export interface Skill {
   is_future_skill: boolean;
   classifications: Classification[];
 }
-
 // Version of Assessment that hasn't been saved to server yet
 export interface TempAssessment {
   id: number;
