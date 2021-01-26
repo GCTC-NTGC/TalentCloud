@@ -97,6 +97,56 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "No skills match your search term. Please try searching for a different skill.",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchResults.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "words left",
         "description": "Message displayed on word counter when users under/matching the limit.",
         "id": "skillWordCounter.wordsLeft"
@@ -1719,6 +1769,126 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Talent cloud priority logo",
+        "description": "Title for Priority Logo Img",
+        "id": "application.review.priorityStatus.priorityLogoTitle"
+      },
+      {
+        "defaultMessage": "Priority",
+        "description": "Priority",
+        "id": "application.review.priorityStatus.priority"
+      },
+      {
+        "defaultMessage": "Talent cloud veteran logo",
+        "description": "Alt Text for Veteran Logo Img",
+        "id": "application.review.veteranStatus.veteranLogoAlt"
+      },
+      {
+        "defaultMessage": "Veteran",
+        "description": "Veteran",
+        "id": "application.review.veteranStatus.veteran"
+      },
+      {
+        "defaultMessage": "Email this candidate.",
+        "description": "Title, hover text, for email link.",
+        "id": "application.review.emailCandidateLinkTitle"
+      },
+      {
+        "defaultMessage": "View Application",
+        "description": "Button text View Application",
+        "id": "application.review.viewApplication"
+      },
+      {
+        "defaultMessage": "View this applicant's application.",
+        "description": "Title, hover text, for View Application Link",
+        "id": "application.review.viewApplicationLinkTitle"
+      },
+      {
+        "defaultMessage": "View Profile",
+        "description": "Button text View Profile",
+        "id": "application.review.viewProfile"
+      },
+      {
+        "defaultMessage": "View this applicant's profile.",
+        "description": "Title, hover text, for View Profile Link",
+        "id": "application.review.viewProfileLinkTitle"
+      },
+      {
+        "defaultMessage": "Decision",
+        "description": "Decision dropdown label",
+        "id": "application.review.decision"
+      },
+      {
+        "defaultMessage": "Not Reviewed",
+        "description": "Decision dropdown label",
+        "id": "application.review.reviewStatus.notReviewed"
+      },
+      {
+        "defaultMessage": "Saving...",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saving"
+      },
+      {
+        "defaultMessage": "Save",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.save"
+      },
+      {
+        "defaultMessage": "Saved",
+        "description": "Dynamic Save button label",
+        "id": "application.review.button.saved"
+      },
+      {
+        "defaultMessage": "+ Add a Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.addNote"
+      },
+      {
+        "defaultMessage": "Edit Note",
+        "description": "Dynamic Note button label",
+        "id": "application.review.editNote"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Dynamic Note button label",
+        "id": "application.review.reviewStatus.stillIn"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Cancel button label",
+        "id": "application.review.button.cancel"
+      },
+      {
+        "defaultMessage": "Confirm",
+        "description": "Confirm button for modal dialogue boxes",
+        "id": "application.review.button.confirm"
+      },
+      {
+        "defaultMessage": "Screen out the candidate?",
+        "description": "Are you sure you want to screen out the candidate warning",
+        "id": "application.review.screenOutConfirm"
+      },
+      {
+        "defaultMessage": "Screen the candidate back in?",
+        "description": "Are you sure you want to screen in the candidate warning",
+        "id": "application.review.screenInConfirm"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicationReview/ApplicationRow.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Under Consideration",
         "description": "Under consideration category title",
         "id": "review.applications.underConsideration.title"
@@ -1759,12 +1929,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -3517,7 +3687,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -4741,6 +4911,56 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "Nothing found",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchResults.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "View Application",
         "description": "Label for 'View Application' link.",
         "id": "responseScreening.bucket.viewApplicationLabel"
@@ -5535,6 +5755,21 @@
         "defaultMessage": "Employees in this category have volunteered their names, but a review of their application and/or reference checks has led the review team to conclude that the employee would not be an asset to a department needing to fill a critical talent gap in this field of work. This determination is, in no way, reflected in the employee's performance status with their home department, and does not affect their evaluation for other GC Reserve talent streams to which they may have applied.",
         "description": "Descriptive text for the 'Does Not Qualify' response screening bucket.",
         "id": "responseScreening.buckets.doesNotQualify.description"
+      },
+      {
+        "defaultMessage": "Screened Out",
+        "description": "Select option text for the 'Screened Out' review status.",
+        "id": "reviewStatus.screenedOut"
+      },
+      {
+        "defaultMessage": "Still Thinking",
+        "description": "Select option text for the 'Still Thinking' review status.",
+        "id": "reviewStatus.stillThinking"
+      },
+      {
+        "defaultMessage": "Still In",
+        "description": "Select option text for the 'Still In' review status.",
+        "id": "reviewStatus.stillIn"
       },
       {
         "defaultMessage": "Does Not Qualify",

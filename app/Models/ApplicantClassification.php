@@ -7,6 +7,7 @@ use App\Models\BaseModel;
 /**
  * Class ApplicationClassification
  *
+ * @property int $id
  * @property int applicant_id
  * @property int classification_id
  * @property int level

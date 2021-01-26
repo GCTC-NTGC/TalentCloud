@@ -44,8 +44,8 @@ const ActivityFeed: React.FunctionComponent<ActivityFeedProps> = ({
 }) => {
   const intl = useIntl();
   const locationOptions = Object.values(LocationId)
-    .filter(location => hasKey(locationMessages, location))
-    .map(location => ({
+    .filter((location) => hasKey(locationMessages, location))
+    .map((location) => ({
       value: location,
       label: intl.formatMessage(locationMessages[location]),
     }));

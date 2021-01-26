@@ -2,7 +2,7 @@ import { Assessment } from "../../models/types";
 
 const getUniqueAssessmentTypes = (assessments: Assessment[]): number[] => {
   const uniqueIds: number[] = [];
-  assessments.forEach(assessment => {
+  assessments.forEach((assessment) => {
     if (!uniqueIds.includes(assessment.assessment_type_id)) {
       uniqueIds.push(assessment.assessment_type_id);
     }

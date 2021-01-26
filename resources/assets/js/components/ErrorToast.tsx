@@ -45,10 +45,7 @@ const ErrorToast: React.FC<ErrorToastProps & WrappedComponentProps> = ({
       {error !== undefined && (
         <div data-c-alert="error(toast)" data-c-radius="rounded" role="alert">
           <div data-c-padding="half">
-            <span
-              data-c-margin="bottom(quarter)"
-              data-c-font-weight="bold"
-            >
+            <span data-c-margin="bottom(quarter)" data-c-font-weight="bold">
               <FormattedMessage
                 id="errorToast.title"
                 defaultMessage="Something went wrong!"

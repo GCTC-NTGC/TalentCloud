@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
+/* eslint-disable jsx-a11y/label-has-associated-control, camelcase */
 import React, { useState, useRef } from "react";
 import { Form, Formik, FormikTouched, FormikErrors, FastField } from "formik";
 import * as Yup from "yup";
