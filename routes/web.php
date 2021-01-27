@@ -958,7 +958,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
 
     Route::get('applicants/{applicant}/skills', 'Api\ApplicantSkillsController@index')
         ->where('applicant', '[0-9]+')
-        ->where('can:view,applicant')
+        ->middleware('can:view,applicant')
         ->name('applicant.skills.index');
     Route::put('applicants/{applicant}/skills', 'Api\ApplicantSkillsController@update')
         ->where('applicant', '[0-9]+')

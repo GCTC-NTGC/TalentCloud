@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateApplicantSkills;
 use App\Models\Applicant;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Log;
 
 class ApplicantSkillsController extends Controller
 {
@@ -18,7 +16,7 @@ class ApplicantSkillsController extends Controller
 
     public function update(UpdateApplicantSkills $request, Applicant $applicant)
     {
-        $skillIds = $request->validated('skill_ids');
+        $skillIds = $request->validated()['skill_ids'];
         $applicant->skills()->sync($skillIds);
         return [
             'skill_ids' => $skillIds
