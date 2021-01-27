@@ -78328,7 +78328,7 @@ exports.JobReview = function (_a) {
                 " ",
                 react_1.default.createElement("span", { "data-c-colour": "c2" }, localize_1.localizeField(locale, job, "title"))),
             react_1.default.createElement("p", { "data-c-margin": "bottom(double)" },
-                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.review.headsUp", defaultMessage: "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.", description: "Description under primary title of review section" })),
+                react_1.default.createElement(react_intl_1.FormattedMessage, { id: "jobBuilder.review.headsUp", defaultMessage: "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.", description: "Description under primary title of review section" })),
             react_1.default.createElement(ActivityFeed_1.default, { jobId: job.id, isHrAdvisor: false, generalLocation: lookupConstants_1.LocationId.jobGeneric, locationMessages: localizedConstants_1.jobReviewLocations, filterComments: filterComments }),
             react_1.default.createElement(exports.JobReviewDisplay, { job: job, manager: manager, tasks: tasks, criteria: criteria, skills: skills, departments: departments, user: user, hideBuilderLinks: false }),
             react_1.default.createElement("div", { "data-c-grid": "gutter" },
@@ -85558,7 +85558,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\components\HRPortal\JobReviewHrPage.tsx */"./resources/assets/js/components/HRPortal/JobReviewHrPage.tsx");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/HRPortal/JobReviewHrPage.tsx */"./resources/assets/js/components/HRPortal/JobReviewHrPage.tsx");
 
 
 /***/ })

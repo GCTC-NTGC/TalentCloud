@@ -41084,10 +41084,10 @@ __webpack_require__(/*! isomorphic-fetch */ "./node_modules/isomorphic-fetch/fet
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\bootstrap.js */"./resources/assets/js/bootstrap.js");
-__webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\sass\app.scss */"./resources/assets/sass/app.scss");
-__webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\sass\reliability.scss */"./resources/assets/sass/reliability.scss");
-module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\sass\h2.scss */"./resources/assets/sass/h2.scss");
+__webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/bootstrap.js */"./resources/assets/js/bootstrap.js");
+__webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/sass/reliability.scss */"./resources/assets/sass/reliability.scss");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/sass/h2.scss */"./resources/assets/sass/h2.scss");
 
 
 /***/ })

@@ -6249,7 +6249,7 @@ exports.getApplicationUrl = function (locale, portal, applicationId, jobId) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\alerts.js */"./resources/assets/js/alerts.js");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/alerts.js */"./resources/assets/js/alerts.js");
 
 
 /***/ })

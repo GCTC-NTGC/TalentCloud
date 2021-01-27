@@ -80906,9 +80906,9 @@ var ReviewApplications = function (_a) {
                     } })))),
             react_1.default.createElement("div", { className: "box med-1of2 timer-wrapper" },
                 react_1.default.createElement("i", { className: "fas fa-stopwatch" }), " ",
-                dayCount >= 0 ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "job.daysAfterClosed", defaultMessage: "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }", description: "Shows the number of days after the job closed.", values: {
+                dayCount >= 0 ? (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "job.daysAfterClosed", defaultMessage: "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }", description: "Shows the number of days after the job closed.", values: {
                         dayCount: Math.abs(dayCount),
-                    } })) : (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "job.daysBeforeClosed", defaultMessage: "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close", description: "Shows the number of days before the job closes.", values: {
+                    } })) : (react_1.default.createElement(react_intl_1.FormattedMessage, { id: "job.daysBeforeClosed", defaultMessage: "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close", description: "Shows the number of days before the job closes.", values: {
                         dayCount: Math.abs(dayCount),
                     } })))),
         react_1.default.createElement("div", { "data-clone": true },
@@ -89022,7 +89022,7 @@ module.exports = JSON.parse("{\"activity.commentLocation.label\":\"Commentaire t
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\dev\CombinedTalentCloud\tc\resources\assets\js\components\ApplicationReview\ReviewApplicationsRoot.tsx */"./resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.tsx");
+module.exports = __webpack_require__(/*! /Users/Grant/Sites/TalentCloud/resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.tsx */"./resources/assets/js/components/ApplicationReview/ReviewApplicationsRoot.tsx");
 
 
 /***/ })
