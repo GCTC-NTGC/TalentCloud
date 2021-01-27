@@ -1030,6 +1030,15 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
 
     Route::get('classifications', 'Api\ClassificationController@index');
         //->middleware('can:view,application');
+
+    Route::get('applicant/{applicant}/profile', 'Api\ApplicantController@getProfile')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.profile');
+    Route::put('applicant/{applicant}/profile', 'Api\ApplicantController@updateProfile')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.profile.update');
 });
 
 Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
