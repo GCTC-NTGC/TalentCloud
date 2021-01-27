@@ -9,7 +9,7 @@ import {
   useFetchJob,
 } from "../../hooks/applicationHooks";
 import { loadingMessages } from "../Application/applicationMessages";
-import { ApplicationReview } from "../../models/types";
+import { ApplicationReview, Classification } from "../../models/types";
 import ReviewApplications from "./ReviewApplications";
 import RootContainer from "../RootContainer";
 import { Portal } from "../../models/app";
@@ -17,6 +17,7 @@ import {
   updateApplicationReview,
   batchUpdateApplicationReviews,
 } from "../../store/Application/applicationActions";
+import { useLoadClassifications } from "../../hooks/jobBuilderHooks";
 
 interface ReviewApplicationsRootProps {
   jobId: number;
@@ -30,8 +31,13 @@ const ReviewApplicationsRoot: React.FC<ReviewApplicationsRootProps> = ({
   const intl = useIntl();
   const dispatch = useDispatch<DispatchType>();
 
+  const { classifications } = useLoadClassifications(dispatch);
   const applications = useFetchApplicationsByJob(jobId, dispatch);
   const job = useFetchJob(jobId, dispatch);
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
   const handleUpdateApplicationReview = async (
     editedApplicationReview: ApplicationReview,
   ): Promise<void> => {
@@ -57,6 +63,7 @@ const ReviewApplicationsRoot: React.FC<ReviewApplicationsRootProps> = ({
         <ReviewApplications
           portal={portal}
           job={job}
+          classificationKey={classificationKey}
           applications={applications}
           handleUpdateReview={handleUpdateApplicationReview}
           handleBatchUpdateApplicationReviews={

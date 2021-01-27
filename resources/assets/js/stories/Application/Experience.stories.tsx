@@ -19,8 +19,7 @@ import fakeExperienceSkills, {
 } from "../../fakeData/fakeExperienceSkills";
 import { Experience, Skill } from "../../models/types";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
-import { ClassificationId } from "../../models/lookupConstants";
-import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
@@ -103,8 +102,10 @@ stories.add(
           action("Experience Deleted")(id);
         }}
         jobId={1}
-        jobClassificationId={ClassificationId.CS}
-        jobEducationRequirements={educationMessages.CS.defaultMessage}
+        jobEducationRequirements={
+          fakeClassification1().education_requirements.en
+        }
+        classificationKey={fakeClassification1().key}
         recipientTypes={recipientTypes}
         recognitionTypes={recogntitionTypes}
         handleContinue={action("Save and Continue")}

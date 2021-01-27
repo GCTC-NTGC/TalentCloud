@@ -12,6 +12,7 @@ import {
   Department,
   User,
   Comment,
+  Classification,
 } from "../../models/types";
 import { hrJobSummary } from "../../helpers/routes";
 import { RootState } from "../../store/store";
@@ -40,6 +41,8 @@ import { localizeField } from "../../helpers/localize";
 import { getUserById } from "../../store/User/userSelector";
 import { fetchUser } from "../../store/User/userActions";
 import { hasKey } from "../../helpers/queries";
+import { useLoadClassifications } from "../../hooks/jobBuilderHooks";
+import { DispatchType } from "../../configureStore";
 
 interface JobReviewHrPageProps {
   jobId: number;
@@ -72,6 +75,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
 }): React.ReactElement => {
   const intl = useIntl();
   const { locale } = intl;
+  const dispatch = useDispatch<DispatchType>();
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
@@ -79,6 +83,11 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
     (comment: Comment): boolean => hasKey(jobReviewLocations, comment.location),
     [],
   );
+  const { classifications } = useLoadClassifications(dispatch);
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
   return (
     <div data-c-container="form" data-c-padding="top(triple) bottom(triple)">
       {job !== null ? (
@@ -113,6 +122,7 @@ const JobReviewHrPage: React.FunctionComponent<JobReviewHrPageProps> = ({
           />
           <JobReviewDisplay
             job={job}
+            classificationKey={classificationKey}
             manager={manager}
             user={user}
             tasks={keyTasks}

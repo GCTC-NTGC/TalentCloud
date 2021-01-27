@@ -13,6 +13,7 @@ import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import { ExperienceStep, ExperienceSubmitData } from "./Experience";
 import {
+  Classification,
   Experience as ExperienceType,
   ExperienceSkill,
 } from "../../../models/types";
@@ -38,6 +39,7 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
+import { useLoadClassifications } from "../../../hooks/jobBuilderHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -57,9 +59,14 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     skillsLoaded,
   } = useFetchAllApplicationData(applicationId, dispatch);
 
+  const { classifications } = useLoadClassifications(dispatch);
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const classificationKey =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
@@ -81,6 +88,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const showLoadingState =
     application === null ||
     job === null ||
+    classifications === null ||
     !experiencesLoaded ||
     !skillsLoaded ||
     !experienceConstantsLoaded;
@@ -241,8 +249,8 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           criteria={criteria}
           skills={skills}
           jobId={job.id}
-          jobClassificationId={job.classification_id}
           jobEducationRequirements={localizeField(locale, job, "education")}
+          classificationKey={classificationKey}
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}

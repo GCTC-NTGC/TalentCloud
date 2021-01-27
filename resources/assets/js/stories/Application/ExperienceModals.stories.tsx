@@ -3,7 +3,6 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { number, boolean, select } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { useIntl } from "react-intl";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import {
   fakeExperienceWork,
@@ -22,9 +21,11 @@ import EducationExperienceModal from "../../components/Application/ExperienceMod
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
-import { ClassificationId } from "../../models/lookupConstants";
 import { mapToObject } from "../../helpers/queries";
-import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import {
+  fakeClassifications,
+  fakeClassification1,
+} from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Application/Experience Modals", module).addDecorator(
   withIntl,
@@ -146,8 +147,8 @@ export const recogntitionTypes = [
 ];
 
 const classificationOptions = mapToObject(
-  Object.keys(ClassificationId),
-  (x) => x,
+  fakeClassifications().map((x) => x.key),
+  (classification) => classification,
 );
 
 const jobClassification = select(
@@ -178,7 +179,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -219,7 +220,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -260,7 +261,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -299,7 +300,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -338,7 +339,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -379,7 +380,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -420,7 +421,7 @@ stories.add(
             savedOptionalSkills={[optionalSkills[0]]}
             jobClassification={jobClassification}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"

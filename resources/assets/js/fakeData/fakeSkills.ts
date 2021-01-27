@@ -1,7 +1,9 @@
 import { Skill } from "../models/types";
 import { SkillTypeId } from "../models/lookupConstants";
-
-// Classifications used: CS, EX
+import {
+  fakeClassification1,
+  fakeClassification2,
+} from "./fakeClassifications";
 
 export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   id: 1,
@@ -17,7 +19,7 @@ export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: false,
-  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
+  classifications: [fakeClassification1()],
   ...overrides,
 });
 
@@ -36,7 +38,7 @@ export const fakeSkill2 = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: false,
-  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
+  classifications: [fakeClassification1()],
   ...overrides,
 });
 
@@ -55,7 +57,7 @@ export const fakeSkill3 = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: true,
   is_culture_skill: false,
-  classifications: [{ id: 1, key: "CS", name: { en: "", fr: "" } }],
+  classifications: [fakeClassification1()],
   ...overrides,
 });
 
@@ -74,13 +76,7 @@ export const fakeSkill4 = (overrides: Partial<Skill> = {}): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: true,
-  classifications: [
-    {
-      id: 1,
-      key: "CS",
-      name: { en: "", fr: "" },
-    },
-  ],
+  classifications: [fakeClassification1()],
   ...overrides,
 });
 
@@ -96,13 +92,7 @@ export const fakeSkill5 = (): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: true,
-  classifications: [
-    {
-      id: 1,
-      key: "CS",
-      name: { en: "", fr: "" },
-    },
-  ],
+  classifications: [fakeClassification1()],
 });
 
 export const fakeSkill6 = (): Skill => ({
@@ -117,13 +107,7 @@ export const fakeSkill6 = (): Skill => ({
   },
   is_future_skill: false,
   is_culture_skill: true,
-  classifications: [
-    {
-      id: 2,
-      key: "EX",
-      name: { en: "", fr: "" },
-    },
-  ],
+  classifications: [fakeClassification2()],
 });
 
 export const fakeSkills = (): Skill[] => [

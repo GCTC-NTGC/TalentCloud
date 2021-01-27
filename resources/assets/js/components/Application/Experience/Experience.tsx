@@ -1,11 +1,6 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect, useRef } from "react";
-import {
-  FormattedMessage,
-  useIntl,
-  IntlShape,
-  defineMessage,
-} from "react-intl";
+import React, { useState, useEffect } from "react";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
   ExperienceEducation,
@@ -18,13 +13,7 @@ import {
   Criteria,
 } from "../../../models/types";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import {
-  SkillTypeId,
-  CriteriaTypeId,
-  getKeyByValue,
-  ClassificationId,
-  // ClassificationId,
-} from "../../../models/lookupConstants";
+import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
   messages as educationMessages,
   EducationType,
@@ -62,7 +51,6 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { RootState } from "../../../store/store";
 import { focusOnElement } from "../../../helpers/forms";
 
 export function modalButtonProps(
@@ -226,8 +214,8 @@ interface ExperienceProps {
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   jobId: number;
-  jobClassificationId: number | null;
   jobEducationRequirements: string | null;
+  classificationKey: string;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   skills: Skill[];
@@ -248,8 +236,8 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
   experienceSkills,
   jobId,
-  jobClassificationId,
   jobEducationRequirements,
+  classificationKey,
   recipientTypes,
   recognitionTypes,
   skills,
@@ -258,11 +246,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  const jobClassification =
-    jobClassificationId !== null
-      ? getKeyByValue(ClassificationId, jobClassificationId)
-      : "";
 
   const [experienceData, setExperienceData] = useState<
     | (Experience & {
@@ -584,7 +567,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        jobClassification={classificationKey}
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
@@ -606,7 +589,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        jobClassification={classificationKey}
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
@@ -627,7 +610,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        jobClassification={classificationKey}
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
@@ -649,7 +632,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        jobClassification={classificationKey}
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
@@ -671,7 +654,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        jobClassification={classificationKey}
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
@@ -699,8 +682,8 @@ interface ExperienceStepProps {
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
-  jobClassificationId: number | null;
   jobEducationRequirements: string | null;
+  classificationKey: string;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleDeleteExperience: (
@@ -723,8 +706,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   handleSubmitExperience,
   handleDeleteExperience,
   jobId,
-  jobClassificationId,
   jobEducationRequirements,
+  classificationKey,
   recipientTypes,
   recognitionTypes,
   handleContinue,
@@ -779,8 +762,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
         essentialSkills={essentialSkills}
         skills={skills}
         jobId={jobId}
-        jobClassificationId={jobClassificationId}
         jobEducationRequirements={jobEducationRequirements}
+        classificationKey={classificationKey}
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmitExperience}
