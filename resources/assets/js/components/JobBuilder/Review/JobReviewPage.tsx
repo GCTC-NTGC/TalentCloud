@@ -36,7 +36,7 @@ import {
 import { navigate } from "../../../helpers/router";
 import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
-import { useLoadClassifications } from "../../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface JobBuilderReviewPageProps {
   jobId: number;

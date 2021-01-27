@@ -41,7 +41,7 @@ import { localizeField } from "../../helpers/localize";
 import { getUserById } from "../../store/User/userSelector";
 import { fetchUser } from "../../store/User/userActions";
 import { hasKey } from "../../helpers/queries";
-import { useLoadClassifications } from "../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../hooks/classificationHooks";
 import { DispatchType } from "../../configureStore";
 
 interface JobReviewHrPageProps {

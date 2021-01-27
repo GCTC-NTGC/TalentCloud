@@ -17,7 +17,7 @@ import {
   updateApplicationReview,
   batchUpdateApplicationReviews,
 } from "../../store/Application/applicationActions";
-import { useLoadClassifications } from "../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../hooks/classificationHooks";
 
 interface ReviewApplicationsRootProps {
   jobId: number;

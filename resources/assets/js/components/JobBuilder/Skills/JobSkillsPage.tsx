@@ -24,7 +24,7 @@ import { batchUpdateCriteria } from "../../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { navigate } from "../../../helpers/router";
 import { getLocale } from "../../../helpers/localize";
-import { useLoadClassifications } from "../../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface JobSkillsPageProps {
   jobId: number;

@@ -45,7 +45,7 @@ import {
 import { fetchJobPosterStatuses } from "../../store/JobPosterStatus/jobStatusActions";
 import { getUserById } from "../../store/User/userSelector";
 import { fetchUser } from "../../store/User/userActions";
-import { useLoadClassifications } from "../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../hooks/classificationHooks";
 import { DispatchType } from "../../configureStore";
 
 const buttonMessages = defineMessages({

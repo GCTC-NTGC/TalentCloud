@@ -39,7 +39,7 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
-import { useLoadClassifications } from "../../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
