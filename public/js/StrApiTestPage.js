@@ -3250,7 +3250,10 @@ __webpack_require__.r(__webpack_exports__);
 function IsValidTimeZoneName(tz, _a) {
     var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
     var uppercasedTz = tz.toUpperCase();
-    var zoneNames = new Set(Object.keys(tzData).map(function (z) { return z.toUpperCase(); }));
+    var zoneNames = new Set();
+    Object.keys(tzData)
+        .map(function (z) { return z.toUpperCase(); })
+        .forEach(function (z) { return zoneNames.add(z); });
     return zoneNames.has(uppercasedTz) || uppercasedTz in uppercaseLinks;
 }
 
@@ -52134,7 +52137,10 @@ __webpack_require__.r(__webpack_exports__);
 function IsValidTimeZoneName(tz, _a) {
     var tzData = _a.tzData, uppercaseLinks = _a.uppercaseLinks;
     var uppercasedTz = tz.toUpperCase();
-    var zoneNames = new Set(Object.keys(tzData).map(function (z) { return z.toUpperCase(); }));
+    var zoneNames = new Set();
+    Object.keys(tzData)
+        .map(function (z) { return z.toUpperCase(); })
+        .forEach(function (z) { return zoneNames.add(z); });
     return zoneNames.has(uppercasedTz) || uppercasedTz in uppercaseLinks;
 }
 
