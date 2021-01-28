@@ -27,9 +27,9 @@ class ViewComposerServiceProvider extends ServiceProvider
         // Pass User Agent Internet Explorer to all views.
         View::share('is_internet_explorer', detectInternetExplorer());
 
-        // Internet Explorer banner and dialog.
+        // Internet Explorer banner.
         View::composer(
-            ['common/h2-ie-banner', 'common/h2-ie-dialog'],
+            ['common/h2-ie-banner'],
             'App\Http\ViewComposers\InternetExplorerComposer'
         );
 

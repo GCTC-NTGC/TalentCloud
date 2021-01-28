@@ -14,14 +14,9 @@
         data-h2-font-color="b(white)"
         data-h2-margin="b(top, .5) b(bottom, 1)">
        {{ internet_explorer.banner.paragraph_1.text_1 }}. {{ internet_explorer.banner.paragraph_1.text_2 }}, <a href="mailto:{{ internet_explorer.banner.paragraph_1.link_email }}" title="{{ internet_explorer.banner.paragraph_1.link_title }}">{{ internet_explorer.banner.paragraph_1.link_text }}</a>.</p>
+      <p data-h2-font-color="b(white)" data-h2-margin="b(top, .5) b(bottom, 1)">{{ internet_explorer.banner.paragraph_2.text_1 }} <a href="{{ internet_explorer.banner.paragraph_2.link_url }}" title="{{ internet_explorer.banner.paragraph_2.link_title }}">{{ internet_explorer.banner.paragraph_2.link_text }}</a>, {{ internet_explorer.banner.paragraph_2.text_2 }}.</p>
       <button
         data-h2-button="white, round, small, outline"
-        data-h2-dialog-trigger="ieDialog"
-        type="button">
-        <span data-h2-button-label>{{ internet_explorer.banner.dialog_trigger }}</span>
-      </button>
-      <button
-        data-h2-button="white, round, small, clear"
         type="button"
         id="browserDismissButton"
       >

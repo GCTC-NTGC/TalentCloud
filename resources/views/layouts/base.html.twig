@@ -13,7 +13,6 @@
     {% include "common/alert" %}
     {% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
         {% include "common/h2-ie-banner" %}
-        {% include "common/h2-ie-dialog" %}
     {% endif %}
       {# {% include "common/h2-menu" %} #}
     <main>
