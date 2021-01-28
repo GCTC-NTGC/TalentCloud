@@ -4,7 +4,7 @@ function handleClick(e) {
   e.preventDefault();
   const browserBanner = document.querySelector("#browserBanner");
   if(typeof browserBanner !== "undefined" && browserBanner != null){
-    browserBanner.remove();
+    browserBanner.parentNode.removeChild(browserBanner); // remove() doesn't exist in IE, but removeChild does.
   }
   return axios({
     method: 'post',
