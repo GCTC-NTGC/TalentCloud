@@ -103,7 +103,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
           {intl.formatMessage(loadingMessages.loading)}
         </h2>
       )}
-      {application !== null && job !== null && classification !== null && (
+      {application !== null && job !== null && (
         <BasicInfo
           application={application}
           job={job}

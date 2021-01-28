@@ -33,7 +33,7 @@ import { getLocale, localizeField } from "../../../helpers/localize";
 interface BasicInfoProps {
   application: ApplicationNormalized;
   job: Job;
-  classification: Classification;
+  classification: Classification | null;
   handleContinue: (values: ApplicationNormalized) => Promise<void>;
   handleReturn: (values: ApplicationNormalized) => Promise<void>;
   handleQuit: (values: ApplicationNormalized) => Promise<void>;
