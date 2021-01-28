@@ -46,8 +46,8 @@ const ActionBtn: React.FunctionComponent<ButtonProps> = (props) => {
     h2ComponentDialogEnableTrigger("latest", ref.current);
   });
   return (
-    <Button
-      styling={styling}
+    <button
+      data-h2-button={styling}
       ref={ref}
       data-h2-dialog-trigger={`${id}`}
       type={type}
@@ -55,7 +55,7 @@ const ActionBtn: React.FunctionComponent<ButtonProps> = (props) => {
       {...props}
     >
       {children}
-    </Button>
+    </button>
   );
 };
 
