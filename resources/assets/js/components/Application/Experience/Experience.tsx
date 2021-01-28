@@ -726,13 +726,6 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
 
-  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
-  useEffect(() => {
-    if (hasError) {
-      focusOnElement("experience-step-form-error");
-    }
-  }, [hasError]);
-
   const filteredSkills = criteria.reduce(
     (result, criterion): { essential: Skill[]; asset: Skill[] } => {
       const skillOfCriterion = getSkillOfCriteria(criterion, skills);
@@ -757,6 +750,16 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     experienceSkills,
     essentialSkills,
   );
+
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement("experience-step-form-error");
+    }
+    if (disconnectedRequiredSkills.length === 0) {
+      setHasError(false);
+    }
+  }, [hasError, disconnectedRequiredSkills]);
 
   return (
     <>
