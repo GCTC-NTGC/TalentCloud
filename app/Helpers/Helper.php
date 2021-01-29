@@ -1,10 +1,11 @@
 <?php
 
-use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Jenssegers\Date\Date;
 
 if (!function_exists('humanizeDate')) {
     /**
@@ -15,7 +16,7 @@ if (!function_exists('humanizeDate')) {
      *
      * @return string
      */
-    function humanizeDate(Date $datetime, string $locale = null) : string
+    function humanizeDate(Date $datetime, string $locale = null): string
     {
         $dateFormat = Config::get('app.date_format');
         if ($locale !== null) {
@@ -40,7 +41,7 @@ if (!function_exists('humanizeTime')) {
      *
      * @return string
      */
-    function humanizeTime(Date $datetime) : string
+    function humanizeTime(Date $datetime): string
     {
         $timeFormat = Config::get('app.time_format');
         $locale = App::getLocale();
@@ -51,7 +52,7 @@ if (!function_exists('humanizeTime')) {
         $displayTime = $datetime->format($timeFormat[$locale]);
 
         if ($locale == 'fr') {
-            $displayTime = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayTime);
+            $displayTime = Str::replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayTime);
         }
 
         return $displayTime;
@@ -67,7 +68,7 @@ if (!function_exists('humanizeDateDiff')) {
      *
      * @return string
      */
-    function humanizeDateDiff(Date $datetime, Date $origin = null) : string
+    function humanizeDateDiff(Date $datetime, Date $origin = null): string
     {
         if (!isset($origin)) {
             $origin = new Date();
@@ -108,7 +109,7 @@ if (!function_exists('humanizeLastDay')) {
      *
      * @return string
      */
-    function humanizeLastDay(Date $datetime, string $locale = null) : string
+    function humanizeLastDay(Date $datetime, string $locale = null): string
     {
         $lastday = $datetime->sub('1 day');
 
@@ -125,7 +126,7 @@ if (!function_exists('ptDayStartToUtcTime')) {
      *
      * @return Date
      */
-    function ptDayStartToUtcTime(string $date) : Date
+    function ptDayStartToUtcTime(string $date): Date
     {
         $jobTimezone = Config::get('app.job_timezone');
         $dbTimezone = Config::get('app.timezone');
@@ -148,7 +149,7 @@ if (!function_exists('ptDayEndToUtcTime')) {
      *
      * @return Date
      */
-    function ptDayEndToUtcTime(string $date) : Date
+    function ptDayEndToUtcTime(string $date): Date
     {
         $jobTimezone = Config::get('app.job_timezone');
         $dbTimezone = Config::get('app.timezone');

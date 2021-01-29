@@ -1,5 +1,12 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
 (function () {
-var importcss = (function () {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
@@ -33,14 +40,87 @@ var importcss = (function () {
     var getFileFilter = function (editor) {
       return editor.getParam('importcss_file_filter');
     };
-    var Settings = {
-      shouldMergeClasses: shouldMergeClasses,
-      shouldImportExclusive: shouldImportExclusive,
-      getSelectorConverter: getSelectorConverter,
-      getSelectorFilter: getSelectorFilter,
-      getCssGroups: getCssGroups,
-      shouldAppend: shouldAppend,
-      getFileFilter: getFileFilter
+    var getSkin = function (editor) {
+      var skin = editor.getParam('skin');
+      return skin !== false ? skin || 'oxide' : false;
+    };
+    var getSkinUrl = function (editor) {
+      return editor.getParam('skin_url');
+    };
+
+    var typeOf = function (x) {
+      var t = typeof x;
+      if (x === null) {
+        return 'null';
+      } else if (t === 'object' && (Array.prototype.isPrototypeOf(x) || x.constructor && x.constructor.name === 'Array')) {
+        return 'array';
+      } else if (t === 'object' && (String.prototype.isPrototypeOf(x) || x.constructor && x.constructor.name === 'String')) {
+        return 'string';
+      } else {
+        return t;
+      }
+    };
+    var isType = function (type) {
+      return function (value) {
+        return typeOf(value) === type;
+      };
+    };
+    var isArray = isType('array');
+
+    var nativePush = Array.prototype.push;
+    var map = function (xs, f) {
+      var len = xs.length;
+      var r = new Array(len);
+      for (var i = 0; i < len; i++) {
+        var x = xs[i];
+        r[i] = f(x, i);
+      }
+      return r;
+    };
+    var flatten = function (xs) {
+      var r = [];
+      for (var i = 0, len = xs.length; i < len; ++i) {
+        if (!isArray(xs[i])) {
+          throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
+        }
+        nativePush.apply(r, xs[i]);
+      }
+      return r;
+    };
+    var bind = function (xs, f) {
+      return flatten(map(xs, f));
+    };
+
+    var generate = function () {
+      var ungroupedOrder = [];
+      var groupOrder = [];
+      var groups = {};
+      var addItemToGroup = function (groupTitle, itemInfo) {
+        if (groups[groupTitle]) {
+          groups[groupTitle].push(itemInfo);
+        } else {
+          groupOrder.push(groupTitle);
+          groups[groupTitle] = [itemInfo];
+        }
+      };
+      var addItem = function (itemInfo) {
+        ungroupedOrder.push(itemInfo);
+      };
+      var toFormats = function () {
+        var groupItems = bind(groupOrder, function (g) {
+          var items = groups[g];
+          return items.length === 0 ? [] : [{
+              title: g,
+              items: items
+            }];
+        });
+        return groupItems.concat(ungroupedOrder);
+      };
+      return {
+        addItemToGroup: addItemToGroup,
+        addItem: addItem,
+        toFormats: toFormats
+      };
     };
 
     var removeCacheSuffix = function (url) {
@@ -51,10 +131,12 @@ var importcss = (function () {
       return url;
     };
     var isSkinContentCss = function (editor, href) {
-      var settings = editor.settings, skin = settings.skin !== false ? settings.skin || 'lightgray' : false;
+      var skin = getSkin(editor);
       if (skin) {
-        var skinUrl = settings.skin_url ? editor.documentBaseURI.toAbsolute(settings.skin_url) : global$2.baseURL + '/skins/' + skin;
-        return href === skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css';
+        var skinUrlBase = getSkinUrl(editor);
+        var skinUrl = skinUrlBase ? editor.documentBaseURI.toAbsolute(skinUrlBase) : global$2.baseURL + '/skins/ui/' + skin;
+        var contentSkinUrlPart = global$2.baseURL + '/skins/content/';
+        return href === skinUrl + '/content' + (editor.inline ? '.inline' : '') + '.min.css' || href.indexOf(contentSkinUrlPart) !== -1;
       }
       return false;
     };
@@ -136,7 +218,7 @@ var importcss = (function () {
           classes: classes
         };
       }
-      if (Settings.shouldMergeClasses(editor) !== false) {
+      if (shouldMergeClasses(editor) !== false) {
         format.classes = classes;
       } else {
         format.attributes = { class: classes };
@@ -162,7 +244,7 @@ var importcss = (function () {
       });
     };
     var isExclusiveMode = function (editor, group) {
-      return group === null || Settings.shouldImportExclusive(editor) !== false;
+      return group === null || shouldImportExclusive(editor) !== false;
     };
     var isUniqueSelector = function (editor, selector, group, globallyUniqueSelectors) {
       return !(isExclusiveMode(editor, group) ? selector in globallyUniqueSelectors : selector in group.selectors);
@@ -178,8 +260,8 @@ var importcss = (function () {
       var selectorConverter;
       if (group && group.selector_converter) {
         selectorConverter = group.selector_converter;
-      } else if (Settings.getSelectorConverter(editor)) {
-        selectorConverter = Settings.getSelectorConverter(editor);
+      } else if (getSelectorConverter(editor)) {
+        selectorConverter = getSelectorConverter(editor);
       } else {
         selectorConverter = function () {
           return defaultConvertSelectorToFormat(editor, selector);
@@ -188,10 +270,11 @@ var importcss = (function () {
       return selectorConverter.call(plugin, selector, group);
     };
     var setup = function (editor) {
-      editor.on('renderFormatsMenu', function (e) {
+      editor.on('init', function (_e) {
+        var model = generate();
         var globallyUniqueSelectors = {};
-        var selectorFilter = compileFilter(Settings.getSelectorFilter(editor)), ctrl = e.control;
-        var groups = compileUserDefinedGroups(Settings.getCssGroups(editor));
+        var selectorFilter = compileFilter(getSelectorFilter(editor));
+        var groups = compileUserDefinedGroups(getCssGroups(editor));
         var processSelector = function (selector, group) {
           if (isUniqueSelector(editor, selector, group, globallyUniqueSelectors)) {
             markUniqueSelector(editor, selector, group, globallyUniqueSelectors);
@@ -199,18 +282,15 @@ var importcss = (function () {
             if (format) {
               var formatName = format.name || global$1.DOM.uniqueId();
               editor.formatter.register(formatName, format);
-              return global$4.extend({}, ctrl.settings.itemDefaults, {
-                text: format.title,
+              return global$4.extend({}, {
+                title: format.title,
                 format: formatName
               });
             }
           }
           return null;
         };
-        if (!Settings.shouldAppend(editor)) {
-          ctrl.items().remove();
-        }
-        global$4.each(getSelectors(editor, e.doc || editor.getDoc(), compileFilter(Settings.getFileFilter(editor))), function (selector) {
+        global$4.each(getSelectors(editor, editor.getDoc(), compileFilter(getFileFilter(editor))), function (selector) {
           if (selector.indexOf('.mce-') === -1) {
             if (!selectorFilter || selectorFilter(selector)) {
               var selectorGroups = getGroupsBySelector(groups, selector);
@@ -218,47 +298,40 @@ var importcss = (function () {
                 global$4.each(selectorGroups, function (group) {
                   var menuItem = processSelector(selector, group);
                   if (menuItem) {
-                    group.item.menu.push(menuItem);
+                    model.addItemToGroup(group.title, menuItem);
                   }
                 });
               } else {
                 var menuItem = processSelector(selector, null);
                 if (menuItem) {
-                  ctrl.add(menuItem);
+                  model.addItem(menuItem);
                 }
               }
             }
           }
         });
-        global$4.each(groups, function (group) {
-          if (group.item.menu.length > 0) {
-            ctrl.add(group.item);
-          }
+        var items = model.toFormats();
+        editor.fire('addStyleModifications', {
+          items: items,
+          replace: !shouldAppend(editor)
         });
-        e.control.renderNew();
       });
-    };
-    var ImportCss = {
-      defaultConvertSelectorToFormat: defaultConvertSelectorToFormat,
-      setup: setup
     };
 
     var get = function (editor) {
       var convertSelectorToFormat = function (selectorText) {
-        return ImportCss.defaultConvertSelectorToFormat(editor, selectorText);
+        return defaultConvertSelectorToFormat(editor, selectorText);
       };
       return { convertSelectorToFormat: convertSelectorToFormat };
     };
-    var Api = { get: get };
 
-    global.add('importcss', function (editor) {
-      ImportCss.setup(editor);
-      return Api.get(editor);
-    });
     function Plugin () {
+      global.add('importcss', function (editor) {
+        setup(editor);
+        return get(editor);
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }());
-})();

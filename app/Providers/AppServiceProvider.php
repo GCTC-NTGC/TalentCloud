@@ -12,6 +12,7 @@ use App\Models\JobApplication;
 use App\Services\WhichPortal;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -46,6 +47,9 @@ class AppServiceProvider extends ServiceProvider
             'experience_award' => ExperienceAward::class,
             'experience_community' => ExperienceCommunity::class,
         ]);
+
+        // https://laravel.com/docs/8.x/upgrade#pagination-defaults
+        Paginator::useBootstrap();
     }
 
     /**

@@ -1,5 +1,12 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
 (function () {
-var pagebreak = (function () {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
@@ -12,10 +19,6 @@ var pagebreak = (function () {
     var shouldSplitBlock = function (editor) {
       return editor.getParam('pagebreak_split_block', false);
     };
-    var Settings = {
-      getSeparatorHtml: getSeparatorHtml,
-      shouldSplitBlock: shouldSplitBlock
-    };
 
     var getPageBreakClass = function () {
       return 'mce-pagebreak';
@@ -24,7 +27,7 @@ var pagebreak = (function () {
       return '<img src="' + global$1.transparentSrc + '" class="' + getPageBreakClass() + '" data-mce-resize="false" data-mce-placeholder />';
     };
     var setup = function (editor) {
-      var separatorHtml = Settings.getSeparatorHtml(editor);
+      var separatorHtml = getSeparatorHtml(editor);
       var pageBreakSeparatorRegExp = new RegExp(separatorHtml.replace(/[\?\.\*\[\]\(\)\{\}\+\^\$\:]/g, function (a) {
         return '\\' + a;
       }), 'gi');
@@ -39,7 +42,7 @@ var pagebreak = (function () {
             className = node.attr('class');
             if (className && className.indexOf('mce-pagebreak') !== -1) {
               var parentNode = node.parent;
-              if (editor.schema.getBlockElements()[parentNode.name] && Settings.shouldSplitBlock(editor)) {
+              if (editor.schema.getBlockElements()[parentNode.name] && shouldSplitBlock(editor)) {
                 parentNode.type = 3;
                 parentNode.value = separatorHtml;
                 parentNode.raw = true;
@@ -54,56 +57,51 @@ var pagebreak = (function () {
         });
       });
     };
-    var FilterContent = {
-      setup: setup,
-      getPlaceholderHtml: getPlaceholderHtml,
-      getPageBreakClass: getPageBreakClass
-    };
 
     var register = function (editor) {
       editor.addCommand('mcePageBreak', function () {
-        if (editor.settings.pagebreak_split_block) {
-          editor.insertContent('<p>' + FilterContent.getPlaceholderHtml() + '</p>');
+        if (shouldSplitBlock(editor)) {
+          editor.insertContent('<p>' + getPlaceholderHtml() + '</p>');
         } else {
-          editor.insertContent(FilterContent.getPlaceholderHtml());
+          editor.insertContent(getPlaceholderHtml());
         }
       });
     };
-    var Commands = { register: register };
 
     var setup$1 = function (editor) {
       editor.on('ResolveName', function (e) {
-        if (e.target.nodeName === 'IMG' && editor.dom.hasClass(e.target, FilterContent.getPageBreakClass())) {
+        if (e.target.nodeName === 'IMG' && editor.dom.hasClass(e.target, getPageBreakClass())) {
           e.name = 'pagebreak';
         }
       });
     };
-    var ResolveName = { setup: setup$1 };
 
     var register$1 = function (editor) {
-      editor.addButton('pagebreak', {
-        title: 'Page break',
-        cmd: 'mcePageBreak'
+      editor.ui.registry.addButton('pagebreak', {
+        icon: 'page-break',
+        tooltip: 'Page break',
+        onAction: function () {
+          return editor.execCommand('mcePageBreak');
+        }
       });
-      editor.addMenuItem('pagebreak', {
+      editor.ui.registry.addMenuItem('pagebreak', {
         text: 'Page break',
-        icon: 'pagebreak',
-        cmd: 'mcePageBreak',
-        context: 'insert'
+        icon: 'page-break',
+        onAction: function () {
+          return editor.execCommand('mcePageBreak');
+        }
       });
     };
-    var Buttons = { register: register$1 };
 
-    global.add('pagebreak', function (editor) {
-      Commands.register(editor);
-      Buttons.register(editor);
-      FilterContent.setup(editor);
-      ResolveName.setup(editor);
-    });
     function Plugin () {
+      global.add('pagebreak', function (editor) {
+        register(editor);
+        register$1(editor);
+        setup(editor);
+        setup$1(editor);
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }());
-})();

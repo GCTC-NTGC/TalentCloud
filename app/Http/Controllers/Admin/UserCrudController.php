@@ -16,7 +16,7 @@ class UserCrudController extends CrudController
      *
      * @return void
      */
-    public function setup() : void
+    public function setup(): void
     {
         $this->crud->setModel('App\Models\User');
         $this->crud->setRoute('admin/user');
@@ -84,11 +84,11 @@ class UserCrudController extends CrudController
             'name' => 'user_role',
             'type' => 'select2',
             'label' => 'Role'
-            ], function () {
-                return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
-            }, function ($value) : void {
-                $this->crud->addClause('where', 'user_role_id', $value);
-            });
+        ], function () {
+            return UserRole::all()->keyBy('id')->pluck('name', 'id')->toArray();
+        }, function ($value): void {
+            $this->crud->addClause('where', 'user_role_id', $value);
+        });
     }
 
     public function setupUpdateOperation()
@@ -98,7 +98,7 @@ class UserCrudController extends CrudController
             'label' => 'Name',
             'type' => 'text',
             'attributes' => [
-                'readonly'=>'readonly'
+                'readonly' => 'readonly'
             ]
         ]);
         $this->crud->addField([

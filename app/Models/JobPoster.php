@@ -12,8 +12,9 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
-use Jenssegers\Date\Date;
+use Illuminate\Support\Str;
 
+use Jenssegers\Date\Date;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -484,7 +485,7 @@ class JobPoster extends BaseModel
         ];
 
         if (App::isLocale('fr')) {
-            $displayDate['time'] = str_replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate['time']);
+            $displayDate['time'] = Str::replace(['EST', 'EDT'], ['HNE', 'HAE'], $displayDate['time']);
         }
 
         return $displayDate;

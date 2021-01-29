@@ -1,5 +1,12 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
 (function () {
-var noneditable = (function () {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
@@ -19,11 +26,6 @@ var noneditable = (function () {
       } else {
         return nonEditableRegExps;
       }
-    };
-    var Settings = {
-      getNonEditableClass: getNonEditableClass,
-      getEditableClass: getEditableClass,
-      getNonEditableRegExps: getNonEditableRegExps
     };
 
     var hasClass = function (checkClassName) {
@@ -56,18 +58,17 @@ var noneditable = (function () {
         return;
       }
       while (i--) {
-        content = content.replace(nonEditableRegExps[i], replaceMatchWithSpan(editor, content, Settings.getNonEditableClass(editor)));
+        content = content.replace(nonEditableRegExps[i], replaceMatchWithSpan(editor, content, getNonEditableClass(editor)));
       }
       e.content = content;
     };
     var setup = function (editor) {
-      var editClass, nonEditClass;
       var contentEditableAttrName = 'contenteditable';
-      editClass = ' ' + global$1.trim(Settings.getEditableClass(editor)) + ' ';
-      nonEditClass = ' ' + global$1.trim(Settings.getNonEditableClass(editor)) + ' ';
+      var editClass = ' ' + global$1.trim(getEditableClass(editor)) + ' ';
+      var nonEditClass = ' ' + global$1.trim(getNonEditableClass(editor)) + ' ';
       var hasEditClass = hasClass(editClass);
       var hasNonEditClass = hasClass(nonEditClass);
-      var nonEditableRegExps = Settings.getNonEditableRegExps(editor);
+      var nonEditableRegExps = getNonEditableRegExps(editor);
       editor.on('PreInit', function () {
         if (nonEditableRegExps.length > 0) {
           editor.on('BeforeSetContent', function (e) {
@@ -104,15 +105,13 @@ var noneditable = (function () {
         });
       });
     };
-    var FilterContent = { setup: setup };
 
-    global.add('noneditable', function (editor) {
-      FilterContent.setup(editor);
-    });
     function Plugin () {
+      global.add('noneditable', function (editor) {
+        setup(editor);
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }());
-})();

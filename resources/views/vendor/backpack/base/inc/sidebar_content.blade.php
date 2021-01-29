@@ -17,5 +17,5 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('job-skill-level') }}"><i class="nav-icon fa fa-list-alt"></i> <span>Job Skill Levels</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('resource') }}"><i class="nav-icon fa fa-folder"></i> <span>Resources</span></a></li>
 <br />
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon fa fa-lock"></i> <span>Manage 2FA</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('2fa') }}"><i class="nav-icon la la-lock"></i> <span>Manage 2FA</span></a></li>
 <br />

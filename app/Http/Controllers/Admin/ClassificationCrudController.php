@@ -60,7 +60,6 @@ class ClassificationCrudController extends CrudController
             'type' => 'text',
             'label' => 'Education Requirements',
         ]);
-
     }
 
     public function setupCreateOperation()

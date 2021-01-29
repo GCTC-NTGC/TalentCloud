@@ -1,21 +1,15 @@
+/**
+ * Copyright (c) Tiny Technologies, Inc. All rights reserved.
+ * Licensed under the LGPL or a commercial license.
+ * For LGPL see License.txt in the project root for license information.
+ * For commercial licenses see https://www.tiny.cloud/
+ *
+ * Version: 5.4.2 (2020-08-17)
+ */
 (function () {
-var code = (function () {
     'use strict';
 
     var global = tinymce.util.Tools.resolve('tinymce.PluginManager');
-
-    var global$1 = tinymce.util.Tools.resolve('tinymce.dom.DOMUtils');
-
-    var getMinWidth = function (editor) {
-      return editor.getParam('code_dialog_width', 600);
-    };
-    var getMinHeight = function (editor) {
-      return editor.getParam('code_dialog_height', Math.min(global$1.DOM.getViewPort().h - 200, 500));
-    };
-    var Settings = {
-      getMinWidth: getMinWidth,
-      getMinHeight: getMinHeight
-    };
 
     var setContent = function (editor, html) {
       editor.focus();
@@ -28,67 +22,71 @@ var code = (function () {
     var getContent = function (editor) {
       return editor.getContent({ source_view: true });
     };
-    var Content = {
-      setContent: setContent,
-      getContent: getContent
-    };
 
     var open = function (editor) {
-      var minWidth = Settings.getMinWidth(editor);
-      var minHeight = Settings.getMinHeight(editor);
-      var win = editor.windowManager.open({
-        title: 'Source code',
+      var editorContent = getContent(editor);
+      editor.windowManager.open({
+        title: 'Source Code',
+        size: 'large',
         body: {
-          type: 'textbox',
-          name: 'code',
-          multiline: true,
-          minWidth: minWidth,
-          minHeight: minHeight,
-          spellcheck: false,
-          style: 'direction: ltr; text-align: left'
+          type: 'panel',
+          items: [{
+              type: 'textarea',
+              name: 'code'
+            }]
         },
-        onSubmit: function (e) {
-          Content.setContent(editor, e.data.code);
+        buttons: [
+          {
+            type: 'cancel',
+            name: 'cancel',
+            text: 'Cancel'
+          },
+          {
+            type: 'submit',
+            name: 'save',
+            text: 'Save',
+            primary: true
+          }
+        ],
+        initialData: { code: editorContent },
+        onSubmit: function (api) {
+          setContent(editor, api.getData().code);
+          api.close();
         }
       });
-      win.find('#code').value(Content.getContent(editor));
     };
-    var Dialog = { open: open };
 
     var register = function (editor) {
       editor.addCommand('mceCodeEditor', function () {
-        Dialog.open(editor);
+        open(editor);
       });
     };
-    var Commands = { register: register };
 
     var register$1 = function (editor) {
-      editor.addButton('code', {
-        icon: 'code',
+      editor.ui.registry.addButton('code', {
+        icon: 'sourcecode',
         tooltip: 'Source code',
-        onclick: function () {
-          Dialog.open(editor);
+        onAction: function () {
+          return open(editor);
         }
       });
-      editor.addMenuItem('code', {
-        icon: 'code',
+      editor.ui.registry.addMenuItem('code', {
+        icon: 'sourcecode',
         text: 'Source code',
-        onclick: function () {
-          Dialog.open(editor);
+        onAction: function () {
+          return open(editor);
         }
       });
     };
-    var Buttons = { register: register$1 };
 
-    global.add('code', function (editor) {
-      Commands.register(editor);
-      Buttons.register(editor);
-      return {};
-    });
     function Plugin () {
+      global.add('code', function (editor) {
+        register(editor);
+        register$1(editor);
+        return {};
+      });
     }
 
-    return Plugin;
+    Plugin();
 
 }());
-})();
