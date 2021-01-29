@@ -63,10 +63,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
-  const classificationKey =
+  const classificationEducationRequirements =
     classifications.find(
       (item: Classification) => item.id === job?.classification_id,
-    )?.key || "";
+    )?.education_requirements[locale] || null;
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
@@ -250,7 +250,9 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           skills={skills}
           jobId={job.id}
           jobEducationRequirements={localizeField(locale, job, "education")}
-          classificationKey={classificationKey}
+          classificationEducationRequirements={
+            classificationEducationRequirements
+          }
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}

@@ -215,7 +215,7 @@ interface ExperienceProps {
   experienceSkills: ExperienceSkill[];
   jobId: number;
   jobEducationRequirements: string | null;
-  classificationKey: string;
+  classificationEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   skills: Skill[];
@@ -237,7 +237,7 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experienceSkills,
   jobId,
   jobEducationRequirements,
-  classificationKey,
+  classificationEducationRequirements,
   recipientTypes,
   recognitionTypes,
   skills,
@@ -567,7 +567,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
@@ -589,7 +591,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
@@ -610,7 +614,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
@@ -632,7 +638,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
@@ -654,7 +662,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
@@ -683,7 +693,7 @@ interface ExperienceStepProps {
   skills: Skill[];
   jobId: number;
   jobEducationRequirements: string | null;
-  classificationKey: string;
+  classificationEducationRequirements: string | null;
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   handleDeleteExperience: (
@@ -707,7 +717,7 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   handleDeleteExperience,
   jobId,
   jobEducationRequirements,
-  classificationKey,
+  classificationEducationRequirements,
   recipientTypes,
   recognitionTypes,
   handleContinue,
@@ -763,7 +773,9 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
         skills={skills}
         jobId={jobId}
         jobEducationRequirements={jobEducationRequirements}
-        classificationKey={classificationKey}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmitExperience}

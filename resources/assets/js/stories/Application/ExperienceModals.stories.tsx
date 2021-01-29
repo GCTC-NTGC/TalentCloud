@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { number, boolean, select } from "@storybook/addon-knobs";
+import { number, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import {
@@ -21,11 +21,8 @@ import EducationExperienceModal from "../../components/Application/ExperienceMod
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
-import { mapToObject } from "../../helpers/queries";
-import {
-  fakeClassifications,
-  fakeClassification1,
-} from "../../fakeData/fakeClassifications";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
+import fakeJob from "../../fakeData/fakeJob";
 
 const stories = storiesOf("Application/Experience Modals", module).addDecorator(
   withIntl,
@@ -146,17 +143,6 @@ export const recogntitionTypes = [
   },
 ];
 
-const classificationOptions = mapToObject(
-  fakeClassifications().map((x) => x.key),
-  (classification) => classification,
-);
-
-const jobClassification = select(
-  "Job Classification",
-  classificationOptions,
-  "CS",
-  groupIds.details,
-);
 stories.add(
   "Work Experience Modal",
   (): React.ReactElement => {
@@ -177,7 +163,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -218,7 +204,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -259,7 +245,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -298,7 +284,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -337,7 +323,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -378,7 +364,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
@@ -419,7 +405,7 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
               fakeClassification1().education_requirements.en
             }
