@@ -40,7 +40,7 @@ stories
                   "Text",
                 )})`}
               >
-                {text("Title", "Accordion TItle", "Text")}
+                {text("Title", "Accordion Title", "Text")}
               </p>
               <p
                 data-h2-font-color={`b(${select(
@@ -84,12 +84,7 @@ stories
     "Default",
     (): React.ReactElement => (
       <Accordion
-        triggerPos={select(
-          "Trigger Position",
-          triggerOptions,
-          "right",
-          "Trigger Position",
-        )} // This is giving an error since select might return undefined (?). However, it's working as intended.
+        triggerPos="right" // TODO: Create knob that works with specific type (eg. triggerPos: "left" | "right").
         data-h2-bg-color={`b(${select(
           "Background Colors",
           colorOptions,
@@ -115,7 +110,7 @@ stories
                 "Text",
               )})`}
             >
-              {text("Title", "Accordion TItle", "Text")}
+              {text("Title", "Accordion Title", "Text")}
             </p>
             <p
               data-h2-font-color={`b(${select(
