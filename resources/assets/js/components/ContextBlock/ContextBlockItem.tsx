@@ -14,6 +14,7 @@ export interface ContextBlockItemProps {
   fontWeight?: string;
   wrapperMargin?: string;
   titleMargin?: string;
+  bodyText?: string | React.ReactNode;
 }
 
 const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
@@ -30,6 +31,7 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
   wrapperMargin,
   titleMargin,
   active,
+  bodyText,
 }): React.ReactElement => {
   return (
     <div
@@ -53,6 +55,7 @@ const ContextBlockItem: React.FunctionComponent<ContextBlockItemProps> = ({
         </p>
       )}
       {subtext && <p data-c-font-size={fontSize || "small"}>{subtext}</p>}
+      {bodyText && <div>{bodyText}</div>}
     </div>
   );
 };
