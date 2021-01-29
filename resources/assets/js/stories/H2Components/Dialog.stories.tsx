@@ -19,19 +19,31 @@ stories.add(
         data-h2-padding="b(all, .5)"
         data-h2-margin="b(right, 1)"
       >
-        <p data-h2-grid-item="b(1of1)">
-          {text("Trigger", "Open Dialog", "Text")}
-        </p>
+        <p>{text("Trigger", "Open Dialog", "Text")}</p>
       </Dialog.Trigger>
       <Dialog id="dialog">
-        <Dialog.Header className="gradient-left-right">
+        <Dialog.Header
+          data-h2-grid="b(middle, contained, padded, .5)"
+          className="gradient-left-right"
+        >
           <Dialog.Title
             data-h2-padding="b(all, .5) b(left, 1)"
             data-h2-font-color="b(white)"
             data-h2-font-size="b(h4)"
+            data-h2-grid-item="b(1of2)"
           >
             Dialog Title
           </Dialog.Title>
+          <div data-h2-grid-item="b(1of2)" data-h2-align="b(right)">
+            <Dialog.ActionBtn data-h2-button="round, small, solid">
+              <i
+                data-h2-font-size="b(normal)"
+                data-h2-font-color="b(white)"
+                className="fas fa-times"
+                aria-hidden="true"
+              />
+            </Dialog.ActionBtn>
+          </div>
         </Dialog.Header>
         <Dialog.Content>
           <p data-h2-padding="b(all, 3)">
