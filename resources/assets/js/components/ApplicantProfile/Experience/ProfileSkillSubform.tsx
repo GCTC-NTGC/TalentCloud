@@ -117,9 +117,9 @@ const SkillFormCell: FunctionComponent<{
   // We don't use the CheckboxInput component here because we need more custom styling,
   // mostly because this is ~sort~ of a checkbox group, but its not just checkboxes.
   return (
-    <div key={skill.id} data-c-grid-item="tl(1of1)">
-      <div data-c-grid="gutter(all, 1)">
-        <div data-c-grid-item="tl(1of4)">
+    <div key={skill.id}>
+      <div>
+        <div>
           <label>
             <FastField
               id={`${keyPrefix}-${skill.id}-selected`}
@@ -131,21 +131,17 @@ const SkillFormCell: FunctionComponent<{
             </span>
           </label>
         </div>
-        <div data-c-grid-item="tl(3of4)">
-          <div data-c-visibility={!isSelected ? "hidden" : ""}>
-            <Field
-              id={`${keyPrefix}-${skill.id}-justification`}
-              type="text"
-              name={`skills.${skill.id}.justification`}
-              component={TextAreaInput}
-              required={isSelected}
-              label={intl.formatMessage(messages.justificationLabel)}
-              placeholder={intl.formatMessage(
-                messages.justificationPlaceholder,
-              )}
-              wordLimit={JUSTIFICATION_WORD_LIMIT}
-            />
-          </div>
+        <div data-c-visibility={!isSelected ? "hidden" : ""}>
+          <Field
+            id={`${keyPrefix}-${skill.id}-justification`}
+            type="text"
+            name={`skills.${skill.id}.justification`}
+            component={TextAreaInput}
+            required={isSelected}
+            label={intl.formatMessage(messages.justificationLabel)}
+            placeholder={intl.formatMessage(messages.justificationPlaceholder)}
+            wordLimit={JUSTIFICATION_WORD_LIMIT}
+          />
         </div>
       </div>
     </div>
@@ -215,8 +211,13 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
         </ul>
       </div>
       <div data-c-container="medium">
-        <div data-c-grid="gutter(all, 1) middle">
-          <div data-c-grid>
+        <fieldset style={{ border: "none" }}>
+          <legend data-c-font="sans">The Skills</legend>
+          <div
+            data-c-border="all(thin, solid, black)"
+            data-c-radius="rounded"
+            data-c-padding="all(1)"
+          >
             {skills.map((skill) => (
               <SkillFormCell
                 key={skill.id}
@@ -225,7 +226,7 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
               />
             ))}
           </div>
-        </div>
+        </fieldset>
       </div>
     </>
   );
