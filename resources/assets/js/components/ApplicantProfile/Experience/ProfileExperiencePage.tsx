@@ -26,6 +26,7 @@ import {
 } from "../../../store/Experience/experienceActions";
 import { loadingMessages } from "../../Application/applicationMessages";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
+import { useApplicantSkillIds } from "../../../hooks/apiResourceHooks";
 
 const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   applicantId,
@@ -33,7 +34,8 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   const intl = useIntl();
   const dispatch = useDispatch();
 
-  const skills = useFetchSkills(dispatch); // TODO: change this to getting USER SKILLs
+  const skills = useFetchSkills(dispatch);
+  const applicantSkillIdsResource = useApplicantSkillIds(applicantId);
 
   const experiencesByType = useSelector((state: RootState) =>
     getExperienceByApplicant(state, { applicantId }),
@@ -45,6 +47,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     ...experiencesByType.personal,
     ...experiencesByType.work,
   ];
+
   // Fetch Experiences.
   const experiencesUpdating = useSelector((state: RootState) =>
     getUpdatingByApplicant(state, { applicantId }),
@@ -78,6 +81,10 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     educationTypes,
     educationStatuses,
   } = useFetchExperienceConstants(dispatch);
+
+  const userSkills = skills.filter((skill) =>
+    applicantSkillIdsResource.value.skill_ids.includes(skill.id),
+  );
 
   const newExpSkill = (
     exp: Experience,
@@ -199,7 +206,10 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     educationStatuses.length > 0;
   const experiencesLoaded = experiencesFetched && !experiencesUpdating;
   const showComponent =
-    experienceConstantsLoaded && skills.length > 0 && experiencesLoaded;
+    experienceConstantsLoaded &&
+    skills.length > 0 &&
+    applicantSkillIdsResource.status === "fulfilled" &&
+    experiencesLoaded;
 
   return (
     <>
@@ -207,7 +217,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
         <ProfileExperience
           experiences={experiences}
           experienceSkills={experienceSkills}
-          userSkills={skills}
+          userSkills={userSkills}
           educationStatuses={educationStatuses}
           educationTypes={educationTypes}
           handleCreateExperience={handleCreateExperience}
