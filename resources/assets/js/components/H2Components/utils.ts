@@ -9,5 +9,5 @@ export interface GeneralBtnProps {
   /** The type of button: "submit" | "reset" | "button" */
   type?: "submit" | "reset" | "button";
   /** The onClick event handler */
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
