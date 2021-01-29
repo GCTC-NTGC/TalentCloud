@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Applicant;
+use App\Models\ApplicantClassification;
 use App\Models\Classification;
 use App\Models\HrAdvisor;
 use App\Models\Lookup\CitizenshipDeclaration;
