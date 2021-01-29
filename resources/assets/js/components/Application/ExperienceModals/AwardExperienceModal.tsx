@@ -370,7 +370,7 @@ interface AwardExperienceModalProps {
   recipientTypes: AwardRecipientType[];
   recognitionTypes: AwardRecognitionType[];
   jobId: number;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -390,7 +390,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   recipientTypes,
   recognitionTypes,
   jobId,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
@@ -474,7 +474,9 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               />
               <EducationSubform
                 keyPrefix="award"
-                jobClassification={jobClassification}
+                classificationEducationRequirements={
+                  classificationEducationRequirements
+                }
                 jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>

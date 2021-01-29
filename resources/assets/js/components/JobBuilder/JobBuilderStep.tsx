@@ -9,11 +9,11 @@ import JobBuilderProgressTracker from "./JobBuilderProgressTracker";
 import {
   useLoadCriteria,
   useLoadDepartments,
-  useLoadClassifications,
   useLoadJob,
   useLoadSkills,
   useLoadTasks,
 } from "../../hooks/jobBuilderHooks";
+import { useLoadClassifications } from "../../hooks/classificationHooks";
 
 interface JobBuilderStepProps {
   jobId: number | null;

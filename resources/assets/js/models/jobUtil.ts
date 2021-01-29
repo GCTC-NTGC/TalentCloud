@@ -8,13 +8,7 @@ import {
   Comment,
   JobPosterStatus,
 } from "./types";
-import {
-  CriteriaTypeId,
-  getKeyByValue,
-  ClassificationId,
-  JobStatus,
-  LocationId,
-} from "./lookupConstants";
+import { CriteriaTypeId, JobStatus, LocationId } from "./lookupConstants";
 import { assetSkillName, skillLevelName } from "./localizedConstants";
 import {
   jobBuilderDetails,
@@ -39,12 +33,12 @@ const pad = (n: number, width: number, z = "0"): string => {
   return (String(z).repeat(width) + String(n)).slice(String(n).length);
 };
 
-export const classificationString = (job: Job): string => {
-  return job.classification_id && job.classification_level
-    ? `${getKeyByValue(ClassificationId, job.classification_id)}-${pad(
-        job.classification_level,
-        2,
-      )}`
+export const classificationString = (
+  classificationKey: string,
+  job: Job,
+): string => {
+  return classificationKey && job.classification_id && job.classification_level
+    ? `${classificationKey}-${pad(job.classification_level, 2)}`
     : "";
 };
 
