@@ -146,7 +146,6 @@ interface TriggerProps extends GeneralProps, GeneralBtnProps {
 
 /** This Trigger component opens the dialog and sits outside the main dialog component */
 const Trigger: React.FunctionComponent<TriggerProps> = (props) => {
-  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
   const { id, buttonStyling, className, children } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
