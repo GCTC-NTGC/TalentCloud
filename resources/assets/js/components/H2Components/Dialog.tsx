@@ -5,7 +5,7 @@ import {
   h2ComponentDialogEnableTrigger,
 } from "@hydrogen-design-system/system/dist/import/latest/components/dialog/scripts/dialog";
 import { defineMessages, useIntl } from "react-intl";
-import Button, { ButtonProps } from "./Button";
+import { GeneralProps, GeneralBtnProps } from "./utils";
 
 const messages = defineMessages({
   closeDialog: {
@@ -15,12 +15,20 @@ const messages = defineMessages({
 });
 
 interface DialogContext {
+  /** The dialogs id. */
   id?: string;
 }
 
-const DialogContext = React.createContext<DialogContext>({});
+const DialogContext = React.createContext<DialogContext | undefined>(undefined);
 
-const useDialog = (): Partial<DialogContext> => {
+/**
+ * This Context hook allows our child components to easily reach
+ * into the Tabs context and get the pieces it needs.
+ *
+ * Bonus: it even makes sure the component is used within a
+ * Dialog component!
+ */
+const useDialogContext = (): Partial<DialogContext> => {
   const context = React.useContext(DialogContext);
   if (!context) {
     throw new Error("This component must be used within a <Dialog> component.");
@@ -28,8 +36,8 @@ const useDialog = (): Partial<DialogContext> => {
   return context;
 };
 
-const Actions: React.FunctionComponent = (props) => {
-  const { id = "dialog" } = useDialog();
+const Actions: React.FunctionComponent<GeneralProps> = (props) => {
+  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
   const { children } = props;
   return (
     <div data-h2-dialog-actions {...props}>
@@ -38,19 +46,19 @@ const Actions: React.FunctionComponent = (props) => {
   );
 };
 
-const ActionBtn: React.FunctionComponent<ButtonProps> = (props) => {
-  const { id = "dialog" } = useDialog();
-  const { onClick, styling, type, children } = props;
+const ActionBtn: React.FunctionComponent<GeneralBtnProps> = (props) => {
+  const { id = "dialog" } = useDialogContext();
+  const { buttonStyling, type, onClick, children } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
     h2ComponentDialogEnableTrigger("latest", ref.current);
   });
   return (
     <button
-      data-h2-button={styling}
-      ref={ref}
       data-h2-dialog-trigger={`${id}`}
-      type={type}
+      data-h2-button={buttonStyling}
+      ref={ref}
+      type={type || "button"}
       onClick={onClick}
       {...props}
     >
@@ -59,35 +67,52 @@ const ActionBtn: React.FunctionComponent<ButtonProps> = (props) => {
   );
 };
 
-const Content: React.FunctionComponent = (props) => {
-  const { id = "dialog" } = useDialog();
-  const { children } = props;
+const Content: React.FunctionComponent<GeneralProps> = (props) => {
+  const { id = "dialog" } = useDialogContext();
+  const { className, children } = props;
   return (
-    <div data-h2-dialog-content id={`${id}Content`} {...props}>
+    <div
+      data-h2-dialog-content
+      id={`${id}Content`}
+      className={className}
+      {...props}
+    >
       {children}
     </div>
   );
 };
-const ExitBtn: React.FunctionComponent = (props) => {
-  useDialog();
+
+const ExitBtn: React.FunctionComponent<GeneralBtnProps & GeneralProps> = (
+  props,
+) => {
+  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
+  const { buttonStyling, className, onClick, children } = props;
   const intl = useIntl();
-  const { children } = props;
+  const ref = React.useRef(null);
+  React.useEffect((): void => {
+    h2ComponentDialogEnableTrigger("latest", ref.current);
+  });
   return (
-    <Button data-h2-dialog-exit-trigger data-h2-bg-color="b(white, 0)">
+    <button
+      data-h2-dialog-exit-trigger
+      data-h2-button={buttonStyling}
+      ref={ref}
+      type="button"
+      onClick={onClick}
+      className={className}
+      {...props}
+    >
       <i className="fas fa-times" aria-hidden="true" />
       <span data-h2-visibility="hidden">
         {intl.formatMessage(messages.closeDialog)}
       </span>
-    </Button>
+      {children}
+    </button>
   );
 };
 
-interface HeaderProps {
-  className?: string;
-}
-
-const Header: React.FunctionComponent<HeaderProps> = (props) => {
-  useDialog();
+const Header: React.FunctionComponent<GeneralProps> = (props) => {
+  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
   const { className, children } = props;
   return (
     <div data-h2-dialog-title className={className} {...props}>
@@ -105,41 +130,50 @@ const Overlay: React.FunctionComponent<OverlayProps> = (props) => {
   return <div data-h2-dialog-overlay={`${overlay || "black, .9"}`} />;
 };
 
-const Title: React.FunctionComponent = (props) => {
-  const { id = "dialog" } = useDialog();
-  const { children } = props;
+const Title: React.FunctionComponent<GeneralProps> = (props) => {
+  const { id = "dialog" } = useDialogContext();
+  const { className, children } = props;
   return (
-    <h5 data-h2-focus id={`${id}Title`} {...props}>
+    <h5 data-h2-focus id={`${id}Title`} className={className} {...props}>
       {children}
     </h5>
   );
 };
 
-interface TriggerProps {
+interface TriggerProps extends GeneralProps, GeneralBtnProps {
   id: string;
 }
 
+/** This Trigger component opens the dialog and sits outside the main dialog component */
 const Trigger: React.FunctionComponent<TriggerProps> = (props) => {
-  const { id, children } = props;
+  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
+  const { id, buttonStyling, className, children } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
     h2ComponentDialogEnableTrigger("latest", ref.current);
   });
   return (
-    <button ref={ref} data-h2-dialog-trigger={`${id}`} type="button" {...props}>
+    <button
+      data-h2-button={buttonStyling}
+      ref={ref}
+      data-h2-dialog-trigger={`${id}`}
+      type="button"
+      className={className}
+      {...props}
+    >
       {children}
     </button>
   );
 };
 
 interface DialogComposition {
-  Actions: React.FunctionComponent;
-  ActionBtn: React.FunctionComponent<ButtonProps>;
-  Content: React.FunctionComponent;
-  ExitBtn: React.FunctionComponent;
-  Header: React.FunctionComponent<HeaderProps>;
+  Actions: React.FunctionComponent<GeneralProps>;
+  ActionBtn: React.FunctionComponent<GeneralBtnProps>;
+  Content: React.FunctionComponent<GeneralProps>;
+  ExitBtn: React.FunctionComponent<GeneralBtnProps>;
+  Header: React.FunctionComponent<GeneralProps>;
   Overlay: React.FunctionComponent<OverlayProps>;
-  Title: React.FunctionComponent;
+  Title: React.FunctionComponent<GeneralProps>;
   Trigger: React.FunctionComponent<TriggerProps>;
 }
 
@@ -161,6 +195,7 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
         data-h2-dialog={id}
         tabIndex={-1}
         role="dialog"
+        {...props}
       >
         <div data-h2-dialog-wrapper {...props}>
           {children}
@@ -171,6 +206,8 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
 };
 
 // We expose the children components here, as properties.
+// Using the dot notation we explicitly set the composition relationships,
+// btw the Dialog component and its sub components.
 Dialog.Actions = Actions;
 Dialog.ActionBtn = ActionBtn;
 Dialog.Content = Content;
@@ -180,5 +217,4 @@ Dialog.Overlay = Overlay;
 Dialog.Title = Title;
 Dialog.Trigger = Trigger;
 
-// We only export the root component.
 export default Dialog;
