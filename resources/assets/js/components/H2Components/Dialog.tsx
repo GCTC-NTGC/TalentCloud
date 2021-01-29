@@ -82,35 +82,6 @@ const Content: React.FunctionComponent<GeneralProps> = (props) => {
   );
 };
 
-const ExitBtn: React.FunctionComponent<GeneralBtnProps & GeneralProps> = (
-  props,
-) => {
-  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
-  const { buttonStyling, className, onClick, children } = props;
-  const intl = useIntl();
-  const ref = React.useRef(null);
-  React.useEffect((): void => {
-    h2ComponentDialogEnableTrigger("latest", ref.current);
-  });
-  return (
-    <button
-      data-h2-dialog-exit-trigger
-      data-h2-button={buttonStyling}
-      ref={ref}
-      type="button"
-      onClick={onClick}
-      className={className}
-      {...props}
-    >
-      <i className="fas fa-times" aria-hidden="true" />
-      <span data-h2-visibility="hidden">
-        {intl.formatMessage(messages.closeDialog)}
-      </span>
-      {children}
-    </button>
-  );
-};
-
 const Header: React.FunctionComponent<GeneralProps> = (props) => {
   useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
   const { className, children } = props;
