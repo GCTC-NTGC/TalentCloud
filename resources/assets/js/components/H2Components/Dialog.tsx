@@ -16,7 +16,7 @@ const messages = defineMessages({
 
 interface DialogContext {
   /** The dialogs id. */
-  id?: string;
+  id: string;
 }
 
 const DialogContext = React.createContext<DialogContext | undefined>(undefined);
@@ -47,7 +47,7 @@ const Actions: React.FunctionComponent<GeneralProps> = (props) => {
 };
 
 const ActionBtn: React.FunctionComponent<GeneralBtnProps> = (props) => {
-  const { id = "dialog" } = useDialogContext();
+  const { id } = useDialogContext();
   const { buttonStyling, type, onClick, children } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
@@ -68,7 +68,7 @@ const ActionBtn: React.FunctionComponent<GeneralBtnProps> = (props) => {
 };
 
 const Content: React.FunctionComponent<GeneralProps> = (props) => {
-  const { id = "dialog" } = useDialogContext();
+  const { id } = useDialogContext();
   const { className, children } = props;
   return (
     <div
@@ -102,7 +102,7 @@ const Overlay: React.FunctionComponent<OverlayProps> = (props) => {
 };
 
 const Title: React.FunctionComponent<GeneralProps> = (props) => {
-  const { id = "dialog" } = useDialogContext();
+  const { id } = useDialogContext();
   const { className, children } = props;
   return (
     <h5 data-h2-focus id={`${id}Title`} className={className} {...props}>
@@ -140,7 +140,6 @@ interface DialogComposition {
   Actions: React.FunctionComponent<GeneralProps>;
   ActionBtn: React.FunctionComponent<GeneralBtnProps>;
   Content: React.FunctionComponent<GeneralProps>;
-  ExitBtn: React.FunctionComponent<GeneralBtnProps>;
   Header: React.FunctionComponent<GeneralProps>;
   Overlay: React.FunctionComponent<OverlayProps>;
   Title: React.FunctionComponent<GeneralProps>;
@@ -181,7 +180,6 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
 Dialog.Actions = Actions;
 Dialog.ActionBtn = ActionBtn;
 Dialog.Content = Content;
-Dialog.ExitBtn = ExitBtn;
 Dialog.Header = Header;
 Dialog.Overlay = Overlay;
 Dialog.Title = Title;
