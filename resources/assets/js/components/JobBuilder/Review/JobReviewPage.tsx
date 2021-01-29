@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
 import nprogress from "nprogress";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../../RootContainer";
 import {
@@ -12,6 +12,7 @@ import {
   Manager,
   Department,
   User,
+  Classification,
 } from "../../../models/types";
 import { managerJobIndex, jobBuilderSkills } from "../../../helpers/routes";
 import { RootState } from "../../../store/store";
@@ -35,6 +36,7 @@ import {
 import { navigate } from "../../../helpers/router";
 import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface JobBuilderReviewPageProps {
   jobId: number;
@@ -71,6 +73,13 @@ const JobBuilderReviewPage: React.FunctionComponent<
     throw new Error("Unexpected locale");
   }
 
+  const dispatch = useDispatch<DispatchType>();
+  const { classifications } = useLoadClassifications(dispatch);
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
+
   useEffect((): void => {
     if (job && job.manager_id) {
       loadManager(job.manager_id);
@@ -105,6 +114,7 @@ const JobBuilderReviewPage: React.FunctionComponent<
       {job !== null && (
         <JobReview
           job={job}
+          classificationKey={classificationKey}
           manager={manager}
           user={user}
           tasks={keyTasks}

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { WrappedComponentProps, injectIntl } from "react-intl";
 import {
   Job,
@@ -50,8 +50,6 @@ const JobDetailsPage: React.FunctionComponent<
   criteria,
   intl,
 }): React.ReactElement => {
-  const dispatch = useDispatch();
-
   const { locale } = intl;
   if (locale !== "en" && locale !== "fr") {
     throw Error("Unexpected intl.locale"); // TODO: Deal with this more elegantly.
