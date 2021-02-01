@@ -4,8 +4,6 @@ import { FastField } from "formik";
 import * as Yup from "yup";
 import CheckboxInput from "../../Form/CheckboxInput";
 import textToParagraphs from "../../../helpers/textToParagraphs";
-import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
-import { hasKey } from "../../../helpers/queries";
 import { educationRequirementMessages } from "../applicationMessages";
 
 export interface EducationFormValues {
@@ -18,7 +16,7 @@ export const validationShape = {
 
 export interface EducationSubformProps {
   keyPrefix: string;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
 }
 
@@ -35,15 +33,14 @@ const messages = defineMessages({
 
 export function EducationSubform({
   keyPrefix,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
 }: EducationSubformProps): React.ReactElement {
   const intl = useIntl();
-
   const jobEducationReq = jobEducationRequirements;
-  const defaultEducationReq = hasKey(educationMessages, jobClassification)
-    ? intl.formatMessage(educationMessages[jobClassification])
-    : intl.formatMessage(educationRequirementMessages.missingClassification);
+  const defaultEducationReq =
+    classificationEducationRequirements ||
+    intl.formatMessage(educationRequirementMessages.missingClassification);
   // If the job is using the default education requirements (for its classification) then we
   //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is
   //  split it into paragraphs.

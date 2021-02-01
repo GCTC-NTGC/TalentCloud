@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { DispatchType } from "../configureStore";
 import {
-  Classification,
   Criteria,
   Department,
   Job,
@@ -30,11 +29,6 @@ import {
 } from "../store/Job/jobActions";
 import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
 import { fetchSkills } from "../store/Skill/skillActions";
-import {
-  getClassifications,
-  classificationsIsLoading,
-} from "../store/Classification/classificationSelector";
-import { loadClassificationsIntoState } from "../store/Classification/classificationActions";
 
 export function useLoadJob(
   jobId: number | null,
@@ -135,24 +129,6 @@ export function useLoadDepartments(
     }
   }, [departments.length, isLoading, dispatch]);
   return { departments, isLoadingDepartments: isLoading };
-}
-
-export function useLoadClassifications(
-  dispatch: DispatchType,
-): {
-  classifications: Classification[];
-  isLoadingClassifications: boolean;
-} {
-  const classifications = useSelector(getClassifications);
-  const isLoading = useSelector(classificationsIsLoading);
-
-  useEffect((): void => {
-    if (classifications.length === 0 && !isLoading) {
-      dispatch(loadClassificationsIntoState());
-    }
-  }, [classifications.length, isLoading, dispatch]);
-
-  return { classifications, isLoadingClassifications: isLoading };
 }
 
 export function useLoadSkills(

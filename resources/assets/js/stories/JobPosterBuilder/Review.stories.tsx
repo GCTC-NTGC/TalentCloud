@@ -10,6 +10,7 @@ import JobReview from "../../components/JobBuilder/Review/JobReview";
 import fakeDepartments from "../../fakeData/fakeDepartments";
 import { fakeManager } from "../../fakeData/fakeManager";
 import { fakeUser } from "../../fakeData/fakeUsers";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Job Poster Builder/Review", module).addDecorator(
   withIntl,
@@ -40,6 +41,7 @@ stories
             1,
           ),
         }}
+        classificationKey={fakeClassification1().key}
         manager={fakeManager()}
         user={fakeUser()}
         tasks={fakeJobTasks()}
@@ -65,6 +67,7 @@ stories
             1,
           ),
         }}
+        classificationKey={fakeClassification1().key}
         manager={fakeManager(1, 1, true)}
         user={fakeUser()}
         tasks={fakeJobTasks()}

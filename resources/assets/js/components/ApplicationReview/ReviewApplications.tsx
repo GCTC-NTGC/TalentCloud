@@ -11,11 +11,7 @@ import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 import ActivityFeed from "../ActivityFeed";
 import { applicantReviewLocations } from "../../models/localizedConstants";
-import {
-  LocationId,
-  getKeyByValue,
-  ClassificationId,
-} from "../../models/lookupConstants";
+import { LocationId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
 import { hasKey } from "../../helpers/queries";
 import { localizeField, getLocale } from "../../helpers/localize";
@@ -57,16 +53,18 @@ const messages = defineMessages({
 
 interface ReviewApplicationsProps {
   job: Job;
+  classificationKey: string;
   applications: Application[];
   handleUpdateReview: (review: ApplicationReview) => Promise<void>;
   handleBatchUpdateApplicationReviews: (
-    reviews: ApplicationReview[]
+    reviews: ApplicationReview[],
   ) => Promise<void>;
   portal: Portal;
 }
 
-const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
+const ReviewApplications: React.FunctionComponent<ReviewApplicationsProps> = ({
   job,
+  classificationKey,
   applications,
   handleBatchUpdateApplicationReviews,
   handleUpdateReview,
@@ -74,10 +72,6 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
 }: ReviewApplicationsProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const classification: string = getKeyByValue(
-    ClassificationId,
-    job.classification_id,
-  );
   const categories = [
     {
       id: messages.underConsiderationTitle.id,
@@ -139,7 +133,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 description="Welcome header on Job Applications index page"
                 values={{
                   jobTitle: localizeField(locale, job, "title"),
-                  jobClassification: classification,
+                  jobClassification: classificationKey,
                 }}
               />
             ) : (
@@ -149,7 +143,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 description="Welcome header on Job Applications index page"
                 values={{
                   jobTitle: localizeField(locale, job, "title"),
-                  jobClassification: classification,
+                  jobClassification: classificationKey,
                 }}
               />
             )}
@@ -204,7 +198,9 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
             key={category.id}
             {...category}
             handleUpdateReview={handleUpdateReview}
-            handleBatchUpdateApplicationReviews={handleBatchUpdateApplicationReviews}
+            handleBatchUpdateApplicationReviews={
+              handleBatchUpdateApplicationReviews
+            }
             portal={portal}
           />
         ),
