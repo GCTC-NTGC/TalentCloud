@@ -210,7 +210,7 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
           </li>
         </ul>
       </div>
-      <div data-c-container="medium">
+      <div data-c-container="medium" data-c-padding="bottom(1)">
         <fieldset style={{ border: "none" }}>
           <legend data-c-font="sans">The Skills</legend>
           <div
