@@ -72,7 +72,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     experiencesFetched,
     experiencesUpdating,
   ]);
-  const experienceSkills = useSelector((state: RootState) =>
+  const experienceSkills: ExperienceSkill[] = useSelector((state: RootState) =>
     getExperienceSkillsByApplicant(state, { applicantId }),
   );
   const {
@@ -140,7 +140,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
 
     // Delete skills that were removed.
     const expSkillsToDelete = prevExpSkills.filter(
-      (expSkill) => !newSkillIds.includes(expSkill.id),
+      (expSkill) => !newSkillIds.includes(expSkill.skill_id),
     );
     if (expSkillsToDelete.length > 0) {
       const batchDeleteExpSkillsRequest = dispatch(
