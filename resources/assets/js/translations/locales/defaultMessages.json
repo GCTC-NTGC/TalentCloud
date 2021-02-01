@@ -97,6 +97,56 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "No skills match your search term. Please try searching for a different skill.",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/SkillSearchResults.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "words left",
         "description": "Message displayed on word counter when users under/matching the limit.",
         "id": "skillWordCounter.wordsLeft"
@@ -1879,12 +1929,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
+        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -2869,81 +2919,6 @@
         "id": "jobBuilder.details.educationRequirementPlaceholder"
       },
       {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.AS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in a natural, physical or applied science with specialization in a field relevant to the duties of the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.BI"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CO"
-      },
-      {
-        "defaultMessage": "2 years of secondary school, or equivalent:\nSuccessful completion of at least two years of secondary school education.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year secondary school requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CR"
-      },
-      {
-        "defaultMessage": "2 years post-secondary, or equivalent:\nSuccessful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.\n\nCandidates must always have a degree. The courses for the specialization must be acceptable and may have been taken at a recognized post-secondary institution, but not necessarily within a degree program in the required specialization. The specialization may also be obtained through an acceptable combination of education, training and/or experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nPost-secondary degree, or eligibility for a recognized professional designation in one of the provinces or territories of Canada.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EX"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nEquivalent experience:\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.FO"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.IS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of a post-secondary degree with specialization in physics, geology, chemistry or some other science relevant to the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree with specialization in human resources management, labour or industrial relations, psychology, public or business administration, organizational development, education sciences, social sciences, sociology, or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PE"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PM"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.AD"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EN-ENG"
-      },
-      {
-        "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.FI"
-      },
-      {
         "defaultMessage": "Classification not found.",
         "description": "Job Classification message when the classification id is incorrect.",
         "id": "jobBuilder.details.educationMessages.classificationNotFound"
@@ -3637,7 +3612,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -4857,6 +4832,56 @@
       }
     ],
     "path": "resources/assets/js/components/ProgressTracker/ProgressTrackerItem.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Search",
+        "description": "The label displayed for the search input field.",
+        "id": "searchBar.search.label"
+      },
+      {
+        "defaultMessage": "eg. Enter a value.",
+        "description": "The placeholder displayed for the search input field.",
+        "id": "searchBar.search.placeholder"
+      },
+      {
+        "defaultMessage": "Search",
+        "description": "The placeholder displayed for the search button text.",
+        "id": "searchBar.search.buttonText"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchBar.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Results",
+        "description": "The message displayed before the number of results returned.",
+        "id": "results.title"
+      },
+      {
+        "defaultMessage": "Nothing found",
+        "description": "The message displayed if no results returned.",
+        "id": "results.empty"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "description": "The message displayed to expand the accordion.",
+        "id": "results.accordion.expand"
+      },
+      {
+        "defaultMessage": "Add",
+        "description": "The label for the add button.",
+        "id": "results.accordion.add"
+      },
+      {
+        "defaultMessage": "Added!",
+        "description": "The message displayed if skill added.",
+        "id": "results.accordion.added"
+      }
+    ],
+    "path": "resources/assets/js/components/SearchResults.json"
   },
   {
     "descriptors": [

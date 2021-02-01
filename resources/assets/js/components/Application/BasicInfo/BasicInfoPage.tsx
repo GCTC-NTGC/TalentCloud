@@ -12,7 +12,7 @@ import {
   applicationExperienceIntro,
   applicationWelcome,
 } from "../../../helpers/routes";
-import { ApplicationNormalized } from "../../../models/types";
+import { ApplicationNormalized, Classification } from "../../../models/types";
 import { DispatchType } from "../../../configureStore";
 import { updateApplication as updateApplicationAction } from "../../../store/Application/applicationActions";
 import { loadingMessages } from "../applicationMessages";
@@ -23,6 +23,7 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface BasicInfoPageProps {
   applicationId: number;
@@ -38,10 +39,15 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
   // Fetch all un-loaded data that may be required for the Application.
   useFetchAllApplicationData(applicationId, dispatch);
 
+  const { classifications } = useLoadClassifications(dispatch);
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
   const steps = useJobApplicationSteps();
+  const classification: Classification | null =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    ) || null;
 
   const stepsAreUpdating = useTouchApplicationStep(
     applicationId,
@@ -101,6 +107,7 @@ const BasicInfoPage: React.FunctionComponent<BasicInfoPageProps> = ({
         <BasicInfo
           application={application}
           job={job}
+          classification={classification}
           handleContinue={handleContinue}
           handleReturn={handleReturn}
           handleQuit={handleQuit}

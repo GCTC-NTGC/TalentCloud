@@ -45,9 +45,11 @@ jobs:
           ${{ runner.os }}-composer-
 
     - name: Install dependencies
-      uses: MilesChou/composer-action/7.2/install@master
+      uses: php-actions/composer@v5
       with:
-        args: install --no-interaction --prefer-dist --no-progress --no-suggest
+        args: --no-interaction --prefer-dist --no-progress --no-suggest
+        php_version: 7.2
+        version: 1
 
     - name: Setup Node.js
       uses: actions/setup-node@v1

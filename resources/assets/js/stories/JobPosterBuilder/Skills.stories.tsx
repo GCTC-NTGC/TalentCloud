@@ -12,6 +12,12 @@ import { mapToObject } from "../../helpers/queries";
 import { SkillLevelId, CriteriaTypeId } from "../../models/lookupConstants";
 import { Criteria } from "../../models/types";
 import { localizeFieldNonNull } from "../../helpers/localize";
+import {
+  fakeClassification1,
+  fakeClassification2,
+  fakeClassification3,
+  fakeClassification4,
+} from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Job Poster Builder/Skills", module).addDecorator(
   withIntl,
@@ -34,8 +40,8 @@ const criteriaTypeOptions = {
 };
 
 const classificationOptions = {
-  CS: 1,
-  EX: 2,
+  [fakeClassification1().key]: 1,
+  [fakeClassification2().key]: 2,
   3: null,
 };
 
@@ -61,6 +67,7 @@ stories
           ...fakeJob(),
           classification_id: select("Classification", classificationOptions, 1),
         }}
+        classificationKey={fakeClassification1().key}
         keyTasks={fakeJobTasks()}
         initialCriteria={[]}
         skills={fakeSkills()}

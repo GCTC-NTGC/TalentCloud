@@ -107,6 +107,7 @@ export interface Classification {
   id: number;
   key: string;
   name: localizedFieldNonNull;
+  education_requirements: localizedFieldNonNull;
 }
 
 type CitizenshipDeclarationName =
@@ -286,7 +287,6 @@ export interface Skill {
   is_future_skill: boolean;
   classifications: Classification[];
 }
-
 export interface SkillCategory {
   id: number;
   key: string;
