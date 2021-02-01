@@ -1,12 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { h2ComponentDialogEnableTrigger } from "@hydrogen-design-system/system/dist/import/latest/components/dialog/scripts/dialog";
 import { getLocale } from "../helpers/localize";
 import { Skill, SkillCategory } from "../models/types";
 import Accordion from "./H2Components/Accordion";
-import Button from "./H2Components/Button";
 import Dialog from "./H2Components/Dialog";
-// Import the relevant component scripts.
 
 const messages = defineMessages({
   modalButtonLabel: {
