@@ -10,4 +10,6 @@ export interface GeneralBtnProps {
   type?: "submit" | "reset" | "button";
   /** The onClick event handler */
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  /** This sets the button to disabled state, preventing user from interacting with the button. */
+  disabled?: boolean;
 }
