@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
 import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
-import Button, { ButtonProps } from "./Button";
+import { GeneralProps, GeneralBtnProps } from "./utils";
 
 const messages = defineMessages({
   expand: {
@@ -12,12 +12,22 @@ const messages = defineMessages({
 });
 
 interface AccordionContext {
-  triggerIconPos?: "left" | "right";
+  /** The position of the open and close trigger element, which can be set to the left or right side of the accordion buttons content */
+  triggerPos?: "left" | "right";
 }
 
-const AccordionContext = React.createContext<AccordionContext>({});
+const AccordionContext = React.createContext<AccordionContext | undefined>(
+  undefined,
+);
 
-const useAccordion = (): {} => {
+/**
+ * This Context hook allows our child components to easily reach
+ * into the Tabs context and get the pieces it needs.
+ *
+ * Bonus: it even makes sure the component is used within a
+ * Accordion component!
+ */
+const useAccordionContext = (): {} => {
   const context = React.useContext(AccordionContext);
   if (!context) {
     throw new Error(
@@ -27,23 +37,27 @@ const useAccordion = (): {} => {
   return context;
 };
 
-interface BtnProps extends ButtonProps {
+interface BtnProps extends GeneralProps, GeneralBtnProps {
+  /** The accordion add icon which can be a string or a react element */
   addIcon?: React.ReactElement | string;
+  /** The accordion remove icon which can be a string or a react element */
   removeIcon?: React.ReactElement | string;
+  /** The standard css class attribute */
+  className?: string;
 }
 
 const Btn: React.FunctionComponent<BtnProps> = (props) => {
-  useAccordion();
-  const { addIcon, removeIcon, styling, type, onClick, children } = props;
+  useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
+  const { addIcon, removeIcon, buttonStyling, className, children } = props;
   const intl = useIntl();
   return (
-    <Button
-      styling={styling}
-      type={type}
+    <button
+      data-h2-button={buttonStyling}
+      type="button"
       aria-expanded="false"
       data-h2-accordion-trigger
       tabIndex={0}
-      onClick={onClick}
+      className={className}
       {...props}
     >
       <span data-h2-accordion-trigger-label>
@@ -56,15 +70,20 @@ const Btn: React.FunctionComponent<BtnProps> = (props) => {
         {removeIcon || <i className="fas fa-minus" />}
       </span>
       <div data-h2-accordion-trigger-content>{children}</div>
-    </Button>
+    </button>
   );
 };
 
-const Content: React.FunctionComponent = (props) => {
-  useAccordion();
-  const { children } = props;
+const Content: React.FunctionComponent<GeneralProps> = (props) => {
+  useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
+  const { className, children } = props;
   return (
-    <div aria-hidden="true" data-h2-accordion-content>
+    <div
+      aria-hidden="true"
+      data-h2-accordion-content
+      className={className}
+      {...props}
+    >
       {children}
     </div>
   );
@@ -72,25 +91,28 @@ const Content: React.FunctionComponent = (props) => {
 
 interface AccordionComposition {
   Btn: React.FunctionComponent<BtnProps>;
-  Content: React.FunctionComponent;
+  Content: React.FunctionComponent<GeneralProps>;
 }
 
 const Accordion: React.FunctionComponent<AccordionContext> &
   AccordionComposition = (props) => {
-  const { triggerIconPos, children } = props;
+  const { triggerPos, children } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
     h2ComponentAccordionAddTriggerEvent("latest", ref.current);
   });
   return (
     <AccordionContext.Provider value={props}>
-      <div ref={ref} data-h2-accordion={triggerIconPos || "left"} {...props}>
+      <div ref={ref} data-h2-accordion={triggerPos || "left"} {...props}>
         {children}
       </div>
     </AccordionContext.Provider>
   );
 };
 
+// We expose the children components here, as properties.
+// Using the dot notation we explicitly set the composition relationships,
+// btw the Accordion component and its sub components.
 Accordion.Btn = Btn;
 Accordion.Content = Content;
 
