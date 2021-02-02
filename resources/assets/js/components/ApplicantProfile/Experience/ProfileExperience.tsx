@@ -40,6 +40,8 @@ import {
   FormAwardRecognitionType,
 } from "../../Application/ExperienceModals/AwardExperienceModal";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
+import { getApplicantSkillsUrl } from "../../../helpers/routes";
+import { getLocale } from "../../../helpers/localize";
 
 const profileExperienceAccordion = (
   experience: Experience,
@@ -108,7 +110,56 @@ const profileExperienceAccordion = (
       return null;
   }
 };
+
+const NoSkillsNotification: React.FC<{ applicantId: number }> = ({
+  applicantId,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  return (
+    <div
+      data-c-alert="warning"
+      data-c-radius="rounded"
+      role="alert"
+      data-c-margin="bottom(1)"
+      // data-c-grid="middle"
+    >
+      <div data-c-padding="half" data-c-grid="middle">
+        <div
+          data-c-grid-item="base(1of1) pl(1of8) tl(1of12)"
+          data-c-align="center"
+        >
+          <i
+            aria-hidden="true"
+            className="fa fa-exclamation-circle"
+            data-c-padding="right(.5)"
+            data-c-font-size="h2"
+            data-c-margin="tb(.5)"
+          />
+        </div>
+        <div data-c-grid-item="base(1of1) pl(7of8) tl(11of12)">
+          <p>
+            <FormattedMessage
+              id="profile.experience.noSkills"
+              defaultMessage="<b>No skills:</b> It seems you have not added any skills yet. You can create experiences now, but this section works best when you have some skills on your profile. <a>Click here to add skills.</a>"
+              description="Alert that appears when there are no skills yet attached to profile."
+              values={{
+                b: (value) => <span data-c-font-weight="bold">{value}</span>,
+                a: (...chunks): React.ReactElement => (
+                  <a href={getApplicantSkillsUrl(locale, applicantId)}>
+                    {chunks}
+                  </a>
+                ),
+              }}
+            />
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 export interface ProfileExperienceProps {
+  applicantId: number;
   experiences: Experience[];
   educationStatuses: FormEducationStatus[];
   educationTypes: FormEducationType[];
@@ -129,6 +180,7 @@ export interface ProfileExperienceProps {
 }
 
 export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
+  applicantId,
   experiences,
   educationStatuses,
   educationTypes,
@@ -211,6 +263,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
 
   return (
     <>
+      {userSkills.length === 0 && (
+        <NoSkillsNotification applicantId={applicantId} />
+      )}
       <div>
         <h2 data-c-heading="h2" data-c-margin="bottom(1)">
           {intl.formatMessage(experienceMessages.heading)}

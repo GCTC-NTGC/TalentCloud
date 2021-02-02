@@ -109,9 +109,46 @@ stories.add(
 
     return (
       <ProfileExperience
+        applicantId={1}
         experiences={experiences}
         experienceSkills={experienceSkills}
         userSkills={fakeSkills()}
+        educationStatuses={educationStatuses}
+        educationTypes={educationTypes}
+        handleCreateExperience={handleCreateExperience(
+          experiences,
+          setExperiences,
+          setExperienceSkills,
+        )}
+        handleUpdateExperience={handleUpdateExperience(
+          experiences,
+          setExperiences,
+          setExperienceSkills,
+        )}
+        handleDeleteExperience={handleDeleteExperience(
+          experiences,
+          setExperiences,
+        )}
+        recipientTypes={recipientTypes}
+        recognitionTypes={recogntitionTypes}
+      />
+    );
+  },
+);
+stories.add(
+  "With no saved skills",
+  (): React.ReactElement => {
+    const [experiences, setExperiences] = useStorybookState(fakeExperiences());
+    const [experienceSkills, setExperienceSkills] = useStorybookState(
+      fakeExperienceSkills(),
+    );
+
+    return (
+      <ProfileExperience
+        applicantId={1}
+        experiences={experiences}
+        experienceSkills={experienceSkills}
+        userSkills={[]}
         educationStatuses={educationStatuses}
         educationTypes={educationTypes}
         handleCreateExperience={handleCreateExperience(

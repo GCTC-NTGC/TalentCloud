@@ -230,6 +230,17 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
                 keyPrefix={keyPrefix}
               />
             ))}
+            {skills.length === 0 && (
+              <div data-c-font-style="italic">
+                <p>
+                  <FormattedMessage
+                    id="profile.experience.skillSubform.noSkills"
+                    defaultMessage="Add some skills to your profile first."
+                    description="Message to show in skills checkbox when there are no skills to select from."
+                  />
+                </p>
+              </div>
+            )}
           </div>
         </fieldset>
       </div>

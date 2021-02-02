@@ -327,3 +327,15 @@ export const getApplicationUrl = (
 
   return applicationUrlMap[portal];
 };
+
+const baseApplicantProfileUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => {
+  return `${baseUrl()}/${locale}/profile/${applicantId}`;
+};
+
+export const getApplicantSkillsUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => `${baseApplicantProfileUrl(locale, applicantId)}/skills`;

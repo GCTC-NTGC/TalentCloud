@@ -224,6 +224,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     <>
       {showComponent ? (
         <ProfileExperience
+          applicantId={applicantId}
           experiences={experiences}
           experienceSkills={experienceSkills}
           userSkills={userSkills}
