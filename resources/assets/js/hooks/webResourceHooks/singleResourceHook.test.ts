@@ -67,7 +67,7 @@ describe("singleResourceHook", () => {
     expect(fetchMock.called()).toBe(false);
     expect(result.current.status).toEqual("initial");
   });
-  it("parseResponse transforms values returns by requests, if set",async () => {
+  it("parseResponse transforms values returns by requests, if set", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
     const updateValue = { name: "Talent Cloud 2", age: 100 };
     const parseResponse = (x) => ({
@@ -86,9 +86,8 @@ describe("singleResourceHook", () => {
     await act(async () => {
       result.current.update(updateValue);
       await waitFor(() => result.current.status === "fulfilled");
-    })
+    });
     expect(result.current.value).toEqual(parseResponse(updateValue));
-
   });
   it("Status changes to 'pending' when refresh() is called", async () => {
     fetchMock.mock("*", {});
@@ -103,7 +102,7 @@ describe("singleResourceHook", () => {
     expect(result.current.status).toEqual("initial");
     await act(async () => {
       result.current.refresh();
-      await waitForNextUpdate();
+      await waitForNextUpdate({ timeout: false });
       expect(result.current.status).toEqual("pending");
     });
   });
@@ -116,7 +115,7 @@ describe("singleResourceHook", () => {
       await result.current.refresh();
     });
     expect(fetchMock.called()).toBe(true);
-  })
+  });
   it("refresh() returns fetch result and updates hook value", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
     const newValue = { name: "Talent Cloud 2", age: 100 };
@@ -162,13 +161,21 @@ describe("singleResourceHook", () => {
     expect(result.current.error instanceof FetchError).toBe(true);
   });
   it("If refresh() is called twice, and one request returns, status remains pending", async () => {
-    fetchMock.once(endpoint, {},{
-      delay: 10,
-    });
+    fetchMock.once(
+      endpoint,
+      {},
+      {
+        delay: 10,
+      },
+    );
     // Second call will take longer.
-    fetchMock.mock("*", {},{
-      delay: 20,
-    });
+    fetchMock.mock(
+      "*",
+      {},
+      {
+        delay: 20,
+      },
+    );
     const { result } = renderHook(() =>
       useResource(endpoint, null, { skipInitialFetch: true }),
     );
@@ -191,7 +198,7 @@ describe("singleResourceHook", () => {
     expect(result.current.status).toEqual("initial");
     await act(async () => {
       result.current.update(null);
-      await waitForNextUpdate();
+      await waitForNextUpdate({ timeout: false });
       expect(result.current.status).toEqual("pending");
     });
   });
@@ -204,12 +211,12 @@ describe("singleResourceHook", () => {
       await result.current.update(null);
     });
     expect(fetchMock.called()).toBe(true);
-  })
+  });
   it("update() returns fetch result and updates hook value with value from response when it completes", async () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
     const updateValue = { name: "Talent Cloud 2", age: 100 };
     // The value returned from server is slightly different from what we send it.
-    const responseValue = {name: updateValue.name, age: updateValue.age + 1};
+    const responseValue = { name: updateValue.name, age: updateValue.age + 1 };
     fetchMock.mock(endpoint, responseValue);
     const { result } = renderHook(() =>
       useResource(endpoint, initialValue, { skipInitialFetch: true }),
@@ -234,20 +241,30 @@ describe("singleResourceHook", () => {
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
     await act(async () => {
-      await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(FetchError);
+      await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
+        FetchError,
+      );
     });
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("rejected");
     expect(result.current.error instanceof FetchError).toBe(true);
   });
   it("If multiple update requests are started, status remains pending until all are complete", async () => {
-    fetchMock.once(endpoint, {},{
-      delay: 10,
-    });
+    fetchMock.once(
+      endpoint,
+      {},
+      {
+        delay: 10,
+      },
+    );
     // Second call will take longer.
-    fetchMock.mock("*", {},{
-      delay: 20,
-    });
+    fetchMock.mock(
+      "*",
+      {},
+      {
+        delay: 20,
+      },
+    );
     const { result } = renderHook(() =>
       useResource(endpoint, null, { skipInitialFetch: true }),
     );
@@ -276,7 +293,9 @@ describe("singleResourceHook", () => {
     expect(initialError.response.status).toBe(404);
 
     await act(async () => {
-      await result.current.refresh().catch(() => { /* Do nothing*/});
+      await result.current.refresh().catch(() => {
+        /* Do nothing */
+      });
     });
     // handleError was called again on refresh.
     expect(handleError.mock.calls.length).toBe(2);
@@ -285,7 +304,9 @@ describe("singleResourceHook", () => {
     expect(refreshError.response.status).toBe(404);
 
     await act(async () => {
-      await result.current.update(null).catch(() => { /* Do nothing*/});
+      await result.current.update(null).catch(() => {
+        /* Do nothing */
+      });
     });
     // handleError was called again on update.
     expect(handleError.mock.calls.length).toBe(3);
@@ -294,13 +315,11 @@ describe("singleResourceHook", () => {
     expect(updateError.response.status).toBe(500);
   });
   it("A successful refresh will overwrite a previous error state", async () => {
-    const responseValue = {name: "Talent Cloud", age: 3};
+    const responseValue = { name: "Talent Cloud", age: 3 };
     // First request fails, second succeeds
     fetchMock.once(endpoint, 404);
     fetchMock.mock("*", responseValue);
-    const { result, waitFor } = renderHook(() =>
-      useResource(endpoint, null),
-    );
+    const { result, waitFor } = renderHook(() => useResource(endpoint, null));
     await waitFor(() => result.current.status === "rejected");
     expect(result.current.value).toBe(null);
     expect(result.current.error).not.toBeUndefined();
@@ -313,13 +332,11 @@ describe("singleResourceHook", () => {
     expect(result.current.error).toBeUndefined();
   });
   it("A successful update will overwrite a previous error state", async () => {
-    const responseValue = {name: "Talent Cloud", age: 3};
+    const responseValue = { name: "Talent Cloud", age: 3 };
     // First request fails, second succeeds
     fetchMock.once(endpoint, 404);
     fetchMock.mock("*", responseValue);
-    const { result, waitFor } = renderHook(() =>
-      useResource(endpoint, null),
-    );
+    const { result, waitFor } = renderHook(() => useResource(endpoint, null));
     await waitFor(() => result.current.status === "rejected");
     expect(result.current.value).toBe(null);
     expect(result.current.error).not.toBeUndefined();
