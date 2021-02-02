@@ -27,6 +27,8 @@ import {
 import { loadingMessages } from "../../Application/applicationMessages";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import { useApplicantSkillIds } from "../../../hooks/apiResourceHooks";
+import { find, where } from "../../../helpers/queries";
+import { deepEquals } from "../../../helpers/deepEquals";
 
 const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   applicantId,
@@ -126,9 +128,16 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     savedSkills,
   }: ExperienceSubmitData<Experience>): Promise<void> => {
     const allRequests: Promise<any>[] = [];
-    // If the experience already exists it can simply be updated.
-    const updateExpRequest = dispatch(updateExperience(experience));
-    allRequests.push(updateExpRequest);
+    // Determine if the experience has changed and needs to be updated.
+    const prevExperience = find(
+      where(experiences, "type", experience.type),
+      experience.id,
+    );
+    if (!deepEquals(experience, prevExperience)) {
+      const updateExpRequest = dispatch(updateExperience(experience));
+      allRequests.push(updateExpRequest);
+    }
+
     // Determine which skills were already linked to the experience
     const prevExpSkills = experienceSkills.filter(
       (expSkill) =>
