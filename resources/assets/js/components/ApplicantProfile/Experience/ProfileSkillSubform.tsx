@@ -11,7 +11,6 @@ import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { validationMessages } from "../../Form/Messages";
 import { Experience, Skill } from "../../../models/types";
 import TextAreaInput from "../../Form/TextAreaInput";
-import CheckboxInput from "../../Form/CheckboxInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import { getId, mapToObjectTrans } from "../../../helpers/queries";
@@ -19,7 +18,7 @@ import { getId, mapToObjectTrans } from "../../../helpers/queries";
 const messages = defineMessages({
   justificationLabel: {
     id: "profile.experience.skillSubform.justificationLabel",
-    defaultMessage: "Explanation",
+    defaultMessage: "Describe how you used this skill:",
     description: "Label for the 'How did you use this skill?' field.",
   },
   justificationPlaceholder: {
@@ -212,7 +211,13 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
       </div>
       <div data-c-container="medium" data-c-padding="bottom(1)">
         <fieldset style={{ border: "none" }}>
-          <legend data-c-font="sans">The Skills</legend>
+          <legend data-c-font="sans">
+            <FormattedMessage
+              id="profile.experience.skillSubform.fieldsetLegend"
+              defaultMessage="Select all that apply:"
+              description="The label at the top of the group of skill checkboxes"
+            />
+          </legend>
           <div
             data-c-border="all(thin, solid, black)"
             data-c-radius="rounded"
