@@ -1,6 +1,8 @@
 export interface GeneralProps {
   /** The standard css class attribute */
   className?: string;
+  /** The standard inline styling attribute */
+  style?: React.CSSProperties;
 }
 
 export interface GeneralBtnProps {
