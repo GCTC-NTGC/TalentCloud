@@ -2,7 +2,6 @@ import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages } from "react-intl";
-import SkillSearchResults, { SkillSearchResult } from "./SkillSearchResults";
 import { validationMessages } from "../../Form/Messages";
 import { getLocale } from "../../../helpers/localize";
 import TextInput from "../../Form/TextInput";
@@ -11,12 +10,12 @@ import { Skill } from "../../../models/types";
 const formMessages = defineMessages({
   searchLabel: {
     id: "searchBar.search.label",
-    defaultMessage: "Search",
+    defaultMessage: "Search for skills by name:",
     description: "The label displayed for the search input field.",
   },
   searchPlaceholder: {
     id: "searchBar.search.placeholder",
-    defaultMessage: "eg. Enter a value.",
+    defaultMessage: "eg. User interface design.",
     description: "The placeholder displayed for the search input field.",
   },
   searchButtonText: {
@@ -28,11 +27,8 @@ const formMessages = defineMessages({
 
 interface SearchBarProps {
   inputTitle: string;
-  handleSubmit: (
-    locale: string,
-    search: string,
-  ) => Promise<SkillSearchResult[]>;
-  handleAddSkill: (skillId: number) => Promise<Skill>;
+  submitButton?: React.ReactElement;
+  handleSubmit: (locale: string, searchQuery: string) => Promise<Skill[]>;
 }
 
 interface SearchBarValues {
@@ -41,8 +37,8 @@ interface SearchBarValues {
 
 export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   inputTitle,
+  submitButton,
   handleSubmit,
-  handleAddSkill,
 }: SearchBarProps): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -55,8 +51,6 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
       .min(2),
   });
 
-  const [results, setResults] = React.useState<SkillSearchResult[]>([]);
-
   return (
     <section>
       <Formik
@@ -64,9 +58,8 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
         validationSchema={validationSchema}
         onSubmit={async (values, { setStatus, setSubmitting }) => {
           await handleSubmit(locale, values.search)
-            .then((searchMatches) => {
+            .then(() => {
               setStatus("submitted");
-              setResults(searchMatches);
               setSubmitting(false);
             })
             .catch(() => {
@@ -76,8 +69,8 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
       >
         {({ status, isSubmitting }): React.ReactElement => (
           <Form>
-            <div data-h2-grid="b(middle, contained, padded, .25)">
-              <div data-h2-grid-item="b(2of3)">
+            <div data-h2-grid="b(middle, contained, padded, .5)">
+              <div data-h2-grid-item="b(6of7)">
                 <div data-h2-grid-content>
                   <FastField
                     id="search_form_input"
@@ -91,27 +84,24 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                   />
                 </div>
               </div>
-              <div data-h2-grid-item="b(1of3)">
-                <div data-h2-grid-content data-h2-display="b(grid)">
+              <div data-h2-grid-item="b(1of7)" data-h2-align="b(center)">
+                {submitButton || (
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    data-h2-button="theme-1, round, medium, solid"
+                    data-h2-button="theme-1, round, small, solid"
                   >
-                    <span data-h2-button-label>
-                      {inputTitle ||
-                        intl.formatMessage(formMessages.searchButtonText)}
-                    </span>
+                    <p data-h2-button-label>
+                      <i aria-hidden="true" className="fas fa-search" />
+                      <span data-h2-visibility="b(hidden)">
+                        {inputTitle ||
+                          intl.formatMessage(formMessages.searchButtonText)}
+                      </span>
+                    </p>
                   </button>
-                </div>
+                )}
               </div>
             </div>
-            {status === "submitted" && (
-              <SkillSearchResults
-                results={results}
-                handleAddSkill={handleAddSkill}
-              />
-            )}
           </Form>
         )}
       </Formik>

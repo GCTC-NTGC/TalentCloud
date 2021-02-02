@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { getLocale } from "../helpers/localize";
+import {
+  getLocale,
+  matchStringsCaseDiacriticInsensitive,
+} from "../helpers/localize";
 import { Skill, SkillCategory } from "../models/types";
+import SearchBar from "./ApplicantProfile/Skills/SkillSearchBar";
 import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
@@ -59,18 +63,24 @@ const messages = defineMessages({
     id: "findSkillsModal.noSkills",
     defaultMessage: "Save Skills",
   },
+  searchResultsTitle: {
+    id: "findSkillsModal.searchResultsTitle",
+    defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
+  },
 });
 
 interface FindSkillsModalProps {
-  portal: "applicant" | "manager";
   oldSkills: Skill[];
+  portal: "applicant" | "manager";
+  skills: Skill[];
   skillCategories: SkillCategory[];
   handleSubmit: (values: Skill[]) => Promise<void>;
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
-  portal,
   oldSkills,
+  portal,
+  skills,
   skillCategories,
   handleSubmit,
 }) => {
@@ -81,15 +91,53 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
       skillCategory.depth === 1 && skillCategory.parent_id === 0,
   );
 
+  // List of new Skills that will be saved to the user on submit.
   const [newSkills, setNewSkills] = useState<Skill[]>([]);
+  // List of skills that displayed in the results section of the modal.
   const [skillsResults, setSkillsResults] = useState<Skill[]>([]);
+  // Stores the skill category's name and description for the results section.
   const [resultsSectionText, setResultsSectionText] = useState<{
-    name: string;
+    title: string;
     description: string;
-  }>({ name: "", description: "" });
+  }>({ title: "", description: "" });
   const [firstVisit, setFirstVisit] = useState(true);
+  // Stores a list of skills category keys of which accordions are expanded, for styling purposes.
   const [expandedAccordions, setExpandedAccordions] = useState<string[]>([]);
+  // Used to set the button color of an active skill category.
   const [buttonClicked, setButtonClicked] = useState("");
+
+  /**
+   * Filters through the skills list for the any skills that match the search query.
+   * @param searchLocale The current locale.
+   * @param search The search query entered by the user.
+   */
+  const handleSkillSearch = (
+    searchLocale: string,
+    searchQuery: string,
+  ): Promise<Skill[]> => {
+    const skillNames: string[] = skills.map(
+      (skill) => skill.name[searchLocale],
+    );
+    const skillStrings: string[] = matchStringsCaseDiacriticInsensitive(
+      searchQuery,
+      skillNames,
+    );
+    const skillMatches = skills.filter((skill) =>
+      skillStrings.includes(skill.name[searchLocale]),
+    );
+
+    // Set the skillResults state with the matches from the query.
+    setFirstVisit(false);
+    setResultsSectionText({
+      title: intl.formatMessage(messages.searchResultsTitle, {
+        numOfSkills: skillMatches.length,
+        searchQuery,
+      }),
+      description: "",
+    });
+    setSkillsResults(skillMatches);
+    return Promise.resolve(skillMatches);
+  };
   return (
     <section>
       <Dialog.Trigger
@@ -117,171 +165,170 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
             {intl.formatMessage(messages.modalHeading)}
           </Dialog.Title>
         </Dialog.Header>
-        <Dialog.Content data-h2-grid="b(top, expanded, flush, 0)">
+        <Dialog.Content
+          data-h2-grid="b(top, expanded, flush, 0)"
+          style={{ height: "35rem", overflow: "auto", alignItems: "stretch" }}
+        >
           {/* Parent Skill Category Accordions Section */}
           <div data-h2-grid-item="s(2of5) b(1of1)">
+            <SearchBar
+              inputTitle="Search Skills"
+              handleSubmit={handleSkillSearch}
+            />
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
-              {parentSkillCategories.map(
-                ({ id, name, key, description }, index) => {
-                  // Get children skill categories of parent skill category.
-                  const childrenSkillCategories = skillCategories.filter(
-                    (childSkillCategory) =>
-                      childSkillCategory.depth === 2 &&
-                      childSkillCategory.parent_id === id,
-                  );
-                  return (
-                    <li
-                      key={id}
-                      data-h2-bg-color={`b(gray-1, ${
-                        expandedAccordions.includes(key) ? ".5" : "0"
-                      })`}
-                      data-h2-padding="b(tb, 1)"
-                      data-h2-border={`${
-                        index + 1 !== parentSkillCategories.length
-                          ? "b(gray-2, bottom, solid, thin)"
-                          : ""
-                      }`}
-                      data-h2-margin="b(tb, 0)"
-                    >
-                      <Accordion triggerPos="left">
-                        <Accordion.Btn
-                          buttonStyling=""
-                          type="button"
-                          addIcon={
-                            <i
-                              data-h2-font-weight="b(700)"
-                              className="fas fa-plus"
-                            />
-                          }
-                          removeIcon={
-                            <i
-                              data-h2-font-weight="b(700)"
-                              className="fas fa-minus"
-                            />
-                          }
-                          onClick={() =>
-                            setExpandedAccordions(
-                              expandedAccordions.includes(key)
-                                ? expandedAccordions.filter(
-                                    (accordionKey) => accordionKey !== key,
-                                  )
-                                : [...expandedAccordions, key],
-                            )
-                          }
+              {parentSkillCategories.map(({ id, name, key, description }) => {
+                // Get children skill categories of parent skill category.
+                const childrenSkillCategories = skillCategories.filter(
+                  (childSkillCategory) =>
+                    childSkillCategory.depth === 2 &&
+                    childSkillCategory.parent_id === id,
+                );
+                return (
+                  <li
+                    key={id}
+                    data-h2-bg-color={`b(gray-1, ${
+                      expandedAccordions.includes(key) ? ".5" : "0"
+                    })`}
+                    data-h2-padding="b(tb, 1)"
+                    data-h2-border="b(gray-2, top, solid, thin)"
+                    data-h2-margin="b(tb, 0)"
+                  >
+                    <Accordion triggerPos="left">
+                      <Accordion.Btn
+                        buttonStyling=""
+                        type="button"
+                        addIcon={
+                          <i
+                            data-h2-font-weight="b(700)"
+                            className="fas fa-plus"
+                          />
+                        }
+                        removeIcon={
+                          <i
+                            data-h2-font-weight="b(700)"
+                            className="fas fa-minus"
+                          />
+                        }
+                        onClick={() =>
+                          setExpandedAccordions(
+                            expandedAccordions.includes(key)
+                              ? expandedAccordions.filter(
+                                  (accordionKey) => accordionKey !== key,
+                                )
+                              : [...expandedAccordions, key],
+                          )
+                        }
+                      >
+                        <p data-h2-font-weight="b(700)">{name[locale]}</p>
+                      </Accordion.Btn>
+                      <p
+                        data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
+                        data-h2-font-color="b(black)"
+                        data-h2-font-size="b(small)"
+                        style={{ paddingLeft: "5rem" }}
+                      >
+                        {description[locale]}
+                      </p>
+                      <Accordion.Content>
+                        <ul
+                          data-h2-padding="b(all, 0)"
+                          className="no-list-style-type"
                         >
-                          <p data-h2-font-weight="b(700)">{name[locale]}</p>
-                        </Accordion.Btn>
-                        <p
-                          data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
-                          data-h2-font-color="b(black)"
-                          data-h2-font-size="b(small)"
-                          style={{ paddingLeft: "5rem" }}
-                        >
-                          {description[locale]}
-                        </p>
-                        <Accordion.Content>
-                          <ul
-                            data-h2-padding="b(all, 0)"
-                            className="no-list-style-type"
-                          >
-                            {childrenSkillCategories.map(
-                              (childSkillCatergory) => {
-                                return (
-                                  <li key={childSkillCatergory.key}>
+                          {childrenSkillCategories.map(
+                            (childSkillCatergory) => {
+                              return (
+                                <li key={childSkillCatergory.key}>
+                                  <div
+                                    data-h2-dialog-actions
+                                    data-h2-grid="b(middle, expanded, flush, 0)"
+                                    data-h2-margin="b(right, .5)"
+                                  >
                                     <div
-                                      data-h2-dialog-actions
-                                      data-h2-grid="b(middle, expanded, flush, 0)"
-                                      data-h2-margin="b(right, .5)"
+                                      data-h2-align="b(left)"
+                                      data-h2-grid-item="b(5of6)"
                                     >
-                                      <div
-                                        data-h2-align="b(left)"
-                                        data-h2-grid-item="b(5of6)"
+                                      <button
+                                        data-h2-button=""
+                                        type="button"
+                                        onClick={() => {
+                                          setFirstVisit(false);
+                                          setButtonClicked(
+                                            childSkillCatergory.key,
+                                          );
+                                          setResultsSectionText({
+                                            title: `${
+                                              childSkillCatergory.name[locale]
+                                            } ${intl.formatMessage(
+                                              messages.skills,
+                                            )}`,
+                                            description:
+                                              childSkillCatergory.description[
+                                                locale
+                                              ],
+                                          });
+                                          setSkillsResults(
+                                            childSkillCatergory.skills,
+                                          );
+                                        }}
                                       >
-                                        <button
-                                          data-h2-button=""
-                                          type="button"
-                                          onClick={() => {
-                                            setFirstVisit(false);
-                                            setButtonClicked(
-                                              childSkillCatergory.key,
-                                            );
-                                            setResultsSectionText({
-                                              name:
-                                                childSkillCatergory.name[
-                                                  locale
-                                                ],
-                                              description:
-                                                childSkillCatergory.description[
-                                                  locale
-                                                ],
-                                            });
-                                            setSkillsResults(
-                                              childSkillCatergory.skills,
-                                            );
-                                          }}
+                                        <p
+                                          data-h2-button-label
+                                          data-h2-font-weight="b(700)"
+                                          data-h2-display="b(block)"
+                                          data-h2-font-style={`${
+                                            buttonClicked ===
+                                            childSkillCatergory.key
+                                              ? "b(none)"
+                                              : "b(underline)"
+                                          }`}
+                                          data-h2-font-color={`${
+                                            buttonClicked ===
+                                            childSkillCatergory.key
+                                              ? "b(theme-1)"
+                                              : "b(black)"
+                                          }`}
+                                          data-h2-align="b(left)"
                                         >
-                                          <p
-                                            data-h2-button-label
-                                            data-h2-font-weight="b(700)"
-                                            data-h2-display="b(block)"
-                                            data-h2-font-style={`${
-                                              buttonClicked ===
-                                              childSkillCatergory.key
-                                                ? "b(none)"
-                                                : "b(underline)"
-                                            }`}
-                                            data-h2-font-color={`${
-                                              buttonClicked ===
-                                              childSkillCatergory.key
-                                                ? "b(theme-1)"
-                                                : "b(black)"
-                                            }`}
-                                            data-h2-align="b(left)"
-                                          >
-                                            {childSkillCatergory.name[locale]}
-                                          </p>
-                                        </button>
-                                      </div>
-                                      <div
-                                        data-h2-grid-item="b(1of6)"
-                                        data-h2-align="b(center)"
-                                        data-h2-radius="b(round)"
-                                        data-h2-bg-color={`${
-                                          buttonClicked ===
-                                          childSkillCatergory.key
-                                            ? "b(theme-1, 1)"
-                                            : "b(white, 1)"
-                                        }`}
-                                        data-h2-font-color={`${
-                                          buttonClicked ===
-                                          childSkillCatergory.key
-                                            ? "b(white)"
-                                            : "b(black)"
-                                        }`}
-                                      >
-                                        <p>
-                                          {childSkillCatergory.skills.length}
+                                          {childSkillCatergory.name[locale]}
                                         </p>
-                                      </div>
+                                      </button>
                                     </div>
-                                  </li>
-                                );
-                              },
-                            )}
-                          </ul>
-                        </Accordion.Content>
-                      </Accordion>
-                    </li>
-                  );
-                },
-              )}
+                                    <div
+                                      data-h2-grid-item="b(1of6)"
+                                      data-h2-align="b(center)"
+                                      data-h2-radius="b(round)"
+                                      data-h2-bg-color={`${
+                                        buttonClicked ===
+                                        childSkillCatergory.key
+                                          ? "b(theme-1, 1)"
+                                          : "b(white, 1)"
+                                      }`}
+                                      data-h2-font-color={`${
+                                        buttonClicked ===
+                                        childSkillCatergory.key
+                                          ? "b(white)"
+                                          : "b(black)"
+                                      }`}
+                                    >
+                                      <p>{childSkillCatergory.skills.length}</p>
+                                    </div>
+                                  </div>
+                                </li>
+                              );
+                            },
+                          )}
+                        </ul>
+                      </Accordion.Content>
+                    </Accordion>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {/* Skill Results Section */}
           <div
             data-h2-grid-item="s(3of5) b(1of1)"
             data-h2-border="s(gray-2, left, solid, thin) b(gray-2, top, solid, thin)"
-            style={{ height: "35rem" }}
           >
             {firstVisit ? (
               <div
@@ -319,7 +366,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     data-h2-font-style="b(underline)"
                   >
                     <i
-                      data-h2-padding="b(right, 1)"
+                      data-h2-padding="b(right, .25)"
                       className="fas fa-caret-left"
                     />
                     {intl.formatMessage(messages.backButton)}
@@ -331,8 +378,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                   data-h2-font-weight="b(700)"
                   data-h2-padding="b(rl, 1) b(bottom, .5)"
                 >
-                  {resultsSectionText.name}{" "}
-                  {intl.formatMessage(messages.skills)}
+                  {resultsSectionText.title}
                 </p>
                 <p
                   data-h2-font-size="b(small)"
@@ -438,7 +484,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     })}
                   </ul>
                 ) : (
-                  <p>{intl.formatMessage(messages.noSkills)}</p>
+                  <p data-h2-padding="b(rl, 1) b(bottom, .5)">
+                    {intl.formatMessage(messages.noSkills)}
+                  </p>
                 )}
               </div>
             )}
