@@ -107,6 +107,7 @@ export interface Classification {
   id: number;
   key: string;
   name: localizedFieldNonNull;
+  education_requirements: localizedFieldNonNull;
 }
 
 type CitizenshipDeclarationName =

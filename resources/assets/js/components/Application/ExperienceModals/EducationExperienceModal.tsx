@@ -48,7 +48,7 @@ interface EducationExperienceModalProps {
   educationTypes: FormEducationType[];
   educationStatuses: FormEducationStatus[];
   jobId: number;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -399,7 +399,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   educationTypes,
   educationStatuses,
   jobId,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
@@ -484,7 +484,9 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               />
               <EducationSubform
                 keyPrefix="education"
-                jobClassification={jobClassification}
+                classificationEducationRequirements={
+                  classificationEducationRequirements
+                }
                 jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>

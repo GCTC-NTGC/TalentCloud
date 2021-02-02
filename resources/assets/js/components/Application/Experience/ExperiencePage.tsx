@@ -13,6 +13,7 @@ import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
 import { ExperienceStep } from "./Experience";
 import {
+  Classification,
   Experience as ExperienceType,
   ExperienceSkill,
 } from "../../../models/types";
@@ -39,6 +40,7 @@ import {
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -58,9 +60,14 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     skillsLoaded,
   } = useFetchAllApplicationData(applicationId, dispatch);
 
+  const { classifications } = useLoadClassifications(dispatch);
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const classificationEducationRequirements =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.education_requirements[locale] || null;
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
@@ -82,6 +89,7 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const showLoadingState =
     application === null ||
     job === null ||
+    classifications === null ||
     !experiencesLoaded ||
     !skillsLoaded ||
     !experienceConstantsLoaded;
@@ -230,8 +238,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           criteria={criteria}
           skills={skills}
           jobId={job.id}
-          jobClassificationId={job.classification_id}
           jobEducationRequirements={localizeField(locale, job, "education")}
+          classificationEducationRequirements={
+            classificationEducationRequirements
+          }
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}
