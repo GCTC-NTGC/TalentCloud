@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { getLocale } from "../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../helpers/localize";
+import { createOrRemove } from "../helpers/queries";
 import { Skill, SkillCategory } from "../models/types";
 import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
@@ -134,159 +135,169 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           {/* Parent Skill Category Accordions Section */}
           <div data-h2-grid-item="s(2of5) b(1of1)">
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
-              {parentSkillCategories.map(
-                ({ id, name, key, description }, index) => {
-                  // Get children skill categories of parent skill category.
-                  const childrenSkillCategories = skillCategories.filter(
-                    (childSkillCategory) =>
-                      childSkillCategory.depth === 2 &&
-                      childSkillCategory.parent_id === id,
-                  );
-                  return (
-                    <li
-                      key={id}
-                      data-h2-bg-color={`b(gray-1, ${
-                        expandedAccordions.includes(key) ? ".5" : "0"
-                      })`}
-                      data-h2-padding="b(tb, 1)"
-                      data-h2-border={`${
-                        index + 1 !== parentSkillCategories.length
-                          ? "b(gray-2, bottom, solid, thin)"
-                          : ""
-                      }`}
-                      data-h2-margin="b(tb, 0)"
-                    >
-                      <Accordion triggerPos="left">
-                        <Accordion.Btn
-                          buttonStyling=""
-                          type="button"
-                          addIcon={
-                            <i
-                              data-h2-font-weight="b(700)"
-                              className="fas fa-plus"
-                            />
-                          }
-                          removeIcon={
-                            <i
-                              data-h2-font-weight="b(700)"
-                              className="fas fa-minus"
-                            />
-                          }
-                          onClick={() =>
-                            setExpandedAccordions(
+              {parentSkillCategories.map((parentSkillCategory, index) => {
+                const { id, key } = parentSkillCategory;
+                // Get children skill categories of parent skill category.
+                const childrenSkillCategories = skillCategories.filter(
+                  (childSkillCategory) =>
+                    childSkillCategory.depth === 2 &&
+                    childSkillCategory.parent_id === id,
+                );
+                return (
+                  <li
+                    key={id}
+                    data-h2-bg-color={`b(gray-1, ${
+                      expandedAccordions.includes(key) ? ".5" : "0"
+                    })`}
+                    data-h2-padding="b(tb, 1)"
+                    data-h2-border={`${
+                      index + 1 !== parentSkillCategories.length
+                        ? "b(gray-2, bottom, solid, thin)"
+                        : ""
+                    }`}
+                    data-h2-margin="b(tb, 0)"
+                  >
+                    <Accordion triggerPos="left">
+                      <Accordion.Btn
+                        type="button"
+                        addIcon={
+                          <i
+                            data-h2-font-weight="b(700)"
+                            className="fas fa-plus"
+                          />
+                        }
+                        removeIcon={
+                          <i
+                            data-h2-font-weight="b(700)"
+                            className="fas fa-minus"
+                          />
+                        }
+                        onClick={() =>
+                          setExpandedAccordions(
                             createOrRemove(key, expandedAccordions),
                           )
-                                : [...expandedAccordions, key],
-                            )
                         }
                       >
-                          <p data-h2-font-weight="b(700)">{name[locale]}</p>
-                        </Accordion.Btn>
-                        <p
-                          data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
-                          data-h2-font-color="b(black)"
-                          data-h2-font-size="b(small)"
-                          style={{ paddingLeft: "5rem" }}
-                        >
-                          {description[locale]}
+                        <p data-h2-font-weight="b(700)">
+                          {localizeFieldNonNull(
+                            locale,
+                            parentSkillCategory,
+                            "name",
+                          )}
                         </p>
-                        <Accordion.Content>
-                          <ul
-                            data-h2-padding="b(all, 0)"
-                            className="no-list-style-type"
-                          >
-                            {childrenSkillCategories.map(
-                              (childSkillCatergory) => {
-                                return (
-                                  <li key={childSkillCatergory.key}>
+                      </Accordion.Btn>
+                      <p
+                        data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
+                        data-h2-font-color="b(black)"
+                        data-h2-font-size="b(small)"
+                        style={{ paddingLeft: "5rem" }}
+                      >
+                        {localizeFieldNonNull(
+                          locale,
+                          parentSkillCategory,
+                          "description",
+                        )}
+                      </p>
+                      <Accordion.Content>
+                        <ul
+                          data-h2-padding="b(all, 0)"
+                          className="no-list-style-type"
+                        >
+                          {childrenSkillCategories.map(
+                            (childSkillCatergory) => {
+                              return (
+                                <li key={childSkillCatergory.key}>
+                                  <div
+                                    data-h2-grid="b(middle, expanded, flush, 0)"
+                                    data-h2-margin="b(right, .5)"
+                                  >
                                     <div
-                                      data-h2-dialog-actions
-                                      data-h2-grid="b(middle, expanded, flush, 0)"
-                                      data-h2-margin="b(right, .5)"
+                                      data-h2-align="b(left)"
+                                      data-h2-grid-item="b(5of6)"
                                     >
-                                      <div
-                                        data-h2-align="b(left)"
-                                        data-h2-grid-item="b(5of6)"
+                                      <button
+                                        data-h2-button=""
+                                        type="button"
+                                        onClick={() => {
+                                          setFirstVisit(false);
+                                          setButtonClicked(
+                                            childSkillCatergory.key,
+                                          );
+                                          setResultsSectionText({
+                                            title: `${localizeFieldNonNull(
+                                              locale,
+                                              childSkillCatergory,
+                                              "name",
+                                            )} ${intl.formatMessage(
+                                              messages.skills,
+                                            )}`,
+                                            description: localizeFieldNonNull(
+                                              locale,
+                                              childSkillCatergory,
+                                              "description",
+                                            ),
+                                          });
+                                          setSkillsResults(
+                                            childSkillCatergory.skills,
+                                          );
+                                        }}
                                       >
-                                        <button
-                                          data-h2-button=""
-                                          type="button"
-                                          onClick={() => {
-                                            setFirstVisit(false);
-                                            setButtonClicked(
-                                              childSkillCatergory.key,
-                                            );
-                                            setResultsSectionText({
-                                              title: `${
-                                                childSkillCatergory.name[locale]
-                                              } ${intl.formatMessage(
-                                                messages.skills,
-                                              )}`,
-                                              description:
-                                                childSkillCatergory.description[
-                                                  locale
-                                                ],
-                                            });
-                                            setSkillsResults(
-                                              childSkillCatergory.skills,
-                                            );
-                                          }}
+                                        <p
+                                          data-h2-button-label
+                                          data-h2-font-weight="b(700)"
+                                          data-h2-display="b(block)"
+                                          data-h2-font-style={`${
+                                            buttonClicked ===
+                                            childSkillCatergory.key
+                                              ? "b(none)"
+                                              : "b(underline)"
+                                          }`}
+                                          data-h2-font-color={`${
+                                            buttonClicked ===
+                                            childSkillCatergory.key
+                                              ? "b(theme-1)"
+                                              : "b(black)"
+                                          }`}
+                                          data-h2-align="b(left)"
                                         >
-                                          <p
-                                            data-h2-button-label
-                                            data-h2-font-weight="b(700)"
-                                            data-h2-display="b(block)"
-                                            data-h2-font-style={`${
-                                              buttonClicked ===
-                                              childSkillCatergory.key
-                                                ? "b(none)"
-                                                : "b(underline)"
-                                            }`}
-                                            data-h2-font-color={`${
-                                              buttonClicked ===
-                                              childSkillCatergory.key
-                                                ? "b(theme-1)"
-                                                : "b(black)"
-                                            }`}
-                                            data-h2-align="b(left)"
-                                          >
-                                            {childSkillCatergory.name[locale]}
-                                          </p>
-                                        </button>
-                                      </div>
-                                      <div
-                                        data-h2-grid-item="b(1of6)"
-                                        data-h2-align="b(center)"
-                                        data-h2-radius="b(round)"
-                                        data-h2-bg-color={`${
-                                          buttonClicked ===
-                                          childSkillCatergory.key
-                                            ? "b(theme-1, 1)"
-                                            : "b(white, 1)"
-                                        }`}
-                                        data-h2-font-color={`${
-                                          buttonClicked ===
-                                          childSkillCatergory.key
-                                            ? "b(white)"
-                                            : "b(black)"
-                                        }`}
-                                      >
-                                        <p>
-                                          {childSkillCatergory.skills.length}
+                                          {localizeFieldNonNull(
+                                            locale,
+                                            childSkillCatergory,
+                                            "name",
+                                          )}
                                         </p>
-                                      </div>
+                                      </button>
                                     </div>
-                                  </li>
-                                );
-                              },
-                            )}
-                          </ul>
-                        </Accordion.Content>
-                      </Accordion>
-                    </li>
-                  );
-                },
-              )}
+                                    <div
+                                      data-h2-grid-item="b(1of6)"
+                                      data-h2-align="b(center)"
+                                      data-h2-radius="b(round)"
+                                      data-h2-bg-color={`${
+                                        buttonClicked ===
+                                        childSkillCatergory.key
+                                          ? "b(theme-1, 1)"
+                                          : "b(white, 1)"
+                                      }`}
+                                      data-h2-font-color={`${
+                                        buttonClicked ===
+                                        childSkillCatergory.key
+                                          ? "b(white)"
+                                          : "b(black)"
+                                      }`}
+                                    >
+                                      <p>{childSkillCatergory.skills.length}</p>
+                                    </div>
+                                  </div>
+                                </li>
+                              );
+                            },
+                          )}
+                        </ul>
+                      </Accordion.Content>
+                    </Accordion>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           {/* Skill Results Section */}
@@ -314,6 +325,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
               </div>
             ) : (
               <div>
+                {/* Back Button */}
                 <button
                   data-h2-button
                   type="button"
@@ -356,7 +368,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     className="no-list-style-type"
                   >
                     {skillsResults.map((skill) => {
-                      const { id, name, description } = skill;
+                      const { id } = skill;
                       const isAdded = newSkills.find(
                         (newSkill) => newSkill.id === skill.id,
                       );
@@ -376,7 +388,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                 data-h2-font-weight="b(700)"
                                 data-h2-font-style="b(underline)"
                               >
-                                {name[locale]}
+                                {localizeFieldNonNull(locale, skill, "name")}
                                 {isAdded && (
                                   <i
                                     data-h2-padding="b(left, .5)"
@@ -388,7 +400,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               </p>
                             </Accordion.Btn>
                             <Accordion.Content>
-                              <p data-h2-focus>{description[locale]}</p>
+                              <p data-h2-focus>
+                                {localizeFieldNonNull(
+                                  locale,
+                                  skill,
+                                  "description",
+                                )}
+                              </p>
                             </Accordion.Content>
                           </Accordion>
                           {isOldSkill ? (
