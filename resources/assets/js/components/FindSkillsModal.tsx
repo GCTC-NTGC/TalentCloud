@@ -174,14 +174,12 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                           }
                           onClick={() =>
                             setExpandedAccordions(
-                              expandedAccordions.includes(key)
-                                ? expandedAccordions.filter(
-                                    (accordionKey) => accordionKey !== key,
-                                  )
+                            createOrRemove(key, expandedAccordions),
+                          )
                                 : [...expandedAccordions, key],
                             )
-                          }
-                        >
+                        }
+                      >
                           <p data-h2-font-weight="b(700)">{name[locale]}</p>
                         </Accordion.Btn>
                         <p
@@ -415,16 +413,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               onClick={() => {
                                 // If the skill has been selected then remove it.
                                 // Else, if the has not been selected then add it to addedSkills list.
-                                if (isAdded) {
-                                  setNewSkills(
-                                    newSkills.filter(
-                                      (applicantSkill) =>
-                                        applicantSkill.id !== skill.id,
-                                    ),
-                                  );
-                                } else {
-                                  setNewSkills([...newSkills, skill]);
-                                }
+                                setNewSkills(createOrRemove(skill, newSkills));
                               }}
                             >
                               <p

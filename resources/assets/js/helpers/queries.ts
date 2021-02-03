@@ -236,3 +236,15 @@ export function removeDuplicatesById<T extends { id: number }>(
 export function decrement(num: number): number {
   return num <= 0 ? 0 : num - 1;
 }
+
+/**
+ * If the element already exists in the array, then remove it, and return array.
+ * Otherwise, if the element does not exist in the array, add it to the array, and return new array.
+ * @param element
+ * @param array
+ */
+export function createOrRemove<T>(element: T, array: T[]): T[] {
+  return array.includes(element)
+    ? array.filter((T) => T !== element)
+    : [...array, element];
+}
