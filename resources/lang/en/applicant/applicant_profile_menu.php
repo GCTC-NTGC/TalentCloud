@@ -21,6 +21,10 @@ return [
         'title' => 'Go to the Skills section of your profile.',
         'label' => 'My Skills'
     ],
+    'skills-old' => [
+        'title' => 'Go to the old Skills section of your profile.',
+        'label' => 'My Skills, obsolete'
+    ],
     'references' => [
         'title' => 'Go to the References section of your profile.',
         'label' => 'My References'

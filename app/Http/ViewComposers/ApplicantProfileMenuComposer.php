@@ -22,13 +22,14 @@ class ApplicantProfileMenuComposer
         $profileMenu['about']['link'] = route('profile.about.edit', $view->getData()['applicant']);
         $profileMenu['experience']['link'] = route('profile.experience.edit', $view->getData()['applicant']);
         $profileMenu['skills']['link'] = route('profile.skills.edit', $view->getData()['applicant']);
+        $profileMenu['skills-old']['link'] = route('profile.skills-old.edit', $view->getData()['applicant']);
         $profileMenu['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
         $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
         // Set archive variable to group sidebar
         $profileMenu['about']['archive'] = true;
         $profileMenu['experience']['archive'] = false;
-        $profileMenu['skills']['archive'] = true;
+        $profileMenu['skills-old']['archive'] = true;
         $profileMenu['references']['archive'] = true;
         $profileMenu['portfolio']['archive'] = true;
 
@@ -45,6 +46,10 @@ class ApplicantProfileMenuComposer
             case ('profile.skills'):
             case ('profile.skills.edit'):
                 $profileMenu['skills']['active'] = true;
+                break;
+            case ('profile.skills-old'):
+            case ('profile.skills-old.edit'):
+                $profileMenu['skills-old']['active'] = true;
                 break;
             case ('profile.references'):
             case ('profile.references.edit'):

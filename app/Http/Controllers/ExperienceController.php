@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\Degree;
 use App\Models\Applicant;
-use App\Models\Course;
-use App\Models\WorkExperience;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Lang;
 
 class ExperienceController extends Controller
 {
@@ -41,6 +37,7 @@ class ExperienceController extends Controller
 
         return view('applicant/profile_02_experience', [
             'applicant' => $applicant,
+            'profile' => Lang::get('applicant/profile_experience'),
             'custom_breadcrumbs' => $custom_breadcrumbs,
             'disable_clone_js' => true,
         ]);

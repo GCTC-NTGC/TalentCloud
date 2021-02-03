@@ -194,6 +194,13 @@ Route::group(
                         ->middleware('can:update,applicant')
                         ->name('profile.experience.edit');
 
+                    /* Profile - My Skills */
+                    Route::get('profile/skills', 'ApplicantSkillsController@editAuthenticated');
+                    Route::get('profile/{applicant}/skills', 'ApplicantSkillsController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.skills.edit');
+
                     /* Profile - About Me (archived) */
                     Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
                         ->middleware('can:view,applicant')
@@ -205,7 +212,7 @@ Route::group(
                     Route::get('profile/{applicant}/skills-old', 'SkillDeclarationController@edit')
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
-                        ->name('profile.skills.edit');
+                        ->name('profile.skills-old.edit');
 
                     /* Profile - My References  (archived) */
                     Route::get('profile/references', 'ReferencesController@editAuthenticated');

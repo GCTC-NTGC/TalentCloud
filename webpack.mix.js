@@ -76,6 +76,10 @@ mix
     "public/js",
   )
   .ts(
+    "resources/assets/js/components/ApplicantProfile/Skills/ProfileSkillsPage.tsx",
+    "public/js",
+  )
+  .ts(
     "resources/assets/js/components/Application/ApplicationPreviewRoot.tsx",
     "public/js",
   )
@@ -122,13 +126,13 @@ mix
     ],
   })
   .sass("resources/assets/sass/h2.scss", "public/css", {
-    implementation: dartSass
+    implementation: dartSass,
   })
   .options({
     processCssUrls: false,
     postCss: [
       autoprefixer({
-        browsers: ['last 3 versions', '> 1%']
+        browsers: ["last 3 versions", "> 1%"],
       }),
       cssnano({
         preset: [
