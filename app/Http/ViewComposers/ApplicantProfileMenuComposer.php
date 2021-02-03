@@ -40,7 +40,6 @@ class ApplicantProfileMenuComposer
                 break;
             case ('profile.experience'):
             case ('profile.experience.edit'):
-            case ('profile.experience.update'):
                 $profileMenu['experience']['active'] = true;
                 break;
             case ('profile.skills'):

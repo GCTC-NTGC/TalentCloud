@@ -187,33 +187,27 @@ Route::group(
                     Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
                     Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
 
-                    /* Profile - About Me */
-                    Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
-                        ->name('profile.about.edit');
-
                     /* Profile - My Experience */
                     Route::get('profile/experience', 'ExperienceController@editAuthenticated');
-
                     Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.experience.edit');
 
-                    Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
+                    /* Profile - About Me (archived) */
+                    Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
+                        ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
-                        ->name('profile.experience.update');
+                        ->name('profile.about.edit');
 
-                    /* Profile - My Skills */
-                    Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
-
-                    Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
+                    /* Profile - My Skills Declarations (archived) */
+                    Route::get('profile/skills-old', 'SkillDeclarationController@editAuthenticated');
+                    Route::get('profile/{applicant}/skills-old', 'SkillDeclarationController@edit')
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.skills.edit');
 
-                    /* Profile - My References */
+                    /* Profile - My References  (archived) */
                     Route::get('profile/references', 'ReferencesController@editAuthenticated');
 
                     Route::get('profile/{applicant}/references', 'ReferencesController@edit')
@@ -221,7 +215,7 @@ Route::group(
                         ->middleware('can:update,applicant')
                         ->name('profile.references.edit');
 
-                    /* Profile - My Portfolio */
+                    /* Profile - My Portfolio (archived) */
                     Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
 
                     Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
