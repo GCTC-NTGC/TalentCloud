@@ -59,18 +59,22 @@ const messages = defineMessages({
     id: "findSkillsModal.noSkills",
     defaultMessage: "Save Skills",
   },
+  searchResultsTitle: {
+    id: "findSkillsModal.searchResultsTitle",
+    defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
+  },
 });
 
 interface FindSkillsModalProps {
-  portal: "applicant" | "manager";
   oldSkills: Skill[];
+  portal: "applicant" | "manager";
   skillCategories: SkillCategory[];
   handleSubmit: (values: Skill[]) => Promise<void>;
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
-  portal,
   oldSkills,
+  portal,
   skillCategories,
   handleSubmit,
 }) => {
@@ -81,15 +85,21 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
       skillCategory.depth === 1 && skillCategory.parent_id === 0,
   );
 
+  // List of new Skills that will be saved to the user on submit.
   const [newSkills, setNewSkills] = useState<Skill[]>([]);
+  // List of skills that displayed in the results section of the modal.
   const [skillsResults, setSkillsResults] = useState<Skill[]>([]);
+  // Stores the skill category's name and description for the results section.
   const [resultsSectionText, setResultsSectionText] = useState<{
-    name: string;
+    title: string;
     description: string;
-  }>({ name: "", description: "" });
+  }>({ title: "", description: "" });
   const [firstVisit, setFirstVisit] = useState(true);
+  // Stores a list of skills category keys of which accordions are expanded, for styling purposes.
   const [expandedAccordions, setExpandedAccordions] = useState<string[]>([]);
+  // Used to set the button color of an active skill category.
   const [buttonClicked, setButtonClicked] = useState("");
+
   return (
     <section>
       <Dialog.Trigger
@@ -117,7 +127,10 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
             {intl.formatMessage(messages.modalHeading)}
           </Dialog.Title>
         </Dialog.Header>
-        <Dialog.Content data-h2-grid="b(top, expanded, flush, 0)">
+        <Dialog.Content
+          data-h2-grid="b(top, expanded, flush, 0)"
+          style={{ height: "35rem", overflow: "auto", alignItems: "stretch" }}
+        >
           {/* Parent Skill Category Accordions Section */}
           <div data-h2-grid-item="s(2of5) b(1of1)">
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
@@ -206,10 +219,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                               childSkillCatergory.key,
                                             );
                                             setResultsSectionText({
-                                              name:
-                                                childSkillCatergory.name[
-                                                  locale
-                                                ],
+                                              title: `${
+                                                childSkillCatergory.name[locale]
+                                              } ${intl.formatMessage(
+                                                messages.skills,
+                                              )}`,
                                               description:
                                                 childSkillCatergory.description[
                                                   locale
@@ -281,7 +295,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           <div
             data-h2-grid-item="s(3of5) b(1of1)"
             data-h2-border="s(gray-2, left, solid, thin) b(gray-2, top, solid, thin)"
-            style={{ height: "35rem" }}
           >
             {firstVisit ? (
               <div
@@ -319,7 +332,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     data-h2-font-style="b(underline)"
                   >
                     <i
-                      data-h2-padding="b(right, 1)"
+                      data-h2-padding="b(right, .25)"
                       className="fas fa-caret-left"
                     />
                     {intl.formatMessage(messages.backButton)}
@@ -331,8 +344,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                   data-h2-font-weight="b(700)"
                   data-h2-padding="b(rl, 1) b(bottom, .5)"
                 >
-                  {resultsSectionText.name}{" "}
-                  {intl.formatMessage(messages.skills)}
+                  {resultsSectionText.title}
                 </p>
                 <p
                   data-h2-font-size="b(small)"
@@ -438,7 +450,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     })}
                   </ul>
                 ) : (
-                  <p>{intl.formatMessage(messages.noSkills)}</p>
+                  <p data-h2-padding="b(rl, 1) b(bottom, .5)">
+                    {intl.formatMessage(messages.noSkills)}
+                  </p>
                 )}
               </div>
             )}
