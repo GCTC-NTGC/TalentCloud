@@ -28,7 +28,7 @@
         "@babel/cli": "^7.12.13",
         "@babel/core": "^7.12.13",
         "@babel/plugin-proposal-optional-chaining": "^7.12.13",
-        "@babel/preset-react": "^7.12.10",
+        "@babel/preset-react": "^7.12.13",
         "@babel/preset-typescript": "^7.12.13",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@hydrogen-design-system/system": "0.0.36",
