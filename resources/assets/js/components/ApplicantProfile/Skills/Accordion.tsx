@@ -7,20 +7,20 @@ import Accordion from "../../H2Components/Accordion";
 
 const messages = defineMessages({
   experiencesLabel: {
-    id: "applicantProfile.skills.list.experiencesLabel",
+    id: "applicantProfile.skills.accordion.experiencesLabel",
     defaultMessage:
       "{experienceCount, plural, =0 {No Experiences} one {1 Experience} other {{experienceCount} Experiences}}",
     description:
       "Subheading that displays the count of experiences on each accordion.",
   },
   missingExperiences: {
-    id: "applicantProfile.skills.list.missingExperiences",
+    id: "applicantProfile.skills.accordion.missingExperiences",
     defaultMessage:
       "Go to My Experience section to add context to how you have used this skill.",
     description: "Text for accordion when no experiences within accordion.",
   },
   skillRemoveLabel: {
-    id: "applicantProfile.skills.list.skillRemoveLabel",
+    id: "applicantProfile.skills.accordion.skillRemoveLabel",
     defaultMessage: "Remove Skill",
     description: "Text for the button to remove a skill on each accordion.",
   },
@@ -124,7 +124,11 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
 
                 return (
                   <button
-                    key={`experience-${currentExperience?.id}`}
+                    key={
+                      `${currentExperience?.type}` +
+                      "-" +
+                      `${currentExperience?.id}`
+                    }
                     type="button"
                     data-h2-display="b(block)"
                     data-h2-button="black, round, medium, clear"
