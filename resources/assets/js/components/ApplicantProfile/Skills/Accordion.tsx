@@ -42,6 +42,22 @@ const getExperienceIcon = (type: string): string => {
       return "";
   }
 };
+const getExperienceTitle = (experience: Experience): string => {
+  switch (experience.type) {
+    case "experience_award":
+      return experience.title;
+    case "experience_community":
+      return experience.title;
+    case "experience_education":
+      return `${experience.area_of_study} - ${experience.institution}`;
+    case "experience_personal":
+      return experience.title;
+    case "experience_work":
+      return `${experience.title} - ${experience.group}`;
+    default:
+      return "";
+  }
+};
 interface SkillAccordionProps {
   skill: Skill;
   experiences: Experience[];
@@ -144,7 +160,8 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                       data-h2-button-label
                       data-h2-font-style="b(underline)"
                     >
-                      {currentExperienceTitle}
+                      {currentExperience !== null &&
+                        getExperienceTitle(currentExperience)}
                     </span>
                   </button>
                 );
