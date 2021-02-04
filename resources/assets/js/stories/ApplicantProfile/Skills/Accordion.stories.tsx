@@ -31,3 +31,17 @@ stories.add(
     </section>
   ),
 );
+
+stories.add(
+  "Accordion (No Experiences)",
+  (): React.ReactElement => (
+    <section>
+      <SkillAccordion
+        skill={fakeSkill()}
+        experiences={[]}
+        experiencesOfSkill={[]}
+        applicantId={1}
+      />
+    </section>
+  ),
+);
