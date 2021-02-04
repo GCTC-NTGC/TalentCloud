@@ -32,6 +32,7 @@ stories.add(
         skillCategories={fakeSkillCategories()}
         skillSkillCategories={skillSkillCategories}
         skills={fakeSkills()}
+        applicantId={1}
       />
     </section>
   ),

@@ -66,6 +66,7 @@ interface ListProps {
   skillCategories: SkillCategory[];
   skillSkillCategories: SkillSkillCategory[];
   skills: Skill[];
+  applicantId: number;
 }
 
 const List: React.FC<ListProps> = ({
@@ -74,6 +75,7 @@ const List: React.FC<ListProps> = ({
   skillCategories,
   skillSkillCategories,
   skills,
+  applicantId,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -159,6 +161,7 @@ const List: React.FC<ListProps> = ({
                     skill={skill}
                     experiences={experiences}
                     experiencesOfSkill={experiencesOfSkill}
+                    applicantId={applicantId}
                   />
                 );
               })}
@@ -176,6 +179,7 @@ const List: React.FC<ListProps> = ({
               skill={skill}
               experiences={experiences}
               experiencesOfSkill={experiencesOfSkill}
+              applicantId={applicantId}
             />
           );
         })}

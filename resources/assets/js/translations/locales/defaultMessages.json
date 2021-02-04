@@ -102,9 +102,14 @@
         "id": "applicantProfile.skills.accordion.experiencesLabel"
       },
       {
-        "defaultMessage": "Go to My Experience section to add context to how you have used this skill.",
+        "defaultMessage": "Go to {link} section to add context to how you have used this skill.",
         "description": "Text for accordion when no experiences within accordion.",
         "id": "applicantProfile.skills.accordion.missingExperiences"
+      },
+      {
+        "defaultMessage": "My Experience",
+        "description": "Link text when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiencesLinkText"
       },
       {
         "defaultMessage": "Remove Skill",

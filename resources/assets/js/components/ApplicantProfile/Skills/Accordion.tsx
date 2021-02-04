@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl, defineMessages } from "react-intl";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
+import { getApplicantExperienceUrl } from "../../../helpers/routes";
 import { Skill, Experience, ExperienceSkill } from "../../../models/types";
 import { getExperienceOfExperienceSkill } from "../../Application/helpers";
 import Accordion from "../../H2Components/Accordion";
@@ -16,8 +17,13 @@ const messages = defineMessages({
   missingExperiences: {
     id: "applicantProfile.skills.accordion.missingExperiences",
     defaultMessage:
-      "Go to My Experience section to add context to how you have used this skill.",
+      "Go to {link} section to add context to how you have used this skill.",
     description: "Text for accordion when no experiences within accordion.",
+  },
+  missingExperiencesLinkText: {
+    id: "applicantProfile.skills.accordion.missingExperiencesLinkText",
+    defaultMessage: "My Experience",
+    description: "Link text when no experiences within accordion.",
   },
   skillRemoveLabel: {
     id: "applicantProfile.skills.accordion.skillRemoveLabel",
@@ -42,6 +48,7 @@ const getExperienceIcon = (type: string): string => {
       return "";
   }
 };
+
 const getExperienceTitle = (experience: Experience): string => {
   switch (experience.type) {
     case "experience_award":
@@ -58,16 +65,19 @@ const getExperienceTitle = (experience: Experience): string => {
       return "";
   }
 };
+
 interface SkillAccordionProps {
   skill: Skill;
   experiences: Experience[];
   experiencesOfSkill: ExperienceSkill[];
+  applicantId: number;
 }
 
 export const SkillAccordion: React.FC<SkillAccordionProps> = ({
   skill,
   experiences,
   experiencesOfSkill,
+  applicantId,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -129,15 +139,6 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   experienceSkill,
                   experiences,
                 );
-                const currentExperienceTitle: string =
-                  currentExperience?.type !== "experience_education"
-                    ? `${currentExperience?.title}${
-                        currentExperience?.group
-                          ? `- ${currentExperience?.group}`
-                          : ""
-                      }`
-                    : `${currentExperience?.area_of_study} - ${currentExperience?.institution}`;
-
                 return (
                   <button
                     key={
@@ -173,9 +174,16 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                 data-h2-padding="b(all, .5)"
                 data-h2-font-color="b(theme-1)"
               >
-                <a href="experience" data-h2-font-weight="b(600)">
-                  {intl.formatMessage(messages.missingExperiences)}
-                </a>
+                {intl.formatMessage(messages.missingExperiences, {
+                  link: (
+                    <a
+                      href={getApplicantExperienceUrl(locale, applicantId)}
+                      data-h2-font-weight="b(600)"
+                    >
+                      {intl.formatMessage(messages.missingExperiencesLinkText)}
+                    </a>
+                  ),
+                })}
               </p>
             )}
           </p>
