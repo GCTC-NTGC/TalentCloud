@@ -46,6 +46,7 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+
   const relevantSkillCount = relevantSkills.length;
 
   const renderDetailedSkill = (
@@ -414,12 +415,19 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
   children,
 }) => {
   const intl = useIntl();
+
+  // We cannot display ExperienceSkills without a matching skill, so filter them out early.
+  const validExperienceSkills = relevantSkills.filter((expSkill) =>
+    hasKey(skillsById, expSkill.skill_id),
+  );
+  const relevantSkillCount = validExperienceSkills.length;
+
   return (
     <ExperienceAccordionWrapper
       id={id}
       title={title}
       subtitle={subtitle}
-      relatedSkillCount={relevantSkills.length}
+      relatedSkillCount={relevantSkillCount}
       isEducationJustification={false}
       iconClass={iconClass}
     >
@@ -431,7 +439,7 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
       <hr data-c-hr="thin(gray)" data-c-margin="bottom(1) top(1)" />
       <ExperienceAccordionSkills
         sectionTitle={intl.formatMessage(displayMessages.profileSectionTitle)}
-        relevantSkills={relevantSkills}
+        relevantSkills={validExperienceSkills}
         irrelevantSkillCount={0}
         skillsById={skillsById}
         showSkillDetails
