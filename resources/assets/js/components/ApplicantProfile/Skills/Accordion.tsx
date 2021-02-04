@@ -5,6 +5,7 @@ import { getApplicantExperienceUrl } from "../../../helpers/routes";
 import { Skill, Experience, ExperienceSkill } from "../../../models/types";
 import { getExperienceOfExperienceSkill } from "../../Application/helpers";
 import Accordion from "../../H2Components/Accordion";
+import Dialog from "../../H2Components/Dialog";
 
 const messages = defineMessages({
   experiencesLabel: {
@@ -29,6 +30,42 @@ const messages = defineMessages({
     id: "applicantProfile.skills.accordion.skillRemoveLabel",
     defaultMessage: "Remove Skill",
     description: "Text for the button to remove a skill on each accordion.",
+  },
+  skillRemoveDialogTitle: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogTitle",
+    defaultMessage: "Remove Skill",
+    description: "Text for title of dialog to remove a skill.",
+  },
+  skillRemoveDialogHeading: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogHeading",
+    defaultMessage: "WARNING!",
+    description: "Text for heading of dialog to remove a skill.",
+  },
+  skillRemoveDialogParagraph1: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogParagraph1",
+    defaultMessage:
+      "This skill is linked to one or more experiences. Deleting this skill from your profile will also remove it from your experiences.",
+    description:
+      "First section of text for content of dialog to remove a skill.",
+  },
+  skillRemoveDialogParagraph2: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogParagraph2",
+    defaultMessage:
+      "Are you sure you want to remove this skill from your profile?",
+    description:
+      "Second section of text for content of dialog to remove a skill.",
+  },
+  skillRemoveDialogActionConfirm: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogActionDelete",
+    defaultMessage: "Remove this skill from my profile",
+    description:
+      "Text for the button to confirm removal of a skill within the Dialog.",
+  },
+  skillRemoveDialogActionCancel: {
+    id: "applicantProfile.skills.accordion.skillRemoveDialogActionDelete",
+    defaultMessage: "Cancel",
+    description:
+      "Text for the button to cancel removal of a skill within the Dialog.",
   },
 });
 
@@ -132,8 +169,12 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
           >
             {localizeFieldNonNull(locale, skill, "description")}
           </p>
-          <p data-h2-margin="b(top, 1)" data-h2-padding="b(all, .5) b(left, 1)">
-            {experiencesOfSkill && experiencesOfSkill.length !== 0 ? (
+          <div
+            data-h2-margin="b(top, 1)"
+            data-h2-padding="b(all, .5) b(left, 1)"
+          >
+            {experiencesOfSkill &&
+              experiencesOfSkill.length !== 0 &&
               experiencesOfSkill.map((experienceSkill) => {
                 const currentExperience = getExperienceOfExperienceSkill(
                   experienceSkill,
@@ -166,43 +207,142 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     </span>
                   </button>
                 );
-              })
-            ) : (
-              <p
-                data-h2-bg-color="b(gray-1, .5)"
-                data-h2-align="b(center)"
-                data-h2-padding="b(all, .5)"
-                data-h2-font-color="b(theme-1)"
-              >
-                {intl.formatMessage(messages.missingExperiences, {
-                  link: (
-                    <a
-                      href={getApplicantExperienceUrl(locale, applicantId)}
-                      data-h2-font-weight="b(600)"
+              })}
+            {experiencesOfSkill && experiencesOfSkill.length !== 0 && (
+              <div data-h2-padding="b(tb, .5)">
+                <Dialog.Trigger
+                  id="skill-dialog"
+                  data-h2-button="gray-1, round, medium, solid"
+                  data-h2-padding="b(all, .5)"
+                  data-h2-margin="b(right, 1)"
+                >
+                  <i
+                    className="fas fa-trash"
+                    data-h2-font-color="b(theme-1)"
+                    data-h2-padding="b(right, .5)"
+                  />
+                  <span data-h2-button-label data-h2-font-color="b(theme-1)">
+                    {intl.formatMessage(messages.skillRemoveLabel)}
+                  </span>
+                </Dialog.Trigger>
+                <Dialog id="skill-dialog">
+                  <Dialog.Header
+                    data-h2-grid="b(middle, contained, padded, .5)"
+                    className="gradient-left-right"
+                  >
+                    <Dialog.Title
+                      data-h2-padding="b(all, .5) b(left, 1)"
+                      data-h2-font-color="b(white)"
+                      data-h2-font-size="b(h4)"
+                      data-h2-grid-item="b(1of2)"
                     >
-                      {intl.formatMessage(messages.missingExperiencesLinkText)}
-                    </a>
-                  ),
-                })}
-              </p>
+                      <i
+                        className="fas fa-trash"
+                        data-h2-font-color="b(white)"
+                        data-h2-padding="b(right, .5)"
+                      />
+                      {intl.formatMessage(messages.skillRemoveDialogTitle)}
+                    </Dialog.Title>
+                    <div data-h2-grid-item="b(1of2)" data-h2-align="b(right)">
+                      <Dialog.ActionBtn data-h2-button="round, small, solid">
+                        <i
+                          data-h2-font-size="b(normal)"
+                          data-h2-font-color="b(white)"
+                          className="fas fa-times"
+                          aria-hidden="true"
+                        />
+                      </Dialog.ActionBtn>
+                    </div>
+                  </Dialog.Header>
+                  <Dialog.Content>
+                    <p
+                      data-h2-padding="b(tb, 1), b(rl, 2)"
+                      data-h2-font-size="b(h5)"
+                      data-h2-font-color="b(theme-3)"
+                    >
+                      {intl.formatMessage(messages.skillRemoveDialogHeading)}
+                    </p>
+                    <p data-h2-padding="b(tb, .5), b(rl, 2)">
+                      {intl.formatMessage(messages.skillRemoveDialogParagraph1)}
+                      <br />
+                      <br />
+                      {intl.formatMessage(messages.skillRemoveDialogParagraph2)}
+                    </p>
+                  </Dialog.Content>
+                  <Dialog.Actions
+                    data-h2-padding="b(all, .5)"
+                    data-h2-align="b(center)"
+                    data-h2-grid="b(middle, contained, flush, 1)"
+                  >
+                    <div data-h2-grid-item="b(1of2)" data-h2-align="b(left)">
+                      <div data-h2-grid-content>
+                        <Dialog.ActionBtn
+                          buttonStyling="gray-1, round, solid"
+                          data-h2-padding="b(rl, 2) b(tb, .5)"
+                        >
+                          {intl.formatMessage(
+                            messages.skillRemoveDialogActionConfirm,
+                          )}
+                        </Dialog.ActionBtn>
+                      </div>
+                    </div>
+                    <div data-h2-grid-item="b(1of2)" data-h2-align="b(right)">
+                      <div data-h2-grid-content>
+                        <Dialog.ActionBtn
+                          buttonStyling="theme-1, round, solid"
+                          data-h2-padding="b(rl, 2) b(tb, .5)"
+                        >
+                          {intl.formatMessage(
+                            messages.skillRemoveDialogActionCancel,
+                          )}
+                        </Dialog.ActionBtn>
+                      </div>
+                    </div>
+                  </Dialog.Actions>
+                </Dialog>
+                <Dialog.Overlay />
+              </div>
             )}
-          </p>
-          <p data-h2-padding="b(all, 1) b(left, 1)">
-            <button
-              type="button"
-              data-h2-display="b(block)"
-              data-h2-button="gray-1, round, medium, solid"
-            >
-              <i
-                className="fas fa-trash"
-                data-h2-font-color="b(theme-1)"
-                data-h2-padding="b(right, .5)"
-              />
-              <span data-h2-button-label data-h2-font-color="b(theme-1)">
-                {intl.formatMessage(messages.skillRemoveLabel)}
-              </span>
-            </button>
-          </p>
+            {experiencesOfSkill && experiencesOfSkill.length === 0 && (
+              <div>
+                <p
+                  data-h2-bg-color="b(gray-1, .5)"
+                  data-h2-align="b(center)"
+                  data-h2-padding="b(tb, .5)"
+                  data-h2-font-color="b(theme-1)"
+                >
+                  {intl.formatMessage(messages.missingExperiences, {
+                    link: (
+                      <a
+                        href={getApplicantExperienceUrl(locale, applicantId)}
+                        data-h2-font-weight="b(600)"
+                      >
+                        {intl.formatMessage(
+                          messages.missingExperiencesLinkText,
+                        )}
+                      </a>
+                    ),
+                  })}
+                </p>
+                <p data-h2-padding="b(tb, .5)">
+                  <button
+                    type="button"
+                    data-h2-display="b(block)"
+                    data-h2-button="gray-1, round, medium, solid"
+                  >
+                    <i
+                      className="fas fa-trash"
+                      data-h2-font-color="b(theme-1)"
+                      data-h2-padding="b(right, .5)"
+                    />
+                    <span data-h2-button-label data-h2-font-color="b(theme-1)">
+                      {intl.formatMessage(messages.skillRemoveLabel)}
+                    </span>
+                  </button>
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </Accordion.Content>
     </Accordion>
