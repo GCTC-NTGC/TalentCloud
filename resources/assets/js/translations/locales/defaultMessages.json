@@ -97,6 +97,51 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "{experienceCount, plural, =0 {No Experiences} one {1 Experience} other {{experienceCount} Experiences}}",
+        "description": "Subheading that displays the count of experiences on each accordion.",
+        "id": "applicantProfile.skills.accordion.experiencesLabel"
+      },
+      {
+        "defaultMessage": "Go to My Experience section to add context to how you have used this skill.",
+        "description": "Text for accordion when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiences"
+      },
+      {
+        "defaultMessage": "Remove Skill",
+        "description": "Text for the button to remove a skill on each accordion.",
+        "id": "applicantProfile.skills.accordion.skillRemoveLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/Accordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Group",
+        "description": "Text for the 'Group' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.group"
+      },
+      {
+        "defaultMessage": "A-Z",
+        "description": "Text for the 'A-Z' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.alpha"
+      },
+      {
+        "defaultMessage": "Journey",
+        "description": "Text for the 'Journey' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.journey"
+      },
+      {
+        "defaultMessage": "Sort By:",
+        "description": "Text for the label on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.sortBy"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Search",
         "description": "The label displayed for the search input field.",
         "id": "searchBar.search.label"
