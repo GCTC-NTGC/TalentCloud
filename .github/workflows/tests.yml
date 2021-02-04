@@ -209,10 +209,11 @@ jobs:
           ${{ runner.os }}-php-
 
      - name: Install dependencies
-       if: steps.composer-cache.outputs.cache-hit != 'true'
-       uses: MilesChou/composer-action/7.2/install@master
+       uses: php-actions/composer@v5
        with:
-        args: install --no-interaction --prefer-dist --no-progress --no-suggest
+        args: --no-interaction --prefer-dist --no-progress --no-suggest
+        php_version: 7.2
+        version: 1
 
      - name: Setup Node.js
        uses: actions/setup-node@v1
