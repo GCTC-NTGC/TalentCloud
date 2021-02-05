@@ -72,16 +72,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Cancel",
-        "description": "Cancel button text",
-        "id": "profileExperience.skillExperienceModal.cancel"
-      },
-      {
-        "defaultMessage": "Delete",
-        "description": "Delete button text",
-        "id": "profileExperience.skillExperienceModal.delete"
-      },
-      {
         "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
         "description": "First section of text on the experience step of the Application Timeline.",
         "id": "profile.experience.preamble"
@@ -699,11 +689,6 @@
       {
         "defaultMessage": "Edit Skill",
         "id": "application.experienceAccordion.editExperienceSkill"
-      },
-      {
-        "defaultMessage": "Skills for this Job",
-        "description": "Subtitle of the skills section.",
-        "id": "application.experienceAccordion.skillsTitle"
       },
       {
         "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",

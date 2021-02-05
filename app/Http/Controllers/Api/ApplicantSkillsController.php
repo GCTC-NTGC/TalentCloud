@@ -10,7 +10,7 @@ class ApplicantSkillsController extends Controller
     public function index(Applicant $applicant)
     {
         return [
-            'skill_ids' => $applicant->skills->pluck('id')
+            'skill_ids' => $applicant->skills->pluck('id')->all()
         ];
     }
 

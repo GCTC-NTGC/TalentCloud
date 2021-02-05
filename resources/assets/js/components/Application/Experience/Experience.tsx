@@ -15,29 +15,24 @@ import {
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
 import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
+  FormEducationStatus,
+  FormEducationType,
   messages as educationMessages,
-  EducationType,
-  EducationStatus,
-  EducationExperienceSubmitData,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
   messages as workMessages,
-  WorkExperienceSubmitData,
 } from "../ExperienceModals/WorkExperienceModal";
 import CommunityExperienceModal, {
   messages as communityMessages,
-  CommunityExperienceSubmitData,
 } from "../ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal, {
   messages as personalMessages,
-  PersonalExperienceSubmitData,
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
-  AwardRecipientType,
-  AwardRecognitionType,
-  AwardExperienceSubmitData,
+  FormAwardRecipientType,
+  FormAwardRecognitionType,
 } from "../ExperienceModals/AwardExperienceModal";
 import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
 import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
@@ -52,6 +47,7 @@ import {
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 import { focusOnElement } from "../../../helpers/forms";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -197,33 +193,28 @@ const applicationExperienceAccordion = (
   }
 };
 
-export type ExperienceSubmitData =
-  | EducationExperienceSubmitData
-  | WorkExperienceSubmitData
-  | CommunityExperienceSubmitData
-  | PersonalExperienceSubmitData
-  | AwardExperienceSubmitData;
-
 interface ExperienceProps {
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   hasError?: boolean;
   essentialSkills: Skill[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   jobId: number;
   jobEducationRequirements: string | null;
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   classificationEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
   skills: Skill[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
@@ -686,21 +677,23 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 
 interface ExperienceStepProps {
   experiences: Experience[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
   jobEducationRequirements: string | null;
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   classificationEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -727,13 +720,6 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
 
-  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
-  useEffect(() => {
-    if (hasError) {
-      focusOnElement("experience-step-form-error");
-    }
-  }, [hasError]);
-
   const filteredSkills = criteria.reduce(
     (result, criterion): { essential: Skill[]; asset: Skill[] } => {
       const skillOfCriterion = getSkillOfCriteria(criterion, skills);
@@ -758,6 +744,16 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     experienceSkills,
     essentialSkills,
   );
+
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement("experience-step-form-error");
+    }
+    if (disconnectedRequiredSkills.length === 0) {
+      setHasError(false);
+    }
+  }, [hasError, disconnectedRequiredSkills]);
 
   return (
     <>

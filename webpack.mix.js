@@ -72,7 +72,7 @@ mix
     "public/js",
   )
   .ts(
-    "resources/assets/js/components/ApplicantProfile/ProfileExperiencePage.tsx",
+    "resources/assets/js/components/ApplicantProfile/Experience/ProfileExperiencePage.tsx",
     "public/js",
   )
   .ts(
