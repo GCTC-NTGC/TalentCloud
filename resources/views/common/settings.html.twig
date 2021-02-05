@@ -215,7 +215,7 @@
                                         <span>{{ settings.required }}</span>
                                         <div>
                                             <input id="current_password" name="current_password" required type="password" value="" autocomplete="off"/>
-                                            <button type="button">
+                                            <button class="showPassword" aria-label={{ settings.show_password }} aria-pressed="false" type="button">
                                                 <i class="fas fa-eye"></i>
                                                 <i class="fas fa-eye-slash"></i>
                                             </button>
@@ -227,7 +227,7 @@
                                         <span>{{ settings.required }}</span>
                                         <div>
                                             <input id="new_password" name="new_password" required type="password" autocomplete="off"/>
-                                            <button type="button">
+                                            <button class="showPassword" aria-label={{ settings.show_password }} aria-pressed="false" type="button">
                                                 <i class="fas fa-eye"></i>
                                                 <i class="fas fa-eye-slash"></i>
                                             </button>
@@ -239,7 +239,7 @@
                                         <span>{{ settings.required }}</span>
                                         <div>
                                             <input id="new_confirm_password" name="new_confirm_password" required type="password" autocomplete="off"/>
-                                            <button type="button">
+                                            <button class="showPassword" aria-label={{ settings.show_password }} aria-pressed="false" type="button">
                                                 <i class="fas fa-eye"></i>
                                                 <i class="fas fa-eye-slash"></i>
                                             </button>
