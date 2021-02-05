@@ -5,7 +5,7 @@ import {
   localizeFieldNonNull,
   matchStringsCaseDiacriticInsensitive,
 } from "../helpers/localize";
-import { createOrRemove } from "../helpers/queries";
+import { addOrRemove } from "../helpers/queries";
 import { Skill, SkillCategory } from "../models/types";
 import SearchBar from "./ApplicantProfile/Skills/SkillSearchBar";
 import Accordion from "./H2Components/Accordion";
@@ -213,7 +213,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         }
                         onClick={() =>
                           setExpandedAccordions(
-                            createOrRemove(key, expandedAccordions),
+                            addOrRemove(key, expandedAccordions),
                           )
                         }
                       >
@@ -470,7 +470,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               onClick={() => {
                                 // If the skill has been selected then remove it.
                                 // Else, if the has not been selected then add it to addedSkills list.
-                                setNewSkills(createOrRemove(skill, newSkills));
+                                setNewSkills(addOrRemove(skill, newSkills));
                               }}
                             >
                               <p
