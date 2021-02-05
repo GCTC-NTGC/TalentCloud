@@ -237,20 +237,18 @@ export function removeDuplicatesById<T extends { id: number }>(
  *
  * @param locale
  */
-export function sortLocalizedAlphabetical(
-  locale: Locales,
-): <T extends { name: localizedField | localizedFieldNonNull }>(
-  first: T,
-  second: T,
-) => number {
-  return function (first, second) {
+export function sortLocalizedAlphabetical(locale: Locales) {
+  return (
+    first: { name: localizedField | localizedFieldNonNull },
+    second: { name: localizedField | localizedFieldNonNull },
+  ): number => {
     let firstName: string | null | undefined;
     let secondName: string | null | undefined;
 
     if (first.name.en !== null && first.name.fr !== null) {
       firstName = localizeFieldNonNull(
         locale,
-        first,
+        first as { name: localizedFieldNonNull },
         "name",
       ).toLocaleUpperCase();
     } else {
@@ -260,7 +258,7 @@ export function sortLocalizedAlphabetical(
     if (second.name.en !== null && second.name.fr !== null) {
       secondName = localizeFieldNonNull(
         locale,
-        second,
+        second as { name: localizedFieldNonNull },
         "name",
       ).toLocaleUpperCase();
     } else {
