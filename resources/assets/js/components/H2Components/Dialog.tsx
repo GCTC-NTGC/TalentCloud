@@ -1,8 +1,7 @@
 import * as React from "react";
 import {
-  h2ComponentDialogLoad,
-  h2ComponentDialogLoadResize,
-  h2ComponentDialogEnableTrigger,
+  h2DialogResizeOnViewport,
+  h2DialogTrigger,
 } from "@hydrogen-design-system/system/dist/import/latest/components/dialog/scripts/dialog";
 import { GeneralProps, GeneralBtnProps } from "./utils";
 
@@ -45,7 +44,7 @@ const ActionBtn: React.FunctionComponent<GeneralBtnProps & GeneralProps> = (
   const { buttonStyling, type, onClick, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2ComponentDialogEnableTrigger("latest", ref.current);
+    h2DialogTrigger("latest", ref.current);
   });
   return (
     <button
@@ -115,7 +114,7 @@ const Trigger: React.FunctionComponent<TriggerProps> = (props) => {
   const { id, buttonStyling, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2ComponentDialogEnableTrigger("latest", ref.current);
+    h2DialogTrigger("latest", ref.current);
   });
   return (
     <button
@@ -146,9 +145,8 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
 ) => {
   const { id, className, children, ...rest } = props;
   React.useEffect(() => {
-    h2ComponentDialogLoad();
-    h2ComponentDialogLoadResize();
-    h2ComponentDialogEnableTrigger();
+    h2DialogResizeOnViewport();
+    h2DialogTrigger();
   });
   return (
     <DialogContext.Provider value={props}>

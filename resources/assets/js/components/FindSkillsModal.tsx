@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
   getLocale,
+  localizeFieldNonNull,
   matchStringsCaseDiacriticInsensitive,
 } from "../helpers/localize";
+import { createOrRemove } from "../helpers/queries";
 import { Skill, SkillCategory } from "../models/types";
 import SearchBar from "./ApplicantProfile/Skills/SkillSearchBar";
 import Accordion from "./H2Components/Accordion";
@@ -176,7 +178,8 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
               handleSubmit={handleSkillSearch}
             />
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
-              {parentSkillCategories.map(({ id, name, key, description }) => {
+              {parentSkillCategories.map((parentSkillCategory) => {
+                const { id, key } = parentSkillCategory;
                 // Get children skill categories of parent skill category.
                 const childrenSkillCategories = skillCategories.filter(
                   (childSkillCategory) =>
@@ -195,7 +198,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                   >
                     <Accordion triggerPos="left">
                       <Accordion.Btn
-                        buttonStyling=""
                         type="button"
                         addIcon={
                           <i
@@ -211,15 +213,17 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         }
                         onClick={() =>
                           setExpandedAccordions(
-                            expandedAccordions.includes(key)
-                              ? expandedAccordions.filter(
-                                  (accordionKey) => accordionKey !== key,
-                                )
-                              : [...expandedAccordions, key],
+                            createOrRemove(key, expandedAccordions),
                           )
                         }
                       >
-                        <p data-h2-font-weight="b(700)">{name[locale]}</p>
+                        <p data-h2-font-weight="b(700)">
+                          {localizeFieldNonNull(
+                            locale,
+                            parentSkillCategory,
+                            "name",
+                          )}
+                        </p>
                       </Accordion.Btn>
                       <p
                         data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
@@ -227,7 +231,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         data-h2-font-size="b(small)"
                         style={{ paddingLeft: "5rem" }}
                       >
-                        {description[locale]}
+                        {localizeFieldNonNull(
+                          locale,
+                          parentSkillCategory,
+                          "description",
+                        )}
                       </p>
                       <Accordion.Content>
                         <ul
@@ -239,7 +247,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               return (
                                 <li key={childSkillCatergory.key}>
                                   <div
-                                    data-h2-dialog-actions
                                     data-h2-grid="b(middle, expanded, flush, 0)"
                                     data-h2-margin="b(right, .5)"
                                   >
@@ -256,15 +263,18 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                             childSkillCatergory.key,
                                           );
                                           setResultsSectionText({
-                                            title: `${
-                                              childSkillCatergory.name[locale]
-                                            } ${intl.formatMessage(
+                                            title: `${localizeFieldNonNull(
+                                              locale,
+                                              childSkillCatergory,
+                                              "name",
+                                            )} ${intl.formatMessage(
                                               messages.skills,
                                             )}`,
-                                            description:
-                                              childSkillCatergory.description[
-                                                locale
-                                              ],
+                                            description: localizeFieldNonNull(
+                                              locale,
+                                              childSkillCatergory,
+                                              "description",
+                                            ),
                                           });
                                           setSkillsResults(
                                             childSkillCatergory.skills,
@@ -289,7 +299,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                           }`}
                                           data-h2-align="b(left)"
                                         >
-                                          {childSkillCatergory.name[locale]}
+                                          {localizeFieldNonNull(
+                                            locale,
+                                            childSkillCatergory,
+                                            "name",
+                                          )}
                                         </p>
                                       </button>
                                     </div>
@@ -332,7 +346,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           >
             {firstVisit ? (
               <div
-                data-h2-padding="b(tb, 5) b(right, 3) b(left, 4)"
+                data-h2-padding="s(tb, 5) s(right, 3) s(left, 4) b(bottom, 3) b(rl, 2)"
                 data-h2-container="b(center, large)"
               >
                 <p
@@ -349,7 +363,8 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                 <p>{intl.formatMessage(messages.skillResultsSubHeading)}</p>
               </div>
             ) : (
-              <div>
+              <div data-h2-padding="s(rl, 0) b(bottom, 3) b(rl, 1)">
+                {/* Back Button */}
                 <button
                   data-h2-button
                   type="button"
@@ -392,7 +407,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                     className="no-list-style-type"
                   >
                     {skillsResults.map((skill) => {
-                      const { id, name, description } = skill;
+                      const { id } = skill;
                       const isAdded = newSkills.find(
                         (newSkill) => newSkill.id === skill.id,
                       );
@@ -412,7 +427,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                 data-h2-font-weight="b(700)"
                                 data-h2-font-style="b(underline)"
                               >
-                                {name[locale]}
+                                {localizeFieldNonNull(locale, skill, "name")}
                                 {isAdded && (
                                   <i
                                     data-h2-padding="b(left, .5)"
@@ -424,7 +439,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               </p>
                             </Accordion.Btn>
                             <Accordion.Content>
-                              <p data-h2-focus>{description[locale]}</p>
+                              <p data-h2-focus>
+                                {localizeFieldNonNull(
+                                  locale,
+                                  skill,
+                                  "description",
+                                )}
+                              </p>
                             </Accordion.Content>
                           </Accordion>
                           {isOldSkill ? (
@@ -449,16 +470,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               onClick={() => {
                                 // If the skill has been selected then remove it.
                                 // Else, if the has not been selected then add it to addedSkills list.
-                                if (isAdded) {
-                                  setNewSkills(
-                                    newSkills.filter(
-                                      (applicantSkill) =>
-                                        applicantSkill.id !== skill.id,
-                                    ),
-                                  );
-                                } else {
-                                  setNewSkills([...newSkills, skill]);
-                                }
+                                setNewSkills(createOrRemove(skill, newSkills));
                               }}
                             >
                               <p
@@ -503,7 +515,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
               data-h2-padding="b(rl, 2) b(tb, .5)"
               data-h2-bg-color="b(white, 1)"
               onClick={() => {
-                setSkillsResults([]);
+                setNewSkills([]);
               }}
             >
               <p>{intl.formatMessage(messages.cancelButton)}</p>

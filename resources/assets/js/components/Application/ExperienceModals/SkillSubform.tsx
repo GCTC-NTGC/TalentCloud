@@ -29,19 +29,19 @@ export const validationShape = {
   optionalSkills: Yup.array().of(Yup.string()),
 };
 
-export interface SkillSubformProps {
+export interface ApplicationSkillSubformProps {
   keyPrefix: string;
   jobId: number;
   jobRequiredSkills: string[];
   jobOptionalSkills: string[];
 }
 
-export function SkillSubform({
+export function ApplicationSkillSubform({
   keyPrefix,
   jobId,
   jobRequiredSkills,
   jobOptionalSkills,
-}: SkillSubformProps): React.ReactElement {
+}: ApplicationSkillSubformProps): React.ReactElement {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
@@ -146,4 +146,4 @@ export function SkillSubform({
   );
 }
 
-export default SkillSubform;
+export default ApplicationSkillSubform;

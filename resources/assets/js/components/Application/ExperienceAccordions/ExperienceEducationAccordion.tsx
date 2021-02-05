@@ -125,7 +125,6 @@ interface ProfileEducationAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
 }
 
 export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps> = ({
@@ -134,7 +133,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -176,7 +174,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceEducationDetails experience={experience} />
     </ProfileExperienceAccordion>
