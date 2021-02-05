@@ -35,4 +35,5 @@ return [
     'gov_email' => 'Votre courriel gouvernemental',
     'register' => 'S\'inscrire',
     'already_have_account' => 'Vous avez déjà un compte?',
+    'show_password' => 'Afficher le mot de passe'
 ];
