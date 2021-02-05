@@ -12,13 +12,13 @@ import {
   fakeSkill6,
 } from "../fakeData/fakeSkills";
 import { Skill } from "../models/types";
-import SkillSearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar";
 import { matchStringsCaseDiacriticInsensitive } from "../helpers/localize";
 import SkillSearchResults, {
   SkillSearchResult,
 } from "../components/ApplicantProfile/Skills/SkillSearchResults";
 
-const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
+const stories = storiesOf("Components/Search Bar", module).addDecorator(
   withIntl,
 );
 
@@ -32,14 +32,11 @@ let skills = [
 ];
 
 stories.add(
-  "Search Bar",
+  "Skills Search Bar",
   (): React.ReactElement => {
     const [skillResults, setSkillsResults] = useState<SkillSearchResult[]>([]);
 
-    const handleSubmit = (
-      locale: string,
-      search: string,
-    ): Promise<SkillSearchResult[]> => {
+    const handleSubmit = (locale: string, search: string): Promise<void> => {
       const skillNamesLocale = skills.map((skill) => skill.name[locale]);
       const skillStrings = matchStringsCaseDiacriticInsensitive(
         search,
@@ -50,7 +47,7 @@ stories.add(
       );
       action("Submit Search")(search);
       setSkillsResults(skillMatches);
-      return Promise.resolve(skillMatches);
+      return Promise.resolve();
     };
 
     const handleAddSkill = (skillId: number): Promise<Skill> => {
@@ -66,10 +63,7 @@ stories.add(
     };
     return (
       <section>
-        <SkillSearchBar
-          inputTitle="Search Skills"
-          handleSubmit={handleSubmit}
-        />
+        <SearchBar inputTitle="Search Skills" handleSubmit={handleSubmit} />
         <SkillSearchResults
           handleAddSkill={handleAddSkill}
           results={skillResults}

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
+import { h2AccordionToggle } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
 import { Skill } from "../../../models/types";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 
@@ -154,7 +154,7 @@ export const SkillSearchResults: React.FunctionComponent<SkillSearchResultsProps
 }: SkillSearchResultsProps): React.ReactElement => {
   const intl = useIntl();
   React.useEffect((): void => {
-    h2ComponentAccordionAddTriggerEvent();
+    h2AccordionToggle();
   });
 
   return (

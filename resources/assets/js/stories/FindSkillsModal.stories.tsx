@@ -6,10 +6,9 @@ import FindSkillsModal from "../components/FindSkillsModal";
 import { fakeSkill2, fakeSkill4, fakeSkills } from "../fakeData/fakeSkills";
 import { fakeSkillCategories } from "../fakeData/fakeSkillCategories";
 
-const stories = storiesOf(
-  "Applicant Profile/Find Skills Modal",
-  module,
-).addDecorator(withIntl);
+const stories = storiesOf("Components/Find Skills Modal", module).addDecorator(
+  withIntl,
+);
 
 stories.add(
   "Find Skills Modal",
