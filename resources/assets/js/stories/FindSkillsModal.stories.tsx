@@ -2,9 +2,9 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import FindSkillsModal from "../../components/FindSkillsModal";
-import { fakeSkill2, fakeSkill4, fakeSkills } from "../../fakeData/fakeSkills";
-import { fakeSkillCategories } from "../../fakeData/fakeSkillCategories";
+import FindSkillsModal from "../components/FindSkillsModal";
+import { fakeSkill2, fakeSkill4, fakeSkills } from "../fakeData/fakeSkills";
+import { fakeSkillCategories } from "../fakeData/fakeSkillCategories";
 
 const stories = storiesOf(
   "Applicant Profile/Find Skills Modal",

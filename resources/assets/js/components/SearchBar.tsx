@@ -2,10 +2,9 @@ import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
 import { useIntl, defineMessages } from "react-intl";
-import { validationMessages } from "../../Form/Messages";
-import { getLocale } from "../../../helpers/localize";
-import TextInput from "../../Form/TextInput";
-import { Skill } from "../../../models/types";
+import { validationMessages } from "./Form/Messages";
+import { getLocale } from "../helpers/localize";
+import TextInput from "./Form/TextInput";
 
 const formMessages = defineMessages({
   searchLabel: {
@@ -28,7 +27,7 @@ const formMessages = defineMessages({
 interface SearchBarProps {
   inputTitle: string;
   submitButton?: React.ReactElement;
-  handleSubmit: (locale: string, searchQuery: string) => Promise<Skill[]>;
+  handleSubmit: (locale: string, searchQuery: string) => Promise<void>;
 }
 
 interface SearchBarValues {
@@ -67,7 +66,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
             });
         }}
       >
-        {({ status, isSubmitting }): React.ReactElement => (
+        {({ isSubmitting }): React.ReactElement => (
           <Form>
             <div data-h2-grid="b(middle, contained, padded, .5)">
               <div data-h2-grid-item="b(6of7)">

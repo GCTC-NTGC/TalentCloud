@@ -2,7 +2,6 @@ import * as React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import { forEachRight } from "lodash";
 import { useState } from "@storybook/addons";
 import {
   fakeSkill,
@@ -11,13 +10,13 @@ import {
   fakeSkill4,
   fakeSkill5,
   fakeSkill6,
-} from "../../../fakeData/fakeSkills";
-import { Skill } from "../../../models/types";
-import SkillSearchBar from "../../../components/ApplicantProfile/Skills/SkillSearchBar";
-import { matchStringsCaseDiacriticInsensitive } from "../../../helpers/localize";
+} from "../fakeData/fakeSkills";
+import { Skill } from "../models/types";
+import SkillSearchBar from "../components/SearchBar";
+import { matchStringsCaseDiacriticInsensitive } from "../helpers/localize";
 import SkillSearchResults, {
   SkillSearchResult,
-} from "../../../components/ApplicantProfile/Skills/SkillSearchResults";
+} from "../components/ApplicantProfile/Skills/SkillSearchResults";
 
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,

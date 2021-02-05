@@ -7,7 +7,7 @@ import {
 } from "../helpers/localize";
 import { addOrRemove } from "../helpers/queries";
 import { Skill, SkillCategory } from "../models/types";
-import SearchBar from "./ApplicantProfile/Skills/SkillSearchBar";
+import SearchBar from "./SearchBar";
 import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
@@ -116,7 +116,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
   const handleSkillSearch = (
     searchLocale: string,
     searchQuery: string,
-  ): Promise<Skill[]> => {
+  ): Promise<void> => {
     const skillNames: string[] = skills.map(
       (skill) => skill.name[searchLocale],
     );
@@ -138,7 +138,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
       description: "",
     });
     setSkillsResults(skillMatches);
-    return Promise.resolve(skillMatches);
+    return Promise.resolve();
   };
   return (
     <section>
