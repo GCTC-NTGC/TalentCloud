@@ -269,7 +269,7 @@ jobs:
      - name: Run browser tests
        uses: DevExpress/testcafe-action@latest
        with:
-        args: "chrome:headless --hostname talent.test --allow-insecure-localhost --ignore-certificate-errors tests/Browser/*.js -u -e -q"
+        args: "chrome:headless tests/Browser/*.js -u -e -q --fixture-meta travis=run"
 
      - name: Send Slack notification
        if: failure()
