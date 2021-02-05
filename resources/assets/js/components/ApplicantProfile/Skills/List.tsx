@@ -81,7 +81,7 @@ const List: React.FC<ListProps> = ({
   const locale = getLocale(intl.locale);
   const [sortType, setSortType] = useState<SortTypes>(SortTypes.Group);
 
-  const skillCategoriesGrouped = skillCategories
+  const skillCategoriesGroupedObject = skillCategories
     .filter((skillCategory) => skillCategory.depth !== 1) // Filter out non-top-level categories.
     .reduce(
       (
@@ -124,8 +124,20 @@ const List: React.FC<ListProps> = ({
         return accumulator;
       },
       [],
-    )
-    .filter((z) => (z !== null && !z.skills) || z.skills.length > 0); // Remove all empty objects and groups with no skills.
+    );
+
+  const skillCategoriesGrouped = Object.keys(skillCategoriesGroupedObject).map(
+    (z) => {
+      if (
+        skillCategoriesGroupedObject[z] !== null &&
+        (!skillCategoriesGroupedObject[z].skills ||
+          skillCategoriesGroupedObject[z].skills.length > 0)
+      ) {
+        return skillCategoriesGroupedObject[z]; // Return only non-empty objects and groups that have skills.
+      }
+      return false;
+    },
+  );
 
   return (
     <div>
