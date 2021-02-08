@@ -13,11 +13,17 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { Skill, ExperienceAward } from "../../../models/types";
+import {
+  Skill,
+  ExperienceAward,
+  AwardRecipientType,
+  AwardRecognitionType,
+} from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -29,18 +35,14 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
-import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
 
-export interface AwardRecipientType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormAwardRecipientType = Pick<AwardRecipientType, "id" | "name">;
 
-export interface AwardRecognitionType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormAwardRecognitionType = Pick<
+  AwardRecognitionType,
+  "id" | "name"
+>;
 
 export const messages = defineMessages({
   modalTitle: {
@@ -103,9 +105,9 @@ export interface AwardDetailsFormValues {
   awardedDate: string;
 }
 
-const DetailsSubform: FunctionComponent<{
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+export const AwardDetailsSubform: FunctionComponent<{
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
 }> = ({ recipientTypes, recognitionTypes }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -177,14 +179,9 @@ const DetailsSubform: FunctionComponent<{
 type AwardExperienceFormValues = SkillFormValues &
   EducationFormValues &
   AwardDetailsFormValues;
-export interface AwardExperienceSubmitData {
-  experienceAward: ExperienceAward;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const awardValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const inPastMsg = intl.formatMessage(validationMessages.dateMustBePast);
   return {
@@ -196,7 +193,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experience: ExperienceAward,
   creatingNew: boolean,
 ): AwardDetailsFormValues => {
@@ -210,22 +207,22 @@ const experienceToDetails = (
 };
 
 const dataToFormValues = (
-  data: AwardExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceAward>,
   locale: Locales,
   creatingNew: boolean,
 ): AwardExperienceFormValues => {
-  const { experienceAward, savedRequiredSkills, savedOptionalSkills } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceAward.is_education_requirement,
-    ...experienceToDetails(data.experienceAward, creatingNew),
+    useAsEducationRequirement: experience.is_education_requirement,
+    ...experienceToDetails(data.experience, creatingNew),
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: AwardDetailsFormValues,
   originalExperience: ExperienceAward,
 ): ExperienceAward => {
@@ -248,11 +245,11 @@ const formValuesToData = (
   originalExperience: ExperienceAward,
   locale: Locales,
   skills: Skill[],
-): AwardExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceAward> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceAward: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -265,7 +262,7 @@ const formValuesToData = (
   };
 };
 
-const newExperienceAward = (
+export const newExperienceAward = (
   experienceableId: number,
   experienceableType: ExperienceAward["experienceable_type"],
 ): ExperienceAward => ({
@@ -283,92 +280,11 @@ const newExperienceAward = (
   type: "experience_award",
 });
 
-interface ProfileAwardModalProps {
-  modalId: string;
-  experienceAward: ExperienceAward | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
-  experienceableId: number;
-  experienceableType: ExperienceAward["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceAward) => Promise<void>;
-}
-
-export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
-  modalId,
-  experienceAward,
-  recipientTypes,
-  recognitionTypes,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceAward ?? newExperienceAward(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(
-    originalExperience,
-    experienceAward === null,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-trophy"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform
-                recipientTypes={recipientTypes}
-                recognitionTypes={recognitionTypes}
-              />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
-
 interface AwardExperienceModalProps {
   modalId: string;
   experienceAward: ExperienceAward | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   jobId: number;
   classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
@@ -381,7 +297,9 @@ interface AwardExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: AwardExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceAward>,
+  ) => Promise<void>;
 }
 
 export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
@@ -414,7 +332,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
 
   const initialFormValues = dataToFormValues(
     {
-      experienceAward: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },
@@ -425,7 +343,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...awardValidationShape(intl),
   });
 
   return (
@@ -462,7 +380,7 @@ export const AwardExperienceModal: React.FC<AwardExperienceModalProps> = ({
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform
+              <AwardDetailsSubform
                 recipientTypes={recipientTypes}
                 recognitionTypes={recognitionTypes}
               />

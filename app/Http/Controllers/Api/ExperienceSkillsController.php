@@ -70,6 +70,12 @@ class ExperienceSkillsController extends Controller
         $experienceSkill->delete();
     }
 
+    /**
+     * Create many new ExperienceSkills at once.
+     *
+     * @param BatchStoreExperienceSkill $request
+     * @return void
+     */
     public function batchStore(BatchStoreExperienceSkill $request)
     {
         $validatedResult = $request->validated();
@@ -108,6 +114,12 @@ class ExperienceSkillsController extends Controller
         return JsonResource::collection($response);
     }
 
+    /**
+     * Update many existing ExperienceSkills at once.
+     *
+     * @param BatchUpdateExperienceSkill $request
+     * @return void
+     */
     public function batchUpdate(BatchUpdateExperienceSkill $request)
     {
         $validatedResult = $request->validated();
