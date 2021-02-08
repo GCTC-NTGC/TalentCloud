@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
+import { h2AccordionToggle } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
 import { GeneralProps, GeneralBtnProps } from "./utils";
 
 const messages = defineMessages({
@@ -11,7 +11,7 @@ const messages = defineMessages({
   },
 });
 
-interface AccordionContext {
+interface AccordionContext extends GeneralProps {
   /** The position of the open and close trigger element, which can be set to the left or right side of the accordion buttons content */
   triggerPos?: "left" | "right";
 }
@@ -48,7 +48,14 @@ interface BtnProps extends GeneralProps, GeneralBtnProps {
 
 const Btn: React.FunctionComponent<BtnProps> = (props) => {
   useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
-  const { addIcon, removeIcon, buttonStyling, className, children } = props;
+  const {
+    addIcon,
+    removeIcon,
+    buttonStyling,
+    className,
+    children,
+    ...rest
+  } = props;
   const intl = useIntl();
   return (
     <button
@@ -58,7 +65,7 @@ const Btn: React.FunctionComponent<BtnProps> = (props) => {
       data-h2-accordion-trigger
       tabIndex={0}
       className={className}
-      {...props}
+      {...rest}
     >
       <span data-h2-accordion-trigger-label>
         {intl.formatMessage(messages.expand)}
@@ -76,13 +83,13 @@ const Btn: React.FunctionComponent<BtnProps> = (props) => {
 
 const Content: React.FunctionComponent<GeneralProps> = (props) => {
   useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
-  const { className, children } = props;
+  const { className, children, ...rest } = props;
   return (
     <div
       aria-hidden="true"
       data-h2-accordion-content
       className={className}
-      {...props}
+      {...rest}
     >
       {children}
     </div>
@@ -96,14 +103,19 @@ interface AccordionComposition {
 
 const Accordion: React.FunctionComponent<AccordionContext> &
   AccordionComposition = (props) => {
-  const { triggerPos, children } = props;
+  const { triggerPos, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2ComponentAccordionAddTriggerEvent("latest", ref.current);
+    h2AccordionToggle(ref.current, "latest");
   });
   return (
     <AccordionContext.Provider value={props}>
-      <div ref={ref} data-h2-accordion={triggerPos || "left"} {...props}>
+      <div
+        ref={ref}
+        data-h2-accordion={triggerPos || "left"}
+        className={className}
+        {...rest}
+      >
         {children}
       </div>
     </AccordionContext.Provider>

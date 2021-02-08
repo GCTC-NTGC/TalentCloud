@@ -328,7 +328,7 @@ export const getApplicationUrl = (
   return applicationUrlMap[portal];
 };
 
-export const baseApplicantProfileUrl = (
+const baseApplicantProfileUrl = (
   locale: Locales,
   applicantId: number,
 ): string => {
@@ -339,3 +339,8 @@ export const getApplicantExperienceUrl = (
   locale: Locales,
   applicantId: number,
 ): string => `${baseApplicantProfileUrl(locale, applicantId)}/experience`;
+
+export const getApplicantSkillsUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => `${baseApplicantProfileUrl(locale, applicantId)}/skills`;

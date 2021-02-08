@@ -16,7 +16,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::with('classifications')->get();
+        $skills = Skill::with('classifications', 'skill_categories')->get();
         return SkillResource::collection($skills);
     }
 }

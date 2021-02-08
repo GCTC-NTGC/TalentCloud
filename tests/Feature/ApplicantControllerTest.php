@@ -89,7 +89,7 @@ class ApplicantControllerTest extends TestCase
         $newApplicantClassification = array_replace(
             $newApplicantClassification,
             [
-                'classification_id' => $oldApplicantClassification['classification_id'] + 1,
+                'classification_id' => Classification::inRandomOrder()->first()->id,
                 'level' => $newApplicantClassification['level'] + 1,
             ]
         );

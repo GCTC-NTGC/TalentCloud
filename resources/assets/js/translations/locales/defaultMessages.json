@@ -1006,11 +1006,6 @@
         "id": "application.experienceAccordion.editExperienceSkill"
       },
       {
-        "defaultMessage": "Skills for this Job",
-        "description": "Subtitle of the skills section.",
-        "id": "application.experienceAccordion.skillsTitle"
-      },
-      {
         "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
         "description": "Say how many skills unrelated to this job are associated with this experience.",
         "id": "application.experienceAccordion.irrelevantSkillCount"

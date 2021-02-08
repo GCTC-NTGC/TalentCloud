@@ -1,4 +1,12 @@
 import { SkillCategory } from "../models/types";
+import {
+  fakeSkill,
+  fakeSkill2,
+  fakeSkill3,
+  fakeSkill4,
+  fakeSkill5,
+  fakeSkill6,
+} from "./fakeSkills";
 
 export const fakeSkillCategoryParent1 = (): SkillCategory => ({
   id: 1,
@@ -7,12 +15,17 @@ export const fakeSkillCategoryParent1 = (): SkillCategory => ({
     en: "Transferable",
     fr: "Transférable",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: null,
   lft: 2,
   rgt: 11,
   depth: 1,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryParent2 = (): SkillCategory => ({
@@ -22,12 +35,16 @@ export const fakeSkillCategoryParent2 = (): SkillCategory => ({
     en: "Digital and Technology",
     fr: "Numérique et technologie",
   },
+  description: {
+    en: "On the job work skills and knowledge specific to the digital sector.",
+    fr:
+      "Sur le lieu de travail, les compétences et connaissances professionnelles spécifiques au secteur numérique.",
+  },
   parent_id: null,
   lft: 12,
   rgt: 21,
   depth: 1,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryChild1 = (): SkillCategory => ({
@@ -37,12 +54,17 @@ export const fakeSkillCategoryChild1 = (): SkillCategory => ({
     en: "Working In Government",
     fr: "Travailler au gouvernement",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 1,
   lft: 3,
   rgt: 4,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [fakeSkill4()],
 });
 
 export const fakeSkillCategoryChild2 = (): SkillCategory => ({
@@ -52,12 +74,17 @@ export const fakeSkillCategoryChild2 = (): SkillCategory => ({
     en: "Cognitive",
     fr: "Cognitive",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 1,
   lft: 5,
   rgt: 6,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryChild3 = (): SkillCategory => ({
@@ -67,12 +94,17 @@ export const fakeSkillCategoryChild3 = (): SkillCategory => ({
     en: "Communication",
     fr: "Communication",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 1,
   lft: 7,
   rgt: 8,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryChild4 = (): SkillCategory => ({
@@ -82,12 +114,17 @@ export const fakeSkillCategoryChild4 = (): SkillCategory => ({
     en: "Personal",
     fr: "Personnel",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 1,
   lft: 9,
   rgt: 10,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [fakeSkill4(), fakeSkill6()],
 });
 
 export const fakeSkillCategoryChild5 = (): SkillCategory => ({
@@ -97,12 +134,17 @@ export const fakeSkillCategoryChild5 = (): SkillCategory => ({
     en: "Web",
     fr: "Web",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 2,
   lft: 13,
   rgt: 14,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [fakeSkill(), fakeSkill2(), fakeSkill3(), fakeSkill5()],
 });
 
 export const fakeSkillCategoryChild6 = (): SkillCategory => ({
@@ -112,12 +154,17 @@ export const fakeSkillCategoryChild6 = (): SkillCategory => ({
     en: "DevOps",
     fr: "Devops",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 2,
   lft: 15,
   rgt: 16,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryChild7 = (): SkillCategory => ({
@@ -127,12 +174,17 @@ export const fakeSkillCategoryChild7 = (): SkillCategory => ({
     en: "Systems",
     fr: "Systèmes",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 2,
   lft: 17,
   rgt: 18,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoryChild8 = (): SkillCategory => ({
@@ -142,12 +194,17 @@ export const fakeSkillCategoryChild8 = (): SkillCategory => ({
     en: "Analytics",
     fr: "Analyse des données",
   },
+  description: {
+    en:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+    fr:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, eius! Laudantium maxime magnam temporibus perferendis.",
+  },
   parent_id: 2,
   lft: 19,
   rgt: 20,
   depth: 2,
-  created_at: new Date(),
-  updated_at: new Date(),
+  skills: [],
 });
 
 export const fakeSkillCategoriesParents = (): SkillCategory[] => [

@@ -169,7 +169,7 @@ const List: React.FC<ListProps> = ({
                 );
                 return (
                   <SkillAccordion
-                    key={`skill-accordion-${skill.id}`}
+                    key={`skill-accordion-group-${skill.id}`}
                     skill={skill}
                     experiences={experiences}
                     experiencesOfSkill={experiencesOfSkill}
@@ -187,7 +187,7 @@ const List: React.FC<ListProps> = ({
           );
           return (
             <SkillAccordion
-              key={`skill-accordion-${skill.id}`}
+              key={`skill-accordion-alpha-${skill.id}`}
               skill={skill}
               experiences={experiences}
               experiencesOfSkill={experiencesOfSkill}

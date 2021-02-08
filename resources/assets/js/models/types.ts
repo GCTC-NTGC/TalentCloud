@@ -291,12 +291,12 @@ export interface SkillCategory {
   id: number;
   key: string;
   name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
   parent_id: number | null;
   lft: number;
   rgt: number;
   depth: number;
-  created_at: Date;
-  updated_at: Date;
+  skills: Skill[];
 }
 
 export interface SkillSkillCategory {
@@ -428,7 +428,7 @@ export interface ExperienceSkill {
   id: number;
   skill_id: number;
   experience_id: number;
-  experience_type: string;
+  experience_type: Experience["type"];
   justification: string | null;
   created_at: Date;
   updated_at: Date;

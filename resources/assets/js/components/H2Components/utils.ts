@@ -1,6 +1,8 @@
 export interface GeneralProps {
   /** The standard css class attribute */
   className?: string;
+  /** The standard inline styling attribute */
+  style?: React.CSSProperties;
 }
 
 export interface GeneralBtnProps {
@@ -10,4 +12,6 @@ export interface GeneralBtnProps {
   type?: "submit" | "reset" | "button";
   /** The onClick event handler */
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  /** This sets the button to disabled state, preventing user from interacting with the button. */
+  disabled?: boolean;
 }
