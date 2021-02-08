@@ -1,10 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import {
+  useApplicantSkillIds,
+  useSkills,
+} from "../../../hooks/apiResourceHooks";
 import RootContainer from "../../RootContainer";
 
 export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
   applicantId,
 }) => {
+  const skillsResource = useSkills();
+  const applicantSkillsResource = useApplicantSkillIds(applicantId);
+
   return <p>Hello welcome to the skills page!</p>;
 };
 
