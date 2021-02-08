@@ -26,7 +26,3 @@
 <script async defer
     src="{{ asset(mix('/js/app.js')) }}">
 </script>
-
-{% if is_internet_explorer == true and app.request.cookies.get('browser_message') == false %}
-<script src="{{ asset(mix('/js/browserMessage.js')) }}"></script>
-{% endif %}

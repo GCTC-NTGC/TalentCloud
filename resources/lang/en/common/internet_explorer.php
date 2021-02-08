@@ -21,6 +21,5 @@ return [
             'link_text' => 'phasing out support for Internet Explorer',
             'text_2' => ' in favour of Microsoft Edge. We\'re doing the same.',
         ],
-        'dismiss_trigger' => 'Dismiss',
     ],
 ];

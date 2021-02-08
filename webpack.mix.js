@@ -22,7 +22,6 @@ mix
   .js("resources/assets/js/autocomplete.js", "public/js")
   .js("resources/assets/js/modernizr.js", "public/js")
   .js("resources/assets/js/alerts.js", "public/js")
-  .js("resources/assets/js/browserMessage.js", "public/js")
   .js("resources/assets/js/getpdf.js", "public/js")
   .js("resources/assets/js/typeToDelete.js", "public/js")
   .ts("resources/assets/js/managerRegistration.ts", "public/js")
@@ -123,13 +122,13 @@ mix
     ],
   })
   .sass("resources/assets/sass/h2.scss", "public/css", {
-    implementation: dartSass
+    implementation: dartSass,
   })
   .options({
     processCssUrls: false,
     postCss: [
       autoprefixer({
-        browsers: ['last 3 versions', '> 1%']
+        browsers: ["last 3 versions", "> 1%"],
       }),
       cssnano({
         preset: [
