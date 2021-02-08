@@ -307,34 +307,42 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     >
                       <Dialog.Header
                         data-h2-grid="b(middle, contained, padded, .5)"
-                        className="gradient-left-right"
+                        data-h2-bg-color="b(theme-1, 1)"
                       >
-                        <Dialog.Title
-                          data-h2-padding="b(all, .5) b(left, 1)"
-                          data-h2-font-color="b(white)"
-                          data-h2-font-size="b(h4)"
+                        <div
                           data-h2-grid-item="b(1of2)"
+                          data-h2-align="b(left)"
                         >
-                          <i
-                            className={getExperienceIcon(
-                              experienceSkill.experience_type,
-                            )}
+                          <Dialog.Title
+                            data-h2-margin="b(all, .5) b(left, 1)"
+                            data-h2-padding="b(left, .5)"
                             data-h2-font-color="b(white)"
-                            data-h2-padding="b(right, .5)"
-                          />
-                          {intl.formatMessage(
-                            messages[
-                              getExperienceDialogTitleKey(
-                                currentExperience?.type || "",
-                              )
-                            ],
-                          )}
-                        </Dialog.Title>
+                            data-h2-font-size="b(h5)"
+                          >
+                            <i
+                              className={getExperienceIcon(
+                                experienceSkill.experience_type,
+                              )}
+                              data-h2-font-color="b(white)"
+                              data-h2-padding="b(right, .5)"
+                            />
+                            {intl.formatMessage(
+                              messages[
+                                getExperienceDialogTitleKey(
+                                  currentExperience?.type || "",
+                                )
+                              ],
+                            )}
+                          </Dialog.Title>
+                        </div>
                         <div
                           data-h2-grid-item="b(1of2)"
                           data-h2-align="b(right)"
                         >
-                          <Dialog.ActionBtn data-h2-button="round, small, solid">
+                          <Dialog.ActionBtn
+                            data-h2-button="round, small, solid"
+                            data-h2-margin="b(right, 1)"
+                          >
                             <i
                               data-h2-font-size="b(normal)"
                               data-h2-font-color="b(white)"
@@ -346,7 +354,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                       </Dialog.Header>
                       <Dialog.Content data-h2-padding="b(tb, 1) b(rl, 2)">
                         <p
-                          data-h2-padding="b(tb, 1)"
+                          data-h2-padding="b(tb, .5)"
                           data-h2-font-size="b(h5)"
                           data-h2-font-color="b(theme-3)"
                         >
@@ -354,7 +362,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                             messages.skillExperienceDialogHeading,
                           )}
                         </p>
-                        <p data-h2-padding="b(tb, .5)">
+                        <div data-h2-padding="b(tb, .5)">
                           {currentExperience?.type === "experience_award" && (
                             <ExperienceAwardDetails
                               experience={currentExperience}
@@ -383,8 +391,8 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                               experience={currentExperience}
                             />
                           )}
-                        </p>
-                        <p data-h2-padding="b(tb, .5)">
+                        </div>
+                        <p data-h2-padding="b(top, 2) b(bottom, .5)">
                           {intl.formatMessage(
                             messages.skillExperienceDialogJustificationTitle,
                             {
@@ -423,9 +431,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         </p>
                       </Dialog.Content>
                       <Dialog.Actions
-                        data-h2-padding="b(tb, .5) b(rl, 1)"
+                        data-h2-padding="b(tb, 1) b(rl, 2)"
                         data-h2-align="b(center)"
-                        data-h2-grid="b(middle, contained, flush, 1)"
+                        data-h2-grid="b(middle, expanded, flush, 1)"
                       >
                         <div
                           data-h2-grid-item="b(1of2)"
@@ -476,7 +484,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
             {experiencesOfSkill && experiencesOfSkill.length !== 0 && (
               <div data-h2-padding="b(tb, .5)">
                 <Dialog.Trigger
-                  id="skill-dialog"
+                  id={`skill-remove-dialog-${skill.id}`}
                   data-h2-button="gray-1, round, medium, solid"
                   data-h2-padding="b(all, .5)"
                   data-h2-margin="b(right, 1)"
@@ -490,26 +498,31 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     {intl.formatMessage(messages.skillRemoveLabel)}
                   </span>
                 </Dialog.Trigger>
-                <Dialog id="skill-dialog">
+                <Dialog id={`skill-remove-dialog-${skill.id}`}>
                   <Dialog.Header
                     data-h2-grid="b(middle, contained, padded, .5)"
-                    className="gradient-left-right"
+                    data-h2-bg-color="b(theme-1, 1)"
                   >
-                    <Dialog.Title
-                      data-h2-padding="b(all, .5) b(left, 1)"
-                      data-h2-font-color="b(white)"
-                      data-h2-font-size="b(h4)"
-                      data-h2-grid-item="b(1of2)"
-                    >
-                      <i
-                        className="fas fa-trash"
+                    <div data-h2-grid-item="b(1of2)" data-h2-align="b(left)">
+                      <Dialog.Title
+                        data-h2-margin="b(all, .5) b(left, 1)"
+                        data-h2-padding="b(left, .5)"
                         data-h2-font-color="b(white)"
-                        data-h2-padding="b(right, .5)"
-                      />
-                      {intl.formatMessage(messages.skillRemoveDialogTitle)}
-                    </Dialog.Title>
+                        data-h2-font-size="b(h5)"
+                      >
+                        <i
+                          className="fas fa-trash"
+                          data-h2-font-color="b(white)"
+                          data-h2-padding="b(right, .5)"
+                        />
+                        {intl.formatMessage(messages.skillRemoveDialogTitle)}
+                      </Dialog.Title>
+                    </div>
                     <div data-h2-grid-item="b(1of2)" data-h2-align="b(right)">
-                      <Dialog.ActionBtn data-h2-button="round, small, solid">
+                      <Dialog.ActionBtn
+                        data-h2-button="round, small, solid"
+                        data-h2-margin="b(right, 1)"
+                      >
                         <i
                           data-h2-font-size="b(normal)"
                           data-h2-font-color="b(white)"
@@ -535,9 +548,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     </p>
                   </Dialog.Content>
                   <Dialog.Actions
-                    data-h2-padding="b(all, .5)"
+                    data-h2-padding="b(tb, 1) b(rl, 2)"
                     data-h2-align="b(center)"
-                    data-h2-grid="b(middle, contained, flush, 1)"
+                    data-h2-grid="b(middle, expanded, flush, 1)"
                   >
                     <div data-h2-grid-item="b(1of2)" data-h2-align="b(left)">
                       <div data-h2-grid-content>
