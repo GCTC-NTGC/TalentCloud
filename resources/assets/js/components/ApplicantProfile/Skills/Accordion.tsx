@@ -6,6 +6,11 @@ import { Skill, Experience, ExperienceSkill } from "../../../models/types";
 import { getExperienceOfExperienceSkill } from "../../Application/helpers";
 import Accordion from "../../H2Components/Accordion";
 import Dialog from "../../H2Components/Dialog";
+import ExperienceAwardDetails from "../ExperienceDetails/ExperienceAwardDetails";
+import ExperienceCommunityDetails from "../ExperienceDetails/ExperienceCommunityDetails";
+import ExperienceEducationDetails from "../ExperienceDetails/ExperienceEducationDetails";
+import ExperiencePersonalDetails from "../ExperienceDetails/ExperiencePersonalDetails";
+import ExperienceWorkDetails from "../ExperienceDetails/ExperienceWorkDetails";
 
 const messages = defineMessages({
   experiencesLabel: {
@@ -56,16 +61,57 @@ const messages = defineMessages({
       "Second section of text for content of dialog to remove a skill.",
   },
   skillRemoveDialogActionConfirm: {
-    id: "applicantProfile.skills.accordion.skillRemoveDialogActionDelete",
+    id: "applicantProfile.skills.accordion.skillRemoveDialogActionConfirm",
     defaultMessage: "Remove this skill from my profile",
     description:
       "Text for the button to confirm removal of a skill within the Dialog.",
   },
   skillRemoveDialogActionCancel: {
-    id: "applicantProfile.skills.accordion.skillRemoveDialogActionDelete",
+    id: "applicantProfile.skills.accordion.skillRemoveDialogActionCancel",
     defaultMessage: "Cancel",
     description:
       "Text for the button to cancel removal of a skill within the Dialog.",
+  },
+  educationExperienceTitle: {
+    id: "applicantProfile.skills.accordion.educationExperienceTitle",
+    defaultMessage: "Education",
+    description: "Type of experience: Education Experience.",
+  },
+  workExperienceTitle: {
+    id: "applicantProfile.skills.accordion.workExperienceTitle",
+    defaultMessage: "Work Experience",
+    description: "Type of experience: Work Experience.",
+  },
+  communityExperienceTitle: {
+    id: "applicantProfile.skills.accordion.communityExperienceTitle",
+    defaultMessage: "Community Experience",
+    description: "Type of experience: Community Experience.",
+  },
+  personalExperienceTitle: {
+    id: "applicantProfile.skills.accordion.personalExperienceTitle",
+    defaultMessage: "Personal Experience",
+    description: "Type of experience: Personal Experience.",
+  },
+  awardExperienceTitle: {
+    id: "applicantProfile.skills.accordion.awardExperienceTitle",
+    defaultMessage: "Award",
+    description: "Type of experience: Award Experience.",
+  },
+  skillExperienceDialogHeading: {
+    id: "applicantProfile.skills.accordion.skillExperienceDialogHeading",
+    defaultMessage: "Details of this experience",
+    description: "Text for heading of dialog to edit a skill.",
+  },
+  skillExperienceDialogActionEdit: {
+    id: "applicantProfile.skills.accordion.skillExperienceDialogActionEdit",
+    defaultMessage: "Edit this experience",
+    description:
+      "Text for the button to edit an experience on profile within the Dialog.",
+  },
+  skillExperienceDialogActionClose: {
+    id: "applicantProfile.skills.accordion.skillExperienceDialogActionClose",
+    defaultMessage: "Close",
+    description: "Text for the button to close dialog within the Dialog.",
   },
 });
 
@@ -81,6 +127,23 @@ const getExperienceIcon = (type: string): string => {
       return "fas fa-mountain";
     case "experience_work":
       return "fas fa-briefcase";
+    default:
+      return "";
+  }
+};
+
+const getExperienceDialogTitleKey = (type: string): string => {
+  switch (type) {
+    case "experience_award":
+      return "awardExperienceTitle";
+    case "experience_community":
+      return "communityExperienceTitle";
+    case "experience_education":
+      return "educationExperienceTitle";
+    case "experience_personal":
+      return "personalExperienceTitle";
+    case "experience_work":
+      return "workExperienceTitle";
     default:
       return "";
   }
@@ -102,7 +165,6 @@ const getExperienceTitle = (experience: Experience): string => {
       return "";
   }
 };
-
 interface SkillAccordionProps {
   skill: Skill;
   experiences: Experience[];
@@ -169,10 +231,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
           >
             {localizeFieldNonNull(locale, skill, "description")}
           </p>
-          <div
-            data-h2-margin="b(top, 1)"
-            data-h2-padding="b(all, .5) b(left, 1)"
-          >
+          <div data-h2-padding="b(all, .5) b(left, 1)">
             {experiencesOfSkill &&
               experiencesOfSkill.length !== 0 &&
               experiencesOfSkill.map((experienceSkill) => {
@@ -181,31 +240,169 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   experiences,
                 );
                 return (
-                  <button
-                    key={
-                      `${currentExperience?.type}` +
-                      "-" +
-                      `${currentExperience?.id}`
-                    }
-                    type="button"
-                    data-h2-display="b(block)"
-                    data-h2-button="black, round, medium, clear"
-                  >
-                    <i
-                      className={getExperienceIcon(
-                        experienceSkill.experience_type,
-                      )}
-                      data-h2-font-color="b(theme-1)"
-                      data-h2-padding="b(right, .5)"
-                    />
-                    <span
-                      data-h2-button-label
-                      data-h2-font-style="b(underline)"
+                  <>
+                    <Dialog.Trigger
+                      id={
+                        "skill-experience-dialog-" +
+                        `${currentExperience?.type}` +
+                        "-" +
+                        `${currentExperience?.id}`
+                      }
+                      data-h2-display="b(block)"
+                      data-h2-button="black, round, medium, clear"
                     >
-                      {currentExperience !== null &&
-                        getExperienceTitle(currentExperience)}
-                    </span>
-                  </button>
+                      <i
+                        className={getExperienceIcon(
+                          experienceSkill.experience_type,
+                        )}
+                        data-h2-font-color="b(theme-1)"
+                        data-h2-padding="b(right, .5)"
+                      />
+                      <span
+                        data-h2-button-label
+                        data-h2-font-style="b(underline)"
+                      >
+                        {currentExperience !== null &&
+                          getExperienceTitle(currentExperience)}
+                      </span>
+                    </Dialog.Trigger>
+                    <Dialog
+                      id={
+                        "skill-experience-dialog-" +
+                        `${currentExperience?.type}` +
+                        "-" +
+                        `${currentExperience?.id}`
+                      }
+                    >
+                      <Dialog.Header
+                        data-h2-grid="b(middle, contained, padded, .5)"
+                        className="gradient-left-right"
+                      >
+                        <Dialog.Title
+                          data-h2-padding="b(all, .5) b(left, 1)"
+                          data-h2-font-color="b(white)"
+                          data-h2-font-size="b(h4)"
+                          data-h2-grid-item="b(1of2)"
+                        >
+                          <i
+                            className={getExperienceIcon(
+                              experienceSkill.experience_type,
+                            )}
+                            data-h2-font-color="b(white)"
+                            data-h2-padding="b(right, .5)"
+                          />
+                          {intl.formatMessage(
+                            messages[
+                              getExperienceDialogTitleKey(
+                                currentExperience?.type || "",
+                              )
+                            ],
+                          )}
+                        </Dialog.Title>
+                        <div
+                          data-h2-grid-item="b(1of2)"
+                          data-h2-align="b(right)"
+                        >
+                          <Dialog.ActionBtn data-h2-button="round, small, solid">
+                            <i
+                              data-h2-font-size="b(normal)"
+                              data-h2-font-color="b(white)"
+                              className="fas fa-times"
+                              aria-hidden="true"
+                            />
+                          </Dialog.ActionBtn>
+                        </div>
+                      </Dialog.Header>
+                      <Dialog.Content data-h2-padding="b(tb, 1) b(rl, 2)">
+                        <p
+                          data-h2-padding="b(tb, 1)"
+                          data-h2-font-size="b(h5)"
+                          data-h2-font-color="b(theme-3)"
+                        >
+                          {intl.formatMessage(
+                            messages.skillExperienceDialogHeading,
+                          )}
+                        </p>
+                        <p data-h2-padding="b(tb, .5)">
+                          {currentExperience?.type === "experience_award" && (
+                            <ExperienceAwardDetails
+                              experience={currentExperience}
+                            />
+                          )}
+                          {currentExperience?.type ===
+                            "experience_community" && (
+                            <ExperienceCommunityDetails
+                              experience={currentExperience}
+                            />
+                          )}
+                          {currentExperience?.type ===
+                            "experience_education" && (
+                            <ExperienceEducationDetails
+                              experience={currentExperience}
+                            />
+                          )}
+                          {currentExperience?.type ===
+                            "experience_personal" && (
+                            <ExperiencePersonalDetails
+                              experience={currentExperience}
+                            />
+                          )}
+                          {currentExperience?.type === "experience_work" && (
+                            <ExperienceWorkDetails
+                              experience={currentExperience}
+                            />
+                          )}
+                        </p>
+                      </Dialog.Content>
+                      <Dialog.Actions
+                        data-h2-padding="b(tb, .5) b(rl, 1)"
+                        data-h2-align="b(center)"
+                        data-h2-grid="b(middle, contained, flush, 1)"
+                      >
+                        <div
+                          data-h2-grid-item="b(1of2)"
+                          data-h2-align="b(left)"
+                        >
+                          <div data-h2-grid-content>
+                            <p>
+                              <a
+                                href={`${`${getApplicantExperienceUrl(
+                                  locale,
+                                  applicantId,
+                                )}#${currentExperience?.type}`}_${
+                                  currentExperience?.id
+                                }`}
+                                title={intl.formatMessage(
+                                  messages.skillExperienceDialogActionEdit,
+                                )}
+                                data-h2-font-weight="b(600)"
+                              >
+                                {intl.formatMessage(
+                                  messages.skillExperienceDialogActionEdit,
+                                )}
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          data-h2-grid-item="b(1of2)"
+                          data-h2-align="b(right)"
+                        >
+                          <div data-h2-grid-content>
+                            <Dialog.ActionBtn
+                              buttonStyling="gray-4, round, solid"
+                              data-h2-padding="b(rl, 2) b(tb, .5)"
+                            >
+                              {intl.formatMessage(
+                                messages.skillExperienceDialogActionClose,
+                              )}
+                            </Dialog.ActionBtn>
+                          </div>
+                        </div>
+                      </Dialog.Actions>
+                    </Dialog>
+                    <Dialog.Overlay />
+                  </>
                 );
               })}
             {experiencesOfSkill && experiencesOfSkill.length !== 0 && (
@@ -315,6 +512,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     link: (
                       <a
                         href={getApplicantExperienceUrl(locale, applicantId)}
+                        title={intl.formatMessage(
+                          messages.missingExperiencesLinkText,
+                        )}
                         data-h2-font-weight="b(600)"
                       >
                         {intl.formatMessage(
