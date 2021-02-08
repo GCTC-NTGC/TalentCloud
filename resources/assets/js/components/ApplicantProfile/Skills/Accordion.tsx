@@ -113,6 +113,20 @@ const messages = defineMessages({
     defaultMessage: "Close",
     description: "Text for the button to close dialog within the Dialog.",
   },
+  skillExperienceDialogJustificationTitle: {
+    id:
+      "applicantProfile.skills.accordion.skillExperienceDialogJustificationTitle",
+    defaultMessage:
+      "How I used {skillName}{locationExists, plural, =0 {} one { at {locationTitle}}}:",
+    description: "Text for the justification title within the Dialog.",
+  },
+  skillExperienceDialogJustificationMissing: {
+    id:
+      "applicantProfile.skills.accordion.skillExperienceDialogJustificationMissing",
+    defaultMessage:
+      "You haven't written an explanation of how you used this skill during this experience.",
+    description: "Text for missing justification within the Dialog.",
+  },
 });
 
 const getExperienceIcon = (type: string): string => {
@@ -161,6 +175,23 @@ const getExperienceTitle = (experience: Experience): string => {
       return experience.title;
     case "experience_work":
       return `${experience.title} - ${experience.group}`;
+    default:
+      return "";
+  }
+};
+
+const getExperienceLocationTitle = (experience: Experience | null): string => {
+  switch (experience?.type) {
+    case "experience_award":
+      return experience.issued_by;
+    case "experience_community":
+      return experience.group;
+    case "experience_education":
+      return experience.institution;
+    case "experience_personal":
+      return "";
+    case "experience_work":
+      return experience.organization;
     default:
       return "";
   }
@@ -351,6 +382,43 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                             <ExperienceWorkDetails
                               experience={currentExperience}
                             />
+                          )}
+                        </p>
+                        <p data-h2-padding="b(tb, .5)">
+                          {intl.formatMessage(
+                            messages.skillExperienceDialogJustificationTitle,
+                            {
+                              skillName: (
+                                <strong>
+                                  {localizeFieldNonNull(locale, skill, "name")}
+                                </strong>
+                              ),
+                              locationExists:
+                                getExperienceLocationTitle(
+                                  currentExperience,
+                                ) !== ""
+                                  ? 1
+                                  : 0,
+                              locationTitle: (
+                                <strong>
+                                  {currentExperience !== null &&
+                                    getExperienceLocationTitle(
+                                      currentExperience,
+                                    )}
+                                </strong>
+                              ),
+                            },
+                          )}
+                        </p>
+                        <p data-h2-padding="b(tb, .5)">
+                          {experienceSkill.justification ? (
+                            experienceSkill.justification
+                          ) : (
+                            <span data-h2-font-color="b(stop)">
+                              {intl.formatMessage(
+                                messages.skillExperienceDialogJustificationMissing,
+                              )}
+                            </span>
                           )}
                         </p>
                       </Dialog.Content>

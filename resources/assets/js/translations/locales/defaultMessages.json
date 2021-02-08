@@ -360,6 +360,16 @@
         "defaultMessage": "Close",
         "description": "Text for the button to close dialog within the Dialog.",
         "id": "applicantProfile.skills.accordion.skillExperienceDialogActionClose"
+      },
+      {
+        "defaultMessage": "How I used {skillName}{locationExists, plural, =0 {} one { at {locationTitle}}}:",
+        "description": "Text for the justification title within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationTitle"
+      },
+      {
+        "defaultMessage": "You haven't written an explanation of how you used this skill during this experience.",
+        "description": "Text for missing justification within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationMissing"
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/Skills/Accordion.json"

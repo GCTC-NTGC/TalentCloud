@@ -85,6 +85,8 @@
   "applicantProfile.skills.accordion.skillExperienceDialogActionClose": "Close",
   "applicantProfile.skills.accordion.skillExperienceDialogActionEdit": "Edit this experience",
   "applicantProfile.skills.accordion.skillExperienceDialogHeading": "Details of this experience",
+  "applicantProfile.skills.accordion.skillExperienceDialogJustificationMissing": "Vous n’avez écrit aucune explication de la façon dont vous avez utilisé cette compétence au cours de cette expérience.",
+  "applicantProfile.skills.accordion.skillExperienceDialogJustificationTitle": "How I used {skillName} at <strong>{location}</strong>",
   "applicantProfile.skills.accordion.skillRemoveDialogActionCancel": "Cancel",
   "applicantProfile.skills.accordion.skillRemoveDialogActionConfirm": "Remove this skill from my profile",
   "applicantProfile.skills.accordion.skillRemoveDialogHeading": "WARNING!",
