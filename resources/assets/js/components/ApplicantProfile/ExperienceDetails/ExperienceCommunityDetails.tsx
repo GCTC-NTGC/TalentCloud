@@ -27,7 +27,7 @@ const ExperienceCommunityDetails: React.FC<{
     notApplicable
   );
   return (
-    <div data-h2-grid="b(middle, contained, flush, 1)">
+    <div data-h2-grid="b(middle, expanded, flush, 1)">
       <div data-h2-grid-item="b(1of2) m(1of3)">
         <div data-h2-grid-content>
           <p data-h2-font-weight="b(600)">
