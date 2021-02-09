@@ -122,22 +122,18 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
 
   /**
    * Filters through the skills list for the any skills that match the search query.
-   * @param searchLocale The current locale.
-   * @param search The search query entered by the user.
+   * @param searchQuery The search query entered by the user.
    */
-  const handleSkillSearch = (
-    searchLocale: string,
-    searchQuery: string,
-  ): Promise<void> => {
-    const skillNames: string[] = skills.map(
-      (skill) => skill.name[searchLocale],
+  const handleSkillSearch = (searchQuery: string): Promise<void> => {
+    const skillNames: string[] = skills.map((skill) =>
+      localizeFieldNonNull(locale, skill, "name"),
     );
     const skillStrings: string[] = matchStringsCaseDiacriticInsensitive(
       searchQuery,
       skillNames,
     );
     const skillMatches = skills.filter((skill) =>
-      skillStrings.includes(skill.name[searchLocale]),
+      skillStrings.includes(localizeFieldNonNull(locale, skill, "name")),
     );
 
     // Set the skillResults state with the matches from the query.

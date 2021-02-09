@@ -16,7 +16,7 @@ interface SearchBarProps {
   /** This replaces the default submit button for a custom one. */
   submitButton?: React.ReactElement;
   /** The function that runs when user clicks the search button, if the validation is successful. */
-  handleSubmit: (locale: string, searchQuery: string) => Promise<void>;
+  handleSubmit: (searchQuery: string) => Promise<void>;
 }
 
 interface SearchBarValues {
@@ -31,7 +31,6 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   handleSubmit,
 }: SearchBarProps): React.ReactElement => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
   const initialValues: SearchBarValues = {
     search: "",
   };
@@ -47,7 +46,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={async (values, { setStatus, setSubmitting }) => {
-          await handleSubmit(locale, values.search)
+          await handleSubmit(values.search)
             .then(() => {
               setStatus("submitted");
               setSubmitting(false);
