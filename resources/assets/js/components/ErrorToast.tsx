@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useRef } from "react";
-import { FormattedMessage, defineMessages, useIntl } from "react-intl";
+import { defineMessages, useIntl } from "react-intl";
 import { ErrorContext } from "./ErrorContainer";
+import Alert from "./H2Components/Alert";
 
 const TOAST_SELF_DISMISS_TIMER = 3500;
 
@@ -58,22 +59,22 @@ export const ErrorToast: React.FC = () => {
   return (
     <>
       {currentError !== null && (
-        <div data-c-alert="error(toast)" data-c-radius="rounded" role="alert">
-          <div data-c-padding="half">
-            <span data-c-margin="bottom(quarter)" data-c-font-weight="bold">
-              {intl.formatMessage(errorMessages.toastTitle)}
-            </span>
-            <p>{currentError}</p>
-          </div>
-          <button
-            type="button"
-            onClick={dismiss}
-            data-c-alert="close-trigger"
-            data-c-padding="half"
-          >
-            <i className="fa fa-times-circle" />
-          </button>
-        </div>
+        <Alert
+          color="stop"
+          position="toast"
+          data-h2-radius="b(round)"
+          data-h2-padding="b(all, .25)"
+          dismissBtn={
+            <Alert.DismissBtn onClick={dismiss}>
+              <i className="fa fa-times-circle" />
+            </Alert.DismissBtn>
+          }
+        >
+          <Alert.Title>
+            <strong>{intl.formatMessage(errorMessages.toastTitle)}</strong>
+          </Alert.Title>
+          <p>{currentError}</p>
+        </Alert>
       )}
     </>
   );
