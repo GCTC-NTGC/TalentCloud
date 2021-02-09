@@ -1,32 +1,21 @@
 import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
-import { useIntl, defineMessages } from "react-intl";
+import { useIntl, FormattedMessage } from "react-intl";
 import { validationMessages } from "./Form/Messages";
 import { getLocale } from "../helpers/localize";
 import TextInput from "./Form/TextInput";
 
-const formMessages = defineMessages({
-  searchLabel: {
-    id: "searchBar.search.label",
-    defaultMessage: "Search for skills by name:",
-    description: "The label displayed for the search input field.",
-  },
-  searchPlaceholder: {
-    id: "searchBar.search.placeholder",
-    defaultMessage: "eg. User interface design.",
-    description: "The placeholder displayed for the search input field.",
-  },
-  searchButtonText: {
-    id: "searchBar.search.buttonText",
-    defaultMessage: "Search",
-    description: "The placeholder displayed for the search button text.",
-  },
-});
-
 interface SearchBarProps {
-  inputTitle: string;
+  /** The search button label */
+  buttonLabel: string;
+  /** The search input's label */
+  searchLabel: string;
+  /** The search input's placeholder text */
+  searchPlaceholder: string;
+  /** This replaces the default submit button for a custom one. */
   submitButton?: React.ReactElement;
+  /** The function that runs when user clicks the search button, if the validation is successful. */
   handleSubmit: (locale: string, searchQuery: string) => Promise<void>;
 }
 
@@ -35,7 +24,9 @@ interface SearchBarValues {
 }
 
 export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
-  inputTitle,
+  buttonLabel,
+  searchLabel,
+  searchPlaceholder,
   submitButton,
   handleSubmit,
 }: SearchBarProps): React.ReactElement => {
@@ -76,10 +67,8 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                     type="search"
                     name="search"
                     component={TextInput}
-                    label={intl.formatMessage(formMessages.searchLabel)}
-                    placeholder={intl.formatMessage(
-                      formMessages.searchPlaceholder,
-                    )}
+                    label={searchLabel}
+                    placeholder={searchPlaceholder}
                   />
                 </div>
               </div>
@@ -93,8 +82,13 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                     <p data-h2-button-label>
                       <i aria-hidden="true" className="fas fa-search" />
                       <span data-h2-visibility="b(hidden)">
-                        {inputTitle ||
-                          intl.formatMessage(formMessages.searchButtonText)}
+                        {buttonLabel || (
+                          <FormattedMessage
+                            id="searchBar.search.buttonText"
+                            defaultMessage="Search"
+                            description="The placeholder displayed for the search button text."
+                          />
+                        )}
                       </span>
                     </p>
                   </button>

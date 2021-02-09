@@ -69,6 +69,18 @@ const messages = defineMessages({
     id: "findSkillsModal.searchResultsTitle",
     defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
   },
+  searchBarInputLabel: {
+    id: "findSkillsModal.seachBarInputLabel",
+    defaultMessage: "Search for skills by name:",
+  },
+  searchBarInputPlaceholder: {
+    id: "findSkillsModal.searchBarInputPlaceholder",
+    defaultMessage: "eg. User interface design.",
+  },
+  searchBarButtonLabel: {
+    id: "findSkillsModal.searchBarButtonLabel",
+    defaultMessage: "Search Skills",
+  },
 });
 
 interface FindSkillsModalProps {
@@ -174,7 +186,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           {/* Parent Skill Category Accordions Section */}
           <div data-h2-grid-item="s(2of5) b(1of1)">
             <SearchBar
-              inputTitle="Search Skills"
+              buttonLabel={intl.formatMessage(messages.searchBarButtonLabel)}
+              searchLabel={intl.formatMessage(messages.searchBarInputLabel)}
+              searchPlaceholder={intl.formatMessage(
+                messages.searchBarInputPlaceholder,
+              )}
               handleSubmit={handleSkillSearch}
             />
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
