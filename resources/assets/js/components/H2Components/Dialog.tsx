@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   h2DialogResizeOnViewport,
   h2DialogTrigger,
+  h2DialogEnableOpenDialogs,
 } from "@hydrogen-design-system/system/dist/import/latest/components/dialog/scripts/dialog";
 import { GeneralProps, GeneralBtnProps } from "./utils";
 
@@ -44,7 +45,7 @@ const ActionBtn: React.FunctionComponent<GeneralBtnProps & GeneralProps> = (
   const { buttonStyling, type, onClick, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2DialogTrigger("latest", ref.current);
+    h2DialogTrigger(ref.current);
   });
   return (
     <button
@@ -114,7 +115,7 @@ const Trigger: React.FunctionComponent<TriggerProps> = (props) => {
   const { id, buttonStyling, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2DialogTrigger("latest", ref.current);
+    h2DialogTrigger(ref.current);
   });
   return (
     <button
@@ -144,13 +145,15 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
   props,
 ) => {
   const { id, className, children, ...rest } = props;
+  const ref = React.useRef(null);
   React.useEffect(() => {
-    h2DialogResizeOnViewport();
-    h2DialogTrigger();
+    h2DialogResizeOnViewport(ref.current);
+    h2DialogEnableOpenDialogs(ref.current);
   });
   return (
     <DialogContext.Provider value={props}>
       <div
+        ref={ref}
         aria-hidden="true"
         aria-describedby={`${id}Content`}
         aria-labelledby={`${id}Title`}
