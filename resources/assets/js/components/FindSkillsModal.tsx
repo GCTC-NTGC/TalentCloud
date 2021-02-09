@@ -526,9 +526,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
               buttonStyling="stop, round, solid"
               data-h2-padding="b(rl, 2) b(tb, .5)"
               data-h2-bg-color="b(white, 1)"
-              onClick={() => {
-                setNewSkills([]);
-              }}
             >
               <p>{intl.formatMessage(messages.cancelButton)}</p>
             </Dialog.ActionBtn>
@@ -537,7 +534,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
             <Dialog.ActionBtn
               buttonStyling="theme-1, round, solid"
               data-h2-padding="b(rl, 2) b(tb, .5)"
-              onClick={() => handleSubmit(newSkills)}
+              onClick={() =>
+                handleSubmit(newSkills).then(() => {
+                  setNewSkills([]);
+                  setFirstVisit(true);
+                  setSkillsResults([]);
+                })
+              }
               disabled={newSkills.length === 0}
             >
               <p>{intl.formatMessage(messages.saveButton)}</p>
