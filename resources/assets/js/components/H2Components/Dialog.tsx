@@ -44,7 +44,7 @@ const ActionBtn: React.FunctionComponent<GeneralBtnProps & GeneralProps> = (
   const { buttonStyling, type, onClick, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2DialogTrigger("latest", ref.current);
+    h2DialogTrigger(ref.current);
   });
   return (
     <button
@@ -114,7 +114,7 @@ const Trigger: React.FunctionComponent<TriggerProps> = (props) => {
   const { id, buttonStyling, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2DialogTrigger("latest", ref.current);
+    h2DialogTrigger(ref.current);
   });
   return (
     <button
