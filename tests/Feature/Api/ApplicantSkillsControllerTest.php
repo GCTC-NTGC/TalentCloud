@@ -6,7 +6,6 @@ use App\Models\Applicant;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Support\Facades\Log;
 
 class ApplicantSkillsControllerTest extends TestCase
 {
