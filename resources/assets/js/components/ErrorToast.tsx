@@ -65,7 +65,7 @@ export const ErrorToast: React.FC = () => {
           data-h2-radius="b(round)"
           data-h2-padding="b(all, .25)"
           dismissBtn={
-            <Alert.DismissBtn onClick={dismiss}>
+            <Alert.DismissBtn onClick={dismiss} data-h2-padding="b(all, .25)">
               <i className="fa fa-times-circle" />
             </Alert.DismissBtn>
           }
