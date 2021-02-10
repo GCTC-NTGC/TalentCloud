@@ -11,6 +11,11 @@ export const errorMessages = defineMessages({
     defaultMessage: "Something went wrong!",
     description: "Title displayed on the Error Toast component.",
   },
+  dismissLabel: {
+    id: "errorToast.dismiss",
+    defaultMessage: "Dismiss",
+    description: "Label for the Error Toast dismiss button.",
+  },
 });
 
 /**
@@ -65,7 +70,11 @@ export const ErrorToast: React.FC = () => {
           data-h2-radius="b(round)"
           data-h2-padding="b(all, .25)"
           dismissBtn={
-            <Alert.DismissBtn onClick={dismiss} data-h2-padding="b(all, .25)">
+            <Alert.DismissBtn
+              onClick={dismiss}
+              data-h2-padding="b(all, .25)"
+              aria-label={intl.formatMessage(errorMessages.dismissLabel)}
+            >
               <i className="fa fa-times-circle" />
             </Alert.DismissBtn>
           }
