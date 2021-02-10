@@ -17,18 +17,24 @@ stories.add("Error Toast", () => {
       <ErrorContext.Consumer>
         {({ dispatch }) => {
           return (
-            <button
-              type="button"
-              onClick={() => {
-                dispatch({
-                  type: "push",
-                  payload: `Error #${counter} was just triggered! You're welcome!`,
-                });
-                setCounter((prev) => prev + 1);
-              }}
-            >
-              Trigger an error!
-            </button>
+            <section>
+              <p>
+                Note that multiple errors will queue up for display after the
+                current one dissappears.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch({
+                    type: "push",
+                    payload: `Error #${counter} was just triggered! You're welcome!`,
+                  });
+                  setCounter((prev) => prev + 1);
+                }}
+              >
+                Trigger an error!
+              </button>
+            </section>
           );
         }}
       </ErrorContext.Consumer>
