@@ -27,12 +27,12 @@ function errorReducer(state: ErrorState, action: ErrorAction) {
   }
 }
 
-interface ContextProps {
+interface ErrorContextProps {
   state: ErrorState;
   dispatch: React.Dispatch<ErrorAction>;
 }
 
-export const ErrorContext = React.createContext<ContextProps>({
+export const ErrorContext = React.createContext<ErrorContextProps>({
   state: initialState,
   dispatch: (action) => {},
 });
