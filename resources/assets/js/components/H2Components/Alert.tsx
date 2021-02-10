@@ -1,8 +1,10 @@
 import React from "react";
-import { h2AlertDismissal } from "@hydrogen-design-system/system/dist/import/latest/components/alert/scripts/alert";
 import { GeneralBtnProps, GeneralProps, H2Color } from "./utils";
 
-type DismissBtnProps = GeneralProps & Omit<GeneralBtnProps, "type">;
+type DismissBtnProps = GeneralProps &
+  Omit<GeneralBtnProps, "type" | "onClick"> & {
+    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  };
 const DismissBtn: React.FunctionComponent<DismissBtnProps> = ({
   className,
   children,
@@ -46,7 +48,7 @@ interface AlertComposition {
 interface AlertProps extends GeneralProps {
   color: H2Color;
   position: "static" | "toast";
-  dismissBtn: React.ReactElement;
+  dismissBtn?: React.ReactElement;
 }
 
 const Alert: React.FunctionComponent<AlertProps> & AlertComposition = ({
@@ -57,14 +59,9 @@ const Alert: React.FunctionComponent<AlertProps> & AlertComposition = ({
   children,
   ...rest
 }) => {
-  const ref = React.useRef(null);
-  React.useEffect((): void => {
-    h2AlertDismissal(ref.current);
-  });
-
   return (
     <div
-      ref={ref}
+      data-h2-no-js // Ensure this won't hook into an H2 script that removes this element from the DOM.
       data-h2-alert={`${color}, ${position}`}
       role="alert"
       className={className}

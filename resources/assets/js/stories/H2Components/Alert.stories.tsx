@@ -1,7 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { boolean, select, text } from "@storybook/addon-knobs";
+import { select, text } from "@storybook/addon-knobs";
+import { action } from "@storybook/addon-actions";
 import Alert from "../../components/H2Components/Alert";
 import { colorOptions } from "./utils";
 
@@ -19,7 +20,9 @@ stories.add(
       <Alert
         color={select("color", colorOptions, "stop")}
         position={select("position", positionOptions, positionOptions.toast)}
-        dismissBtn={<Alert.DismissBtn>x</Alert.DismissBtn>}
+        dismissBtn={
+          <Alert.DismissBtn onClick={action("Dismiss")}>x</Alert.DismissBtn>
+        }
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
       >
@@ -46,7 +49,9 @@ stories.add(
         position={select("position", positionOptions, positionOptions.static)}
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
-        dismissBtn={<Alert.DismissBtn>x</Alert.DismissBtn>}
+        dismissBtn={
+          <Alert.DismissBtn onClick={action("Dismiss")}>x</Alert.DismissBtn>
+        }
       >
         <Alert.Title>
           {text("title", "Oops! Something went wrong.")}
@@ -72,7 +77,10 @@ stories.add(
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
         dismissBtn={
-          <Alert.DismissBtn data-h2-padding="b(all, .25)">
+          <Alert.DismissBtn
+            data-h2-padding="b(all, .25)"
+            onClick={action("Dismiss")}
+          >
             <span>
               <i
                 data-h2-font-size="b(normal)"
@@ -106,12 +114,14 @@ stories.add(
         position={select("position", positionOptions, positionOptions.toast)}
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
-        dismissBtn={<Alert.DismissBtn>x</Alert.DismissBtn>}
+        dismissBtn={
+          <Alert.DismissBtn onClick={action("Dismiss")}>x</Alert.DismissBtn>
+        }
       >
         <p>
           {text(
             "content",
-            "Please note the information here before continuing.",
+            "Please note the information here before continuing!",
           )}
         </p>
       </Alert>
@@ -120,7 +130,7 @@ stories.add(
 );
 
 stories.add(
-  "Bold title",
+  "Only title (works fine)",
   (): React.ReactElement => (
     <section>
       <Alert
@@ -128,34 +138,25 @@ stories.add(
         position={select("position", positionOptions, positionOptions.toast)}
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
-        dismissBtn={<Alert.DismissBtn>x</Alert.DismissBtn>}
+        dismissBtn={
+          <Alert.DismissBtn onClick={action("Dismiss")}>x</Alert.DismissBtn>
+        }
       >
         <Alert.Title>
-          <strong>{text("title", "Oops! Something went wrong.")}</strong>
+          {text("title", "Oops! Something went wrong.")}
         </Alert.Title>
-        <p>
-          {text(
-            "content",
-            "Please note the information here before continuing.",
-          )}
-        </p>
       </Alert>
     </section>
   ),
 );
 
 stories.add(
-  "Disabled Dismiss btn",
+  "No Dismiss btn",
   (): React.ReactElement => (
     <section>
       <Alert
         color={select("color", colorOptions, "stop")}
         position={select("position", positionOptions, positionOptions.toast)}
-        dismissBtn={
-          <Alert.DismissBtn disabled={boolean("Dismiss disabled", true)}>
-            x
-          </Alert.DismissBtn>
-        }
         data-h2-radius="b(round)"
         data-h2-padding="b(all, .25)"
       >
