@@ -6,6 +6,7 @@ use App\Models\Applicant;
 use App\Models\Skill;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Log;
 
 class ApplicantSkillsControllerTest extends TestCase
 {
@@ -24,7 +25,7 @@ class ApplicantSkillsControllerTest extends TestCase
         $response = $this->actingAs($applicant->user)->json('get', route('api.v1.applicant.skills.index', $applicant));
         $response->assertOk();
         $response->assertJson([
-            'skill_ids' => $skills->sortBy('id')->pluck('id')->all()
+            'skill_ids' => $skills->sort()->pluck('id')->all()
         ]);
     }
 
