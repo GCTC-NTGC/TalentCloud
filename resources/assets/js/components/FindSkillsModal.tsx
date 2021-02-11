@@ -125,6 +125,12 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
    * @param searchQuery The search query entered by the user.
    */
   const handleSkillSearch = (searchQuery: string): Promise<void> => {
+    if (searchQuery.length === 0) {
+      setSkillsResults([]);
+      setFirstVisit(true);
+      return Promise.resolve();
+    }
+
     const skillNames: string[] = skills.map((skill) =>
       localizeFieldNonNull(locale, skill, "name"),
     );

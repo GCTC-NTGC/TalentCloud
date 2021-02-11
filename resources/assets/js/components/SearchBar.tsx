@@ -1,9 +1,7 @@
 import * as React from "react";
 import { Formik, Form, FastField } from "formik";
 import * as Yup from "yup";
-import { useIntl, FormattedMessage } from "react-intl";
-import { validationMessages } from "./Form/Messages";
-import { getLocale } from "../helpers/localize";
+import { FormattedMessage } from "react-intl";
 import TextInput from "./Form/TextInput";
 
 interface SearchBarProps {
@@ -30,14 +28,11 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   submitButton,
   handleSubmit,
 }: SearchBarProps): React.ReactElement => {
-  const intl = useIntl();
   const initialValues: SearchBarValues = {
     search: "",
   };
   const validationSchema = Yup.object().shape({
-    search: Yup.string()
-      .required(intl.formatMessage(validationMessages.required))
-      .min(2),
+    search: Yup.string().min(2),
   });
 
   return (
