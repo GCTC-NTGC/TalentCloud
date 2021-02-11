@@ -147,7 +147,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
     return Promise.resolve();
   };
   return (
-    <section>
+    <div>
       <Dialog.Trigger
         id="findSkills"
         data-h2-button="white, round, solid"
@@ -540,7 +540,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
         </Dialog.Actions>
       </Dialog>
       <Dialog.Overlay />
-    </section>
+    </div>
   );
 };
 
