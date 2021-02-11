@@ -86,15 +86,6 @@ const Header: React.FunctionComponent<GeneralProps> = (props) => {
   );
 };
 
-interface OverlayProps {
-  overlay?: string;
-}
-
-const Overlay: React.FunctionComponent<OverlayProps> = (props) => {
-  const { overlay } = props;
-  return <div data-h2-dialog-overlay={`${overlay || "black, .9"}`} />;
-};
-
 const Title: React.FunctionComponent<GeneralProps> = (props) => {
   const { id } = useDialogContext();
   const { className, children, ...rest } = props;
@@ -135,7 +126,6 @@ interface DialogComposition {
   ActionBtn: React.FunctionComponent<GeneralBtnProps>;
   Content: React.FunctionComponent<GeneralProps>;
   Header: React.FunctionComponent<GeneralProps>;
-  Overlay: React.FunctionComponent<OverlayProps>;
   Title: React.FunctionComponent<GeneralProps>;
   Trigger: React.FunctionComponent<TriggerProps>;
 }
@@ -162,6 +152,7 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
           {children}
         </div>
       </div>
+      <div data-h2-dialog-overlay="black, .9" />
     </DialogContext.Provider>
   );
 };
@@ -173,7 +164,6 @@ Dialog.Actions = Actions;
 Dialog.ActionBtn = ActionBtn;
 Dialog.Content = Content;
 Dialog.Header = Header;
-Dialog.Overlay = Overlay;
 Dialog.Title = Title;
 Dialog.Trigger = Trigger;
 

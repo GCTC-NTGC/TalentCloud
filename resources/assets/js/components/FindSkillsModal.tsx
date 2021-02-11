@@ -12,10 +12,6 @@ import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
 const messages = defineMessages({
-  modalButtonLabel: {
-    id: "findSkillsModal.modalButtonLabel",
-    defaultMessage: "Add Skills",
-  },
   modalHeading: {
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
@@ -84,6 +80,7 @@ const messages = defineMessages({
 });
 
 interface FindSkillsModalProps {
+  dialogTrigger: React.ReactElement;
   oldSkills: Skill[];
   portal: "applicant" | "manager";
   skills: Skill[];
@@ -92,6 +89,7 @@ interface FindSkillsModalProps {
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
+  dialogTrigger,
   oldSkills,
   portal,
   skills,
@@ -155,21 +153,14 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
     return Promise.resolve();
   };
   return (
-    <section>
+    <div>
       <Dialog.Trigger
         id="findSkills"
         data-h2-button="white, round, solid"
         data-h2-card="white, round"
         data-h2-padding="b(tb, .5)"
       >
-        <div data-h2-grid="b(top, expanded, flush, 0)">
-          <div data-h2-grid-item="b(1of1)">
-            <img alt="" src="https://via.placeholder.com/75" />
-          </div>
-          <p data-h2-grid-item="b(1of1)">
-            {intl.formatMessage(messages.modalButtonLabel)}
-          </p>
-        </div>
+        {dialogTrigger}
       </Dialog.Trigger>
       <Dialog id="findSkills" data-h2-radius="b(round)">
         <Dialog.Header className="gradient-left-right">
@@ -484,10 +475,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               data-h2-button=""
                               data-h2-grid-item="b(1of4)"
                               type="button"
-                              disabled={isOldSkill}
                               onClick={() => {
                                 // If the skill has been selected then remove it.
-                                // Else, if the has not been selected then add it to addedSkills list.
+                                // Else, if the has not been selected then add it to newSkills list.
                                 setNewSkills(addOrRemove(skill, newSkills));
                               }}
                             >
@@ -554,8 +544,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           </div>
         </Dialog.Actions>
       </Dialog>
-      <Dialog.Overlay />
-    </section>
+    </div>
   );
 };
 
