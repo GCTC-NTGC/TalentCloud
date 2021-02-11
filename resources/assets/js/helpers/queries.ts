@@ -299,7 +299,7 @@ export function decrement(num: number): number {
  * @param element
  * @param array
  */
-export function createOrRemove<T>(element: T, array: T[]): T[] {
+export function addOrRemove<T>(element: T, array: T[]): T[] {
   return array.includes(element)
     ? array.filter((T) => T !== element)
     : [...array, element];
