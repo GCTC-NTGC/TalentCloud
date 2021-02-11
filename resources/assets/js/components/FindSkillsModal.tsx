@@ -12,10 +12,6 @@ import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
 const messages = defineMessages({
-  modalButtonLabel: {
-    id: "findSkillsModal.modalButtonLabel",
-    defaultMessage: "Add Skills",
-  },
   modalHeading: {
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
@@ -84,6 +80,7 @@ const messages = defineMessages({
 });
 
 interface FindSkillsModalProps {
+  dialogTrigger: React.ReactElement;
   oldSkills: Skill[];
   portal: "applicant" | "manager";
   skills: Skill[];
@@ -92,6 +89,7 @@ interface FindSkillsModalProps {
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
+  dialogTrigger,
   oldSkills,
   portal,
   skills,
@@ -156,14 +154,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
         data-h2-card="white, round"
         data-h2-padding="b(tb, .5)"
       >
-        <div data-h2-grid="b(top, expanded, flush, 0)">
-          <div data-h2-grid-item="b(1of1)">
-            <img alt="" src="https://via.placeholder.com/75" />
-          </div>
-          <p data-h2-grid-item="b(1of1)">
-            {intl.formatMessage(messages.modalButtonLabel)}
-          </p>
-        </div>
+        {dialogTrigger}
       </Dialog.Trigger>
       <Dialog id="findSkills" data-h2-radius="b(round)">
         <Dialog.Header className="gradient-left-right">
