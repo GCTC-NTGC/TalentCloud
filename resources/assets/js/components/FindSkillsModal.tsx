@@ -469,10 +469,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               data-h2-button=""
                               data-h2-grid-item="b(1of4)"
                               type="button"
-                              disabled={isOldSkill}
                               onClick={() => {
                                 // If the skill has been selected then remove it.
-                                // Else, if the has not been selected then add it to addedSkills list.
+                                // Else, if the has not been selected then add it to newSkills list.
                                 setNewSkills(addOrRemove(skill, newSkills));
                               }}
                             >
