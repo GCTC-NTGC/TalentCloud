@@ -62,6 +62,7 @@ return [
     'new_password_label' => 'New Password',
     'confirm_password_label' => 'Confirm New Password',
     'password_save' => 'Submit New Password',
+    'show_password' => 'Show Password',
     'two_factor_legend' => 'Two-factor Authentication',
     'two_factor_button_text' => 'Set up Two-factor Authentication',
     'two_factor_recovery_legend' => 'Recovery Codes',

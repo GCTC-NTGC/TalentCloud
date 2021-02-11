@@ -20,4 +20,5 @@ return [
     'remember_me' => 'Remember Me',
     'forgot_password' => 'Forgot Password',
     'login' => 'Login',
+    'show_password' => 'Show password',
 ];

@@ -30,8 +30,8 @@ class UpdateApplicantProfile extends FormRequest
             'applicant_classifications.*.id' => 'required|integer',
             'applicant_classifications.*.applicant_id' => 'required|exists:applicants,id',
             'applicant_classifications.*.classification_id' => 'required|exists:classifications,id',
-            'applicant_classifications.*.level' => 'required|integer|min:1|max:9',
-            'applicant_classifications.*.order' => 'required|integer|min:0|max:9',
+            'applicant_classifications.*.level' => 'required|integer',
+            'applicant_classifications.*.order' => 'required|integer|min:0',
         ];
     }
 }

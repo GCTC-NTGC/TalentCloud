@@ -4,7 +4,7 @@ use Jenssegers\Date\Date;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 
 if (!function_exists('humanizeDate')) {
     /**
@@ -159,5 +159,18 @@ if (!function_exists('ptDayEndToUtcTime')) {
         $date->setTimezone($dbTimezone);
 
         return $date;
+    }
+}
+
+if (!function_exists('detectInternetExplorer')) {
+    /**
+     * Detect User Agent Internet Explorer
+     *
+     * @return boolean
+     */
+    function detectInternetExplorer()
+    {
+        $agent = Request::server('HTTP_USER_AGENT');
+        return preg_match('~MSIE|Internet Explorer~i', $agent) || preg_match('~Trident/7.0(.*)?; rv:11.0~', $agent);
     }
 }
