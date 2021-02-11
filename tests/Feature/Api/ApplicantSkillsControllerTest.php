@@ -24,7 +24,7 @@ class ApplicantSkillsControllerTest extends TestCase
         $response = $this->actingAs($applicant->user)->json('get', route('api.v1.applicant.skills.index', $applicant));
         $response->assertOk();
         $response->assertJson([
-            'skill_ids' => $skills->sort()->pluck('id')->all()
+            'skill_ids' => $skills->sortBy('id')->pluck('id')->all()
         ]);
     }
 
