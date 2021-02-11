@@ -18,7 +18,7 @@ class ApplicantSkillsControllerTest extends TestCase
     {
         $applicant = factory(Applicant::class)->create();
         $skills = Skill::inRandomOrder()->limit(5)->get();
-        $applicant->skills()->sync($skills->pluck('id'));
+        $applicant->skills()->sync($skills->sortBy('id')->pluck('id'));
 
         // Assert this is auth protected
         $guestResponse = $this->json('get', route('api.v1.applicant.skills.index', $applicant));
