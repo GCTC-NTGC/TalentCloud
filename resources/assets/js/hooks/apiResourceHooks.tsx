@@ -6,6 +6,11 @@ import { ErrorContext } from "../components/ErrorContainer";
 import { FetchError } from "../helpers/httpRequests";
 import { useResource } from "./webResourceHooks";
 
+/**
+ * If the error is a FetchError and the response body contains a message field, use that to construct the message.
+ * Otherwise, simply use the error object's message.
+ * @param error
+ */
 const errorToMessage = async (error: Error | FetchError): Promise<string> => {
   if (error instanceof FetchError && error.response.status) {
     try {
@@ -20,6 +25,10 @@ const errorToMessage = async (error: Error | FetchError): Promise<string> => {
   return error.message;
 };
 
+/**
+ * This hook returns a handleError function which tries to push the error into the ErrorContext queue.
+ * If no ErrorContext Provider exists in the component hierarchy, simply nothing will happen.
+ */
 const useErrorHandler = () => {
   const { dispatch } = useContext(ErrorContext);
   const handleError = (error: Error | FetchError) => {
