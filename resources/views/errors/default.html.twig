@@ -3,8 +3,6 @@
 	{{ exception.getStatusCode() }} - {{ error.title }}
 {% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-	{% include "common/alert" %}
 	{% include "common/header" with {"header": { "title" : exception.getStatusCode() ~ ' - ' ~ error.title }, "hide_breadcrumbs": true} %}
 	<section class="error-default">
 		<div class="container--copy">
