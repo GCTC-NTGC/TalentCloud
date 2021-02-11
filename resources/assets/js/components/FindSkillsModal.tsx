@@ -538,7 +538,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           </div>
         </Dialog.Actions>
       </Dialog>
-      <Dialog.Overlay />
     </div>
   );
 };
