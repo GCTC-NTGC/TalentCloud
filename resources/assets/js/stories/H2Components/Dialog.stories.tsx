@@ -62,7 +62,6 @@ stories.add(
           </Dialog.ActionBtn>
         </Dialog.Actions>
       </Dialog>
-      <Dialog.Overlay />
     </section>
   ),
 );
