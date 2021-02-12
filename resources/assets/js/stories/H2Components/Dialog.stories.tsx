@@ -22,34 +22,38 @@ stories.add(
         <p>{text("Trigger", "Open Dialog", "Text")}</p>
       </Dialog.Trigger>
       <Dialog id="dialog">
-        <Dialog.Header
-          data-h2-grid="b(middle, contained, padded, .5)"
-          className="gradient-left-right"
-        >
+        <Dialog.Header className="gradient-left-right">
           <Dialog.Title
             data-h2-padding="b(all, .5) b(left, 1)"
             data-h2-font-color="b(white)"
             data-h2-font-size="b(h4)"
-            data-h2-grid-item="b(1of2)"
           >
-            Dialog Title
+            {text(
+              "Title",
+              "Dialog Title but what if this were much longer?",
+              "Text",
+            )}
           </Dialog.Title>
-          <div data-h2-grid-item="b(1of2)" data-h2-align="b(right)">
-            <Dialog.ActionBtn data-h2-button="round, small, solid">
-              <i
-                data-h2-font-size="b(normal)"
-                data-h2-font-color="b(white)"
-                className="fas fa-times"
-                aria-hidden="true"
-              />
-            </Dialog.ActionBtn>
-          </div>
+          <Dialog.ActionBtn
+            data-h2-dialog-exit-trigger
+            data-h2-button="round, small, solid"
+            data-h2-align="b(right)"
+          >
+            <i
+              data-h2-font-size="b(normal)"
+              data-h2-font-color="b(white)"
+              className="fas fa-times"
+              aria-hidden="true"
+            />
+          </Dialog.ActionBtn>
         </Dialog.Header>
         <Dialog.Content>
           <p data-h2-padding="b(all, 3)">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-            officia reprehenderit labore ipsum et incidunt amet, dicta mollitia
-            blanditiis minima!
+            {text(
+              "Content",
+              " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem officia reprehenderit labore ipsum et incidunt amet, dicta mollitia blanditiis minima!",
+              "Text",
+            )}
           </p>
         </Dialog.Content>
         <Dialog.Actions data-h2-padding="b(all, .5)" data-h2-align="b(right)">
@@ -58,7 +62,7 @@ stories.add(
             data-h2-padding="b(rl, 2) b(tb, .5)"
             data-h2-bg-color="b(white, 1)"
           >
-            Okay, Close
+            {text("Button Label", "Close", "Text")}
           </Dialog.ActionBtn>
         </Dialog.Actions>
       </Dialog>
