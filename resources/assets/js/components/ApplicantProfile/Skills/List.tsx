@@ -9,8 +9,7 @@ import {
 } from "../../../models/types";
 import { getExperiencesOfSkill } from "../../Application/helpers";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import { hasKey, sortLocalizedAlphabetical } from "../../../helpers/queries";
-import { localizedFieldNonNull } from "../../../models/app";
+import { sortLocalizedAlphabetical, toIdMap } from "../../../helpers/queries";
 import SkillAccordion from "./Accordion";
 
 const messages = defineMessages({
@@ -81,67 +80,81 @@ const List: React.FC<ListProps> = ({
   const locale = getLocale(intl.locale);
   const [sortType, setSortType] = useState<SortTypes>(SortTypes.Group);
 
-  const skillCategoriesGroupedObject = useMemo(
+  const idToSkill: Map<number, Skill> = useMemo(() => toIdMap(skills), [
+    skills,
+  ]);
+  const idToSkillCategory: Map<number, SkillCategory> = useMemo(
+    () => toIdMap(skillCategories),
+    [skillCategories],
+  );
+
+  const categoryToSkills: Map<SkillCategory, Skill[]> = useMemo(
     () =>
-      skillCategories
-        .filter((skillCategory) => skillCategory.depth !== 1) // Filter out non-top-level categories.
-        .reduce(
-          (
-            accumulator: {
-              [catId: number]: {
-                title: localizedFieldNonNull | undefined;
-                skills: Skill[];
-              };
-            },
-            currentCategory,
-          ) => {
-            if (currentCategory.parent_id !== null) {
-              // Ensure there is a parent category set.
-              const titleValue = skillCategories
-                .filter((skillCategory) => skillCategory.depth === 1)
-                .find((x) => x.id === currentCategory.parent_id)?.name;
-
-              const skillsValue = skills.filter(
-                (currentSkill) =>
-                  currentSkill.id ===
-                  skillSkillCategories.find(
-                    (y) =>
-                      y.skill_id === currentSkill.id &&
-                      y.skill_category_id === currentCategory.id,
-                  )?.skill_id,
-              );
-
-              if (hasKey(accumulator, currentCategory.parent_id)) {
-                accumulator[currentCategory.parent_id].skills = [
-                  ...skillsValue,
-                  ...accumulator[currentCategory.parent_id].skills,
-                ]; // Add child category to existing parent category group.
-              } else {
-                accumulator[currentCategory.parent_id] = {
-                  title: titleValue,
-                  skills: skillsValue,
-                }; // Add child category to new parent category group.
-              }
+      skillSkillCategories.reduce(
+        (m: Map<SkillCategory, Skill[]>, skillSkillCategory) => {
+          const skill = idToSkill.get(skillSkillCategory.skill_id);
+          const category = idToSkillCategory.get(
+            skillSkillCategory.skill_category_id,
+          );
+          if (skill && category) {
+            if (!m.has(category)) {
+              m.set(category, []);
             }
-            return accumulator;
-          },
-          [],
-        ),
-    [skillSkillCategories, skillCategories, skills],
+            m.get(category)?.push(skill);
+          }
+          return m;
+        },
+        new Map(),
+      ),
+    [skillSkillCategories, idToSkill, idToSkillCategory],
   );
 
-  const skillCategoriesGrouped = Object.keys(skillCategoriesGroupedObject).map(
-    (z) => {
-      if (
-        skillCategoriesGroupedObject[z] !== null &&
-        (!skillCategoriesGroupedObject[z].skills ||
-          skillCategoriesGroupedObject[z].skills.length > 0)
-      ) {
-        return skillCategoriesGroupedObject[z]; // Return only non-empty objects and groups that have skills.
-      }
-      return false;
-    },
+  const parentToSubCategories: Map<SkillCategory, SkillCategory[]> = useMemo(
+    () =>
+      skillCategories.reduce(
+        (map: Map<SkillCategory, SkillCategory[]>, skillCategory) => {
+          if (skillCategory.parent_id === null) {
+            const parent = skillCategory;
+            if (parent && !map.has(parent)) {
+              map.set(parent, []);
+            }
+          } else {
+            const parent = idToSkillCategory.get(skillCategory.parent_id);
+            const subCategory = skillCategory;
+            if (parent && subCategory) {
+              if (!map.has(parent)) {
+                map.set(parent, []);
+              }
+              map.get(parent)?.push(subCategory);
+            }
+          }
+          return map;
+        },
+        new Map(),
+      ),
+    [skillCategories, idToSkillCategory],
   );
+
+  // Groups parent categories with the list of skills that belong to them or any of their subcategories.
+  const skillCategoriesGrouped: {
+    category: SkillCategory;
+    skills: Skill[];
+  }[] = useMemo(() => {
+    // TODO: Do we want to sort these in any particular way?
+    const parentCategories = Array.from(parentToSubCategories.keys());
+    return parentCategories.map((parent) => {
+      const subCategories = parentToSubCategories.get(parent) ?? [];
+      return {
+        category: parent,
+        skills: [
+          ...(categoryToSkills.get(parent) ?? []),
+          ...subCategories.flatMap(
+            (subCategory) => categoryToSkills.get(subCategory) ?? [],
+          ),
+        ],
+      };
+    });
+  }, [parentToSubCategories, categoryToSkills]);
 
   const deleteSkill = (): Promise<void> => {
     return Promise.resolve();
@@ -163,12 +176,12 @@ const List: React.FC<ListProps> = ({
         />
       </p>
       {sortType === "group" &&
-        skillCategoriesGrouped.map((category) => (
-          <div key={category.catId}>
+        skillCategoriesGrouped.map((group) => (
+          <div key={group.category.id}>
             <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
-              {localizeFieldNonNull(locale, category, "title")}
+              {localizeFieldNonNull(locale, group.category, "name")}
             </h5>
-            {category.skills
+            {group.skills
               .sort(sortLocalizedAlphabetical(locale))
               .map((skill: Skill) => {
                 const experiencesOfSkill = getExperiencesOfSkill(

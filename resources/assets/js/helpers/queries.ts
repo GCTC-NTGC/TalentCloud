@@ -159,6 +159,13 @@ export function hasKey<T>(
   return object[key] !== undefined;
 }
 
+export function toIdMap<T extends { id: number }>(arr: T[]): Map<number, T> {
+  return arr.reduce((map, x) => {
+    map.set(x.id, x);
+    return map;
+  }, new Map());
+}
+
 /**
  * Returns the value at the specified key. If the key is not present, throws an error.
  * @param object
