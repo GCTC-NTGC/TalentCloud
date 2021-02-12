@@ -9,6 +9,7 @@ import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import { fakeSkillCategories } from "../../../fakeData/fakeSkillCategories";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
 import { Skill } from "../../../models/types";
+import { promiseAction } from "../../helpers";
 
 const skillSkillCategories = fakeSkills().map((skill: Skill, index) => {
   return {
@@ -33,6 +34,7 @@ stories.add(
         skillSkillCategories={skillSkillCategories}
         skills={fakeSkills()}
         applicantId={1}
+        handleDeleteSkill={promiseAction("Delete skill")}
       />
     </section>
   ),

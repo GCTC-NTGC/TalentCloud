@@ -67,6 +67,7 @@ interface ListProps {
   skillSkillCategories: SkillSkillCategory[];
   skills: Skill[];
   applicantId: number;
+  handleDeleteSkill: (skillId: number) => Promise<void>;
 }
 
 const List: React.FC<ListProps> = ({
@@ -76,6 +77,7 @@ const List: React.FC<ListProps> = ({
   skillSkillCategories,
   skills,
   applicantId,
+  handleDeleteSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -157,10 +159,6 @@ const List: React.FC<ListProps> = ({
     });
   }, [parentToSubCategories, categoryToSkills]);
 
-  const deleteSkill = (): Promise<void> => {
-    return Promise.resolve();
-  };
-
   return (
     <div>
       <p data-h2-margin="b(bottom, .5)">
@@ -196,7 +194,7 @@ const List: React.FC<ListProps> = ({
                     experiences={experiences}
                     experiencesOfSkill={experiencesOfSkill}
                     applicantId={applicantId}
-                    handleDeleteSkill={deleteSkill}
+                    handleDeleteSkill={handleDeleteSkill}
                   />
                 );
               })}
@@ -215,7 +213,7 @@ const List: React.FC<ListProps> = ({
               experiences={experiences}
               experiencesOfSkill={experiencesOfSkill}
               applicantId={applicantId}
-              handleDeleteSkill={deleteSkill}
+              handleDeleteSkill={handleDeleteSkill}
             />
           );
         })}

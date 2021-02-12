@@ -8,6 +8,7 @@ import { fakeSkill } from "../../../fakeData/fakeSkills";
 import { fakeExperienceSkills } from "../../../fakeData/fakeExperienceSkills";
 import { getExperiencesOfSkill } from "../../../components/Application/helpers";
 import fakeExperiences from "../../../fakeData/fakeExperience";
+import { promiseAction } from "../../helpers";
 
 const stories = storiesOf(
   "Applicant Profile/Skills/Accordion",
@@ -19,11 +20,6 @@ const experiencesOfSkill = getExperiencesOfSkill(
   fakeExperienceSkills(),
 );
 
-const deleteSkill = (skillId: number): Promise<void> => {
-  action("Delete Skill")(skillId);
-  return Promise.resolve();
-};
-
 stories.add(
   "Accordion",
   (): React.ReactElement => (
@@ -33,7 +29,7 @@ stories.add(
         experiences={fakeExperiences()}
         experiencesOfSkill={experiencesOfSkill}
         applicantId={1}
-        handleDeleteSkill={deleteSkill}
+        handleDeleteSkill={promiseAction("Delete Skill")}
       />
     </section>
   ),
@@ -48,7 +44,7 @@ stories.add(
         experiences={[]}
         experiencesOfSkill={[]}
         applicantId={1}
-        handleDeleteSkill={deleteSkill}
+        handleDeleteSkill={promiseAction("Delete Skill")}
       />
     </section>
   ),
