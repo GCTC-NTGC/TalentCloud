@@ -477,7 +477,6 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         </div>
                       </Dialog.Actions>
                     </Dialog>
-                    <Dialog.Overlay />
                   </>
                 );
               })}
@@ -578,7 +577,6 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     </div>
                   </Dialog.Actions>
                 </Dialog>
-                <Dialog.Overlay />
               </div>
             )}
             {experiencesOfSkill && experiencesOfSkill.length === 0 && (
