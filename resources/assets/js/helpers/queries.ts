@@ -156,6 +156,13 @@ export function hasKey<T>(
   return object[key] !== undefined;
 }
 
+export function toIdMap<T extends { id: number }>(arr: T[]): Map<number, T> {
+  return arr.reduce((map, x) => {
+    map.set(x.id, x);
+    return map;
+  }, new Map());
+}
+
 /**
  * Returns the value at the specified key. If the key is not present, throws an error.
  * @param object
@@ -228,7 +235,7 @@ export function removeDuplicatesById<T extends { id: number }>(
   return items.reduce(reducer, { contents: [], ids: [] }).contents;
 }
 
-/**
+/*
  * Decrement the number if it above zero, else return 0.
  * This helps to avoid some pathological edge cases where pendingCount becomes permanently bugged.
  * @param num
