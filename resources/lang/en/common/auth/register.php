@@ -35,4 +35,5 @@ return [
     'gov_email' => 'Your Government Email',
     'register' => 'Register',
     'already_have_account' => 'Already have an account?',
+    'show_password' => 'Show password'
 ];

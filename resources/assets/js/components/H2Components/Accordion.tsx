@@ -106,7 +106,7 @@ const Accordion: React.FunctionComponent<AccordionContext> &
   const { triggerPos, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2AccordionToggle("latest", ref.current);
+    h2AccordionToggle(ref.current);
   });
   return (
     <AccordionContext.Provider value={props}>

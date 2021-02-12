@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { getLocale, localizeFieldNonNull } from "../helpers/localize";
-import { createOrRemove } from "../helpers/queries";
+import {
+  getLocale,
+  localizeFieldNonNull,
+  matchStringsCaseDiacriticInsensitive,
+} from "../helpers/localize";
+import { addOrRemove } from "../helpers/queries";
 import { Skill, SkillCategory } from "../models/types";
+import SearchBar from "./SearchBar";
 import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
 const messages = defineMessages({
-  modalButtonLabel: {
-    id: "findSkillsModal.modalButtonLabel",
-    defaultMessage: "Add Skills",
-  },
   modalHeading: {
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
@@ -64,18 +65,34 @@ const messages = defineMessages({
     id: "findSkillsModal.searchResultsTitle",
     defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
   },
+  searchBarInputLabel: {
+    id: "findSkillsModal.seachBarInputLabel",
+    defaultMessage: "Search for skills by name:",
+  },
+  searchBarInputPlaceholder: {
+    id: "findSkillsModal.searchBarInputPlaceholder",
+    defaultMessage: "eg. User interface design.",
+  },
+  searchBarButtonLabel: {
+    id: "findSkillsModal.searchBarButtonLabel",
+    defaultMessage: "Search Skills",
+  },
 });
 
 interface FindSkillsModalProps {
+  dialogTrigger: React.ReactElement;
   oldSkills: Skill[];
   portal: "applicant" | "manager";
+  skills: Skill[];
   skillCategories: SkillCategory[];
   handleSubmit: (values: Skill[]) => Promise<void>;
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
+  dialogTrigger,
   oldSkills,
   portal,
+  skills,
   skillCategories,
   handleSubmit,
 }) => {
@@ -101,22 +118,49 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
   // Used to set the button color of an active skill category.
   const [buttonClicked, setButtonClicked] = useState("");
 
+  /**
+   * Filters through the skills list for the any skills that match the search query.
+   * @param searchQuery The search query entered by the user.
+   */
+  const handleSkillSearch = (searchQuery: string): Promise<void> => {
+    if (searchQuery.length === 0) {
+      setSkillsResults([]);
+      setFirstVisit(true);
+      return Promise.resolve();
+    }
+
+    const skillNames: string[] = skills.map((skill) =>
+      localizeFieldNonNull(locale, skill, "name"),
+    );
+    const skillStrings: string[] = matchStringsCaseDiacriticInsensitive(
+      searchQuery,
+      skillNames,
+    );
+    const skillMatches = skills.filter((skill) =>
+      skillStrings.includes(localizeFieldNonNull(locale, skill, "name")),
+    );
+
+    // Set the skillResults state with the matches from the query.
+    setFirstVisit(false);
+    setResultsSectionText({
+      title: intl.formatMessage(messages.searchResultsTitle, {
+        numOfSkills: skillMatches.length,
+        searchQuery,
+      }),
+      description: "",
+    });
+    setSkillsResults(skillMatches);
+    return Promise.resolve();
+  };
   return (
-    <section>
+    <div>
       <Dialog.Trigger
         id="findSkills"
         data-h2-button="white, round, solid"
         data-h2-card="white, round"
         data-h2-padding="b(tb, .5)"
       >
-        <div data-h2-grid="b(top, expanded, flush, 0)">
-          <div data-h2-grid-item="b(1of1)">
-            <img alt="" src="https://via.placeholder.com/75" />
-          </div>
-          <p data-h2-grid-item="b(1of1)">
-            {intl.formatMessage(messages.modalButtonLabel)}
-          </p>
-        </div>
+        {dialogTrigger}
       </Dialog.Trigger>
       <Dialog id="findSkills" data-h2-radius="b(round)">
         <Dialog.Header className="gradient-left-right">
@@ -134,8 +178,16 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
         >
           {/* Parent Skill Category Accordions Section */}
           <div data-h2-grid-item="s(2of5) b(1of1)">
+            <SearchBar
+              buttonLabel={intl.formatMessage(messages.searchBarButtonLabel)}
+              searchLabel={intl.formatMessage(messages.searchBarInputLabel)}
+              searchPlaceholder={intl.formatMessage(
+                messages.searchBarInputPlaceholder,
+              )}
+              handleSubmit={handleSkillSearch}
+            />
             <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
-              {parentSkillCategories.map((parentSkillCategory, index) => {
+              {parentSkillCategories.map((parentSkillCategory) => {
                 const { id, key } = parentSkillCategory;
                 // Get children skill categories of parent skill category.
                 const childrenSkillCategories = skillCategories.filter(
@@ -150,11 +202,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                       expandedAccordions.includes(key) ? ".5" : "0"
                     })`}
                     data-h2-padding="b(tb, 1)"
-                    data-h2-border={`${
-                      index + 1 !== parentSkillCategories.length
-                        ? "b(gray-2, bottom, solid, thin)"
-                        : ""
-                    }`}
+                    data-h2-border="b(gray-2, top, solid, thin)"
                     data-h2-margin="b(tb, 0)"
                   >
                     <Accordion triggerPos="left">
@@ -174,7 +222,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         }
                         onClick={() =>
                           setExpandedAccordions(
-                            createOrRemove(key, expandedAccordions),
+                            addOrRemove(key, expandedAccordions),
                           )
                         }
                       >
@@ -307,7 +355,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           >
             {firstVisit ? (
               <div
-                data-h2-padding="b(tb, 5) b(right, 3) b(left, 4)"
+                data-h2-padding="s(tb, 5) s(right, 3) s(left, 4) b(bottom, 3) b(rl, 2)"
                 data-h2-container="b(center, large)"
               >
                 <p
@@ -324,7 +372,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                 <p>{intl.formatMessage(messages.skillResultsSubHeading)}</p>
               </div>
             ) : (
-              <div>
+              <div data-h2-padding="s(rl, 0) b(bottom, 3) b(rl, 1)">
                 {/* Back Button */}
                 <button
                   data-h2-button
@@ -427,11 +475,10 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                               data-h2-button=""
                               data-h2-grid-item="b(1of4)"
                               type="button"
-                              disabled={isOldSkill}
                               onClick={() => {
                                 // If the skill has been selected then remove it.
-                                // Else, if the has not been selected then add it to addedSkills list.
-                                setNewSkills(createOrRemove(skill, newSkills));
+                                // Else, if the has not been selected then add it to newSkills list.
+                                setNewSkills(addOrRemove(skill, newSkills));
                               }}
                             >
                               <p
@@ -475,9 +522,6 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
               buttonStyling="stop, round, solid"
               data-h2-padding="b(rl, 2) b(tb, .5)"
               data-h2-bg-color="b(white, 1)"
-              onClick={() => {
-                setSkillsResults([]);
-              }}
             >
               <p>{intl.formatMessage(messages.cancelButton)}</p>
             </Dialog.ActionBtn>
@@ -486,7 +530,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
             <Dialog.ActionBtn
               buttonStyling="theme-1, round, solid"
               data-h2-padding="b(rl, 2) b(tb, .5)"
-              onClick={() => handleSubmit(newSkills)}
+              onClick={() =>
+                handleSubmit(newSkills).then(() => {
+                  setNewSkills([]);
+                  setFirstVisit(true);
+                  setSkillsResults([]);
+                })
+              }
               disabled={newSkills.length === 0}
             >
               <p>{intl.formatMessage(messages.saveButton)}</p>
@@ -494,8 +544,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
           </div>
         </Dialog.Actions>
       </Dialog>
-      <Dialog.Overlay />
-    </section>
+    </div>
   );
 };
 
