@@ -9,8 +9,9 @@ import {
 } from "../../../models/types";
 import { getExperiencesOfSkill } from "../../Application/helpers";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import { sortLocalizedAlphabetical, toIdMap } from "../../../helpers/queries";
+import { toIdMap } from "../../../helpers/queries";
 import SkillAccordion from "./Accordion";
+import { sortByLocalizedName } from "../../../helpers/sorting";
 
 const messages = defineMessages({
   group: {
@@ -182,7 +183,7 @@ const List: React.FC<ListProps> = ({
               {localizeFieldNonNull(locale, group.category, "name")}
             </h5>
             {group.skills
-              .sort(sortLocalizedAlphabetical(locale))
+              .sort(sortByLocalizedName(locale))
               .map((skill: Skill) => {
                 const experiencesOfSkill = getExperiencesOfSkill(
                   skill,
@@ -202,7 +203,7 @@ const List: React.FC<ListProps> = ({
           </div>
         ))}
       {sortType === "alpha" &&
-        skills.sort(sortLocalizedAlphabetical(locale)).map((skill: Skill) => {
+        skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
           const experiencesOfSkill = getExperiencesOfSkill(
             skill,
             experienceSkills,
