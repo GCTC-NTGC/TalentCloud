@@ -9,6 +9,7 @@ import {
 import { readableDate } from "../../../helpers/dates";
 import { ExperienceSkill, Skill } from "../../../models/types";
 import { getId, hasKey, mapToObject } from "../../../helpers/queries";
+import displayMessages from "../Skills/skillsMessages";
 
 export const titleBarDateRange = (
   startDate: Date,
@@ -29,22 +30,23 @@ export const titleBarDateRange = (
 };
 
 interface ExperienceAccordionSkillsProps {
+  sectionTitle: string;
   relevantSkills: ExperienceSkill[];
   irrelevantSkillCount: number;
   skillsById: { [id: number]: Skill };
   showSkillDetails: boolean;
-  handleEditSkill?: (experienceSkillId: number) => void;
 }
 
 export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps> = ({
+  sectionTitle,
   relevantSkills,
   irrelevantSkillCount,
   skillsById,
   showSkillDetails,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+
   const relevantSkillCount = relevantSkills.length;
 
   const renderDetailedSkill = (
@@ -66,21 +68,6 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
         <p data-c-font-style="italic" data-c-margin="top(.5)">
           {experienceSkill.justification}
         </p>
-        {handleEditSkill && (
-          <div data-c-margin="top(1)" data-c-alignment="base(centre) pl(right)">
-            <button
-              data-c-button="solid(c1)"
-              data-c-radius="rounded"
-              type="button"
-              onClick={(): void => handleEditSkill(experienceSkill.id)}
-            >
-              <FormattedMessage
-                id="application.experienceAccordion.editExperienceSkill"
-                defaultMessage="Edit Skill"
-              />
-            </button>
-          </div>
-        )}
       </div>
     );
   };
@@ -113,11 +100,7 @@ export const ExperienceAccordionSkills: React.FC<ExperienceAccordionSkillsProps>
         data-c-font-weight="bold"
         data-c-margin="bottom(.5)"
       >
-        <FormattedMessage
-          id="application.experienceAccordion.skillsTitle"
-          defaultMessage="Skills for this Job"
-          description="Subtitle of the skills section."
-        />
+        {sectionTitle}
       </h4>
       <div data-c-grid="gutter(all, 1)">
         {showSkillDetails && relevantSkills.map(renderDetailedSkill)}
@@ -244,6 +227,7 @@ export const ExperienceAccordionButtons: React.FC<ExperienceAccordionButtonsProp
 };
 
 interface AccordionWrapperProps {
+  id?: string;
   title: ReactNode | string;
   subtitle: string;
   relatedSkillCount: number;
@@ -252,6 +236,7 @@ interface AccordionWrapperProps {
 }
 
 export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
+  id,
   title,
   subtitle,
   relatedSkillCount,
@@ -267,7 +252,8 @@ export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
       data-c-background="white(100)"
       data-c-card=""
       data-c-margin="bottom(.5)"
-      className={`${isExpanded && "active"}`}
+      className={isExpanded ? "active" : ""}
+      id={id}
     >
       <button
         tabIndex={0}
@@ -346,6 +332,7 @@ export const ExperienceAccordionWrapper: React.FC<AccordionWrapperProps> = ({
 };
 
 interface ApplicationExperienceAccordionProps {
+  id?: string;
   title: ReactNode | string;
   subtitle: string;
   iconClass: string;
@@ -360,6 +347,7 @@ interface ApplicationExperienceAccordionProps {
 }
 
 export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccordionProps> = ({
+  id,
   title,
   subtitle,
   iconClass,
@@ -373,8 +361,10 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
   handleEdit,
   children,
 }) => {
+  const intl = useIntl();
   return (
     <ExperienceAccordionWrapper
+      id={id}
       title={title}
       subtitle={subtitle}
       relatedSkillCount={relevantSkills.length}
@@ -383,6 +373,9 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
     >
       {children}
       <ExperienceAccordionSkills
+        sectionTitle={intl.formatMessage(
+          displayMessages.applicationSectionTitle,
+        )}
         relevantSkills={relevantSkills}
         irrelevantSkillCount={irrelevantSkillCount}
         skillsById={mapToObject(skills, getId)}
@@ -400,6 +393,7 @@ export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccor
 };
 
 interface ProfileExperienceAccordionProps {
+  id: string;
   title: ReactNode | string;
   subtitle: string;
   iconClass: string;
@@ -407,10 +401,10 @@ interface ProfileExperienceAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
 }
 
 export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperienceAccordionProps> = ({
+  id,
   title,
   subtitle,
   iconClass,
@@ -418,14 +412,22 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
   children,
 }) => {
+  const intl = useIntl();
+
+  // We cannot display ExperienceSkills without a matching skill, so filter them out early.
+  const validExperienceSkills = relevantSkills.filter((expSkill) =>
+    hasKey(skillsById, expSkill.skill_id),
+  );
+  const relevantSkillCount = validExperienceSkills.length;
+
   return (
     <ExperienceAccordionWrapper
+      id={id}
       title={title}
       subtitle={subtitle}
-      relatedSkillCount={relevantSkills.length}
+      relatedSkillCount={relevantSkillCount}
       isEducationJustification={false}
       iconClass={iconClass}
     >
@@ -436,11 +438,11 @@ export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperien
       />
       <hr data-c-hr="thin(gray)" data-c-margin="bottom(1) top(1)" />
       <ExperienceAccordionSkills
-        relevantSkills={relevantSkills}
+        sectionTitle={intl.formatMessage(displayMessages.profileSectionTitle)}
+        relevantSkills={validExperienceSkills}
         irrelevantSkillCount={0}
         skillsById={skillsById}
         showSkillDetails
-        handleEditSkill={handleEditSkill}
       />
     </ExperienceAccordionWrapper>
   );

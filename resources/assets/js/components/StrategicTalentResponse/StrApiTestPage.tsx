@@ -18,7 +18,7 @@ const StrJobListing: React.FC<{ jobs: Job[] }> = ({ jobs }) => {
     <>
       <h1>{`${jobs.length} jobs loaded.`}</h1>
       <ul>
-        {jobs.map(job => (
+        {jobs.map((job) => (
           <li key={job.id}>
             <p>{localizeField(locale, job, "title")}</p>
           </li>

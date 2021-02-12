@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
 import nprogress from "nprogress";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../../RootContainer";
 import {
@@ -12,6 +12,7 @@ import {
   Manager,
   Department,
   User,
+  Classification,
 } from "../../../models/types";
 import { managerJobIndex, jobBuilderSkills } from "../../../helpers/routes";
 import { RootState } from "../../../store/store";
@@ -35,6 +36,7 @@ import {
 import { navigate } from "../../../helpers/router";
 import { getUserById } from "../../../store/User/userSelector";
 import { fetchUser } from "../../../store/User/userActions";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface JobBuilderReviewPageProps {
   jobId: number;
@@ -50,8 +52,9 @@ interface JobBuilderReviewPageProps {
   handleFetchUser: (userId: number) => Promise<void>;
 }
 
-const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
-  WrappedComponentProps> = ({
+const JobBuilderReviewPage: React.FunctionComponent<
+  JobBuilderReviewPageProps & WrappedComponentProps
+> = ({
   jobId,
   job,
   skills,
@@ -69,6 +72,13 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
   if (locale !== "en" && locale !== "fr") {
     throw new Error("Unexpected locale");
   }
+
+  const dispatch = useDispatch<DispatchType>();
+  const { classifications } = useLoadClassifications(dispatch);
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
 
   useEffect((): void => {
     if (job && job.manager_id) {
@@ -104,6 +114,7 @@ const JobBuilderReviewPage: React.FunctionComponent<JobBuilderReviewPageProps &
       {job !== null && (
         <JobReview
           job={job}
+          classificationKey={classificationKey}
           manager={manager}
           user={user}
           tasks={keyTasks}
@@ -139,7 +150,6 @@ const mapStateToProps = (
   departments: getDepartments(state),
   manager: getSelectedManager(state),
   user: getUserById(state, {
-    // eslint-disable-next-line camelcase, @typescript-eslint/camelcase
     userId: getSelectedManager(state)?.user_id || 0,
   }),
 });

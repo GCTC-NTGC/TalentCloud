@@ -101,7 +101,6 @@ interface ProfileCommunityAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experieSkillId: number) => void;
 }
 
 export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps> = ({
@@ -110,7 +109,6 @@ export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps>
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -131,6 +129,7 @@ export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps>
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-people-carry"
@@ -138,7 +137,6 @@ export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps>
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceCommunityDetails experience={experience} />
     </ProfileExperienceAccordion>

@@ -59,6 +59,7 @@ return [
     'new_password_label' => 'Nouveau mot de passe',
     'confirm_password_label' => 'Confirmer le nouveau mot de passe',
     'password_save' => 'Soumettre le nouveau mot de passe',
+    'show_password' => 'Afficher le mot de passe',
     'two_factor_legend' => 'Authentification à deux facteurs',
     'two_factor_button_text' => 'Configuration de l\'authentification à deux facteurs',
     'two_factor_recovery_legend' => 'Codes de récupération',

@@ -1,23 +1,29 @@
-{# =============================================================================
-
-    Talent Cloud / Base Layout
-
-============================================================================= #}
 <!DOCTYPE html>
 <html lang="{{ appLocale }}">
-    {# Note that the </head> and <body> tags are located inside the common/head
-    file due to Google Tag Manager being required on all pages. #}
-    <head>
-        <title>{% block title %}{% endblock %}</title>
-        {% block socialMeta %}{% endblock %}
-        {% include "common/head" %}
-    {# /head #}
-    {# Page Body #}
-    {% block body %}{% endblock %}
-    {# Footer #}
-    {% include "common/footer" %}
-    {# Scripts #}
-    {% include "common/scripts" %}
-    {% block scripts %}{% endblock %}
-    </body>
+  {# Note that the </head> and <body> tags are located inside the common/head
+  file due to Google Tag Manager being required on all pages. #}
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    {% block socialMeta %}{% endblock %}
+    {% include "common/head" with {"hydrogen": true} %}
+  {# </head> #}
+  {# <body> #}
+  <div>
+    {% include "common/goc" %}
+    {% include "common/alert" %}
+    {% if is_internet_explorer == true %}
+        {% include "common/h2-ie-banner" %}
+    {% endif %}
+      {# {% include "common/h2-menu" %} #}
+    <main>
+      {% block body %}{% endblock %}
+    </main>
+  </div>
+  {% include "common/footer" %}
+  <div data-h2-system>
+    <div data-h2-dialog-overlay="black, .9"></div>
+  </div>
+  {% include "common/scripts" %}
+  {% block scripts %}{% endblock %}
+  </body>
 </html>

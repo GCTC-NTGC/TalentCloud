@@ -22,8 +22,8 @@ describe("localize", (): void => {
           en: "New",
           fr: "Nouvelle",
         },
-      }
-      expect(localizeField('fr', newObj, 'title')).toEqual(newObj.title.fr);
+      };
+      expect(localizeField("fr", newObj, "title")).toEqual(newObj.title.fr);
     });
     it("works on an object with more languages", (): void => {
       const newObj = {
@@ -31,10 +31,10 @@ describe("localize", (): void => {
         title: {
           en: "New",
           fr: "Nouvelle",
-          es: "Nueva"
+          es: "Nueva",
         },
-      }
-      expect(localizeField('fr', newObj, 'title')).toEqual(newObj.title.fr);
+      };
+      expect(localizeField("fr", newObj, "title")).toEqual(newObj.title.fr);
     });
   });
 });

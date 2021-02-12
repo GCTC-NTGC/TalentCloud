@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable camelcase */
 import React from "react";
 import { useIntl } from "react-intl";
@@ -12,17 +11,18 @@ import {
 } from "../../../helpers/routes";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { ExperienceStep, ExperienceSubmitData } from "./Experience";
+import { ExperienceStep } from "./Experience";
 import {
+  Classification,
   Experience as ExperienceType,
   ExperienceSkill,
 } from "../../../models/types";
 import {
   createExperience,
-  createExperienceSkill,
   updateExperience,
-  deleteExperienceSkill,
   deleteExperience,
+  batchCreateExperienceSkills,
+  batchDeleteExperienceSkills,
 } from "../../../store/Experience/experienceActions";
 import { getId } from "../../../helpers/queries";
 import { DispatchType } from "../../../configureStore";
@@ -39,6 +39,8 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -58,9 +60,14 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     skillsLoaded,
   } = useFetchAllApplicationData(applicationId, dispatch);
 
+  const { classifications } = useLoadClassifications(dispatch);
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const classificationEducationRequirements =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.education_requirements[locale] || null;
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
@@ -82,27 +89,16 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const showLoadingState =
     application === null ||
     job === null ||
+    classifications === null ||
     !experiencesLoaded ||
     !skillsLoaded ||
     !experienceConstantsLoaded;
 
-  const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
+  const handleSubmit = async (
+    data: ExperienceSubmitData<ExperienceType>,
+  ): Promise<void> => {
     // extract the Experience object from the data.
-    let experience: ExperienceType | null = null;
-    if ("experienceWork" in data) {
-      experience = data.experienceWork;
-    } else if ("experienceAward" in data) {
-      experience = data.experienceAward;
-    } else if ("experienceCommunity" in data) {
-      experience = data.experienceCommunity;
-    } else if ("experienceEducation" in data) {
-      experience = data.experienceEducation;
-    } else if ("experiencePersonal" in data) {
-      experience = data.experiencePersonal;
-    }
-    if (experience === null) {
-      return;
-    }
+    const { experience } = data;
 
     const newLinkedSkills = [
       ...data.savedRequiredSkills,
@@ -134,15 +130,18 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const result = await dispatch(createExperience(experience, applicantId));
       if (!result.error) {
         const newExperience = (await result.payload).experience;
-        const saveRequests = newLinkedSkills.map((skill) => {
-          const expSkill = newExpSkill(skill.id, newExperience);
-          return dispatch(createExperienceSkill(expSkill));
+        const expSkills: ExperienceSkill[] = newLinkedSkills.map((skill) => {
+          return newExpSkill(skill.id, newExperience);
         });
-        await Promise.allSettled(saveRequests);
+        if (expSkills.length > 0) {
+          dispatch(batchCreateExperienceSkills(expSkills));
+        }
       }
     } else {
+      const allRequests: Promise<any>[] = [];
       // If the experience already exists it can simply be updated.
       const updateExpRequest = dispatch(updateExperience(experience));
+      allRequests.push(updateExpRequest);
       // Determine which skills were already linked to the experience
       const prevExpSkills = experienceSkills.filter(
         (expSkill) =>
@@ -156,32 +155,35 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
       const newSkillIds = newLinkedSkills.map(getId);
 
       // Delete skills that were removed.
-      const deleteRequests = prevExpSkills
-        .filter((expSkill) => !newSkillIds.includes(expSkill.skill_id))
-        .map((expSkill) =>
-          dispatch(
-            deleteExperienceSkill(
-              expSkill.id,
-              expSkill.experience_id,
-              expSkill.experience_type,
-            ),
-          ),
+      const expSkillsToDelete = prevExpSkills.filter(
+        (expSkill) => !newSkillIds.includes(expSkill.skill_id),
+      );
+      if (expSkillsToDelete.length > 0) {
+        const batchDeleteExpSkillsRequest = dispatch(
+          batchDeleteExperienceSkills(expSkillsToDelete),
         );
+        allRequests.push(batchDeleteExpSkillsRequest);
+      }
+
       // Created new Experience Skills for skills which don't exist yet.
-      const createRequests = newSkillIds
-        .filter((newSkillId) => !prevSkillIds.includes(newSkillId))
-        .map((newSkillId) =>
-          experience
-            ? dispatch(
-                createExperienceSkill(newExpSkill(newSkillId, experience)),
-              )
-            : Promise.reject(),
+      const newExpSkills: ExperienceSkill[] = [];
+      const newExpSkillIds = newSkillIds.filter(
+        (newSkillId) => !prevSkillIds.includes(newSkillId),
+      );
+      newExpSkillIds.forEach((expSkillId) => {
+        if (experience) {
+          newExpSkills.push(newExpSkill(expSkillId, experience));
+        }
+      });
+
+      if (newExpSkills.length > 0) {
+        const batchCreateExpSkillsRequest = dispatch(
+          batchCreateExperienceSkills(newExpSkills),
         );
-      await Promise.allSettled([
-        updateExpRequest,
-        ...deleteRequests,
-        ...createRequests,
-      ]);
+        allRequests.push(batchCreateExpSkillsRequest);
+      }
+
+      await Promise.allSettled(allRequests);
     }
   };
   const handleDelete = async (
@@ -236,8 +238,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           criteria={criteria}
           skills={skills}
           jobId={job.id}
-          jobClassificationId={job.classification_id}
           jobEducationRequirements={localizeField(locale, job, "education")}
+          classificationEducationRequirements={
+            classificationEducationRequirements
+          }
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}

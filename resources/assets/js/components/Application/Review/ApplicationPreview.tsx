@@ -442,7 +442,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             {intl.formatMessage(defaultBasicMessages.languageTestLabel)}
           </p>
         )}
-      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
+      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(2)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
             {!isSubmitted
@@ -602,7 +602,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </div>
         </div>
       )}
-      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
+      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(2)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
             {!isSubmitted
@@ -657,7 +657,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </>
         );
       })}
-      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(3)">
+      <div data-c-grid="gutter(all, 1) middle" data-c-padding="top(2)">
         <div data-c-grid-item="tp(2of3) tl(4of5)">
           <h3 data-c-font-size="h3">
             {!isSubmitted ? (

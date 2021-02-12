@@ -20,4 +20,5 @@ return [
     'remember_me' => 'Se rappeler de moi',
     'forgot_password' => 'Mot de passe oublié',
     'login' => 'Ouvrir la séance',
+    'show_password' => 'Afficher le mot de passe',
 ];

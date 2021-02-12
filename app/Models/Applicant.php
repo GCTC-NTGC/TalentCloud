@@ -14,6 +14,8 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property string $linkedin_url
  * @property int $user_id
  * @property boolean $is_snapshot
+ * @property int $citizenship_declaration_id
+ * @property int $veteran_status_id
  *
  * @property \Jenssegers\Date\Date $created_at
  * @property \Jenssegers\Date\Date $updated_at
@@ -29,6 +31,7 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $references
  * @property \Illuminate\Database\Eloquent\Collection $work_samples
  * @property \Illuminate\Database\Eloquent\Collection $projects
+ * @property \Illuminate\Database\Eloquent\Collection $applicant_classifications
  * @property \Illuminate\Database\Eloquent\Collection $skills
  *
  * Version 2 application models.
@@ -37,6 +40,8 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $experiences_education
  * @property \Illuminate\Database\Eloquent\Collection $experiences_award
  * @property \Illuminate\Database\Eloquent\Collection $experiences_community
+ *
+ * @method \Illuminate\Database\Query\Builder experienceSkillsQuery
  */
 class Applicant extends BaseModel
 {
@@ -49,13 +54,17 @@ class Applicant extends BaseModel
         'tagline' => 'string',
         'twitter_username' => 'string',
         'linkedin_url' => 'string',
-        'is_snapshot' => 'boolean'
+        'is_snapshot' => 'boolean',
+        'citizenship_declaration_id' => 'int',
+        'veteran_status_id' => 'int',
     ];
     protected $fillable = [
         'personal_website',
         'tagline',
         'twitter_username',
-        'linkedin_url'
+        'linkedin_url',
+        'citizenship_declaration_id' => 'int',
+        'veteran_status_id' => 'int',
     ];
 
     public function user()
@@ -123,6 +132,11 @@ class Applicant extends BaseModel
         return $this->morphMany(\App\Models\Project::class, 'projectable');
     }
 
+    public function applicant_classifications() //phpcs:ignore
+    {
+        return $this->hasMany(\App\Models\ApplicantClassification::class);
+    }
+
     public function skills() // phpcs:ignore
     {
         return $this->belongsToMany(\App\Models\Skill::class, 'applicant_skill');
@@ -157,5 +171,50 @@ class Applicant extends BaseModel
     {
         return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
             ->orderBy('end_date', 'desc');
+    }
+
+    /**
+     * Returns a Laravel QueryBuilder object which will retrieve all ExperienceSkills
+     * which are linked to this Applicant, through this Applicant's Experiences.
+     *
+     * It returns the query builder object instead of the results of the query, so that additional
+     * clauses can be added by other code.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function experienceSkillsQuery()
+    {
+        $applicantId = $this->id;
+
+        // Create a subquery which gets all ExperienceSkill ids associated with one Experience type.
+        $makeSubQuery = function ($experienceTable, $experienceType) use ($applicantId) {
+            return function ($query) use ($experienceTable, $experienceType, $applicantId) {
+                $query->select('experience_skills.id')->from('experience_skills')->join(
+                    $experienceTable,
+                    function ($join) use ($experienceTable, $experienceType, $applicantId) {
+                        $join->on('experience_skills.experience_id', '=', "$experienceTable.id")
+                            ->where('experience_skills.experience_type', $experienceType)
+                            ->where("$experienceTable.experienceable_type", 'applicant')
+                            ->where("$experienceTable.experienceable_id", $applicantId);
+                    }
+                );
+            };
+        };
+
+        return ExperienceSkill::where(function ($query) use ($makeSubQuery) {
+            // A single where clause wraps five OR WHERE clauses.
+            // Each WHERE clause gets all the ExperienceSkills linked to a particular Experience type (and this Applicant).
+            $query->orWhere(function ($query) use ($makeSubQuery) {
+                $query->whereIn('id', $makeSubQuery('experiences_work', 'experience_work'));
+            })->orWhere(function ($query) use ($makeSubQuery) {
+                $query->whereIn('id', $makeSubQuery('experiences_personal', 'experience_personal'));
+            })->orWhere(function ($query) use ($makeSubQuery) {
+                $query->whereIn('id', $makeSubQuery('experiences_education', 'experience_education'));
+            })->orWhere(function ($query) use ($makeSubQuery) {
+                $query->whereIn('id', $makeSubQuery('experiences_award', 'experience_award'));
+            })->orWhere(function ($query) use ($makeSubQuery) {
+                $query->whereIn('id', $makeSubQuery('experiences_community', 'experience_community'));
+            });
+        });
     }
 }

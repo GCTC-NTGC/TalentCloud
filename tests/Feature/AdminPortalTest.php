@@ -8,6 +8,7 @@ use App\Models\JobPoster;
 use App\Models\Manager;
 use App\Models\User;
 use App\Models\Skill;
+use App\Models\SkillCategory;
 use App\Models\Lookup\Department;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Storage;
@@ -28,6 +29,7 @@ class AdminPortalTest extends TestCase
         $this->admin = factory(User::class)->states('admin')->create();
         $this->manager = factory(Manager::class)->create();
         $this->jobPoster = factory(JobPoster::class)->states('draft')->create();
+        $this->skillCategory = factory(SkillCategory::class)->create();
         $this->skillId = Skill::inRandomOrder()->first()->id;
         $this->departmentId = Department::inRandomOrder()->first()->id;
         $this->resourceId = Resource::inRandomOrder()->create()->first()->id;
@@ -71,6 +73,32 @@ class AdminPortalTest extends TestCase
     {
         $response = $this->actingAs($this->admin)
             ->get("admin/skill/$this->skillId/edit");
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can view an edit page for
+     * a Skill Category.
+     *
+     * @return void
+     */
+    public function testSkillCategoryEdit() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get('admin/skill-category/' . $this->skillCategory->id . '/edit');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure an admin user can view a create page for
+     * a Skill Category.
+     *
+     * @return void
+     */
+    public function testSkillCategoryCreate() : void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get('admin/skill-category/create');
         $response->assertStatus(200);
     }
 

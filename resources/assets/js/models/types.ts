@@ -1,4 +1,4 @@
-/* eslint camelcase: "off", @typescript-eslint/camelcase: "off" */
+/* eslint camelcase: "off" */
 import {
   ReviewStatusId,
   ReviewStatusName,
@@ -107,6 +107,7 @@ export interface Classification {
   id: number;
   key: string;
   name: localizedFieldNonNull;
+  education_requirements: localizedFieldNonNull;
 }
 
 type CitizenshipDeclarationName =
@@ -287,6 +288,18 @@ export interface Skill {
   classifications: Classification[];
 }
 
+export interface SkillCategory {
+  id: number;
+  key: string;
+  name: localizedFieldNonNull;
+  description: localizedFieldNonNull;
+  parent_id: number;
+  lft: number;
+  rgt: number;
+  depth: number;
+  skills: Skill[];
+}
+
 // Version of Assessment that hasn't been saved to server yet
 export interface TempAssessment {
   id: number;
@@ -410,7 +423,7 @@ export interface ExperienceSkill {
   id: number;
   skill_id: number;
   experience_id: number;
-  experience_type: string;
+  experience_type: Experience["type"];
   justification: string | null;
   created_at: Date;
   updated_at: Date;

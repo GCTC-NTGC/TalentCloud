@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -42,7 +41,6 @@ stories
         skillsById={mapToObject(fakeSkills(), getId)}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
-        handleEditSkill={action("Edit ExperienceSkill")}
       />
     ),
   )
@@ -55,7 +53,6 @@ stories
         skillsById={skillsById}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
-        handleEditSkill={action("Edit ExperienceSkill")}
       />
     ),
   )
@@ -68,7 +65,6 @@ stories
         skillsById={skillsById}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
-        handleEditSkill={action("Edit ExperienceSkill")}
       />
     ),
   )
@@ -81,7 +77,6 @@ stories
         skillsById={skillsById}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
-        handleEditSkill={action("Edit ExperienceSkill")}
       />
     ),
   )
@@ -94,7 +89,6 @@ stories
         skillsById={skillsById}
         handleDelete={promiseAction("Delete")}
         handleEdit={action("Edit")}
-        handleEditSkill={action("Edit ExperienceSkill")}
       />
     ),
   );

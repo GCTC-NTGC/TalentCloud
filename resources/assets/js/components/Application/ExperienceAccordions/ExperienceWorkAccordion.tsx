@@ -91,7 +91,6 @@ interface ProfileWorkAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experieSkillId: number) => void;
 }
 
 export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
@@ -100,7 +99,6 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -119,6 +117,7 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-briefcase"
@@ -126,7 +125,6 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceWorkDetails experience={experience} />
     </ProfileExperienceAccordion>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
@@ -20,6 +19,7 @@ import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -90,7 +90,7 @@ export const messages = defineMessages({
 
 const DESCRIPTION_WORD_LIMIT = 100;
 
-const DetailsSubform: FunctionComponent = () => {
+export const PersonalDetailsSubform: FunctionComponent = () => {
   const intl = useIntl();
   return (
     <div data-c-container="medium">
@@ -168,14 +168,9 @@ export interface PersonalDetailsFormValues {
 type PersonalExperienceFormValues = SkillFormValues &
   EducationFormValues &
   PersonalDetailsFormValues;
-export interface PersonalExperienceSubmitData {
-  experiencePersonal: ExperiencePersonal;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const personalValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -207,7 +202,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experiencePersonal: ExperiencePersonal,
 ): PersonalDetailsFormValues => {
   return {
@@ -223,21 +218,21 @@ const experienceToDetails = (
 };
 
 const dataToFormValues = (
-  data: PersonalExperienceSubmitData,
+  data: ExperienceSubmitData<ExperiencePersonal>,
   locale: Locales,
 ): PersonalExperienceFormValues => {
-  const { experiencePersonal, savedRequiredSkills, savedOptionalSkills } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
-    ...experienceToDetails(data.experiencePersonal),
+    ...experienceToDetails(data.experience),
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experiencePersonal.is_education_requirement,
+    useAsEducationRequirement: experience.is_education_requirement,
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: PersonalDetailsFormValues,
   originalExperience: ExperiencePersonal,
 ): ExperiencePersonal => {
@@ -259,11 +254,11 @@ const formValuesToData = (
   originalExperience: ExperiencePersonal,
   locale: Locales,
   skills: Skill[],
-): PersonalExperienceSubmitData => {
+): ExperienceSubmitData<ExperiencePersonal> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experiencePersonal: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -276,7 +271,7 @@ const formValuesToData = (
   };
 };
 
-const newPersonalExperience = (
+export const newPersonalExperience = (
   experienceableId: number,
   experienceableType: ExperiencePersonal["experienceable_type"],
 ): ExperiencePersonal => ({
@@ -293,83 +288,11 @@ const newPersonalExperience = (
   type: "experience_personal",
 });
 
-interface ProfilePersonalModalProps {
-  modalId: string;
-  experiencePersonal: ExperiencePersonal | null;
-  experienceableId: number;
-  experienceableType: ExperiencePersonal["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperiencePersonal) => Promise<void>;
-}
-
-export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> = ({
-  modalId,
-  experiencePersonal,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experiencePersonal ??
-    newPersonalExperience(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(originalExperience);
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-mountain"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
-
 interface PersonalExperienceModalProps {
   modalId: string;
   experiencePersonal: ExperiencePersonal | null;
   jobId: number;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -380,14 +303,16 @@ interface PersonalExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: PersonalExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperiencePersonal>,
+  ) => Promise<void>;
 }
 
 export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = ({
   modalId,
   experiencePersonal,
   jobId,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
@@ -412,7 +337,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
 
   const initialFormValues = dataToFormValues(
     {
-      experiencePersonal: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },
@@ -422,7 +347,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...personalValidationShape(intl),
   });
 
   return (
@@ -459,7 +384,7 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform />
+              <PersonalDetailsSubform />
               <SkillSubform
                 keyPrefix="personal"
                 jobId={jobId}
@@ -468,7 +393,9 @@ export const PersonalExperienceModal: React.FC<PersonalExperienceModalProps> = (
               />
               <EducationSubform
                 keyPrefix="personal"
-                jobClassification={jobClassification}
+                classificationEducationRequirements={
+                  classificationEducationRequirements
+                }
                 jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>

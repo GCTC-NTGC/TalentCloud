@@ -73,8 +73,9 @@ const localizations = defineMessages({
   },
 });
 
-export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillProps &
-  WrappedComponentProps> = ({
+export const AssessmentPlanSkill: React.FunctionComponent<
+  AssessmentPlanSkillProps & WrappedComponentProps
+> = ({
   criterion,
   skill,
   assessments,
@@ -188,7 +189,6 @@ export const AssessmentPlanSkill: React.FunctionComponent<AssessmentPlanSkillPro
               const selectedType = Number(event.target.value);
               onChange({
                 ...assessment,
-                // eslint-disable-next-line @typescript-eslint/camelcase
                 assessment_type_id: selectedType,
               });
             }}

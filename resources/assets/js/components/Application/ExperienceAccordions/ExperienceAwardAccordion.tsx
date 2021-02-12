@@ -100,7 +100,6 @@ interface ProfileAwardAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
 }
 
 export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
@@ -109,7 +108,6 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -124,6 +122,7 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
   });
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-trophy"
@@ -131,7 +130,6 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceAwardDetails experience={experience} />
     </ProfileExperienceAccordion>

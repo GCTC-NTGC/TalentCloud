@@ -40,8 +40,9 @@ const ProgressTrackerItem: React.FunctionComponent<ProgressTrackerItemProps> = (
       <span
         className="tracker-item-connect"
         style={{
-          backgroundColor: `${!dataIsLoading &&
-            (state === "null" ? "#969696" : "#008000")}`,
+          backgroundColor: `${
+            !dataIsLoading && (state === "null" ? "#969696" : "#008000")
+          }`,
         }}
       />
       {!dataIsLoading ? (
@@ -60,7 +61,7 @@ const ProgressTrackerItem: React.FunctionComponent<ProgressTrackerItemProps> = (
         <a
           href={link}
           title={title}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             navigate(link);
           }}

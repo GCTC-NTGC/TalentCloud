@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
@@ -20,6 +19,7 @@ import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
@@ -97,14 +97,9 @@ export interface CommunityDetailsFormValues {
 type CommunityExperienceFormValues = SkillFormValues &
   EducationFormValues &
   CommunityDetailsFormValues;
-export interface CommunityExperienceSubmitData {
-  experienceCommunity: ExperienceCommunity;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const communityValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -129,7 +124,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experienceCommunity: ExperienceCommunity,
 ): CommunityDetailsFormValues => {
   return {
@@ -145,25 +140,21 @@ const experienceToDetails = (
 };
 
 const dataToFormValues = (
-  data: CommunityExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceCommunity>,
   locale: Locales,
 ): CommunityExperienceFormValues => {
-  const {
-    experienceCommunity,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
-    ...experienceToDetails(data.experienceCommunity),
+    ...experienceToDetails(data.experience),
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceCommunity.is_education_requirement,
+    useAsEducationRequirement: experience.is_education_requirement,
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: CommunityDetailsFormValues,
   originalExperience: ExperienceCommunity,
 ): ExperienceCommunity => {
@@ -185,11 +176,11 @@ const formValuesToData = (
   originalExperience: ExperienceCommunity,
   locale: Locales,
   skills: Skill[],
-): CommunityExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceCommunity> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceCommunity: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -202,7 +193,7 @@ const formValuesToData = (
   };
 };
 
-const newCommunityExperience = (
+export const newCommunityExperience = (
   experienceableId: number,
   experienceableType: ExperienceCommunity["experienceable_type"],
 ): ExperienceCommunity => ({
@@ -219,7 +210,7 @@ const newCommunityExperience = (
   type: "experience_community",
 });
 
-const DetailsSubform: FunctionComponent = () => {
+export const CommunityDetailsSubform: FunctionComponent = () => {
   const intl = useIntl();
   return (
     <div data-c-container="medium">
@@ -283,82 +274,11 @@ const DetailsSubform: FunctionComponent = () => {
   );
 };
 
-interface ProfileCommunityModalProps {
-  modalId: string;
-  experienceCommunity: ExperienceCommunity | null;
-  experienceableId: number;
-  experienceableType: ExperienceCommunity["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (data: ExperienceCommunity) => Promise<void>;
-}
-
-export const ProfileCommunityModal: FunctionComponent<ProfileCommunityModalProps> = ({
-  modalId,
-  experienceCommunity,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceCommunity ??
-    newCommunityExperience(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(originalExperience);
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-people-carry"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
 interface CommunityExperienceModalProps {
   modalId: string;
   experienceCommunity: ExperienceCommunity | null;
   jobId: number;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -369,14 +289,16 @@ interface CommunityExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: CommunityExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceCommunity>,
+  ) => Promise<void>;
 }
 
 export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> = ({
   modalId,
   experienceCommunity,
   jobId,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
@@ -401,7 +323,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
 
   const initialFormValues = dataToFormValues(
     {
-      experienceCommunity: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },
@@ -411,7 +333,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...communityValidationShape(intl),
   });
 
   return (
@@ -448,7 +370,7 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform />
+              <CommunityDetailsSubform />
               <SkillSubform
                 keyPrefix="community"
                 jobId={jobId}
@@ -457,7 +379,9 @@ export const CommunityExperienceModal: React.FC<CommunityExperienceModalProps> =
               />
               <EducationSubform
                 keyPrefix="community"
-                jobClassification={jobClassification}
+                classificationEducationRequirements={
+                  classificationEducationRequirements
+                }
                 jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>

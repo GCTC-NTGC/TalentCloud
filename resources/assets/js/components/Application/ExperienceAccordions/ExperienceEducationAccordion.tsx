@@ -1,11 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
-import {
-  Locales,
-  getLocale,
-  localizeFieldNonNull,
-} from "../../../helpers/localize";
+import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
 import { readableDate } from "../../../helpers/dates";
 import {
   ExperienceEducation,
@@ -129,7 +125,6 @@ interface ProfileEducationAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
 }
 
 export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps> = ({
@@ -138,7 +133,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -172,6 +166,7 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
   );
   return (
     <ProfileExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-book"
@@ -179,7 +174,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceEducationDetails experience={experience} />
     </ProfileExperienceAccordion>
@@ -239,6 +233,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   );
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.id}-${experience.type}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-book"

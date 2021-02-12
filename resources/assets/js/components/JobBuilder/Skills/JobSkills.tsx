@@ -1,4 +1,3 @@
-/* eslint-disable camelcase, @typescript-eslint/camelcase */
 import React, { useState, useRef, useReducer } from "react";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
 import nprogress from "nprogress";
@@ -6,11 +5,7 @@ import { Job, Skill, Criteria, JobPosterKeyTask } from "../../../models/types";
 import Modal from "../../Modal";
 import CriteriaForm from "./CriteriaForm";
 import { mapToObject, getId, hasKey, notEmpty } from "../../../helpers/queries";
-import {
-  CriteriaTypeId,
-  getKeyByValue,
-  ClassificationId,
-} from "../../../models/lookupConstants";
+import { CriteriaTypeId } from "../../../models/lookupConstants";
 import Select, { SelectOption } from "../../Select";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import Criterion from "../Criterion";
@@ -24,6 +19,8 @@ import { imageUrl } from "../../../helpers/routes";
 interface JobSkillsProps {
   // The job being built
   job: Job;
+  // This job's classification key (i.e. CS)
+  classificationKey: string;
   // This job's key tasks
   keyTasks: JobPosterKeyTask[];
   // Criteria already part of the job
@@ -204,6 +201,7 @@ export const skillAlreadySelected = (
 
 export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
   job,
+  classificationKey,
   keyTasks,
   initialCriteria,
   skills,
@@ -301,9 +299,7 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
     skill.classifications.map((classification): string => classification.key);
   const isOccupational = (skill: Skill): boolean =>
     job.classification_id !== null &&
-    getClassifications(skill).includes(
-      getKeyByValue(ClassificationId, job.classification_id),
-    );
+    getClassifications(skill).includes(classificationKey);
   const occupationalSkills = skills
     .filter(isOccupational)
     .sort(sortAlphabetically);
@@ -518,6 +514,8 @@ export const JobSkills: React.FunctionComponent<JobSkillsProps> = ({
                   data-c-border="all(thin, solid, c1)"
                   data-c-colour="c1"
                   data-c-font-size="small"
+                  data-c-display="inline-block"
+                  data-c-alignment="center"
                 >
                   {intl.formatMessage(getSkillLevelName(criterion, skill))}
                 </span>

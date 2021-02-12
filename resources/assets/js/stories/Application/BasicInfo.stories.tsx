@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
@@ -7,6 +6,7 @@ import { BasicInfo } from "../../components/Application/BasicInfo/BasicInfo";
 import { fakeApplicationNormalized } from "../../fakeData/fakeApplications";
 import fakeJob from "../../fakeData/fakeJob";
 import { Job } from "../../models/types";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
 
 const stories = storiesOf("Application/Basic Info", module).addDecorator(
   withIntl,
@@ -33,6 +33,7 @@ stories
       <BasicInfo
         application={fakeApplicationNormalized()}
         job={fakeJob()}
+        classification={fakeClassification1()}
         handleContinue={promiseAction("Save and Continue")}
         handleReturn={promiseAction("Save and Return to Previous Step")}
         handleQuit={promiseAction("Save and Quit")}
@@ -45,6 +46,7 @@ stories
       <BasicInfo
         application={fakeApplicationNormalized()}
         job={bilingualRequirementJob}
+        classification={fakeClassification1()}
         handleContinue={promiseAction("Save and Continue")}
         handleReturn={promiseAction("Save and Return to Previous Step")}
         handleQuit={promiseAction("Save and Quit")}
