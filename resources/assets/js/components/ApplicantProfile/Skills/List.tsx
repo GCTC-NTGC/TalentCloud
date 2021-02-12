@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useIntl, defineMessages } from "react-intl";
 import {
   Experience,
@@ -81,7 +81,9 @@ const List: React.FC<ListProps> = ({
   const locale = getLocale(intl.locale);
   const [sortType, setSortType] = useState<SortTypes>(SortTypes.Group);
 
-  const skillCategoriesGroupedObject = skillCategories
+  const skillCategoriesGroupedObject = useMemo(
+    () =>
+      skillCategories
     .filter((skillCategory) => skillCategory.depth !== 1) // Filter out non-top-level categories.
     .reduce(
       (
@@ -124,6 +126,8 @@ const List: React.FC<ListProps> = ({
         return accumulator;
       },
       [],
+        ),
+    [skillSkillCategories, skillCategories, skills],
     );
 
   const skillCategoriesGrouped = Object.keys(skillCategoriesGroupedObject).map(
