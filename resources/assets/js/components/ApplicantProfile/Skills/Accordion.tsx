@@ -201,6 +201,7 @@ interface SkillAccordionProps {
   experiences: Experience[];
   experiencesOfSkill: ExperienceSkill[];
   applicantId: number;
+  handleDeleteSkill: (skillId: number) => Promise<void>;
 }
 
 export const SkillAccordion: React.FC<SkillAccordionProps> = ({
@@ -208,6 +209,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
   experiences,
   experiencesOfSkill,
   applicantId,
+  handleDeleteSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -556,6 +558,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         <Dialog.ActionBtn
                           buttonStyling="gray-1, round, solid"
                           data-h2-padding="b(rl, 2) b(tb, .5)"
+                          onClick={() => {
+                            handleDeleteSkill(skill.id);
+                          }}
                         >
                           {intl.formatMessage(
                             messages.skillRemoveDialogActionConfirm,
@@ -608,6 +613,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     type="button"
                     data-h2-display="b(block)"
                     data-h2-button="gray-1, round, medium, solid"
+                    onClick={() => {
+                      handleDeleteSkill(skill.id);
+                    }}
                   >
                     <i
                       className="fas fa-trash"

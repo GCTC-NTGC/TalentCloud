@@ -2,6 +2,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
+import { action } from "@storybook/addon-actions";
 import { SkillAccordion } from "../../../components/ApplicantProfile/Skills/Accordion";
 import { fakeSkill } from "../../../fakeData/fakeSkills";
 import { fakeExperienceSkills } from "../../../fakeData/fakeExperienceSkills";
@@ -18,6 +19,11 @@ const experiencesOfSkill = getExperiencesOfSkill(
   fakeExperienceSkills(),
 );
 
+const deleteSkill = (skillId: number): Promise<void> => {
+  action("Delete Skill")(skillId);
+  return Promise.resolve();
+};
+
 stories.add(
   "Accordion",
   (): React.ReactElement => (
@@ -27,6 +33,7 @@ stories.add(
         experiences={fakeExperiences()}
         experiencesOfSkill={experiencesOfSkill}
         applicantId={1}
+        handleDeleteSkill={deleteSkill}
       />
     </section>
   ),
@@ -41,6 +48,7 @@ stories.add(
         experiences={[]}
         experiencesOfSkill={[]}
         applicantId={1}
+        handleDeleteSkill={deleteSkill}
       />
     </section>
   ),

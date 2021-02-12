@@ -84,51 +84,51 @@ const List: React.FC<ListProps> = ({
   const skillCategoriesGroupedObject = useMemo(
     () =>
       skillCategories
-    .filter((skillCategory) => skillCategory.depth !== 1) // Filter out non-top-level categories.
-    .reduce(
-      (
-        accumulator: {
-          [catId: number]: {
-            title: localizedFieldNonNull | undefined;
-            skills: Skill[];
-          };
-        },
-        currentCategory,
-      ) => {
-        if (currentCategory.parent_id !== null) {
-          // Ensure there is a parent category set.
-          const titleValue = skillCategories
-            .filter((skillCategory) => skillCategory.depth === 1)
-            .find((x) => x.id === currentCategory.parent_id)?.name;
+        .filter((skillCategory) => skillCategory.depth !== 1) // Filter out non-top-level categories.
+        .reduce(
+          (
+            accumulator: {
+              [catId: number]: {
+                title: localizedFieldNonNull | undefined;
+                skills: Skill[];
+              };
+            },
+            currentCategory,
+          ) => {
+            if (currentCategory.parent_id !== null) {
+              // Ensure there is a parent category set.
+              const titleValue = skillCategories
+                .filter((skillCategory) => skillCategory.depth === 1)
+                .find((x) => x.id === currentCategory.parent_id)?.name;
 
-          const skillsValue = skills.filter(
-            (currentSkill) =>
-              currentSkill.id ===
-              skillSkillCategories.find(
-                (y) =>
-                  y.skill_id === currentSkill.id &&
-                  y.skill_category_id === currentCategory.id,
-              )?.skill_id,
-          );
+              const skillsValue = skills.filter(
+                (currentSkill) =>
+                  currentSkill.id ===
+                  skillSkillCategories.find(
+                    (y) =>
+                      y.skill_id === currentSkill.id &&
+                      y.skill_category_id === currentCategory.id,
+                  )?.skill_id,
+              );
 
-          if (hasKey(accumulator, currentCategory.parent_id)) {
-            accumulator[currentCategory.parent_id].skills = [
-              ...skillsValue,
-              ...accumulator[currentCategory.parent_id].skills,
-            ]; // Add child category to existing parent category group.
-          } else {
-            accumulator[currentCategory.parent_id] = {
-              title: titleValue,
-              skills: skillsValue,
-            }; // Add child category to new parent category group.
-          }
-        }
-        return accumulator;
-      },
-      [],
+              if (hasKey(accumulator, currentCategory.parent_id)) {
+                accumulator[currentCategory.parent_id].skills = [
+                  ...skillsValue,
+                  ...accumulator[currentCategory.parent_id].skills,
+                ]; // Add child category to existing parent category group.
+              } else {
+                accumulator[currentCategory.parent_id] = {
+                  title: titleValue,
+                  skills: skillsValue,
+                }; // Add child category to new parent category group.
+              }
+            }
+            return accumulator;
+          },
+          [],
         ),
     [skillSkillCategories, skillCategories, skills],
-    );
+  );
 
   const skillCategoriesGrouped = Object.keys(skillCategoriesGroupedObject).map(
     (z) => {
@@ -142,6 +142,10 @@ const List: React.FC<ListProps> = ({
       return false;
     },
   );
+
+  const deleteSkill = (): Promise<void> => {
+    return Promise.resolve();
+  };
 
   return (
     <div>
@@ -178,6 +182,7 @@ const List: React.FC<ListProps> = ({
                     experiences={experiences}
                     experiencesOfSkill={experiencesOfSkill}
                     applicantId={applicantId}
+                    handleDeleteSkill={deleteSkill}
                   />
                 );
               })}
@@ -196,6 +201,7 @@ const List: React.FC<ListProps> = ({
               experiences={experiences}
               experiencesOfSkill={experiencesOfSkill}
               applicantId={applicantId}
+              handleDeleteSkill={deleteSkill}
             />
           );
         })}
