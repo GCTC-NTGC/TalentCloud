@@ -83,66 +83,59 @@ const List: React.FC<ListProps> = ({
   const locale = getLocale(intl.locale);
   const [sortType, setSortType] = useState<SortTypes>(SortTypes.Group);
 
-  const idToSkill: Map<number, Skill> = useMemo(() => toIdMap(skills), [
-    skills,
-  ]);
-  const idToSkillCategory: Map<number, SkillCategory> = useMemo(
-    () => toIdMap(skillCategories),
-    [skillCategories],
-  );
-
-  const categoryToSkills: Map<SkillCategory, Skill[]> = useMemo(
-    () =>
-      skillSkillCategories.reduce(
-        (m: Map<SkillCategory, Skill[]>, skillSkillCategory) => {
-          const skill = idToSkill.get(skillSkillCategory.skill_id);
-          const category = idToSkillCategory.get(
-            skillSkillCategory.skill_category_id,
-          );
-          if (skill && category) {
-            if (!m.has(category)) {
-              m.set(category, []);
-            }
-            m.get(category)?.push(skill);
-          }
-          return m;
-        },
-        new Map(),
-      ),
-    [skillSkillCategories, idToSkill, idToSkillCategory],
-  );
-
-  const parentToSubCategories: Map<SkillCategory, SkillCategory[]> = useMemo(
-    () =>
-      skillCategories.reduce(
-        (map: Map<SkillCategory, SkillCategory[]>, skillCategory) => {
-          if (skillCategory.parent_id === null) {
-            const parent = skillCategory;
-            if (parent && !map.has(parent)) {
-              map.set(parent, []);
-            }
-          } else {
-            const parent = idToSkillCategory.get(skillCategory.parent_id);
-            const subCategory = skillCategory;
-            if (parent && subCategory) {
-              if (!map.has(parent)) {
-                map.set(parent, []);
-              }
-              map.get(parent)?.push(subCategory);
-            }
-          }
-          return map;
-        },
-        new Map(),
-      ),
-    [skillCategories, idToSkillCategory],
-  );
-
   // Groups parent categories with the list of skills that belong to them or any of their subcategories.
   const skillCategoriesGrouped: {
     category: SkillCategory;
     skills: Skill[];
   }[] = useMemo(() => {
+    const idToSkill: Map<number, Skill> = toIdMap(skills);
+    const idToSkillCategory: Map<number, SkillCategory> = toIdMap(
+      skillCategories,
+    );
+    const categoryToSkills: Map<
+      SkillCategory,
+      Skill[]
+    > = skillSkillCategories.reduce(
+      (m: Map<SkillCategory, Skill[]>, skillSkillCategory) => {
+        const skill = idToSkill.get(skillSkillCategory.skill_id);
+        const category = idToSkillCategory.get(
+          skillSkillCategory.skill_category_id,
+        );
+        if (skill && category) {
+          if (!m.has(category)) {
+            m.set(category, []);
+          }
+          m.get(category)?.push(skill);
+        }
+        return m;
+      },
+      new Map(),
+    );
+    const parentToSubCategories: Map<
+      SkillCategory,
+      SkillCategory[]
+    > = skillCategories.reduce(
+      (map: Map<SkillCategory, SkillCategory[]>, skillCategory) => {
+        if (skillCategory.parent_id === null) {
+          const parent = skillCategory;
+          if (parent && !map.has(parent)) {
+            map.set(parent, []);
+          }
+        } else {
+          const parent = idToSkillCategory.get(skillCategory.parent_id);
+          const subCategory = skillCategory;
+          if (parent && subCategory) {
+            if (!map.has(parent)) {
+              map.set(parent, []);
+            }
+            map.get(parent)?.push(subCategory);
+          }
+        }
+        return map;
+      },
+      new Map(),
+    );
+
     // TODO: Do we want to sort these in any particular way?
     const parentCategories = Array.from(parentToSubCategories.keys());
     return parentCategories.map((parent) => {
@@ -157,7 +150,7 @@ const List: React.FC<ListProps> = ({
         ],
       };
     });
-  }, [parentToSubCategories, categoryToSkills]);
+  }, [skills, skillCategories, skillSkillCategories]);
 
   return (
     <div>
