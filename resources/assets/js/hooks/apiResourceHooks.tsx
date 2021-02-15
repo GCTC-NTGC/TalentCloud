@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { getApplicantSkillsEndpoint } from "../api/applicantSkills";
-import { getSkillsEndpoint } from "../api/skill";
-import { Skill } from "../models/types";
+import { getApplicantExperienceEndpoint } from "../api/experience";
+import { getSkillCategoriesEndpoint, getSkillsEndpoint } from "../api/skill";
+import { Skill, SkillCategory } from "../models/types";
 import { useResource } from "./webResourceHooks";
 
 export const useSkills = () => {
@@ -18,4 +20,17 @@ export const useApplicantSkillIds = (applicantId: number) => {
       skill_ids: [],
     },
   );
+};
+
+// export const useApplicantExperience = (applicantId: number) => {
+//   const resource = useResource(getApplicantExperienceEndpoint(applicantId));
+// };
+
+export const useSkillCategories = () => {
+  // The SkillCategories endpoint doesn't allow updates, so don't return that function.
+  const { update, ...resource } = useResource<SkillCategory[]>(
+    getSkillCategoriesEndpoint(),
+    [],
+  );
+  return resource;
 };
