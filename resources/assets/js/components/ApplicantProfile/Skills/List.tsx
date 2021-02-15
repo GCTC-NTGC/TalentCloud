@@ -53,11 +53,19 @@ const SortButton: React.FC<SortButtonProps> = ({
   handleClick,
 }) => (
   <button
-    data-h2-button={`${active ? "theme-1" : "black"}, square, medium, clear`}
+    data-h2-button={`${active ? "theme-1" : "black"}, square, medium, ${
+      active ? "outline" : "clear"
+    }`}
     type="button"
     onClick={handleClick}
   >
-    <span data-h2-button-label>{text}</span>
+    <span
+      data-h2-button-label
+      data-h2-font-weight={active ? "b(600)" : ""}
+      data-h2-font-style={active ? "" : "b(underline)"}
+    >
+      {text}
+    </span>
   </button>
 );
 interface ListProps {
