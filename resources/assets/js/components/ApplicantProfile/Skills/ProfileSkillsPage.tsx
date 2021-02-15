@@ -11,7 +11,7 @@ import {
   useSkills,
 } from "../../../hooks/apiResourceHooks";
 import { Skill } from "../../../models/types";
-import FindSkillsModal from "../../FindSkillsModal";
+import FindSkillsModal, { FindSkillsModalTrigger } from "../../FindSkillsModal";
 import RootContainer from "../../RootContainer";
 import List from "./List";
 
@@ -57,27 +57,60 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
 
   return (
     <div>
-      <p>Hello welcome to the skills page!</p>
-      <FindSkillsModal
-        dialogTrigger={
-          <div data-h2-grid="b(top, expanded, flush, 0)">
-            <div data-h2-grid-item="b(1of1)">
-              <img alt="" src="https://via.placeholder.com/75" />
-            </div>
-            <p data-h2-grid-item="b(1of1)">
+      <h2 data-h2-heading="b(h2)" data-h2-margin="b(bottom, 1)">
+        <FormattedMessage
+          id="profileSkillsPage.heading"
+          defaultMessage="Your Skills"
+        />
+      </h2>
+      <p data-h2-margin="b(bottom, 1)">
+        <FormattedMessage
+          id="profileSkillsPage.preamble"
+          defaultMessage="This is your library of skills. Managers will try to match their needs to these skills when searching for talent, or after you apply for a job. Use the Add Skills button to start building your library of skills."
+          description="Appears at the top of the Profile Skills page, explaining the purpose of the page."
+        />
+      </p>
+      <div
+        data-h2-grid="b(middle, expanded, flush, 1)"
+        data-h2-margin="b(bottom, 1)"
+      >
+        <div data-h2-grid-item="b(1of1) m(5of6)">
+          <div
+            data-h2-bg-color="b(gray-1, 1)"
+            data-h2-radius="b(round)"
+            data-h2-padding="b(all, 1)"
+            data-h2-grid-content
+          >
+            <h4 data-h2-heading="b(h4)">
               <FormattedMessage
-                id="profileSkillsPage.addSkillsButton"
-                defaultMessage="Add Skills"
+                id="profileSkillsPage.addSkills.subtitle"
+                defaultMessage="Find and Add Skills"
+                description="Section title acompanying the button that opens the Explore Skills modal."
+              />
+            </h4>
+            <p>
+              <FormattedMessage
+                id="profileSkillsPage.addSkills.explanation"
+                defaultMessage="Explore the government's most sought after skills, find the ones that apply to you, and add them to your profile."
+                description="Text accompanying the button that opens the Explore Skills modal."
               />
             </p>
           </div>
-        }
-        oldSkills={applicantSkills}
-        portal="applicant"
-        skills={skillsResource.value}
-        skillCategories={skillCategoriesResource.value}
-        handleSubmit={submitNewSkills}
-      />
+        </div>
+        <div data-h2-grid-item="b(1of1) m(1of6)">
+          <div data-h2-grid-content>
+            <FindSkillsModalTrigger />
+            <FindSkillsModal
+              oldSkills={applicantSkills}
+              portal="applicant"
+              skills={skillsResource.value}
+              skillCategories={skillCategoriesResource.value}
+              handleSubmit={submitNewSkills}
+            />
+          </div>
+        </div>
+      </div>
+
       <List
         experiences={fakeExperiences()}
         experienceSkills={fakeExperienceSkills()}
