@@ -286,6 +286,7 @@ export interface Skill {
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
+  skill_category_ids: number[];
 }
 export interface SkillCategory {
   id: number;
@@ -296,7 +297,6 @@ export interface SkillCategory {
   lft: number;
   rgt: number;
   depth: number;
-  skills: Skill[];
 }
 
 export interface SkillSkillCategory {
