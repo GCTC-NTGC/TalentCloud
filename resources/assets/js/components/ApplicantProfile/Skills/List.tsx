@@ -4,7 +4,6 @@ import {
   Experience,
   ExperienceSkill,
   Skill,
-  SkillSkillCategory,
   SkillCategory,
 } from "../../../models/types";
 import { getExperiencesOfSkill } from "../../Application/helpers";
@@ -72,7 +71,6 @@ interface ListProps {
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   skillCategories: SkillCategory[];
-  skillSkillCategories: SkillSkillCategory[];
   skills: Skill[];
   applicantId: number;
   handleDeleteSkill: (skillId: number) => Promise<void>;
@@ -82,7 +80,6 @@ const List: React.FC<ListProps> = ({
   experiences,
   experienceSkills,
   skillCategories,
-  skillSkillCategories,
   skills,
   applicantId,
   handleDeleteSkill,
@@ -96,26 +93,21 @@ const List: React.FC<ListProps> = ({
     category: SkillCategory;
     skills: Skill[];
   }[] = useMemo(() => {
-    const idToSkill: Map<number, Skill> = toIdMap(skills);
     const idToSkillCategory: Map<number, SkillCategory> = toIdMap(
       skillCategories,
     );
-    const categoryToSkills: Map<
-      SkillCategory,
-      Skill[]
-    > = skillSkillCategories.reduce(
-      (m: Map<SkillCategory, Skill[]>, skillSkillCategory) => {
-        const skill = idToSkill.get(skillSkillCategory.skill_id);
-        const category = idToSkillCategory.get(
-          skillSkillCategory.skill_category_id,
-        );
-        if (skill && category) {
-          if (!m.has(category)) {
-            m.set(category, []);
+    const categoryToSkills: Map<SkillCategory, Skill[]> = skills.reduce(
+      (map: Map<SkillCategory, Skill[]>, skill) => {
+        skill.skill_category_ids.forEach((categoryId) => {
+          const category = idToSkillCategory.get(categoryId);
+          if (category) {
+            if (!map.has(category)) {
+              map.set(category, []);
+            }
+            map.get(category)?.push(skill);
           }
-          m.get(category)?.push(skill);
-        }
-        return m;
+        });
+        return map;
       },
       new Map(),
     );
@@ -158,7 +150,7 @@ const List: React.FC<ListProps> = ({
         ],
       };
     });
-  }, [skills, skillCategories, skillSkillCategories]);
+  }, [skills, skillCategories]);
 
   return (
     <div>

@@ -299,12 +299,6 @@ export interface SkillCategory {
   depth: number;
 }
 
-export interface SkillSkillCategory {
-  id: number;
-  skill_id: number;
-  skill_category_id: number;
-}
-
 // Version of Assessment that hasn't been saved to server yet
 export interface TempAssessment {
   id: number;

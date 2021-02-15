@@ -44,17 +44,6 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
     });
   };
 
-  // TODO: remove
-  const fakeSkillSkillCategories = skillsResource.value.map(
-    (skill: Skill, index) => {
-      return {
-        id: index,
-        skill_id: skill.id,
-        skill_category_id: random(3, 10), // non-parent skill categories.
-      };
-    },
-  );
-
   return (
     <div>
       <h2 data-h2-heading="b(h2)" data-h2-margin="b(bottom, 1)">
@@ -115,7 +104,6 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
         experiences={fakeExperiences()}
         experienceSkills={fakeExperienceSkills()}
         skillCategories={skillCategoriesResource.value}
-        skillSkillCategories={fakeSkillSkillCategories}
         skills={applicantSkills}
         applicantId={applicantId}
         handleDeleteSkill={removeSkill}

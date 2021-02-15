@@ -11,14 +11,6 @@ import { fakeSkills } from "../../../fakeData/fakeSkills";
 import { Skill } from "../../../models/types";
 import { promiseAction } from "../../helpers";
 
-const skillSkillCategories = fakeSkills().map((skill: Skill, index) => {
-  return {
-    id: index,
-    skill_id: skill.id,
-    skill_category_id: random(3, 10), // non-parent skill categories.
-  };
-});
-
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
 );
@@ -31,7 +23,6 @@ stories.add(
         experiences={fakeExperiences()}
         experienceSkills={fakeExperienceSkills()}
         skillCategories={fakeSkillCategories()}
-        skillSkillCategories={skillSkillCategories}
         skills={fakeSkills()}
         applicantId={1}
         handleDeleteSkill={promiseAction("Delete skill")}
