@@ -12,6 +12,10 @@ import Accordion from "./H2Components/Accordion";
 import Dialog from "./H2Components/Dialog";
 
 const messages = defineMessages({
+  triggerLabel: {
+    id: "findSkillsModal.triggerLabel",
+    defaultMessage: "Add Skills",
+  },
   modalHeading: {
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
@@ -79,8 +83,36 @@ const messages = defineMessages({
   },
 });
 
+const FIND_SKILLS_DIALOG_ID = "dialog-id-find-skills";
+
+export const FindSkillsModalTrigger: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <Dialog.Trigger
+      id={FIND_SKILLS_DIALOG_ID}
+      data-h2-card="white, round"
+      buttonStyling="theme-2, round, medium, outline"
+      data-h2-grid="b(top, expanded, flush, 0)"
+    >
+      <div data-h2-grid-item="b(1of1)">
+        <div data-h2-grid-content>
+          <span data-h2-font-color="b(theme-2)" data-h2-font-size="b(h2)">
+            <i className="fa fa-binoculars" />
+          </span>
+        </div>
+      </div>
+      <div data-h2-grid-item="b(1of1)">
+        <div data-h2-grid-content>
+          <p data-h2-button-label>
+            {intl.formatMessage(messages.triggerLabel)}
+          </p>
+        </div>
+      </div>
+    </Dialog.Trigger>
+  );
+};
+
 interface FindSkillsModalProps {
-  dialogTrigger: React.ReactElement;
   oldSkills: Skill[];
   portal: "applicant" | "manager";
   skills: Skill[];
@@ -89,7 +121,6 @@ interface FindSkillsModalProps {
 }
 
 const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
-  dialogTrigger,
   oldSkills,
   portal,
   skills,
@@ -169,404 +200,380 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
     return Promise.resolve();
   };
   return (
-    <div>
-      <Dialog.Trigger
-        id="findSkills"
-        data-h2-button="white, round, solid"
-        data-h2-card="white, round"
-        data-h2-padding="b(tb, .5)"
-      >
-        {dialogTrigger}
-      </Dialog.Trigger>
-      <Dialog id="findSkills" data-h2-radius="b(round)">
-        <Dialog.Header className="gradient-left-right">
-          <Dialog.Title
-            data-h2-padding="b(all, 1)"
-            data-h2-font-color="b(white)"
-            data-h2-font-size="b(h4)"
-          >
-            {intl.formatMessage(messages.modalHeading)}
-          </Dialog.Title>
-        </Dialog.Header>
-        <Dialog.Content
-          data-h2-grid="b(top, expanded, flush, 0)"
-          style={{ height: "35rem", overflow: "auto", alignItems: "stretch" }}
+    <Dialog id={FIND_SKILLS_DIALOG_ID} data-h2-radius="b(round)">
+      <Dialog.Header className="gradient-left-right">
+        <Dialog.Title
+          data-h2-padding="b(all, 1)"
+          data-h2-font-color="b(white)"
+          data-h2-font-size="b(h4)"
         >
-          {/* Parent Skill Category Accordions Section */}
-          <div data-h2-grid-item="s(2of5) b(1of1)">
-            <SearchBar
-              buttonLabel={intl.formatMessage(messages.searchBarButtonLabel)}
-              searchLabel={intl.formatMessage(messages.searchBarInputLabel)}
-              searchPlaceholder={intl.formatMessage(
-                messages.searchBarInputPlaceholder,
-              )}
-              handleSubmit={handleSkillSearch}
-            />
-            <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
-              {parentSkillCategories.map((parentSkillCategory) => {
-                const { id, key } = parentSkillCategory;
-                // Get children skill categories of parent skill category.
-                const childrenSkillCategories = skillCategories.filter(
-                  (childSkillCategory) =>
-                    childSkillCategory.depth === 2 &&
-                    childSkillCategory.parent_id === id,
-                );
-                return (
-                  <li
-                    key={id}
-                    data-h2-bg-color={`b(gray-1, ${
-                      expandedAccordions.includes(key) ? ".5" : "0"
-                    })`}
-                    data-h2-padding="b(tb, 1)"
-                    data-h2-border="b(gray-2, top, solid, thin)"
-                    data-h2-margin="b(tb, 0)"
-                  >
-                    <Accordion triggerPos="left">
-                      <Accordion.Btn
-                        type="button"
-                        addIcon={
-                          <i
-                            data-h2-font-weight="b(700)"
-                            className="fas fa-plus"
-                          />
-                        }
-                        removeIcon={
-                          <i
-                            data-h2-font-weight="b(700)"
-                            className="fas fa-minus"
-                          />
-                        }
-                        onClick={() =>
-                          setExpandedAccordions(
-                            addOrRemove(key, expandedAccordions),
-                          )
-                        }
-                      >
-                        <p data-h2-font-weight="b(700)">
-                          {localizeFieldNonNull(
-                            locale,
-                            parentSkillCategory,
-                            "name",
-                          )}
-                        </p>
-                      </Accordion.Btn>
-                      <p
-                        data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
-                        data-h2-font-color="b(black)"
-                        data-h2-font-size="b(small)"
-                        style={{ paddingLeft: "5rem" }}
-                      >
+          {intl.formatMessage(messages.modalHeading)}
+        </Dialog.Title>
+      </Dialog.Header>
+      <Dialog.Content
+        data-h2-grid="b(top, expanded, flush, 0)"
+        style={{ height: "35rem", overflow: "auto", alignItems: "stretch" }}
+      >
+        {/* Parent Skill Category Accordions Section */}
+        <div data-h2-grid-item="s(2of5) b(1of1)">
+          <SearchBar
+            buttonLabel={intl.formatMessage(messages.searchBarButtonLabel)}
+            searchLabel={intl.formatMessage(messages.searchBarInputLabel)}
+            searchPlaceholder={intl.formatMessage(
+              messages.searchBarInputPlaceholder,
+            )}
+            handleSubmit={handleSkillSearch}
+          />
+          <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
+            {parentSkillCategories.map((parentSkillCategory) => {
+              const { id, key } = parentSkillCategory;
+              // Get children skill categories of parent skill category.
+              const childrenSkillCategories = skillCategories.filter(
+                (childSkillCategory) =>
+                  childSkillCategory.depth === 2 &&
+                  childSkillCategory.parent_id === id,
+              );
+              return (
+                <li
+                  key={id}
+                  data-h2-bg-color={`b(gray-1, ${
+                    expandedAccordions.includes(key) ? ".5" : "0"
+                  })`}
+                  data-h2-padding="b(tb, 1)"
+                  data-h2-border="b(gray-2, top, solid, thin)"
+                  data-h2-margin="b(tb, 0)"
+                >
+                  <Accordion triggerPos="left">
+                    <Accordion.Btn
+                      type="button"
+                      addIcon={
+                        <i
+                          data-h2-font-weight="b(700)"
+                          className="fas fa-plus"
+                        />
+                      }
+                      removeIcon={
+                        <i
+                          data-h2-font-weight="b(700)"
+                          className="fas fa-minus"
+                        />
+                      }
+                      onClick={() =>
+                        setExpandedAccordions(
+                          addOrRemove(key, expandedAccordions),
+                        )
+                      }
+                    >
+                      <p data-h2-font-weight="b(700)">
                         {localizeFieldNonNull(
                           locale,
                           parentSkillCategory,
-                          "description",
+                          "name",
                         )}
                       </p>
-                      <Accordion.Content>
-                        <ul
-                          data-h2-padding="b(all, 0)"
-                          className="no-list-style-type"
-                        >
-                          {childrenSkillCategories.map(
-                            (childSkillCatergory) => {
-                              return (
-                                <li key={childSkillCatergory.key}>
-                                  <div
-                                    data-h2-grid="b(middle, expanded, flush, 0)"
-                                    data-h2-margin="b(right, .5)"
+                    </Accordion.Btn>
+                    <p
+                      data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
+                      data-h2-font-color="b(black)"
+                      data-h2-font-size="b(small)"
+                      style={{ paddingLeft: "5rem" }}
+                    >
+                      {localizeFieldNonNull(
+                        locale,
+                        parentSkillCategory,
+                        "description",
+                      )}
+                    </p>
+                    <Accordion.Content>
+                      <ul
+                        data-h2-padding="b(all, 0)"
+                        className="no-list-style-type"
+                      >
+                        {childrenSkillCategories.map((childSkillCatergory) => {
+                          return (
+                            <li key={childSkillCatergory.key}>
+                              <div
+                                data-h2-grid="b(middle, expanded, flush, 0)"
+                                data-h2-margin="b(right, .5)"
+                              >
+                                <div
+                                  data-h2-align="b(left)"
+                                  data-h2-grid-item="b(5of6)"
+                                >
+                                  <button
+                                    data-h2-button=""
+                                    type="button"
+                                    onClick={() => {
+                                      setFirstVisit(false);
+                                      setButtonClicked(childSkillCatergory.key);
+                                      setResultsSectionText({
+                                        title: `${localizeFieldNonNull(
+                                          locale,
+                                          childSkillCatergory,
+                                          "name",
+                                        )} ${intl.formatMessage(
+                                          messages.skills,
+                                        )}`,
+                                        description: localizeFieldNonNull(
+                                          locale,
+                                          childSkillCatergory,
+                                          "description",
+                                        ),
+                                      });
+                                      setSkillsResults(
+                                        categoryIdToSkillsMap.get(
+                                          childSkillCatergory.id,
+                                        ) ?? [],
+                                      );
+                                    }}
                                   >
-                                    <div
-                                      data-h2-align="b(left)"
-                                      data-h2-grid-item="b(5of6)"
-                                    >
-                                      <button
-                                        data-h2-button=""
-                                        type="button"
-                                        onClick={() => {
-                                          setFirstVisit(false);
-                                          setButtonClicked(
-                                            childSkillCatergory.key,
-                                          );
-                                          setResultsSectionText({
-                                            title: `${localizeFieldNonNull(
-                                              locale,
-                                              childSkillCatergory,
-                                              "name",
-                                            )} ${intl.formatMessage(
-                                              messages.skills,
-                                            )}`,
-                                            description: localizeFieldNonNull(
-                                              locale,
-                                              childSkillCatergory,
-                                              "description",
-                                            ),
-                                          });
-                                          setSkillsResults(
-                                            categoryIdToSkillsMap.get(
-                                              childSkillCatergory.id,
-                                            ) ?? [],
-                                          );
-                                        }}
-                                      >
-                                        <p
-                                          data-h2-button-label
-                                          data-h2-font-weight="b(700)"
-                                          data-h2-display="b(block)"
-                                          data-h2-font-style={`${
-                                            buttonClicked ===
-                                            childSkillCatergory.key
-                                              ? "b(none)"
-                                              : "b(underline)"
-                                          }`}
-                                          data-h2-font-color={`${
-                                            buttonClicked ===
-                                            childSkillCatergory.key
-                                              ? "b(theme-1)"
-                                              : "b(black)"
-                                          }`}
-                                          data-h2-align="b(left)"
-                                        >
-                                          {localizeFieldNonNull(
-                                            locale,
-                                            childSkillCatergory,
-                                            "name",
-                                          )}
-                                        </p>
-                                      </button>
-                                    </div>
-                                    <div
-                                      data-h2-grid-item="b(1of6)"
-                                      data-h2-align="b(center)"
-                                      data-h2-radius="b(round)"
-                                      data-h2-bg-color={`${
+                                    <p
+                                      data-h2-button-label
+                                      data-h2-font-weight="b(700)"
+                                      data-h2-display="b(block)"
+                                      data-h2-font-style={`${
                                         buttonClicked ===
                                         childSkillCatergory.key
-                                          ? "b(theme-1, 1)"
-                                          : "b(white, 1)"
+                                          ? "b(none)"
+                                          : "b(underline)"
                                       }`}
                                       data-h2-font-color={`${
                                         buttonClicked ===
                                         childSkillCatergory.key
-                                          ? "b(white)"
+                                          ? "b(theme-1)"
                                           : "b(black)"
                                       }`}
+                                      data-h2-align="b(left)"
                                     >
-                                      <p>
-                                        {categoryIdToSkillsMap.get(
-                                          childSkillCatergory.id,
-                                        )?.length ?? 0}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </li>
-                              );
-                            },
-                          )}
-                        </ul>
-                      </Accordion.Content>
-                    </Accordion>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          {/* Skill Results Section */}
-          <div
-            data-h2-grid-item="s(3of5) b(1of1)"
-            data-h2-border="s(gray-2, left, solid, thin) b(gray-2, top, solid, thin)"
-          >
-            {firstVisit ? (
-              <div
-                data-h2-padding="s(tb, 5) s(right, 3) s(left, 4) b(bottom, 3) b(rl, 2)"
-                data-h2-container="b(center, large)"
+                                      {localizeFieldNonNull(
+                                        locale,
+                                        childSkillCatergory,
+                                        "name",
+                                      )}
+                                    </p>
+                                  </button>
+                                </div>
+                                <div
+                                  data-h2-grid-item="b(1of6)"
+                                  data-h2-align="b(center)"
+                                  data-h2-radius="b(round)"
+                                  data-h2-bg-color={`${
+                                    buttonClicked === childSkillCatergory.key
+                                      ? "b(theme-1, 1)"
+                                      : "b(white, 1)"
+                                  }`}
+                                  data-h2-font-color={`${
+                                    buttonClicked === childSkillCatergory.key
+                                      ? "b(white)"
+                                      : "b(black)"
+                                  }`}
+                                >
+                                  <p>
+                                    {categoryIdToSkillsMap.get(
+                                      childSkillCatergory.id,
+                                    )?.length ?? 0}
+                                  </p>
+                                </div>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </Accordion.Content>
+                  </Accordion>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {/* Skill Results Section */}
+        <div
+          data-h2-grid-item="s(3of5) b(1of1)"
+          data-h2-border="s(gray-2, left, solid, thin) b(gray-2, top, solid, thin)"
+        >
+          {firstVisit ? (
+            <div
+              data-h2-padding="s(tb, 5) s(right, 3) s(left, 4) b(bottom, 3) b(rl, 2)"
+              data-h2-container="b(center, large)"
+            >
+              <p
+                data-h2-font-size="b(h4)"
+                data-h2-font-weight="b(700)"
+                data-h2-padding="b(top, 3) b(bottom, 1)"
+              >
+                <i
+                  data-h2-padding="b(right, .5)"
+                  className="fas fa-arrow-left"
+                />
+                {intl.formatMessage(messages.skillsResultsHeading)}
+              </p>
+              <p>{intl.formatMessage(messages.skillResultsSubHeading)}</p>
+            </div>
+          ) : (
+            <div data-h2-padding="s(rl, 0) b(bottom, 3) b(rl, 1)">
+              {/* Back Button */}
+              <button
+                data-h2-button
+                type="button"
+                data-h2-padding="b(all, 1)"
+                onClick={() => {
+                  setFirstVisit(true);
+                  setButtonClicked("");
+                  setSkillsResults([]);
+                }}
               >
                 <p
-                  data-h2-font-size="b(h4)"
+                  data-h2-button-label
                   data-h2-font-weight="b(700)"
-                  data-h2-padding="b(top, 3) b(bottom, 1)"
+                  data-h2-font-style="b(underline)"
                 >
                   <i
-                    data-h2-padding="b(right, .5)"
-                    className="fas fa-arrow-left"
+                    data-h2-padding="b(right, .25)"
+                    className="fas fa-caret-left"
                   />
-                  {intl.formatMessage(messages.skillsResultsHeading)}
+                  {intl.formatMessage(messages.backButton)}
                 </p>
-                <p>{intl.formatMessage(messages.skillResultsSubHeading)}</p>
-              </div>
-            ) : (
-              <div data-h2-padding="s(rl, 0) b(bottom, 3) b(rl, 1)">
-                {/* Back Button */}
-                <button
-                  data-h2-button
-                  type="button"
-                  data-h2-padding="b(all, 1)"
-                  onClick={() => {
-                    setFirstVisit(true);
-                    setButtonClicked("");
-                    setSkillsResults([]);
-                  }}
-                >
-                  <p
-                    data-h2-button-label
-                    data-h2-font-weight="b(700)"
-                    data-h2-font-style="b(underline)"
-                  >
-                    <i
-                      data-h2-padding="b(right, .25)"
-                      className="fas fa-caret-left"
-                    />
-                    {intl.formatMessage(messages.backButton)}
-                  </p>
-                </button>
+              </button>
 
-                <p
-                  data-h2-font-size="b(h4)"
-                  data-h2-font-weight="b(700)"
-                  data-h2-padding="b(rl, 1) b(bottom, .5)"
-                >
-                  {resultsSectionText.title}
-                </p>
-                <p
-                  data-h2-font-size="b(small)"
-                  data-h2-padding="b(rl, 1) b(bottom, 2)"
-                >
-                  {resultsSectionText.description}
-                </p>
-                {!firstVisit && skillsResults.length > 0 ? (
-                  <ul
-                    data-h2-padding="b(left, 0)"
-                    className="no-list-style-type"
-                  >
-                    {skillsResults.map((skill) => {
-                      const { id } = skill;
-                      const isAdded = newSkills.find(
-                        (newSkill) => newSkill.id === skill.id,
-                      );
-                      const isOldSkill =
-                        portal === "applicant" &&
-                        oldSkills.find(
-                          (oldSkill) => oldSkill.id === skill.id,
-                        ) !== undefined;
-                      return (
-                        <li
-                          key={id}
-                          data-h2-grid="b(middle, contained, padded, 0)"
-                        >
-                          <Accordion data-h2-grid-item="b(3of4)">
-                            <Accordion.Btn>
-                              <p
-                                data-h2-font-weight="b(700)"
-                                data-h2-font-style="b(underline)"
-                              >
-                                {localizeFieldNonNull(locale, skill, "name")}
-                                {isAdded && (
-                                  <i
-                                    data-h2-padding="b(left, .5)"
-                                    data-h2-font-color="b(theme-1)"
-                                    aria-hidden="true"
-                                    className="fas fa-check"
-                                  />
-                                )}
-                              </p>
-                            </Accordion.Btn>
-                            <Accordion.Content>
-                              <p data-h2-focus>
-                                {localizeFieldNonNull(
-                                  locale,
-                                  skill,
-                                  "description",
-                                )}
-                              </p>
-                            </Accordion.Content>
-                          </Accordion>
-                          {isOldSkill ? (
-                            <button
-                              data-h2-button=""
-                              data-h2-grid-item="b(1of4)"
-                              disabled
-                              type="button"
+              <p
+                data-h2-font-size="b(h4)"
+                data-h2-font-weight="b(700)"
+                data-h2-padding="b(rl, 1) b(bottom, .5)"
+              >
+                {resultsSectionText.title}
+              </p>
+              <p
+                data-h2-font-size="b(small)"
+                data-h2-padding="b(rl, 1) b(bottom, 2)"
+              >
+                {resultsSectionText.description}
+              </p>
+              {!firstVisit && skillsResults.length > 0 ? (
+                <ul data-h2-padding="b(left, 0)" className="no-list-style-type">
+                  {skillsResults.map((skill) => {
+                    const { id } = skill;
+                    const isAdded = newSkills.find(
+                      (newSkill) => newSkill.id === skill.id,
+                    );
+                    const isOldSkill =
+                      portal === "applicant" &&
+                      oldSkills.find((oldSkill) => oldSkill.id === skill.id) !==
+                        undefined;
+                    return (
+                      <li
+                        key={id}
+                        data-h2-grid="b(middle, contained, padded, 0)"
+                      >
+                        <Accordion data-h2-grid-item="b(3of4)">
+                          <Accordion.Btn>
+                            <p
+                              data-h2-font-weight="b(700)"
+                              data-h2-font-style="b(underline)"
                             >
-                              <span data-h2-button-label>
-                                {intl.formatMessage(
-                                  messages.disabledSkillButton,
-                                )}
-                              </span>
-                            </button>
-                          ) : (
-                            <button
-                              data-h2-button=""
-                              data-h2-grid-item="b(1of4)"
-                              type="button"
-                              onClick={() => {
-                                // If the skill has been selected then remove it.
-                                // Else, if the has not been selected then add it to newSkills list.
-                                setNewSkills(addOrRemove(skill, newSkills));
-                              }}
+                              {localizeFieldNonNull(locale, skill, "name")}
+                              {isAdded && (
+                                <i
+                                  data-h2-padding="b(left, .5)"
+                                  data-h2-font-color="b(theme-1)"
+                                  aria-hidden="true"
+                                  className="fas fa-check"
+                                />
+                              )}
+                            </p>
+                          </Accordion.Btn>
+                          <Accordion.Content>
+                            <p data-h2-focus>
+                              {localizeFieldNonNull(
+                                locale,
+                                skill,
+                                "description",
+                              )}
+                            </p>
+                          </Accordion.Content>
+                        </Accordion>
+                        {isOldSkill ? (
+                          <button
+                            data-h2-button=""
+                            data-h2-grid-item="b(1of4)"
+                            disabled
+                            type="button"
+                          >
+                            <span data-h2-button-label>
+                              {intl.formatMessage(messages.disabledSkillButton)}
+                            </span>
+                          </button>
+                        ) : (
+                          <button
+                            data-h2-button=""
+                            data-h2-grid-item="b(1of4)"
+                            type="button"
+                            onClick={() => {
+                              // If the skill has been selected then remove it.
+                              // Else, if the has not been selected then add it to newSkills list.
+                              setNewSkills(addOrRemove(skill, newSkills));
+                            }}
+                          >
+                            <p
+                              data-h2-button-label
+                              data-h2-font-weight="b(700)"
+                              data-h2-font-style="b(underline)"
+                              data-h2-font-color={`${
+                                isAdded ? "b(theme-1)" : "b(black)"
+                              }`}
                             >
-                              <p
-                                data-h2-button-label
-                                data-h2-font-weight="b(700)"
-                                data-h2-font-style="b(underline)"
-                                data-h2-font-color={`${
-                                  isAdded ? "b(theme-1)" : "b(black)"
-                                }`}
-                              >
-                                {isAdded
-                                  ? intl.formatMessage(
-                                      messages.removeSkillButton,
-                                    )
-                                  : intl.formatMessage(
-                                      messages.selectSkillButton,
-                                    )}
-                              </p>
-                            </button>
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : (
-                  <p data-h2-padding="b(rl, 1) b(bottom, .5)">
-                    {intl.formatMessage(messages.noSkills)}
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        </Dialog.Content>
-        <Dialog.Actions
-          data-h2-grid="b(middle, expanded, padded, .5)"
-          data-h2-margin="b(all, 0)"
-          data-h2-bg-color="b(gray-1, 1)"
-        >
-          <div data-h2-align="b(left)" data-h2-grid-item="b(1of2)">
-            <Dialog.ActionBtn
-              buttonStyling="stop, round, solid"
-              data-h2-padding="b(rl, 2) b(tb, .5)"
-              data-h2-bg-color="b(white, 1)"
-            >
-              <p>{intl.formatMessage(messages.cancelButton)}</p>
-            </Dialog.ActionBtn>
-          </div>
-          <div data-h2-align="b(right)" data-h2-grid-item="b(1of2)">
-            <Dialog.ActionBtn
-              buttonStyling="theme-1, round, solid"
-              data-h2-padding="b(rl, 2) b(tb, .5)"
-              onClick={() =>
-                handleSubmit(newSkills).then(() => {
-                  setNewSkills([]);
-                  setFirstVisit(true);
-                  setSkillsResults([]);
-                })
-              }
-              disabled={newSkills.length === 0}
-            >
-              <p>{intl.formatMessage(messages.saveButton)}</p>
-            </Dialog.ActionBtn>
-          </div>
-        </Dialog.Actions>
-      </Dialog>
-    </div>
+                              {isAdded
+                                ? intl.formatMessage(messages.removeSkillButton)
+                                : intl.formatMessage(
+                                    messages.selectSkillButton,
+                                  )}
+                            </p>
+                          </button>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p data-h2-padding="b(rl, 1) b(bottom, .5)">
+                  {intl.formatMessage(messages.noSkills)}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </Dialog.Content>
+      <Dialog.Actions
+        data-h2-grid="b(middle, expanded, padded, .5)"
+        data-h2-margin="b(all, 0)"
+        data-h2-bg-color="b(gray-1, 1)"
+      >
+        <div data-h2-align="b(left)" data-h2-grid-item="b(1of2)">
+          <Dialog.ActionBtn
+            buttonStyling="stop, round, solid"
+            data-h2-padding="b(rl, 2) b(tb, .5)"
+            data-h2-bg-color="b(white, 1)"
+          >
+            <p>{intl.formatMessage(messages.cancelButton)}</p>
+          </Dialog.ActionBtn>
+        </div>
+        <div data-h2-align="b(right)" data-h2-grid-item="b(1of2)">
+          <Dialog.ActionBtn
+            buttonStyling="theme-1, round, solid"
+            data-h2-padding="b(rl, 2) b(tb, .5)"
+            onClick={() =>
+              handleSubmit(newSkills).then(() => {
+                setNewSkills([]);
+                setFirstVisit(true);
+                setSkillsResults([]);
+              })
+            }
+            disabled={newSkills.length === 0}
+          >
+            <p>{intl.formatMessage(messages.saveButton)}</p>
+          </Dialog.ActionBtn>
+        </div>
+      </Dialog.Actions>
+    </Dialog>
   );
 };
 
