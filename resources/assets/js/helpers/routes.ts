@@ -335,6 +335,11 @@ const baseApplicantProfileUrl = (
   return `${baseUrl()}/${locale}/profile/${applicantId}`;
 };
 
+export const getApplicantExperienceUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => `${baseApplicantProfileUrl(locale, applicantId)}/experience`;
+
 export const getApplicantSkillsUrl = (
   locale: Locales,
   applicantId: number,
