@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
   getLocale,
@@ -99,8 +99,24 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const parentSkillCategories: SkillCategory[] = skillCategories.filter(
-    (skillCategory) =>
-      skillCategory.depth === 1 && skillCategory.parent_id === 0,
+    (skillCategory) => !skillCategory.parent_id,
+  );
+
+  const categoryIdToSkillsMap: Map<number, Skill[]> = useMemo(
+    () =>
+      skills.reduce((map: Map<number, Skill[]>, skill): Map<
+        number,
+        Skill[]
+      > => {
+        skill.skill_category_ids.forEach((categoryId) => {
+          if (!map.has(categoryId)) {
+            map.set(categoryId, []);
+          }
+          map.get(categoryId)?.push(skill);
+        });
+        return map;
+      }, new Map()),
+    [skills],
   );
 
   // List of new Skills that will be saved to the user on submit.
@@ -286,7 +302,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                             ),
                                           });
                                           setSkillsResults(
-                                            childSkillCatergory.skills,
+                                            categoryIdToSkillsMap.get(
+                                              childSkillCatergory.id,
+                                            ) ?? [],
                                           );
                                         }}
                                       >
@@ -333,7 +351,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                           : "b(black)"
                                       }`}
                                     >
-                                      <p>{childSkillCatergory.skills.length}</p>
+                                      <p>
+                                        {categoryIdToSkillsMap.get(
+                                          childSkillCatergory.id,
+                                        )?.length ?? 0}
+                                      </p>
                                     </div>
                                   </div>
                                 </li>

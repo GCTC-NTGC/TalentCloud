@@ -4,6 +4,11 @@ import {
   fakeClassification1,
   fakeClassification2,
 } from "./fakeClassifications";
+import {
+  fakeSkillCategoryChild1,
+  fakeSkillCategoryChild4,
+  fakeSkillCategoryChild5,
+} from "./fakeSkillCategories";
 
 export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   id: 1,
@@ -20,6 +25,7 @@ export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: false,
   is_culture_skill: false,
   classifications: [fakeClassification1()],
+  skill_category_ids: [fakeSkillCategoryChild5().id],
   ...overrides,
 });
 
@@ -39,6 +45,7 @@ export const fakeSkill2 = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: false,
   is_culture_skill: false,
   classifications: [fakeClassification1()],
+  skill_category_ids: [fakeSkillCategoryChild5().id],
   ...overrides,
 });
 
@@ -58,6 +65,7 @@ export const fakeSkill3 = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: true,
   is_culture_skill: false,
   classifications: [fakeClassification1()],
+  skill_category_ids: [fakeSkillCategoryChild5().id],
   ...overrides,
 });
 
@@ -77,10 +85,14 @@ export const fakeSkill4 = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: false,
   is_culture_skill: true,
   classifications: [fakeClassification1()],
+  skill_category_ids: [
+    fakeSkillCategoryChild1().id,
+    fakeSkillCategoryChild4().id,
+  ],
   ...overrides,
 });
 
-export const fakeSkill5 = (): Skill => ({
+export const fakeSkill5 = (overrides: Partial<Skill> = {}): Skill => ({
   id: 13,
   skill_type_id: SkillTypeId.Hard,
   name: { en: "HTML", fr: "HTML" },
@@ -93,9 +105,14 @@ export const fakeSkill5 = (): Skill => ({
   is_future_skill: false,
   is_culture_skill: true,
   classifications: [fakeClassification1()],
+  skill_category_ids: [
+    fakeSkillCategoryChild4().id,
+    fakeSkillCategoryChild5().id,
+  ],
+  ...overrides,
 });
 
-export const fakeSkill6 = (): Skill => ({
+export const fakeSkill6 = (overrides: Partial<Skill> = {}): Skill => ({
   id: 25,
   skill_type_id: SkillTypeId.Soft,
   name: { en: "Flexibility", fr: "Flexibilité" },
@@ -108,6 +125,8 @@ export const fakeSkill6 = (): Skill => ({
   is_future_skill: false,
   is_culture_skill: true,
   classifications: [fakeClassification2()],
+  skill_category_ids: [],
+  ...overrides,
 });
 
 export const fakeSkills = (): Skill[] => [

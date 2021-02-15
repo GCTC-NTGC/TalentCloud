@@ -1,12 +1,4 @@
 import { SkillCategory } from "../models/types";
-import {
-  fakeSkill,
-  fakeSkill2,
-  fakeSkill3,
-  fakeSkill4,
-  fakeSkill5,
-  fakeSkill6,
-} from "./fakeSkills";
 
 export const fakeSkillCategoryParent1 = (): SkillCategory => ({
   id: 1,
@@ -25,7 +17,6 @@ export const fakeSkillCategoryParent1 = (): SkillCategory => ({
   lft: 2,
   rgt: 11,
   depth: 1,
-  skills: [],
 });
 
 export const fakeSkillCategoryParent2 = (): SkillCategory => ({
@@ -44,7 +35,6 @@ export const fakeSkillCategoryParent2 = (): SkillCategory => ({
   lft: 12,
   rgt: 21,
   depth: 1,
-  skills: [],
 });
 
 export const fakeSkillCategoryChild1 = (): SkillCategory => ({
@@ -64,7 +54,6 @@ export const fakeSkillCategoryChild1 = (): SkillCategory => ({
   lft: 3,
   rgt: 4,
   depth: 2,
-  skills: [fakeSkill4()],
 });
 
 export const fakeSkillCategoryChild2 = (): SkillCategory => ({
@@ -84,7 +73,6 @@ export const fakeSkillCategoryChild2 = (): SkillCategory => ({
   lft: 5,
   rgt: 6,
   depth: 2,
-  skills: [],
 });
 
 export const fakeSkillCategoryChild3 = (): SkillCategory => ({
@@ -104,7 +92,6 @@ export const fakeSkillCategoryChild3 = (): SkillCategory => ({
   lft: 7,
   rgt: 8,
   depth: 2,
-  skills: [],
 });
 
 export const fakeSkillCategoryChild4 = (): SkillCategory => ({
@@ -124,7 +111,6 @@ export const fakeSkillCategoryChild4 = (): SkillCategory => ({
   lft: 9,
   rgt: 10,
   depth: 2,
-  skills: [fakeSkill4(), fakeSkill6()],
 });
 
 export const fakeSkillCategoryChild5 = (): SkillCategory => ({
@@ -144,7 +130,6 @@ export const fakeSkillCategoryChild5 = (): SkillCategory => ({
   lft: 13,
   rgt: 14,
   depth: 2,
-  skills: [fakeSkill(), fakeSkill2(), fakeSkill3(), fakeSkill5()],
 });
 
 export const fakeSkillCategoryChild6 = (): SkillCategory => ({
@@ -164,7 +149,6 @@ export const fakeSkillCategoryChild6 = (): SkillCategory => ({
   lft: 15,
   rgt: 16,
   depth: 2,
-  skills: [],
 });
 
 export const fakeSkillCategoryChild7 = (): SkillCategory => ({
@@ -184,7 +168,6 @@ export const fakeSkillCategoryChild7 = (): SkillCategory => ({
   lft: 17,
   rgt: 18,
   depth: 2,
-  skills: [],
 });
 
 export const fakeSkillCategoryChild8 = (): SkillCategory => ({
@@ -204,7 +187,6 @@ export const fakeSkillCategoryChild8 = (): SkillCategory => ({
   lft: 19,
   rgt: 20,
   depth: 2,
-  skills: [],
 });
 
 export const fakeSkillCategoriesParents = (): SkillCategory[] => [
