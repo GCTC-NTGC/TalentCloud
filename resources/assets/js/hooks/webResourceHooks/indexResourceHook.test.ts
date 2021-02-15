@@ -639,10 +639,10 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
-      const resolveEntityEndpoint = (baseEndpoint, id) =>
-        `${baseEndpoint}/resolveEntityTest/${id}`;
+      const resolveEntityEndpoint = (baseEndpoint, entity) =>
+        `${baseEndpoint}/resolveEntityTest/${entity.id}`;
       fetchMock.putOnce(
-        resolveEntityEndpoint(endpoint, updateValue.id),
+        resolveEntityEndpoint(endpoint, updateValue),
         updateValue,
       );
       const { result } = renderHook(() =>
@@ -866,7 +866,7 @@ describe("indexResourceHook", () => {
       expect(result.current.entityStatus[1]).toEqual("initial");
       expect(result.current.indexStatus).toEqual("initial");
       await act(async () => {
-        result.current.deleteResource(2);
+        result.current.deleteResource({ id: 2, name: "two" });
         await waitForNextUpdate();
         expect(result.current.entityStatus[2]).toEqual("pending");
         expect(result.current.entityStatus[1]).toEqual("initial");
@@ -888,7 +888,7 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue }),
       );
       await act(async () => {
-        await result.current.deleteResource(2);
+        await result.current.deleteResource({ id: 2, name: "two" });
       });
       expect(fetchMock.called()).toBe(true);
     });
@@ -897,14 +897,17 @@ describe("indexResourceHook", () => {
         { id: 1, name: "one" },
         { id: 2, name: "two" },
       ];
-      const resolveEntityEndpoint = (baseEndpoint, id) =>
-        `${baseEndpoint}/resolveEntityTest/${id}`;
-      fetchMock.deleteOnce(resolveEntityEndpoint(endpoint, 2), 200);
+      const resolveEntityEndpoint = (baseEndpoint, entity) =>
+        `${baseEndpoint}/resolveEntityTest/${entity.id}`;
+      fetchMock.deleteOnce(
+        resolveEntityEndpoint(endpoint, { id: 2, name: "two" }),
+        200,
+      );
       const { result } = renderHook(() =>
         useResourceIndex(endpoint, { initialValue, resolveEntityEndpoint }),
       );
       await act(async () => {
-        await result.current.deleteResource(2);
+        await result.current.deleteResource({ id: 2, name: "two" });
       });
       expect(fetchMock.called()).toBe(true);
     });
@@ -918,7 +921,7 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue }),
       );
       await act(async () => {
-        await result.current.deleteResource(2);
+        await result.current.deleteResource({ id: 2, name: "two" });
         expect(hasKey(result.current.entityStatus, 2)).toBe(false);
         expect(hasKey(result.current.values, 2)).toBe(false);
       });
@@ -933,9 +936,9 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue }),
       );
       await act(async () => {
-        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
-          FetchError,
-        );
+        await expect(
+          result.current.deleteResource({ id: 2, name: "two" }),
+        ).rejects.toBeInstanceOf(FetchError);
       });
       expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
       expect(result.current.entityStatus[2]).toEqual("rejected");
@@ -951,9 +954,9 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue, handleError }),
       );
       await act(async () => {
-        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
-          FetchError,
-        );
+        await expect(
+          result.current.deleteResource({ id: 2, name: "two" }),
+        ).rejects.toBeInstanceOf(FetchError);
       });
       // handleError was called once on initial fetch.
       expect(handleError.mock.calls.length).toBe(1);
@@ -973,9 +976,9 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue, handleError }),
       );
       await act(async () => {
-        await expect(result.current.deleteResource(2)).rejects.toBeInstanceOf(
-          Error,
-        );
+        await expect(
+          result.current.deleteResource({ id: 2, name: "two" }),
+        ).rejects.toBeInstanceOf(Error);
       });
       // handleError was called once on initial fetch.
       expect(handleError.mock.calls.length).toBe(1);
@@ -996,9 +999,18 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, { initialValue }),
       );
       await act(async () => {
-        const deletePromise1 = result.current.deleteResource(2);
-        const deletePromise2 = result.current.deleteResource(2);
-        const deletePromise3 = result.current.deleteResource(2);
+        const deletePromise1 = result.current.deleteResource({
+          id: 2,
+          name: "two",
+        });
+        const deletePromise2 = result.current.deleteResource({
+          id: 2,
+          name: "two",
+        });
+        const deletePromise3 = result.current.deleteResource({
+          id: 2,
+          name: "two",
+        });
         await expect(deletePromise1).rejects.toThrow();
         expect(result.current.entityStatus[2]).toBe("pending");
         await deletePromise2;

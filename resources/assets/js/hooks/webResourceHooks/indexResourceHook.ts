@@ -55,8 +55,11 @@ function statusSelector<T extends { id: number }>(
 // Defining these functions outside of the hook, despite their simplicity,
 // so they remain constant between re-renders.
 
-function defaultEntityEndpoint(baseEndpoint: string, id: number): string {
-  return `${baseEndpoint}/${id}`;
+function defaultEntityEndpoint<T extends { id: number }>(
+  baseEndpoint: string,
+  entity: T,
+): string {
+  return `${baseEndpoint}/${entity.id}`;
 }
 
 function defaultCreateEndpoint(baseEndpoint: string): string {
@@ -129,7 +132,7 @@ export function useResourceIndex<T extends { id: number }>(
     forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
     parseIndexResponse?: (response: Json) => T[]; // Defaults to (response) => response.map(parseEntityResponse)
-    resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
+    resolveEntityEndpoint?: (baseEndpoint: string, entity: T) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
     resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string; // Defaults to identical to endpoint. Used for create (POST) requests.
     handleError?: (error: Error | FetchError) => void;
   },
@@ -141,7 +144,7 @@ export function useResourceIndex<T extends { id: number }>(
   create: (newValue: T) => Promise<T>;
   refresh: () => Promise<T[]>; // Reloads the entire index.
   update: (newValue: T) => Promise<T>;
-  deleteResource: (id: number) => Promise<void>;
+  deleteResource: (value: T) => Promise<void>;
 } {
   const initialValue = overrides?.initialValue ?? [];
   const doInitialRefresh =
@@ -251,7 +254,7 @@ export function useResourceIndex<T extends { id: number }>(
       let value: T;
       try {
         const json = await putRequest(
-          resolveEntityEndpoint(endpoint, newValue.id),
+          resolveEntityEndpoint(endpoint, newValue),
           newValue,
         ).then(processJsonResponse);
         value = parseEntityResponse(json);
@@ -282,14 +285,14 @@ export function useResourceIndex<T extends { id: number }>(
   );
 
   const deleteResource = useCallback(
-    async (id: number): Promise<void> => {
+    async (entity: T): Promise<void> => {
       dispatch({
         type: ActionTypes.DeleteStart,
-        meta: { id },
+        meta: { id: entity.id },
       });
       try {
         const response = await deleteRequest(
-          resolveEntityEndpoint(endpoint, id),
+          resolveEntityEndpoint(endpoint, entity),
         );
         if (!response.ok) {
           throw new FetchError(response);
@@ -299,7 +302,7 @@ export function useResourceIndex<T extends { id: number }>(
           dispatch({
             type: ActionTypes.DeleteReject,
             payload: error,
-            meta: { id },
+            meta: { id: entity.id },
           });
           handleError(error);
         }
@@ -308,7 +311,7 @@ export function useResourceIndex<T extends { id: number }>(
       if (isSubscribed.current) {
         dispatch({
           type: ActionTypes.DeleteFulfill,
-          meta: { id },
+          meta: { id: entity.id },
         });
       }
     },
