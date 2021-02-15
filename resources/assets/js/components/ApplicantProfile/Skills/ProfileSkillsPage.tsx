@@ -1,11 +1,10 @@
-import random from "lodash/random";
 import React from "react";
 import ReactDOM from "react-dom";
 import { FormattedMessage } from "react-intl";
-import fakeExperiences from "../../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import { getId, notEmpty, toIdMap } from "../../../helpers/queries";
 import {
+  useApplicantExperience,
   useApplicantSkillIds,
   useSkillCategories,
   useSkills,
@@ -19,13 +18,15 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
   applicantId,
 }) => {
   const skillsResource = useSkills();
-  const applicantSkillsResource = useApplicantSkillIds(applicantId);
   const skillCategoriesResource = useSkillCategories();
+  const applicantSkillsResource = useApplicantSkillIds(applicantId);
+  const experienceResource = useApplicantExperience(applicantId);
 
   const idToSkill = toIdMap(skillsResource.value);
   const applicantSkills = applicantSkillsResource.value.skill_ids
     .map((skillId) => idToSkill.get(skillId))
     .filter(notEmpty);
+  const experiences = Object.values(experienceResource.values);
 
   const submitNewSkills = async (newSkills: Skill[]): Promise<void> => {
     await applicantSkillsResource.update({
@@ -101,7 +102,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
       </div>
 
       <List
-        experiences={fakeExperiences()}
+        experiences={experiences}
         experienceSkills={fakeExperienceSkills()}
         skillCategories={skillCategoriesResource.value}
         skills={applicantSkills}

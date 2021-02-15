@@ -2,10 +2,15 @@
 /* eslint-disable camelcase */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { getApplicantSkillsEndpoint } from "../api/applicantSkills";
-import { getApplicantExperienceEndpoint } from "../api/experience";
+import {
+  getApplicantExperienceEndpoint,
+  getCreateExperienceEndpoint,
+  getExperienceEndpoint,
+  parseSingleExperience,
+} from "../api/experience";
 import { getSkillCategoriesEndpoint, getSkillsEndpoint } from "../api/skill";
-import { Skill, SkillCategory } from "../models/types";
-import { useResource } from "./webResourceHooks";
+import { Experience, Skill, SkillCategory } from "../models/types";
+import { useResource, useResourceIndex } from "./webResourceHooks";
 
 export const useSkills = () => {
   // The skills endpoint doesn't allow updates, so don't return that function.
@@ -22,9 +27,20 @@ export const useApplicantSkillIds = (applicantId: number) => {
   );
 };
 
-// export const useApplicantExperience = (applicantId: number) => {
-//   const resource = useResource(getApplicantExperienceEndpoint(applicantId));
-// };
+export const useApplicantExperience = (applicantId: number) => {
+  const resource = useResourceIndex<Experience>(
+    getApplicantExperienceEndpoint(applicantId),
+    {
+      parseEntityResponse: (response) =>
+        parseSingleExperience(response).experience,
+      resolveEntityEndpoint: (_, entity) =>
+        getExperienceEndpoint(entity.id, entity.type),
+      resolveCreateEndpoint: (_, entity) =>
+        getCreateExperienceEndpoint(applicantId, entity.type),
+    },
+  );
+  return resource;
+};
 
 export const useSkillCategories = () => {
   // The SkillCategories endpoint doesn't allow updates, so don't return that function.
