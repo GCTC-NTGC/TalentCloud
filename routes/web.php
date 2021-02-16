@@ -1008,6 +1008,10 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:delete,community')
         ->name('experience-community.destroy');
 
+    Route::get('applicants/{applicant}/experience-skills', 'Api\ExperienceSkillsController@indexForApplicant')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.experience-skill.index');
     Route::post('experience-skills', 'Api\ExperienceSkillsController@store')
         ->middleware('can:create,App\Models\ExperienceSkill')
         ->name('experience-skill.store');
