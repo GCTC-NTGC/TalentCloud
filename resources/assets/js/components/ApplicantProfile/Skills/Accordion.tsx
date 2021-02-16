@@ -272,15 +272,13 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   experienceSkill,
                   experiences,
                 );
+                if (currentExperience === null) {
+                  return null;
+                }
                 return (
                   <>
                     <Dialog.Trigger
-                      id={
-                        "skill-experience-dialog-" +
-                        `${currentExperience?.type}` +
-                        "-" +
-                        `${currentExperience?.id}`
-                      }
+                      id={`skill-experience-dialog-${currentExperience.type}-${currentExperience.id}`}
                       data-h2-display="b(block)"
                       data-h2-button="black, round, medium, clear"
                     >
@@ -295,17 +293,11 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         data-h2-button-label
                         data-h2-font-style="b(underline)"
                       >
-                        {currentExperience !== null &&
-                          getExperienceTitle(currentExperience)}
+                        {getExperienceTitle(currentExperience)}
                       </span>
                     </Dialog.Trigger>
                     <Dialog
-                      id={
-                        "skill-experience-dialog-" +
-                        `${currentExperience?.type}` +
-                        "-" +
-                        `${currentExperience?.id}`
-                      }
+                      id={`skill-experience-dialog-${currentExperience.type}-${currentExperience.id}`}
                     >
                       <Dialog.Header
                         data-h2-grid="b(middle, contained, padded, .5)"
@@ -331,7 +323,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                             {intl.formatMessage(
                               messages[
                                 getExperienceDialogTitleKey(
-                                  currentExperience?.type || "",
+                                  currentExperience.type,
                                 )
                               ],
                             )}
@@ -365,30 +357,29 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                           )}
                         </p>
                         <div data-h2-padding="b(tb, .5)">
-                          {currentExperience?.type === "experience_award" && (
+                          {currentExperience.type === "experience_award" && (
                             <ExperienceAwardDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
+                          {currentExperience.type ===
                             "experience_community" && (
                             <ExperienceCommunityDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
+                          {currentExperience.type ===
                             "experience_education" && (
                             <ExperienceEducationDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
-                            "experience_personal" && (
+                          {currentExperience.type === "experience_personal" && (
                             <ExperiencePersonalDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type === "experience_work" && (
+                          {currentExperience.type === "experience_work" && (
                             <ExperienceWorkDetails
                               experience={currentExperience}
                             />
@@ -411,10 +402,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                                   : 0,
                               locationTitle: (
                                 <strong>
-                                  {currentExperience !== null &&
-                                    getExperienceLocationTitle(
-                                      currentExperience,
-                                    )}
+                                  {getExperienceLocationTitle(
+                                    currentExperience,
+                                  )}
                                 </strong>
                               ),
                             },
