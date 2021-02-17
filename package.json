@@ -128,7 +128,7 @@
         "reselect": "^4.0.0",
         "sweetalert2": "^10.15.1",
         "universal-router": "^9.0.1",
-        "yup": "^0.32.8"
+        "yup": "^0.32.9"
     },
     "jest": {
         "preset": "ts-jest",
