@@ -276,7 +276,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   return null;
                 }
                 return (
-                  <>
+                  <div key={experienceSkill.id}>
                     <Dialog.Trigger
                       id={`skill-experience-dialog-${currentExperience.type}-${currentExperience.id}`}
                       data-h2-display="b(block)"
@@ -469,7 +469,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         </div>
                       </Dialog.Actions>
                     </Dialog>
-                  </>
+                  </div>
                 );
               })}
             {experiencesOfSkill && experiencesOfSkill.length !== 0 && (
