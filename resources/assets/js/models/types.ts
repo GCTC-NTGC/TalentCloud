@@ -459,7 +459,7 @@ export interface GCEmployeeStatus {
   name: GCEmployeeStatusName;
 }
 
-export interface ProfileBasicInformation {
+export interface ProfileBasicInfo {
   citizenship_status: CitizenshipDeclaration;
   veteran_status: VeteranStatus;
   current_gc_employee: GCEmployeeStatus;

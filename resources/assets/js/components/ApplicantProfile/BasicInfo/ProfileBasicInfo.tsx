@@ -3,33 +3,26 @@ import { FormattedMessage, useIntl } from "react-intl";
 import { FastField, Formik, Form } from "formik";
 import {
   GocClassification,
-  ProfileBasicInformation as ProfileBasicInformationProp,
-} from "../../models/types";
+  ProfileBasicInfo as ProfileBasicInfoProp,
+} from "../../../models/types";
 import {
   myBasicInformationMessages,
   basicInfoMessages,
-} from "../Application/applicationMessages";
-import { removeDuplicatesById } from "../../helpers/queries";
-import SelectInput from "../Form/SelectInput";
+} from "../../Application/applicationMessages";
+import { removeDuplicatesById } from "../../../helpers/queries";
+import SelectInput from "../../Form/SelectInput";
 import messages, {
   citizenshipDeclaration,
   veteranStatus,
   gcEmployeeStatus,
-} from "../Application/BasicInfo/basicInfoMessages";
+} from "../../Application/BasicInfo/basicInfoMessages";
 
 import {
   CitizenshipId,
   VeteranId,
   currentEmployeeIdEnum,
   currentGcEmployeeId,
-} from "../../models/lookupConstants";
-
-export interface ProfileBasicInformationProps {
-  gocClassifications: GocClassification[];
-  basicInformation: ProfileBasicInformationProp;
-  name: string;
-  email: string;
-}
+} from "../../../models/lookupConstants";
 
 export interface ClassificationDropdownsProps {
   gocClassifications: GocClassification[];
@@ -41,12 +34,6 @@ export interface GcExperienceProps {
   previousExperienceProp: GocClassification[];
   currentGcClassification: GocClassification;
   wasGcEmployee: number; // 1 == yes, 2 == no, 3 == previous
-}
-
-interface ProfileBasicInformationInitialValues {
-  citizenship: number;
-  veteranStatus: number;
-  currentGcEmployeeStatus: number;
 }
 
 const GcExperience: FunctionComponent<GcExperienceProps> = ({
@@ -122,6 +109,10 @@ const GcExperience: FunctionComponent<GcExperienceProps> = ({
           id: 0,
           key: "",
           name: {
+            en: "",
+            fr: "",
+          },
+          education_requirements: {
             en: "",
             fr: "",
           },
@@ -245,11 +236,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
               id="SEL2"
               onChange={handleSelectedClassification}
             >
-              <option disabled>
-                {intl.formatMessage(
-                  myBasicInformationMessages.selectLevelPrompt,
-                )}
-              </option>
+              <option disabled>select Level prompt</option>
               {uniqueClassifications.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.key}
@@ -266,11 +253,7 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
           <div>
             <i className="fas fa-caret-down" />
             <select defaultValue={selectedItem?.level} required id="SEL2">
-              <option disabled>
-                {intl.formatMessage(
-                  myBasicInformationMessages.selectLevelPrompt,
-                )}
-              </option>
+              <option disabled>select Level prompt</option>
               {getLevelsOfClassification(
                 safeParseInt(selectedClassification),
               ).map((item) => (
@@ -289,7 +272,20 @@ const ClassificationDropdowns: FunctionComponent<ClassificationDropdownsProps> =
   );
 };
 
-export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = ({
+export interface ProfileBasicInfoProps {
+  gocClassifications: GocClassification[];
+  basicInformation: ProfileBasicInfoProp;
+  name: string;
+  email: string;
+}
+
+interface ProfileBasicInfoInitialValues {
+  citizenship: number;
+  veteranStatus: number;
+  currentGcEmployeeStatus: number;
+}
+
+export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   gocClassifications,
   basicInformation,
   name,
@@ -309,7 +305,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
     field.onChange(e);
   };
 
-  const initialValues: ProfileBasicInformationInitialValues = {
+  const initialValues: ProfileBasicInfoInitialValues = {
     citizenship: basicInformation.citizenship_status.id,
     veteranStatus: basicInformation.citizenship_status.id,
     currentGcEmployeeStatus: basicInformation.current_gc_employee.id,
@@ -419,11 +415,7 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
                         }
                         id="currentGcEmployeeStatus"
                       >
-                        <option disabled>
-                          {intl.formatMessage(
-                            myBasicInformationMessages.selectGcEmployeeStatus,
-                          )}
-                        </option>
+                        <option disabled>selected employee status</option>
                         {Object.values(currentGcEmployeeId).map((i) => (
                           <option key={i} value={i}>
                             {intl.formatMessage(gcEmployeeStatus(i))}
@@ -449,4 +441,4 @@ export const ProfileBasicInformation: React.FC<ProfileBasicInformationProps> = (
   );
 };
 
-export default ProfileBasicInformation;
+export default ProfileBasicInfo;
