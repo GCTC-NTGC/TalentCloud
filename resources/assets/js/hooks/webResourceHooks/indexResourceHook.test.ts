@@ -887,12 +887,12 @@ describe("indexResourceHook", () => {
           FetchError,
         );
       });
-      expect(result.current.entityStatus["2"]).toBe("rejected");
+      expect(result.current.entityStatus[2]).toBe("rejected");
       await act(async () => {
         await result.current.update(updateValue);
       });
-      expect(result.current.entityStatus["2"]).toBe("fulfilled");
-      expect(result.current.values["2"]).toEqual(updateValue);
+      expect(result.current.entityStatus[2]).toBe("fulfilled");
+      expect(result.current.values[2]).toEqual(updateValue);
     });
     it("Will update the correct value if keyFn is overridden", async () => {
       const initialValue = [

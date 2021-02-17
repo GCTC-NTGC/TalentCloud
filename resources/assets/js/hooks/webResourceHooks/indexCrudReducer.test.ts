@@ -656,7 +656,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
@@ -677,7 +677,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       const state1 = indexCrudReducer(initialState, action);
       const state2 = indexCrudReducer(state1, action);
@@ -708,7 +708,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
@@ -726,7 +726,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteFulfillAction = {
         type: ActionTypes.DeleteFulfill,
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       const expectState = {
         ...initialState,
@@ -743,7 +743,7 @@ describe("indexCrudReducer tests", (): void => {
       );
       const action: DeleteFulfillAction = {
         type: ActionTypes.DeleteFulfill,
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       const fulfilledState = indexCrudReducer(initialState, action);
       expect(fulfilledState.values[2]).toEqual(initialState.values[2]);
@@ -774,7 +774,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: DeleteRejectAction = {
         type: ActionTypes.DeleteReject,
         payload: new Error("Something went wrong"),
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       const expectState = {
         ...initialState,
@@ -804,7 +804,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: DeleteRejectAction = {
         type: ActionTypes.DeleteReject,
         payload: new Error("Something went wrong"),
-        meta: { key: "1" },
+        meta: { key: 1 },
       };
       const expectState = {
         ...initialState,

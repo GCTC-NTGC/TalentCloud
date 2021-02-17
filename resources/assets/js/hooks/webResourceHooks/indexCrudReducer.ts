@@ -30,7 +30,7 @@ export enum ActionTypes {
 export type IndexStartAction = { type: ActionTypes.IndexStart };
 export type IndexFulfillAction<T> = {
   type: ActionTypes.IndexFulfill;
-  payload: { item: T; key: string }[];
+  payload: { item: T; key: string | number }[];
 };
 export type IndexRejectAction = {
   type: ActionTypes.IndexReject;
@@ -43,7 +43,7 @@ export type CreateStartAction<T> = {
 };
 export type CreateFulfillAction<T> = {
   type: ActionTypes.CreateFulfill;
-  payload: { item: T; key: string };
+  payload: { item: T; key: string | number };
   meta: { item: T };
 };
 export type CreateRejectAction<T> = {
@@ -54,31 +54,31 @@ export type CreateRejectAction<T> = {
 
 export type UpdateStartAction<T> = {
   type: ActionTypes.UpdateStart;
-  meta: { key: string; item: T };
+  meta: { key: string | number; item: T };
 };
 export type UpdateFulfillAction<T> = {
   type: ActionTypes.UpdateFulfill;
   payload: T;
-  meta: { key: string; item: T };
+  meta: { key: string | number; item: T };
 };
 export type UpdateRejectAction<T> = {
   type: ActionTypes.UpdateReject;
   payload: Error | FetchError;
-  meta: { key: string; item: T };
+  meta: { key: string | number; item: T };
 };
 
 export type DeleteStartAction = {
   type: ActionTypes.DeleteStart;
-  meta: { key: string };
+  meta: { key: string | number };
 };
 export type DeleteFulfillAction = {
   type: ActionTypes.DeleteFulfill;
-  meta: { key: string };
+  meta: { key: string | number };
 };
 export type DeleteRejectAction = {
   type: ActionTypes.DeleteReject;
   payload: Error | FetchError;
-  meta: { key: string };
+  meta: { key: string | number };
 };
 export type AsyncAction<T> =
   | IndexStartAction
@@ -146,7 +146,7 @@ type StateValues<T> = ResourceState<T>["values"];
 
 function mergeIndexItem<T>(
   values: StateValues<T>,
-  { item, key }: { item: T; key: string },
+  { item, key }: { item: T; key: string | number },
 ): StateValues<T> {
   if (hasKey(values, key)) {
     // We leave the pending count as is, in case an update or delete is in progress for this item.
@@ -182,12 +182,12 @@ function mergeIndexItem<T>(
  */
 function mergeIndexPayload<T>(
   values: StateValues<T>,
-  payload: { item: T; key: string }[],
+  payload: { item: T; key: string | number }[],
 ): StateValues<T> {
   // Update or create a values entry for each item in the payload.
   const newValues = payload.reduce(mergeIndexItem, values);
   // Delete any values entries that don't exist in the new payload.
-  const payloadKeys = payload.map((x) => x.key);
+  const payloadKeys = payload.map((x) => String(x.key)); // If x.key is a number, cast it to a string so it can be compared to key in filterObjectProps
   return filterObjectProps(newValues, (_, key) => payloadKeys.includes(key));
 }
 
@@ -201,7 +201,7 @@ function mergeIndexPayload<T>(
  */
 function mergeCreatePayload<T>(
   values: StateValues<T>,
-  payload: { item: T; key: string },
+  payload: { item: T; key: string | number },
 ): StateValues<T> {
   if (hasKey(values, payload.key)) {
     // It doesn't really make sense for the result of a create request to already exist...

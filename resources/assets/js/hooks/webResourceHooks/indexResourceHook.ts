@@ -23,9 +23,11 @@ import indexCrudReducer, {
 } from "./indexCrudReducer";
 import { Json, ResourceStatus } from "./types";
 
-type IndexedObject<T> = {
-  [key: string]: T;
-};
+type IndexedObject<T> =
+  | {
+      [key: string]: T;
+    }
+  | { [key: number]: T };
 
 function valuesSelector<T>(state: ResourceState<T>): IndexedObject<T> {
   return Object.entries(state.values).reduce(
@@ -66,13 +68,13 @@ function defaultCreateEndpoint(baseEndpoint: string): string {
   return baseEndpoint;
 }
 
-function defaultKeyFn(item: any): string {
+function defaultKeyFn(item: any): number {
   if (!hasKey(item, "id")) {
     throw new Error(
       'Cannot use default keyFn on item without an "id" property',
     );
   }
-  return String(getId(item));
+  return getId(item);
 }
 
 function doNothing(): void {
@@ -144,7 +146,7 @@ export function useResourceIndex<T>(
     resolveEntityEndpoint?: (baseEndpoint: string, entity: T) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
     resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string; // Defaults to identical to endpoint. Used for create (POST) requests.
     handleError?: (error: Error | FetchError) => void;
-    keyFn?: (item: T) => string; // Returns a unique key for each item. Defaults to using `item.id`.
+    keyFn?: (item: T) => string | number; // Returns a unique key for each item. Defaults to using `item.id`.
   },
 ): {
   values: IndexedObject<T>;
@@ -175,7 +177,7 @@ export function useResourceIndex<T>(
   const keyFn = overrides?.keyFn ?? defaultKeyFn;
 
   const addKey = useCallback(
-    (item: T): { item: T; key: string } => {
+    (item: T): { item: T; key: string | number } => {
       return { item, key: keyFn(item) };
     },
     [keyFn],
