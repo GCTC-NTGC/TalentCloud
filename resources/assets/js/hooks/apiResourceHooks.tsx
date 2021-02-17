@@ -53,6 +53,9 @@ export const useApplicantExperience = (applicantId: number) => {
         getExperienceEndpoint(entity.id, entity.type),
       resolveCreateEndpoint: (_, entity) =>
         getCreateExperienceEndpoint(applicantId, entity.type),
+      // Need a custom keyFn because different types of experience may have same id,
+      // meaning default keyFn (getId) may cause collisions in the map of items and they may overwriting each other.
+      keyFn: (experience) => `${experience.type}-${experience.id}`,
     },
   );
 };
