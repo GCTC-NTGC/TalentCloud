@@ -20,6 +20,12 @@ interface TestResource {
   id: number;
   name: string;
 }
+function addKey<T extends { id: number }>(item: T): { item: T; key: string } {
+  return {
+    item,
+    key: String(item.id),
+  };
+}
 
 describe("indexCrudReducer tests", (): void => {
   describe("Test INDEX actions", () => {
@@ -65,7 +71,7 @@ describe("indexCrudReducer tests", (): void => {
         payload: [
           { id: 1, name: "one" },
           { id: 2, name: "two" },
-        ],
+        ].map(addKey),
       };
       const expectState = {
         ...initialState,
@@ -133,7 +139,7 @@ describe("indexCrudReducer tests", (): void => {
           { id: 2, name: "new two" },
           { id: 3, name: "new three" },
           { id: 4, name: "new four" },
-        ],
+        ].map(addKey),
       };
       const expectState = {
         ...initialState,
@@ -170,10 +176,12 @@ describe("indexCrudReducer tests", (): void => {
     });
     it("INDEX FULFILLED deletes values not included in payload", () => {
       const initialState: ResourceState<TestResource> = {
-        ...initializeState([
-          { id: 1, name: "one" },
-          { id: 2, name: "two" },
-        ]),
+        ...initializeState(
+          [
+            { id: 1, name: "one" },
+            { id: 2, name: "two" },
+          ].map(addKey),
+        ),
         indexMeta: {
           status: "pending",
           pendingCount: 1,
@@ -182,7 +190,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: IndexFulfillAction<TestResource> = {
         type: ActionTypes.IndexFulfill,
-        payload: [{ id: 2, name: "new two" }],
+        payload: [{ id: 2, name: "new two" }].map(addKey),
       };
       const expectState = {
         ...initialState,
@@ -203,7 +211,7 @@ describe("indexCrudReducer tests", (): void => {
     });
     it("INDEX REJECTED decrements pendingCount, sets status to rejected, and doesn't modify values", () => {
       const initialState: ResourceState<TestResource> = {
-        ...initializeState([{ id: 1, name: "one" }]),
+        ...initializeState([{ id: 1, name: "one" }].map(addKey)),
         indexMeta: {
           status: "pending",
           pendingCount: 1,
@@ -312,7 +320,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: CreateFulfillAction<TestResource> = {
         type: ActionTypes.CreateFulfill,
-        payload: { id: 1, name: "one" },
+        payload: addKey({ id: 1, name: "one" }),
         meta: { item: { id: 0, name: "one" } },
       };
       const expectState = {
@@ -344,7 +352,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: CreateFulfillAction<TestResource> = {
         type: ActionTypes.CreateFulfill,
-        payload: { id: 1, name: "one" },
+        payload: addKey({ id: 1, name: "one" }),
         meta: { item: { id: 0, name: "one" } },
       };
       expect(
@@ -353,7 +361,7 @@ describe("indexCrudReducer tests", (): void => {
     });
     it("CREATE REJECTED decrements pendingCount, sets status to rejected, and doesn't modify values", () => {
       const initialState: ResourceState<TestResource> = {
-        ...initializeState([{ id: 1, name: "one" }]),
+        ...initializeState([{ id: 1, name: "one" }].map(addKey)),
         createMeta: {
           status: "pending",
           pendingCount: 1,
@@ -387,7 +395,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const fulfilledAction: CreateFulfillAction<TestResource> = {
         type: ActionTypes.CreateFulfill,
-        payload: { id: 1, name: "one" },
+        payload: addKey({ id: 1, name: "one" }),
         meta: { item: { id: 0, name: "one" } },
       };
       const fulfilledState = indexCrudReducer(initialState, fulfilledAction);
@@ -411,9 +419,9 @@ describe("indexCrudReducer tests", (): void => {
   });
   describe("Test UPDATE actions", (): void => {
     it("UPDATE START updates item-specific metadata", () => {
-      const initialState: ResourceState<TestResource> = initializeState([
-        { id: 1, name: "one" },
-      ]);
+      const initialState: ResourceState<TestResource> = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const expectState = {
         ...initialState,
         values: {
@@ -427,14 +435,14 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: UpdateStartAction<TestResource> = {
         type: ActionTypes.UpdateStart,
-        meta: { id: 1, item: { id: 1, name: "one" } },
+        meta: addKey({ id: 1, name: "one" }),
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
     it("two UPDATE START actions increment pendingCount twice", () => {
-      const initialState: ResourceState<TestResource> = initializeState([
-        { id: 1, name: "one" },
-      ]);
+      const initialState: ResourceState<TestResource> = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const expectState = {
         ...initialState,
         values: {
@@ -448,7 +456,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: UpdateStartAction<TestResource> = {
         type: ActionTypes.UpdateStart,
-        meta: { id: 1, item: { id: 1, name: "one" } },
+        meta: addKey({ id: 1, name: "one" }),
       };
       const state1 = indexCrudReducer(initialState, action);
       const state2 = indexCrudReducer(state1, action);
@@ -479,7 +487,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: UpdateStartAction<TestResource> = {
         type: ActionTypes.UpdateStart,
-        meta: { id: 1, item: { id: 1, name: "one" } },
+        meta: addKey({ id: 1, name: "one" }),
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
@@ -498,10 +506,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: UpdateFulfillAction<TestResource> = {
         type: ActionTypes.UpdateFulfill,
         payload: { id: 1, name: "NEW one" },
-        meta: {
-          id: 1,
-          item: { id: 1, name: "NEW one" },
-        },
+        meta: addKey({ id: 1, name: "NEW one" }),
       };
       const expectState = {
         ...initialState,
@@ -517,31 +522,29 @@ describe("indexCrudReducer tests", (): void => {
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
     it("UPDATE FULFILLED does not change data for other values", () => {
-      const initialState = initializeState([
-        { id: 1, name: "one" },
-        { id: 2, name: "two" },
-      ]);
+      const initialState = initializeState(
+        [
+          { id: 1, name: "one" },
+          { id: 2, name: "two" },
+        ].map(addKey),
+      );
       const action: UpdateFulfillAction<TestResource> = {
         type: ActionTypes.UpdateFulfill,
         payload: { id: 1, name: "NEW one" },
-        meta: {
-          id: 1,
-          item: { id: 1, name: "NEW one" },
-        },
+        meta: addKey({ id: 1, name: "NEW one" }),
       };
       const fulfilledState = indexCrudReducer(initialState, action);
       expect(fulfilledState.values[2]).toEqual(initialState.values[2]);
       expect(fulfilledState.values[1]).not.toEqual(initialState.values[1]);
     });
     it("UPDATE FULFILLED saves payload, not metadata, as new value in store", () => {
-      const initialState = initializeState([{ id: 1, name: "one" }]);
+      const initialState = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const action: UpdateFulfillAction<TestResource> = {
         type: ActionTypes.UpdateFulfill,
         payload: { id: 1, name: "NEW one" },
-        meta: {
-          id: 1,
-          item: { id: 1, name: "Doesn't matter what metadata value is" },
-        },
+        meta: addKey({ id: 1, name: "Doesn't matter what metadata value is" }),
       };
       const fulfilledState = indexCrudReducer(initialState, action);
       expect(fulfilledState.values[1].value).toEqual(action.payload);
@@ -562,10 +565,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: UpdateFulfillAction<TestResource> = {
         type: ActionTypes.UpdateFulfill,
         payload: { id: 1, name: "NEW one" },
-        meta: {
-          id: 1,
-          item: { id: 1, name: "NEW one" },
-        },
+        meta: addKey({ id: 1, name: "NEW one" }),
       };
       const fulfilledState = indexCrudReducer(initialState, action);
       expect(fulfilledState.values[1].error).toBeUndefined();
@@ -585,7 +585,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: UpdateRejectAction<TestResource> = {
         type: ActionTypes.UpdateReject,
         payload: new Error("Something went wrong with a fake request"),
-        meta: { id: 1, item: { id: 1, name: "NEW one" } },
+        meta: addKey({ id: 1, name: "NEW one" }),
       };
       const expectState = {
         ...initialState,
@@ -615,7 +615,7 @@ describe("indexCrudReducer tests", (): void => {
       const fulfilledAction: UpdateFulfillAction<TestResource> = {
         type: ActionTypes.UpdateFulfill,
         payload: { id: 1, name: "NEW one" },
-        meta: { id: 1, item: { id: 1, name: "NEW one" } },
+        meta: addKey({ id: 1, name: "NEW one" }),
       };
       const fulfilledState = indexCrudReducer(initialState, fulfilledAction);
       expect(fulfilledState.values[1]).toEqual({
@@ -627,7 +627,7 @@ describe("indexCrudReducer tests", (): void => {
       const rejectedAction: UpdateRejectAction<TestResource> = {
         type: ActionTypes.UpdateReject,
         payload: new Error(),
-        meta: { id: 1, item: { id: 1, name: "one" } },
+        meta: addKey({ id: 1, name: "one" }),
       };
       const rejectedState = indexCrudReducer(initialState, rejectedAction);
       expect(rejectedState.values[1]).toEqual({
@@ -640,9 +640,9 @@ describe("indexCrudReducer tests", (): void => {
   });
   describe("Test DELETE actions", () => {
     it("DELETE START updates item-specific metadata", () => {
-      const initialState: ResourceState<TestResource> = initializeState([
-        { id: 1, name: "one" },
-      ]);
+      const initialState: ResourceState<TestResource> = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const expectState = {
         ...initialState,
         values: {
@@ -656,14 +656,14 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
     it("two DELETE START actions increment pendingCount twice", () => {
-      const initialState: ResourceState<TestResource> = initializeState([
-        { id: 1, name: "one" },
-      ]);
+      const initialState: ResourceState<TestResource> = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const expectState = {
         ...initialState,
         values: {
@@ -677,7 +677,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       const state1 = indexCrudReducer(initialState, action);
       const state2 = indexCrudReducer(state1, action);
@@ -708,7 +708,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteStartAction = {
         type: ActionTypes.DeleteStart,
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
@@ -726,7 +726,7 @@ describe("indexCrudReducer tests", (): void => {
       };
       const action: DeleteFulfillAction = {
         type: ActionTypes.DeleteFulfill,
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       const expectState = {
         ...initialState,
@@ -735,23 +735,27 @@ describe("indexCrudReducer tests", (): void => {
       expect(indexCrudReducer(initialState, action)).toEqual(expectState);
     });
     it("DELETE FULFILLED doesn't affect other values", () => {
-      const initialState = initializeState([
-        { id: 1, name: "one" },
-        { id: 2, name: "two" },
-      ]);
+      const initialState = initializeState(
+        [
+          { id: 1, name: "one" },
+          { id: 2, name: "two" },
+        ].map(addKey),
+      );
       const action: DeleteFulfillAction = {
         type: ActionTypes.DeleteFulfill,
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       const fulfilledState = indexCrudReducer(initialState, action);
       expect(fulfilledState.values[2]).toEqual(initialState.values[2]);
       expect(fulfilledState.values[1]).toBeUndefined();
     });
     it("DELETE FULFILLED doesn't change state (or throw error) if value doesn't exist", () => {
-      const initialState = initializeState([{ id: 1, name: "one" }]);
+      const initialState = initializeState(
+        [{ id: 1, name: "one" }].map(addKey),
+      );
       const action: DeleteFulfillAction = {
         type: ActionTypes.DeleteFulfill,
-        meta: { id: 5 },
+        meta: { key: "5" },
       };
       expect(indexCrudReducer(initialState, action)).toEqual(initialState);
     });
@@ -770,7 +774,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: DeleteRejectAction = {
         type: ActionTypes.DeleteReject,
         payload: new Error("Something went wrong"),
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       const expectState = {
         ...initialState,
@@ -800,7 +804,7 @@ describe("indexCrudReducer tests", (): void => {
       const action: DeleteRejectAction = {
         type: ActionTypes.DeleteReject,
         payload: new Error("Something went wrong"),
-        meta: { id: 1 },
+        meta: { key: "1" },
       };
       const expectState = {
         ...initialState,

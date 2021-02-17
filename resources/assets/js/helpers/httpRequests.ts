@@ -38,7 +38,7 @@ export function fetchParameters(method: HttpVerb, body?: any): RequestInit {
 function defaultFetch(
   endpoint: string,
   method: HttpVerb,
-  body?: object,
+  body?: any,
 ): Promise<Response> {
   return fetch(endpoint, fetchParameters(method, body));
 }
@@ -47,11 +47,11 @@ export function getRequest(endpoint: string): Promise<Response> {
   return defaultFetch(endpoint, "GET");
 }
 
-export function postRequest(endpoint: string, body: object): Promise<Response> {
+export function postRequest(endpoint: string, body: any): Promise<Response> {
   return defaultFetch(endpoint, "POST", body);
 }
 
-export function putRequest(endpoint: string, body: object): Promise<Response> {
+export function putRequest(endpoint: string, body: any): Promise<Response> {
   return defaultFetch(endpoint, "PUT", body);
 }
 

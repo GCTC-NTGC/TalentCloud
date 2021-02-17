@@ -162,6 +162,34 @@ describe("indexResourceHook", () => {
       expect(initialError).toBeInstanceOf(FetchError);
       expect(initialError.response.status).toBe(404);
     });
+    it("Can store multiple items with same id if keyFn is overridden", async () => {
+      const initialValue = [
+        { id: 1, type: "red", name: "one" },
+        { id: 1, type: "blue", name: "two" },
+      ];
+      const responseValue = [
+        { id: 1, type: "red", name: "one" },
+        { id: 1, type: "blue", name: "two NEW" },
+      ];
+      const keyFn = (item: any) => `${item.type}-${item.id}`;
+      fetchMock.once("*", responseValue);
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint, {
+          initialValue,
+          keyFn,
+          forceInitialRefresh: true,
+        }),
+      );
+      expect(result.current.values).toEqual({
+        "red-1": initialValue[0],
+        "blue-1": initialValue[1],
+      });
+      await waitForNextUpdate({ timeout: false });
+      expect(result.current.values).toEqual({
+        "red-1": responseValue[0],
+        "blue-1": responseValue[1],
+      });
+    });
   });
   describe("test refresh callback", () => {
     it("refresh() triggers a GET request to endpoint and sets status to 'pending'", async () => {
@@ -591,6 +619,21 @@ describe("indexResourceHook", () => {
         expect(result.current.createStatus).toEqual("fulfilled");
       });
     });
+    it("Can store new item at correct key if keyFn is overridden", async () => {
+      const createValue = { id: 1, type: "red", name: "one" };
+      const keyFn = (item: any) => `${item.type}-${item.id}`;
+      fetchMock.once("*", createValue);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue: [], keyFn }),
+      );
+      expect(result.current.values).toEqual({});
+      await act(async () => {
+        await result.current.create(createValue);
+      });
+      expect(result.current.values).toEqual({
+        "red-1": createValue,
+      });
+    });
   });
   describe("test update callback", () => {
     it("update() changes status of specific entity to pending, and then fulfilled, without affecting status of others", async () => {
@@ -844,12 +887,35 @@ describe("indexResourceHook", () => {
           FetchError,
         );
       });
-      expect(result.current.entityStatus[2]).toBe("rejected");
+      expect(result.current.entityStatus["2"]).toBe("rejected");
       await act(async () => {
         await result.current.update(updateValue);
       });
-      expect(result.current.entityStatus[2]).toBe("fulfilled");
-      expect(result.current.values[2]).toEqual(updateValue);
+      expect(result.current.entityStatus["2"]).toBe("fulfilled");
+      expect(result.current.values["2"]).toEqual(updateValue);
+    });
+    it("Will update the correct value if keyFn is overridden", async () => {
+      const initialValue = [
+        { id: 1, type: "red", name: "one" },
+        { id: 1, type: "blue", name: "two" },
+      ];
+      const responseValue = { id: 1, type: "blue", name: "NEW one" };
+      const keyFn = (item: any) => `${item.type}-${item.id}`;
+      fetchMock.once("*", responseValue);
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, keyFn }),
+      );
+      expect(result.current.values).toEqual({
+        "red-1": initialValue[0],
+        "blue-1": initialValue[1],
+      });
+      await act(async () => {
+        await result.current.update(responseValue);
+      });
+      expect(result.current.values).toEqual({
+        "red-1": initialValue[0],
+        "blue-1": responseValue,
+      });
     });
   });
   describe("test deleteResource callback", () => {
