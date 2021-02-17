@@ -23,7 +23,7 @@ export function fetchParameters(method: HttpVerb, body?: any): RequestInit {
   };
   const jsonBodyHeader = { "Content-Type": "application/json" }; // informs server that the body is a json encoded string
   const headers =
-    body !== undefined ? basicHeaders : { ...basicHeaders, ...jsonBodyHeader };
+    body === undefined ? basicHeaders : { ...basicHeaders, ...jsonBodyHeader };
   // We must stringify any object bodies, and ensure dates are formatted as server expects.
   const stringBody =
     body instanceof Object ? JSON.stringify(body, jsonDateReplacer) : body;
