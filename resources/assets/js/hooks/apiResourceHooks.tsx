@@ -4,17 +4,33 @@
 import { getApplicantSkillsEndpoint } from "../api/applicantSkills";
 import {
   getApplicantExperienceEndpoint,
+  getApplicantExperienceSkillsEndpoint,
   getCreateExperienceEndpoint,
   getExperienceEndpoint,
+  getExperienceSkillEndpoint,
   parseSingleExperience,
 } from "../api/experience";
 import { getSkillCategoriesEndpoint, getSkillsEndpoint } from "../api/skill";
-import { Experience, Skill, SkillCategory } from "../models/types";
+import {
+  Experience,
+  ExperienceSkill,
+  Skill,
+  SkillCategory,
+} from "../models/types";
 import { useResource, useResourceIndex } from "./webResourceHooks";
 
 export const useSkills = () => {
   // The skills endpoint doesn't allow updates, so don't return that function.
   const { update, ...resource } = useResource<Skill[]>(getSkillsEndpoint(), []);
+  return resource;
+};
+
+export const useSkillCategories = () => {
+  // The SkillCategories endpoint doesn't allow updates, so don't return that function.
+  const { update, ...resource } = useResource<SkillCategory[]>(
+    getSkillCategoriesEndpoint(),
+    [],
+  );
   return resource;
 };
 
@@ -28,7 +44,7 @@ export const useApplicantSkillIds = (applicantId: number) => {
 };
 
 export const useApplicantExperience = (applicantId: number) => {
-  const resource = useResourceIndex<Experience>(
+  return useResourceIndex<Experience>(
     getApplicantExperienceEndpoint(applicantId),
     {
       parseEntityResponse: (response) =>
@@ -39,14 +55,15 @@ export const useApplicantExperience = (applicantId: number) => {
         getCreateExperienceEndpoint(applicantId, entity.type),
     },
   );
-  return resource;
 };
 
-export const useSkillCategories = () => {
-  // The SkillCategories endpoint doesn't allow updates, so don't return that function.
-  const { update, ...resource } = useResource<SkillCategory[]>(
-    getSkillCategoriesEndpoint(),
-    [],
+export const useApplicantExperienceSkills = (applicantId: number) => {
+  return useResourceIndex<ExperienceSkill>(
+    getApplicantExperienceSkillsEndpoint(applicantId),
+    {
+      resolveEntityEndpoint: (_, entity) =>
+        getExperienceSkillEndpoint(entity.id),
+      resolveCreateEndpoint: (_, entity) => getExperienceSkillEndpoint(null),
+    },
   );
-  return resource;
 };

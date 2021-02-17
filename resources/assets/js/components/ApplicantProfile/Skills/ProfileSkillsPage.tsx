@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { FormattedMessage } from "react-intl";
-import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import { getId, notEmpty, toIdMap } from "../../../helpers/queries";
 import {
   useApplicantExperience,
+  useApplicantExperienceSkills,
   useApplicantSkillIds,
   useSkillCategories,
   useSkills,
 } from "../../../hooks/apiResourceHooks";
-import { Skill } from "../../../models/types";
+import { Experience, ExperienceSkill, Skill } from "../../../models/types";
 import FindSkillsModal, { FindSkillsModalTrigger } from "../../FindSkillsModal";
 import RootContainer from "../../RootContainer";
 import List from "./List";
@@ -21,12 +21,16 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
   const skillCategoriesResource = useSkillCategories();
   const applicantSkillsResource = useApplicantSkillIds(applicantId);
   const experienceResource = useApplicantExperience(applicantId);
+  const experienceSkillResource = useApplicantExperienceSkills(applicantId);
 
   const idToSkill = toIdMap(skillsResource.value);
   const applicantSkills = applicantSkillsResource.value.skill_ids
     .map((skillId) => idToSkill.get(skillId))
     .filter(notEmpty);
-  const experiences = Object.values(experienceResource.values);
+  const experiences: Experience[] = Object.values(experienceResource.values);
+  const experienceSkills: ExperienceSkill[] = Object.values(
+    experienceSkillResource.values,
+  );
 
   const submitNewSkills = async (newSkills: Skill[]): Promise<void> => {
     await applicantSkillsResource.update({
@@ -103,7 +107,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
 
       <List
         experiences={experiences}
-        experienceSkills={fakeExperienceSkills()}
+        experienceSkills={experienceSkills}
         skillCategories={skillCategoriesResource.value}
         skills={applicantSkills}
         applicantId={applicantId}
