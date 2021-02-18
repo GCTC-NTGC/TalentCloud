@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { getId, notEmpty, toIdMap } from "../../../helpers/queries";
 import {
   useApplicantExperience,
@@ -10,6 +10,7 @@ import {
   useSkills,
 } from "../../../hooks/apiResourceHooks";
 import { Experience, ExperienceSkill, Skill } from "../../../models/types";
+import { loadingMessages } from "../../Application/applicationMessages";
 import FindSkillsModal, { FindSkillsModalTrigger } from "../../FindSkillsModal";
 import RootContainer from "../../RootContainer";
 import List from "./List";
@@ -17,6 +18,8 @@ import List from "./List";
 export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
   applicantId,
 }) => {
+  const intl = useIntl();
+
   const skillsResource = useSkills();
   const skillCategoriesResource = useSkillCategories();
   const applicantSkillsResource = useApplicantSkillIds(applicantId);
@@ -104,7 +107,19 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
           </div>
         </div>
       </div>
-
+      {(skillsResource.status === "pending" ||
+        experienceResource.indexStatus === "pending" ||
+        experienceSkillResource.indexStatus === "pending" ||
+        skillCategoriesResource.status === "pending" ||
+        applicantSkillsResource.status === "pending") && (
+        <h4
+          data-h2-heading="b(h4)"
+          data-h2-align="center"
+          data-h2-padding="b(bottom, 1)"
+        >
+          {intl.formatMessage(loadingMessages.loading)}
+        </h4>
+      )}
       <List
         experiences={experiences}
         experienceSkills={experienceSkills}
