@@ -25,5 +25,9 @@
   "province.on.abreviation",
   "province.sk.abreviation",
   "securityClearance.secret",
-  "application.skills.personalHeading"
+  "application.skills.personalHeading",
+  "applicantProfile.experienceDetails.awardHeading",
+  "applicantProfile.experienceDetails.communityHeading",
+  "applicantProfile.experienceDetails.dateRange",
+  "applicantProfile.skills.list.alpha"
 ]

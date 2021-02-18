@@ -72,6 +72,81 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "<b>No skills:</b> It seems you have not added any skills yet. You can create experiences now, but this section works best when you have some skills on your profile. <a>Click here to add skills.</a>",
+        "description": "Alert that appears when there are no skills yet attached to profile.",
+        "id": "profile.experience.noSkills"
+      },
+      {
+        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
+        "description": "First section of text on the experience step of the Application Timeline.",
+        "id": "profile.experience.preamble"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
+        "description": "Message displayed when application has no experiences.",
+        "id": "profile.experience.noExperiences"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileExperience.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Describe how you used this skill:",
+        "description": "Label for the 'How did you use this skill?' field.",
+        "id": "profile.experience.skillSubform.justificationLabel"
+      },
+      {
+        "defaultMessage": "How did you use this skill...",
+        "description": "Placeholder text for the 'How did you use this skill?' field.",
+        "id": "profile.experience.skillSubform.justificationPlaceholder"
+      },
+      {
+        "defaultMessage": "Connect your Skills to this Experience",
+        "description": "Subtitle of Connect-to-skills section.",
+        "id": "profile.experience.skillSubform.connectSubtitle"
+      },
+      {
+        "defaultMessage": "Add any skills below that you learned or used in this experience. Hiring Managers see a lot of applicant profiles and you will need to set yourself apart if you want new job opportunities. You can do this by answering the following questions for each of the skills you add. This is the most important part of your profile if you're hoping a manager will find you.",
+        "description": "Explanation for Connect-to-skills section.",
+        "id": "profile.experience.skillSubform.connectDescription"
+      },
+      {
+        "defaultMessage": "What did you accomplish, create or deliver using this skill?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question1"
+      },
+      {
+        "defaultMessage": "What tasks or activities did you do that relate to this skill?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question2"
+      },
+      {
+        "defaultMessage": "Were there any special techniques or approaches that you used?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question3"
+      },
+      {
+        "defaultMessage": "How much responsibility did you have in this role?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question4"
+      },
+      {
+        "defaultMessage": "Select all that apply:",
+        "description": "The label at the top of the group of skill checkboxes",
+        "id": "profile.experience.skillSubform.fieldsetLegend"
+      },
+      {
+        "defaultMessage": "Add some skills to your profile first.",
+        "description": "Message to show in skills checkbox when there are no skills to select from.",
+        "id": "profile.experience.skillSubform.noSkills"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileSkillSubform.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "{startDate} - {endDate}",
         "description": "Shows the date range for the title bar (assuming activity has an end date).",
         "id": "applicantProfile.experienceDetails.dateRange"
@@ -398,6 +473,30 @@
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your Skills",
+        "id": "profileSkillsPage.heading"
+      },
+      {
+        "defaultMessage": "This is your library of skills. Managers will try to match their needs to these skills when searching for talent, or after you apply for a job. Use the Add Skills button to start building your library of skills.",
+        "description": "Appears at the top of the Profile Skills page, explaining the purpose of the page.",
+        "id": "profileSkillsPage.preamble"
+      },
+      {
+        "defaultMessage": "Find and Add Skills",
+        "description": "Section title acompanying the button that opens the Explore Skills modal.",
+        "id": "profileSkillsPage.addSkills.subtitle"
+      },
+      {
+        "defaultMessage": "Explore the government's most sought after skills, find the ones that apply to you, and add them to your profile.",
+        "description": "Text accompanying the button that opens the Explore Skills modal.",
+        "id": "profileSkillsPage.addSkills.explanation"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/ProfileSkillsPage.json"
   },
   {
     "descriptors": [
@@ -2784,6 +2883,10 @@
   },
   {
     "descriptors": [
+      {
+        "defaultMessage": "Add Skills",
+        "id": "findSkillsModal.triggerLabel"
+      },
       {
         "defaultMessage": "Find and add skills",
         "id": "findSkillsModal.modalHeading"
@@ -5227,36 +5330,6 @@
       }
     ],
     "path": "resources/assets/js/components/SearchBar.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Results",
-        "description": "The message displayed before the number of results returned.",
-        "id": "results.title"
-      },
-      {
-        "defaultMessage": "Nothing found",
-        "description": "The message displayed if no results returned.",
-        "id": "results.empty"
-      },
-      {
-        "defaultMessage": "Click to view...",
-        "description": "The message displayed to expand the accordion.",
-        "id": "results.accordion.expand"
-      },
-      {
-        "defaultMessage": "Add",
-        "description": "The label for the add button.",
-        "id": "results.accordion.add"
-      },
-      {
-        "defaultMessage": "Added!",
-        "description": "The message displayed if skill added.",
-        "id": "results.accordion.added"
-      }
-    ],
-    "path": "resources/assets/js/components/SearchResults.json"
   },
   {
     "descriptors": [
