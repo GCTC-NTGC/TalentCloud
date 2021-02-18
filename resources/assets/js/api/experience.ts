@@ -63,6 +63,10 @@ export const getCreateExperienceEndpoint = (
   return `${baseUrl()}/applicants/${applicantId}/${type.replace("_", "-")}`;
 };
 
+export const getApplicantExperienceSkillsEndpoint = (
+  applicantId: number,
+): string => `${baseUrl()}/applicants/${applicantId}/experience-skills`;
+
 export const getExperienceSkillEndpoint = (id: number | null = null): string =>
   `${baseUrl()}/experience-skills/${id ?? ""}`;
 

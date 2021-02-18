@@ -72,77 +72,177 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "<b>No skills:</b> It seems you have not added any skills yet. You can create experiences now, but this section works best when you have some skills on your profile. <a>Click here to add skills.</a>",
-        "description": "Alert that appears when there are no skills yet attached to profile.",
-        "id": "profile.experience.noSkills"
+        "defaultMessage": "{startDate} - {endDate}",
+        "description": "Shows the date range for the title bar (assuming activity has an end date).",
+        "id": "applicantProfile.experienceDetails.dateRange"
       },
       {
-        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
-        "description": "First section of text on the experience step of the Application Timeline.",
-        "id": "profile.experience.preamble"
+        "defaultMessage": "{startDate} - Current",
+        "description": "Shows the date range for the title bar (assuming activity is ongoing).",
+        "id": "applicantProfile.experienceDetails.dateRangeCurrent"
       },
       {
-        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
-        "description": "Message displayed when application has no experiences.",
-        "id": "profile.experience.noExperiences"
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "applicantProfile.experienceDetails.detailsTitle"
+      },
+      {
+        "defaultMessage": "N/A",
+        "description": "Used for any un-set fields in experience dialogs.",
+        "id": "applicantProfile.experienceDetails.notApplicable"
+      },
+      {
+        "defaultMessage": "Type of Experience:",
+        "id": "applicantProfile.experienceDetails.experienceTypeLabel"
+      },
+      {
+        "defaultMessage": "Start Date:",
+        "id": "applicantProfile.experienceDetails.startDateLabel"
+      },
+      {
+        "defaultMessage": "End Date:",
+        "id": "applicantProfile.experienceDetails.endDateLabel"
+      },
+      {
+        "defaultMessage": "Ongoing",
+        "id": "applicantProfile.experienceDetails.ongoing"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {institution}",
+        "description": "Heading of Award Experience dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.awardHeading"
+      },
+      {
+        "defaultMessage": "Awarded on: {date}",
+        "description": "Shows the awarded date in the dialog title bar.",
+        "id": "applicantProfile.experienceDetails.awardSubheading"
+      },
+      {
+        "defaultMessage": "Award Experience",
+        "id": "applicantProfile.experienceDetails.awardType"
+      },
+      {
+        "defaultMessage": "Award Title:",
+        "id": "applicantProfile.experienceDetails.awardTitleLabel"
+      },
+      {
+        "defaultMessage": "Awarded to:",
+        "id": "applicantProfile.experienceDetails.awardRecipientLabel"
+      },
+      {
+        "defaultMessage": "Issuing Organization / Institution:",
+        "id": "applicantProfile.experienceDetails.awardIssuerLabel"
+      },
+      {
+        "defaultMessage": "Award Eligibility / Scope:",
+        "id": "applicantProfile.experienceDetails.awardScopeLabel"
+      },
+      {
+        "defaultMessage": "Date Awarded:",
+        "id": "applicantProfile.experienceDetails.awardDateLabel"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {group}",
+        "description": "Title of Community Experience dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.communityHeading"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "id": "applicantProfile.experienceDetails.communityType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "applicantProfile.experienceDetails.communityRoleLabel"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community:",
+        "id": "applicantProfile.experienceDetails.communityOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Project / Product:",
+        "id": "applicantProfile.experienceDetails.communityProjectLabel"
+      },
+      {
+        "defaultMessage": "<b>{educationType} in {areaOfStudy}</b> - {institution}",
+        "description": "Title of education dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.educationHeading"
+      },
+      {
+        "defaultMessage": "Education",
+        "id": "applicantProfile.experienceDetails.educationType"
+      },
+      {
+        "defaultMessage": "Type of Education:",
+        "id": "applicantProfile.experienceDetails.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Area of Study:",
+        "id": "applicantProfile.experienceDetails.educationAreaOfStudyLabel"
+      },
+      {
+        "defaultMessage": "Institution:",
+        "id": "applicantProfile.experienceDetails.educationInstitutionLabel"
+      },
+      {
+        "defaultMessage": "Status:",
+        "id": "applicantProfile.experienceDetails.educationStatusLabel"
+      },
+      {
+        "defaultMessage": "Thesis Title:",
+        "id": "applicantProfile.experienceDetails.educationThesisLabel"
+      },
+      {
+        "defaultMessage": "Blockcert Link:",
+        "id": "applicantProfile.experienceDetails.educationBlockcertLabel"
+      },
+      {
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request.",
+        "id": "applicantProfile.experienceDetails.educationHasBlockcert"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "id": "applicantProfile.experienceDetails.personalType"
+      },
+      {
+        "defaultMessage": "Title of Experience:",
+        "id": "applicantProfile.experienceDetails.personalTitleLabel"
+      },
+      {
+        "defaultMessage": "Description:",
+        "id": "applicantProfile.experienceDetails.personalDescriptionLabel"
+      },
+      {
+        "defaultMessage": "Consent to Share:",
+        "id": "applicantProfile.experienceDetails.personalShareLabel"
+      },
+      {
+        "defaultMessage": "Sharing Approved",
+        "description": "Text shown when user has consented to share this experience.",
+        "id": "applicantProfile.experienceDetails.personalShareAllowed"
+      },
+      {
+        "defaultMessage": "Sharing Restricted",
+        "description": "Text shown when user has NOT consented to share this experience.",
+        "id": "applicantProfile.experienceDetails.personalShareDenied"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "id": "applicantProfile.experienceDetails.workType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "applicantProfile.experienceDetails.workRoleLabel"
+      },
+      {
+        "defaultMessage": "Organization / Company:",
+        "id": "applicantProfile.experienceDetails.workOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Team / Group:",
+        "id": "applicantProfile.experienceDetails.workTeamLabel"
       }
     ],
-    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileExperience.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Describe how you used this skill:",
-        "description": "Label for the 'How did you use this skill?' field.",
-        "id": "profile.experience.skillSubform.justificationLabel"
-      },
-      {
-        "defaultMessage": "How did you use this skill...",
-        "description": "Placeholder text for the 'How did you use this skill?' field.",
-        "id": "profile.experience.skillSubform.justificationPlaceholder"
-      },
-      {
-        "defaultMessage": "Connect your Skills to this Experience",
-        "description": "Subtitle of Connect-to-skills section.",
-        "id": "profile.experience.skillSubform.connectSubtitle"
-      },
-      {
-        "defaultMessage": "Add any skills below that you learned or used in this experience. Hiring Managers see a lot of applicant profiles and you will need to set yourself apart if you want new job opportunities. You can do this by answering the following questions for each of the skills you add. This is the most important part of your profile if you're hoping a manager will find you.",
-        "description": "Explanation for Connect-to-skills section.",
-        "id": "profile.experience.skillSubform.connectDescription"
-      },
-      {
-        "defaultMessage": "What did you accomplish, create or deliver using this skill?",
-        "description": "A question the user should answer when connecting a Skill to Experience.",
-        "id": "profile.experience.skillSubform.question1"
-      },
-      {
-        "defaultMessage": "What tasks or activities did you do that relate to this skill?",
-        "description": "A question the user should answer when connecting a Skill to Experience.",
-        "id": "profile.experience.skillSubform.question2"
-      },
-      {
-        "defaultMessage": "Were there any special techniques or approaches that you used?",
-        "description": "A question the user should answer when connecting a Skill to Experience.",
-        "id": "profile.experience.skillSubform.question3"
-      },
-      {
-        "defaultMessage": "How much responsibility did you have in this role?",
-        "description": "A question the user should answer when connecting a Skill to Experience.",
-        "id": "profile.experience.skillSubform.question4"
-      },
-      {
-        "defaultMessage": "Select all that apply:",
-        "description": "The label at the top of the group of skill checkboxes",
-        "id": "profile.experience.skillSubform.fieldsetLegend"
-      },
-      {
-        "defaultMessage": "Add some skills to your profile first.",
-        "description": "Message to show in skills checkbox when there are no skills to select from.",
-        "id": "profile.experience.skillSubform.noSkills"
-      }
-    ],
-    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileSkillSubform.json"
+    "path": "resources/assets/js/components/ApplicantProfile/ExperienceDetails/detailsMessages.json"
   },
   {
     "descriptors": [
@@ -168,6 +268,136 @@
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/ProfileExperience.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{experienceCount, plural, =0 {No Experiences} one {1 Experience} other {{experienceCount} Experiences}}",
+        "description": "Subheading that displays the count of experiences on each accordion.",
+        "id": "applicantProfile.skills.accordion.experiencesLabel"
+      },
+      {
+        "defaultMessage": "Go to {link} section to add context to how you have used this skill.",
+        "description": "Text for accordion when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiences"
+      },
+      {
+        "defaultMessage": "My Experience",
+        "description": "Link text when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiencesLinkText"
+      },
+      {
+        "defaultMessage": "Remove Skill",
+        "description": "Text for the button to remove a skill on each accordion.",
+        "id": "applicantProfile.skills.accordion.skillRemoveLabel"
+      },
+      {
+        "defaultMessage": "Remove Skill",
+        "description": "Text for title of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogTitle"
+      },
+      {
+        "defaultMessage": "WARNING!",
+        "description": "Text for heading of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogHeading"
+      },
+      {
+        "defaultMessage": "This skill is linked to one or more experiences. Deleting this skill from your profile will also remove it from your experiences.",
+        "description": "First section of text for content of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogParagraph1"
+      },
+      {
+        "defaultMessage": "Are you sure you want to remove this skill from your profile?",
+        "description": "Second section of text for content of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogParagraph2"
+      },
+      {
+        "defaultMessage": "Remove this skill from my profile",
+        "description": "Text for the button to confirm removal of a skill within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogActionConfirm"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Text for the button to cancel removal of a skill within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogActionCancel"
+      },
+      {
+        "defaultMessage": "Education",
+        "description": "Type of experience: Education Experience.",
+        "id": "applicantProfile.skills.accordion.educationExperienceTitle"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "description": "Type of experience: Work Experience.",
+        "id": "applicantProfile.skills.accordion.workExperienceTitle"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "description": "Type of experience: Community Experience.",
+        "id": "applicantProfile.skills.accordion.communityExperienceTitle"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "description": "Type of experience: Personal Experience.",
+        "id": "applicantProfile.skills.accordion.personalExperienceTitle"
+      },
+      {
+        "defaultMessage": "Award",
+        "description": "Type of experience: Award Experience.",
+        "id": "applicantProfile.skills.accordion.awardExperienceTitle"
+      },
+      {
+        "defaultMessage": "Details of this experience",
+        "description": "Text for heading of dialog to edit a skill.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogHeading"
+      },
+      {
+        "defaultMessage": "Edit this experience",
+        "description": "Text for the button to edit an experience on profile within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogActionEdit"
+      },
+      {
+        "defaultMessage": "Close",
+        "description": "Text for the button to close dialog within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogActionClose"
+      },
+      {
+        "defaultMessage": "How I used {skillName}{locationExists, plural, =0 {} one { at {locationTitle}}}:",
+        "description": "Text for the justification title within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationTitle"
+      },
+      {
+        "defaultMessage": "You haven't written an explanation of how you used this skill during this experience.",
+        "description": "Text for missing justification within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationMissing"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/Accordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Group",
+        "description": "Text for the 'Group' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.group"
+      },
+      {
+        "defaultMessage": "A-Z",
+        "description": "Text for the 'A-Z' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.alpha"
+      },
+      {
+        "defaultMessage": "Journey",
+        "description": "Text for the 'Journey' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.journey"
+      },
+      {
+        "defaultMessage": "Sort By:",
+        "description": "Text for the label on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.sortBy"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
   },
   {
     "descriptors": [

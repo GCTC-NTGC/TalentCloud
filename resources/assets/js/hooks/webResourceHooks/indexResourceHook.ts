@@ -14,7 +14,7 @@ import {
   processJsonResponse,
   putRequest,
 } from "../../helpers/httpRequests";
-import { hasKey, identity } from "../../helpers/queries";
+import { getId, hasKey, identity } from "../../helpers/queries";
 import indexCrudReducer, {
   initializeState,
   ResourceState,
@@ -23,29 +23,29 @@ import indexCrudReducer, {
 } from "./indexCrudReducer";
 import { Json, ResourceStatus } from "./types";
 
-type IndexedObject<T> = {
-  [id: number]: T;
-};
+type IndexedObject<T> =
+  | {
+      [key: string]: T;
+    }
+  | { [key: number]: T };
 
-function valuesSelector<T extends { id: number }>(
-  state: ResourceState<T>,
-): IndexedObject<T> {
-  return Object.values(state.values).reduce(
-    (collection: IndexedObject<T>, item) => {
-      collection[item.value.id] = item.value;
+function valuesSelector<T>(state: ResourceState<T>): IndexedObject<T> {
+  return Object.entries(state.values).reduce(
+    (collection: IndexedObject<T>, [key, item]) => {
+      collection[key] = item.value;
       return collection;
     },
     {},
   );
 }
-function statusSelector<T extends { id: number }>(
+function statusSelector<T>(
   state: ResourceState<T>,
 ): IndexedObject<ResourceStatus> {
   // If the entire index is being refreshed, then each individual item should be considered "pending".
   const forcePending = state.indexMeta.status === "pending";
-  return Object.values(state.values).reduce(
-    (collection: IndexedObject<ResourceStatus>, item) => {
-      collection[item.value.id] = forcePending ? "pending" : item.status;
+  return Object.entries(state.values).reduce(
+    (collection: IndexedObject<ResourceStatus>, [key, item]) => {
+      collection[key] = forcePending ? "pending" : item.status;
       return collection;
     },
     {},
@@ -55,12 +55,26 @@ function statusSelector<T extends { id: number }>(
 // Defining these functions outside of the hook, despite their simplicity,
 // so they remain constant between re-renders.
 
-function defaultEntityEndpoint(baseEndpoint: string, id: number): string {
-  return `${baseEndpoint}/${id}`;
+function defaultEntityEndpoint(baseEndpoint: string, entity: any): string {
+  if (!hasKey(entity, "id")) {
+    throw new Error(
+      'Cannot use default resolveEntityEndpoint on item without an "id" property',
+    );
+  }
+  return `${baseEndpoint}/${entity.id}`;
 }
 
 function defaultCreateEndpoint(baseEndpoint: string): string {
   return baseEndpoint;
+}
+
+function defaultKeyFn(item: any): number {
+  if (!hasKey(item, "id")) {
+    throw new Error(
+      'Cannot use default keyFn on item without an "id" property',
+    );
+  }
+  return getId(item);
 }
 
 function doNothing(): void {
@@ -122,16 +136,17 @@ export const UNEXPECTED_FORMAT_ERROR =
  * To respond to any details of potential errors, override handleError.
  * Note: If the error was caused by a non-200 response from the server, handleError will recieve an instance of FetchError, which contains the entire response object.
  */
-export function useResourceIndex<T extends { id: number }>(
+export function useResourceIndex<T>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
     initialValue?: T[]; // Defaults to an empty list. If this is overriden, initial fetch is skipped (unless forceInitialRefresh is set to true).
     forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
     parseIndexResponse?: (response: Json) => T[]; // Defaults to (response) => response.map(parseEntityResponse)
-    resolveEntityEndpoint?: (baseEndpoint: string, id: number) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
+    resolveEntityEndpoint?: (baseEndpoint: string, entity: T) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
     resolveCreateEndpoint?: (baseEndpoint: string, newEntity: T) => string; // Defaults to identical to endpoint. Used for create (POST) requests.
     handleError?: (error: Error | FetchError) => void;
+    keyFn?: (item: T) => string | number; // Returns a unique key for each item. Defaults to using `item.id`.
   },
 ): {
   values: IndexedObject<T>;
@@ -141,7 +156,7 @@ export function useResourceIndex<T extends { id: number }>(
   create: (newValue: T) => Promise<T>;
   refresh: () => Promise<T[]>; // Reloads the entire index.
   update: (newValue: T) => Promise<T>;
-  deleteResource: (id: number) => Promise<void>;
+  deleteResource: (value: T) => Promise<void>;
 } {
   const initialValue = overrides?.initialValue ?? [];
   const doInitialRefresh =
@@ -159,13 +174,21 @@ export function useResourceIndex<T extends { id: number }>(
   const resolveCreateEndpoint =
     overrides?.resolveCreateEndpoint ?? defaultCreateEndpoint;
   const handleError = overrides?.handleError ?? doNothing;
+  const keyFn = overrides?.keyFn ?? defaultKeyFn;
+
+  const addKey = useCallback(
+    (item: T): { item: T; key: string | number } => {
+      return { item, key: keyFn(item) };
+    },
+    [keyFn],
+  );
 
   const isSubscribed = useRef(true);
 
   const [state, dispatch] = useReducer<
     Reducer<ResourceState<T>, AsyncAction<T>>,
-    T[] // This represent type of initialValue, passed to initializeState to create initial state.
-  >(indexCrudReducer, initialValue, initializeState);
+    { item: T; key: string | number }[] // This represent type of initialValue, passed to initializeState to create initial state.
+  >(indexCrudReducer, initialValue.map(addKey), initializeState);
 
   const values = useMemo(() => valuesSelector(state), [state]);
   const indexStatus = state.indexMeta.status;
@@ -202,13 +225,13 @@ export function useResourceIndex<T extends { id: number }>(
       if (isSubscribed.current) {
         dispatch({
           type: ActionTypes.CreateFulfill,
-          payload: entity,
+          payload: addKey(entity),
           meta: { item: newValue },
         });
       }
       return entity;
     },
-    [endpoint, resolveCreateEndpoint, parseEntityResponse, handleError],
+    [endpoint, resolveCreateEndpoint, parseEntityResponse, handleError, addKey],
   );
 
   const refresh = useCallback(async (): Promise<T[]> => {
@@ -235,15 +258,15 @@ export function useResourceIndex<T extends { id: number }>(
     if (isSubscribed.current) {
       dispatch({
         type: ActionTypes.IndexFulfill,
-        payload: index,
+        payload: index.map(addKey),
       });
     }
     return index;
-  }, [endpoint, parseIndexResponse, handleError]);
+  }, [endpoint, parseIndexResponse, handleError, addKey]);
 
   const update = useCallback(
     async (newValue: T): Promise<T> => {
-      const meta = { id: newValue.id, item: newValue };
+      const meta = addKey(newValue);
       dispatch({
         type: ActionTypes.UpdateStart,
         meta,
@@ -251,7 +274,7 @@ export function useResourceIndex<T extends { id: number }>(
       let value: T;
       try {
         const json = await putRequest(
-          resolveEntityEndpoint(endpoint, newValue.id),
+          resolveEntityEndpoint(endpoint, newValue),
           newValue,
         ).then(processJsonResponse);
         value = parseEntityResponse(json);
@@ -278,18 +301,19 @@ export function useResourceIndex<T extends { id: number }>(
       }
       return value;
     },
-    [endpoint, resolveEntityEndpoint, parseEntityResponse, handleError],
+    [endpoint, resolveEntityEndpoint, parseEntityResponse, handleError, addKey],
   );
 
   const deleteResource = useCallback(
-    async (id: number): Promise<void> => {
+    async (entity: T): Promise<void> => {
+      const meta = { key: keyFn(entity) };
       dispatch({
         type: ActionTypes.DeleteStart,
-        meta: { id },
+        meta,
       });
       try {
         const response = await deleteRequest(
-          resolveEntityEndpoint(endpoint, id),
+          resolveEntityEndpoint(endpoint, entity),
         );
         if (!response.ok) {
           throw new FetchError(response);
@@ -299,7 +323,7 @@ export function useResourceIndex<T extends { id: number }>(
           dispatch({
             type: ActionTypes.DeleteReject,
             payload: error,
-            meta: { id },
+            meta,
           });
           handleError(error);
         }
@@ -308,11 +332,11 @@ export function useResourceIndex<T extends { id: number }>(
       if (isSubscribed.current) {
         dispatch({
           type: ActionTypes.DeleteFulfill,
-          meta: { id },
+          meta,
         });
       }
     },
-    [endpoint, resolveEntityEndpoint, handleError],
+    [endpoint, resolveEntityEndpoint, handleError, keyFn],
   );
 
   // Despite the usual guidlines, this should only be reconsidered if endpoint changes.

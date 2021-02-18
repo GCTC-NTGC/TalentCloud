@@ -26,6 +26,64 @@ class ExperienceSkillsControllerTest extends TestCase
         ];
     }
 
+    public function testIndexForApplicant()
+    {
+        $applicant = factory(Applicant::class)->create();
+        $otherApplicant = factory(Applicant::class)->create();
+        $award = factory(ExperienceAward::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+        $otherAward = factory(ExperienceAward::class)->create([
+            'experienceable_id' => $otherApplicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+
+        $work = factory(ExperienceWork::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+        $otherWork = factory(ExperienceWork::class)->create([
+            'experienceable_id' => $otherApplicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+
+        $myAwardSkills = factory(ExperienceSkill::class, 2)->create([
+            'experience_type' => 'experience_award',
+            'experience_id' => $award->id
+        ]);
+        $otherAwardSkills = factory(ExperienceSkill::class, 2)->create([
+            'experience_type' => 'experience_award',
+            'experience_id' => $otherAward->id
+        ]);
+        $myWorkSkills = factory(ExperienceSkill::class, 2)->create([
+            'experience_type' => 'experience_work',
+            'experience_id' => $work->id
+        ]);
+        $otherWorkSkills = factory(ExperienceSkill::class, 2)->create([
+            'experience_type' => 'experience_work',
+            'experience_id' => $otherWork->id
+        ]);
+
+        $response = $this->actingAs($applicant->user)
+            ->get(route('api.v1.applicant.experience-skill.index', $applicant->id));
+        $response->assertOk();
+        $response->assertJsonCount(4);
+
+        // // Keys of each experience must be in alphabetical order for assertJsonFragment to match them.
+        // $expectedResponse = array_merge(
+        //     ksort($myAwardSkills->all()[0]),
+        //     ksort($myAwardSkills->all()[1]),
+        //     ksort($myWorkSkills->all()[0]),
+        //     ksort($myWorkSkills->all()[0])
+        // );
+
+        $response->assertJsonFragment($myAwardSkills->toArray()[0]);
+        $response->assertJsonFragment($myAwardSkills->toArray()[1]);
+        $response->assertJsonFragment($myWorkSkills->toArray()[0]);
+        $response->assertJsonFragment($myWorkSkills->toArray()[1]);
+    }
+
     public function testCreateExperienceSkill()
     {
         $work = factory(ExperienceWork::class)->create();
