@@ -275,10 +275,12 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                 if (currentExperience === null) {
                   return null;
                 }
+
+                const dialogId = `profile-skill-${skill.id}-experience-skill-${experienceSkill.id}`;
                 return (
                   <div key={experienceSkill.id}>
                     <Dialog.Trigger
-                      id={`skill-experience-dialog-${currentExperience.type}-${currentExperience.id}`}
+                      id={dialogId}
                       data-h2-display="b(block)"
                       data-h2-button="black, round, medium, clear"
                     >
@@ -296,9 +298,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         {getExperienceTitle(currentExperience)}
                       </span>
                     </Dialog.Trigger>
-                    <Dialog
-                      id={`skill-experience-dialog-${currentExperience.type}-${currentExperience.id}`}
-                    >
+                    <Dialog id={dialogId}>
                       <Dialog.Header
                         data-h2-grid="b(middle, contained, padded, .5)"
                         data-h2-bg-color="b(theme-1, 1)"
