@@ -28,7 +28,11 @@ stories.add(
             data-h2-font-color="b(white)"
             data-h2-font-size="b(h4)"
           >
-            Dialog Title but what if this were much longer?
+            {text(
+              "Title",
+              "Dialog Title but what if this were much longer?",
+              "Text",
+            )}
           </Dialog.Title>
           <Dialog.ActionBtn
             data-h2-dialog-exit-trigger
@@ -45,9 +49,11 @@ stories.add(
         </Dialog.Header>
         <Dialog.Content>
           <p data-h2-padding="b(all, 3)">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-            officia reprehenderit labore ipsum et incidunt amet, dicta mollitia
-            blanditiis minima!
+            {text(
+              "Content",
+              " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem officia reprehenderit labore ipsum et incidunt amet, dicta mollitia blanditiis minima!",
+              "Text",
+            )}
           </p>
         </Dialog.Content>
         <Dialog.Actions data-h2-padding="b(all, .5)" data-h2-align="b(right)">
@@ -56,11 +62,10 @@ stories.add(
             data-h2-padding="b(rl, 2) b(tb, .5)"
             data-h2-bg-color="b(white, 1)"
           >
-            Okay, Close
+            {text("Button Label", "Close", "Text")}
           </Dialog.ActionBtn>
         </Dialog.Actions>
       </Dialog>
-      <Dialog.Overlay />
     </section>
   ),
 );
