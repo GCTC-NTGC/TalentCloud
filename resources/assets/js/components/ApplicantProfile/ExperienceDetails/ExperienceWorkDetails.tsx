@@ -12,7 +12,7 @@ const ExperienceWorkDetails: FunctionComponent<{
   const locale = getLocale(intl.locale);
   const { title, organization, group } = experience;
   const startDate = experience.start_date;
-  const endDate = experience.start_date;
+  const endDate = experience.end_date;
   const isActive = experience.is_active;
   const notApplicable = (
     <p data-h2-font-color="b(gray-1)">
