@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
-import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -31,6 +30,7 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
+import { newDateString } from "../../../helpers/dates";
 
 export const messages = defineMessages({
   modalTitle: {
@@ -198,7 +198,7 @@ export const newCommunityExperience = (
   group: "",
   project: "",
   is_active: false,
-  start_date: dayjs().format("YYYY-MM-DD"),
+  start_date: newDateString(),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,

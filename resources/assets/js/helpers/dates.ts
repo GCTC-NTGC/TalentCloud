@@ -57,3 +57,7 @@ export const toInputDateString = (date: Date): string => {
 export const fromInputDateString = (dateStr: string): Date => {
   return dayjs(dateStr).toDate();
 };
+
+export const newDateString = (): string => {
+  return dayjs().format("YYYY-MM-DD");
+};

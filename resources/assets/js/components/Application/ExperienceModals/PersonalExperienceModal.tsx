@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
-import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -33,6 +32,7 @@ import {
 import { notEmpty } from "../../../helpers/queries";
 import TextAreaInput from "../../Form/TextAreaInput";
 import { countNumberOfWords } from "../../WordCounter/helpers";
+import { newDateString } from "../../../helpers/dates";
 
 export const messages = defineMessages({
   modalTitle: {
@@ -276,7 +276,7 @@ export const newPersonalExperience = (
   description: "",
   is_shareable: false,
   is_active: false,
-  start_date: dayjs().format("YYYY-MM-DD"),
+  start_date: newDateString(),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,

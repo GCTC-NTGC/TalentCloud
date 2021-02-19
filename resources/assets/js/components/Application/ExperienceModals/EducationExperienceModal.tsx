@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
-import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -37,6 +36,7 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import SelectInput from "../../Form/SelectInput";
+import { newDateString } from "../../../helpers/dates";
 
 export type FormEducationType = Pick<EducationType, "id" | "name">;
 
@@ -341,7 +341,7 @@ export const newExperienceEducation = (
   thesis_title: "",
   has_blockcert: false,
   is_active: false,
-  start_date: dayjs().format("YYYY-MM-DD"),
+  start_date: newDateString(),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,

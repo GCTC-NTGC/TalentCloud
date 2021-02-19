@@ -2,7 +2,6 @@ import React, { FunctionComponent } from "react";
 import { FastField, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
-import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -36,6 +35,7 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import SelectInput from "../../Form/SelectInput";
+import { newDateString } from "../../../helpers/dates";
 
 export type FormAwardRecipientType = Pick<AwardRecipientType, "id" | "name">;
 
@@ -273,7 +273,7 @@ export const newExperienceAward = (
   issued_by: "",
   award_recognition_type_id: 0,
   award_recognition_type: { en: "", fr: "" },
-  awarded_date: dayjs().format("YYYY-MM-DD"),
+  awarded_date: newDateString(),
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,
