@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { FastField, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
+import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -27,7 +28,6 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -202,7 +202,7 @@ export const experienceToDetails = (
     recipientTypeId: creatingNew ? "" : experience.award_recipient_type_id,
     issuedBy: experience.issued_by,
     recognitionTypeId: creatingNew ? "" : experience.award_recognition_type_id,
-    awardedDate: toInputDateString(experience.awarded_date),
+    awardedDate: experience.awarded_date,
   };
 };
 
@@ -236,7 +236,7 @@ export const detailsToExperience = (
     award_recognition_type_id: formValues.recognitionTypeId
       ? Number(formValues.recognitionTypeId)
       : 1,
-    awarded_date: fromInputDateString(formValues.awardedDate),
+    awarded_date: formValues.awardedDate,
   };
 };
 
@@ -273,7 +273,7 @@ export const newExperienceAward = (
   issued_by: "",
   award_recognition_type_id: 0,
   award_recognition_type: { en: "", fr: "" },
-  awarded_date: new Date(),
+  awarded_date: dayjs().format("YYYY-MM-DD"),
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,

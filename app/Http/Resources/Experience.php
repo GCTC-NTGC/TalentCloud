@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Jenssegers\Date\Date;
 
 class Experience extends JsonResource
 {
@@ -33,6 +34,20 @@ class Experience extends JsonResource
             [
                 'type' => $type,
                 'experience_skills' => JsonResource::collection($this->whenLoaded('experience_skills')),
+            ],
+            [
+                'start_date' => $this->when($this->start_date, function () {
+                    $start_date = new Date($this->start_date);
+                    return $start_date->format('Y-m-d');
+                }),
+                'end_date' => $this->when($this->end_date, function () {
+                    $end_date = new Date($this->end_date);
+                    return $end_date->format('Y-m-d');
+                }),
+                'awarded_date' => $this->when($this->awarded_date, function () {
+                    $awarded_date = new Date($this->awarded_date);
+                    return $awarded_date->format('Y-m-d');
+                }),
             ]
         );
     }

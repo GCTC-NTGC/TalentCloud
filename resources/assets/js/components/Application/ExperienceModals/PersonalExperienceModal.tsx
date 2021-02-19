@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
+import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -23,7 +24,6 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -209,11 +209,9 @@ export const experienceToDetails = (
     title: experiencePersonal.title,
     description: experiencePersonal.description,
     isShareable: experiencePersonal.is_shareable,
-    startDate: toInputDateString(experiencePersonal.start_date),
+    startDate: experiencePersonal.start_date,
     isActive: experiencePersonal.is_active,
-    endDate: experiencePersonal.end_date
-      ? toInputDateString(experiencePersonal.end_date)
-      : "",
+    endDate: experiencePersonal.end_date ? experiencePersonal.end_date : "",
   };
 };
 
@@ -241,11 +239,9 @@ export const detailsToExperience = (
     title: formValues.title,
     description: formValues.description,
     is_shareable: formValues.isShareable,
-    start_date: fromInputDateString(formValues.startDate),
+    start_date: formValues.startDate,
     is_active: formValues.isActive,
-    end_date: formValues.endDate
-      ? fromInputDateString(formValues.endDate)
-      : null,
+    end_date: formValues.endDate ? formValues.endDate : null,
   };
 };
 
@@ -280,7 +276,7 @@ export const newPersonalExperience = (
   description: "",
   is_shareable: false,
   is_active: false,
-  start_date: new Date(),
+  start_date: dayjs().format("YYYY-MM-DD"),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,

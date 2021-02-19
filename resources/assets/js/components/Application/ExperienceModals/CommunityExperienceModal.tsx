@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import { FastField, Field, Formik, Form } from "formik";
 import { defineMessages, useIntl, IntlShape } from "react-intl";
 import * as Yup from "yup";
+import dayjs from "dayjs";
 import {
   EducationFormValues,
   EducationSubform,
@@ -23,7 +24,6 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -131,11 +131,9 @@ export const experienceToDetails = (
     title: experienceCommunity.title,
     group: experienceCommunity.group,
     project: experienceCommunity.project,
-    startDate: toInputDateString(experienceCommunity.start_date),
+    startDate: experienceCommunity.start_date,
     isActive: experienceCommunity.is_active,
-    endDate: experienceCommunity.end_date
-      ? toInputDateString(experienceCommunity.end_date)
-      : "",
+    endDate: experienceCommunity.end_date ? experienceCommunity.end_date : "",
   };
 };
 
@@ -163,11 +161,9 @@ export const detailsToExperience = (
     title: formValues.title,
     group: formValues.group,
     project: formValues.project,
-    start_date: fromInputDateString(formValues.startDate),
+    start_date: formValues.startDate,
     is_active: formValues.isActive,
-    end_date: formValues.endDate
-      ? fromInputDateString(formValues.endDate)
-      : null,
+    end_date: formValues.endDate ? formValues.endDate : null,
   };
 };
 
@@ -202,7 +198,7 @@ export const newCommunityExperience = (
   group: "",
   project: "",
   is_active: false,
-  start_date: new Date(),
+  start_date: dayjs().format("YYYY-MM-DD"),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,
