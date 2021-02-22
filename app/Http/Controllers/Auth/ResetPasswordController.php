@@ -83,7 +83,7 @@ class ResetPasswordController extends AuthController
             'email' => 'required|email',
             'password' => [
                 'required',
-                'min:8',
+                'min:9',
                 new PasswordFormatRule,
                 'confirmed'
             ],

@@ -15,7 +15,7 @@ class PasswordValidator
     {
         return [
             'password' => [
-                'min:8',
+                'min:9',
                 'regex:/^.*(?=.{3,})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$/',
             ],
         ];

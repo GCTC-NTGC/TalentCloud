@@ -23,7 +23,7 @@ class RegistrationValidator
             'job_alerts' => 'boolean|in:0,1',
             'password' => [
                 'required',
-                'min:8',
+                'min:9',
                 new PasswordFormatRule,
                 'confirmed'
             ],
