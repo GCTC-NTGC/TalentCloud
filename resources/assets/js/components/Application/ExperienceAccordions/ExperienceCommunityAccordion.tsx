@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import {
   ExperienceCommunity,
   ExperienceSkill,
@@ -31,7 +31,7 @@ const ExperienceCommunityDetails: React.FC<{
     </p>
   );
   const endDateOrNa = endDate ? (
-    <p>{readableDate(locale, endDate)}</p>
+    <p>{readableDateFromString(locale, endDate)}</p>
   ) : (
     notApplicable
   );
@@ -78,7 +78,11 @@ const ExperienceCommunityDetails: React.FC<{
           <p data-c-font-weight="bold">
             {intl.formatMessage(accordionMessages.startDateLabel)}
           </p>
-          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+          {startDate ? (
+            <p>{readableDateFromString(locale, startDate)}</p>
+          ) : (
+            notApplicable
+          )}
         </div>
         <div data-c-grid-item="base(1of2) tl(1of3)">
           <p data-c-font-weight="bold">
