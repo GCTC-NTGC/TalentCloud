@@ -40,8 +40,8 @@ class RegisterControllerTest extends TestCase
             'email' => $user->email,
             'contact_language' => 'en',
             'job_alerts' => true,
-            'password' => 'Test123!',
-            'password_confirmation' => 'Test123!'
+            'password' => 'Test1234!',
+            'password_confirmation' => 'Test1234!'
         ];
         $response = $this->post(route('register'), $credentials);
         $response->assertRedirect(route('home'));
@@ -63,8 +63,8 @@ class RegisterControllerTest extends TestCase
             'email' => $user->email,
             'contact_language' => 'en',
             'job_alerts' => true,
-            'password' => 'Test123!',
-            'password_confirmation' => 'Test123!'
+            'password' => 'Test1234!',
+            'password_confirmation' => 'Test1234!'
         ];
         $response = $this->followingRedirects()->post(route('register'), $credentials);
         $response = $this->followingRedirects()->post(route('logout'));
@@ -72,7 +72,7 @@ class RegisterControllerTest extends TestCase
         $registeredUser = User::where('email', $user->email)->first();
         $loginCredentials = [
             'email' => $registeredUser->email,
-            'password' => 'Test123!',
+            'password' => 'Test1234!',
         ];
         $response = $this->post(route('login'), $loginCredentials);
         $response->assertRedirect(route('home'));
@@ -95,8 +95,8 @@ class RegisterControllerTest extends TestCase
             'email' => $user->email,
             'contact_language' => 'en',
             'job_alerts' => true,
-            'password' => 'Test123!',
-            'password_confirmation' => 'Test123!'
+            'password' => 'Test1234!',
+            'password_confirmation' => 'Test1234!'
         ];
         $response = $this->followingRedirects()->post(route('register'), $credentials);
         $response = $this->followingRedirects()->post(route('logout'));
@@ -104,7 +104,7 @@ class RegisterControllerTest extends TestCase
         $registeredUser = User::where('email', $user->email)->first();
         $loginCredentials = [
             'email' => $registeredUser->email,
-            'password' => 'Test123!',
+            'password' => 'Test1234!',
         ];
         $response = $this->post(route('login'), $loginCredentials);
         $response->assertRedirect(route('home'));
@@ -126,8 +126,8 @@ class RegisterControllerTest extends TestCase
             'contact_language' => 'en',
             'job_alerts' => true,
             'email' => $user->email,
-            'password' => 'Test123!',
-            'password_confirmation' => 'Test123!'
+            'password' => 'Test1234!',
+            'password_confirmation' => 'Test1234!'
         ];
         $response = $this->post(route('register'), $credentials);
         unset($credentials['website']);
