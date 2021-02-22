@@ -27,7 +27,7 @@ class Experience extends JsonResource
                 break;
             case 'experience_award':
                 $dates = [
-                    'awarded_date' => $this->when($this->awarded_date, $this->awarded_date->format('Y-m-d')),
+                    'awarded_date' => $this->awarded_date ? $this->awarded_date->format('Y-m-d') : null,
                 ];
                 $translations = [
                     'award_recipient_type' => $this->award_recipient_type->getTranslations('name'),
