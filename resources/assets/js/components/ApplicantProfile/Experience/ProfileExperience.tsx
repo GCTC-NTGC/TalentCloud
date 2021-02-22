@@ -14,6 +14,7 @@ import {
 import {
   modalButtonProps,
   ModalButton,
+  ModalButtonH2,
 } from "../../Application/Experience/Experience";
 import { mapToObject, getId } from "../../../helpers/queries";
 import { experienceMessages } from "../../Application/applicationMessages";
@@ -281,7 +282,16 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         <div data-c-grid="gutter(all, 1)">
           {Object.values(modalButtons).map((buttonProps) => {
             const { id, title, icon } = buttonProps;
-            return (
+            // TODO: Use one type of button for everything.
+            return id === "experience_work" ? (
+              <ModalButtonH2
+                key={id}
+                id={id}
+                title={title}
+                icon={icon}
+                openModal={openModal}
+              />
+            ) : (
               <ModalButton
                 key={id}
                 id={id}

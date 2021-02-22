@@ -48,6 +48,7 @@ import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
 import { focusOnElement } from "../../../helpers/forms";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
+import Dialog from "../../H2Components/Dialog";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -106,6 +107,30 @@ export const ModalButton: React.FunctionComponent<{
         </span>
       </button>
     </div>
+  );
+};
+
+export const ModalButtonH2: React.FunctionComponent<{
+  id: Experience["type"];
+  title: string;
+  icon: string;
+  openModal: (id: Experience["type"]) => void;
+}> = ({ id, title, icon, openModal }) => {
+  return (
+    <Dialog.Trigger
+      key={id}
+      id={id}
+      data-c-grid-item="base(1of2) tp(1of3) tl(1of5)"
+      className="application-experience-trigger"
+      data-c-card
+      data-c-background="c1(100)"
+      data-c-radius="rounded"
+    >
+      <i className={icon} aria-hidden="true" />
+      <span data-c-font-size="regular" data-c-font-weight="bold">
+        {title}
+      </span>
+    </Dialog.Trigger>
   );
 };
 

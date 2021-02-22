@@ -273,6 +273,70 @@ export const WorkDetailsSubform: FunctionComponent = () => {
     </div>
   );
 };
+export const WorkDetailsSubformH2: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-h2-container="b(center, medium)">
+      {/** TODO: Change to H2 grid. But this requires H2 versions of input elements as well. */}
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="work-title"
+          type="text"
+          name="title"
+          component={TextInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.jobTitleLabel)}
+          placeholder={intl.formatMessage(messages.jobTitlePlaceholder)}
+        />
+        <FastField
+          id="work-organization"
+          type="text"
+          name="organization"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.orgNameLabel)}
+          placeholder={intl.formatMessage(messages.orgNamePlaceholder)}
+        />
+        <FastField
+          id="work-group"
+          type="text"
+          name="group"
+          component={TextInput}
+          required
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.groupLabel)}
+          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+        />
+        <FastField
+          id="work-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="work-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="work-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
 
 interface WorkExperienceModalProps {
   modalId: string;

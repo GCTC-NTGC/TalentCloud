@@ -1,6 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import { Experience, Skill } from "../../../models/types";
+import Dialog from "../../H2Components/Dialog";
 import Modal from "../../Modal";
 
 export type ExperienceSubmitData<T extends Experience> = {
@@ -39,6 +40,35 @@ export const ExperienceModalHeader: React.FC<{
   );
 };
 
+export const ExperienceModalHeaderH2: React.FC<{
+  title: string;
+  iconClass: string;
+}> = ({ title, iconClass }) => {
+  return (
+    <Dialog.Header
+      className="dialog-header"
+      data-h2-bg-color="b(theme-1, 1)"
+      data-h2-border="b(black, bottom, solid, thin)"
+      data-h2-padding="b(tb, 1)"
+    >
+      <div data-h2-container="b(left, medium)">
+        <Dialog.Title
+          data-h2-font-color="b(white)"
+          data-h2-font-size="b(h3)"
+          data-h2-font-weight="b(600)"
+        >
+          {title}
+        </Dialog.Title>
+      </div>
+      <i
+        className={`fas ${iconClass}`}
+        data-h2-font-size="h1"
+        data-h2-font-color="b(theme-1)"
+      />
+    </Dialog.Header>
+  );
+};
+
 export const ExperienceDetailsIntro: React.FC<{ description: string }> = ({
   description,
 }) => {
@@ -56,6 +86,35 @@ export const ExperienceDetailsIntro: React.FC<{ description: string }> = ({
             data-c-font-size="h4"
             data-c-font-weight="bold"
             data-c-color="c3"
+          >
+            <FormattedMessage
+              id="application.experienceModal.detailsSubtitle"
+              defaultMessage="Experience Details"
+              description="Subtitle of Experience Details section."
+            />
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
+export const ExperienceDetailsIntroH2: React.FC<{ description: string }> = ({
+  description,
+}) => {
+  return (
+    <>
+      <div data-h2-padding="b(top, 1)">
+        <div data-h2-container="b(center, medium)">
+          <p>{description}</p>
+        </div>
+      </div>
+      <div>
+        <div data-h2-container="b(center, medium)">
+          <p
+            data-h2-margin="b(top, 2) b(bottom, 1)"
+            data-h2-font-size="b(h4)"
+            data-h2-font-weight="b(600)"
+            data-h2-font-color="b(theme-3)"
           >
             <FormattedMessage
               id="application.experienceModal.detailsSubtitle"
@@ -100,5 +159,36 @@ export const ExperienceModalFooter: React.FC<{
         </button>
       </div>
     </Modal.Footer>
+  );
+};
+export const ExperienceModalFooterH2: React.FC<{
+  buttonsDisabled: boolean;
+}> = ({ buttonsDisabled = false }) => {
+  return (
+    <Dialog.Actions data-h2-padding="b(all, .5)" data-h2-align="b(right)">
+      <Dialog.ActionBtn
+        buttonStyling="theme-1, round, outline"
+        disabled={buttonsDisabled}
+      >
+        <FormattedMessage
+          id="application.experienceModal.cancel"
+          defaultMessage="Cancel"
+          description="Cancel button text"
+        />
+      </Dialog.ActionBtn>
+      <div data-c-alignment="base(right)">
+        <Dialog.ActionBtn
+          buttonStyling="theme-1, round, solid"
+          disabled={buttonsDisabled}
+          type="submit"
+        >
+          <FormattedMessage
+            id="application.experienceModal.save"
+            defaultMessage="Save Experience"
+            description="Save button text"
+          />
+        </Dialog.ActionBtn>
+      </div>
+    </Dialog.Actions>
   );
 };
