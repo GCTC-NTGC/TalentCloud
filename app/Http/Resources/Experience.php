@@ -21,8 +21,8 @@ class Experience extends JsonResource
         switch ($type) {
             case 'experience_work':
                 $dates = [
-                    'start_date' => $this->when($this->start_date, $this->start_date->format('Y-m-d')),
-                    'end_date' => $this->when($this->end_date, $this->end_date->format('Y-m-d')),
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
                 ];
                 break;
             case 'experience_award':
@@ -36,14 +36,14 @@ class Experience extends JsonResource
                 break;
             case 'experience_community':
                 $dates = [
-                    'start_date' => $this->when($this->start_date, $this->start_date->format('Y-m-d')),
-                    'end_date' => $this->when($this->end_date, $this->end_date->format('Y-m-d')),
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
                 ];
                 break;
             case 'experience_education':
                 $dates = [
-                    'start_date' => $this->when($this->start_date, $this->start_date->format('Y-m-d')),
-                    'end_date' => $this->when($this->end_date, $this->end_date->format('Y-m-d')),
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
                 ];
                 $translations = [
                     'education_status' => $this->education_status->getTranslations('name'),
@@ -52,8 +52,8 @@ class Experience extends JsonResource
                 break;
             case 'experience_personal':
                 $dates = [
-                    'start_date' => $this->when($this->start_date, $this->start_date->format('Y-m-d')),
-                    'end_date' => $this->when($this->end_date, $this->end_date->format('Y-m-d')),
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
                 ];
                 break;
         }
