@@ -29,7 +29,7 @@
         "@babel/core": "^7.12.17",
         "@babel/plugin-proposal-optional-chaining": "^7.13.0",
         "@babel/preset-react": "^7.12.13",
-        "@babel/preset-typescript": "^7.12.17",
+        "@babel/preset-typescript": "^7.13.0",
         "@fortawesome/fontawesome-free": "^5.15.2",
         "@hydrogen-design-system/system": "0.0.41",
         "@storybook/addon-actions": "^6.1.18",
