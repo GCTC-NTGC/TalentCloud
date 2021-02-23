@@ -134,4 +134,54 @@ class RegisterControllerTest extends TestCase
         $response->assertSessionHasErrors(['website']);
         $this->assertInvalidCredentials($credentials);
     }
+
+    /**
+     * Ensure the register form submit fails validation for password under minimum.
+     *
+     * @return void
+     */
+    public function testRegisterPostPasswordMinFail() : void
+    {
+        $user = factory(User::class)->make();
+        $credentials = [
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'contact_language' => 'en',
+            'job_alerts' => true,
+            'password' => 'Test123!',
+            'password_confirmation' => 'Test123!'
+        ];
+        $response = $this->post(route('register'), $credentials);
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'password' => 'The password must be at least 9 characters.'
+        ]);
+        $this->assertInvalidCredentials($credentials);
+    }
+
+    /**
+     * Ensure the register form submit fails validation for password over maximum.
+     *
+     * @return void
+     */
+    public function testRegisterPostPasswordMaxFail() : void
+    {
+        $user = factory(User::class)->make();
+        $credentials = [
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'email' => $user->email,
+            'contact_language' => 'en',
+            'job_alerts' => true,
+            'password' => 'Test!012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345', // 101 characters
+            'password_confirmation' => 'Test!012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345' // 101 characters
+        ];
+        $response = $this->post(route('register'), $credentials);
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors([
+            'password' => 'The password may not be greater than 100 characters.'
+        ]);
+        $this->assertInvalidCredentials($credentials);
+    }
 }
