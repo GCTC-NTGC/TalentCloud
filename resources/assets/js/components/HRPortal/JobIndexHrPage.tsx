@@ -5,7 +5,12 @@ import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import JobIndexHr from "./JobIndexHr";
 import { JobCardProps } from "../JobCard";
-import { Job, Manager, JobPosterStatus } from "../../models/types";
+import {
+  Job,
+  Manager,
+  JobPosterStatus,
+  Classification,
+} from "../../models/types";
 import {
   classificationString,
   emptyJobPosterStatus,
@@ -40,6 +45,8 @@ import {
 import { fetchJobPosterStatuses } from "../../store/JobPosterStatus/jobStatusActions";
 import { getUserById } from "../../store/User/userSelector";
 import { fetchUser } from "../../store/User/userActions";
+import { useLoadClassifications } from "../../hooks/classificationHooks";
+import { DispatchType } from "../../configureStore";
 
 const buttonMessages = defineMessages({
   reviewDraft: {
@@ -98,9 +105,14 @@ const makeJobAction = (
   intl: IntlShape,
   locale: Locales,
   job: Job,
+  classifications: Classification[],
   jobPosterStatuses: JobPosterStatus[],
 ): JobCardProps => {
   const jobTitle = localizeField(locale, job, "title");
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
   return {
     id: job.id,
     applicants: {
@@ -114,7 +126,9 @@ const makeJobAction = (
       title: "",
     },
     // TODO: is this intended to be a link as well, like activity?
-    classification: classificationString(job),
+    classification: classificationKey
+      ? classificationString(classificationKey, job)
+      : "",
     managerTime: 0, // TODO: This isn't recorded yet.
     userTime: 0, // TODO: This isn't recorded yet.
     owned: true,
@@ -207,11 +221,14 @@ const JobIndexHrPage: React.FC<JobIndexHrPageProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl.locale);
 
+  const dispatch = useDispatch<DispatchType>();
+  const { classifications } = useLoadClassifications(dispatch);
+
   const isClaimed = (job: Job): boolean => claimedJobIds.includes(job.id);
   const isUnclaimed = (job: Job): boolean => !isClaimed(job);
 
   const jobToAction = (job: Job): JobCardProps =>
-    makeJobAction(intl, locale, job, jobPosterStatuses);
+    makeJobAction(intl, locale, job, classifications, jobPosterStatuses);
 
   const jobToUnclaimed = (job: Job): UnclaimedJobCardProps =>
     makeUnclaimedJob(

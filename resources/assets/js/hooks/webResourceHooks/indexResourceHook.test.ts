@@ -172,7 +172,7 @@ describe("indexResourceHook", () => {
       expect(result.current.indexStatus).toBe("initial");
       await act(async () => {
         result.current.refresh();
-        await waitForNextUpdate();
+        await waitForNextUpdate({ timeout: false });
         expect(result.current.indexStatus).toEqual("pending");
       });
       expect(fetchMock.called()).toBe(true);
@@ -339,7 +339,7 @@ describe("indexResourceHook", () => {
       );
       await act(async () => {
         result.current.refresh();
-        await waitForNextUpdate();
+        await waitForNextUpdate({ timeout: false });
         expect(result.current.entityStatus).toEqual({
           1: "pending",
           2: "pending",
@@ -380,7 +380,7 @@ describe("indexResourceHook", () => {
       expect(result.current.createStatus).toBe("initial");
       await act(async () => {
         result.current.create({ id: 0, name: "one" });
-        await waitForNextUpdate();
+        await waitForNextUpdate({ timeout: false });
         expect(result.current.createStatus).toBe("pending");
         await waitForNextUpdate();
         expect(result.current.createStatus).toBe("fulfilled");
@@ -608,7 +608,7 @@ describe("indexResourceHook", () => {
       expect(result.current.indexStatus).toEqual("initial");
       await act(async () => {
         result.current.update(updateValue);
-        await waitForNextUpdate();
+        await waitForNextUpdate({ timeout: false });
         expect(result.current.entityStatus[2]).toEqual("pending");
         expect(result.current.entityStatus[1]).toEqual("initial");
         expect(result.current.indexStatus).toEqual("initial");
@@ -747,7 +747,7 @@ describe("indexResourceHook", () => {
       );
       await act(async () => {
         result.current.update(newValue);
-        await waitForNextUpdate();
+        await waitForNextUpdate({ timeout: false });
         expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
         await waitForNextUpdate();
         expect(result.current.values[3]).toEqual(newValue);

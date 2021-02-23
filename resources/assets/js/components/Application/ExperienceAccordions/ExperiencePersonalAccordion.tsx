@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import {
   ExperiencePersonal,
   ExperienceSkill,
@@ -31,7 +31,7 @@ const ExperiencePersonalDetails: FunctionComponent<{
     </p>
   );
   const endDateOrNa = endDate ? (
-    <p>{readableDate(locale, endDate)}</p>
+    <p>{readableDateFromString(locale, endDate)}</p>
   ) : (
     notApplicable
   );
@@ -96,7 +96,11 @@ const ExperiencePersonalDetails: FunctionComponent<{
           <p data-c-font-weight="bold">
             {intl.formatMessage(accordionMessages.startDateLabel)}
           </p>
-          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+          {startDate ? (
+            <p>{readableDateFromString(locale, startDate)}</p>
+          ) : (
+            notApplicable
+          )}
         </div>
         <div data-c-grid-item="base(1of2) tl(1of3)">
           <p data-c-font-weight="bold">
@@ -119,7 +123,6 @@ interface ProfilePersonalAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experieSkillId: number) => void;
 }
 
 export const ProfilePersonalAccordion: React.FC<ProfilePersonalAccordionProps> = ({
@@ -128,7 +131,6 @@ export const ProfilePersonalAccordion: React.FC<ProfilePersonalAccordionProps> =
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -152,7 +154,6 @@ export const ProfilePersonalAccordion: React.FC<ProfilePersonalAccordionProps> =
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperiencePersonalDetails experience={experience} />
     </ProfileExperienceAccordion>

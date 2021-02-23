@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
 import {
   ApplicationExperienceAccordion,
@@ -17,7 +17,7 @@ const ExperienceWorkDetails: FunctionComponent<{
   const locale = getLocale(intl.locale);
   const { title, organization, group } = experience;
   const startDate = experience.start_date;
-  const endDate = experience.start_date;
+  const endDate = experience.end_date;
   const isActive = experience.is_active;
   const notApplicable = (
     <p data-c-color="gray">
@@ -67,7 +67,11 @@ const ExperienceWorkDetails: FunctionComponent<{
           <p data-c-font-weight="bold">
             {intl.formatMessage(accordionMessages.startDateLabel)}
           </p>
-          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+          {startDate ? (
+            <p>{readableDateFromString(locale, startDate)}</p>
+          ) : (
+            notApplicable
+          )}
         </div>
         <div data-c-grid-item="base(1of2) tl(1of3)">
           <p data-c-font-weight="bold">
@@ -75,7 +79,7 @@ const ExperienceWorkDetails: FunctionComponent<{
           </p>
           {isActive && <p>{intl.formatMessage(accordionMessages.ongoing)}</p>}
           {!isActive && endDate ? (
-            <p>{readableDate(locale, endDate)}</p>
+            <p>{readableDateFromString(locale, endDate)}</p>
           ) : (
             notApplicable
           )}
@@ -91,7 +95,6 @@ interface ProfileWorkAccordionProps {
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
   handleEdit: () => void;
-  handleEditSkill: (experieSkillId: number) => void;
 }
 
 export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
@@ -100,7 +103,6 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -127,7 +129,6 @@ export const ProfileWorkAccordion: React.FC<ProfileWorkAccordionProps> = ({
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceWorkDetails experience={experience} />
     </ProfileExperienceAccordion>

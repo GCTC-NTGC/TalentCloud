@@ -9,8 +9,6 @@
 	{{ faq.faq_title }}
 {% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-	{% include "common/alert" %}
 	{# Page Header #}
     {% include "common/header" with {"header": faq} %}
 	{% if show_notification %}

@@ -1,9 +1,15 @@
 import React from "react";
-import { WrappedComponentProps, injectIntl, useIntl } from "react-intl";
-import { connect } from "react-redux";
+import { useIntl } from "react-intl";
+import { connect, useDispatch } from "react-redux";
 import ReactDOM from "react-dom";
 import RootContainer from "../../RootContainer";
-import { Job, JobPosterKeyTask, Criteria, Skill } from "../../../models/types";
+import {
+  Job,
+  JobPosterKeyTask,
+  Criteria,
+  Skill,
+  Classification,
+} from "../../../models/types";
 import JobSkills from "./JobSkills";
 import { jobBuilderTasks, jobBuilderReview } from "../../../helpers/routes";
 import { RootState } from "../../../store/store";
@@ -18,6 +24,7 @@ import { batchUpdateCriteria } from "../../../store/Job/jobActions";
 import JobBuilderStepContainer from "../JobBuilderStep";
 import { navigate } from "../../../helpers/router";
 import { getLocale } from "../../../helpers/localize";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface JobSkillsPageProps {
   jobId: number;
@@ -41,6 +48,12 @@ const JobSkillsPage: React.FunctionComponent<JobSkillsPageProps> = ({
 }): React.ReactElement => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const dispatch = useDispatch<DispatchType>();
+  const { classifications } = useLoadClassifications(dispatch);
+  const classificationKey: string =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.key || "";
 
   const handleReturn = (): void => {
     // Continue to next page
@@ -63,6 +76,7 @@ const JobSkillsPage: React.FunctionComponent<JobSkillsPageProps> = ({
       {job !== null && (
         <JobSkills
           job={job}
+          classificationKey={classificationKey}
           keyTasks={keyTasks}
           initialCriteria={criteria}
           skills={skills}

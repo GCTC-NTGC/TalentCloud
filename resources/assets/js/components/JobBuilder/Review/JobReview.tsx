@@ -342,6 +342,7 @@ const renderManagerSection = (
 
 interface JobReviewDisplayProps {
   job: Job;
+  classificationKey: string;
   manager: Manager | null;
   tasks: JobPosterKeyTask[];
   criteria: Criteria[];
@@ -354,6 +355,7 @@ interface JobReviewDisplayProps {
 }
 export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
   job,
+  classificationKey,
   manager,
   tasks,
   criteria,
@@ -547,7 +549,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
                 description="Placeholder for information that comes later"
               />
             </p>
-            <p>{classificationString(job)}</p>
+            <p>{classificationString(classificationKey, job)}</p>
           </div>
         </div>
       </JobReviewSection>
@@ -739,6 +741,7 @@ export const JobReviewDisplay: React.FC<JobReviewDisplayProps> = ({
 
 interface JobReviewProps {
   job: Job;
+  classificationKey: string;
   manager: Manager | null;
   tasks: JobPosterKeyTask[];
   criteria: Criteria[];
@@ -757,6 +760,7 @@ export const JobReview: React.FunctionComponent<
   JobReviewProps & WrappedComponentProps
 > = ({
   job,
+  classificationKey,
   manager,
   tasks,
   criteria,
@@ -818,6 +822,7 @@ export const JobReview: React.FunctionComponent<
         />
         <JobReviewDisplay
           job={job}
+          classificationKey={classificationKey}
           manager={manager}
           tasks={tasks}
           criteria={criteria}

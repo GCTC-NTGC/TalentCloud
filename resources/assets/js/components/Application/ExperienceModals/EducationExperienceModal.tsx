@@ -14,15 +14,20 @@ import SkillSubform, {
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./SkillSubform";
-import { Skill, ExperienceEducation } from "../../../models/types";
+import {
+  Skill,
+  ExperienceEducation,
+  EducationType,
+  EducationStatus,
+} from "../../../models/types";
 import {
   ExperienceModalHeader,
   ExperienceDetailsIntro,
   ExperienceModalFooter,
+  ExperienceSubmitData,
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -30,26 +35,20 @@ import {
   matchValueToModel,
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
-import { localizedFieldNonNull } from "../../../models/app";
 import SelectInput from "../../Form/SelectInput";
+import { newDateString } from "../../../helpers/dates";
 
-export interface EducationType {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormEducationType = Pick<EducationType, "id" | "name">;
 
-export interface EducationStatus {
-  id: number;
-  name: localizedFieldNonNull;
-}
+export type FormEducationStatus = Pick<EducationStatus, "id" | "name">;
 
 interface EducationExperienceModalProps {
   modalId: string;
   experienceEducation: ExperienceEducation | null;
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
+  educationTypes: FormEducationType[];
+  educationStatuses: FormEducationStatus[];
   jobId: number;
-  jobClassification: string;
+  classificationEducationRequirements: string | null;
   jobEducationRequirements: string | null;
   requiredSkills: Skill[];
   savedRequiredSkills: Skill[];
@@ -60,7 +59,9 @@ interface EducationExperienceModalProps {
   parentElement: Element | null;
   visible: boolean;
   onModalCancel: () => void;
-  onModalConfirm: (data: EducationExperienceSubmitData) => Promise<void>;
+  onModalConfirm: (
+    data: ExperienceSubmitData<ExperienceEducation>,
+  ) => Promise<void>;
 }
 
 export const messages = defineMessages({
@@ -142,9 +143,9 @@ export const messages = defineMessages({
   },
 });
 
-const DetailsSubform: FunctionComponent<{
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
+export const EducationDetailsSubform: FunctionComponent<{
+  educationTypes: FormEducationType[];
+  educationStatuses: FormEducationStatus[];
 }> = ({ educationTypes, educationStatuses }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -258,7 +259,7 @@ export interface EducationDetailsFormValues {
   hasBlockcert: boolean;
 }
 
-const experienceToDetails = (
+export const experienceToDetails = (
   experience: ExperienceEducation,
   creatingNew: boolean,
 ): EducationDetailsFormValues => {
@@ -269,13 +270,13 @@ const experienceToDetails = (
     educationStatusId: creatingNew ? "" : experience.education_status_id,
     thesisTitle: experience.thesis_title ?? "",
     hasBlockcert: experience.has_blockcert,
-    startDate: toInputDateString(experience.start_date),
+    startDate: experience.start_date,
     isActive: experience.is_active,
-    endDate: experience.end_date ? toInputDateString(experience.end_date) : "",
+    endDate: experience.end_date ? experience.end_date : "",
   };
 };
 
-const detailsToExperience = (
+export const detailsToExperience = (
   formValues: EducationDetailsFormValues,
   originalExperience: ExperienceEducation,
 ): ExperienceEducation => {
@@ -291,16 +292,14 @@ const detailsToExperience = (
       : 1,
     thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
     has_blockcert: formValues.hasBlockcert,
-    start_date: fromInputDateString(formValues.startDate),
+    start_date: formValues.startDate,
     is_active: formValues.isActive,
-    end_date: formValues.endDate
-      ? fromInputDateString(formValues.endDate)
-      : null,
+    end_date: formValues.endDate ? formValues.endDate : null,
   };
 };
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const validationShape = (intl: IntlShape) => {
+export const educationExperienceValidationShape = (intl: IntlShape) => {
   const requiredMsg = intl.formatMessage(validationMessages.required);
   const conditionalRequiredMsg = intl.formatMessage(
     validationMessages.endDateRequiredIfNotOngoing,
@@ -328,7 +327,7 @@ export const validationShape = (intl: IntlShape) => {
   };
 };
 
-const newExperienceEducation = (
+export const newExperienceEducation = (
   experienceableId: number,
   experienceableType: ExperienceEducation["experienceable_type"],
 ): ExperienceEducation => ({
@@ -342,7 +341,7 @@ const newExperienceEducation = (
   thesis_title: "",
   has_blockcert: false,
   is_active: false,
-  start_date: new Date(),
+  start_date: newDateString(),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,
@@ -350,114 +349,23 @@ const newExperienceEducation = (
   type: "experience_education",
 });
 
-interface ProfileEducationModalProps {
-  modalId: string;
-  experienceEducation: ExperienceEducation | null;
-  educationTypes: EducationType[];
-  educationStatuses: EducationStatus[];
-  experienceableId: number;
-  experienceableType: ExperienceEducation["experienceable_type"];
-  parentElement: Element | null;
-  visible: boolean;
-  onModalCancel: () => void;
-  onModalConfirm: (experience: ExperienceEducation) => Promise<void>;
-}
-
-export const ProfileEducationModal: FunctionComponent<ProfileEducationModalProps> = ({
-  modalId,
-  experienceEducation,
-  educationTypes,
-  educationStatuses,
-  experienceableId,
-  experienceableType,
-  parentElement,
-  visible,
-  onModalCancel,
-  onModalConfirm,
-}) => {
-  const intl = useIntl();
-
-  const originalExperience =
-    experienceEducation ??
-    newExperienceEducation(experienceableId, experienceableType);
-
-  const initialFormValues = experienceToDetails(
-    originalExperience,
-    experienceEducation === null,
-  );
-
-  const validationSchema = Yup.object().shape({
-    ...validationShape(intl),
-  });
-
-  return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-book"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(detailsToExperience(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
-              />
-              <DetailsSubform
-                educationTypes={educationTypes}
-                educationStatuses={educationStatuses}
-              />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
-  );
-};
-
 type EducationExperienceFormValues = SkillFormValues &
   EducationFormValues &
   EducationDetailsFormValues;
-export interface EducationExperienceSubmitData {
-  experienceEducation: ExperienceEducation;
-  savedRequiredSkills: Skill[];
-  savedOptionalSkills: Skill[];
-}
 
 const dataToFormValues = (
-  data: EducationExperienceSubmitData,
+  data: ExperienceSubmitData<ExperienceEducation>,
   locale: Locales,
   creatingNew: boolean,
 ): EducationExperienceFormValues => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data;
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
   const skillToName = (skill: Skill): string =>
     localizeFieldNonNull(locale, skill, "name");
   return {
     requiredSkills: savedRequiredSkills.map(skillToName),
     optionalSkills: savedOptionalSkills.map(skillToName),
-    useAsEducationRequirement: experienceEducation.is_education_requirement,
-    ...experienceToDetails(data.experienceEducation, creatingNew),
+    useAsEducationRequirement: experience.is_education_requirement,
+    ...experienceToDetails(data.experience, creatingNew),
   };
 };
 
@@ -466,11 +374,11 @@ const formValuesToData = (
   originalExperience: ExperienceEducation,
   locale: Locales,
   skills: Skill[],
-): EducationExperienceSubmitData => {
+): ExperienceSubmitData<ExperienceEducation> => {
   const nameToSkill = (name: string): Skill | null =>
     matchValueToModel(locale, "name", name, skills);
   return {
-    experienceEducation: {
+    experience: {
       ...detailsToExperience(formValues, originalExperience),
       is_education_requirement: formValues.useAsEducationRequirement,
     },
@@ -489,7 +397,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   educationTypes,
   educationStatuses,
   jobId,
-  jobClassification,
+  classificationEducationRequirements,
   jobEducationRequirements,
   requiredSkills,
   savedRequiredSkills,
@@ -514,7 +422,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
 
   const initialFormValues = dataToFormValues(
     {
-      experienceEducation: originalExperience,
+      experience: originalExperience,
       savedRequiredSkills,
       savedOptionalSkills,
     },
@@ -525,7 +433,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
   const validationSchema = Yup.object().shape({
     ...skillValidationShape,
     ...educationValidationShape,
-    ...validationShape(intl),
+    ...educationExperienceValidationShape(intl),
   });
 
   return (
@@ -562,7 +470,7 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               <ExperienceDetailsIntro
                 description={intl.formatMessage(messages.modalDescription)}
               />
-              <DetailsSubform
+              <EducationDetailsSubform
                 educationTypes={educationTypes}
                 educationStatuses={educationStatuses}
               />
@@ -574,7 +482,9 @@ export const EducationExperienceModal: React.FC<EducationExperienceModalProps> =
               />
               <EducationSubform
                 keyPrefix="education"
-                jobClassification={jobClassification}
+                classificationEducationRequirements={
+                  classificationEducationRequirements
+                }
                 jobEducationRequirements={jobEducationRequirements}
               />
             </Modal.Body>

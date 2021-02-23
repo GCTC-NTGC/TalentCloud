@@ -55,6 +55,18 @@ const displayMessages = defineMessages({
     defaultMessage: "Confirm Removal",
     description: "Button text for confirming the confirmation modal.",
   },
+  applicationSectionTitle: {
+    id: "application.skills.applicationSectionTitle",
+    defaultMessage: "Skills for this Job",
+    description:
+      "Subtitle of the skills section in Experience accordion on Application.",
+  },
+  profileSectionTitle: {
+    id: "application.skills.profileSectionTitle",
+    defaultMessage: "My Skills",
+    description:
+      "Subtitle of the skills section in Experience accordion on Profile.",
+  },
 });
 
 export default displayMessages;

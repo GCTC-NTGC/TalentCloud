@@ -1,0 +1,52 @@
+<button
+  aria-expanded="false"
+  aria-label="Use the enter key to open or close the main menu."
+  aria-haspopup="true"
+  data-h2-mobile-menu-trigger
+  type="button" role="button">
+  <span data-h2-mobile-menu-trigger-open-label>Menu</span><span data-h2-mobile-menu-trigger-close-label>Close</span>
+</button>
+<nav
+  aria-label="Use the enter key to select a menu item and travel to its page. Use the left and right arrow keys to navigate between menu and submenu items. Use the right arrow key to open submenus when they are available. Use the left arrow or escape keys to close a menu."
+  data-h2-menu>
+  <ul
+    data-h2-menulist
+    role="menu">
+    {% for key,item in menu.items %}
+      <li role="presentation">
+        <a
+          href="{{ item.link }}"
+          role="menuitem"
+          title="Visit {{ item.name }}.">{{ item.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  <ul
+    data-h2-menulist
+    role="menu">
+    {% if auth_guest() %}
+      <li role="presentation">
+        <a
+          href="{{ login_modals.login_link }}"
+          role="menuitem"
+          title="Visit {{ menu.login }}.">{{ menu.login }}</a>
+      </li>
+      <li role="presentation">
+        <a
+          href="{{ login_modals.register_link }}"
+          role="menuitem"
+          title="Visit {{ menu.register }}.">{{ menu.register }}</a>
+      </li>
+    {% else %}
+      <li role="presentation">
+        <a
+          href="{{ login_modals.logout_link }}"
+          role="menuitem"
+          title="Visit {{ menu.logout }}.">{{ menu.logout }}</a>
+        <form id="logout-form" action="{{ login_modals.logout_link }}" method="POST" style="display: none;">
+            {{ csrf_field() }}
+        </form>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
