@@ -84,6 +84,7 @@ class ResetPasswordController extends AuthController
             'password' => [
                 'required',
                 'min:9',
+                'max:100',
                 new PasswordFormatRule,
                 'confirmed'
             ],

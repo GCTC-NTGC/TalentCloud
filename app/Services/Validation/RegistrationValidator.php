@@ -24,6 +24,7 @@ class RegistrationValidator
             'password' => [
                 'required',
                 'min:9',
+                'max:100',
                 new PasswordFormatRule,
                 'confirmed'
             ],
