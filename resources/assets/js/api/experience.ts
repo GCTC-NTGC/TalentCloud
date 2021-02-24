@@ -9,15 +9,6 @@ export interface ExperienceResponse {
 
 export const parseSingleExperience = (data: any): ExperienceResponse => {
   const { experience_skills, ...experience } = data;
-  if (data.start_date) {
-    experience.start_date = parseDate(data.start_date);
-  }
-  if (data.end_date) {
-    experience.end_date = parseDate(data.end_date);
-  }
-  if (data.awarded_date) {
-    experience.awarded_date = parseDate(data.awarded_date);
-  }
   return {
     experience,
     experienceSkills: experience_skills,

@@ -4,6 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import utc from "dayjs/plugin/utc";
 import "dayjs/locale/fr";
 import { Locales } from "./localize";
+import { DateString } from "../models/types";
 
 // dayjs() relativeTime API plugin configuration https://day.js.org/docs/en/display/from-now.
 const relativeTimeConfig = {
@@ -35,6 +36,16 @@ export const readableDate = (locale: Locales, date: Date): string => {
   return dayjs(date).locale(locale).format("LL");
 };
 
+export const readableDateFromString = (
+  locale: Locales,
+  date: DateString | null,
+): string => {
+  if (date !== null) {
+    return dayjs(date).locale(locale).format("LL");
+  }
+  return "";
+};
+
 export const readableTimeFromNow = (locale: Locales, date: Date): string => {
   return dayjs(date).utc().locale(locale).fromNow();
 };
@@ -45,4 +56,8 @@ export const toInputDateString = (date: Date): string => {
 
 export const fromInputDateString = (dateStr: string): Date => {
   return dayjs(dateStr).toDate();
+};
+
+export const newDateString = (): string => {
+  return dayjs().format("YYYY-MM-DD");
 };
