@@ -24,7 +24,7 @@ interface SelectContext extends GeneralProps {
   /** Event listener which fires when a change event occurs (varies on input type) */
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   /** This method allows you to register an input/select Ref and apply validation rules into React Hook Form. https://react-hook-form.com/api#register */
-  register?: (name: FieldName<FieldValues>, rules?: RegisterOptions) => void;
+  register?: any;
 }
 
 const SelectContext = React.createContext<SelectContext | undefined>(undefined);
