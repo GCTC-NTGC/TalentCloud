@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import detailsMessages from "./detailsMessages";
 import { getLocale } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceCommunity } from "../../../models/types";
 
 const ExperienceCommunityDetails: React.FC<{
@@ -22,7 +22,7 @@ const ExperienceCommunityDetails: React.FC<{
     </p>
   );
   const endDateOrNa = endDate ? (
-    <p>{readableDate(locale, endDate)}</p>
+    <p>{readableDateFromString(locale, endDate)}</p>
   ) : (
     notApplicable
   );
@@ -72,7 +72,11 @@ const ExperienceCommunityDetails: React.FC<{
           <p data-h2-font-weight="b(600)">
             {intl.formatMessage(detailsMessages.startDateLabel)}
           </p>
-          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+          {startDate ? (
+            <p>{readableDateFromString(locale, startDate)}</p>
+          ) : (
+            notApplicable
+          )}
         </div>
       </div>
       <div data-h2-grid-item="b(1of2) m(1of3)">

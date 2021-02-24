@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import {
@@ -6,26 +6,26 @@ import {
   getLocale,
   localizeFieldNonNull,
 } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
-import { ExperienceSkill, Skill } from "../../../models/types";
+import { readableDateFromString } from "../../../helpers/dates";
+import { DateString, ExperienceSkill, Skill } from "../../../models/types";
 import { getId, hasKey, mapToObject } from "../../../helpers/queries";
 import displayMessages from "../Skills/skillsMessages";
 
 export const titleBarDateRange = (
-  startDate: Date,
-  endDate: Date | null,
+  startDate: DateString,
+  endDate: DateString | null,
   isActive: boolean,
   intl: IntlShape,
   locale: Locales,
 ): string => {
   if (isActive || endDate === null) {
     return intl.formatMessage(accordionMessages.dateRangeCurrent, {
-      startDate: readableDate(locale, startDate),
+      startDate: readableDateFromString(locale, startDate),
     });
   }
   return intl.formatMessage(accordionMessages.dateRange, {
-    startDate: readableDate(locale, startDate),
-    endDate: readableDate(locale, endDate),
+    startDate: readableDateFromString(locale, startDate),
+    endDate: readableDateFromString(locale, endDate),
   });
 };
 

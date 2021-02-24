@@ -362,8 +362,8 @@ export interface ExperienceWork extends ExperienceBase {
   organization: string;
   group: string;
   is_active: boolean;
-  start_date: Date;
-  end_date: Date | null;
+  start_date: DateString;
+  end_date: DateString | null;
   type: "experience_work";
 }
 
@@ -378,8 +378,8 @@ export interface ExperienceEducation extends ExperienceBase {
   is_active: boolean;
   thesis_title: string;
   has_blockcert: boolean;
-  start_date: Date;
-  end_date: Date | null;
+  start_date: DateString;
+  end_date: DateString | null;
   type: "experience_education";
 }
 
@@ -389,8 +389,8 @@ export interface ExperienceCommunity extends ExperienceBase {
   group: string;
   project: string;
   is_active: boolean;
-  start_date: Date;
-  end_date: Date | null;
+  start_date: DateString;
+  end_date: DateString | null;
   type: "experience_community";
 }
 
@@ -402,7 +402,7 @@ export interface ExperienceAward extends ExperienceBase {
   issued_by: string;
   award_recognition_type_id: number;
   award_recognition_type: localizedFieldNonNull;
-  awarded_date: Date;
+  awarded_date: DateString;
   type: "experience_award";
 }
 
@@ -412,8 +412,8 @@ export interface ExperiencePersonal extends ExperienceBase {
   description: string;
   is_shareable: boolean;
   is_active: boolean;
-  start_date: Date;
-  end_date: Date | null;
+  start_date: DateString;
+  end_date: DateString | null;
   type: "experience_personal";
 }
 
@@ -446,3 +446,5 @@ export interface Email {
   subject: string;
   body: string;
 }
+
+export type DateString = string; // This type is used when the expected type is in the format yyyy-mm-dd.
