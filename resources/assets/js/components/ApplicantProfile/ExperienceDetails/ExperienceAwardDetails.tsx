@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import detailsMessages from "./detailsMessages";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceAward } from "../../../models/types";
 
 const ExperienceAwardDetails: React.FC<{
@@ -86,7 +86,7 @@ const ExperienceAwardDetails: React.FC<{
             {intl.formatMessage(detailsMessages.awardDateLabel)}
           </p>
           {awardedDate ? (
-            <p>{readableDate(locale, awardedDate)}</p>
+            <p>{readableDateFromString(locale, awardedDate)}</p>
           ) : (
             notApplicable
           )}
