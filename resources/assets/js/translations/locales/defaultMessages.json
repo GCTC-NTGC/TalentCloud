@@ -470,6 +470,11 @@
         "defaultMessage": "Sort By:",
         "description": "Text for the label on the sort toggle UI.",
         "id": "applicantProfile.skills.list.sortBy"
+      },
+      {
+        "defaultMessage": "Other",
+        "description": "Heading for skills not grouped under any SkillCategory.",
+        "id": "applicantProfile.skills.list.categoryOther"
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
