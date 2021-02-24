@@ -33,6 +33,11 @@ const messages = defineMessages({
     defaultMessage: "Sort By:",
     description: "Text for the label on the sort toggle UI.",
   },
+  categoryOther: {
+    id: "applicantProfile.skills.list.categoryOther",
+    defaultMessage: "Other",
+    description: "Heading for skills not grouped under any SkillCategory.",
+  },
 });
 
 enum SortTypes {
@@ -152,6 +157,10 @@ const List: React.FC<ListProps> = ({
     });
   }, [skills, skillCategories]);
 
+  const uncategorizedSkills: Skill[] = skills.filter(
+    (skill) => skill.skill_category_ids.length === 0,
+  );
+
   return (
     <div>
       <p data-h2-margin="b(bottom, .5)">
@@ -167,32 +176,60 @@ const List: React.FC<ListProps> = ({
           handleClick={() => setSortType(SortTypes.Alpha)}
         />
       </p>
-      {sortType === "group" &&
-        skillCategoriesGrouped.map((group) => (
-          <div key={group.category.id}>
-            <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
-              {localizeFieldNonNull(locale, group.category, "name")}
-            </h5>
-            {group.skills
-              .sort(sortByLocalizedName(locale))
-              .map((skill: Skill) => {
-                const experiencesOfSkill = getExperiencesOfSkill(
-                  skill,
-                  experienceSkills,
-                );
-                return (
-                  <SkillAccordion
-                    key={`skill-accordion-group-${skill.id}`}
-                    skill={skill}
-                    experiences={experiences}
-                    experiencesOfSkill={experiencesOfSkill}
-                    applicantId={applicantId}
-                    handleDeleteSkill={handleDeleteSkill}
-                  />
-                );
-              })}
-          </div>
-        ))}
+      {sortType === "group" && (
+        <>
+          {skillCategoriesGrouped.map((group) => (
+            <div key={group.category.id}>
+              <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
+                {localizeFieldNonNull(locale, group.category, "name")}
+              </h5>
+              {group.skills
+                .sort(sortByLocalizedName(locale))
+                .map((skill: Skill) => {
+                  const experiencesOfSkill = getExperiencesOfSkill(
+                    skill,
+                    experienceSkills,
+                  );
+                  return (
+                    <SkillAccordion
+                      key={`skill-accordion-group-${skill.id}`}
+                      skill={skill}
+                      experiences={experiences}
+                      experiencesOfSkill={experiencesOfSkill}
+                      applicantId={applicantId}
+                      handleDeleteSkill={handleDeleteSkill}
+                    />
+                  );
+                })}
+            </div>
+          ))}
+          {uncategorizedSkills.length > 0 && (
+            <div>
+              <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
+                {intl.formatMessage(messages.categoryOther)}
+              </h5>
+              {uncategorizedSkills
+                .sort(sortByLocalizedName(locale))
+                .map((skill: Skill) => {
+                  const experiencesOfSkill = getExperiencesOfSkill(
+                    skill,
+                    experienceSkills,
+                  );
+                  return (
+                    <SkillAccordion
+                      key={`skill-accordion-group-${skill.id}`}
+                      skill={skill}
+                      experiences={experiences}
+                      experiencesOfSkill={experiencesOfSkill}
+                      applicantId={applicantId}
+                      handleDeleteSkill={handleDeleteSkill}
+                    />
+                  );
+                })}
+            </div>
+          )}
+        </>
+      )}
       {sortType === "alpha" &&
         skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
           const experiencesOfSkill = getExperiencesOfSkill(
