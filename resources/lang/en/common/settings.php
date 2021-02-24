@@ -52,7 +52,7 @@ return [
     'gov_email_label' => 'Government Email',
     'government_save' => 'Save Government Information',
     'password_copy' => [
-        'one' => 'You can use this section to change your password. Passwords must contain 1 character from each of the following criteria:',
+        'one' => 'You can use this section to change your password. The new password must be at least 9 characters and may not be greater than 100 characters. Passwords must contain 1 character from each of the following criteria:',
         'two' => 'Lower-case characters (a-z)',
         'three' => 'Upper-case characters (A-Z)',
         'four' => 'Digits (0-9)',

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import detailsMessages from "./detailsMessages";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceEducation } from "../../../models/types";
 
 const ExperienceEducationDetails: React.FC<{
@@ -30,7 +30,7 @@ const ExperienceEducationDetails: React.FC<{
     </p>
   );
   const endDateOrNa = endDate ? (
-    <p>{readableDate(locale, endDate)}</p>
+    <p>{readableDateFromString(locale, endDate)}</p>
   ) : (
     notApplicable
   );
@@ -89,7 +89,7 @@ const ExperienceEducationDetails: React.FC<{
             {intl.formatMessage(detailsMessages.startDateLabel)}
           </p>
           {startDate ? (
-            <p>{readableDate(locale, startDate)}</p>
+            <p>{readableDateFromString(locale, startDate)}</p>
           ) : (
             { notApplicable }
           )}

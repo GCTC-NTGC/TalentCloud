@@ -49,7 +49,7 @@ return [
     'job_alerts_label' => 'Je ne veux pas que le Nuage de talents communique avec moi concernant des emplois liés à ceux pourlesquels je postule.',
     'save_contact_preferences' => 'Enregistrer les préférences pour les communications.',
     'password_copy' => [
-        'one' => 'Vous pouvez utiliser cette section pour modifier votre mot de passe. Les mots de passe doivent contenir un caractère tiré de chacun des critères suivants :',
+        'one' => 'Vous pouvez utiliser cette section pour modifier votre mot de passe. Le texte nouveau du mot de passe doit contenir au moins 9 caractères et ne peut contenir plus de 100 caractères. Les mots de passe doivent contenir un caractère tiré de chacun des critères suivants :',
         'two' => 'Lettres minuscules (a-z)',
         'three' => 'Lettres majuscules (A-Z)',
         'four' => 'Chiffres (0-9)',

@@ -16,7 +16,9 @@ export type DispatchType = Dispatch<AnyAction, RootState> &
   ThunkDispatch<any, any, AnyAction>;
 
 export const configureStore = (): Store<RootState, AnyAction> => {
-  const logger = createLogger();
+  const logger = createLogger({
+    collapsed: true,
+  });
 
   const isDev = process.env.NODE_ENV === "development";
 
