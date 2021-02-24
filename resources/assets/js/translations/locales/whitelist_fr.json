@@ -1,4 +1,8 @@
 [
+  "applicantProfile.experienceDetails.dateRange",
+  "applicantProfile.experienceDetails.awardHeading",
+  "applicantProfile.experienceDetails.communityHeading",
+  "applicantProfile.skills.list.alpha",
   "application.accordion.dateRange",
   "application.accordion.awardHeading",
   "application.accordion.communityHeading",
@@ -25,9 +29,5 @@
   "province.on.abreviation",
   "province.sk.abreviation",
   "securityClearance.secret",
-  "application.skills.personalHeading",
-  "applicantProfile.experienceDetails.awardHeading",
-  "applicantProfile.experienceDetails.communityHeading",
-  "applicantProfile.experienceDetails.dateRange",
-  "applicantProfile.skills.list.alpha"
+  "application.skills.personalHeading"
 ]
