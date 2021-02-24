@@ -19,6 +19,12 @@ export interface Applicant {
   user: User;
 }
 
+export interface ApplicantProfile {
+  citizenship_declaration_id: number;
+  veteran_status_id: number;
+  applicant_classifications: ApplicantClassification[];
+}
+
 export interface ApplicationBasic {
   id: number;
   job_poster_id: number;
@@ -163,6 +169,14 @@ export interface EducationType {
   updated_at: Date | null;
 }
 
+type GCEmployeeStatusName =
+  | "never_employee"
+  | "current_employee"
+  | "past_employee";
+export interface GCEmployeeStatus {
+  id: number;
+  name: GCEmployeeStatusName;
+}
 export interface HrAdvisor {
   id: number;
   user_id: number;
@@ -453,16 +467,10 @@ export interface GocClassification {
   order: number; // Used to allow user to order the list of classifications
 }
 
-export type GCEmployeeStatusName = "yes" | "no" | "previous";
-export interface GCEmployeeStatus {
+export interface ApplicantClassification {
   id: number;
-  name: GCEmployeeStatusName;
-}
-
-export interface ProfileBasicInfo {
-  citizenship_status: CitizenshipDeclaration;
-  veteran_status: VeteranStatus;
-  current_gc_employee: GCEmployeeStatus;
-  current_classification: GocClassification;
-  previous_classifications: GocClassification[];
+  applicant_id: number;
+  classification_id: number;
+  level: number;
+  order: number; // Used to allow user to order the list of classifications
 }

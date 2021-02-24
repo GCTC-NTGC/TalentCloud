@@ -182,16 +182,10 @@ export const VeteranId = {
   past: 3,
 };
 
-export enum currentEmployeeIdEnum {
-  Yes = 1,
-  No = 2,
-  Previous = 3,
-}
-
-export const currentGcEmployeeId = {
-  yes: 1,
-  no: 2,
-  previous: 3,
+export const GCEmployeeStatus = {
+  no: 1,
+  current: 2,
+  past: 3,
 };
 
 export const ApplicationStatusId = {

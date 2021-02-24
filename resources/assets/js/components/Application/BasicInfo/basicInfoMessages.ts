@@ -3,7 +3,6 @@ import {
   CitizenshipId,
   VeteranId,
   LanguageRequirementId,
-  currentGcEmployeeId,
 } from "../../../models/lookupConstants";
 import { getOrThrowError } from "../../../helpers/queries";
 
@@ -197,26 +196,3 @@ export const languageRequirementLabel = (
     languageRequirementId,
     "invalid Language Requirement Label (Timeline)",
   );
-
-export const gcEmployeeStatus = (gcEmployeeStatusId: number): MessageDescriptor =>
-getOrThrowError(gcEmployeeStatuses, gcEmployeeStatusId, "invalid GC employee Status");
-
-export const gcEmployeeStatuses = defineMessages({
-  [currentGcEmployeeId.yes]: {
-    id: "application.basicInfo.gcEmployeeStatus.yes",
-    defaultMessage:
-      "Yes - I am currently an employee of the Government of Canada.",
-    description: "Select option text for the 'Yes' GC employee status.",
-  },
-  [currentGcEmployeeId.no]: {
-    id: "application.basicInfo.gcEmployeeStatus.no",
-    defaultMessage:
-      "No - I am not, and have never been, an employee of the Government of Canada.",
-      description: "Select option text for the 'No' GC employee status.",
-  },
-  [currentGcEmployeeId.previous]: {
-    id: "application.basicInfo.gcEmployeeStatus.previous",
-    defaultMessage: "I was previously, but am no longer, an employee of the Government of Canada.",
-    description: "Select option text for the 'Previous' GC employee status.",
-  },
-});
