@@ -1,9 +1,7 @@
-import React, { useCallback, useContext, useEffect, useRef } from "react";
+import React, { useCallback, useContext } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { ErrorContext } from "./ErrorContainer";
 import Alert from "./H2Components/Alert";
-
-const TOAST_SELF_DISMISS_TIMER = 3500;
 
 export const errorMessages = defineMessages({
   toastTitle: {
