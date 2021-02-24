@@ -460,13 +460,6 @@ export interface Email {
   subject: string;
   body: string;
 }
-
-export interface GocClassification {
-  classification: Classification;
-  level: number;
-  order: number; // Used to allow user to order the list of classifications
-}
-
 export interface ApplicantClassification {
   id: number;
   applicant_id: number;
