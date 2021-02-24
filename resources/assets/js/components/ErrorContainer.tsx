@@ -4,14 +4,7 @@ type ErrorState = {
   errorQueue: string[];
 };
 
-export type ErrorAction =
-  | {
-      type: "push";
-      payload: string;
-    }
-  | {
-      type: "pop";
-    };
+export type ErrorAction = { type: "push"; payload: string; } | { type: "pop"; };
 
 const initialState: ErrorState = { errorQueue: [] };
 function errorReducer(state: ErrorState, action: ErrorAction) {
