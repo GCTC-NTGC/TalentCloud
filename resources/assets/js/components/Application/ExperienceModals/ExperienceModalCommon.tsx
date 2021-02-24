@@ -51,7 +51,7 @@ export const ExperienceModalHeaderH2: React.FC<{
       data-h2-border="b(black, bottom, solid, thin)"
       data-h2-padding="b(tb, 1)"
     >
-      <div data-h2-container="b(left, medium)">
+      <div data-h2-container="b(center, medium)">
         <Dialog.Title
           data-h2-font-color="b(white)"
           data-h2-font-size="b(h3)"

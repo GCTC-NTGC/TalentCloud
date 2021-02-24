@@ -8,6 +8,7 @@ import {
   validationShape as skillValidationShape,
   dataToFormSkills,
   formSkillsToData,
+  ProfileSkillSubformH2,
 } from "./ProfileSkillSubform";
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
@@ -131,8 +132,7 @@ export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
                   description={intl.formatMessage(messages.modalDescription)}
                 />
                 <WorkDetailsSubformH2 />
-                {/** TODO: make an H2 version of Skill Subform */}
-                <ProfileSkillSubform keyPrefix="work" skills={userSkills} />
+                <ProfileSkillSubformH2 keyPrefix="work" skills={userSkills} />
               </Dialog.Content>
               <ExperienceModalFooterH2
                 buttonsDisabled={formikProps.isSubmitting}

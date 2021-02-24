@@ -147,6 +147,48 @@ const SkillFormCell: FunctionComponent<{
   );
 };
 
+const SkillFormCellH2: FunctionComponent<{
+  skill: Skill;
+  keyPrefix: string;
+}> = ({ skill, keyPrefix }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  const { values } = useFormikContext<SkillFormValues>();
+  const isSelected = !!values.skills[skill.id]?.selected;
+  // We don't use the CheckboxInput component here because we need more custom styling,
+  // mostly because this is ~sort~ of a checkbox group, but its not just checkboxes.
+  return (
+    <div key={skill.id}>
+      <div>
+        <div>
+          <label>
+            <FastField
+              id={`${keyPrefix}-${skill.id}-selected`}
+              type="checkbox"
+              name={`skills.${skill.id}.selected`}
+            />
+            <span data-h2-padding="b(left, .5)">
+              {localizeFieldNonNull(locale, skill, "name")}
+            </span>
+          </label>
+        </div>
+        <div data-h2-visibility={!isSelected ? "b(hidden)" : "b(visible)"}>
+          <Field
+            id={`${keyPrefix}-${skill.id}-justification`}
+            type="text"
+            name={`skills.${skill.id}.justification`}
+            component={TextAreaInput} // TODO:  Use H2 Input
+            required={isSelected}
+            label={intl.formatMessage(messages.justificationLabel)}
+            placeholder={intl.formatMessage(messages.justificationPlaceholder)}
+            wordLimit={JUSTIFICATION_WORD_LIMIT}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export interface ProfileSkillSubformProps {
   keyPrefix: string;
   skills: Skill[];
@@ -232,6 +274,101 @@ export const ProfileSkillSubform: FunctionComponent<ProfileSkillSubformProps> = 
             ))}
             {skills.length === 0 && (
               <div data-c-font-style="italic">
+                <p>
+                  <FormattedMessage
+                    id="profile.experience.skillSubform.noSkills"
+                    defaultMessage="Add some skills to your profile first."
+                    description="Message to show in skills checkbox when there are no skills to select from."
+                  />
+                </p>
+              </div>
+            )}
+          </div>
+        </fieldset>
+      </div>
+    </>
+  );
+};
+export const ProfileSkillSubformH2: FunctionComponent<ProfileSkillSubformProps> = ({
+  keyPrefix,
+  skills,
+}) => {
+  return (
+    <>
+      <div data-h2-container="b(center, medium)">
+        <p
+          data-h2-margin="b(tb, 1)"
+          data-h2-font-size="b(h4)"
+          data-h2-font-weight="b(600)"
+          data-h2-font-color="b(theme-3)"
+        >
+          <FormattedMessage
+            id="profile.experience.skillSubform.connectSubtitle"
+            defaultMessage="Connect your Skills to this Experience"
+            description="Subtitle of Connect-to-skills section."
+          />
+        </p>
+        <p data-h2-margin="b(bottom, 1)">
+          <FormattedMessage
+            id="profile.experience.skillSubform.connectDescription"
+            defaultMessage="Add any skills below that you learned or used in this experience. Hiring Managers see a lot of applicant profiles and you will need to set yourself apart if you want new job opportunities. You can do this by answering the following questions for each of the skills you add. This is the most important part of your profile if you're hoping a manager will find you."
+            description="Explanation for Connect-to-skills section."
+          />
+        </p>
+        <ul data-h2-font-weight="b(600)" data-h2-margin="b(bottom, 1)">
+          <li>
+            <FormattedMessage
+              id="profile.experience.skillSubform.question1"
+              defaultMessage="What did you accomplish, create or deliver using this skill?"
+              description="A question the user should answer when connecting a Skill to Experience."
+            />
+          </li>
+          <li>
+            <FormattedMessage
+              id="profile.experience.skillSubform.question2"
+              defaultMessage="What tasks or activities did you do that relate to this skill?"
+              description="A question the user should answer when connecting a Skill to Experience."
+            />
+          </li>
+          <li>
+            <FormattedMessage
+              id="profile.experience.skillSubform.question3"
+              defaultMessage="Were there any special techniques or approaches that you used?"
+              description="A question the user should answer when connecting a Skill to Experience."
+            />
+          </li>
+          <li>
+            <FormattedMessage
+              id="profile.experience.skillSubform.question4"
+              defaultMessage="How much responsibility did you have in this role?"
+              description="A question the user should answer when connecting a Skill to Experience."
+            />
+          </li>
+        </ul>
+      </div>
+      <div data-h2-container="b(center, medium)" data-h2-padding="b(bottom, 1)">
+        <fieldset style={{ border: "none" }}>
+          <legend data-h2-font-family="b(sans)">
+            <FormattedMessage
+              id="profile.experience.skillSubform.fieldsetLegend"
+              defaultMessage="Select all that apply:"
+              description="The label at the top of the group of skill checkboxes"
+            />
+          </legend>
+          <div
+            data-h2-border="b(black, all, solid, thin)"
+            data-h2-radius="b(rounded)"
+            data-h2-padding="b(all, 1)"
+          >
+            {skills.map((skill) => (
+              <SkillFormCellH2
+                key={skill.id}
+                skill={skill}
+                keyPrefix={keyPrefix}
+              />
+            ))}
+            {skills.length === 0 && (
+              <div data-h2-font-style="b(italic)">
                 <p>
                   <FormattedMessage
                     id="profile.experience.skillSubform.noSkills"
