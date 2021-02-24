@@ -6,7 +6,6 @@ import { useForm, useFieldArray } from "react-hook-form";
 import {
   ApplicantClassification,
   ApplicantProfile,
-  CitizenshipDeclaration,
   Classification,
 } from "../../../models/types";
 import {
