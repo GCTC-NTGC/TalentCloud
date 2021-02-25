@@ -96,7 +96,7 @@
     },
     "dependencies": {
         "@formatjs/intl-getcanonicallocales": "^1.5.4",
-        "@formatjs/intl-locale": "^2.4.16",
+        "@formatjs/intl-locale": "^2.4.17",
         "@formatjs/intl-pluralrules": "^4.0.9",
         "@formatjs/intl-relativetimeformat": "^8.1.0",
         "axios": "^0.21.1",
