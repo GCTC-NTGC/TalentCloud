@@ -216,7 +216,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
   return (
     <Accordion
       triggerPos="right"
-      data-h2-card="white, round"
+      data-h2-background-color="b(white)"
+      data-h2-radius="b(round)"
+      data-h2-shadow="b(medium)"
       data-h2-margin="b(bottom, .25)"
     >
       <Accordion.Btn>

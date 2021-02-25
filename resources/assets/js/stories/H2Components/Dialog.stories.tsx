@@ -15,7 +15,7 @@ stories.add(
       <Dialog.Trigger
         id="dialog"
         data-h2-button="white, round, solid"
-        data-h2-card="white, round"
+        data-h2-shadow="b(medium)"
         data-h2-padding="b(all, .5)"
         data-h2-margin="b(right, 1)"
       >

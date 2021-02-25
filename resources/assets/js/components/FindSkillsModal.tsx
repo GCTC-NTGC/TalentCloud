@@ -90,7 +90,7 @@ export const FindSkillsModalTrigger: React.FC = () => {
   return (
     <Dialog.Trigger
       id={FIND_SKILLS_DIALOG_ID}
-      data-h2-card="white, round"
+      data-h2-shadow="b(medium)"
       buttonStyling="theme-2, round, medium, outline"
       data-h2-grid="b(top, expanded, flush, 0)"
     >
