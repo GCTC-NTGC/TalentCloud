@@ -54,7 +54,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
 
   return (
     <div>
-      <h2 data-h2-heading="b(h2)" data-h2-margin="b(bottom, 1)">
+      <h2 data-h2-heading="b(h3)" data-h2-margin="b(bottom, 1)">
         <FormattedMessage
           id="profileSkillsPage.heading"
           defaultMessage="Your Skills"
