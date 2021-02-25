@@ -84,6 +84,7 @@ interface ListProps {
   skills: Skill[];
   applicantId: number;
   handleDeleteSkill: (skillId: number) => Promise<void>;
+  updateInProgress: boolean;
 }
 
 const List: React.FC<ListProps> = ({
@@ -93,6 +94,7 @@ const List: React.FC<ListProps> = ({
   skills,
   applicantId,
   handleDeleteSkill,
+  updateInProgress,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -169,14 +171,12 @@ const List: React.FC<ListProps> = ({
   return (
     <div>
       <p data-h2-margin="b(bottom, .5)">
-        {intl.formatMessage(messages.sortBy)}
-{" "}
+        {intl.formatMessage(messages.sortBy)}{" "}
         <SortButton
           text={intl.formatMessage(messages[SortTypes.Group])}
           active={sortType === SortTypes.Group}
           handleClick={() => setSortType(SortTypes.Group)}
-        />
-{" "}
+        />{" "}
         <SortButton
           text={intl.formatMessage(messages[SortTypes.Alpha])}
           active={sortType === SortTypes.Alpha}
@@ -208,6 +208,7 @@ const List: React.FC<ListProps> = ({
                       experiencesOfSkill={experiencesOfSkill}
                       applicantId={applicantId}
                       handleDeleteSkill={handleDeleteSkill}
+                      disableDelete={updateInProgress}
                     />
                   );
                 })}
@@ -233,6 +234,7 @@ const List: React.FC<ListProps> = ({
                       experiencesOfSkill={experiencesOfSkill}
                       applicantId={applicantId}
                       handleDeleteSkill={handleDeleteSkill}
+                      disableDelete={updateInProgress}
                     />
                   );
                 })}
@@ -254,6 +256,7 @@ const List: React.FC<ListProps> = ({
               experiencesOfSkill={experiencesOfSkill}
               applicantId={applicantId}
               handleDeleteSkill={handleDeleteSkill}
+              disableDelete={updateInProgress}
             />
           );
         })}

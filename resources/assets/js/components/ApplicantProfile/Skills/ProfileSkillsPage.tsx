@@ -127,6 +127,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
         skills={applicantSkills}
         applicantId={applicantId}
         handleDeleteSkill={removeSkill}
+        updateInProgress={applicantSkillsResource.status === "pending"}
       />
     </div>
   );
