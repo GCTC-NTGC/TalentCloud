@@ -12,8 +12,7 @@ const DismissBtn: React.FunctionComponent<DismissBtnProps> = ({
   onClick,
   disabled,
   ...rest
-}) => {
-  return (
+}) => (
     <button
       data-h2-alert-dismissal-trigger
       type="button"
@@ -26,19 +25,16 @@ const DismissBtn: React.FunctionComponent<DismissBtnProps> = ({
       {children}
     </button>
   );
-};
 
 const Title: React.FunctionComponent<GeneralProps> = ({
   className,
   children,
   ...rest
-}) => {
-  return (
+}) => (
     <p data-h2-alert-title className={className} {...rest}>
       {children}
     </p>
   );
-};
 
 interface AlertComposition {
   DismissBtn: React.FunctionComponent<DismissBtnProps>;
@@ -58,8 +54,8 @@ const Alert: React.FunctionComponent<AlertProps> & AlertComposition = ({
   className,
   children,
   ...rest
-}) => {
-  return (
+}) => (
+  <div data-h2-alert-wrapper="toast">
     <div
       data-h2-no-js // Ensure this won't hook into an H2 script that removes this element from the DOM.
       data-h2-alert={`${color}, ${position}`}
@@ -70,8 +66,8 @@ const Alert: React.FunctionComponent<AlertProps> & AlertComposition = ({
       {dismissBtn}
       <div data-h2-alert-content>{children}</div>
     </div>
+  </div>
   );
-};
 
 // We expose the children components here, as properties.
 // Using the dot notation we explicitly set the composition relationships
