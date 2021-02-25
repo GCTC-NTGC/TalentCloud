@@ -62,7 +62,7 @@ const errorToMessage = async (error: Error | FetchError): Promise<string> => {
  */
 const useErrorHandler = () => {
   const { dispatch } = useContext(ErrorContext);
-  const handleError = (error: Error | FetchError) => {
+  const handleError = (error: Error | FetchError): void => {
     errorToMessage(error).then((message) =>
       dispatch({
         type: "push",
@@ -87,6 +87,7 @@ export const useApplicantSkillIds = (applicantId: number) => {
 };
 
 export const useApplicantExperience = (applicantId: number) => {
+  const handleError = useErrorHandler();
   return useResourceIndex<Experience>(
     getApplicantExperienceEndpoint(applicantId),
     {
@@ -99,17 +100,20 @@ export const useApplicantExperience = (applicantId: number) => {
       // Need a custom keyFn because different types of experience may have same id,
       // meaning default keyFn (getId) may cause collisions in the map of items and they may overwriting each other.
       keyFn: (experience) => `${experience.type}-${experience.id}`,
+      handleError,
     },
   );
 };
 
 export const useApplicantExperienceSkills = (applicantId: number) => {
+  const handleError = useErrorHandler();
   return useResourceIndex<ExperienceSkill>(
     getApplicantExperienceSkillsEndpoint(applicantId),
     {
       resolveEntityEndpoint: (_, entity) =>
         getExperienceSkillEndpoint(entity.id),
       resolveCreateEndpoint: (_, entity) => getExperienceSkillEndpoint(null),
+      handleError,
     },
   );
 };
