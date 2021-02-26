@@ -43,6 +43,11 @@ const messages = defineMessages({
     defaultMessage: "Other",
     description: "Heading for skills not grouped under any SkillCategory.",
   },
+  skillsEmpty: {
+    id: "applicantProfile.skills.list.skillsEmpty",
+    defaultMessage: "You haven't yet added any skills.",
+    description: "Text to show when user has no skills.",
+  },
 });
 
 enum SortTypes {
@@ -242,24 +247,31 @@ const List: React.FC<ListProps> = ({
           )}
         </>
       )}
-      {sortType === "alpha" &&
-        skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
-          const experiencesOfSkill = getExperiencesOfSkill(
-            skill,
-            experienceSkills,
-          );
-          return (
-            <SkillAccordion
-              key={`skill-accordion-alpha-${skill.id}`}
-              skill={skill}
-              experiences={experiences}
-              experiencesOfSkill={experiencesOfSkill}
-              applicantId={applicantId}
-              handleDeleteSkill={handleDeleteSkill}
-              disableDelete={updateInProgress}
-            />
-          );
-        })}
+      {sortType === "alpha" && (
+        <>
+          {skills.length > 0 ? (
+            skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
+              const experiencesOfSkill = getExperiencesOfSkill(
+                skill,
+                experienceSkills,
+              );
+              return (
+                <SkillAccordion
+                  key={`skill-accordion-alpha-${skill.id}`}
+                  skill={skill}
+                  experiences={experiences}
+                  experiencesOfSkill={experiencesOfSkill}
+                  applicantId={applicantId}
+                  handleDeleteSkill={handleDeleteSkill}
+                  disableDelete={updateInProgress}
+                />
+              );
+            })
+          ) : (
+            <p>{intl.formatMessage(messages.skillsEmpty)}</p>
+          )}
+        </>
+      )}
     </div>
   );
 };
