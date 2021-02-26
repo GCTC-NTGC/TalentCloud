@@ -292,7 +292,7 @@ export interface SkillCategory {
   id: number;
   key: string;
   name: localizedFieldNonNull;
-  description: localizedFieldNonNull;
+  // description: localizedFieldNonNull;
   parent_id: number | null;
   lft: number;
   rgt: number;

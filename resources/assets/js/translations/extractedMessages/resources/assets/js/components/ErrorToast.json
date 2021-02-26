@@ -1,1 +1,1 @@
-[{"id":"errorToast.title","description":"Title displayed on the Error Toast component.","defaultMessage":"Something went wrong!"}]
+[{"id":"errorToast.title","description":"Title displayed on the Error Toast component.","defaultMessage":"Something went wrong!"},{"id":"errorToast.dismiss","description":"Label for the Error Toast dismiss button.","defaultMessage":"Dismiss"}]
