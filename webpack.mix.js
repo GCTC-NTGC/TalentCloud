@@ -76,6 +76,10 @@ mix
     "public/js",
   )
   .ts(
+    "resources/assets/js/components/ApplicantProfile/Skills/ProfileSkillsPage.tsx",
+    "public/js",
+  )
+  .ts(
     "resources/assets/js/components/Application/ApplicationPreviewRoot.tsx",
     "public/js",
   )

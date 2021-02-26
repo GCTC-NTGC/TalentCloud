@@ -6,10 +6,9 @@
 ============================================================================= #}
 {% extends "layouts/base" %}
 {% block title %}
-	{{ profile.experience_section.experience_title }}
+	{{ profile.skills_section.skills_title }}
 {% endblock %}
 {% block body %}
-
 	{% include "common/header" with {"header": profile} %}
 	<a id="skipLink"></a>
     <div data-clone>
@@ -23,7 +22,7 @@
                         <div data-c-container="medium(left)">
                             {% include "applicant/profile/updated" %}
                             {# Experience #}
-                            <div id="profile-experience" data-applicant-id="{{ applicant.id }}"/>
+                            <div data-h2-system id="profile-skills" data-applicant-id="{{ applicant.id }}"/>
                         </div>
                     </div>
                 </div>
@@ -32,5 +31,5 @@
     </div>
 {% endblock %}
 {% block scripts %}
-<script async defer src="{{ asset(mix('js/ProfileExperiencePage.js')) }}"></script>
+<script async defer src="{{ asset(mix('js/ProfileSkillsPage.js')) }}"></script>
 {% endblock %}

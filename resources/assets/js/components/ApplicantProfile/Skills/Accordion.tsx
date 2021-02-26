@@ -202,6 +202,7 @@ interface SkillAccordionProps {
   experiencesOfSkill: ExperienceSkill[];
   applicantId: number;
   handleDeleteSkill: (skillId: number) => Promise<void>;
+  disableDelete?: boolean;
 }
 
 export const SkillAccordion: React.FC<SkillAccordionProps> = ({
@@ -210,14 +211,16 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
   experiencesOfSkill,
   applicantId,
   handleDeleteSkill,
+  disableDelete = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   return (
     <Accordion
       triggerPos="right"
-      data-h2-card="white, round"
-      data-h2-margin="b(bottom, .25)"
+      data-h2-background-color="b(white)"
+      data-h2-shadow="b(medium)"
+      data-h2-margin="b(bottom, .5)"
     >
       <Accordion.Btn>
         <div data-h2-grid="b(middle, contained, flush, 1)">
@@ -272,15 +275,15 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   experienceSkill,
                   experiences,
                 );
+                if (currentExperience === null) {
+                  return null;
+                }
+
+                const dialogId = `profile-skill-${skill.id}-experience-skill-${experienceSkill.id}`;
                 return (
-                  <>
+                  <div key={experienceSkill.id}>
                     <Dialog.Trigger
-                      id={
-                        "skill-experience-dialog-" +
-                        `${currentExperience?.type}` +
-                        "-" +
-                        `${currentExperience?.id}`
-                      }
+                      id={dialogId}
                       data-h2-display="b(block)"
                       data-h2-button="black, round, medium, clear"
                     >
@@ -295,18 +298,10 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         data-h2-button-label
                         data-h2-font-style="b(underline)"
                       >
-                        {currentExperience !== null &&
-                          getExperienceTitle(currentExperience)}
+                        {getExperienceTitle(currentExperience)}
                       </span>
                     </Dialog.Trigger>
-                    <Dialog
-                      id={
-                        "skill-experience-dialog-" +
-                        `${currentExperience?.type}` +
-                        "-" +
-                        `${currentExperience?.id}`
-                      }
-                    >
+                    <Dialog id={dialogId}>
                       <Dialog.Header
                         data-h2-grid="b(middle, contained, padded, .5)"
                         data-h2-bg-color="b(theme-1, 1)"
@@ -331,7 +326,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                             {intl.formatMessage(
                               messages[
                                 getExperienceDialogTitleKey(
-                                  currentExperience?.type || "",
+                                  currentExperience.type,
                                 )
                               ],
                             )}
@@ -365,30 +360,29 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                           )}
                         </p>
                         <div data-h2-padding="b(tb, .5)">
-                          {currentExperience?.type === "experience_award" && (
+                          {currentExperience.type === "experience_award" && (
                             <ExperienceAwardDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
+                          {currentExperience.type ===
                             "experience_community" && (
                             <ExperienceCommunityDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
+                          {currentExperience.type ===
                             "experience_education" && (
                             <ExperienceEducationDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type ===
-                            "experience_personal" && (
+                          {currentExperience.type === "experience_personal" && (
                             <ExperiencePersonalDetails
                               experience={currentExperience}
                             />
                           )}
-                          {currentExperience?.type === "experience_work" && (
+                          {currentExperience.type === "experience_work" && (
                             <ExperienceWorkDetails
                               experience={currentExperience}
                             />
@@ -411,10 +405,9 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                                   : 0,
                               locationTitle: (
                                 <strong>
-                                  {currentExperience !== null &&
-                                    getExperienceLocationTitle(
-                                      currentExperience,
-                                    )}
+                                  {getExperienceLocationTitle(
+                                    currentExperience,
+                                  )}
                                 </strong>
                               ),
                             },
@@ -479,7 +472,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         </div>
                       </Dialog.Actions>
                     </Dialog>
-                  </>
+                  </div>
                 );
               })}
             {experiencesOfSkill && experiencesOfSkill.length !== 0 && (
@@ -489,6 +482,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   data-h2-button="gray-1, round, medium, solid"
                   data-h2-padding="b(all, .5)"
                   data-h2-margin="b(right, 1)"
+                  disabled={disableDelete}
                 >
                   <i
                     className="fas fa-trash"
@@ -558,6 +552,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         <Dialog.ActionBtn
                           buttonStyling="gray-1, round, solid"
                           data-h2-padding="b(rl, 2) b(tb, .5)"
+                          disabled={disableDelete}
                           onClick={() => {
                             handleDeleteSkill(skill.id);
                           }}
@@ -613,6 +608,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     type="button"
                     data-h2-display="b(block)"
                     data-h2-button="gray-1, round, medium, solid"
+                    disabled={disableDelete}
                     onClick={() => {
                       handleDeleteSkill(skill.id);
                     }}
