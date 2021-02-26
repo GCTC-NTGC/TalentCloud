@@ -272,6 +272,8 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         )}
                       </p>
                     </Accordion.Btn>
+                    {/*
+                    TODO: Restore this when discriptions are added to Skill Categories on backend.
                     <p
                       data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
                       data-h2-font-color="b(black)"
@@ -283,8 +285,8 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         parentSkillCategory,
                         "description",
                       )}
-                    </p>
-                    <Accordion.Content>
+                    </p> */}
+                    <Accordion.Content data-h2-margin="b(top, 1)">
                       <ul
                         data-h2-padding="b(all, 0)"
                         className="no-list-style-type"
@@ -314,11 +316,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                         )} ${intl.formatMessage(
                                           messages.skills,
                                         )}`,
-                                        description: localizeFieldNonNull(
-                                          locale,
-                                          childSkillCatergory,
-                                          "description",
-                                        ),
+                                        description: "",
+                                        // TODO: Restore this when discriptions are added to Skill Categories on backend.
+                                        // localizeFieldNonNull(
+                                        //   locale,
+                                        //   childSkillCatergory,
+                                        //   "description",
+                                        // ),
                                       });
                                       setSkillsResults(
                                         categoryIdToSkillsMap.get(
