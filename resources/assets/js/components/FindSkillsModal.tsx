@@ -58,11 +58,11 @@ const messages = defineMessages({
     defaultMessage: "Remove",
   },
   cancelButton: {
-    id: "findSkillsModal.noSkills",
+    id: "findSkillsModal.cancel",
     defaultMessage: "Cancel",
   },
   saveButton: {
-    id: "findSkillsModal.noSkills",
+    id: "findSkillsModal.save",
     defaultMessage: "Save Skills",
   },
   searchResultsTitle: {
