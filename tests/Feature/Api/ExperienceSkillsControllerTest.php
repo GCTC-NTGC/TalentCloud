@@ -70,14 +70,6 @@ class ExperienceSkillsControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonCount(4);
 
-        // // Keys of each experience must be in alphabetical order for assertJsonFragment to match them.
-        // $expectedResponse = array_merge(
-        //     ksort($myAwardSkills->all()[0]),
-        //     ksort($myAwardSkills->all()[1]),
-        //     ksort($myWorkSkills->all()[0]),
-        //     ksort($myWorkSkills->all()[0])
-        // );
-
         $response->assertJsonFragment($myAwardSkills->toArray()[0]);
         $response->assertJsonFragment($myAwardSkills->toArray()[1]);
         $response->assertJsonFragment($myWorkSkills->toArray()[0]);

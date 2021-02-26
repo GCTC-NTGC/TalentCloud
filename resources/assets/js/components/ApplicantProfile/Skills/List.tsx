@@ -33,10 +33,20 @@ const messages = defineMessages({
     defaultMessage: "Sort By:",
     description: "Text for the label on the sort toggle UI.",
   },
+  categoryEmpty: {
+    id: "applicantProfile.skills.list.categoryEmpty",
+    defaultMessage: "You haven't yet added any skills in this group.",
+    description: "Text to show when user has no skills in a given category.",
+  },
   categoryOther: {
     id: "applicantProfile.skills.list.categoryOther",
     defaultMessage: "Other",
     description: "Heading for skills not grouped under any SkillCategory.",
+  },
+  skillsEmpty: {
+    id: "applicantProfile.skills.list.skillsEmpty",
+    defaultMessage: "You haven't yet added any skills.",
+    description: "Text to show when user has no skills.",
   },
 });
 
@@ -79,6 +89,7 @@ interface ListProps {
   skills: Skill[];
   applicantId: number;
   handleDeleteSkill: (skillId: number) => Promise<void>;
+  updateInProgress: boolean;
 }
 
 const List: React.FC<ListProps> = ({
@@ -88,6 +99,7 @@ const List: React.FC<ListProps> = ({
   skills,
   applicantId,
   handleDeleteSkill,
+  updateInProgress,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -183,6 +195,9 @@ const List: React.FC<ListProps> = ({
               <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
                 {localizeFieldNonNull(locale, group.category, "name")}
               </h5>
+              {group.skills.length === 0 && (
+                <p>{intl.formatMessage(messages.categoryEmpty)}</p>
+              )}
               {group.skills
                 .sort(sortByLocalizedName(locale))
                 .map((skill: Skill) => {
@@ -198,6 +213,7 @@ const List: React.FC<ListProps> = ({
                       experiencesOfSkill={experiencesOfSkill}
                       applicantId={applicantId}
                       handleDeleteSkill={handleDeleteSkill}
+                      disableDelete={updateInProgress}
                     />
                   );
                 })}
@@ -223,6 +239,7 @@ const List: React.FC<ListProps> = ({
                       experiencesOfSkill={experiencesOfSkill}
                       applicantId={applicantId}
                       handleDeleteSkill={handleDeleteSkill}
+                      disableDelete={updateInProgress}
                     />
                   );
                 })}
@@ -230,23 +247,31 @@ const List: React.FC<ListProps> = ({
           )}
         </>
       )}
-      {sortType === "alpha" &&
-        skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
-          const experiencesOfSkill = getExperiencesOfSkill(
-            skill,
-            experienceSkills,
-          );
-          return (
-            <SkillAccordion
-              key={`skill-accordion-alpha-${skill.id}`}
-              skill={skill}
-              experiences={experiences}
-              experiencesOfSkill={experiencesOfSkill}
-              applicantId={applicantId}
-              handleDeleteSkill={handleDeleteSkill}
-            />
-          );
-        })}
+      {sortType === "alpha" && (
+        <>
+          {skills.length > 0 ? (
+            skills.sort(sortByLocalizedName(locale)).map((skill: Skill) => {
+              const experiencesOfSkill = getExperiencesOfSkill(
+                skill,
+                experienceSkills,
+              );
+              return (
+                <SkillAccordion
+                  key={`skill-accordion-alpha-${skill.id}`}
+                  skill={skill}
+                  experiences={experiences}
+                  experiencesOfSkill={experiencesOfSkill}
+                  applicantId={applicantId}
+                  handleDeleteSkill={handleDeleteSkill}
+                  disableDelete={updateInProgress}
+                />
+              );
+            })
+          ) : (
+            <p>{intl.formatMessage(messages.skillsEmpty)}</p>
+          )}
+        </>
+      )}
     </div>
   );
 };

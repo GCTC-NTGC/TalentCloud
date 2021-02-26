@@ -2,13 +2,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { random } from "lodash";
+import { useState } from "@storybook/addons";
 import List from "../../../components/ApplicantProfile/Skills/List";
 import fakeExperiences from "../../../fakeData/fakeExperience";
 import fakeExperienceSkills from "../../../fakeData/fakeExperienceSkills";
 import { fakeSkillCategories } from "../../../fakeData/fakeSkillCategories";
 import { fakeSkills } from "../../../fakeData/fakeSkills";
-import { Skill } from "../../../models/types";
 import { promiseAction } from "../../helpers";
 
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
@@ -17,16 +16,25 @@ const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
 
 stories.add(
   "List",
-  (): React.ReactElement => (
-    <section>
-      <List
-        experiences={fakeExperiences()}
-        experienceSkills={fakeExperienceSkills()}
-        skillCategories={fakeSkillCategories()}
-        skills={fakeSkills()}
-        applicantId={1}
-        handleDeleteSkill={promiseAction("Delete skill")}
-      />
-    </section>
-  ),
+  (): React.ReactElement => {
+    const [updateInProgress, setUpdateInProgress] = useState(false);
+    const handleDeleteSkill = async (...args) => {
+      setUpdateInProgress(true);
+      await promiseAction("Delete skill")(...args);
+      setUpdateInProgress(false);
+    };
+    return (
+      <section>
+        <List
+          experiences={fakeExperiences()}
+          experienceSkills={fakeExperienceSkills()}
+          skillCategories={fakeSkillCategories()}
+          skills={fakeSkills()}
+          applicantId={1}
+          handleDeleteSkill={handleDeleteSkill}
+          updateInProgress={updateInProgress}
+        />
+      </section>
+    );
+  },
 );
