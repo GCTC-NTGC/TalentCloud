@@ -286,7 +286,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         "description",
                       )}
                     </p> */}
-                    <Accordion.Content>
+                    <Accordion.Content data-h2-margin="b(top, 1)">
                       <ul
                         data-h2-padding="b(all, 0)"
                         className="no-list-style-type"
