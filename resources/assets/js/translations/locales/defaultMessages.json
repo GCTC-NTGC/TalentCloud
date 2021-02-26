@@ -472,9 +472,19 @@
         "id": "applicantProfile.skills.list.sortBy"
       },
       {
+        "defaultMessage": "You haven't yet added any skills in this group.",
+        "description": "Text to show when user has no skills in a given category.",
+        "id": "applicantProfile.skills.list.categoryEmpty"
+      },
+      {
         "defaultMessage": "Other",
         "description": "Heading for skills not grouped under any SkillCategory.",
         "id": "applicantProfile.skills.list.categoryOther"
+      },
+      {
+        "defaultMessage": "You haven't yet added any skills.",
+        "description": "Text to show when user has no skills.",
+        "id": "applicantProfile.skills.list.skillsEmpty"
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
@@ -2882,6 +2892,11 @@
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"
+      },
+      {
+        "defaultMessage": "Dismiss",
+        "description": "Label for the Error Toast dismiss button.",
+        "id": "errorToast.dismiss"
       }
     ],
     "path": "resources/assets/js/components/ErrorToast.json"
