@@ -16,7 +16,10 @@ class Skill extends JsonResource
      */
     public function toArray($request)
     {
-        return array_merge(parent::toArray($request), [
+        $skillArray = parent::toArray($request);
+        // Want to include skill category ids, not the whole objects (to save data).
+        unset($skillArray['skill_categories']);
+        return array_merge($skillArray, [
             'skill_category_ids' => $this->when(
                 $this->relationLoaded('skill_categories'),
                 $this->skill_categories->pluck('id')->all()

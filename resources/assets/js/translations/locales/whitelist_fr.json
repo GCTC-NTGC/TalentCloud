@@ -1,4 +1,8 @@
 [
+  "applicantProfile.experienceDetails.dateRange",
+  "applicantProfile.experienceDetails.awardHeading",
+  "applicantProfile.experienceDetails.communityHeading",
+  "applicantProfile.skills.list.alpha",
   "application.accordion.dateRange",
   "application.accordion.awardHeading",
   "application.accordion.communityHeading",

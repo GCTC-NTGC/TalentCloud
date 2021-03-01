@@ -16,12 +16,7 @@ stories
       <section>
         <Accordion
           triggerPos="right" // TODO: Create knob that works with specific type (eg. triggerPos: "left" | "right").
-          data-h2-card={`${select(
-            "Background Colors",
-            colorOptions,
-            "white",
-            "Background Color",
-          )}, round`} // This gives the card component effect.
+          data-h2-shadow="b(medium)"
         >
           <Accordion.Btn>
             <div

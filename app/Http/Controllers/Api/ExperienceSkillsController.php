@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchStoreExperienceSkill;
 use App\Http\Requests\BatchUpdateExperienceSkill;
 use App\Http\Requests\StoreExperienceSkill;
+use App\Models\Applicant;
 use App\Models\ExperienceSkill;
 use App\Models\Experience;
 use Illuminate\Http\Request;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class ExperienceSkillsController extends Controller
 {
+    public function indexForApplicant(Applicant $applicant)
+    {
+        $experienceSkills = $applicant->experienceSkillsQuery()->get();
+        return JsonResource::collection($experienceSkills);
+    }
+
     public function store(StoreExperienceSkill $request)
     {
         $validatedData = $request->validated();
