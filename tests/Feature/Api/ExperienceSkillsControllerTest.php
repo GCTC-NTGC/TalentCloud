@@ -192,26 +192,36 @@ class ExperienceSkillsControllerTest extends TestCase
 
     public function testAttachSkillToApplicantDuringBatchStore()
     {
-        $education = factory(ExperienceEducation::class)->create();
-        $experienceSkill1 = factory(ExperienceSkill::class)->create([
+        $applicant = factory(Applicant::class)->create();
+        $education = factory(ExperienceEducation::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+        $experienceSkill1 = [
             'experience_id' => $education->id,
             'experience_type' => 'experience_education',
             'skill_id' => 1,
-        ]);
-        $experienceSkill2 = factory(ExperienceSkill::class)->create([
+            'justification' => null,
+        ];
+        $experienceSkill2 = [
             'experience_id' => $education->id,
             'experience_type' => 'experience_education',
             'skill_id' => 2,
+            'justification' => null,
+        ];
+        $award = factory(ExperienceAward::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
         ]);
-        $award = factory(ExperienceAward::class)->create();
-        $awardSkill = factory(ExperienceSkill::class)->create([
+        $awardSkill = [
             'experience_id' => $award->id,
             'experience_type' => 'experience_award',
             'skill_id' => 3,
-        ]);
+            'justification' => null,
+        ];
         $data = [$experienceSkill1, $experienceSkill2, $awardSkill];
-        $response = $this->actingAs($education->experienceable->user)
-            ->json('post', route('api.v1.experience-skill.store'), $data);
+        $response = $this->actingAs($applicant->user)
+            ->json('post', route('api.v1.experience-skill.batch-store'), $data);
         $response->assertOk();
         $response->assertJsonFragment($experienceSkill2);
         $response->assertJsonFragment($experienceSkill2);
