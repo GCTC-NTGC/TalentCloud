@@ -223,7 +223,7 @@ class ExperienceSkillsControllerTest extends TestCase
         $response = $this->actingAs($applicant->user)
             ->json('post', route('api.v1.experience-skill.batch-store'), $data);
         $response->assertOk();
-        $response->assertJsonFragment($experienceSkill2);
+        $response->assertJsonFragment($experienceSkill1);
         $response->assertJsonFragment($experienceSkill2);
         $response->assertJsonFragment($awardSkill);
 
