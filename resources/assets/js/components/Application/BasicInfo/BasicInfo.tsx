@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Formik, Form, FastField } from "formik";
@@ -20,21 +19,21 @@ import {
   CitizenshipId,
   VeteranId,
   LanguageRequirementId,
-  getKeyByValue,
-  ClassificationId
 } from "../../../models/lookupConstants";
 import { validationMessages } from "../../Form/Messages";
-import { Job, ApplicationNormalized } from "../../../models/types";
+import {
+  Job,
+  ApplicationNormalized,
+  Classification,
+} from "../../../models/types";
 import CheckboxInput from "../../Form/CheckboxInput";
-import { educationMessages } from "../../JobBuilder/Details/JobDetailsMessages";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import { getLocale, localizeField } from "../../../helpers/localize";
-import { hasKey } from "../../../helpers/queries";
-
 
 interface BasicInfoProps {
   application: ApplicationNormalized;
   job: Job;
+  classification: Classification | null;
   handleContinue: (values: ApplicationNormalized) => Promise<void>;
   handleReturn: (values: ApplicationNormalized) => Promise<void>;
   handleQuit: (values: ApplicationNormalized) => Promise<void>;
@@ -51,16 +50,13 @@ export interface BasicInfoFormValues {
 export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   application,
   job,
+  classification,
   handleContinue,
   handleReturn,
   handleQuit,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const classification: string = getKeyByValue(
-    ClassificationId,
-    job.classification_id,
-  );
 
   const initialValues: BasicInfoFormValues = {
     citizenship: application?.citizenship_declaration_id
@@ -81,8 +77,8 @@ export const BasicInfo: React.FunctionComponent<BasicInfoProps> = ({
   };
 
   const jobEducationReq = localizeField(locale, job, "education");
-  const defaultEducationReq = hasKey(educationMessages, classification)
-    ? intl.formatMessage(educationMessages[classification])
+  const defaultEducationReq = classification
+    ? classification.education_requirements[locale]
     : intl.formatMessage(educationRequirementMessages.missingClassification);
   // If the job is using the default education requirements (for its classification) then we
   //  can predictably style it, by setting the right lines to bold. Otherwise, all we can do is

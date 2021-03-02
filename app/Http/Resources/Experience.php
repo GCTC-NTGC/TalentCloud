@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Jenssegers\Date\Date;
 
 class Experience extends JsonResource
 {
@@ -16,16 +17,45 @@ class Experience extends JsonResource
     {
         $type = $this->experienceTypeName();
         $translations = [];
-        if ($type === 'experience_education') {
-            $translations = [
-                'education_status' => $this->education_status->getTranslations('name'),
-                'education_type' => $this->education_type->getTranslations('name'),
-            ];
-        } elseif ($type === 'experience_award') {
-            $translations = [
-                'award_recipient_type' => $this->award_recipient_type->getTranslations('name'),
-                'award_recognition_type' => $this->award_recognition_type->getTranslations('name'),
-            ];
+        $dates = [];
+        switch ($type) {
+            case 'experience_work':
+                $dates = [
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
+                ];
+                break;
+            case 'experience_award':
+                $dates = [
+                    'awarded_date' => $this->awarded_date ? $this->awarded_date->format('Y-m-d') : null,
+                ];
+                $translations = [
+                    'award_recipient_type' => $this->award_recipient_type->getTranslations('name'),
+                    'award_recognition_type' => $this->award_recognition_type->getTranslations('name'),
+                ];
+                break;
+            case 'experience_community':
+                $dates = [
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
+                ];
+                break;
+            case 'experience_education':
+                $dates = [
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
+                ];
+                $translations = [
+                    'education_status' => $this->education_status->getTranslations('name'),
+                    'education_type' => $this->education_type->getTranslations('name'),
+                ];
+                break;
+            case 'experience_personal':
+                $dates = [
+                    'start_date' => $this->start_date ? $this->start_date->format('Y-m-d') : null,
+                    'end_date' => $this->end_date ? $this->end_date->format('Y-m-d') : null,
+                ];
+                break;
         }
         return array_merge(
             parent::toArray($request),
@@ -33,7 +63,8 @@ class Experience extends JsonResource
             [
                 'type' => $type,
                 'experience_skills' => JsonResource::collection($this->whenLoaded('experience_skills')),
-            ]
+            ],
+            $dates
         );
     }
 }

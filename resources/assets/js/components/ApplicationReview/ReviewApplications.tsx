@@ -1,8 +1,12 @@
 import React, { useCallback } from "react";
 import dayjs from "dayjs";
 import { FormattedMessage, defineMessages, useIntl } from "react-intl";
-import { Application, Comment } from "../../models/types";
-import { SelectOption } from "../Select";
+import {
+  Application,
+  Comment,
+  ApplicationReview,
+  Job,
+} from "../../models/types";
 import { applicationCategory } from "./helpers";
 import ReviewCategory from "./ReviewCategory";
 import ActivityFeed from "../ActivityFeed";
@@ -10,6 +14,7 @@ import { applicantReviewLocations } from "../../models/localizedConstants";
 import { LocationId } from "../../models/lookupConstants";
 import { Portal } from "../../models/app";
 import { hasKey } from "../../helpers/queries";
+import { localizeField, getLocale } from "../../helpers/localize";
 
 const messages = defineMessages({
   underConsiderationTitle: {
@@ -47,36 +52,26 @@ const messages = defineMessages({
 });
 
 interface ReviewApplicationsProps {
-  jobId: number;
-  title: string;
-  classification: string;
-  closeDateTime: Date | null;
+  job: Job;
+  classificationKey: string;
   applications: Application[];
-  reviewStatusOptions: SelectOption[];
-  onStatusChange: (applicationId: number, statusId: number | null) => void;
-  onBulkStatusChange: (
-    applicationIds: number[],
-    statusId: number | null,
-  ) => void;
-  onNotesChange: (applicationId: number, notes: string | null) => void;
-  savingStatuses: { applicationId: number; isSaving: boolean }[];
+  handleUpdateReview: (review: ApplicationReview) => Promise<void>;
+  handleBatchUpdateApplicationReviews: (
+    reviews: ApplicationReview[],
+  ) => Promise<void>;
   portal: Portal;
 }
 
-const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
-  jobId,
-  title,
-  classification,
-  closeDateTime,
+const ReviewApplications: React.FunctionComponent<ReviewApplicationsProps> = ({
+  job,
+  classificationKey,
   applications,
-  reviewStatusOptions,
-  onStatusChange,
-  onBulkStatusChange,
-  onNotesChange,
-  savingStatuses,
+  handleBatchUpdateApplicationReviews,
+  handleUpdateReview,
   portal,
 }: ReviewApplicationsProps): React.ReactElement => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const categories = [
     {
       id: messages.underConsiderationTitle.id,
@@ -122,7 +117,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
 
   // TODO: Think more carefully about how to handle null fields
   const dayCount = dayjs().diff(
-    closeDateTime ? dayjs(closeDateTime) : dayjs(),
+    job.close_date_time ? dayjs(job.close_date_time) : dayjs(),
     "day",
   );
 
@@ -137,8 +132,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 defaultMessage="Applications for: {jobTitle} {jobClassification}"
                 description="Welcome header on Job Applications index page"
                 values={{
-                  jobTitle: title,
-                  jobClassification: classification,
+                  jobTitle: localizeField(locale, job, "title"),
+                  jobClassification: classificationKey,
                 }}
               />
             ) : (
@@ -147,8 +142,8 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
                 defaultMessage="Applications to date: {jobTitle} {jobClassification}"
                 description="Welcome header on Job Applications index page"
                 values={{
-                  jobTitle: title,
-                  jobClassification: classification,
+                  jobTitle: localizeField(locale, job, "title"),
+                  jobClassification: classificationKey,
                 }}
               />
             )}
@@ -189,7 +184,7 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
       <div data-clone>
         <div data-c-margin="bottom(1)">
           <ActivityFeed
-            jobId={jobId}
+            jobId={job.id}
             isHrAdvisor={portal === "hr"}
             generalLocation={LocationId.applicantsGeneric}
             locationMessages={applicantReviewLocations}
@@ -202,11 +197,10 @@ const ReviewApplications: React.StatelessComponent<ReviewApplicationsProps> = ({
           <ReviewCategory
             key={category.id}
             {...category}
-            reviewStatusOptions={reviewStatusOptions}
-            onStatusChange={onStatusChange}
-            onNotesChange={onNotesChange}
-            savingStatuses={savingStatuses}
-            onBulkStatusChange={onBulkStatusChange}
+            handleUpdateReview={handleUpdateReview}
+            handleBatchUpdateApplicationReviews={
+              handleBatchUpdateApplicationReviews
+            }
             portal={portal}
           />
         ),

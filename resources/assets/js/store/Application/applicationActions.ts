@@ -31,6 +31,8 @@ import {
   parseApplicationStep,
   getApplicationSubmitEndpoint,
   parseApplicationBasic,
+  getBatchUpdateApplicationReviewsEndpoint,
+  parseBatchApplicationReviews,
 } from "../../api/application";
 import {
   CreateJobApplicationAnswerAction,
@@ -211,6 +213,40 @@ export const updateApplicationReview = (
     },
   );
 
+export const BATCH_UPDATE_APPLICATION_REVIEWS_STARTED =
+  "APPLICATION REVIEW: BATCH UPDATE STARTED";
+export const BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED =
+  "APPLICATION REVIEW: BATCH UPDATE SUCCEEDED";
+export const BATCH_UPDATE_APPLICATION_REVIEWS_FAILED =
+  "APPLICATION REVIEW: BATCH UPDATE FAILED";
+
+export type BatchUpdateApplicationReviewsAction = AsyncFsaActions<
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  ApplicationReview[],
+  {}
+>;
+
+export const batchUpdateApplicationReviews = (
+  applicationReviews: ApplicationReview[]
+): RSAActionTemplate<
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  typeof BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  ApplicationReview[],
+  {}
+> =>
+asyncPost(
+  getBatchUpdateApplicationReviewsEndpoint(),
+  applicationReviews,
+  BATCH_UPDATE_APPLICATION_REVIEWS_STARTED,
+  BATCH_UPDATE_APPLICATION_REVIEWS_SUCCEEDED,
+  BATCH_UPDATE_APPLICATION_REVIEWS_FAILED,
+  parseBatchApplicationReviews,
+  {},
+);
+
 export const FETCH_REFERENCE_EMAILS_STARTED =
   "APPLICATION: GET REFERENCE EMAILS STARTED";
 export const FETCH_REFERENCE_EMAILS_SUCCEEDED =
@@ -320,6 +356,7 @@ export type ApplicationAction =
   | UpdateApplicationAction
   | SubmitApplicationAction
   | UpdateApplicationReview
+  | BatchUpdateApplicationReviewsAction
   | FetchReferenceEmailsAction
   | SendReferenceEmailAction
   | CreateJobApplicationAnswerAction

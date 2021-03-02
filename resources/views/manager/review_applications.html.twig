@@ -10,21 +10,14 @@
 	{{ job.title }}
 {% endblock %}
 {% block body %}
-	{% include "common/goc" %}
-    {% include "common/alert" %}
-
     {% include "common/header" with {'header': {'title': ":title: :job"|replace({':title':jobs_l10n.review_applicants, ':job':job.title}) }} %}
 
     <a id="skipLink"></a>
 
     <div
-        id="{{ is_hr_portal
-            ? "review-applications-container-hr"
-            : "review-applications-container" }}"
-        data-job="{{ job|json_encode() }}"
-        data-applications="{{ applications|json_encode() }}"
-        data-review-statuses="{{ review_statuses|json_encode() }}"
-        data-locale="{{App.getLocale()}}"
+        id="review-applications-container"
+        data-job-id="{{ job.id }}"
+        data-portal="{{ is_hr_portal ? "hr" : "manager" }}"
     >
     </div>
 

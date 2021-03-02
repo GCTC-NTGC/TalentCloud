@@ -21,6 +21,10 @@ return [
         'title' => 'Allez à la section Compétences de votre profil.',
         'label' => 'Mes compétences'
     ],
+    'skills-old' => [
+        'title' => 'Allez à l\'ancienne section Compétences de votre profil.',
+        'label' => 'Mes compétences, obsolète'
+    ],
     'references' => [
         'title' => 'Allez à la section Références de votre profil.',
         'label' => 'Mes références'

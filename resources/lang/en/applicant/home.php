@@ -23,6 +23,64 @@ return [
             'label' => 'Learn more'
         ]
     ],
+    "results" => [
+      "title" => "Sneak Peek: Experiment Findings",
+      "checkback" => "Check back in early 2021 to read our full Results Report!",
+      "intro" => "Talent Cloud launched in 2017 to explore new approaches to talent recruitment and mobility in the Government of Canada. Check out some of what we've learned while experimenting on real staffing processes across fifteen different departments.",
+      "sections" => [
+        "do" => [
+          "title" => "What we do",
+          "items" => [
+            "01" => "Over the past three years, our team has been experimenting on questions related to the future of work, interoperable skills recognition, reducing time to staff, improving diversity and inclusion hiring outcomes, bias reduction, and generally making things run more efficiently.",
+            "02" => "Fast-forward to 2020, when Canada witnessed an unprecedented rise in remote work due to COVID-19 and a national focus on the need for institutions to implement effective, accountable anti-racism approaches. These are things that Talent Cloud has cared about for a long time, and we’re well positioned to help."
+          ]
+        ],
+        "reduction" => [
+          "title" => "Significant and consistent reduction in time-to-staff",
+          "items" => [
+            "01" => "The lessons learned are applicable and scalable across classifications and departments.",
+            "02" => "We’ve automated some of the more time-consuming parts of the hiring process. Now, managers are regularly able to find their top candidate within 30-50 days. They still need to go through security clearance, and sometimes language testing, but we have had a lot of success speeding up the pieces in our control.",
+            "03" => "These automations are largely based on observations of manager and HR advisor interactions and target the behavioural and communication side of the process.",
+            "04" => "Manager profiles and information on team culture and operating context matter significantly to applicants and generate a higher quality applicant group.",
+            "05" => "Top candidates start dropping out two weeks into the process if they aren’t contacted about next steps, and they rarely accept offers from processes that last more than two months. This sets a benchmark for the Government to hit, if it wants to retain top qualified talent (versus minimally qualified talent) in the majority of its application processes."
+          ]
+        ],
+        "diversity" => [
+          "title" => "Increased diversity in terms of candidates hired, including regional diversity, unconventional life paths, and diverse educational backgrounds",
+          "items" => [
+            "01" => "Employment Equity groups are an important part of diversity, but it runs deeper than that.",
+            "02" => "Since the site launched, we have implemented specific interventions to encourage talent from diverse backgrounds to apply to jobs on Talent Cloud.",
+            "03" => "Talent Cloud experimented with a new approach to both job advertisement information and the way applicants submit evidence against job requirements. Based on manager-reported information and qualitative analysis, this produced a wider range of diversity in both the applicant pool and the final hiring selection than managers normally saw in standard GC hiring processes. Many applicants also reported never applying to Government of Canada jobs before and wrote in to say that they felt “seen” by the new staffing approach, even when not selected as the final candidate. While this new approach is promising, a larger scale test (with a statistically larger sample size) will be required before the new theory can be proven to produce better diversity outcomes.",
+            "04" => "While screening with the new approach was at times challenging for managers, they consistently reported high levels of happiness with the hires they got through Talent Cloud. This was demonstrated by managers returning two and even three times to access hard-to-find talent.",
+            "05" => "A new application process, complete with a new applicant timelines and skills interface, is being added to the platform in January 2021, reflecting research findings from the past two years. The new interface is testing well, and the team is excited to release the upgraded model, and share the methodological theory behind its bias reduction approach."
+          ]
+        ],
+        "hires" => [
+          "title" => "Great talent being hired across the country",
+          "items" => [
+            "01" => "Way before COVID-19 was a thing, we encouraged managers to make job opportunities “remote work accessible” (i.e. candidates can work from anywhere in the world) by setting “Yes” as the default under “Remote Work Allowed”.",
+            "02" => "Applicants could easily see if remote work was allowed in Talent Cloud job ads, at a time when such information didn’t appear on government job postings.",
+            "03" => "As a result of these interventions, 30% of Talent Cloud job ads allowed remote work, even before COVID-19 made remote work the new government standard for 2020 operations.",
+            "04" => "When remote work was allowed on a Talent Cloud job poster, 80% of managers selected a remote candidate, suggesting a large untapped pool of talent spread across Canada (beyond the National Capital Region). This approach has many benefits, including bringing regionally diverse perspectives to government teams that craft policy and services for Canadians coast to coast to coast.",
+            "05" => "As an early adopter of remote work and a team who has been supporting managers to hire remote workers, Talent Cloud shares lessons learned with teams who are still adjusting to this new reality under COVID-19."
+          ]
+        ],
+        "reserve" => [
+          "title" => "GC Talent Reserve",
+          "items" => [
+            "01" => "In response to the effect of COVID-19 on GC operations, we repurposed and upgraded features on Talent Cloud to create GC Talent Reserve.",
+            "02" => "It took us just over two weeks to build a centralized talent sorting centre for the COVID-19 response. GC Talent Reserve went live on March 31.",
+            "03" => "The GC Reserve was active from April-August 2020, as a rapid response effort to support GC digital talent mobility to departments with critical needs. As departments stabilized, the site was no longer needed. The code and lessons learned are now being repurposed into a longer-term solution for skills identification and talent mobility, in preparation for future crisis response and ongoing needs.",
+            "04" => "We built a dedicated, single window coordinated talent management platform for triaging talent needs across the Government of Canada. It enabled the flow of talent from areas of lower priority to areas of critical need, supported by data tracking and central coordination. It offered departments a fast, efficient vehicle to source qualified, available talent for a wide variety of needs and gave public servants a way to volunteer their skills where help was needed most.",
+            "05" => "Posters were created for in-demand work streams. For each work stream, volunteers were asked to put their name forward at either a beginner, intermediate, or advanced level.",
+            "06" => "GC Talent Reserve was live from March 31 until June 4, 2020. Over that time there were 19 work streams identified as areas of critical need and posted to the website. A total of 328 GC employees created profiles on the site and 92 applications were submitted. Of these, 34 volunteers had their application assessed, and were ready to be allocated.",
+            "07" => "No volunteers were moved as a result of GC Talent Reserve. The HR paperwork was problematic for those who tried to use the platform to move talent interdepartmentally. Instead of using a quick action like a payback, the process once the volunteer was selected had to be formal.",
+            "08" => "Most departments moved talent around internally, and when talent was moved interdepartmentally, it was a conversation between senior executives.",
+            "09" => "But most of all, as fast as the team moved to build GC Talent Reserve, we weren’t fast enough. There was no way we could be, because the tool needed to be in place before the country shut down in mid-March. Crisis response tools need to be available and top-of-mind for those responding."
+          ]
+        ],
+      ]
+    ],
     'browse' => [
         'title' => 'Recently Posted Jobs',
         'browse_link' => [

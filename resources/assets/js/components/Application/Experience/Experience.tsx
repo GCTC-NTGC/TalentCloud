@@ -1,12 +1,6 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect, useRef } from "react";
-import {
-  FormattedMessage,
-  useIntl,
-  IntlShape,
-  defineMessage,
-} from "react-intl";
+import React, { useState, useEffect } from "react";
+import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
   ExperienceEducation,
@@ -19,37 +13,26 @@ import {
   Criteria,
 } from "../../../models/types";
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
-import {
-  SkillTypeId,
-  CriteriaTypeId,
-  getKeyByValue,
-  ClassificationId,
-  // ClassificationId,
-} from "../../../models/lookupConstants";
+import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
+  FormEducationStatus,
+  FormEducationType,
   messages as educationMessages,
-  EducationType,
-  EducationStatus,
-  EducationExperienceSubmitData,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
   messages as workMessages,
-  WorkExperienceSubmitData,
 } from "../ExperienceModals/WorkExperienceModal";
 import CommunityExperienceModal, {
   messages as communityMessages,
-  CommunityExperienceSubmitData,
 } from "../ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal, {
   messages as personalMessages,
-  PersonalExperienceSubmitData,
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
-  AwardRecipientType,
-  AwardRecognitionType,
-  AwardExperienceSubmitData,
+  FormAwardRecipientType,
+  FormAwardRecognitionType,
 } from "../ExperienceModals/AwardExperienceModal";
 import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
 import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
@@ -63,8 +46,8 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { RootState } from "../../../store/store";
 import { focusOnElement } from "../../../helpers/forms";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -210,33 +193,28 @@ const applicationExperienceAccordion = (
   }
 };
 
-export type ExperienceSubmitData =
-  | EducationExperienceSubmitData
-  | WorkExperienceSubmitData
-  | CommunityExperienceSubmitData
-  | PersonalExperienceSubmitData
-  | AwardExperienceSubmitData;
-
 interface ExperienceProps {
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   hasError?: boolean;
   essentialSkills: Skill[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   jobId: number;
-  jobClassificationId: number | null;
   jobEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
+  classificationEducationRequirements: string | null;
   skills: Skill[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
@@ -249,8 +227,8 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   experiences,
   experienceSkills,
   jobId,
-  jobClassificationId,
   jobEducationRequirements,
+  classificationEducationRequirements,
   recipientTypes,
   recognitionTypes,
   skills,
@@ -259,11 +237,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-
-  const jobClassification =
-    jobClassificationId !== null
-      ? getKeyByValue(ClassificationId, jobClassificationId)
-      : "";
 
   const [experienceData, setExperienceData] = useState<
     | (Experience & {
@@ -585,7 +558,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.education.id}
         onModalCancel={closeModal}
@@ -607,7 +582,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.work.id}
         onModalCancel={closeModal}
@@ -628,7 +605,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.community.id}
         onModalCancel={closeModal}
@@ -650,7 +629,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.personal.id}
         onModalCancel={closeModal}
@@ -672,7 +653,9 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           experienceData?.experienceable_type ?? "application"
         }
         jobId={jobId}
-        jobClassification={jobClassification}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         jobEducationRequirements={jobEducationRequirements}
         modalId={modalButtons.award.id}
         onModalCancel={closeModal}
@@ -694,21 +677,23 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 
 interface ExperienceStepProps {
   experiences: Experience[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
-  jobClassificationId: number | null;
   jobEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
+  classificationEducationRequirements: string | null;
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -724,8 +709,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   handleSubmitExperience,
   handleDeleteExperience,
   jobId,
-  jobClassificationId,
   jobEducationRequirements,
+  classificationEducationRequirements,
   recipientTypes,
   recognitionTypes,
   handleContinue,
@@ -734,13 +719,6 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
 }) => {
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
-
-  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
-  useEffect(() => {
-    if (hasError) {
-      focusOnElement("experience-step-form-error");
-    }
-  }, [hasError]);
 
   const filteredSkills = criteria.reduce(
     (result, criterion): { essential: Skill[]; asset: Skill[] } => {
@@ -767,6 +745,16 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     essentialSkills,
   );
 
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement("experience-step-form-error");
+    }
+    if (disconnectedRequiredSkills.length === 0) {
+      setHasError(false);
+    }
+  }, [hasError, disconnectedRequiredSkills]);
+
   return (
     <>
       <MyExperience
@@ -780,8 +768,10 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
         essentialSkills={essentialSkills}
         skills={skills}
         jobId={jobId}
-        jobClassificationId={jobClassificationId}
         jobEducationRequirements={jobEducationRequirements}
+        classificationEducationRequirements={
+          classificationEducationRequirements
+        }
         recipientTypes={recipientTypes}
         recognitionTypes={recognitionTypes}
         handleSubmitExperience={handleSubmitExperience}

@@ -17,17 +17,17 @@ import {
   useSkills,
 } from "../../hooks/applicationHooks";
 import { Portal } from "../../models/app";
-import { ReviewStatus } from "../../models/types";
+import { ApplicationReview } from "../../models/types";
 import { loadingMessages } from "../Application/applicationMessages";
 import ApplicationPreview from "../Application/Review/ApplicationPreview";
 import RootContainer from "../RootContainer";
-import ApplicationReviewNav from "./ApplicationReviewRoot";
+import ApplicationReviewWithNav from "./ApplicationReviewWithNav";
+import { updateApplicationReview } from "../../store/Application/applicationActions";
 
 interface ApplicationTimelineReviewRootProps {
   applicationId: number;
   applicantUserId: number;
   jobId: number;
-  reviewStatuses: ReviewStatus[];
   portal: Portal;
 }
 
@@ -36,7 +36,6 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   applicantUserId,
   jobId,
   portal,
-  reviewStatuses,
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch<DispatchType>();
@@ -61,6 +60,11 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
   const skills = useSkills();
   const jobQuestions = useJobPosterQuestions(jobId);
   const jobApplicationAnswers = useJobApplicationAnswers(applicationId);
+  const handleUpdateApplicationReview = async (
+    editedApplicationReview: ApplicationReview,
+  ): Promise<void> => {
+    await dispatch(updateApplicationReview(editedApplicationReview));
+  };
   const showLoadingState =
     application === null ||
     job === null ||
@@ -83,11 +87,11 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
         application !== null &&
         job !== null &&
         applicantUser !== null && (
-          <>
-            <ApplicationReviewNav
-              initApplication={application}
+          <div className="applicant-review container--layout-xl">
+            <ApplicationReviewWithNav
+              application={application}
+              handleUpdateApplicationReview={handleUpdateApplicationReview}
               portal={portal}
-              reviewStatuses={reviewStatuses}
             />
             <ApplicationPreview
               application={application}
@@ -103,32 +107,29 @@ const ApplicationTimelineReviewRoot: React.FunctionComponent<ApplicationTimeline
               user={applicantUser}
               isSubmitted
             />
-          </>
+          </div>
         )}
     </div>
   );
 };
 
-const renderApplicationReviewRoot = (
-  container: HTMLElement,
-  portal: Portal,
-): void => {
+export default ApplicationTimelineReviewRoot;
+
+const container = document.getElementById(
+  "application-timeline-review-container",
+);
+if (container !== null) {
   if (
-    container.hasAttribute("data-applicant-user-id") &&
-    container.hasAttribute("data-application-id") &&
-    container.hasAttribute("data-job-id") &&
-    container.hasAttribute("data-review-statuses")
+    "applicationId" in container.dataset &&
+    "applicantUserId" in container.dataset &&
+    "portal" in container.dataset &&
+    "jobId" in container.dataset
   ) {
-    const applicantUserId = JSON.parse(
-      container.getAttribute("data-applicant-user-id") as string,
-    );
-    const applicationId = JSON.parse(
-      container.getAttribute("data-application-id") as string,
-    );
-    const jobId = JSON.parse(container.getAttribute("data-job-id") as string);
-    const reviewStatuses = JSON.parse(
-      container.getAttribute("data-review-statuses") as string,
-    );
+    const applicationId = Number(container.dataset.applicationId as string);
+    const applicantUserId = Number(container.dataset.applicantUserId as string);
+    const jobId = Number(container.dataset.jobId as string);
+    const portal = container.dataset.portal as Portal;
+
     ReactDOM.render(
       <RootContainer>
         <ApplicationTimelineReviewRoot
@@ -136,26 +137,9 @@ const renderApplicationReviewRoot = (
           applicantUserId={applicantUserId}
           jobId={jobId}
           portal={portal}
-          reviewStatuses={reviewStatuses}
         />
       </RootContainer>,
       container,
     );
   }
-};
-
-const managerContainer = document.getElementById(
-  "application-timeline-review-container",
-);
-if (managerContainer !== null) {
-  renderApplicationReviewRoot(managerContainer, "manager");
 }
-
-const hrContainer = document.getElementById(
-  "application-timeline-review-container-hr",
-);
-if (hrContainer !== null) {
-  renderApplicationReviewRoot(hrContainer, "hr");
-}
-
-export default ApplicationTimelineReviewRoot;

@@ -1,0 +1,27 @@
+<section
+  data-h2-bg-color="mqb(c2, 1)"
+  data-h2-padding="mqb(top, .5) mqb(bottom, .5)">
+  <div data-h2-container="mqb(center, full)">
+    <div data-h2-grid="mqb(middle, flush, 1)">
+      <div
+        data-h2-align="mqb(center) mqm(left)"
+        data-h2-grid-item="mqb(1of1) mqm(1of2)">
+        {# BETA Messaging #}
+        <span
+          data-h2-font-color="mqb(white)"><i class="fas fa-info-circle"></i>{{ alert.copy }}</span>
+      </div>
+      <div
+        data-h2-align="mqb(center) mqm(right)"
+        data-h2-grid-item="mqb(1of1) mqm(1of2)">
+        {# Feedback Link #}
+        <i
+          class="fas fa-comment-alt"
+          data-h2-font-color="mqb(white)"></i>
+        <a
+          data-h2-font-color="mqb(white)"
+          href="mailto:{{ alert.feedback_link }}"
+          title="{{ alert.feedback_link_title }}">{{ alert.feedback_link_copy }}</a>
+      </div>
+    </div>
+  </div>
+</section>

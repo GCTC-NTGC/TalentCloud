@@ -19,7 +19,7 @@ class SkillDeclarationController extends Controller
     public function editAuthenticated(Request $request)
     {
         $applicant = $request->user()->applicant;
-        return redirect(route('profile.skills.edit', $applicant));
+        return redirect(route('profile.skills-old.edit', $applicant));
     }
 
     /**

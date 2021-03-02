@@ -1,4 +1,5 @@
 import { Locales } from "./localize";
+import { Portal } from "../models/app";
 
 /* eslint-disable no-useless-escape */
 function stripTrailingSlash(str: string): string {
@@ -298,3 +299,48 @@ export function slugify(string: string): string {
     .replace(/^-+/, "") // Trim - from start of text
     .replace(/-+$/, ""); // Trim - from end of text
 }
+
+export const getApplicantUrl = (
+  locale: Locales,
+  portal: Portal,
+  applicantId: number,
+  jobId: number,
+): string => {
+  const applicantUrlMap: { [key in typeof portal]: string } = {
+    hr: hrApplicantShow(locale, applicantId, jobId),
+    manager: managerApplicantShow(locale, applicantId, jobId),
+  };
+
+  return applicantUrlMap[portal];
+};
+
+export const getApplicationUrl = (
+  locale: Locales,
+  portal: Portal,
+  applicationId: number,
+  jobId: number,
+): string => {
+  const applicationUrlMap: { [key in typeof portal]: string } = {
+    hr: hrApplicationShow(locale, applicationId, jobId),
+    manager: managerApplicationShow(locale, applicationId, jobId),
+  };
+
+  return applicationUrlMap[portal];
+};
+
+const baseApplicantProfileUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => {
+  return `${baseUrl()}/${locale}/profile/${applicantId}`;
+};
+
+export const getApplicantExperienceUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => `${baseApplicantProfileUrl(locale, applicantId)}/experience`;
+
+export const getApplicantSkillsUrl = (
+  locale: Locales,
+  applicantId: number,
+): string => `${baseApplicantProfileUrl(locale, applicantId)}/skills`;

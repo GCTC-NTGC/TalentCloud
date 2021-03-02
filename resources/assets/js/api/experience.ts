@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/camelcase */
 import { baseUrl, parseDate } from "./base";
 import { Experience, ExperienceSkill } from "../models/types";
 
@@ -10,15 +9,6 @@ export interface ExperienceResponse {
 
 export const parseSingleExperience = (data: any): ExperienceResponse => {
   const { experience_skills, ...experience } = data;
-  if (data.start_date) {
-    experience.start_date = parseDate(data.start_date);
-  }
-  if (data.end_date) {
-    experience.end_date = parseDate(data.end_date);
-  }
-  if (data.awarded_date) {
-    experience.awarded_date = parseDate(data.awarded_date);
-  }
   return {
     experience,
     experienceSkills: experience_skills,
@@ -63,6 +53,10 @@ export const getCreateExperienceEndpoint = (
 ): string => {
   return `${baseUrl()}/applicants/${applicantId}/${type.replace("_", "-")}`;
 };
+
+export const getApplicantExperienceSkillsEndpoint = (
+  applicantId: number,
+): string => `${baseUrl()}/applicants/${applicantId}/experience-skills`;
 
 export const getExperienceSkillEndpoint = (id: number | null = null): string =>
   `${baseUrl()}/experience-skills/${id ?? ""}`;

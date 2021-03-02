@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { RatingGuideAnswer } from "../models/types";
 
 export const fakeAnswer = (

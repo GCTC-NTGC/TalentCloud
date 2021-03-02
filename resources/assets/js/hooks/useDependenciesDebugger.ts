@@ -1,7 +1,7 @@
 import { useRef, useMemo } from "react";
 
 const compareInputs = (inputKeys, oldInputs, newInputs) => {
-  inputKeys.forEach(key => {
+  inputKeys.forEach((key) => {
     const oldInput = oldInputs[key];
     const newInput = newInputs[key];
     if (oldInput !== newInput) {
@@ -10,7 +10,7 @@ const compareInputs = (inputKeys, oldInputs, newInputs) => {
   });
 };
 
-const useDependenciesDebugger = inputs => {
+const useDependenciesDebugger = (inputs) => {
   const oldInputsRef = useRef(inputs);
   const inputValuesArray = Object.values(inputs);
   const inputKeysArray = Object.keys(inputs);

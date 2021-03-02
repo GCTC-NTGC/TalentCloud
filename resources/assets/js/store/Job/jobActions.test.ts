@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import configureMockStore from "redux-mock-store";
 import { apiMiddleware, ApiError } from "redux-api-middleware";
 import thunk from "redux-thunk";
@@ -45,9 +44,7 @@ describe("async job actions", (): void => {
   });
 
   describe("FETCH_JOB actions", (): void => {
-    it("should dispatch FETCH_JOB_STARTED when fetchJob is called and FETCH_JOB_SUCCEEDED when request succeeds", (): Promise<
-      void
-    > => {
+    it("should dispatch FETCH_JOB_STARTED when fetchJob is called and FETCH_JOB_SUCCEEDED when request succeeds", (): Promise<void> => {
       // We create a mock store for our test data.
       const store = mockStore(initState());
 
@@ -90,9 +87,7 @@ describe("async job actions", (): void => {
       });
     });
 
-    it("should dispatch FETCH_JOB_FAILED when request returns non-200 status.", (): Promise<
-      void
-    > => {
+    it("should dispatch FETCH_JOB_FAILED when request returns non-200 status.", (): Promise<void> => {
       const store = mockStore(initState());
 
       const jobId = 1;
@@ -120,9 +115,7 @@ describe("async job actions", (): void => {
   });
 
   describe("UPDATE_JOB actions", (): void => {
-    it("should dispatch UPDATE_JOB_SUCCEEDED when request succeeds", (): Promise<
-      void
-    > => {
+    it("should dispatch UPDATE_JOB_SUCCEEDED when request succeeds", (): Promise<void> => {
       const store = mockStore(initState());
 
       const jobId = 1;
@@ -150,9 +143,7 @@ describe("async job actions", (): void => {
       });
     });
 
-    it("should dispatch UPDATE_JOB_FAILED when request returns non-200 status.", (): Promise<
-      void
-    > => {
+    it("should dispatch UPDATE_JOB_FAILED when request returns non-200 status.", (): Promise<void> => {
       const store = mockStore(initState());
 
       const jobId = 1;

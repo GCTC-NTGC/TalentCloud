@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Criteria } from "../models/types";
 
 export const fakeCriterion1 = (): Criteria => ({

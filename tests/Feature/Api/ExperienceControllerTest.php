@@ -37,7 +37,7 @@ class ExperienceControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->DATE_FORMAT = config('app.api_datetime_format');
+        $this->DATE_FORMAT = 'Y-m-d';
     }
 
     protected function makeWorkData()

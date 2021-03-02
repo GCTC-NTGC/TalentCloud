@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, camelcase, @typescript-eslint/camelcase */
+/* eslint-disable jsx-a11y/label-has-associated-control, camelcase */
 import React, { useState, useRef } from "react";
 import {
   FormattedMessage,
@@ -49,18 +49,17 @@ import {
   educationMessages,
   buttonMessages,
 } from "./JobDetailsMessages";
-import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import {
   classificationsExtractKeyValueJsonArray,
   classificationsExtractKeyValueJson,
-  getClassificationKey } from "../../../store/Classification/classificationSelector";
+} from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
   // Optional Job to prepopulate form values from.
   job: Job | null;
-  classifications : Classification[];
+  classifications: Classification[];
   // Function to run after successful form validation.
   // It must return true if the submission was successful, false otherwise.
   handleSubmit: (values: Job) => Promise<boolean>;
@@ -187,20 +186,21 @@ const isClassificationSet = (values: DetailsFormValues): boolean => {
 };
 
 const getEducationMsgForClassification = (
-  classifications : Classification[],
+  classifications: Classification[],
   classification: number | string,
   intl: IntlShape,
+  locale: string,
 ): string => {
-  return hasKey(educationMessages, getClassificationKey(classifications, Number(classification)))
-    ? intl.formatMessage(
-        educationMessages[getClassificationKey(classifications, Number(classification))],
-      )
+  const classificationObj: Classification | null =
+    classifications.find((item) => item.id === Number(classification)) || null;
+  return classificationObj !== null
+    ? classificationObj.education_requirements[locale]
     : intl.formatMessage(educationMessages.classificationNotFound);
 };
 
 const jobToValues = (
   job: Job | null,
-  classifications : Classification[],
+  classifications: Classification[],
   locale: "en" | "fr",
   intl: IntlShape,
 ): DetailsFormValues => {
@@ -252,7 +252,12 @@ const jobToValues = (
   if (
     values.classification &&
     values.educationRequirements ===
-      getEducationMsgForClassification(classifications, values.classification, intl)
+      getEducationMsgForClassification(
+        classifications,
+        values.classification,
+        intl,
+        locale,
+      )
   ) {
     return {
       ...values,
@@ -347,7 +352,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
       .min(1, intl.formatMessage(validationMessages.tooShort))
       .max(36, intl.formatMessage(validationMessages.tooLong))
       .required(intl.formatMessage(validationMessages.required)),
-      classification: Yup.number()
+    classification: Yup.number()
       .oneOf(
         Object.values(classificationsExtractKeyValueJson(classifications)),
         intl.formatMessage(validationMessages.invalidSelection),
@@ -415,7 +420,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
   const handleEducationRequirements = (values: DetailsFormValues): string => {
     return values.educationRequirements.length > 0
       ? values.educationRequirements
-      : getEducationMsgForClassification(classifications, values.classification, intl);
+      : getEducationMsgForClassification(
+          classifications,
+          values.classification,
+          intl,
+          locale,
+        );
   };
 
   const updateValuesAndReturn = (values: DetailsFormValues): void => {
@@ -522,7 +532,9 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                   nullSelection={intl.formatMessage(
                     formMessages.classificationNullSelection,
                   )}
-                  options={classificationsExtractKeyValueJsonArray(classifications)}
+                  options={classificationsExtractKeyValueJsonArray(
+                    classifications,
+                  )}
                 />
                 <FastField
                   name="level"
@@ -578,12 +590,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                       <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
-                          subtext={textToParagraphs(
+                          bodyText={textToParagraphs(
                             getEducationMsgForClassification(
-                              //classificationsExtractKeyValue(classifications),
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             ),
                             {},
                             {
@@ -627,6 +639,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             )}
                           />
                         </div>
@@ -1009,6 +1022,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             )
                       }
                       termLength={
