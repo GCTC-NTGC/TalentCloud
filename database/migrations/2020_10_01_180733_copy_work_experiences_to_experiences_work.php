@@ -1,5 +1,6 @@
 <?php
 
+use Jenssegers\Date\Date;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +15,13 @@ class CopyWorkExperiencesToExperiencesWork extends Migration
     public function up()
     {
         $workExperiences = DB::table('work_experiences')->get();
+        $now = new Date();
 
         foreach ($workExperiences as $work) {
             DB::table('experiences_work')->insert([
-                'title' => $work->role,
-                'organization' => $work->company,
-                'start_date' => $work->start_date,
+                'title' => is_null($work->role) ? "" : $work->role,
+                'organization' => is_null($work->company) ? "" : $work->role,
+                'start_date' => is_null($work->start_date) ? $now : $work->start_date,
                 'end_date' => $work->end_date,
                 'experienceable_id' => $work->experienceable_id,
                 'experienceable_type' => $work->experienceable_type,
