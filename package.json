@@ -109,7 +109,7 @@
         "history": "^5.0.0",
         "intl": "^1.2.5",
         "isomorphic-fetch": "^3.0.0",
-        "jquery": "^3.5.1",
+        "jquery": "^3.6.0",
         "lodash": "^4.17.21",
         "nprogress": "^0.2.0",
         "re-reselect": "^4.0.0",
