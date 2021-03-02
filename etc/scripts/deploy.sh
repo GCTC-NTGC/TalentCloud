@@ -53,12 +53,12 @@ sudo mv ./storage_backup/* $APP_DIR/storage;
 sudo rm -rf ./storage_backup;
 
 echo "Setting permissions and owner of storage files, which came from old version of app...";
-sudo find $SRC/storage -type d -exec chmod 775 {} \;
-sudo find $SRC/storage -type f -exec chmod 664 {} \;
-sudo chown -Rf nginx:nginx $SRC/storage;
+sudo find $APP_DIR/storage -type d -exec chmod 775 {} \;
+sudo find $APP_DIR/storage -type f -exec chmod 664 {} \;
+sudo chown -Rf nginx:nginx $APP_DIR/storage;
 
 echo "Setting SELinux security context on writable directories...";
-sudo chcon -Rt httpd_sys_rw_content_t $SRC/storage;
+sudo chcon -Rt httpd_sys_rw_content_t $APP_DIR/storage;
 
 echo "Deleting empty src directory...";
 sudo rm -R $SRC;
