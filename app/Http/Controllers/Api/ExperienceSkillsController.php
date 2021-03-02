@@ -115,6 +115,19 @@ class ExperienceSkillsController extends Controller
                     $experienceSkill->fresh();
                     array_push($response, $experienceSkill);
                 }
+
+                // Attach skill to applicant if not already attached.
+                $experience = new Experience();
+                $experienceInstance = $experience->getExperienceInstance($newExperienceSkill['experience_type'], $newExperienceSkill['experience_id']);
+                $applicantInstance = $experience->getApplicantInstance($experienceInstance);
+                if ($applicantInstance !== null) {
+                    $skillApplicantRelationshipExists = $applicantInstance->skills()
+                    ->where('skills.id', $newExperienceSkill['skill_id'])
+                    ->exists();
+                    if (!$skillApplicantRelationshipExists) {
+                        $applicantInstance->skills()->attach($newExperienceSkill['skill_id']);
+                    }
+                }
             }
         }, 3); // Retry transaction up to three times if deadlock occurs.
 

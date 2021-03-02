@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\Applicant;
 use App\Models\ExperienceAward;
+use App\Models\ExperienceEducation;
 use App\Models\ExperiencePersonal;
 use App\Models\ExperienceSkill;
 use App\Models\ExperienceWork;
@@ -186,6 +187,57 @@ class ExperienceSkillsControllerTest extends TestCase
         $this->assertDatabaseHas('applicant_skill', [
             'applicant_id' => $work->experienceable_id,
             'skill_id' => $workSkillData['skill_id']
+        ]);
+    }
+
+    public function testAttachSkillToApplicantDuringBatchStore()
+    {
+        $applicant = factory(Applicant::class)->create();
+        $education = factory(ExperienceEducation::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+        $experienceSkill1 = [
+            'experience_id' => $education->id,
+            'experience_type' => 'experience_education',
+            'skill_id' => 1,
+            'justification' => null,
+        ];
+        $experienceSkill2 = [
+            'experience_id' => $education->id,
+            'experience_type' => 'experience_education',
+            'skill_id' => 2,
+            'justification' => null,
+        ];
+        $award = factory(ExperienceAward::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant'
+        ]);
+        $awardSkill = [
+            'experience_id' => $award->id,
+            'experience_type' => 'experience_award',
+            'skill_id' => 3,
+            'justification' => null,
+        ];
+        $data = [$experienceSkill1, $experienceSkill2, $awardSkill];
+        $response = $this->actingAs($applicant->user)
+            ->json('post', route('api.v1.experience-skill.batch-store'), $data);
+        $response->assertOk();
+        $response->assertJsonFragment($experienceSkill1);
+        $response->assertJsonFragment($experienceSkill2);
+        $response->assertJsonFragment($awardSkill);
+
+        $this->assertDatabaseHas('applicant_skill', [
+            'applicant_id' => $education->experienceable_id,
+            'skill_id' => $experienceSkill1['skill_id']
+        ]);
+        $this->assertDatabaseHas('applicant_skill', [
+            'applicant_id' => $education->experienceable_id,
+            'skill_id' => $experienceSkill2['skill_id']
+        ]);
+        $this->assertDatabaseHas('applicant_skill', [
+            'applicant_id' => $education->experienceable_id,
+            'skill_id' => $awardSkill['skill_id']
         ]);
     }
 
