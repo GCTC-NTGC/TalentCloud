@@ -19,17 +19,17 @@ class LogAction
     public function handle($request, Closure $next)
     {
         if (Auth::check() && Auth::user()->isAdmin() && $request->method() !== 'GET') {
-            parse_str($request->getContent(), $body);
+            $input = $request->input();
             $bodyKeys = [];
-            foreach ($body as $key => $value) {
-                array_push($bodyKeys, $key); // Only include keys from request body to avoid logging any sensitive values.
+            foreach ($input as $key => $value) {
+                array_push($bodyKeys, $key); // Only include keys to avoid logging any sensitive values.
             }
             $logArray = [
                 'message' => 'Admin non-GET request',
                 'admin_user_id' => $request->user()->id,
                 'url' => $request->url(),
                 'verb' => $request->method(),
-                'body' => $bodyKeys
+                'body_keys' => $bodyKeys
             ];
             Log::info(json_encode($logArray));
             return $next($request);
