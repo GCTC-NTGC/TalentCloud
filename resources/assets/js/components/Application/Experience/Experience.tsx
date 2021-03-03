@@ -116,21 +116,23 @@ export const ModalButtonH2: React.FunctionComponent<{
   icon: string;
   openModal: (id: Experience["type"]) => void;
 }> = ({ id, title, icon, openModal }) => {
+  // TODO: Convert this to use H2 styling, not just H2 Dialog trigger
   return (
-    <Dialog.Trigger
-      key={id}
-      id={id}
-      data-c-grid-item="base(1of2) tp(1of3) tl(1of5)"
-      className="application-experience-trigger"
-      data-c-card
-      data-c-background="c1(100)"
-      data-c-radius="rounded"
-    >
-      <i className={icon} aria-hidden="true" />
-      <span data-c-font-size="regular" data-c-font-weight="bold">
-        {title}
-      </span>
-    </Dialog.Trigger>
+    <div data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
+      <Dialog.Trigger
+        key={id}
+        id={id}
+        className="application-experience-trigger"
+        data-c-card
+        data-c-background="c1(100)"
+        data-c-radius="rounded"
+      >
+        <i className={icon} aria-hidden="true" />
+        <span data-c-font-size="regular" data-c-font-weight="bold">
+          {title}
+        </span>
+      </Dialog.Trigger>
+    </div>
   );
 };
 
