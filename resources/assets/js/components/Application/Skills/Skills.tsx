@@ -59,6 +59,7 @@ import {
   notEmpty,
 } from "../../../helpers/queries";
 import { batchUpdateExperienceSkills } from "../../../store/Experience/experienceActions";
+import { SkillTypeId } from "../../../models/lookupConstants";
 
 export const JUSTIFICATION_WORD_LIMIT = 100;
 
@@ -442,12 +443,18 @@ const Skills: React.FC<SkillsProps> = ({
   const [modalBody, setModalBody] = useState("");
   const modalParentRef = useRef<HTMLDivElement>(null);
 
+  // This page should only list Hard Skills
+  const hardCriteria = criteria.filter((criterion) => {
+    const skill = getSkillOfCriteria(criterion, skills);
+    return skill?.skill_type_id === SkillTypeId.Hard;
+  });
+
   // Maps ExperienceSkill ids to their accordion expansion state.
   const [accordionExpansions, setAccordionExpansions] = useState<{
     [experienceSkillId: number]: boolean;
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
-  const menuSkills = criteria.reduce(
+  const menuSkills = hardCriteria.reduce(
     (collection: { [skillId: number]: string }, criterion: Criteria) => {
       const skill = getSkillOfCriteria(criterion, skills);
       if (skill && !collection[criterion.skill_id]) {
@@ -562,7 +569,9 @@ const Skills: React.FC<SkillsProps> = ({
   // Ensure each experienceSkill has a corresponding form ref
   experienceSkills.forEach((expSkill) => {
     if (
-      criteria.find((criterion) => criterion.skill_id === expSkill.skill_id) &&
+      hardCriteria.find(
+        (criterion) => criterion.skill_id === expSkill.skill_id,
+      ) &&
       !formRefs.current.has(expSkill.id)
     ) {
       const ref = createRef<FormikProps<ExperienceSkillFormValues>>();
@@ -621,7 +630,7 @@ const Skills: React.FC<SkillsProps> = ({
             />
           </p>
           <div className="skills-list">
-            {criteria.map((criterion) => {
+            {hardCriteria.map((criterion) => {
               const skill = getSkillOfCriteria(criterion, skills);
               if (skill === null) {
                 return null;
