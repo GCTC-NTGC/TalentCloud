@@ -270,6 +270,70 @@ export const CommunityDetailsSubform: FunctionComponent = () => {
   );
 };
 
+export const CommunityDetailsSubformH2: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-h2-container="b(center, medium)">
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="community-title"
+          name="title"
+          type="text"
+          grid="base(1of1)"
+          component={TextInput}
+          required
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="community-group"
+          type="text"
+          name="group"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.groupLabel)}
+          placeholder={intl.formatMessage(messages.groupPlaceholder)}
+        />
+        <FastField
+          id="community-project"
+          type="text"
+          name="project"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.projectLabel)}
+          placeholder={intl.formatMessage(messages.projectPlaceholder)}
+        />
+        <FastField
+          id="community-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="community-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="community-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
 interface CommunityExperienceModalProps {
   modalId: string;
   experienceCommunity: ExperienceCommunity | null;
