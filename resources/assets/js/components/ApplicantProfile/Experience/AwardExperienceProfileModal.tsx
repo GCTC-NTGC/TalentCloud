@@ -5,20 +5,19 @@ import * as Yup from "yup";
 import {
   dataToFormSkills,
   formSkillsToData,
-  ProfileSkillSubform,
+  ProfileSkillSubformH2,
   SkillFormValues,
   validationShape as skillValidationShape,
 } from "./ProfileSkillSubform";
 import { Skill, ExperienceAward, ExperienceSkill } from "../../../models/types";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
-  ExperienceModalHeader,
-  ExperienceDetailsIntro,
-  ExperienceModalFooter,
+  ExperienceModalHeaderH2,
+  ExperienceDetailsIntroH2,
+  ExperienceModalFooterH2,
 } from "../../Application/ExperienceModals/ExperienceModalCommon";
-import Modal from "../../Modal";
 import {
-  AwardDetailsSubform,
+  AwardDetailsSubformH2,
   awardValidationShape,
   messages,
   experienceToDetails,
@@ -29,6 +28,7 @@ import {
   FormAwardRecognitionType,
 } from "../../Application/ExperienceModals/AwardExperienceModal";
 import { getId } from "../../../helpers/queries";
+import Dialog from "../../H2Components/Dialog";
 
 type AwardExperienceFormValues = SkillFormValues & AwardDetailsFormValues;
 
@@ -79,9 +79,6 @@ export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
   experienceableType,
   userSkills,
   experienceSkills,
-  parentElement,
-  visible,
-  onModalCancel,
   onModalConfirm,
 }) => {
   const intl = useIntl();
@@ -113,45 +110,42 @@ export const ProfileAwardModal: FunctionComponent<ProfileAwardModalProps> = ({
   );
 
   return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-trophy"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(formValuesToData(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
+    <div data-h2-system>
+      <Dialog id={modalId} className="application-experience-dialog">
+        <ExperienceModalHeaderH2
+          title={intl.formatMessage(messages.modalTitle)}
+          iconClass="fa-trophy"
+        />
+        <Formik
+          enableReinitialize
+          initialValues={initialFormValues}
+          onSubmit={async (values, actions): Promise<void> => {
+            await onModalConfirm(formValuesToData(values, originalExperience));
+            actions.setSubmitting(false);
+            actions.resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          {(formikProps): React.ReactElement => (
+            <Form>
+              <Dialog.Content>
+                <ExperienceDetailsIntroH2
+                  description={intl.formatMessage(messages.modalDescription)}
+                />
+                <AwardDetailsSubformH2
+                  recipientTypes={recipientTypes}
+                  recognitionTypes={recognitionTypes}
+                />
+                <ProfileSkillSubformH2 keyPrefix="award" skills={userSkills} />
+              </Dialog.Content>
+              <ExperienceModalFooterH2
+                buttonsDisabled={formikProps.isSubmitting}
               />
-              <AwardDetailsSubform
-                recipientTypes={recipientTypes}
-                recognitionTypes={recognitionTypes}
-              />
-              <ProfileSkillSubform keyPrefix="award" skills={userSkills} />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
+            </Form>
+          )}
+        </Formik>
+      </Dialog>
+    </div>
   );
 };
 

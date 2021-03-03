@@ -176,6 +176,78 @@ export const AwardDetailsSubform: FunctionComponent<{
   );
 };
 
+export const AwardDetailsSubformH2: FunctionComponent<{
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
+}> = ({ recipientTypes, recognitionTypes }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  return (
+    <div data-h2-container="b(center, medium)">
+      {/** TODO: Change to H2 grid. But this requires H2 versions of input elements as well. */}
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="award-title"
+          type="text"
+          name="title"
+          component={TextInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="award-recipientTypeId"
+          name="recipientTypeId"
+          label={intl.formatMessage(messages.recipientTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.recipientTypePlaceholder)}
+          options={recipientTypes.map((type) => ({
+            value: type.id,
+            label: localizeFieldNonNull(locale, type, "name"),
+          }))}
+        />
+        <FastField
+          id="award-issuedBy"
+          type="text"
+          name="issuedBy"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.issuerLabel)}
+          placeholder={intl.formatMessage(messages.issuerPlaceholder)}
+        />
+        <FastField
+          id="award-recognitionTypeId"
+          name="recognitionTypeId"
+          label={intl.formatMessage(messages.recognitionTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(
+            messages.recognitionTypePlaceholder,
+          )}
+          options={recognitionTypes.map((status) => ({
+            value: status.id,
+            label: localizeFieldNonNull(locale, status, "name"),
+          }))}
+        />
+        <FastField
+          id="award-awardedDate"
+          name="awardedDate"
+          component={DateInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.awardedDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
 type AwardExperienceFormValues = SkillFormValues &
   EducationFormValues &
   AwardDetailsFormValues;

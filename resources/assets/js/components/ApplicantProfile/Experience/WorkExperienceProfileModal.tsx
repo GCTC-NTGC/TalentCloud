@@ -3,7 +3,6 @@ import { Formik, Form } from "formik";
 import { useIntl } from "react-intl";
 import * as Yup from "yup";
 import {
-  ProfileSkillSubform,
   SkillFormValues,
   validationShape as skillValidationShape,
   dataToFormSkills,
@@ -13,14 +12,10 @@ import {
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
-  ExperienceModalHeader,
-  ExperienceDetailsIntro,
-  ExperienceModalFooter,
   ExperienceModalHeaderH2,
   ExperienceDetailsIntroH2,
   ExperienceModalFooterH2,
 } from "../../Application/ExperienceModals/ExperienceModalCommon";
-import Modal from "../../Modal";
 import {
   WorkDetailsFormValues,
   experienceToDetails,
@@ -28,7 +23,6 @@ import {
   workValidationShape,
   messages,
   detailsToExperience,
-  WorkDetailsSubform,
   WorkDetailsSubformH2,
 } from "../../Application/ExperienceModals/WorkExperienceModal";
 import { getId } from "../../../helpers/queries";
@@ -76,9 +70,6 @@ export const ProfileWorkModal: FunctionComponent<ProfileWorkModalProps> = ({
   experienceableType,
   userSkills,
   experienceSkills,
-  parentElement,
-  visible,
-  onModalCancel,
   onModalConfirm,
 }) => {
   const intl = useIntl();
