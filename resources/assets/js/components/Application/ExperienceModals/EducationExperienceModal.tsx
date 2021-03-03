@@ -247,6 +247,111 @@ export const EducationDetailsSubform: FunctionComponent<{
   );
 };
 
+export const EducationDetailsSubformH2: FunctionComponent<{
+  educationTypes: FormEducationType[];
+  educationStatuses: FormEducationStatus[];
+}> = ({ educationTypes, educationStatuses }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl.locale);
+  return (
+    <div data-h2-container="b(center, medium)">
+      {/** TODO: Change to H2 grid. But this requires H2 versions of input elements as well. */}
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="education-educationTypeId"
+          name="educationTypeId"
+          label={intl.formatMessage(messages.educationTypeLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.educationTypeDefault)}
+          options={educationTypes.map((type) => ({
+            value: type.id,
+            label: localizeFieldNonNull(locale, type, "name"),
+          }))}
+        />
+        <FastField
+          id="education-areaOfStudy"
+          type="text"
+          name="areaOfStudy"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.areaStudyLabel)}
+          placeholder={intl.formatMessage(messages.areaStudyPlaceholder)}
+        />
+        <FastField
+          id="education-institution"
+          type="text"
+          name="institution"
+          component={TextInput}
+          required
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.institutionLabel)}
+          placeholder={intl.formatMessage(messages.institutionPlaceholder)}
+        />
+        <FastField
+          id="education-educationStatusId"
+          name="educationStatusId"
+          label={intl.formatMessage(messages.completionLabel)}
+          grid="tl(1of2)"
+          component={SelectInput}
+          required
+          nullSelection={intl.formatMessage(messages.completionDefault)}
+          options={educationStatuses.map((status) => ({
+            value: status.id,
+            label: localizeFieldNonNull(locale, status, "name"),
+          }))}
+        />
+        <FastField
+          id="education-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="education-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="education-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <FastField
+          id="education-thesisTitle"
+          type="text"
+          name="thesisTitle"
+          component={TextInput}
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.thesisLabel)}
+          placeholder={intl.formatMessage(messages.thesisPlaceholder)}
+        />
+        <div data-c-grid-item="base(1of1)">
+          <FastField
+            id="education-hasBlockcert"
+            name="hasBlockcert"
+            component={CheckboxInput}
+            grid="base(1of1)"
+            label={intl.formatMessage(messages.blockcertInlineLabel)}
+            checkboxBorder
+            borderLabel={intl.formatMessage(messages.blockcertLabel)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export interface EducationDetailsFormValues {
   educationTypeId: number | "";
   areaOfStudy: string;

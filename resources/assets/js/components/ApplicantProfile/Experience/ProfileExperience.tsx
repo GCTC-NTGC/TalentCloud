@@ -285,7 +285,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
             // TODO: Use one type of button for everything.
             return id === "experience_work" ||
               id === "experience_award" ||
-              id === "experience_community" ? (
+              id === "experience_community" ||
+              id === "experience_education" ? (
               <ModalButtonH2
                 key={id}
                 id={id}
