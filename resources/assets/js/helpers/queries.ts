@@ -195,11 +195,11 @@ export function deleteProperty<T, K extends keyof T>(
  */
 export function filterObjectProps<T>(
   obj: IndexedObject<T>,
-  filter: (value: T) => boolean,
+  filter: (value: T, key: string) => boolean,
 ): IndexedObject<T> {
   return Object.entries(obj).reduce(
     (newObj: IndexedObject<T>, [key, value]): IndexedObject<T> => {
-      if (filter(value)) {
+      if (filter(value, key)) {
         newObj[key] = value;
       }
       return newObj;

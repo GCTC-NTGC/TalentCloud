@@ -84,9 +84,12 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
     educationStatuses,
   } = useFetchExperienceConstants(dispatch);
 
-  const userSkills = skills.filter((skill) =>
-    applicantSkillIdsResource.value.skill_ids.includes(skill.id),
-  );
+  const userSkills =
+    applicantSkillIdsResource.status !== "rejected"
+      ? skills.filter((skill) =>
+          applicantSkillIdsResource.value.skill_ids.includes(skill.id),
+        )
+      : [];
 
   const newExpSkill = (
     exp: Experience,
@@ -217,7 +220,7 @@ const ProfileExperiencePage: FunctionComponent<{ applicantId: number }> = ({
   const showComponent =
     experienceConstantsLoaded &&
     skills.length > 0 &&
-    applicantSkillIdsResource.status === "fulfilled" &&
+    applicantSkillIdsResource.status !== "pending" &&
     experiencesLoaded;
 
   return (

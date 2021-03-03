@@ -27,7 +27,6 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -36,6 +35,7 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import SelectInput from "../../Form/SelectInput";
+import { newDateString } from "../../../helpers/dates";
 
 export type FormAwardRecipientType = Pick<AwardRecipientType, "id" | "name">;
 
@@ -202,7 +202,7 @@ export const experienceToDetails = (
     recipientTypeId: creatingNew ? "" : experience.award_recipient_type_id,
     issuedBy: experience.issued_by,
     recognitionTypeId: creatingNew ? "" : experience.award_recognition_type_id,
-    awardedDate: toInputDateString(experience.awarded_date),
+    awardedDate: experience.awarded_date,
   };
 };
 
@@ -236,7 +236,7 @@ export const detailsToExperience = (
     award_recognition_type_id: formValues.recognitionTypeId
       ? Number(formValues.recognitionTypeId)
       : 1,
-    awarded_date: fromInputDateString(formValues.awardedDate),
+    awarded_date: formValues.awardedDate,
   };
 };
 
@@ -273,7 +273,7 @@ export const newExperienceAward = (
   issued_by: "",
   award_recognition_type_id: 0,
   award_recognition_type: { en: "", fr: "" },
-  awarded_date: new Date(),
+  awarded_date: newDateString(),
   is_education_requirement: false,
   experienceable_id: experienceableId,
   experienceable_type: experienceableType,

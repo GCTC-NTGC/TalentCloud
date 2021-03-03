@@ -25,7 +25,7 @@ class UpdateApplicantSkills extends FormRequest
     public function rules()
     {
         return [
-            'skill_ids' => 'required|array',
+            'skill_ids' => 'present|array',
             'skill_ids.*' => 'numeric|exists:skills,id'
         ];
     }

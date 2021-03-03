@@ -1,1 +1,1 @@
-[{"id":"searchBar.search.label","description":"The label displayed for the search input field.","defaultMessage":"Search"},{"id":"searchBar.search.placeholder","description":"The placeholder displayed for the search input field.","defaultMessage":"eg. Enter a value."},{"id":"searchBar.search.buttonText","description":"The placeholder displayed for the search button text.","defaultMessage":"Search"}]
+[{"id":"searchBar.search.buttonText","description":"The placeholder displayed for the search button text.","defaultMessage":"Search"}]

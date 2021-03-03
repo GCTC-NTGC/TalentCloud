@@ -28,7 +28,6 @@ import {
 } from "./ExperienceModalCommon";
 import Modal from "../../Modal";
 import DateInput from "../../Form/DateInput";
-import { toInputDateString, fromInputDateString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -37,6 +36,7 @@ import {
 } from "../../../helpers/localize";
 import { notEmpty } from "../../../helpers/queries";
 import SelectInput from "../../Form/SelectInput";
+import { newDateString } from "../../../helpers/dates";
 
 export type FormEducationType = Pick<EducationType, "id" | "name">;
 
@@ -270,9 +270,9 @@ export const experienceToDetails = (
     educationStatusId: creatingNew ? "" : experience.education_status_id,
     thesisTitle: experience.thesis_title ?? "",
     hasBlockcert: experience.has_blockcert,
-    startDate: toInputDateString(experience.start_date),
+    startDate: experience.start_date,
     isActive: experience.is_active,
-    endDate: experience.end_date ? toInputDateString(experience.end_date) : "",
+    endDate: experience.end_date ? experience.end_date : "",
   };
 };
 
@@ -292,11 +292,9 @@ export const detailsToExperience = (
       : 1,
     thesis_title: formValues.thesisTitle ? formValues.thesisTitle : "",
     has_blockcert: formValues.hasBlockcert,
-    start_date: fromInputDateString(formValues.startDate),
+    start_date: formValues.startDate,
     is_active: formValues.isActive,
-    end_date: formValues.endDate
-      ? fromInputDateString(formValues.endDate)
-      : null,
+    end_date: formValues.endDate ? formValues.endDate : null,
   };
 };
 
@@ -343,7 +341,7 @@ export const newExperienceEducation = (
   thesis_title: "",
   has_blockcert: false,
   is_active: false,
-  start_date: new Date(),
+  start_date: newDateString(),
   end_date: null,
   is_education_requirement: false,
   experienceable_id: experienceableId,

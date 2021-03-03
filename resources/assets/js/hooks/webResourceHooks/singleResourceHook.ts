@@ -104,6 +104,14 @@ function doNothing(): void {
   /* do nothing */
 }
 
+export type UseResourceReturnType<T> = {
+  value: T;
+  status: ResourceStatus;
+  error: undefined | Error | FetchError;
+  update: (newValue: T) => Promise<T>;
+  refresh: () => Promise<T>;
+};
+
 export function useResource<T>(
   endpoint: string,
   initialValue: T,
@@ -112,13 +120,7 @@ export function useResource<T>(
     skipInitialFetch?: boolean; // Defaults to false. Override if you want to keep the initialValue until refresh is called manually.
     handleError?: (error: Error | FetchError) => void; // In addition to using the error returned by the hook, you may provide a callback called on every new error.
   },
-): {
-  value: T;
-  status: ResourceStatus;
-  error: undefined | Error | FetchError;
-  update: (newValue: T) => Promise<T>;
-  refresh: () => Promise<T>;
-} {
+): UseResourceReturnType<T> {
   const parseResponse = overrides?.parseResponse ?? identity;
   const doInitialRefresh = overrides?.skipInitialFetch !== true;
   const handleError = overrides?.handleError ?? doNothing;

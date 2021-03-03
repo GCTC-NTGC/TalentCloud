@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Http\Resources\Skill as SkillResource;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class SkillController extends Controller
 {

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceSkill, ExperienceWork, Skill } from "../../../models/types";
 import {
   ApplicationExperienceAccordion,
@@ -17,7 +17,7 @@ const ExperienceWorkDetails: FunctionComponent<{
   const locale = getLocale(intl.locale);
   const { title, organization, group } = experience;
   const startDate = experience.start_date;
-  const endDate = experience.start_date;
+  const endDate = experience.end_date;
   const isActive = experience.is_active;
   const notApplicable = (
     <p data-c-color="gray">
@@ -67,18 +67,21 @@ const ExperienceWorkDetails: FunctionComponent<{
           <p data-c-font-weight="bold">
             {intl.formatMessage(accordionMessages.startDateLabel)}
           </p>
-          {startDate ? <p>{readableDate(locale, startDate)}</p> : notApplicable}
+          {startDate ? (
+            <p>{readableDateFromString(locale, startDate)}</p>
+          ) : (
+            notApplicable
+          )}
         </div>
         <div data-c-grid-item="base(1of2) tl(1of3)">
           <p data-c-font-weight="bold">
             {intl.formatMessage(accordionMessages.endDateLabel)}
           </p>
           {isActive && <p>{intl.formatMessage(accordionMessages.ongoing)}</p>}
-          {!isActive && endDate ? (
-            <p>{readableDate(locale, endDate)}</p>
-          ) : (
-            notApplicable
+          {!isActive && endDate && (
+            <p>{readableDateFromString(locale, endDate)}</p>
           )}
+          {!isActive && !endDate && notApplicable}
         </div>
       </div>
     </div>
