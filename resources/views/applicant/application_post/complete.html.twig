@@ -18,7 +18,7 @@
                     <h3 data-c-font-size="h4" data-c-font-weight="bold" data-c-margin="bottom(1)">{{ application_template.complete.other_resources }}</h3>
                     <ul>
                         <li>
-                            <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="{{ application_template.complete.submit_feedback_link_title }}">{{ application_template.complete.submit_feedback_link_label }}</a>
+                            <a href="mailto:{{ config('mail.admin_address') }}" title="{{ application_template.complete.submit_feedback_link_title }}">{{ application_template.complete.submit_feedback_link_label }}</a>
                         </li>
                         <li>
                             <a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
