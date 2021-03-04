@@ -21,7 +21,7 @@
                             <a href="mailto:{{ config('mail.admin_address') }}" title="{{ application_template.complete.submit_feedback_link_title }}">{{ application_template.complete.submit_feedback_link_label }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
+                            <a href="{{ route('profile') }}" title="{{ application_template.complete.update_profile_link_title }}">{{ application_template.complete.update_profile_link_label }}</a>
                         </li>
                         <li>
                             <a href="{{ route('jobs.index') }}" title="{{ application_template.complete.browse_jobs_title }}">{{ application_template.complete.browse_jobs_label }}</a>
