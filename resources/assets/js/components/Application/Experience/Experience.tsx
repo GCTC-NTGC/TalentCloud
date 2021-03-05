@@ -351,30 +351,25 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           )}
         </div>
         <p data-c-color="gray" data-c-margin="bottom(2)">
-          <FormattedMessage
-            id="application.experience.softSkillsList"
-            defaultMessage="Don't forget, {skill} will be evaluated later in the hiring process."
-            description="List of soft skills that will be evaluated later."
-            values={{
-              skill: (
-                <>
-                  {softSkills.map((skill, index) => {
-                    const and = " and ";
-                    const lastElement = index === softSkills.length - 1;
-                    return (
-                      <React.Fragment key={skill.id}>
-                        {lastElement && softSkills.length > 1 && and}
-                        <span key={skill.id} data-c-font-weight="bold">
-                          {localizeFieldNonNull(locale, skill, "name")}
-                        </span>
-                        {!lastElement && softSkills.length > 2 && ", "}
-                      </React.Fragment>
-                    );
-                  })}
-                </>
-              ),
-            }}
-          />
+          {intl.formatMessage(experienceMessages.softSkillsList, {
+            skill: (
+              <>
+                {softSkills.map((skill, index) => {
+                  const and = " and ";
+                  const lastElement = index === softSkills.length - 1;
+                  return (
+                    <React.Fragment key={skill.id}>
+                      {lastElement && softSkills.length > 1 && and}
+                      <span key={skill.id} data-c-font-weight="bold">
+                        {localizeFieldNonNull(locale, skill, "name")}
+                      </span>
+                      {!lastElement && softSkills.length > 2 && ", "}
+                    </React.Fragment>
+                  );
+                })}
+              </>
+            ),
+          })}
         </p>
         {hasError && (
           <div

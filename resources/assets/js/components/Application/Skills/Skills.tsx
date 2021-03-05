@@ -32,7 +32,11 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import { navigationMessages, skillMessages } from "../applicationMessages";
+import {
+  experienceMessages,
+  navigationMessages,
+  skillMessages,
+} from "../applicationMessages";
 import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
@@ -57,6 +61,7 @@ import {
   getId,
   mapToObjectTrans,
   notEmpty,
+  removeDuplicatesById,
 } from "../../../helpers/queries";
 import { batchUpdateExperienceSkills } from "../../../store/Experience/experienceActions";
 import { SkillTypeId } from "../../../models/lookupConstants";
@@ -449,6 +454,13 @@ const Skills: React.FC<SkillsProps> = ({
     return skill?.skill_type_id === SkillTypeId.Hard;
   });
 
+  const softSkills = removeDuplicatesById(
+    criteria
+      .map((criterion) => getSkillOfCriteria(criterion, skills))
+      .filter(notEmpty)
+      .filter((skill) => skill.skill_type_id === SkillTypeId.Soft),
+  );
+
   // Maps ExperienceSkill ids to their accordion expansion state.
   const [accordionExpansions, setAccordionExpansions] = useState<{
     [experienceSkillId: number]: boolean;
@@ -622,12 +634,33 @@ const Skills: React.FC<SkillsProps> = ({
               }}
             />
           </ul>
-          <p>
+          <p data-c-margin="bottom(1)">
             <FormattedMessage
               id="application.skills.instructionListEnd"
               defaultMessage="If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples."
               description="Paragraph after the instruction list on the Skills step."
             />
+          </p>
+          <p data-c-color="gray">
+            {intl.formatMessage(experienceMessages.softSkillsList, {
+              skill: (
+                <>
+                  {softSkills.map((skill, index) => {
+                    const and = " and ";
+                    const lastElement = index === softSkills.length - 1;
+                    return (
+                      <React.Fragment key={skill.id}>
+                        {lastElement && softSkills.length > 1 && and}
+                        <span key={skill.id} data-c-font-weight="bold">
+                          {localizeFieldNonNull(locale, skill, "name")}
+                        </span>
+                        {!lastElement && softSkills.length > 2 && ", "}
+                      </React.Fragment>
+                    );
+                  })}
+                </>
+              ),
+            })}
           </p>
           <div className="skills-list">
             {hardCriteria.map((criterion) => {
