@@ -190,60 +190,66 @@ const List: React.FC<ListProps> = ({
       </p>
       {sortType === "group" && (
         <>
-          {skillCategoriesGrouped.map((group) => (
-            <div key={group.category.id}>
-              <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
-                {localizeFieldNonNull(locale, group.category, "name")}
-              </h5>
-              {group.skills.length === 0 && (
-                <p>{intl.formatMessage(messages.categoryEmpty)}</p>
+          {skills.length !== 0 ? (
+            <>
+              {skillCategoriesGrouped.map((group) => (
+                <div key={group.category.id}>
+                  <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
+                    {localizeFieldNonNull(locale, group.category, "name")}
+                  </h5>
+                  {group.skills.length === 0 && (
+                    <p>{intl.formatMessage(messages.categoryEmpty)}</p>
+                  )}
+                  {group.skills
+                    .sort(sortByLocalizedName(locale))
+                    .map((skill: Skill) => {
+                      const experiencesOfSkill = getExperiencesOfSkill(
+                        skill,
+                        experienceSkills,
+                      );
+                      return (
+                        <SkillAccordion
+                          key={`skill-accordion-group-${skill.id}`}
+                          skill={skill}
+                          experiences={experiences}
+                          experiencesOfSkill={experiencesOfSkill}
+                          applicantId={applicantId}
+                          handleDeleteSkill={handleDeleteSkill}
+                          disableDelete={updateInProgress}
+                        />
+                      );
+                    })}
+                </div>
+              ))}
+              {uncategorizedSkills.length > 0 && (
+                <div>
+                  <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
+                    {intl.formatMessage(messages.categoryOther)}
+                  </h5>
+                  {uncategorizedSkills
+                    .sort(sortByLocalizedName(locale))
+                    .map((skill: Skill) => {
+                      const experiencesOfSkill = getExperiencesOfSkill(
+                        skill,
+                        experienceSkills,
+                      );
+                      return (
+                        <SkillAccordion
+                          key={`skill-accordion-group-${skill.id}`}
+                          skill={skill}
+                          experiences={experiences}
+                          experiencesOfSkill={experiencesOfSkill}
+                          applicantId={applicantId}
+                          handleDeleteSkill={handleDeleteSkill}
+                          disableDelete={updateInProgress}
+                        />
+                      );
+                    })}
+                </div>
               )}
-              {group.skills
-                .sort(sortByLocalizedName(locale))
-                .map((skill: Skill) => {
-                  const experiencesOfSkill = getExperiencesOfSkill(
-                    skill,
-                    experienceSkills,
-                  );
-                  return (
-                    <SkillAccordion
-                      key={`skill-accordion-group-${skill.id}`}
-                      skill={skill}
-                      experiences={experiences}
-                      experiencesOfSkill={experiencesOfSkill}
-                      applicantId={applicantId}
-                      handleDeleteSkill={handleDeleteSkill}
-                      disableDelete={updateInProgress}
-                    />
-                  );
-                })}
-            </div>
-          ))}
-          {uncategorizedSkills.length > 0 && (
-            <div>
-              <h5 data-h2-margin="b(top, 1) b(bottom, .5)">
-                {intl.formatMessage(messages.categoryOther)}
-              </h5>
-              {uncategorizedSkills
-                .sort(sortByLocalizedName(locale))
-                .map((skill: Skill) => {
-                  const experiencesOfSkill = getExperiencesOfSkill(
-                    skill,
-                    experienceSkills,
-                  );
-                  return (
-                    <SkillAccordion
-                      key={`skill-accordion-group-${skill.id}`}
-                      skill={skill}
-                      experiences={experiences}
-                      experiencesOfSkill={experiencesOfSkill}
-                      applicantId={applicantId}
-                      handleDeleteSkill={handleDeleteSkill}
-                      disableDelete={updateInProgress}
-                    />
-                  );
-                })}
-            </div>
+            </>
+          ) : (
+            <p>{intl.formatMessage(messages.skillsEmpty)}</p>
           )}
         </>
       )}
