@@ -17,20 +17,20 @@ import {
 import { ExperienceSubmitData } from "./ProfileExperienceCommon";
 import {
   ExperienceModalHeader,
-  ExperienceDetailsIntro,
-  ExperienceModalFooter,
+  ExperienceDetailsIntroH2,
+  ExperienceModalFooterH2,
 } from "../../Application/ExperienceModals/ExperienceModalCommon";
-import Modal from "../../Modal";
 import {
   PersonalDetailsFormValues,
   messages,
-  PersonalDetailsSubform,
+  PersonalDetailsSubformH2,
   experienceToDetails,
   detailsToExperience,
   personalValidationShape,
   newPersonalExperience,
 } from "../../Application/ExperienceModals/PersonalExperienceModal";
 import { getId } from "../../../helpers/queries";
+import Dialog from "../../H2Components/Dialog";
 
 type PersonalExperienceFormValues = SkillFormValues & PersonalDetailsFormValues;
 
@@ -110,42 +110,39 @@ export const ProfilePersonalModal: FunctionComponent<ProfilePersonalModalProps> 
   );
 
   return (
-    <Modal
-      id={modalId}
-      parentElement={parentElement}
-      visible={visible}
-      onModalCancel={onModalCancel}
-      onModalConfirm={onModalCancel}
-      className="application-experience-dialog"
-    >
-      <ExperienceModalHeader
-        title={intl.formatMessage(messages.modalTitle)}
-        iconClass="fa-mountain"
-      />
-      <Formik
-        enableReinitialize
-        initialValues={initialFormValues}
-        onSubmit={async (values, actions): Promise<void> => {
-          await onModalConfirm(formValuesToData(values, originalExperience));
-          actions.setSubmitting(false);
-          actions.resetForm();
-        }}
-        validationSchema={validationSchema}
-      >
-        {(formikProps): React.ReactElement => (
-          <Form>
-            <Modal.Body>
-              <ExperienceDetailsIntro
-                description={intl.formatMessage(messages.modalDescription)}
+    <div data-h2-system>
+      <Dialog id={modalId} className="application-experience-dialog">
+        <ExperienceModalHeader
+          title={intl.formatMessage(messages.modalTitle)}
+          iconClass="fa-mountain"
+        />
+        <Formik
+          enableReinitialize
+          initialValues={initialFormValues}
+          onSubmit={async (values, actions): Promise<void> => {
+            await onModalConfirm(formValuesToData(values, originalExperience));
+            actions.setSubmitting(false);
+            actions.resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          {(formikProps): React.ReactElement => (
+            <Form>
+              <Dialog.Content>
+                <ExperienceDetailsIntroH2
+                  description={intl.formatMessage(messages.modalDescription)}
+                />
+                <PersonalDetailsSubformH2 />
+                <ProfileSkillSubform keyPrefix="personal" skills={userSkills} />
+              </Dialog.Content>
+              <ExperienceModalFooterH2
+                buttonsDisabled={formikProps.isSubmitting}
               />
-              <PersonalDetailsSubform />
-              <ProfileSkillSubform keyPrefix="personal" skills={userSkills} />
-            </Modal.Body>
-            <ExperienceModalFooter buttonsDisabled={formikProps.isSubmitting} />
-          </Form>
-        )}
-      </Formik>
-    </Modal>
+            </Form>
+          )}
+        </Formik>
+      </Dialog>
+    </div>
   );
 };
 

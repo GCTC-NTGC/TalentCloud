@@ -156,6 +156,73 @@ export const PersonalDetailsSubform: FunctionComponent = () => {
   );
 };
 
+export const PersonalDetailsSubformH2: FunctionComponent = () => {
+  const intl = useIntl();
+  return (
+    <div data-h2-container="b(center, medium)">
+      {/** TODO: Change to H2 grid. But this requires H2 versions of input elements as well. */}
+      <div data-c-grid="gutter(all, 1) middle">
+        <FastField
+          id="personal-title"
+          name="title"
+          type="text"
+          grid="base(1of1)"
+          component={TextInput}
+          required
+          label={intl.formatMessage(messages.titleLabel)}
+          placeholder={intl.formatMessage(messages.titlePlaceholder)}
+        />
+        <FastField
+          id="personal-description"
+          type="text"
+          name="description"
+          component={TextAreaInput}
+          required
+          grid="tl(1of1)"
+          label={intl.formatMessage(messages.descriptionLabel)}
+          placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+          wordLimit={DESCRIPTION_WORD_LIMIT}
+        />
+        <div data-c-input="checkbox(group)" data-c-grid-item="base(1of1)">
+          <label>{intl.formatMessage(messages.isShareableLabel)}</label>
+          <FastField
+            id="personal-isShareable"
+            name="isShareable"
+            component={CheckboxInput}
+            grid="base(1of1)"
+            label={intl.formatMessage(messages.isShareableInlineLabel)}
+            checkboxGroup
+          />
+        </div>
+        <FastField
+          id="personal-startDate"
+          name="startDate"
+          component={DateInput}
+          required
+          grid="base(1of1)"
+          label={intl.formatMessage(messages.startDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+        <Field
+          id="personal-isActive"
+          name="isActive"
+          component={CheckboxInput}
+          grid="tl(1of2)"
+          label={intl.formatMessage(messages.isActiveLabel)}
+        />
+        <Field
+          id="personal-endDate"
+          name="endDate"
+          component={DateInput}
+          grid="base(1of2)"
+          label={intl.formatMessage(messages.endDateLabel)}
+          placeholder={intl.formatMessage(messages.datePlaceholder)}
+        />
+      </div>
+    </div>
+  );
+};
+
 export interface PersonalDetailsFormValues {
   title: string;
   description: string;

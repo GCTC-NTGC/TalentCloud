@@ -282,20 +282,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
         <div data-c-grid="gutter(all, 1)">
           {Object.values(modalButtons).map((buttonProps) => {
             const { id, title, icon } = buttonProps;
-            // TODO: Use one type of button for everything.
-            return id === "experience_work" ||
-              id === "experience_award" ||
-              id === "experience_community" ||
-              id === "experience_education" ? (
+            return (
               <ModalButtonH2
-                key={id}
-                id={id}
-                title={title}
-                icon={icon}
-                openModal={openModal}
-              />
-            ) : (
-              <ModalButton
                 key={id}
                 id={id}
                 title={title}
