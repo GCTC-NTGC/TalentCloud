@@ -225,7 +225,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
           <div data-c-grid-item="base(3of4) tl(5of6)">
             <div data-c-padding="all(1)">
               <div data-c-grid="middle">
-                <div data-c-grid-item="tl(3of4)">
+                <div data-c-grid-item="tl(3of4) ds(2of4)">
                   <p>{heading}</p>
                   <p
                     data-c-margin="top(quarter)"
@@ -236,7 +236,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                   </p>
                 </div>
                 <div
-                  data-c-grid-item="tl(1of4)"
+                  data-c-grid-item="tl(1of4) ds(2of4)"
                   data-c-align="base(left) tl(center)"
                 >
                   {(experienceSkill.justification === null ||
