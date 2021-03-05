@@ -103,6 +103,24 @@ export const getIrrelevantSkillCount = (
   return irrelevantSkills.length;
 };
 
+export const getRelevantExpSkills = (
+  hardCriteria: Criteria[],
+  experience: Experience,
+  experienceSkills: ExperienceSkill[],
+): ExperienceSkill[] => {
+  const relatedSkills = experienceSkills.filter(
+    (experienceSkill) =>
+      experienceSkill.experience_type === experience.type &&
+      experienceSkill.experience_id === experience.id,
+  );
+  const relevantSkills = relatedSkills.filter((experienceSkill) =>
+    hardCriteria.some(
+      (criterion) => criterion.skill_id === experienceSkill.skill_id,
+    ),
+  );
+  return relevantSkills;
+};
+
 /**
  * Returns list of ExperienceSkills attached to an Experience.
  *

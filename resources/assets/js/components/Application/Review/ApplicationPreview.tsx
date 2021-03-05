@@ -12,7 +12,10 @@ import {
   ApplicationNormalized,
 } from "../../../models/types";
 import { languageRequirementDescription } from "../../../models/localizedConstants";
-import { LanguageRequirementId } from "../../../models/lookupConstants";
+import {
+  LanguageRequirementId,
+  SkillTypeId,
+} from "../../../models/lookupConstants";
 import {
   basicInfoMessages,
   experienceMessages,
@@ -30,7 +33,11 @@ import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePerso
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
 import { getLocale, localizeField } from "../../../helpers/localize";
-import { getSkillOfCriteria, getIrrelevantSkillCount } from "../helpers";
+import {
+  getSkillOfCriteria,
+  getIrrelevantSkillCount,
+  getRelevantExpSkills,
+} from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import { Link } from "../../../helpers/router";
 import {
@@ -224,6 +231,11 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
   const [experienceView, setExperienceView] = useState<ExperienceView>(
     experienceViewState || "experience",
   );
+
+  const hardCriteria = criteria.filter((criterion) => {
+    const skill = getSkillOfCriteria(criterion, skills);
+    return skill?.skill_type_id === SkillTypeId.Hard;
+  });
 
   const handleViewClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const viewType: ExperienceView = e.currentTarget.getAttribute(
@@ -489,14 +501,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           <div data-c-accordion-group="">
             {experiences.map((experience) => {
               const irrelevantSkillCount = getIrrelevantSkillCount(
-                criteria,
+                hardCriteria,
                 experience,
                 experienceSkills,
               );
-              const relevantSkills = experienceSkills.filter(
-                (experienceSkill) =>
-                  experienceSkill.experience_type === experience.type &&
-                  experienceSkill.experience_id === experience.id,
+              const relevantSkills = getRelevantExpSkills(
+                hardCriteria,
+                experience,
+                experienceSkills,
               );
               return (
                 <ExperienceAccordion
@@ -521,7 +533,7 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             />
           </p>
           <div data-c-accordion-group="">
-            {criteria.map((criterion) => {
+            {hardCriteria.map((criterion) => {
               const skillOfCriterion = getSkillOfCriteria(criterion, skills);
 
               if (skillOfCriterion !== null) {
@@ -579,15 +591,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
               .filter((experience) => experience.is_education_requirement)
               .map((educationExperience) => {
                 const irrelevantSkillCount = getIrrelevantSkillCount(
-                  criteria,
+                  hardCriteria,
                   educationExperience,
                   experienceSkills,
                 );
-                const relevantSkills = experienceSkills.filter(
-                  (experienceSkill) =>
-                    experienceSkill.experience_type ===
-                      educationExperience.type &&
-                    experienceSkill.experience_id === educationExperience.id,
+                const relevantSkills = getRelevantExpSkills(
+                  hardCriteria,
+                  educationExperience,
+                  experienceSkills,
                 );
                 return (
                   <ExperienceAccordion
