@@ -43,6 +43,7 @@ import {
   getSkillOfCriteria,
   getSkillsOfExperience,
   getDisconnectedRequiredSkills,
+  getIrrelevantSkillCount,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
@@ -194,12 +195,14 @@ const applicationExperienceAccordion = (
 };
 
 interface ExperienceProps {
+  essentialSkills: Skill[];
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
+  softSkills: Skill[];
+  hardCriteria: Criteria[];
   educationStatuses: FormEducationStatus[];
   educationTypes: FormEducationType[];
   hasError?: boolean;
-  essentialSkills: Skill[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   jobId: number;
@@ -219,7 +222,9 @@ interface ExperienceProps {
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   assetSkills,
+  softSkills,
   disconnectedRequiredSkills,
+  hardCriteria,
   hasError,
   educationStatuses,
   educationTypes,
@@ -281,12 +286,6 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
-
-  const softSkills = removeDuplicatesById(
-    [...assetSkills, ...essentialSkills].filter(
-      (skill) => skill.skill_type_id === SkillTypeId.Soft,
-    ),
-  );
 
   const modalButtons = modalButtonProps(intl);
   const modalRoot = document.getElementById("modal-root");
@@ -481,13 +480,11 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                 );
 
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
-                const irrelevantSkillCount =
-                  experienceSkills.filter(
-                    (experienceSkill) =>
-                      experienceSkill.experience_id === experience.id &&
-                      experienceSkill.experience_type === experience.type,
-                  ).length -
-                  (savedOptionalSkills.length + savedRequiredSkills.length);
+                const irrelevantSkillCount = getIrrelevantSkillCount(
+                  hardCriteria,
+                  experience,
+                  experienceSkills,
+                );
 
                 return (
                   applicationExperienceAccordion(
@@ -715,7 +712,20 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
 
-  const filteredSkills = criteria.reduce(
+  const softSkills = removeDuplicatesById(
+    criteria
+      .map((criterion) => getSkillOfCriteria(criterion, skills))
+      .filter(notEmpty)
+      .filter((skill) => skill.skill_type_id === SkillTypeId.Soft),
+  );
+
+  // For most purposes, this page should only list Hard Skills
+  const hardCriteria = criteria.filter((criterion) => {
+    const skill = getSkillOfCriteria(criterion, skills);
+    return skill?.skill_type_id === SkillTypeId.Hard;
+  });
+
+  const hardSkills = hardCriteria.reduce(
     (result, criterion): { essential: Skill[]; asset: Skill[] } => {
       const skillOfCriterion = getSkillOfCriteria(criterion, skills);
       if (skillOfCriterion) {
@@ -731,8 +741,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
   );
 
-  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
-  const assetSkills = removeDuplicatesById(filteredSkills.asset);
+  const essentialSkills = removeDuplicatesById(hardSkills.essential);
+  const assetSkills = removeDuplicatesById(hardSkills.asset);
 
   const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
     experiences,
@@ -755,6 +765,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
       <MyExperience
         assetSkills={assetSkills}
         disconnectedRequiredSkills={disconnectedRequiredSkills}
+        softSkills={softSkills}
+        hardCriteria={hardCriteria}
         hasError={hasError}
         experiences={experiences}
         educationStatuses={educationStatuses}

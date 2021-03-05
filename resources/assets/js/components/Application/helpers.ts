@@ -85,7 +85,7 @@ export const getJustificationOfExperience = (
 };
 
 export const getIrrelevantSkillCount = (
-  criteria: Criteria[],
+  hardCriteria: Criteria[],
   experience: Experience,
   experienceSkills: ExperienceSkill[],
 ): number => {
@@ -96,7 +96,7 @@ export const getIrrelevantSkillCount = (
   );
   const irrelevantSkills = relatedSkills.filter(
     (experienceSkill) =>
-      !criteria.some(
+      !hardCriteria.some(
         (criterion) => criterion.skill_id === experienceSkill.skill_id,
       ),
   );
