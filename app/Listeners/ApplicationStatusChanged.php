@@ -40,51 +40,46 @@ class ApplicationStatusChanged
             $userText = '{null}';
         }
 
-        $essentialCriteriaType = CriteriaType::where('name', 'essential')->first()->id;
-        $hardSkillType = SkillType::where('name', 'hard')->first()->id;
-
-        $jobCriteria = $application->job_poster->criteria;
-        $requiredCriteriaSkillIds = $jobCriteria
-            ->filter(function ($criterion) use ($essentialCriteriaType, $hardSkillType) {
-                return $criterion->criteria_type_id === $essentialCriteriaType
-                    && $criterion->skill->skill_type_id === $hardSkillType;
-            })
-            ->pluck('skill_id')
-            ->all();
-        // Get all Experiences belonging to the application, or applicant (if draft),
-        // that are assigned to required Criteria.
-        $experiences = ExperienceSkill::whereHasMorph(
-            'experience',
-            '*',
-            function (Builder $query) use ($application): void {
-                $query->where([
-                    ['experienceable_type', $application->isDraft() ? 'applicant' : 'application'],
-                    ['experienceable_id', $application->isDraft() ? $application->applicant->id : $application->id]
-                ]);
-            }
-        )
-        ->whereIn('skill_id', $requiredCriteriaSkillIds)
-        ->get();
-
         // Log when application is first created
         if ($application->wasRecentlyCreated) {
-            $applicationText = '{id=' . $application->id . ', status=' . $application->application_status->name . '}';
+            $applicationText = '{id=' . $application->id . ', status=' . $application->application_status->name . ', job_poster_id=' . $application->job_poster_id . '}';
             $logArray = [
                 'message' => 'Application created: application ' . $applicationText . ' has been created by user ' . $userText,
-                'application' => $application,
-                'experiences' => $experiences
             ];
             Log::notice(json_encode($logArray));
         }
         // Log if application status has been changed
         elseif ($application->application_status_id != $application->getOriginal('application_status_id')) {
             $freshApplication = $application->fresh();
-            $applicationText = '{id=' . $freshApplication->id . '}';
-            $statusText = '{' . $freshApplication->application_status->name . '}';
+            $hardSkillType = SkillType::where('name', 'hard')->first()->id;
+            $jobCriteria = $application->job_poster->criteria;
+            $requiredCriteriaSkillIds = $jobCriteria
+                ->filter(function ($criterion) use ($hardSkillType) {
+                    return $criterion->skill->skill_type_id === $hardSkillType;
+                })
+                ->pluck('skill_id')
+                ->all();
+            // Get all Experiences belonging to the application, or applicant (if draft),
+            // that are assigned to required Criteria.
+            $experiences = ExperienceSkill::whereHasMorph(
+                'experience',
+                '*',
+                function (Builder $query) use ($application): void {
+                    $query->where([
+                        ['experienceable_type', $application->isDraft() ? 'applicant' : 'application'],
+                        ['experienceable_id', $application->isDraft() ? $application->applicant->id : $application->id]
+                    ]);
+                }
+            )
+            ->whereIn('skill_id', $requiredCriteriaSkillIds)
+            ->get();
 
+            $applicationText = '{id=' . $freshApplication->id . '}';
+            $jobPosterText = '{job_poster_id=' . $freshApplication->job_poster_id . '}';
+            $statusText = '{' . $freshApplication->application_status->name . '}';
             $logArray = [
-                'message' => 'Application status changed: application ' . $applicationText . ' has been changed to ' . $statusText . ' by user ' . $userText,
-                'application' => $application,
+                'message' => 'Application status changed: application ' . $applicationText . ' for ' . $jobPosterText . ' has been changed to ' . $statusText . ' by user ' . $userText,
+                'application' => $freshApplication->toArray(),
                 'experiences' => $experiences
             ];
             Log::notice(json_encode($logArray));
