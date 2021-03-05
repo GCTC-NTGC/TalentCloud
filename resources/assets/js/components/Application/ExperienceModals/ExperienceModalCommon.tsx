@@ -165,29 +165,37 @@ export const ExperienceModalFooterH2: React.FC<{
   buttonsDisabled: boolean;
 }> = ({ buttonsDisabled = false }) => {
   return (
-    <Dialog.Actions data-h2-padding="b(all, .5)" data-h2-align="b(right)">
-      <Dialog.ActionBtn
-        buttonStyling="theme-1, round, outline"
-        disabled={buttonsDisabled}
-      >
-        <FormattedMessage
-          id="application.experienceModal.cancel"
-          defaultMessage="Cancel"
-          description="Cancel button text"
-        />
-      </Dialog.ActionBtn>
-      <div data-c-alignment="base(right)">
-        <Dialog.ActionBtn
-          buttonStyling="theme-1, round, solid"
-          disabled={buttonsDisabled}
-          type="submit"
-        >
-          <FormattedMessage
-            id="application.experienceModal.save"
-            defaultMessage="Save Experience"
-            description="Save button text"
-          />
-        </Dialog.ActionBtn>
+    <Dialog.Actions>
+      <div data-h2-grid="b(middle, contained, padded, 1)">
+        <div data-h2-grid-item="b(1of1) s(1of2)">
+          <div data-h2-grid-content data-h2-align="b(center) s(left)">
+            <Dialog.ActionBtn
+              buttonStyling="theme-1, round, medium, outline"
+              disabled={buttonsDisabled}
+            >
+              <FormattedMessage
+                id="application.experienceModal.cancel"
+                defaultMessage="Cancel"
+                description="Cancel button text"
+              />
+            </Dialog.ActionBtn>
+          </div>
+        </div>
+        <div data-h2-grid-item="b(1of1) s(1of2)">
+          <div data-h2-grid-content data-h2-align="b(center) s(right)">
+            <Dialog.ActionBtn
+              buttonStyling="theme-1, round, medium, solid"
+              disabled={buttonsDisabled}
+              type="submit"
+            >
+              <FormattedMessage
+                id="application.experienceModal.save"
+                defaultMessage="Save Experience"
+                description="Save button text"
+              />
+            </Dialog.ActionBtn>
+          </div>
+        </div>
       </div>
     </Dialog.Actions>
   );
