@@ -241,6 +241,12 @@ export const experienceMessages = defineMessages({
     defaultMessage: "Experience failed to render (experience type missing).",
     description: "Error message displayed when experience fails to render.",
   },
+  softSkillsList: {
+    id: "application.experience.softSkillsList",
+    defaultMessage:
+      "Don't forget, {skill} will be evaluated later in the hiring process.",
+    description: "List of soft skills that will be evaluated later.",
+  },
 });
 
 export const educationRequirementMessages = defineMessages({
