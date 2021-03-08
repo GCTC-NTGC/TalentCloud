@@ -1,6 +1,6 @@
 /* eslint camelcase: "off" */
 import dayjs from "dayjs";
-import _ from "lodash";
+import random from "lodash/random";
 import { ExperienceSkill, Skill, Experience } from "../models/types";
 import {
   fakeExperienceAward,
@@ -80,7 +80,7 @@ export const createFakeExperienceSkill = (
   experience: Experience,
   skill: Skill,
 ): ExperienceSkill => ({
-  id: _.random(1, 10000),
+  id: random(1, 10000),
   skill_id: skill.id,
   experience_id: experience.id,
   experience_type: experience.type,
