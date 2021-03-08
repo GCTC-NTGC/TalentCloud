@@ -300,23 +300,17 @@ export interface Skill {
   is_culture_skill: boolean;
   is_future_skill: boolean;
   classifications: Classification[];
+  skill_category_ids: number[];
 }
 export interface SkillCategory {
   id: number;
   key: string;
   name: localizedFieldNonNull;
-  description: localizedFieldNonNull;
+  // description: localizedFieldNonNull;
   parent_id: number | null;
   lft: number;
   rgt: number;
   depth: number;
-  skills: Skill[];
-}
-
-export interface SkillSkillCategory {
-  id: number;
-  skill_id: number;
-  skill_category_id: number;
 }
 
 // Version of Assessment that hasn't been saved to server yet

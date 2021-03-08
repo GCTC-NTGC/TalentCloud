@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BatchStoreExperienceSkill;
 use App\Http\Requests\BatchUpdateExperienceSkill;
 use App\Http\Requests\StoreExperienceSkill;
+use App\Models\Applicant;
 use App\Models\ExperienceSkill;
 use App\Models\Experience;
 use Illuminate\Http\Request;
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\DB;
 
 class ExperienceSkillsController extends Controller
 {
+    public function indexForApplicant(Applicant $applicant)
+    {
+        $experienceSkills = $applicant->experienceSkillsQuery()->get();
+        return JsonResource::collection($experienceSkills);
+    }
+
     public function store(StoreExperienceSkill $request)
     {
         $validatedData = $request->validated();
@@ -107,6 +114,19 @@ class ExperienceSkillsController extends Controller
                     $experienceSkill->save();
                     $experienceSkill->fresh();
                     array_push($response, $experienceSkill);
+                }
+
+                // Attach skill to applicant if not already attached.
+                $experience = new Experience();
+                $experienceInstance = $experience->getExperienceInstance($newExperienceSkill['experience_type'], $newExperienceSkill['experience_id']);
+                $applicantInstance = $experience->getApplicantInstance($experienceInstance);
+                if ($applicantInstance !== null) {
+                    $skillApplicantRelationshipExists = $applicantInstance->skills()
+                    ->where('skills.id', $newExperienceSkill['skill_id'])
+                    ->exists();
+                    if (!$skillApplicantRelationshipExists) {
+                        $applicantInstance->skills()->attach($newExperienceSkill['skill_id']);
+                    }
                 }
             }
         }, 3); // Retry transaction up to three times if deadlock occurs.

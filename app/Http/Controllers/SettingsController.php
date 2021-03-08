@@ -106,7 +106,7 @@ class SettingsController extends Controller
     {
         $validData = $request->validate([
             'current_password' => ['required', new PasswordCorrectRule],
-            'new_password' => ['required', new PasswordFormatRule],
+            'new_password' => ['required', 'min:9', 'max:100', new PasswordFormatRule],
             'new_confirm_password' => ['required', 'same:new_password']
         ]);
 

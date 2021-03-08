@@ -308,6 +308,58 @@ class SettingsControllerTest extends TestCase
     }
 
     /**
+     * Ensure illegal new password (too few characters) is invalid.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithIllegalMinPassword(): void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+        $password = ['password' => $this->applicant->user->password];
+        $data = [
+            'current_password' => 'Testing123!',
+            'new_password' => 'Test123!',
+            'new_confirm_password' => 'Test123!',
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.password.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Error message visible.
+        $response->assertSee(Lang::get('forms.alert'));
+        // Password was not updated.
+        $this->assertDatabaseHas('users', $password);
+    }
+
+    /**
+     * Ensure illegal new password (too many characters) is invalid.
+     *
+     * @return void
+     */
+    public function testUpdatePasswordFailsWithIllegalMaxPassword(): void
+    {
+        $response = $this->actingAs($this->applicant->user)
+            ->get(route('settings.edit'));
+        $response->assertOk();
+        $password = ['password' => $this->applicant->user->password];
+        $data = [
+            'current_password' => 'Testing123!',
+            'new_password' => 'Test!012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345', // 101 characters
+            'new_confirm_password' => 'Test!012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345', // 101 characters
+        ];
+        $response = $this->followingRedirects()
+            ->actingAs($this->applicant->user)
+            ->post(route('settings.password.update', $this->applicant->user), $data);
+        $response->assertOk();
+        // Error message visible.
+        $response->assertSee(Lang::get('forms.alert'));
+        // Password was not updated.
+        $this->assertDatabaseHas('users', $password);
+    }
+
+    /**
      * Ensure old password mismatch is invalid.
      *
      * @return void

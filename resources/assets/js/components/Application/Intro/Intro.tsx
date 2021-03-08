@@ -39,7 +39,7 @@ const ApplicationIntro: React.FC<IntroProps> = ({ handleStart }) => {
           <li>
             <FormattedMessage
               id="application.intro.firstBullet"
-              defaultMessage="We'll start by asking you about your experiences, varying across academia, work, community, and more. Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position."
+              defaultMessage="We'll start by asking you about your experiences, varying across academia, work, community, and more."
               description="Bullet point about the beginning of the application process."
             />
           </li>

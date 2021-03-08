@@ -1,94 +1,55 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import {
-  injectIntl,
-  FormattedMessage,
-  WrappedComponentProps,
-} from "react-intl";
-import { ApiError } from "redux-api-middleware";
-import { ErrorEntity } from "../store/Error/errorReducer";
-import { clearErrors } from "../store/Error/errorActions";
-import { getRecentError } from "../store/Error/errorSelector";
-import { RootState } from "../store/store";
-import { DispatchType } from "../configureStore";
+import React, { useCallback, useContext } from "react";
+import { defineMessages, useIntl } from "react-intl";
+import { ErrorContext } from "./ErrorContainer";
+import Alert from "./H2Components/Alert";
 
-const constructErrorMessage = (error: ErrorEntity): string => {
-  if (error.error instanceof ApiError) {
-    // if error was of type redux-api-middleware/ApiError, we may be able to extract extra info from the response.
-    const apiError = error.error;
-    if (apiError.status && apiError.response && apiError.response.message) {
-      return `${apiError.status} - ${apiError.response.message}`;
-    }
-  }
-  return error.message;
-};
-interface ErrorToastProps {
-  error: ErrorEntity;
-  dispatchClearErrors: () => void;
-}
-const ErrorToast: React.FC<ErrorToastProps & WrappedComponentProps> = ({
-  error,
-  dispatchClearErrors,
-}): React.ReactElement => {
-  useEffect((): (() => void) => {
-    const timer = setInterval((): void => {
-      dispatchClearErrors();
-      clearInterval(timer);
-    }, 3500);
-    return (): void => {
-      clearInterval(timer);
-    };
-  }, [dispatchClearErrors, error]);
+export const errorMessages = defineMessages({
+  toastTitle: {
+    id: "errorToast.title",
+    defaultMessage: "Something went wrong!",
+    description: "Title displayed on the Error Toast component.",
+  },
+  dismissLabel: {
+    id: "errorToast.dismiss",
+    defaultMessage: "Dismiss",
+    description: "Label for the Error Toast dismiss button.",
+  },
+});
+
+export const ErrorToast: React.FC = () => {
+  const intl = useIntl();
+  const { state, dispatch } = useContext(ErrorContext);
+  const dismiss = useCallback(() => dispatch({ type: "pop" }), [dispatch]);
+
+  // This toast will render the first error in the queue, if any.
+  const currentError = state.errorQueue.length > 0 ? state.errorQueue[0] : null;
 
   return (
     <>
-      {error !== undefined && (
-        <div data-c-alert="error(toast)" data-c-radius="rounded" role="alert">
-          <div data-c-padding="half">
-            <span data-c-margin="bottom(quarter)" data-c-font-weight="bold">
-              <FormattedMessage
-                id="errorToast.title"
-                defaultMessage="Something went wrong!"
-                description="Title displayed on the Error Toast component."
-              />
-            </span>
-            <p>{constructErrorMessage(error)}</p>
-          </div>
-          <button
-            type="button"
-            onClick={(): void => {
-              dispatchClearErrors();
-            }}
-            data-c-alert="close-trigger"
-            data-c-padding="half"
-          >
-            <i className="fa fa-times-circle" />
-          </button>
-        </div>
+      {currentError !== null && (
+        <Alert
+          color="stop"
+          position="toast"
+          data-h2-radius="b(round)"
+          data-h2-padding="b(all, .25)"
+          dismissBtn={
+            <Alert.DismissBtn
+              onClick={dismiss}
+              data-h2-padding="b(all, .25)"
+              aria-label={intl.formatMessage(errorMessages.dismissLabel)}
+            >
+              <i className="fa fa-times-circle" />
+            </Alert.DismissBtn>
+          }
+        >
+          <Alert.Title>
+            <strong>{intl.formatMessage(errorMessages.toastTitle)}</strong>
+          </Alert.Title>
+          <p>{currentError}</p>
+        </Alert>
       )}
     </>
   );
 };
 
-const mapStateToProps = (
-  state: RootState,
-): {
-  error: ErrorEntity;
-} => ({
-  error: getRecentError(state),
-});
-
-const mapDispatchToProps = (
-  dispatch: DispatchType,
-): { dispatchClearErrors: () => void } => ({
-  dispatchClearErrors: (): void => {
-    dispatch(clearErrors());
-  },
-});
-
-const ErrorToastContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(injectIntl(ErrorToast));
-
-export default ErrorToastContainer;
+export default ErrorToast;

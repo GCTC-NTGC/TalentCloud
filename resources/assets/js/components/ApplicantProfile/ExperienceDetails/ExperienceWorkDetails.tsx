@@ -78,11 +78,10 @@ const ExperienceWorkDetails: FunctionComponent<{
             {intl.formatMessage(detailsMessages.endDateLabel)}
           </p>
           {isActive && <p>{intl.formatMessage(detailsMessages.ongoing)}</p>}
-          {!isActive && endDate ? (
+          {!isActive && endDate && (
             <p>{readableDateFromString(locale, endDate)}</p>
-          ) : (
-            notApplicable
           )}
+          {!isActive && !endDate && notApplicable}
         </div>
       </div>
     </div>
