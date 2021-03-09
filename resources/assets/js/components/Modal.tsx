@@ -97,7 +97,7 @@ export default function Modal({
         document.removeEventListener("keydown", keyListener);
       }
     };
-  });
+  }, [keyListenersMap, visible]);
 
   if (parentElement !== null) {
     return createPortal(
