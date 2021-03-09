@@ -34,7 +34,7 @@ export default function Modal({
   const handleTabKey = (e: KeyboardEvent): void => {
     if (modalRef && modalRef.current) {
       const focusableModalElements = modalRef.current.querySelectorAll(
-        'a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select',
+        "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
       );
       const firstElement = focusableModalElements[0] as HTMLElement;
       const lastElement = focusableModalElements[
