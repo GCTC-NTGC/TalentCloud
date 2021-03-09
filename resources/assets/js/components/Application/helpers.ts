@@ -85,7 +85,7 @@ export const getJustificationOfExperience = (
 };
 
 export const getIrrelevantSkillCount = (
-  criteria: Criteria[],
+  hardCriteria: Criteria[],
   experience: Experience,
   experienceSkills: ExperienceSkill[],
 ): number => {
@@ -96,11 +96,29 @@ export const getIrrelevantSkillCount = (
   );
   const irrelevantSkills = relatedSkills.filter(
     (experienceSkill) =>
-      !criteria.some(
+      !hardCriteria.some(
         (criterion) => criterion.skill_id === experienceSkill.skill_id,
       ),
   );
   return irrelevantSkills.length;
+};
+
+export const getRelevantExpSkills = (
+  hardCriteria: Criteria[],
+  experience: Experience,
+  experienceSkills: ExperienceSkill[],
+): ExperienceSkill[] => {
+  const relatedSkills = experienceSkills.filter(
+    (experienceSkill) =>
+      experienceSkill.experience_type === experience.type &&
+      experienceSkill.experience_id === experience.id,
+  );
+  const relevantSkills = relatedSkills.filter((experienceSkill) =>
+    hardCriteria.some(
+      (criterion) => criterion.skill_id === experienceSkill.skill_id,
+    ),
+  );
+  return relevantSkills;
 };
 
 /**
