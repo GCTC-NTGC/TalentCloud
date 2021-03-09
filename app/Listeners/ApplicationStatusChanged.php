@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Lookup\CriteriaType;
 use App\Models\Lookup\SkillType;
+use App\Http\Resources\Experience as ExperienceResource;
 
 class ApplicationStatusChanged
 {
@@ -51,6 +52,7 @@ class ApplicationStatusChanged
         // Log if application status has been changed
         elseif ($application->application_status_id != $application->getOriginal('application_status_id')) {
             $freshApplication = $application->fresh();
+
             $hardSkillType = SkillType::where('name', 'hard')->first()->id;
             $jobCriteria = $application->job_poster->criteria;
             $requiredCriteriaSkillIds = $jobCriteria
@@ -61,7 +63,7 @@ class ApplicationStatusChanged
                 ->all();
             // Get all Experiences belonging to the application, or applicant (if draft),
             // that are assigned to required Criteria.
-            $experiences = ExperienceSkill::whereHasMorph(
+            $experienceSkills = ExperienceSkill::whereHasMorph(
                 'experience',
                 '*',
                 function (Builder $query) use ($application): void {
@@ -74,13 +76,29 @@ class ApplicationStatusChanged
             ->whereIn('skill_id', $requiredCriteriaSkillIds)
             ->get();
 
+            $freshApplication->load([
+                'experiences_work',
+                'experiences_personal',
+                'experiences_education',
+                'experiences_award',
+                'experiences_community',
+            ]);
+            $experiences = array_merge(
+                ExperienceResource::collection($freshApplication->experiences_work)->all(),
+                ExperienceResource::collection($freshApplication->experiences_personal)->all(),
+                ExperienceResource::collection($freshApplication->experiences_education)->all(),
+                ExperienceResource::collection($freshApplication->experiences_award)->all(),
+                ExperienceResource::collection($freshApplication->experiences_community)->all()
+            );
+
             $applicationText = '{id=' . $freshApplication->id . '}';
             $jobPosterText = '{job_poster_id=' . $freshApplication->job_poster_id . '}';
             $statusText = '{' . $freshApplication->application_status->name . '}';
             $logArray = [
                 'message' => 'Application status changed: application ' . $applicationText . ' for ' . $jobPosterText . ' has been changed to ' . $statusText . ' by user ' . $userText,
                 'application' => $freshApplication->toArray(),
-                'experiences' => $experiences
+                'experiences' => $experiences,
+                'experiences_skills' => $experienceSkills
             ];
             Log::notice(json_encode($logArray));
         }
