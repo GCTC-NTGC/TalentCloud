@@ -31,15 +31,33 @@ export default function Modal({
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const getFocusableModalElements = () =>
+    modalRef && modalRef.current
+      ? modalRef.current.querySelectorAll(
+          "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+        )
+      : [];
+
   const handleTabKey = (e: KeyboardEvent): void => {
     if (modalRef && modalRef.current) {
-      const focusableModalElements = modalRef.current.querySelectorAll(
-        "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
-      );
+      const focusableModalElements = getFocusableModalElements();
+
+      if (focusableModalElements.length === 0) {
+        e.preventDefault(); // TODO: should this throw an error?
+        return;
+      }
+
       const firstElement = focusableModalElements[0] as HTMLElement;
       const lastElement = focusableModalElements[
         focusableModalElements.length - 1
       ] as HTMLElement;
+
+      if (focusableModalElements.length === 1) {
+        // This check to avoid strange behaviour if firstElement == lastElement.
+        firstElement.focus();
+        e.preventDefault();
+        return;
+      }
 
       const focusableModalElementsArray = Array.from(focusableModalElements);
 
@@ -49,11 +67,13 @@ export default function Modal({
       ) {
         firstElement.focus();
         e.preventDefault();
+        return;
       }
 
       if (!e.shiftKey && document.activeElement === lastElement) {
         firstElement.focus();
         e.preventDefault();
+        return;
       }
 
       if (e.shiftKey && document.activeElement === firstElement) {
@@ -98,6 +118,17 @@ export default function Modal({
       }
     };
   }, [keyListenersMap, visible]);
+
+  // Focus the first focusable element when the modal becomes visible.
+  useEffect(() => {
+    if (visible) {
+      const focusableModalElements = getFocusableModalElements();
+      if (focusableModalElements.length > 0) {
+        const firstElement = focusableModalElements[0] as HTMLElement;
+        firstElement.focus();
+      }
+    }
+  }, [visible]);
 
   if (parentElement !== null) {
     return createPortal(
