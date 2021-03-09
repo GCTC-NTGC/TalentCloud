@@ -89,7 +89,7 @@ class JobApplicationTest extends TestCase
         $this->assertTrue($applicationGoodSkills->meetsEssentialCriteria());
 
         // Should check applicant profile skills, not application skills, for draft posters.
-        // So draft poster with skills, whith empty profile, should fail.
+        // So draft poster with skills, with empty profile, should fail.
         $draftApplicationEmptyProfile = factory(JobApplication::class)->state('draft')->make([
             'job_poster_id' => $jobPoster->id
         ]);
