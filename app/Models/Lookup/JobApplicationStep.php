@@ -18,6 +18,6 @@ class JobApplicationStep extends BaseModel
 {
     public function touched_application_steps() //phpcs:ignore
     {
-        return $this->hasMany(\App\Models\Lookup\TouchedApplicationStep::class);
+        return $this->hasMany(\App\Models\TouchedApplicationStep::class);
     }
 }
