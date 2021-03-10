@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
@@ -86,11 +86,16 @@ export const ModalButton: React.FunctionComponent<{
   id: Experience["type"];
   title: string;
   icon: string;
-  openModal: (id: Experience["type"]) => void;
+  openModal: (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement>,
+  ) => void;
 }> = ({ id, title, icon, openModal }) => {
+  const ref = useRef<HTMLButtonElement>(null);
   return (
     <div key={id} data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
       <button
+        ref={ref}
         className="application-experience-trigger"
         data-c-card
         data-c-background="c1(100)"
@@ -99,7 +104,7 @@ export const ModalButton: React.FunctionComponent<{
         data-c-dialog-id={id}
         data-c-dialog-action="open"
         type="button"
-        onClick={(): void => openModal(id)}
+        onClick={(): void => openModal(id, ref)}
       >
         <i className={icon} aria-hidden="true" />
         <span data-c-font-size="regular" data-c-font-weight="bold">

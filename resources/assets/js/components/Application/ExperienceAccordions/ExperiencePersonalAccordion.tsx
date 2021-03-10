@@ -122,7 +122,7 @@ interface ProfilePersonalAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfilePersonalAccordion: React.FC<ProfilePersonalAccordionProps> = ({

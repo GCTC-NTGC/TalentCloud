@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React, { createRef, useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import { string } from "yup/lib/locale";
 import {
   Experience,
   Skill,
@@ -47,7 +48,7 @@ const profileExperienceAccordion = (
   experience: Experience,
   relevantSkills: ExperienceSkill[],
   skillsById: { [id: number]: Skill },
-  handleEdit: () => void,
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void,
   handleDelete: () => Promise<void>,
 ): React.ReactElement | null => {
   switch (experience.type) {
@@ -197,9 +198,11 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   const [isModalVisible, setIsModalVisible] = React.useState<{
     id: Experience["type"] | "";
     visible: boolean;
+    triggerRef: React.RefObject<HTMLButtonElement> | null;
   }>({
     id: "",
     visible: false,
+    triggerRef: null,
   });
 
   const [experienceData, setExperienceData] = React.useState<Experience | null>(
@@ -208,13 +211,19 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
 
   const modalButtons = modalButtonProps(intl);
 
-  const openModal = (id: Experience["type"]): void => {
-    setIsModalVisible({ id, visible: true });
+  const openModal = (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
+  ): void => {
+    setIsModalVisible({ id, visible: true, triggerRef });
   };
 
   const closeModal = (): void => {
     setExperienceData(null);
-    setIsModalVisible({ id: "", visible: false });
+    if (isModalVisible.triggerRef?.current) {
+      isModalVisible.triggerRef.current.focus();
+    }
+    setIsModalVisible({ id: "", visible: false, triggerRef: null });
   };
 
   const updateExperience = (data: ExperienceSubmitData<Experience>) =>
@@ -222,9 +231,12 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
   const createExperience = (data: ExperienceSubmitData<Experience>) =>
     handleCreateExperience(data).then(closeModal);
 
-  const editExperience = (experience: Experience): void => {
+  const editExperience = (
+    experience: Experience,
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
+  ): void => {
     setExperienceData(experience);
-    setIsModalVisible({ id: experience.type, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true, triggerRef });
   };
 
   const deleteExperience = (experience: Experience): Promise<void> =>
@@ -256,7 +268,7 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
     if (uriHash && experienceCurrent) {
       toggleAccordion(uriHash.substring(1));
       // Open edit experience modal.
-      editExperience(experienceCurrent);
+      editExperience(experienceCurrent, null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // useEffect should only run on mount and unmount.
@@ -283,8 +295,8 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
             const { id, title, icon } = buttonProps;
             return (
               <ModalButton
-                key={id}
                 id={id}
+                key={id}
                 title={title}
                 icon={icon}
                 openModal={openModal}
@@ -301,7 +313,9 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
                   experienceSkills,
                   experience,
                 );
-                const handleEdit = () => editExperience(experience);
+                const handleEdit = (
+                  triggerRef: React.RefObject<HTMLButtonElement>,
+                ) => editExperience(experience, triggerRef);
                 const handleDelete = () => deleteExperience(experience);
                 const errorAccordion = () => (
                   <div

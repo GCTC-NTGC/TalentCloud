@@ -99,7 +99,7 @@ interface ProfileAwardAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
