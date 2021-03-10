@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { getFocusableElements } from "../helpers/forms";
 
 interface ModalProps {
   id: string;
@@ -32,11 +33,7 @@ export default function Modal({
   const modalRef = useRef<HTMLDivElement>(null);
 
   const getFocusableModalElements = () =>
-    modalRef && modalRef.current
-      ? modalRef.current.querySelectorAll(
-          "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
-        )
-      : [];
+    modalRef && modalRef.current ? getFocusableElements(modalRef.current) : [];
 
   const handleTabKey = (e: KeyboardEvent): void => {
     if (modalRef && modalRef.current) {
@@ -63,7 +60,9 @@ export default function Modal({
 
       if (
         document.activeElement &&
-        !focusableModalElementsArray.includes(document.activeElement)
+        !focusableModalElementsArray.includes(
+          document.activeElement as HTMLElement,
+        )
       ) {
         firstElement.focus();
         e.preventDefault();

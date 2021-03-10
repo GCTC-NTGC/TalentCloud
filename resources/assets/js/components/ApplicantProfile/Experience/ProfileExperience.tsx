@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
-import React, { createRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import { string } from "yup/lib/locale";
 import {
   Experience,
   Skill,
@@ -18,7 +17,7 @@ import {
 } from "../../Application/Experience/Experience";
 import { mapToObject, getId } from "../../../helpers/queries";
 import { experienceMessages } from "../../Application/applicationMessages";
-import { toggleAccordion } from "../../../helpers/forms";
+import { getFocusableElements, toggleAccordion } from "../../../helpers/forms";
 import { useUrlHash } from "../../../helpers/router";
 
 import { getExperienceSkillsOfExperience } from "../../Application/helpers";
@@ -222,6 +221,11 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
     setExperienceData(null);
     if (isModalVisible.triggerRef?.current) {
       isModalVisible.triggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
     }
     setIsModalVisible({ id: "", visible: false, triggerRef: null });
   };
