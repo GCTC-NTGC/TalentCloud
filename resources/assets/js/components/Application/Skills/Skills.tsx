@@ -11,7 +11,6 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { useDispatch } from "react-redux";
 import {
   ExperienceSkill,
   Skill,
@@ -55,6 +54,7 @@ import {
   validateAllForms,
   submitAllForms,
   focusOnElement,
+  getFocusableElements,
 } from "../../../helpers/forms";
 import {
   find,
@@ -105,6 +105,25 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         ))}
       </ul>
     </div>
+  );
+};
+
+const SkillTitleButton: React.FunctionComponent<{
+  modalId: string;
+  handleClick: (ref: React.RefObject<HTMLButtonElement>) => void;
+  skillName: string;
+}> = ({ modalId, handleClick, skillName }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  return (
+    <button
+      ref={ref}
+      data-c-font-size="h3"
+      data-c-dialog-id={modalId}
+      type="button"
+      onClick={() => handleClick(ref)}
+    >
+      {skillName}
+    </button>
   );
 };
 
@@ -416,6 +435,9 @@ interface SkillsProps {
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
+  handleBatchUpdateExperienceSkills: (
+    experienceSkillsToUpdate: ExperienceSkill[],
+  ) => Promise<void>;
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<void>;
@@ -430,12 +452,12 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills,
   skills,
   handleUpdateExperienceJustification,
+  handleBatchUpdateExperienceSkills,
   handleRemoveExperienceJustification,
   handleContinue,
   handleQuit,
   handleReturn,
 }) => {
-  const dispatch = useDispatch();
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
@@ -444,9 +466,28 @@ const Skills: React.FC<SkillsProps> = ({
 
   const modalId = "skill-description";
   const [visible, setVisible] = useState(false);
-  const [modalHeading, setModalHeading] = useState("");
-  const [modalBody, setModalBody] = useState("");
+  const [modalContent, setModalContent] = useState<{
+    heading: string;
+    body: string;
+  }>({ heading: "", body: "" });
+  const [
+    modalTriggerRef,
+    setModalTriggerRef,
+  ] = useState<RefObject<HTMLButtonElement> | null>(null);
   const modalParentRef = useRef<HTMLDivElement>(null);
+
+  const closeModal = () => {
+    setVisible(false);
+    if (modalTriggerRef?.current) {
+      modalTriggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setModalTriggerRef(null);
+  };
 
   // This page should only list Hard Skills
   const hardCriteria = criteria.filter((criterion) => {
@@ -529,7 +570,7 @@ const Skills: React.FC<SkillsProps> = ({
       );
       if (experienceSkillsToUpdate.length > 0) {
         try {
-          await dispatch(batchUpdateExperienceSkills(experienceSkillsToUpdate));
+          await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
           setIsSubmitting(false);
           return Promise.resolve();
         } catch {
@@ -685,18 +726,18 @@ const Skills: React.FC<SkillsProps> = ({
                     data-c-margin="bottom(1)"
                     id={skillHtmlId}
                   >
-                    <button
-                      data-c-font-size="h3"
-                      data-c-dialog-id={modalId}
-                      type="button"
-                      onClick={(e): void => {
-                        setModalHeading(skillName);
-                        setModalBody(skillDescription);
+                    <SkillTitleButton
+                      modalId={modalId}
+                      skillName={skillName}
+                      handleClick={(ref): void => {
+                        setModalContent({
+                          heading: skillName,
+                          body: skillDescription,
+                        });
+                        setModalTriggerRef(ref);
                         setVisible(true);
                       }}
-                    >
-                      {skillName}
-                    </button>
+                    />
                     <br />
                     <a
                       data-c-font-size="normal"
@@ -870,8 +911,8 @@ const Skills: React.FC<SkillsProps> = ({
         id={modalId}
         parentElement={modalParentRef.current}
         visible={visible}
-        onModalConfirm={(e): void => setVisible(false)}
-        onModalCancel={(e): void => setVisible(false)}
+        onModalConfirm={closeModal}
+        onModalCancel={closeModal}
       >
         <Modal.Header>
           <div
@@ -887,16 +928,16 @@ const Skills: React.FC<SkillsProps> = ({
                 id={`${modalId}-title`}
                 data-c-dialog-focus=""
                 data-c-color="white"
+                tabIndex={0}
               >
-                {modalHeading}
+                {modalContent.heading}
               </h5>
               <button
                 data-c-dialog-action="close"
                 data-c-dialog-id={`${modalId}`}
                 type="button"
                 data-c-color="white"
-                tabIndex={0}
-                onClick={(e): void => setVisible(false)}
+                onClick={closeModal}
               >
                 <i className="fas fa-times" />
               </button>
@@ -907,7 +948,7 @@ const Skills: React.FC<SkillsProps> = ({
           <div data-c-border="bottom(thin, solid, black)">
             <div id={`${modalId}-description`}>
               <div data-c-container="medium" data-c-padding="tb(1)">
-                <p>{modalBody}</p>
+                <p>{modalContent.body}</p>
               </div>
             </div>
           </div>
