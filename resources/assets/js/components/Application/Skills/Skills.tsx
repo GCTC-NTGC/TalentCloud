@@ -69,7 +69,7 @@ import { SkillTypeId } from "../../../models/lookupConstants";
 export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
-  menuSkills: { [skillId: number]: string };
+  menuSkills: { id: number; name: string }[];
   intl: IntlShape;
   status: SkillStatus;
 }
@@ -89,17 +89,17 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         />
       </p>
       <ul>
-        {Object.keys(menuSkills).map((skillId) => (
-          <li key={skillId}>
+        {menuSkills.map((skill) => (
+          <li key={skill.id}>
             <StatusIcon
-              status={computeParentStatus(status, Number(skillId))}
+              status={computeParentStatus(status, Number(skill.id))}
               size=""
             />
             <a
-              href={`#${slugify(menuSkills[skillId])}`}
+              href={`#${slugify(skill.name)}`}
               title={intl.formatMessage(displayMessages.sidebarLinkTitle)}
             >
-              {menuSkills[skillId]}
+              {skill.name}
             </a>
           </li>
         ))}
@@ -467,15 +467,14 @@ const Skills: React.FC<SkillsProps> = ({
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
   const menuSkills = hardCriteria.reduce(
-    (collection: { [skillId: number]: string }, criterion: Criteria) => {
+    (collection: { id: number; name: string }[], criterion: Criteria) => {
       const skill = getSkillOfCriteria(criterion, skills);
-      if (skill && !collection[criterion.skill_id]) {
-        // eslint-disable-next-line no-param-reassign
-        collection[criterion.skill_id] = localizeFieldNonNull(
-          locale,
-          skill,
-          "name",
-        );
+      if (skill && !collection.find((a) => criterion.skill_id === a.id)) {
+        // Do not include duplicate skills.
+        collection.push({
+          id: criterion.skill_id,
+          name: localizeFieldNonNull(locale, skill, "name"),
+        });
       }
       return collection;
     },
