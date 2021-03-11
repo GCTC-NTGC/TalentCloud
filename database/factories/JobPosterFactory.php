@@ -16,8 +16,10 @@ use App\Models\Lookup\JobPosterStatus;
 use App\Models\Lookup\JobSkillLevel;
 use App\Models\Lookup\TravelRequirement;
 use App\Models\Lookup\OvertimeRequirement;
+use App\Models\Lookup\SkillType;
 use App\Models\Lookup\TalentStream;
 use App\Models\Lookup\TalentStreamCategory;
+use App\Models\Skill;
 
 $faker_fr = Faker\Factory::create('fr');
 
@@ -121,22 +123,27 @@ $factory->define(JobPoster::class, function (Faker\Generator $faker) use ($faker
 });
 
 $factory->afterCreating(JobPoster::class, function ($jp): void {
+    $hardSkillIds = Skill::where('skill_type_id', SkillType::firstWhere('name', 'hard')->id)
+        ->inRandomOrder()->limit(2)->get()->pluck('id')->all();
+    $softSkillIds = Skill::where('skill_type_id', SkillType::firstWhere('name', 'soft')->id)
+        ->inRandomOrder()->limit(2)->get()->pluck('id')->all();
+
     // Save at least one of each kind of criteria.
-    $jp->criteria()->save(factory(Criteria::class)->states(['essential', 'hard'])->make([
-        'job_poster_id' => $jp->id
+    $jp->criteria()->save(factory(Criteria::class)->states(['essential'])->make([
+        'job_poster_id' => $jp->id,
+        'skill_id' => $hardSkillIds[0],
     ]));
-    $jp->criteria()->save(factory(Criteria::class)->states(['essential', 'soft'])->make([
-        'job_poster_id' => $jp->id
+    $jp->criteria()->save(factory(Criteria::class)->states(['essential'])->make([
+        'job_poster_id' => $jp->id,
+        'skill_id' => $softSkillIds[0],
     ]));
-    $jp->criteria()->save(factory(Criteria::class)->states(['asset', 'hard'])->make([
-        'job_poster_id' => $jp->id
+    $jp->criteria()->save(factory(Criteria::class)->states(['asset'])->make([
+        'job_poster_id' => $jp->id,
+        'skill_id' => $hardSkillIds[1],
     ]));
-    $jp->criteria()->save(factory(Criteria::class)->states(['asset', 'soft'])->make([
-        'job_poster_id' => $jp->id
-    ]));
-    // Other criteria divided randomly between essential and asset.
-    $jp->criteria()->saveMany(factory(Criteria::class, 4)->make([
-        'job_poster_id' => $jp->id
+    $jp->criteria()->save(factory(Criteria::class)->states(['asset'])->make([
+        'job_poster_id' => $jp->id,
+        'skill_id' => $softSkillIds[1],
     ]));
     $order = 1;
     $jp->job_poster_key_tasks()->saveMany(factory(JobPosterKeyTask::class, 5)
