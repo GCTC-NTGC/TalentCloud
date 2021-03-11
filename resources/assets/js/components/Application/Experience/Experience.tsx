@@ -47,7 +47,7 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { focusOnElement } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/forms";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
@@ -120,7 +120,7 @@ const applicationExperienceAccordion = (
   irrelevantSkillCount: number,
   relevantSkills: ExperienceSkill[],
   skills: Skill[],
-  handleEdit: () => void,
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void,
   handleDelete: () => Promise<void>,
 ): React.ReactElement | null => {
   switch (experience.type) {
@@ -259,18 +259,31 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const [isModalVisible, setIsModalVisible] = useState<{
     id: Experience["type"] | "";
     visible: boolean;
+    triggerRef: React.RefObject<HTMLButtonElement> | null;
   }>({
     id: "",
     visible: false,
+    triggerRef: null,
   });
 
-  const openModal = (id: Experience["type"]): void => {
-    setIsModalVisible({ id, visible: true });
+  const openModal = (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
+  ): void => {
+    setIsModalVisible({ id, visible: true, triggerRef });
   };
 
   const closeModal = (): void => {
     setExperienceData(null);
-    setIsModalVisible({ id: "", visible: false });
+    if (isModalVisible.triggerRef?.current) {
+      isModalVisible.triggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setIsModalVisible({ id: "", visible: false, triggerRef: null });
   };
 
   const submitExperience = (data) =>
@@ -280,13 +293,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     experience: Experience,
     savedOptionalSkills: Skill[],
     savedRequiredSkills: Skill[],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
   ): void => {
     setExperienceData({
       ...experience,
       savedOptionalSkills,
       savedRequiredSkills,
     });
-    setIsModalVisible({ id: experience.type, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true, triggerRef });
   };
 
   const deleteExperience = (experience: Experience): Promise<void> =>
@@ -458,11 +472,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   })
                   .filter(notEmpty);
 
-                const handleEdit = () =>
+                const handleEdit = (
+                  triggerRef: React.RefObject<HTMLButtonElement> | null,
+                ) =>
                   editExperience(
                     experience,
                     savedOptionalSkills,
                     savedRequiredSkills,
+                    triggerRef,
                   );
                 const handleDelete = () => deleteExperience(experience);
 

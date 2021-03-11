@@ -188,7 +188,7 @@ interface ExperienceEducationAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordionProps> = ({

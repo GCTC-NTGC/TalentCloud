@@ -144,7 +144,7 @@ interface ExperienceAwardAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> = ({

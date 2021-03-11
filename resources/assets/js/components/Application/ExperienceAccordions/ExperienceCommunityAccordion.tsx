@@ -155,7 +155,7 @@ interface ExperienceCommunityAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordionProps> = ({
