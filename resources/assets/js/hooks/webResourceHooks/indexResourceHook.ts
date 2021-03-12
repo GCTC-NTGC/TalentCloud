@@ -339,7 +339,7 @@ export function useResourceIndex<T>(
     [endpoint, resolveEntityEndpoint, handleError, keyFn],
   );
 
-  // Despite the usual guidlines, this should only be reconsidered if endpoint changes.
+  // Despite the usual guidelines, this should only be reconsidered if endpoint changes.
   // Changing doInitialRefresh after the first run (or refresh) should not cause this to rerun.
   useEffect(() => {
     if (doInitialRefresh) {
