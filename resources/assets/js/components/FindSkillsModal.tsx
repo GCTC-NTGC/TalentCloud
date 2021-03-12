@@ -20,8 +20,8 @@ const messages = defineMessages({
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
   },
-  accordianButtonLabel: {
-    id: "findSkillsModal.accordianButtonLabel",
+  accordionButtonLabel: {
+    id: "findSkillsModal.accordionButtonLabel",
     defaultMessage: "Click to view...",
   },
   skillsResultsHeading: {

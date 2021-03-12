@@ -2913,7 +2913,7 @@
       },
       {
         "defaultMessage": "Click to view...",
-        "id": "findSkillsModal.accordianButtonLabel"
+        "id": "findSkillsModal.accordionButtonLabel"
       },
       {
         "defaultMessage": "Explore Categories",
