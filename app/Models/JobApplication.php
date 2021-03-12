@@ -509,7 +509,6 @@ class JobApplication extends BaseModel
             ->where('skill.skill_type.name', 'hard')
             ->pluck('skill_id')
             ->all();
-        dump($applicationSkillIds);
 
         $replicateAndSaveExperience = function ($experiences, $experience_type) use ($applicationSkillIds) {
             // Iterate through applicant experiences, replicate the experience, and save to the application.

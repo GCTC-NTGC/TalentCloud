@@ -323,9 +323,6 @@ class JobApplicationTest extends TestCase
         // This should copy all Experiences from the applicant, but only ExperienceSkills for hard criteria.
         $application->saveProfileSnapshotTimeline();
 
-        dump(ExperienceWork::all()->toArray());
-        dump(ExperienceSkill::all()->toArray());
-
         $application->refresh();
 
         $this->collectionConsistsOfCopy($experience, $application->experiences_award);
