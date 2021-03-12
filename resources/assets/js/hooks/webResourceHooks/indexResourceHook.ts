@@ -114,13 +114,13 @@ export const UNEXPECTED_FORMAT_ERROR =
  *
  * The api requests MUST return valid JSON (except for delete requests), or the request will be considered to have failed.
  * The response to refresh requests must be a JSON List, and update and create requests must return the resulting entity as a json object.
- * However, the JSON objects may be preprocessed before being stored localy, by overriding parseEntityResponse and/or parseIndexResponse.
+ * However, the JSON objects may be preprocessed before being stored locally, by overriding parseEntityResponse and/or parseIndexResponse.
  *
  * *** Hook Values and Statuses *** *
- * values: This represents the list of entities compresing the resource.
+ * values: This represents the list of entities compressing the resource.
  *   Note: values is not an array. It is an object with each entity indexed by id, so specific items may be retrieved more easily.
  *   Note: By default, values starts out empty and the hook immediately triggers a refresh callback.
- *   Note: An initialValue may be provided, which supresses that initial refresh, unless forceInitialRefresh is ALSO overridden with true.
+ *   Note: An initialValue may be provided, which suppresses that initial refresh, unless forceInitialRefresh is ALSO overridden with true.
  *   Note: Setting forceInitialRefresh to false has no effect. Set initialValue to [] instead.
  *
  * indexStatus, createStatus, and entityStatus: These tell you whether any requests are currently in progress, and if not whether the last completed request was successful.
@@ -132,14 +132,14 @@ export const UNEXPECTED_FORMAT_ERROR =
  *         which allow code to respond to the success or failure of specific requests.
  *
  * *** Error Handling ***
- * You may watch for statuses of "rejected" to determing whether an error occured during certain reqeusts.
+ * You may watch for statuses of "rejected" to determining whether an error occurred during certain requests.
  * To respond to any details of potential errors, override handleError.
- * Note: If the error was caused by a non-200 response from the server, handleError will recieve an instance of FetchError, which contains the entire response object.
+ * Note: If the error was caused by a non-200 response from the server, handleError will receive an instance of FetchError, which contains the entire response object.
  */
 export function useResourceIndex<T>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
-    initialValue?: T[]; // Defaults to an empty list. If this is overriden, initial fetch is skipped (unless forceInitialRefresh is set to true).
+    initialValue?: T[]; // Defaults to an empty list. If this is overridden, initial fetch is skipped (unless forceInitialRefresh is set to true).
     forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
     parseIndexResponse?: (response: Json) => T[]; // Defaults to (response) => response.map(parseEntityResponse)
@@ -339,7 +339,7 @@ export function useResourceIndex<T>(
     [endpoint, resolveEntityEndpoint, handleError, keyFn],
   );
 
-  // Despite the usual guidlines, this should only be reconsidered if endpoint changes.
+  // Despite the usual guidelines, this should only be reconsidered if endpoint changes.
   // Changing doInitialRefresh after the first run (or refresh) should not cause this to rerun.
   useEffect(() => {
     if (doInitialRefresh) {

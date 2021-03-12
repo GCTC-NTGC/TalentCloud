@@ -293,7 +293,7 @@ function mergeUpdateFulfill<T>(
  * - DOES NOT throw error if item does exist, unlike other update mergeUpdate functions.
  *   UPDATE REJECTED action already represents a graceful response to an error.
  *   There is no relevant metadata to update, and nowhere to store the error, so return state as is.
- * - Otherwise updates metdata for item and overwrites error with payload.f
+ * - Otherwise updates metadata for item and overwrites error with payload.f
  * @param values
  * @param action
  */
@@ -319,7 +319,7 @@ function mergeUpdateReject<T>(
  * Updates values in response to DELETE START action.
  * Updates metadata for item if it exists.
  *
- * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg multiple queued DELETE requests) that could cause this.
  * @param values
  * @param action
  */
@@ -362,7 +362,7 @@ function mergeDeleteFulfill<T>(
  * Updates values in response to DELETE REJECTED action.
  * Updates metadata for item if it exists.
  *
- * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg multiple queued DELETE requests) that could cause this.
  * @param values
  * @param action
  */
@@ -412,7 +412,7 @@ function mergeDeleteReject<T>(
  *     - "fulfilled" if the last completed request succeeded and no other request is in progress
  *     - "rejected" if the last completed request failed and no other request is in progress
  *   - pendingCount: stores the number of requests in progress. This helps account for the possibility of multiple requests being started in succession, and means one request could finish and the resource still be considered "pending".
- *   - error: stores the last error recieved from a REJECTED action. Overwritten with undefined if a later request is STARTed or FULFILLED.
+ *   - error: stores the last error received from a REJECTED action. Overwritten with undefined if a later request is STARTed or FULFILLED.
  *
  * Notes about item values:
  *   - Its possible to include items in the initial state and then not begin any requests, in which case there will be existing values with the "initial" status.

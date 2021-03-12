@@ -516,7 +516,7 @@
   "demoSubmitJobModal.title": "Il semble que vous utilisez un compte de démonstration.",
   "errorToast.dismiss": "Rejeter",
   "errorToast.title": "Quelque chose a mal tourné!",
-  "findSkillsModal.accordianButtonLabel": "Cliquez pour afficher…",
+  "findSkillsModal.accordionButtonLabel": "Cliquez pour afficher…",
   "findSkillsModal.backButton": "Retour",
   "findSkillsModal.cancel": "Annuler",
   "findSkillsModal.disabledSkillButton": "Déjà ajouté",
