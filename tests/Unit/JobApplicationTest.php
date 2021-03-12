@@ -11,6 +11,7 @@ use App\Models\Criteria;
 use App\Models\Degree;
 use App\Models\ExperienceAward;
 use App\Models\ExperienceSkill;
+use App\Models\ExperienceWork;
 use App\Models\JobApplication;
 use App\Models\JobPoster;
 use App\Models\Project;
@@ -281,36 +282,73 @@ class JobApplicationTest extends TestCase
     public function testSaveProfileSnapshotTimeline(): void
     {
         $applicant = factory(Applicant::class)->create();
+
+        // Create a new job application.
+        $application = factory(JobApplication::class)->states(['draft', 'version2'])->create([
+            'applicant_id' => $applicant->id
+        ]);
+
+        // Factory automatically creates Experiences and ExperienceSkills, but we want to control them for this test.
+        ExperienceSkill::truncate();
+        $applicant->experiences_award()->delete();
+        $applicant->experiences_work()->delete();
+
+        // Now add one Award and one Work.
         $experience = factory(ExperienceAward::class)->create([
             'experienceable_id' => $applicant->id,
             'experienceable_type' => 'applicant',
         ]);
-
-        $applicant->experiences_award()->save($experience);
-
-        $experienceSkill = factory(ExperienceSkill::class)->create([
-            'experience_id' => $experience->id,
-            'experience_type' => 'experience_award',
+        $skillLessExperience = factory(ExperienceWork::class)->create([
+            'experienceable_id' => $applicant->id,
+            'experienceable_type' => 'applicant',
         ]);
+        $applicant->refresh();
 
-        $experienceAward = $applicant->experiences_award()->first();
-        $experienceAward->experience_skills()->save($experienceSkill);
+        // Save an ExperienceSkill for each criteria of the job. (Hard and soft, essential and asset.)
+        foreach ($application->job_poster->criteria as $crit) {
+            $experienceSkill = factory(ExperienceSkill::class)->create([
+                'experience_id' => $experience->id,
+                'experience_type' => 'experience_award',
+                'skill_id' => $crit->skill_id
+            ]);
+        }
 
-        // Create a new job application.
-        $application = factory(JobApplication::class)->make();
-        $applicant->job_applications()->save($application);
+        $hardCriteria = $application->job_poster->criteria->where('skill.skill_type.name', 'hard');
+        $softCriteria = $application->job_poster->criteria->where('skill.skill_type.name', 'soft');
 
+        // Factory should create at least two of each kind of criteria, but double check in case factory is changed:
+        $this->assertGreaterThan(1, $hardCriteria->count());
+        $this->assertGreaterThan(1, $softCriteria->count());
+
+        // This should copy all Experiences from the applicant, but only ExperienceSkills for hard criteria.
         $application->saveProfileSnapshotTimeline();
 
-        $this->collectionConsistsOfCopy($applicant->experiences_award->first(), $application->fresh()->experiences_award);
+        dump(ExperienceWork::all()->toArray());
+        dump(ExperienceSkill::all()->toArray());
+
+        $application->refresh();
+
+        $this->collectionConsistsOfCopy($experience, $application->experiences_award);
+        $this->collectionConsistsOfCopy($skillLessExperience, $application->experiences_work);
+
+        $experienceAwardCopy = $application->experiences_award()->first();
 
         // Ensure copies are linked to each other just like originals are.
-        $experienceAwardCopy = $application->experiences_award()->first();
-        $experienceSkillCopy = $experienceAwardCopy->experience_skills()->first();
-
-        $this->assertEquals($application->id, $experienceAwardCopy->experienceable_id);
-        $this->assertEquals($experienceAwardCopy->experienceable_type, 'application');
-        $this->assertEquals($experienceAwardCopy->id, $experienceSkillCopy->id);
+        // ExperienceSkills for hard skills should have been copied, but not soft skills.
+        foreach ($hardCriteria as $crit) {
+            $this->assertDatabaseHas('experience_skills', [
+                'skill_id' => $crit->skill_id,
+                'experience_id' => $experienceAwardCopy->id,
+                'experience_type' => 'experience_award'
+            ]);
+        }
+        foreach ($softCriteria as $crit) {
+            $this->assertDatabaseMissing('experience_skills', [
+                'skill_id' => $crit->skill_id,
+                'experience_id' => $experienceAwardCopy->id,
+                'experience_type' => 'experience_award'
+            ]);
+        }
     }
 
     /**
