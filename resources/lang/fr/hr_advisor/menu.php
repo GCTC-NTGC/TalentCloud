@@ -22,6 +22,7 @@ return [
             'name' => 'Ressources'
         ]
     ],
+    'visit' => 'Visitez',
     'register' => 'Inscription',
     'login' => 'Ouvrir une session',
     'logout' => 'Déconnexion',

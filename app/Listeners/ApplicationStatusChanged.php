@@ -55,7 +55,7 @@ class ApplicationStatusChanged
 
             $hardSkillType = SkillType::where('name', 'hard')->first()->id;
             $jobCriteria = $application->job_poster->criteria;
-            $requiredCriteriaSkillIds = $jobCriteria
+            $hardCriteriaSkillIds = $jobCriteria
                 ->filter(function ($criterion) use ($hardSkillType) {
                     return $criterion->skill->skill_type_id === $hardSkillType;
                 })
@@ -73,7 +73,7 @@ class ApplicationStatusChanged
                     ]);
                 }
             )
-            ->whereIn('skill_id', $requiredCriteriaSkillIds)
+            ->whereIn('skill_id', $hardCriteriaSkillIds)
             ->get();
 
             $freshApplication->load([

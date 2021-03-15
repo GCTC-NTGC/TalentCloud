@@ -502,13 +502,25 @@ class JobApplication extends BaseModel
         $deleteExperiences($this->experiences_personal);
         $deleteExperiences($this->experiences_work);
 
-        $replicateAndSaveExperience = function ($experiences, $experience_type) {
+        // Assemble a list of skill ids relevant to this application.
+        // That means skills for essential AND asset criteria of job, but only Hard skills.
+        $this->job_poster->load('criteria.skill.skill_type'); // Preemptively load criteria and skill relationships to minimize queries.
+        $applicationSkillIds = $this->job_poster->criteria
+            ->where('skill.skill_type.name', 'hard')
+            ->pluck('skill_id')
+            ->all();
+
+        $replicateAndSaveExperience = function ($experiences, $experience_type) use ($applicationSkillIds) {
             // Iterate through applicant experiences, replicate the experience, and save to the application.
             foreach ($experiences as $experience) {
                 $experienceCopy = $experience->replicate();
                 $this->{$experience_type}()->save($experienceCopy);
+
+                // Get only the ExperienceSkills relevant to this application.
+                $experienceSkills = $experience->experience_skills->whereIn('skill_id', $applicationSkillIds);
+
                 // Iterate through original experience experienceSkills list, replicate it, and save to the new copy.
-                foreach ($experience->experience_skills as $experienceSkill) {
+                foreach ($experienceSkills as $experienceSkill) {
                     $experienceSkillCopy = $experienceSkill->replicate();
                     $experienceCopy->experience_skills()->save($experienceSkillCopy);
                 }

@@ -11,7 +11,7 @@
                 <ul data-c-align="base(center) tl(left)">
                     {% for key,item in menu.items %}
                         <li>
-                            <a class="{{ item.active ? 'active' : '' }}" href="{{ item.link }}" title="Visit {{ item.name }}." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">
+                            <a class="{{ item.active ? 'active' : '' }}" href="{{ item.link }}" title="{{ menu.visit }} {{ item.name }}." data-c-padding="all(.5)" data-c-color="white" data-c-hover-color="white">
                                 {{ item.name }}
                             </a>
                         </li>

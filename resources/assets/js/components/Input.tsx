@@ -30,7 +30,7 @@ export interface InputProps {
   max?: number;
   /** The value of the input */
   value?: string | number | string[];
-  /** Error text that appers underneath if error occurs (eg. required) */
+  /** Error text that appears underneath if error occurs (eg. required) */
   errorText?: string;
   /** data-clone-grid-item value: https://designwithclone.ca/#flexbox-grid */
   grid?: string;

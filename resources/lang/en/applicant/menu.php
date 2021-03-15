@@ -32,6 +32,7 @@ return [
         'name' => 'Settings'
     ]
 ],
+'visit' => 'Visit',
 'register' => 'Register',
 'login' => 'Login',
 'logout' => 'Logout',
