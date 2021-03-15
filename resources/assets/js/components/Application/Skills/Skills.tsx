@@ -69,7 +69,7 @@ import { SkillTypeId } from "../../../models/lookupConstants";
 export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
-  menuSkills: { [skillId: number]: string };
+  menuSkills: { id: number; name: string }[];
   intl: IntlShape;
   status: SkillStatus;
 }
@@ -89,17 +89,17 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         />
       </p>
       <ul>
-        {Object.keys(menuSkills).map((skillId) => (
-          <li key={skillId}>
+        {menuSkills.map((skill) => (
+          <li key={skill.id}>
             <StatusIcon
-              status={computeParentStatus(status, Number(skillId))}
+              status={computeParentStatus(status, Number(skill.id))}
               size=""
             />
             <a
-              href={`#${slugify(menuSkills[skillId])}`}
+              href={`#${slugify(skill.name)}`}
               title={intl.formatMessage(displayMessages.sidebarLinkTitle)}
             >
-              {menuSkills[skillId]}
+              {skill.name}
             </a>
           </li>
         ))}
@@ -448,11 +448,26 @@ const Skills: React.FC<SkillsProps> = ({
   const [modalBody, setModalBody] = useState("");
   const modalParentRef = useRef<HTMLDivElement>(null);
 
-  // This page should only list Hard Skills
-  const hardCriteria = criteria.filter((criterion) => {
-    const skill = getSkillOfCriteria(criterion, skills);
-    return skill?.skill_type_id === SkillTypeId.Hard;
-  });
+  // This page should only list Hard Skills.
+  const hardCriteria = criteria
+    .map((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return { hardCriterion: criterion, skill };
+    })
+    .filter((criterionWithSkill) => {
+      return criterionWithSkill.skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort(
+      (
+        a: { hardCriterion: Criteria; skill: Skill },
+        b: { hardCriterion: Criteria; skill: Skill },
+      ) =>
+        localizeFieldNonNull(locale, a.skill, "name")
+          .toUpperCase()
+          .localeCompare(
+            localizeFieldNonNull(locale, b.skill, "name").toUpperCase(),
+          ),
+    );
 
   const softSkills = removeDuplicatesById(
     criteria
@@ -467,15 +482,16 @@ const Skills: React.FC<SkillsProps> = ({
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
   const menuSkills = hardCriteria.reduce(
-    (collection: { [skillId: number]: string }, criterion: Criteria) => {
-      const skill = getSkillOfCriteria(criterion, skills);
-      if (skill && !collection[criterion.skill_id]) {
-        // eslint-disable-next-line no-param-reassign
-        collection[criterion.skill_id] = localizeFieldNonNull(
-          locale,
-          skill,
-          "name",
-        );
+    (
+      collection: { id: number; name: string }[],
+      criterion: { hardCriterion: Criteria; skill: Skill },
+    ) => {
+      if (!collection.find((a) => criterion.hardCriterion.skill_id === a.id)) {
+        // Do not include duplicate skills.
+        collection.push({
+          id: criterion.hardCriterion.skill_id,
+          name: localizeFieldNonNull(locale, criterion.skill, "name"),
+        });
       }
       return collection;
     },
@@ -582,7 +598,7 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills.forEach((expSkill) => {
     if (
       hardCriteria.find(
-        (criterion) => criterion.skill_id === expSkill.skill_id,
+        (criterion) => criterion.hardCriterion.skill_id === expSkill.skill_id,
       ) &&
       !formRefs.current.has(expSkill.id)
     ) {
@@ -664,7 +680,7 @@ const Skills: React.FC<SkillsProps> = ({
           </p>
           <div className="skills-list">
             {hardCriteria.map((criterion) => {
-              const skill = getSkillOfCriteria(criterion, skills);
+              const { hardCriterion, skill } = criterion;
               if (skill === null) {
                 return null;
               }
@@ -677,7 +693,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={criterion.id}>
+                <div key={hardCriterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -703,7 +719,9 @@ const Skills: React.FC<SkillsProps> = ({
                       data-c-font-weight="bold"
                       href={applicantFaq(locale, "levels")}
                     >
-                      {intl.formatMessage(getSkillLevelName(criterion, skill))}
+                      {intl.formatMessage(
+                        getSkillLevelName(hardCriterion, skill),
+                      )}
                     </a>
                   </h3>
                   {getExperiencesOfSkill(skill, experienceSkills).length ===
