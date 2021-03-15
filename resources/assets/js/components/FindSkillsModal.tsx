@@ -20,8 +20,8 @@ const messages = defineMessages({
     id: "findSkillsModal.modalHeading",
     defaultMessage: "Find and add skills",
   },
-  accordianButtonLabel: {
-    id: "findSkillsModal.accordianButtonLabel",
+  accordionButtonLabel: {
+    id: "findSkillsModal.accordionButtonLabel",
     defaultMessage: "Click to view...",
   },
   skillsResultsHeading: {
@@ -291,9 +291,9 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                         data-h2-padding="b(all, 0)"
                         className="no-list-style-type"
                       >
-                        {childrenSkillCategories.map((childSkillCatergory) => {
+                        {childrenSkillCategories.map((childSkillCategory) => {
                           return (
-                            <li key={childSkillCatergory.key}>
+                            <li key={childSkillCategory.key}>
                               <div
                                 data-h2-grid="b(middle, expanded, flush, 0)"
                                 data-h2-margin="b(right, .5)"
@@ -307,11 +307,11 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                     type="button"
                                     onClick={() => {
                                       setFirstVisit(false);
-                                      setButtonClicked(childSkillCatergory.key);
+                                      setButtonClicked(childSkillCategory.key);
                                       setResultsSectionText({
                                         title: `${localizeFieldNonNull(
                                           locale,
-                                          childSkillCatergory,
+                                          childSkillCategory,
                                           "name",
                                         )} ${intl.formatMessage(
                                           messages.skills,
@@ -320,13 +320,13 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                         // TODO: Restore this when discriptions are added to Skill Categories on backend.
                                         // localizeFieldNonNull(
                                         //   locale,
-                                        //   childSkillCatergory,
+                                        //   childSkillCategory,
                                         //   "description",
                                         // ),
                                       });
                                       setSkillsResults(
                                         categoryIdToSkillsMap.get(
-                                          childSkillCatergory.id,
+                                          childSkillCategory.id,
                                         ) ?? [],
                                       );
                                     }}
@@ -336,14 +336,12 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                       data-h2-font-weight="b(700)"
                                       data-h2-display="b(block)"
                                       data-h2-font-style={`${
-                                        buttonClicked ===
-                                        childSkillCatergory.key
+                                        buttonClicked === childSkillCategory.key
                                           ? "b(none)"
                                           : "b(underline)"
                                       }`}
                                       data-h2-font-color={`${
-                                        buttonClicked ===
-                                        childSkillCatergory.key
+                                        buttonClicked === childSkillCategory.key
                                           ? "b(theme-1)"
                                           : "b(black)"
                                       }`}
@@ -351,7 +349,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                     >
                                       {localizeFieldNonNull(
                                         locale,
-                                        childSkillCatergory,
+                                        childSkillCategory,
                                         "name",
                                       )}
                                     </p>
@@ -362,19 +360,19 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                   data-h2-align="b(center)"
                                   data-h2-radius="b(round)"
                                   data-h2-bg-color={`${
-                                    buttonClicked === childSkillCatergory.key
+                                    buttonClicked === childSkillCategory.key
                                       ? "b(theme-1, 1)"
                                       : "b(white, 1)"
                                   }`}
                                   data-h2-font-color={`${
-                                    buttonClicked === childSkillCatergory.key
+                                    buttonClicked === childSkillCategory.key
                                       ? "b(white)"
                                       : "b(black)"
                                   }`}
                                 >
                                   <p>
                                     {categoryIdToSkillsMap.get(
-                                      childSkillCatergory.id,
+                                      childSkillCategory.id,
                                     )?.length ?? 0}
                                   </p>
                                 </div>

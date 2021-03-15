@@ -17,7 +17,7 @@ export interface CheckboxProps {
   value?: string | number | string[];
   /** boolean indicating if input must have a value, or not */
   required?: boolean;
-  /** Error text that appers underneath if error occurs (eg. required) */
+  /** Error text that appears underneath if error occurs (eg. required) */
   errorText?: string;
   /** Boolean that sets the select input to invalid */
   invalid?: boolean | null;

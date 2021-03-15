@@ -825,7 +825,7 @@ const Skills: React.FC<SkillsProps> = ({
                                 })
                               }
                               formRef={
-                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, becuase if it was we just added it to map.
+                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, because if it was we just added it to map.
                               }
                               handleUpdateExperienceJustification={
                                 handleUpdateExperienceJustification

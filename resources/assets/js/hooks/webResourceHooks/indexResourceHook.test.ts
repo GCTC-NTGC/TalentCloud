@@ -579,7 +579,7 @@ describe("indexResourceHook", () => {
       expect(result.current.values[2]).toEqual(duplicateValue);
       expect(result.current.createStatus).toEqual("fulfilled");
     });
-    it("If multiple create requests are started, createStatus remains pending untill all are complete", async () => {
+    it("If multiple create requests are started, createStatus remains pending until all are complete", async () => {
       const createOne = { id: 0, name: "one" };
       const createTwo = { id: 0, name: "two" };
       // NOTE: The value returned from server may be slightly different from what we send it - likely a different id.

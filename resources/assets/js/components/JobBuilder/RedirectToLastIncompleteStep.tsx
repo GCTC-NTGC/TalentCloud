@@ -134,7 +134,7 @@ const mapStateToProps = (
   criteriaIsLoading: boolean;
 } => {
   const job = getJob(state, { jobId });
-  // for isLoading args, check that job is not null, becuase job must have loaded at least once for us to trust results.
+  // for isLoading args, check that job is not null, because job must have loaded at least once for us to trust results.
   return {
     job,
     jobIsLoading: getJobIsUpdating(state, jobId) || job === null,

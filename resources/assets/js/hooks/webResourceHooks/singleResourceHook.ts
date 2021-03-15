@@ -185,7 +185,7 @@ export function useResource<T>(
     [endpoint, parseResponse, handleError],
   );
 
-  // Despite the usual guidlines, this should only be reconsidered if endpoint changes.
+  // Despite the usual guidelines, this should only be reconsidered if endpoint changes.
   // Changing doInitialRefresh after the first run (or the refresh function) should not cause this to rerun.
   useEffect(() => {
     if (doInitialRefresh) {

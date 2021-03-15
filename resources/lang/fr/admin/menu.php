@@ -13,6 +13,7 @@ return [
             'name' => 'Accueil',
         ],
     ],
+    'visit' => 'Visitez',
     'register' => 'Inscription',
     'login' => 'Ouvrir une session (Compte GCcollab)',
     'logout' => 'Déconnexion',
