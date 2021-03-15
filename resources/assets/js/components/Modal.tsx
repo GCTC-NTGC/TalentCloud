@@ -140,6 +140,7 @@ export default function Modal({
         role="dialog"
         ref={modalRef}
         className={className}
+        style={{ visibility: visible ? "visible" : "hidden" }}
       >
         <div data-c-background="white(100)" data-c-radius="rounded">
           <modalContext.Provider
