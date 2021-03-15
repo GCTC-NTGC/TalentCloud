@@ -448,11 +448,24 @@ const Skills: React.FC<SkillsProps> = ({
   const [modalBody, setModalBody] = useState("");
   const modalParentRef = useRef<HTMLDivElement>(null);
 
-  // This page should only list Hard Skills
-  const hardCriteria = criteria.filter((criterion) => {
-    const skill = getSkillOfCriteria(criterion, skills);
-    return skill?.skill_type_id === SkillTypeId.Hard;
-  });
+  // This page should only list Hard Skills.
+  const hardCriteria = criteria
+    .map((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return { hardCriterion: criterion, skill };
+    })
+    .filter((criterionWithSkill) => {
+      return criterionWithSkill.skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort(
+      (
+        a: { hardCriterion: Criteria; skill: Skill },
+        b: { hardCriterion: Criteria; skill: Skill },
+      ) =>
+        a.skill.name[locale]
+          .toUpperCase()
+          .localeCompare(b.skill.name[locale].toUpperCase()),
+    );
 
   const softSkills = removeDuplicatesById(
     criteria
@@ -467,13 +480,15 @@ const Skills: React.FC<SkillsProps> = ({
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
   const menuSkills = hardCriteria.reduce(
-    (collection: { id: number; name: string }[], criterion: Criteria) => {
-      const skill = getSkillOfCriteria(criterion, skills);
-      if (skill && !collection.find((a) => criterion.skill_id === a.id)) {
+    (
+      collection: { id: number; name: string }[],
+      criterion: { hardCriterion: Criteria; skill: Skill },
+    ) => {
+      if (!collection.find((a) => criterion.hardCriterion.skill_id === a.id)) {
         // Do not include duplicate skills.
         collection.push({
-          id: criterion.skill_id,
-          name: localizeFieldNonNull(locale, skill, "name"),
+          id: criterion.hardCriterion.skill_id,
+          name: localizeFieldNonNull(locale, criterion.skill, "name"),
         });
       }
       return collection;
@@ -581,7 +596,7 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills.forEach((expSkill) => {
     if (
       hardCriteria.find(
-        (criterion) => criterion.skill_id === expSkill.skill_id,
+        (criterion) => criterion.hardCriterion.skill_id === expSkill.skill_id,
       ) &&
       !formRefs.current.has(expSkill.id)
     ) {
@@ -663,7 +678,7 @@ const Skills: React.FC<SkillsProps> = ({
           </p>
           <div className="skills-list">
             {hardCriteria.map((criterion) => {
-              const skill = getSkillOfCriteria(criterion, skills);
+              const { hardCriterion, skill } = criterion;
               if (skill === null) {
                 return null;
               }
@@ -676,7 +691,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={criterion.id}>
+                <div key={hardCriterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -702,7 +717,9 @@ const Skills: React.FC<SkillsProps> = ({
                       data-c-font-weight="bold"
                       href={applicantFaq(locale, "levels")}
                     >
-                      {intl.formatMessage(getSkillLevelName(criterion, skill))}
+                      {intl.formatMessage(
+                        getSkillLevelName(hardCriterion, skill),
+                      )}
                     </a>
                   </h3>
                   {getExperiencesOfSkill(skill, experienceSkills).length ===
