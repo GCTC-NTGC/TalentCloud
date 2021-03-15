@@ -462,9 +462,11 @@ const Skills: React.FC<SkillsProps> = ({
         a: { hardCriterion: Criteria; skill: Skill },
         b: { hardCriterion: Criteria; skill: Skill },
       ) =>
-        a.skill.name[locale]
+        localizeFieldNonNull(locale, a.skill, "name")
           .toUpperCase()
-          .localeCompare(b.skill.name[locale].toUpperCase()),
+          .localeCompare(
+            localizeFieldNonNull(locale, b.skill, "name").toUpperCase(),
+          ),
     );
 
   const softSkills = removeDuplicatesById(
