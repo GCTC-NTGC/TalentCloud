@@ -43,7 +43,7 @@ class ApplicationTimelineController extends Controller
             'home' => route('home'),
             'applications' => route('applications.index'),
             $application->job_poster->title => route('jobs.summary', ['jobPoster' => $application->job_poster]),
-            "Application ID: $application->id" => '',
+            Lang::get('common/breadcrumbs.application_id', ['id' => $application->id]) => '',
         ];
 
 
