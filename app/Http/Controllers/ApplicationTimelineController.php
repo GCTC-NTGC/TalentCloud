@@ -39,11 +39,20 @@ class ApplicationTimelineController extends Controller
             return 'welcome';
         };
 
+        $customBreadcrumbs = [
+            'home' => route('home'),
+            'applications' => route('applications.index'),
+            $application->job_poster->title => route('jobs.summary', ['jobPoster' => $application->job_poster]),
+            "Application ID: $application->id" => '',
+        ];
+
+
         if ($requestedStep === 'welcome') {
             return view('applicant/application-timeline-root')
                 ->with([
                     'title' => $application->job_poster->title, // TODO: Check with design what the title should be.
                     'disable_clone_js' => true,
+                    'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
         }
 
@@ -58,6 +67,7 @@ class ApplicationTimelineController extends Controller
                 ->with([
                     'title' => $application->job_poster->title, // TODO: Check with design what the title should be.
                     'disable_clone_js' => true,
+                    'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
             } else {
                 return redirect(
