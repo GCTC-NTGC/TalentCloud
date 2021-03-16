@@ -25,9 +25,9 @@ class ApplicationTimelineControllerTest extends TestCase
             'applicant_id' => $applicant->id
         ]);
 
-        $applicationRoute = route('applications.timeline', ['jobApplication' => $application]);
+        $applicationRoute = route('applications.timeline', ['application' => $application]);
         $applicationStepRoute = function ($step) use ($application) {
-            return route('applications.timeline.step', ['jobApplication' => $application, 'step' => $step]);
+            return route('applications.timeline.step', ['application' => $application, 'step' => $step]);
         };
 
         // New applications should be redirected to welcome page.
