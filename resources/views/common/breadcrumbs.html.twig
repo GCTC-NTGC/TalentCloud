@@ -1,5 +1,5 @@
 <nav aria-label="breadcrumb" data-c-breadcrumbs data-c-colour="{{ font_color ?: 'white' }}">
-	<ol {{ breadcrumbs_id ? "id=#{breadcrumbs_id}" }}>
+	<ol id="breadcrumbs-list" }}>
 		{% for key, url in custom_breadcrumbs ?: breadcrumbs %}
 			{% if loop.first %}
 				{# Replaces en/fr key with a link to Home. #}
