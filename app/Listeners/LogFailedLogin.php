@@ -4,7 +4,6 @@ namespace App\Listeners;
 
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Support\Facades\Log;
-use Jenssegers\Date\Date;
 
 class LogFailedLogin
 {
@@ -25,6 +24,6 @@ class LogFailedLogin
      */
     public function handle(Failed $event) : void
     {
-        Log::notice('Login failed by email ' . $event->credentials['email'] . ' at ' . Date::now()->format('c'));
+        Log::notice('Login failed by email ' . $event->credentials['email']);
     }
 }
