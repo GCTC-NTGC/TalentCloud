@@ -124,7 +124,7 @@ interface ProfileEducationAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps> = ({
@@ -188,7 +188,7 @@ interface ExperienceEducationAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordionProps> = ({

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import { getFocusableElements } from "../helpers/forms";
 
 interface ModalProps {
   id: string;
@@ -31,29 +32,47 @@ export default function Modal({
   // Set up div ref to measure modal height
   const modalRef = useRef<HTMLDivElement>(null);
 
+  const getFocusableModalElements = () =>
+    modalRef && modalRef.current ? getFocusableElements(modalRef.current) : [];
+
   const handleTabKey = (e: KeyboardEvent): void => {
     if (modalRef && modalRef.current) {
-      const focusableModalElements = modalRef.current.querySelectorAll(
-        'a[href], button, textarea, input[type="text"], input[type="email"], input[type="radio"], select',
-      );
+      const focusableModalElements = getFocusableModalElements();
+
+      if (focusableModalElements.length === 0) {
+        e.preventDefault(); // TODO: should this throw an error?
+        return;
+      }
+
       const firstElement = focusableModalElements[0] as HTMLElement;
       const lastElement = focusableModalElements[
         focusableModalElements.length - 1
       ] as HTMLElement;
 
+      if (focusableModalElements.length === 1) {
+        // This check to avoid strange behaviour if firstElement == lastElement.
+        firstElement.focus();
+        e.preventDefault();
+        return;
+      }
+
       const focusableModalElementsArray = Array.from(focusableModalElements);
 
       if (
         document.activeElement &&
-        !focusableModalElementsArray.includes(document.activeElement)
+        !focusableModalElementsArray.includes(
+          document.activeElement as HTMLElement,
+        )
       ) {
         firstElement.focus();
         e.preventDefault();
+        return;
       }
 
       if (!e.shiftKey && document.activeElement === lastElement) {
         firstElement.focus();
         e.preventDefault();
+        return;
       }
 
       if (e.shiftKey && document.activeElement === firstElement) {
@@ -99,6 +118,17 @@ export default function Modal({
     };
   }, [keyListenersMap, visible]);
 
+  // Focus the first focusable element when the modal becomes visible.
+  useEffect(() => {
+    if (visible) {
+      const focusableModalElements = getFocusableModalElements();
+      if (focusableModalElements.length > 0) {
+        const firstElement = focusableModalElements[0] as HTMLElement;
+        firstElement.focus();
+      }
+    }
+  }, [visible]);
+
   if (parentElement !== null) {
     return createPortal(
       <div
@@ -110,6 +140,7 @@ export default function Modal({
         role="dialog"
         ref={modalRef}
         className={className}
+        data-c-visibility={!visible ? "hidden" : ""}
       >
         <div data-c-background="white(100)" data-c-radius="rounded">
           <modalContext.Provider

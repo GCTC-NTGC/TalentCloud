@@ -16,6 +16,7 @@ import { DispatchType } from "../../../configureStore";
 import {
   updateExperienceSkill,
   deleteExperienceSkill,
+  batchUpdateExperienceSkills,
 } from "../../../store/Experience/experienceActions";
 import Skills from "./Skills";
 import { loadingMessages } from "../applicationMessages";
@@ -80,6 +81,17 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
     }
     return Promise.reject(result.error);
   };
+  const handleBatchUpdateExpSkill = async (
+    experienceSkillsToUpdate: ExperienceSkill[],
+  ): Promise<void> => {
+    const result = await dispatch(
+      batchUpdateExperienceSkills(experienceSkillsToUpdate),
+    );
+    if (!result.error) {
+      return Promise.resolve();
+    }
+    return Promise.reject(result.error);
+  };
   const handleDeleteExpSkill = async (
     expSkill: ExperienceSkill,
   ): Promise<void> => {
@@ -139,6 +151,7 @@ export const SkillsPage: React.FunctionComponent<SkillsPageProps> = ({
           experienceSkills={experienceSkills}
           skills={skills}
           handleUpdateExperienceJustification={handleUpdateExpSkill}
+          handleBatchUpdateExperienceSkills={handleBatchUpdateExpSkill}
           handleRemoveExperienceJustification={handleDeleteExpSkill}
           handleContinue={handleContinue}
           handleReturn={handleReturn}
