@@ -18,6 +18,13 @@ const handleUpdateExperienceJustification = (
   return Promise.resolve(experience);
 };
 
+const handleBatchUpdateExperienceSkills = (
+  experienceSkills: ExperienceSkill[],
+): Promise<void> => {
+  action("Submitted Batch")();
+  return Promise.resolve();
+};
+
 const handleRemoveExperienceJustification = (
   experience: ExperienceSkill,
 ): Promise<void> => {
@@ -34,6 +41,7 @@ stories.add(
       experienceSkills={fakeExperienceSkills()}
       skills={fakeSkills()}
       handleUpdateExperienceJustification={handleUpdateExperienceJustification}
+      handleBatchUpdateExperienceSkills={handleBatchUpdateExperienceSkills}
       handleRemoveExperienceJustification={handleRemoveExperienceJustification}
       handleContinue={action("Continue")}
       handleQuit={action("Quit")}
