@@ -11,9 +11,10 @@ class ApplicationTimelineController extends Controller
     /**
      * Display job application.
      *
-     * @param  \App\Models\JobApplication $application Incoming Application object.
-     * @return \Illuminate\Http\Response
-    */
+     * @param JobApplication $application
+     * @param string|null $requestedStep If this is null, redirect to the last touched step.
+     * @return void
+     */
     public function show(JobApplication $application, string $requestedStep = null)
     {
         $jobApplicationSteps = $application->jobApplicationSteps();
@@ -50,7 +51,7 @@ class ApplicationTimelineController extends Controller
         if ($requestedStep === 'welcome') {
             return view('applicant/application-timeline-root')
                 ->with([
-                    'title' => $application->job_poster->title, // TODO: Check with design what the title should be.
+                    'title' => $application->job_poster->title,
                     'disable_clone_js' => true,
                     'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
@@ -65,7 +66,7 @@ class ApplicationTimelineController extends Controller
             ) {
                 return view('applicant/application-timeline-root')
                 ->with([
-                    'title' => $application->job_poster->title, // TODO: Check with design what the title should be.
+                    'title' => $application->job_poster->title,
                     'disable_clone_js' => true,
                     'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
