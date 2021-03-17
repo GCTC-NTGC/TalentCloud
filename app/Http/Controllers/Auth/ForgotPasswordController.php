@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\AuthController;
 use App\Models\User;
-use Jenssegers\Date\Date;
 
 class ForgotPasswordController extends AuthController
 {
@@ -60,7 +59,7 @@ class ForgotPasswordController extends AuthController
      */
     public function sendResetLinkEmail(Request $request) {
         if( User::where('email', $request->input('email'))->exists() ){ // Check if user exists.
-            Log::notice('Reset Password email requested by ' . $request->input('email') . ' at ' . Date::now()->format('c'));
+            Log::notice('Reset Password email requested by ' . $request->input('email'));
         }
         return $this->sendResetLinkEmailOverridden($request);
     }
