@@ -21,7 +21,10 @@ return [
     'job-title-missing' => "'Titre manquant'",
     'review' => 'Revue',
     'builder' => "Constructeur d'affiches",
+    'application' => 'Application',
+    'applications' => 'Applications',
     'application_id' => 'Ident. d\'application : :id',
+    'settings' => 'Paramètres',
     'managerPortal' => [
         'applications' => 'Réviser les candidats',
     ],

@@ -9,12 +9,12 @@
 				</li>
 			{% elseif loop.last %}
 				<li>
-					<span aria-current="page">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</span>
+					<span aria-current="page">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key }}</span>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% else %}
 				<li>
-					<a href="{{ url(url) }}">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key|title }}</a>
+					<a href="{{ url(url) }}">{{ portal_specific_lang[key] ?: breadcrumbs_lang[key] ?: key }}</a>
 					<i class="fas fa-caret-right"></i>
 				</li>
 			{% endif %}
