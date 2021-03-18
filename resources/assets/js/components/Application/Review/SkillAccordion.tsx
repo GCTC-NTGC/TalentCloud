@@ -184,13 +184,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
               b: (value) => <span data-c-font-weight="bold">{value}</span>,
             })}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -285,13 +287,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
               b: (value) => <span data-c-font-weight="bold">{value}</span>,
             })}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -427,13 +431,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
           <p data-c-color="c2" data-c-margin="top(2)">
             <span data-c-font-weight="bold">{experience.title}</span>
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -540,13 +546,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
             <span data-c-font-weight="bold">{experience.title}</span> -{" "}
             {experience.organization}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
