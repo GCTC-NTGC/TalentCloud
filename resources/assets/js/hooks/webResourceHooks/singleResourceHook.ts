@@ -13,6 +13,7 @@ export interface ResourceState<T> {
   status: ResourceStatus;
   pendingCount: number;
   error: Error | FetchError | undefined;
+  initialRequestFinished: boolean;
 }
 
 export enum ActionTypes {
@@ -57,12 +58,16 @@ export type AsyncAction<T> =
   | UpdateFulfillAction<T>
   | UpdateRejectAction<T>;
 
-export function initialState<T>(initialValue: T): ResourceState<T> {
+export function initialState<T>(
+  initialValue: T,
+  doInitialRefresh: boolean,
+): ResourceState<T> {
   return {
     value: initialValue,
     status: "initial",
     pendingCount: 0,
     error: undefined,
+    initialRequestFinished: !doInitialRefresh,
   };
 }
 
@@ -78,6 +83,7 @@ export function reducer<T>(
         status: "pending",
         pendingCount: state.pendingCount + 1,
         error: undefined,
+        initialRequestFinished: state.initialRequestFinished,
       };
     case ActionTypes.GetFulfill:
     case ActionTypes.UpdateFulfill:
@@ -86,6 +92,7 @@ export function reducer<T>(
         status: state.pendingCount <= 1 ? "fulfilled" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: undefined,
+        initialRequestFinished: true,
       };
     case ActionTypes.GetReject:
     case ActionTypes.UpdateReject:
@@ -94,6 +101,7 @@ export function reducer<T>(
         status: state.pendingCount <= 1 ? "rejected" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: action.payload,
+        initialRequestFinished: true,
       };
     default:
       return state;
@@ -108,6 +116,7 @@ export type UseResourceReturnType<T> = {
   value: T;
   status: ResourceStatus;
   error: undefined | Error | FetchError;
+  initialRequestFinished: boolean; // Becomes true after the intial request is fulfilled or rejected. NOTE: if initial fetch is skipped, this will be set to true immediately.
   update: (newValue: T) => Promise<T>;
   refresh: () => Promise<T>;
 };
@@ -128,7 +137,7 @@ export function useResource<T>(
 
   const [state, dispatch] = useReducer<
     Reducer<ResourceState<T>, AsyncAction<T>>
-  >(reducer, initialState(initialValue));
+  >(reducer, initialState(initialValue, doInitialRefresh));
 
   const refresh = useCallback(async (): Promise<T> => {
     dispatch({ type: ActionTypes.GetStart });
@@ -204,6 +213,7 @@ export function useResource<T>(
     value: state.value,
     status: state.status,
     error: state.error,
+    initialRequestFinished: state.initialRequestFinished,
     update,
     refresh,
   };

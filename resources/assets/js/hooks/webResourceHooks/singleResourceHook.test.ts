@@ -348,4 +348,38 @@ describe("singleResourceHook", () => {
     expect(result.current.value).toEqual(responseValue);
     expect(result.current.error).toBeUndefined();
   });
+  it("initialRefreshFinished is false until initial refresh completes", async () => {
+    fetchMock.mock(
+      "*",
+      {},
+      {
+        delay: 10,
+      },
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    expect(result.current.initialRequestFinished).toEqual(false);
+    await waitForNextUpdate();
+    expect(result.current.initialRequestFinished).toEqual(true);
+  });
+  it("initialRefreshFinished becomes true even when initial refresh completes with an error", async () => {
+    fetchMock.mock("*", 404, {
+      delay: 10,
+    });
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    expect(result.current.initialRequestFinished).toEqual(false);
+    await waitForNextUpdate();
+    expect(result.current.initialRequestFinished).toEqual(true);
+  });
+  it("initialRefreshFinished begins as true when initial fetch is skipped", async () => {
+    const { result } = renderHook(() =>
+      useResource(endpoint, null, { skipInitialFetch: true }),
+    );
+    expect(result.current.initialRequestFinished).toEqual(true);
+  });
 });
