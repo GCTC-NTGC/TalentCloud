@@ -89,13 +89,16 @@ class BreadcrumbsComposer
             } elseif (is_object($this->request->applicant) && $this->request->applicant->id == $segment) {
                 $segment = $this->request->applicant->user->full_name;
             }
+            // A Manager or HR Advisor viewing an application cares about the Applicant name.
+            // An applicant viewing their own application cares about the job it came from.
             if ($this->request->application == $segment) {
                 $application = JobApplication::find($this->request->application);
                 if ($application != null) {
-                    $segment = $application->user_name;
+                    $segment = WhichPortal::isApplicantPortal() ? $application->job_poster->title : $application->user_name;
                 }
             } elseif (is_object($this->request->application) && $this->request->application->id == $segment) {
-                $segment = $this->request->application->user_name;
+                $application =  $this->request->application;
+                $segment = WhichPortal::isApplicantPortal() ? $application->job_poster->title : $application->user_name;
             }
             return [
                 $segment => implode('/', array_slice($this->request->segments(), 0, $key + 1)),

@@ -132,14 +132,14 @@ Route::group(
                         ->middleware('can:view,application')
                         ->name('applications.show');
 
-                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline');
-                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
-                        ->middleware('can:view,jobApplication')
+                    Route::get('applications/{application}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,application')
                         ->name('applications.timeline.next');
-                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline.step');
 
 
