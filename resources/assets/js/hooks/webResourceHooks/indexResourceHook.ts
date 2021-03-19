@@ -150,6 +150,7 @@ export function useResourceIndex<T>(
   },
 ): {
   values: IndexedObject<T>;
+  initialRefreshFinished: boolean; // If an initial refresh happens, this becomes true after is fulfilled or rejected. If initial fetch is skipped (initialValue is set and forceInitialRefresh=false), this will be true immediately.
   indexStatus: ResourceStatus; // The state of any requests to reload the entire index.
   createStatus: ResourceStatus; // If ANY create requests are in progress, this is 'pending'. Otherwise, it is 'fulfilled' or 'rejected' depending on the last request to complete.
   entityStatus: IndexedObject<ResourceStatus>; // Note that if indexStatus is 'pending', every entity status will also be 'pending'.
@@ -186,11 +187,14 @@ export function useResourceIndex<T>(
   const isSubscribed = useRef(true);
 
   const [state, dispatch] = useReducer<
-    Reducer<ResourceState<T>, AsyncAction<T>>,
-    { item: T; key: string | number }[] // This represent type of initialValue, passed to initializeState to create initial state.
-  >(indexCrudReducer, initialValue.map(addKey), initializeState);
+    Reducer<ResourceState<T>, AsyncAction<T>>
+  >(
+    indexCrudReducer,
+    initializeState(initialValue.map(addKey), doInitialRefresh),
+  );
 
   const values = useMemo(() => valuesSelector(state), [state]);
+  const { initialRefreshFinished } = state.indexMeta;
   const indexStatus = state.indexMeta.status;
   const createStatus = state.createMeta.status;
   const entityStatus = useMemo(() => statusSelector(state), [state]);
@@ -356,6 +360,7 @@ export function useResourceIndex<T>(
 
   return {
     values,
+    initialRefreshFinished,
     indexStatus,
     createStatus,
     entityStatus,

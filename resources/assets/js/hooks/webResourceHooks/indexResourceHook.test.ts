@@ -67,6 +67,33 @@ describe("indexResourceHook", () => {
       expect(result.current.values).toEqual(arrayToIndexedObj(updatedValue));
       expect(result.current.indexStatus).toEqual("fulfilled");
     });
+    it("initialRefreshFinished is false until initial refresh completes", async () => {
+      fetchMock.mock("*", [], { delay: 5 });
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint),
+      );
+      expect(result.current.initialRefreshFinished).toBe(false);
+      await waitForNextUpdate();
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
+    it("initialRefreshFinished becomes true even when initial refresh completes with an error", async () => {
+      fetchMock.mock("*", 404, { delay: 5 });
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint, {
+          initialValue: [],
+          forceInitialRefresh: true,
+        }),
+      );
+      expect(result.current.initialRefreshFinished).toBe(false);
+      await waitForNextUpdate();
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
+    it("initialRefreshFinished begins as true when initial fetch is skipped", async () => {
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue: [] }),
+      );
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
     it("If initial value is set, all entities start with status of 'initial'", () => {
       const initialValue = [
         { id: 1, name: "one" },
