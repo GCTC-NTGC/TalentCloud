@@ -202,6 +202,7 @@ class LangFilesTest extends BaseTranslationTest
         'Twitter',
         'Permanent',
         'Application',
+        'Applications',
         'Institution',
         'Initiative',
         'Facilitation',
@@ -310,8 +311,6 @@ class LangFilesTest extends BaseTranslationTest
         'manager-others',
         'hr',
         'hr-coming-soon',
-        'Application',
-        'Applications',
         '/faq',
         '/',
     ];
