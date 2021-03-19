@@ -15,17 +15,17 @@ class ApplicationPolicy extends BasePolicy
      * Determine whether the user can view the jobApplication.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\JobApplication  $jobApplication
+     * @param  \App\JobApplication  $application
      * @return mixed
      */
-    public function view(User $user, JobApplication $jobApplication)
+    public function view(User $user, JobApplication $application)
     {
         $authApplicant = ($user->isApplicant() &&
-            $user->applicant->id === $jobApplication->applicant_id);
+            $user->applicant->id === $application->applicant_id);
         $authManager = $user->isManager()
-            && $user->can('reviewApplicationsFor', $jobApplication->job_poster);
+            && $user->can('reviewApplicationsFor', $application->job_poster);
         $authHr = $user->isHrAdvisor()
-            && $user->can('reviewApplicationsFor', $jobApplication->job_poster);
+            && $user->can('reviewApplicationsFor', $application->job_poster);
 
         return $authApplicant || $authManager || $authHr;
     }
@@ -42,48 +42,48 @@ class ApplicationPolicy extends BasePolicy
     }
 
     /**
-     * Determine whether the user can update the jobApplication.
+     * Determine whether the user can update the application.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\JobApplication  $jobApplication
+     * @param  \App\JobApplication  $application
      * @return mixed
      */
-    public function update(User $user, JobApplication $jobApplication)
+    public function update(User $user, JobApplication $application)
     {
         return $user->isApplicant() &&
-            $user->applicant->id === $jobApplication->applicant_id &&
-            $jobApplication->application_status->name == 'draft' &&
-            $jobApplication->job_poster->isOpen();
+            $user->applicant->id === $application->applicant_id &&
+            $application->application_status->name == 'draft' &&
+            $application->job_poster->isOpen();
     }
 
     /**
-     * Determine whether the user can delete the jobApplication.
+     * Determine whether the user can delete the application.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\JobApplication  $jobApplication
+     * @param  \App\JobApplication  $application
      * @return mixed
      */
-    public function delete(User $user, JobApplication $jobApplication)
+    public function delete(User $user, JobApplication $application)
     {
         return $user->isApplicant() &&
-            $user->applicant->id === $jobApplication->applicant_id &&
-            $jobApplication->application_status->name == 'draft';
+            $user->applicant->id === $application->applicant_id &&
+            $application->application_status->name == 'draft';
     }
 
     /**
-     * Determine whether the user can review the jobApplication.
+     * Determine whether the user can review the application.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\JobApplication  $jobApplication
+     * @param  \App\JobApplication  $application
      * @return mixed
      */
-    public function review(User $user, JobApplication $jobApplication)
+    public function review(User $user, JobApplication $application)
     {
         // Only the manager in charge of the accompanying job can review an application,
         // and only if it has been submitted
         $authManager = $user->isManager() &&
-            $jobApplication->job_poster->manager->user->id == $user->id;
-        $authHr = $user->isHrAdvisor() && $user->can('manage', $jobApplication->job_poster);
-        return !$jobApplication->isDraft() && ($authManager || $authHr);
+            $application->job_poster->manager->user->id == $user->id;
+        $authHr = $user->isHrAdvisor() && $user->can('manage', $application->job_poster);
+        return !$application->isDraft() && ($authManager || $authHr);
     }
 }

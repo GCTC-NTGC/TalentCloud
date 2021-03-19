@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import {
@@ -176,7 +176,7 @@ export const ExperienceAccordionEducation: React.FC = () => {
 };
 
 interface ExperienceAccordionButtonsProps {
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
   handleDelete: () => Promise<void>;
 }
 
@@ -185,6 +185,7 @@ export const ExperienceAccordionButtons: React.FC<ExperienceAccordionButtonsProp
   handleDelete,
 }) => {
   const [disableButtons, setDisableButtons] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
   return (
     <div data-c-padding="top(1) lr(2)">
       <div data-c-grid="gutter(all, 1) middle">
@@ -209,11 +210,12 @@ export const ExperienceAccordionButtons: React.FC<ExperienceAccordionButtonsProp
         </div>
         <div data-c-grid-item="tp(1of2)" data-c-align="base(center) tp(right)">
           <button
+            ref={ref}
             data-c-button="solid(c1)"
             data-c-radius="rounded"
             type="button"
             disabled={disableButtons}
-            onClick={handleEdit}
+            onClick={() => handleEdit(ref)}
           >
             <FormattedMessage
               id="application.experienceAccordion.editButton"
@@ -343,7 +345,7 @@ interface ApplicationExperienceAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ApplicationExperienceAccordion: React.FC<ApplicationExperienceAccordionProps> = ({
@@ -400,7 +402,7 @@ interface ProfileExperienceAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileExperienceAccordion: React.FunctionComponent<ProfileExperienceAccordionProps> = ({
