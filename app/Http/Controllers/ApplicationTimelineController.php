@@ -11,12 +11,13 @@ class ApplicationTimelineController extends Controller
     /**
      * Display job application.
      *
-     * @param  \App\Models\JobApplication $application Incoming Application object.
-     * @return \Illuminate\Http\Response
-    */
-    public function show(JobApplication $jobApplication, string $requestedStep = null)
+     * @param JobApplication $application
+     * @param string|null $requestedStep If this is null, redirect to the last touched step.
+     * @return void
+     */
+    public function show(JobApplication $application, string $requestedStep = null)
     {
-        $jobApplicationSteps = $jobApplication->jobApplicationSteps();
+        $jobApplicationSteps = $application->jobApplicationSteps();
         $stepOrder = [
             'basic',
             'experience',
@@ -39,11 +40,20 @@ class ApplicationTimelineController extends Controller
             return 'welcome';
         };
 
+        $customBreadcrumbs = [
+            'home' => route('home'),
+            'applications' => route('applications.index'),
+            $application->job_poster->title => route('jobs.summary', ['jobPoster' => $application->job_poster]),
+            Lang::get('common/breadcrumbs.application_id', ['id' => $application->id]) => '',
+        ];
+
+
         if ($requestedStep === 'welcome') {
             return view('applicant/application-timeline-root')
                 ->with([
-                    'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
+                    'title' => $application->job_poster->title,
                     'disable_clone_js' => true,
+                    'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
         }
 
@@ -56,19 +66,20 @@ class ApplicationTimelineController extends Controller
             ) {
                 return view('applicant/application-timeline-root')
                 ->with([
-                    'title' => $jobApplication->job_poster->title, // TODO: Check with design what the title should be.
+                    'title' => $application->job_poster->title,
                     'disable_clone_js' => true,
+                    'custom_breadcrumbs' => $customBreadcrumbs,
                 ]);
             } else {
                 return redirect(
-                    route('applications.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                    route('applications.timeline.step', ['application' => $application, 'step' => $lastTouchedStep()])
                 );
             }
         } else {
             // If no step has been entered (/application/id) then redirect user to the last touched step.
             // If no step has been touched, then take them to welcome step.
             return redirect(
-                route('applications.timeline.step', ['jobApplication' => $jobApplication, 'step' => $lastTouchedStep()])
+                route('applications.timeline.step', ['application' => $application, 'step' => $lastTouchedStep()])
             );
         }
     }
@@ -76,20 +87,20 @@ class ApplicationTimelineController extends Controller
     /**
      * Show the congrats page after application it's validated and submit.
      *
-     * @param  \App\Models\JobApplication $jobApplication Incoming Job Application object.
+     * @param  \App\Models\JobApplication $application Incoming Job Application object.
      * @return \Illuminate\Http\Response
      */
-    public function complete(JobApplication $jobApplication)
+    public function complete(JobApplication $application)
     {
         // Dummy Data.
-        $applicant = $jobApplication->applicant;
-        $jobPoster = $jobApplication->job_poster;
+        $applicant = $application->applicant;
+        $jobPoster = $application->job_poster;
 
         return view(
             'applicant/application/congrats',
             [
                 'applicant' => $applicant,
-                'application' => $jobApplication,
+                'application' => $application,
                 'application_template' => Lang::get(
                     'applicant/application_template',
                     ['security_clearance' => $jobPoster->security_clearance->value ]

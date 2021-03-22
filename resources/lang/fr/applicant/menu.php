@@ -32,6 +32,7 @@ return [
         'name' => 'Paramètres'
     ]
 ],
+'visit' => 'Visitez',
 'register' => 'Inscription',
 'login' => 'Ouverture de session',
 'logout' => 'Se déconnecter',

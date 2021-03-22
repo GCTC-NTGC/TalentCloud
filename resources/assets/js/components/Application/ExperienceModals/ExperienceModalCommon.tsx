@@ -1,6 +1,13 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
+import { Experience, Skill } from "../../../models/types";
 import Modal from "../../Modal";
+
+export type ExperienceSubmitData<T extends Experience> = {
+  experience: T;
+  savedRequiredSkills: Skill[];
+  savedOptionalSkills: Skill[];
+};
 
 export const ExperienceModalHeader: React.FC<{
   title: string;
@@ -19,6 +26,7 @@ export const ExperienceModalHeader: React.FC<{
           data-c-font-size="h3"
           data-c-font-weight="bold"
           data-c-dialog-focus
+          tabIndex={0}
         >
           {title}
         </h5>

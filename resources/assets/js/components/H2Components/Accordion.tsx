@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { h2ComponentAccordionAddTriggerEvent } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
+import { h2AccordionToggle } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
 import { GeneralProps, GeneralBtnProps } from "./utils";
 
 const messages = defineMessages({
@@ -106,7 +106,7 @@ const Accordion: React.FunctionComponent<AccordionContext> &
   const { triggerPos, className, children, ...rest } = props;
   const ref = React.useRef(null);
   React.useEffect((): void => {
-    h2ComponentAccordionAddTriggerEvent("latest", ref.current);
+    h2AccordionToggle(ref.current);
   });
   return (
     <AccordionContext.Provider value={props}>

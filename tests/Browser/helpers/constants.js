@@ -21,7 +21,7 @@ export const MANAGER_FIRST_VISIT = `${HOMEPAGE}/manager/first-visit`;
 export const HR_FIRST_VISIT = `${HOMEPAGE}/hr/first-visit`;
 
 export const PROFILE_ABOUT = `${HOMEPAGE}/profile/about`;
-export const PROFILE_SKILLS = `${HOMEPAGE}/profile/skills`;
+export const PROFILE_SKILLS = `${HOMEPAGE}/profile/skills-old`;
 export const PROFILE_EXPERIENCE = `${HOMEPAGE}/profile/experience`;
 export const PROFILE_REFERENCES = `${HOMEPAGE}/profile/references`;
 export const PROFILE_PORTFOLIO = `${HOMEPAGE}/profile/portfolio`;

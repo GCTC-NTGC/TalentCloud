@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import {
   ExperienceEducation,
   ExperienceSkill,
@@ -39,7 +39,7 @@ const ExperienceEducationDetails: React.FC<{
     </p>
   );
   const endDateOrNa = endDate ? (
-    <p>{readableDate(locale, endDate)}</p>
+    <p>{readableDateFromString(locale, endDate)}</p>
   ) : (
     notApplicable
   );
@@ -93,7 +93,7 @@ const ExperienceEducationDetails: React.FC<{
             {intl.formatMessage(accordionMessages.startDateLabel)}
           </p>
           {startDate ? (
-            <p>{readableDate(locale, startDate)}</p>
+            <p>{readableDateFromString(locale, startDate)}</p>
           ) : (
             { notApplicable }
           )}
@@ -124,8 +124,7 @@ interface ProfileEducationAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps> = ({
@@ -134,7 +133,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -176,7 +174,6 @@ export const ProfileEducationAccordion: React.FC<ProfileEducationAccordionProps>
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceEducationDetails experience={experience} />
     </ProfileExperienceAccordion>
@@ -191,7 +188,7 @@ interface ExperienceEducationAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordionProps> = ({

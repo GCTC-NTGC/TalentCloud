@@ -1,0 +1,35 @@
+{# =============================================================================
+
+    Talent Cloud
+    Applicant Profile - Experience
+
+============================================================================= #}
+{% extends "layouts/base" %}
+{% block title %}
+	{{ profile.skills_section.skills_title }}
+{% endblock %}
+{% block body %}
+	{% include "common/header" with {"header": profile} %}
+	<a id="skipLink"></a>
+    <div data-clone>
+        <div data-c-border="bottom(thin, solid, gray)" data-c-padding="bottom(3)">
+            <div data-c-container="large(center)">
+                <div data-c-grid="gutter(all, 2)">
+                    <div data-c-grid-item="tl(1of4)">
+                        {% include "applicant/profile/menu" %}
+                    </div>
+                    <div data-c-grid-item="tl(3of4)">
+                        <div data-c-container="medium(left)">
+                            {% include "applicant/profile/updated" %}
+                            {# Experience #}
+                            <div data-h2-system id="profile-skills" data-applicant-id="{{ applicant.id }}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+<script async defer src="{{ asset(mix('js/ProfileSkillsPage.js')) }}"></script>
+{% endblock %}

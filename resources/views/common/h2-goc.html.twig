@@ -1,0 +1,28 @@
+<section
+  data-h2-bg-color="mqb(white, 1)"
+  data-h2-padding="mqb(top, .5) mqb(bottom, .5)">
+  <div data-h2-container="mqb(center, full)">
+    <div data-h2-grid="mqb(middle, flush, 1)">
+      <div
+        data-h2-align="mqb(center) mqm(left)"
+        data-h2-grid-item="mqb(1of1) mqm(1of2)">
+        {# Government of Canada Logotype #}
+        <a
+          class="goc-link"
+          href="{{ goc.logo_link }}"
+          target="_blank"
+          title="{{ goc.logo_link_title }}"
+          rel="noopener noreferrer">
+          <img
+            alt="{{ goc.logo_alt }}"
+            src="{{ asset("/images/logo_goc_colour.svg") }}"></a>
+      </div>
+      <div
+        data-h2-align="mqb(center) mqm(right)"
+        data-h2-grid-item="mqb(1of1) mqm(1of2)">
+        {# Language Selection #}
+        {% include "common/lang_menu" %}
+      </div>
+    </div>
+  </div>
+</section>

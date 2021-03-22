@@ -1370,4 +1370,22 @@
   }
 
   formPreventMultipleSubmit();
+
+  /**
+   * Trigged when user clicks on hide/show icon in registration/login forms.
+   * It toggles the aria-pressed field btw true and false.
+   * This alerts users using a screen reader that the show password button has been pressed, or not pressed.
+   */
+  function showOrHidePasswordToggle() {
+    $(".showPassword").on("click", function(e) {
+      var pressed = e.currentTarget.getAttribute('aria-pressed');
+      if (pressed === "false") {
+        e.currentTarget.setAttribute('aria-pressed', "true");
+      } else {
+        e.currentTarget.setAttribute('aria-pressed', "false");
+      }
+    });
+  }
+
+  showOrHidePasswordToggle();
 })(jQuery);

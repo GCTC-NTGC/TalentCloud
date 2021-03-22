@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\AuthController;
+use App\Models\User;
 
 class ForgotPasswordController extends AuthController
 {
@@ -19,7 +22,9 @@ class ForgotPasswordController extends AuthController
     |
     */
 
-    use SendsPasswordResetEmails;
+    use SendsPasswordResetEmails {
+        sendResetLinkEmail as protected sendResetLinkEmailOverridden;
+    }
 
     /**
      * Create a new controller instance.
@@ -44,5 +49,18 @@ class ForgotPasswordController extends AuthController
             'routes' => $this->auth_routes(),
             'forgot_password' => Lang::get('common/auth/forgot_password'),
         ]);
+    }
+
+    /**
+     * Log information for reset password request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function sendResetLinkEmail(Request $request) {
+        if( User::where('email', $request->input('email'))->exists() ){ // Check if user exists.
+            Log::notice('Reset Password email requested by ' . $request->input('email'));
+        }
+        return $this->sendResetLinkEmailOverridden($request);
     }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
@@ -15,29 +15,24 @@ import {
 import { localizeFieldNonNull, getLocale } from "../../../helpers/localize";
 import { SkillTypeId, CriteriaTypeId } from "../../../models/lookupConstants";
 import EducationExperienceModal, {
+  FormEducationStatus,
+  FormEducationType,
   messages as educationMessages,
-  EducationType,
-  EducationStatus,
-  EducationExperienceSubmitData,
 } from "../ExperienceModals/EducationExperienceModal";
 
 import WorkExperienceModal, {
   messages as workMessages,
-  WorkExperienceSubmitData,
 } from "../ExperienceModals/WorkExperienceModal";
 import CommunityExperienceModal, {
   messages as communityMessages,
-  CommunityExperienceSubmitData,
 } from "../ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal, {
   messages as personalMessages,
-  PersonalExperienceSubmitData,
 } from "../ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal, {
   messages as awardMessages,
-  AwardRecipientType,
-  AwardRecognitionType,
-  AwardExperienceSubmitData,
+  FormAwardRecipientType,
+  FormAwardRecognitionType,
 } from "../ExperienceModals/AwardExperienceModal";
 import { ExperienceEducationAccordion } from "../ExperienceAccordions/ExperienceEducationAccordion";
 import { ExperienceWorkAccordion } from "../ExperienceAccordions/ExperienceWorkAccordion";
@@ -48,10 +43,12 @@ import {
   getSkillOfCriteria,
   getSkillsOfExperience,
   getDisconnectedRequiredSkills,
+  getIrrelevantSkillCount,
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { focusOnElement } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/forms";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
   intl: IntlShape,
@@ -89,11 +86,16 @@ export const ModalButton: React.FunctionComponent<{
   id: Experience["type"];
   title: string;
   icon: string;
-  openModal: (id: Experience["type"]) => void;
+  openModal: (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement>,
+  ) => void;
 }> = ({ id, title, icon, openModal }) => {
+  const ref = useRef<HTMLButtonElement>(null);
   return (
     <div key={id} data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
       <button
+        ref={ref}
         className="application-experience-trigger"
         data-c-card
         data-c-background="c1(100)"
@@ -102,7 +104,7 @@ export const ModalButton: React.FunctionComponent<{
         data-c-dialog-id={id}
         data-c-dialog-action="open"
         type="button"
-        onClick={(): void => openModal(id)}
+        onClick={(): void => openModal(id, ref)}
       >
         <i className={icon} aria-hidden="true" />
         <span data-c-font-size="regular" data-c-font-weight="bold">
@@ -118,7 +120,7 @@ const applicationExperienceAccordion = (
   irrelevantSkillCount: number,
   relevantSkills: ExperienceSkill[],
   skills: Skill[],
-  handleEdit: () => void,
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void,
   handleDelete: () => Promise<void>,
 ): React.ReactElement | null => {
   switch (experience.type) {
@@ -197,38 +199,37 @@ const applicationExperienceAccordion = (
   }
 };
 
-export type ExperienceSubmitData =
-  | EducationExperienceSubmitData
-  | WorkExperienceSubmitData
-  | CommunityExperienceSubmitData
-  | PersonalExperienceSubmitData
-  | AwardExperienceSubmitData;
-
 interface ExperienceProps {
+  essentialSkills: Skill[];
   assetSkills: Skill[];
   disconnectedRequiredSkills: Skill[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  softSkills: Skill[];
+  hardCriteria: Criteria[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   hasError?: boolean;
-  essentialSkills: Skill[];
   experiences: Experience[];
   experienceSkills: ExperienceSkill[];
   jobId: number;
   jobEducationRequirements: string | null;
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   classificationEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
   skills: Skill[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
 }
 
 export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   assetSkills,
+  softSkills,
   disconnectedRequiredSkills,
+  hardCriteria,
   hasError,
   educationStatuses,
   educationTypes,
@@ -258,18 +259,31 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const [isModalVisible, setIsModalVisible] = useState<{
     id: Experience["type"] | "";
     visible: boolean;
+    triggerRef: React.RefObject<HTMLButtonElement> | null;
   }>({
     id: "",
     visible: false,
+    triggerRef: null,
   });
 
-  const openModal = (id: Experience["type"]): void => {
-    setIsModalVisible({ id, visible: true });
+  const openModal = (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
+  ): void => {
+    setIsModalVisible({ id, visible: true, triggerRef });
   };
 
   const closeModal = (): void => {
     setExperienceData(null);
-    setIsModalVisible({ id: "", visible: false });
+    if (isModalVisible.triggerRef?.current) {
+      isModalVisible.triggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setIsModalVisible({ id: "", visible: false, triggerRef: null });
   };
 
   const submitExperience = (data) =>
@@ -279,23 +293,18 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     experience: Experience,
     savedOptionalSkills: Skill[],
     savedRequiredSkills: Skill[],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
   ): void => {
     setExperienceData({
       ...experience,
       savedOptionalSkills,
       savedRequiredSkills,
     });
-    setIsModalVisible({ id: experience.type, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true, triggerRef });
   };
 
   const deleteExperience = (experience: Experience): Promise<void> =>
     handleDeleteExperience(experience.id, experience.type).then(closeModal);
-
-  const softSkills = removeDuplicatesById(
-    [...assetSkills, ...essentialSkills].filter(
-      (skill) => skill.skill_type_id === SkillTypeId.Soft,
-    ),
-  );
 
   const modalButtons = modalButtonProps(intl);
   const modalRoot = document.getElementById("modal-root");
@@ -360,30 +369,25 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
           )}
         </div>
         <p data-c-color="gray" data-c-margin="bottom(2)">
-          <FormattedMessage
-            id="application.experience.softSkillsList"
-            defaultMessage="Don't forget, {skill} will be evaluated later in the hiring process."
-            description="List of soft skills that will be evaluated later."
-            values={{
-              skill: (
-                <>
-                  {softSkills.map((skill, index) => {
-                    const and = " and ";
-                    const lastElement = index === softSkills.length - 1;
-                    return (
-                      <React.Fragment key={skill.id}>
-                        {lastElement && softSkills.length > 1 && and}
-                        <span key={skill.id} data-c-font-weight="bold">
-                          {localizeFieldNonNull(locale, skill, "name")}
-                        </span>
-                        {!lastElement && softSkills.length > 2 && ", "}
-                      </React.Fragment>
-                    );
-                  })}
-                </>
-              ),
-            }}
-          />
+          {intl.formatMessage(experienceMessages.softSkillsList, {
+            skill: (
+              <>
+                {softSkills.map((skill, index) => {
+                  const and = " and ";
+                  const lastElement = index === softSkills.length - 1;
+                  return (
+                    <React.Fragment key={skill.id}>
+                      {lastElement && softSkills.length > 1 && and}
+                      <span key={skill.id} data-c-font-weight="bold">
+                        {localizeFieldNonNull(locale, skill, "name")}
+                      </span>
+                      {!lastElement && softSkills.length > 2 && ", "}
+                    </React.Fragment>
+                  );
+                })}
+              </>
+            ),
+          })}
         </p>
         {hasError && (
           <div
@@ -468,11 +472,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   })
                   .filter(notEmpty);
 
-                const handleEdit = () =>
+                const handleEdit = (
+                  triggerRef: React.RefObject<HTMLButtonElement> | null,
+                ) =>
                   editExperience(
                     experience,
                     savedOptionalSkills,
                     savedRequiredSkills,
+                    triggerRef,
                   );
                 const handleDelete = () => deleteExperience(experience);
 
@@ -495,13 +502,11 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                 );
 
                 // Number of skills attached to Experience but are not part of the jobs skill criteria.
-                const irrelevantSkillCount =
-                  experienceSkills.filter(
-                    (experienceSkill) =>
-                      experienceSkill.experience_id === experience.id &&
-                      experienceSkill.experience_type === experience.type,
-                  ).length -
-                  (savedOptionalSkills.length + savedRequiredSkills.length);
+                const irrelevantSkillCount = getIrrelevantSkillCount(
+                  hardCriteria,
+                  experience,
+                  experienceSkills,
+                );
 
                 return (
                   applicationExperienceAccordion(
@@ -686,21 +691,23 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
 
 interface ExperienceStepProps {
   experiences: Experience[];
-  educationStatuses: EducationStatus[];
-  educationTypes: EducationType[];
+  educationStatuses: FormEducationStatus[];
+  educationTypes: FormEducationType[];
   experienceSkills: ExperienceSkill[];
   criteria: Criteria[];
   skills: Skill[];
   jobId: number;
   jobEducationRequirements: string | null;
+  recipientTypes: FormAwardRecipientType[];
+  recognitionTypes: FormAwardRecognitionType[];
   classificationEducationRequirements: string | null;
-  recipientTypes: AwardRecipientType[];
-  recognitionTypes: AwardRecognitionType[];
   handleDeleteExperience: (
     id: number,
     type: Experience["type"],
   ) => Promise<void>;
-  handleSubmitExperience: (data: ExperienceSubmitData) => Promise<void>;
+  handleSubmitExperience: (
+    data: ExperienceSubmitData<Experience>,
+  ) => Promise<void>;
   handleContinue: () => void;
   handleQuit: () => void;
   handleReturn: () => void;
@@ -727,14 +734,20 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   const intl = useIntl();
   const [hasError, setHasError] = useState(false);
 
-  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
-  useEffect(() => {
-    if (hasError) {
-      focusOnElement("experience-step-form-error");
-    }
-  }, [hasError]);
+  const softSkills = removeDuplicatesById(
+    criteria
+      .map((criterion) => getSkillOfCriteria(criterion, skills))
+      .filter(notEmpty)
+      .filter((skill) => skill.skill_type_id === SkillTypeId.Soft),
+  );
 
-  const filteredSkills = criteria.reduce(
+  // For most purposes, this page should only list Hard Skills
+  const hardCriteria = criteria.filter((criterion) => {
+    const skill = getSkillOfCriteria(criterion, skills);
+    return skill?.skill_type_id === SkillTypeId.Hard;
+  });
+
+  const hardSkills = hardCriteria.reduce(
     (result, criterion): { essential: Skill[]; asset: Skill[] } => {
       const skillOfCriterion = getSkillOfCriteria(criterion, skills);
       if (skillOfCriterion) {
@@ -750,8 +763,8 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     { essential: [], asset: [] } as { essential: Skill[]; asset: Skill[] },
   );
 
-  const essentialSkills = removeDuplicatesById(filteredSkills.essential);
-  const assetSkills = removeDuplicatesById(filteredSkills.asset);
+  const essentialSkills = removeDuplicatesById(hardSkills.essential);
+  const assetSkills = removeDuplicatesById(hardSkills.asset);
 
   const disconnectedRequiredSkills = getDisconnectedRequiredSkills(
     experiences,
@@ -759,11 +772,23 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
     essentialSkills,
   );
 
+  // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
+  useEffect(() => {
+    if (hasError) {
+      focusOnElement("experience-step-form-error");
+    }
+    if (disconnectedRequiredSkills.length === 0) {
+      setHasError(false);
+    }
+  }, [hasError, disconnectedRequiredSkills]);
+
   return (
     <>
       <MyExperience
         assetSkills={assetSkills}
         disconnectedRequiredSkills={disconnectedRequiredSkills}
+        softSkills={softSkills}
+        hardCriteria={hardCriteria}
         hasError={hasError}
         experiences={experiences}
         educationStatuses={educationStatuses}

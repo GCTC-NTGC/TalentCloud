@@ -57,6 +57,8 @@ class MenuComposer
                 case 'profile.references.show':
                 case 'profile.skills.edit':
                 case 'profile.skills.show':
+                case 'profile.skills-old.edit':
+                case 'profile.skills-old.show':
                 case 'profile.work_samples.edit':
                 case 'profile.work_samples.show':
                     $menu['items']['profile']['active'] = true;
