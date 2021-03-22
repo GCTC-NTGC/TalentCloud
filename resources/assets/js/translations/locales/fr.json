@@ -343,6 +343,7 @@
   "application.review.missingAnswer": "Aucune réponse pour le moment.",
   "application.review.priorityStatus.priority": "Priorité",
   "application.review.priorityStatus.priorityLogoTitle": "Icône pour candidat prioritaire",
+  "application.review.requiredSkillLabel": "Requise",
   "application.review.reviewSaveFailed": "Une erreur s'est produite lors de l'enregistrement d'un commentaire. Réessayez plus tard.",
   "application.review.reviewStatus.notReviewed": "Non révisé",
   "application.review.reviewStatus.screenedOut": "Éliminé",

@@ -82,6 +82,11 @@ const messages = defineMessages({
     description:
       "Text displayed if a user has not yet selected a communication preference in their profile.",
   },
+  requiredSkillLabel: {
+    id: "application.review.requiredSkillLabel",
+    defaultMessage: "Required",
+    description: "Text displayed before skill level.",
+  },
 });
 
 const submittedApplicationHeaders = defineMessages({
@@ -557,9 +562,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
               const skillOfCriterion = getSkillOfCriteria(criterion, skills);
 
               if (skillOfCriterion !== null) {
-                const skillLevel = intl.formatMessage(
+                let skillLevel = intl.formatMessage(
                   getSkillLevelName(criterion, skillOfCriterion),
                 );
+                if (criterion.criteria_type_id === 1) {
+                  skillLevel = `${intl.formatMessage(
+                    messages.requiredSkillLabel,
+                  )} - ${skillLevel}`;
+                }
 
                 const experiencesOfCriterion = experienceSkills.filter(
                   (experienceSkill) =>
