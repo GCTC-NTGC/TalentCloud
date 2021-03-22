@@ -32,12 +32,12 @@ import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEduc
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
-import { getLocale, localizeField } from "../../../helpers/localize";
 import {
-  getSkillOfCriteria,
-  getIrrelevantSkillCount,
-  getRelevantExpSkills,
-} from "../helpers";
+  getLocale,
+  localizeField,
+  localizeFieldNonNull,
+} from "../../../helpers/localize";
+import { getSkillOfCriteria, getRelevantExpSkills } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import { Link } from "../../../helpers/router";
 import {
@@ -230,10 +230,38 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
     experienceViewState || "experience",
   );
 
-  const hardCriteria = criteria.filter((criterion) => {
-    const skill = getSkillOfCriteria(criterion, skills);
-    return skill?.skill_type_id === SkillTypeId.Hard;
-  });
+  const hardCriteria = criteria
+    .filter((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort((a, b) => {
+      const skillA = getSkillOfCriteria(a, skills);
+      const skillB = getSkillOfCriteria(b, skills);
+      // Order by essential followed by asset.
+      if (a.criteria_type_id > b.criteria_type_id) {
+        return 1;
+      }
+      if (a.criteria_type_id < b.criteria_type_id) {
+        return -1;
+      }
+      // Order by skill name alphabetically.
+      if (skillA && skillB) {
+        if (
+          localizeFieldNonNull(locale, skillA, "name").toUpperCase() >
+          localizeFieldNonNull(locale, skillB, "name").toUpperCase()
+        ) {
+          return 1;
+        }
+        if (
+          localizeFieldNonNull(locale, skillA, "name").toUpperCase() <
+          localizeFieldNonNull(locale, skillB, "name").toUpperCase()
+        ) {
+          return -1;
+        }
+      }
+      return 0;
+    });
 
   const handleViewClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const viewType: ExperienceView = e.currentTarget.getAttribute(
