@@ -21,7 +21,7 @@ stories.add(
       >
         <p>{text("Trigger", "Open Dialog", "Text")}</p>
       </Dialog.Trigger>
-      <Dialog id="dialog">
+      <Dialog isVisible id="dialog">
         <Dialog.Header className="gradient-left-right">
           <Dialog.Title
             data-h2-padding="b(all, .5) b(left, 1)"
