@@ -2,7 +2,6 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import {
   focusNextItem,
-  focusOnElement,
   focusPreviousItem,
   getTabList,
 } from "../../helpers/forms";

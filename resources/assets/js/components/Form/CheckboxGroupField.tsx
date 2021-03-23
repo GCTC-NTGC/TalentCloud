@@ -29,7 +29,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   const hasError = !!meta.error && meta.touched;
   useEffect(() => {
     if (hasError) {
-      focusOnElement(`${id}-${allBoxes[0].value}`);
+      focusOnElement(`#${id}-${allBoxes[0].value}`);
     }
   });
   return (

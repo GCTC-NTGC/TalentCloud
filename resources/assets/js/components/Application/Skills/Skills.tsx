@@ -563,7 +563,7 @@ const Skills: React.FC<SkillsProps> = ({
             ...accordionExpansions,
             [experienceSkillId]: true,
           });
-          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          focusOnElement(`#experience-skill-textarea-${experienceSkillId}`);
           return true;
         }
         return false;
