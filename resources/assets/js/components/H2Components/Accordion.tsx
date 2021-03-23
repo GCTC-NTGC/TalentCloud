@@ -1,7 +1,9 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { h2AccordionToggle } from "@hydrogen-design-system/system/dist/import/latest/components/accordion/scripts/accordion";
-import { GeneralProps, GeneralBtnProps } from "./utils";
+import { getTabList } from "../../helpers/accessibility";
+import { GeneralBtnProps } from "./utils";
+
+type Div = React.HTMLAttributes<HTMLDivElement>;
 
 const messages = defineMessages({
   expand: {
@@ -11,9 +13,15 @@ const messages = defineMessages({
   },
 });
 
-interface AccordionContext extends GeneralProps {
+interface AccordionContext extends Div {
+  /** The accordions id. */
+  id?: string;
+  /** The state of the accordion (expanded or collapsed). */
+  isExpanded?: boolean;
   /** The position of the open and close trigger element, which can be set to the left or right side of the accordion buttons content */
   triggerPos?: "left" | "right";
+  /** Callback method for opening or closing accordion. */
+  toggleAccordion?: () => void;
 }
 
 const AccordionContext = React.createContext<AccordionContext | undefined>(
@@ -27,47 +35,57 @@ const AccordionContext = React.createContext<AccordionContext | undefined>(
  * Bonus: it even makes sure the component is used within a
  * Accordion component!
  */
-const useAccordionContext = (): {} => {
+const useAccordionContext = (): AccordionContext => {
   const context = React.useContext(AccordionContext);
   if (!context) {
     throw new Error(
       "This component must be used within a <Accordion> component.",
     );
   }
+
   return context;
 };
 
-interface BtnProps extends GeneralProps, GeneralBtnProps {
-  /** The accordion add icon which can be a string or a react element */
+interface BtnProps extends GeneralBtnProps {
+  /** The accordion add icon which can be a string or a react element. */
   addIcon?: React.ReactElement | string;
-  /** The accordion remove icon which can be a string or a react element */
+  /** The accordion remove icon which can be a string or a react element. */
   removeIcon?: React.ReactElement | string;
-  /** The standard css class attribute */
-  className?: string;
+  /** Get access to the DOM element by passing a react ref.  */
+  innerRef?: React.LegacyRef<HTMLButtonElement>;
 }
 
-const Btn: React.FunctionComponent<BtnProps> = (props) => {
-  useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
-  const {
-    addIcon,
-    removeIcon,
-    buttonStyling,
-    className,
-    children,
-    ...rest
-  } = props;
+const Btn: React.FunctionComponent<BtnProps> = ({
+  addIcon,
+  buttonStyling,
+  removeIcon,
+  innerRef,
+  onClick,
+  children,
+  ...rest
+}) => {
+  const { isExpanded, toggleAccordion } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
   const intl = useIntl();
+  const buttonRef = React.useRef<HTMLButtonElement | null>(null);
+  React.useEffect(() => {
+    if (buttonRef.current && !isExpanded) {
+      buttonRef.current.focus();
+    }
+  }, [buttonRef, isExpanded]);
   return (
     <button
+      aria-expanded={isExpanded}
+      data-h2-accordion-trigger
       data-h2-button={buttonStyling}
       type="button"
-      aria-expanded="false"
-      data-h2-accordion-trigger
-      tabIndex={0}
-      className={className}
+      ref={innerRef || buttonRef}
+      onClick={(e) => {
+        if (toggleAccordion) toggleAccordion();
+        if (onClick) onClick(e);
+      }}
       {...rest}
     >
-      <span data-h2-accordion-trigger-label>
+      <span aria-hidden="true" data-h2-accordion-trigger-label>
         {intl.formatMessage(messages.expand)}
       </span>
       <span aria-hidden="true" data-h2-accordion-add-icon>
@@ -81,14 +99,23 @@ const Btn: React.FunctionComponent<BtnProps> = (props) => {
   );
 };
 
-const Content: React.FunctionComponent<GeneralProps> = (props) => {
-  useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
-  const { className, children, ...rest } = props;
+const Content: React.FunctionComponent<Div> = ({ children, ...rest }) => {
+  const { isExpanded } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    if (contentRef.current && isExpanded) {
+      const focusableElements = getTabList(contentRef.current);
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+  }, [contentRef, isExpanded]);
   return (
     <div
-      aria-hidden="true"
+      data-h2-visibility={!isExpanded ? "b(hidden)" : ""}
+      aria-hidden={!isExpanded}
       data-h2-accordion-content
-      className={className}
+      ref={contentRef}
       {...rest}
     >
       {children}
@@ -98,22 +125,39 @@ const Content: React.FunctionComponent<GeneralProps> = (props) => {
 
 interface AccordionComposition {
   Btn: React.FunctionComponent<BtnProps>;
-  Content: React.FunctionComponent<GeneralProps>;
+  Content: React.FunctionComponent<Div>;
 }
 
 const Accordion: React.FunctionComponent<AccordionContext> &
   AccordionComposition = (props) => {
-  const { triggerPos, className, children, ...rest } = props;
-  const ref = React.useRef(null);
-  React.useEffect((): void => {
-    h2AccordionToggle(ref.current);
-  });
+  const {
+    id,
+    isExpanded = false,
+    toggleAccordion,
+    triggerPos,
+    children,
+    ...rest
+  } = props;
+  const [expanded, setExpanded] = React.useState<boolean>(isExpanded);
+  React.useEffect(() => {
+    // Need to add this useEffect hook to ensure the state changes when the Accordion acts a controlled component.
+    setExpanded(isExpanded);
+  }, [isExpanded]);
+
   return (
-    <AccordionContext.Provider value={props}>
+    <AccordionContext.Provider
+      value={{
+        id,
+        triggerPos,
+        isExpanded: expanded,
+        toggleAccordion: toggleAccordion || (() => setExpanded(!expanded)),
+      }}
+    >
       <div
-        ref={ref}
+        data-h2-no-js
+        id={id}
         data-h2-accordion={triggerPos || "left"}
-        className={className}
+        className={expanded ? "h2-active" : ""}
         {...rest}
       >
         {children}
