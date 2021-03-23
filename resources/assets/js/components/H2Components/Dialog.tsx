@@ -1,5 +1,5 @@
 import * as React from "react";
-import { focusOnElement, getTabList } from "../../helpers/accessibility";
+import { focusOnElement, getTabList } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
 type Div = React.HTMLAttributes<HTMLDivElement>;

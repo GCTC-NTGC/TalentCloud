@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { getTabList } from "../../helpers/accessibility";
+import { getTabList } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
 type Div = React.HTMLAttributes<HTMLDivElement>;
