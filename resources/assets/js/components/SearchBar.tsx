@@ -63,6 +63,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                     component={TextInput}
                     label={searchLabel}
                     placeholder={searchPlaceholder}
+                    data-tabable
                   />
                 </div>
               </div>
@@ -72,6 +73,7 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                     type="submit"
                     disabled={isSubmitting}
                     data-h2-button="theme-1, round, small, solid"
+                    data-tabable
                   >
                     <p data-h2-button-label>
                       <i aria-hidden="true" className="fas fa-search" />
