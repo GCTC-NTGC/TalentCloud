@@ -307,7 +307,7 @@
     // Honeypot check
     if ($("section.tc-auth")) {
       $("section.tc-auth form").on("submit", function(e) {
-        if ($("input#website").val().length !== 0) {
+        if ($("input#website").length && $("input#website").val().length !== 0) {
           showFormErrors(
             $("section.tc-auth form"),
             { data:
