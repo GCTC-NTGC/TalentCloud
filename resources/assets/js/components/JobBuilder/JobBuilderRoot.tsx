@@ -148,7 +148,7 @@ const useJobBreadcrumbs = (intl: IntlShape) => {
 
   const addJobBreadcrumb = (jobBreadcrumb: Job): void => {
     const breadcrumbs: HTMLOListElement | null = document.querySelector(
-      "#jpb-breadcrumbs",
+      "#breadcrumbs-list",
     );
     const breadcrumb: HTMLLIElement = document.createElement("li");
     const anchor = document.createElement("a");
