@@ -806,6 +806,11 @@
         "id": "application.experience.errorRenderingExperience"
       },
       {
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "description": "List of soft skills that will be evaluated later.",
+        "id": "application.experience.softSkillsList"
+      },
+      {
         "defaultMessage": "UNKNOWN CLASSIFICATION",
         "description": "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
         "id": "application.education.missingClassification"
@@ -1034,11 +1039,6 @@
         "defaultMessage": "These skills are beneficial, but not required:",
         "description": "Text before the list of asset skills on the experience step of the Application Timeline.",
         "id": "application.experience.assetSkillsListIntro"
-      },
-      {
-        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
-        "description": "List of soft skills that will be evaluated later.",
-        "id": "application.experience.softSkillsList"
       },
       {
         "defaultMessage": "To continue, please connect the following required skill(s) to an experience:",
@@ -2900,6 +2900,87 @@
       }
     ],
     "path": "resources/assets/js/components/ErrorToast.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Skills",
+        "id": "findSkillsModal.triggerLabel"
+      },
+      {
+        "defaultMessage": "Find and add skills",
+        "id": "findSkillsModal.modalHeading"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "findSkillsModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Skills",
+        "id": "findSkillsModal.save"
+      },
+      {
+        "defaultMessage": "Search for skills by name:",
+        "id": "findSkillsModal.seachBarInputLabel"
+      },
+      {
+        "defaultMessage": "eg. User interface design.",
+        "id": "findSkillsModal.searchBarInputPlaceholder"
+      },
+      {
+        "defaultMessage": "Search Skills",
+        "id": "findSkillsModal.searchBarButtonLabel"
+      },
+      {
+        "defaultMessage": "There are {numOfSkills} results for skills related to \"{searchQuery}\".",
+        "id": "findSkillsModal.searchResultsTitle"
+      },
+      {
+        "defaultMessage": "{category} Skills",
+        "id": "findSkillsModal.skills"
+      },
+      {
+        "defaultMessage": "There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in {category} category.",
+        "id": "findSkillsModal.numOfCategorySkills"
+      },
+      {
+        "defaultMessage": "Click to view {category} skills category. There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in this category.",
+        "id": "findSkillsModal.childCategoryButtonAriaLabel"
+      },
+      {
+        "defaultMessage": "Explore Categories",
+        "id": "findSkillsModal.skillsResultsHeading"
+      },
+      {
+        "defaultMessage": "Click on the categories on the left to explore skills. Only select the skills that you have experience with.",
+        "id": "findSkillsModal.skillResultsSubHeading"
+      },
+      {
+        "defaultMessage": "No skills available.",
+        "id": "findSkillsModal.noSkills"
+      },
+      {
+        "defaultMessage": "Back",
+        "id": "findSkillsModal.backButton"
+      },
+      {
+        "defaultMessage": "Already Added",
+        "id": "findSkillsModal.disabledSkillButton"
+      },
+      {
+        "defaultMessage": "Select {skill}",
+        "id": "findSkillsModal.selectSkillButton"
+      },
+      {
+        "defaultMessage": "Remove {skill}",
+        "id": "findSkillsModal.removeSkillButton"
+      },
+      {
+        "defaultMessage": "{numOfSkills} skill has been added. Select the save skills button, to save them to your profile.",
+        "id": "findSkillsModal.numOfSkillsAdded"
+      }
+    ],
+    "path": "resources/assets/js/components/FindSkillsDialog/messages.json"
   },
   {
     "descriptors": [
