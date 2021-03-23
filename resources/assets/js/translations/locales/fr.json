@@ -241,7 +241,7 @@
   "application.experienceAccordion.deleteButton": "Supprimer l’expérience",
   "application.experienceAccordion.editButton": "Modifier l’expérience",
   "application.experienceAccordion.educationRequirement": "Exigences en matière d’éducation",
-  "application.experienceAccordion.educationRequirmentDescription": "Vous avez choisi cette expérience comme indicateur de la façon dont vous répondez aux exigences en matière d’études pour cet emploi.",
+  "application.experienceAccordion.educationRequirementDescription": "Vous avez choisi cette expérience comme indicateur de la façon dont vous répondez aux exigences en matière d’études pour cet emploi.",
   "application.experienceAccordion.irrelevantSkillCount": "Il {skillCount, plural, one {existe <b>#</b> autre compétence non liée} autre {existe <b>#</b> autres compétences non liées}} rattachées à cette expérience. Vous pouvez voir {skillCount, plural, une {it} autre {ces dernières}} dans votre profil.",
   "application.experienceAccordion.noSkills": "Vous n’avez aucune compétence liée à cette expérience.",
   "application.experienceAccordion.skillCount": "{skillCount, plural, =0 {Aucune compétence connexe} one {# compétence connexe} other {# compétences connexes}} {isEducationJustification, select, true {/ Exigences en matière d'éducation} false {}}",

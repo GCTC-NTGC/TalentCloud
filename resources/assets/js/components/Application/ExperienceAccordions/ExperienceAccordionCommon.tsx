@@ -166,7 +166,7 @@ export const ExperienceAccordionEducation: React.FC = () => {
       </h4>
       <p data-c-margin="bottom(1)">
         <FormattedMessage
-          id="application.experienceAccordion.educationRequirmentDescription"
+          id="application.experienceAccordion.educationRequirementDescription"
           defaultMessage="You've selected this experience as an indicator of how you meet the education requirements for this job."
           description="Explanation of what it means that this experience meets an education requirement."
         />

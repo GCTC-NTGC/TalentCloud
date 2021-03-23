@@ -685,7 +685,7 @@ const frequencyMessages = defineMessages({
 export const frequencyName = (frequencyId: number): MessageDescriptor =>
   getOrThrowError(frequencyMessages, frequencyId, "invalid FrequencyId");
 
-const overtimeRequirmentDescriptions = defineMessages({
+const overtimeRequirementDescriptions = defineMessages({
   [OvertimeRequirementId.frequently]: {
     id: "jobBuilder.details.overtimeFrequentlyLabel",
     defaultMessage: "Yes, overtime is frequently required for the position.",
@@ -710,7 +710,7 @@ export const overtimeRequirementDescription = (
   overtimeRequirementId: number,
 ): MessageDescriptor =>
   getOrThrowError(
-    overtimeRequirmentDescriptions,
+    overtimeRequirementDescriptions,
     overtimeRequirementId,
     "invalid OvertimeRequirementId",
   );
