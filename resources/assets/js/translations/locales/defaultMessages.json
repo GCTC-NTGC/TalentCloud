@@ -5935,19 +5935,14 @@
         "id": "languageRequirement.context.expanded"
       },
       {
-        "defaultMessage": "Almost Always",
-        "description": "The form label displayed on 'always' frequency options.",
-        "id": "jobBuilder.details.frequencyAlwaysLabel"
+        "defaultMessage": "Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobBuilder.details.frequencyNeverLabel"
       },
       {
-        "defaultMessage": "Frequently",
-        "description": "The form label displayed on 'frequently' frequency options.",
-        "id": "jobBuilder.details.frequencyFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Sometimes",
-        "description": "The form label displayed on 'sometimes' frequency options.",
-        "id": "jobBuilder.details.frequencySometimesLabel"
+        "defaultMessage": "Rarely",
+        "description": "The form label displayed on 'rarely' frequency options.",
+        "id": "jobBuilder.details.frequencyRarelyLabel"
       },
       {
         "defaultMessage": "Occasionally",
@@ -5955,9 +5950,14 @@
         "id": "jobBuilder.details.frequencyOccasionallyLabel"
       },
       {
-        "defaultMessage": "Never",
-        "description": "The form label displayed on 'never' frequency options.",
-        "id": "jobBuilder.details.frequencyNeverLabel"
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobBuilder.details.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobBuilder.details.frequencyAlwaysLabel"
       },
       {
         "defaultMessage": "Yes, overtime is frequently required for the position.",

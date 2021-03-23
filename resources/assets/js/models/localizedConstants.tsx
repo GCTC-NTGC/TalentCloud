@@ -654,31 +654,31 @@ export const narrativeReviewStandardAnswer = (): MessageDescriptor =>
   standardAssessmentText.narrativeReviewAnswer;
 
 const frequencyMessages = defineMessages({
-  [FrequencyId.always]: {
-    id: "jobBuilder.details.frequencyAlwaysLabel",
-    defaultMessage: "Almost Always",
-    description: "The form label displayed on 'always' frequency options.",
-  },
-  [FrequencyId.often]: {
-    id: "jobBuilder.details.frequencyFrequentlyLabel",
-    defaultMessage: "Frequently",
-    description: "The form label displayed on 'frequently' frequency options.",
-  },
-  [FrequencyId.sometimes]: {
-    id: "jobBuilder.details.frequencySometimesLabel",
-    defaultMessage: "Sometimes",
-    description: "The form label displayed on 'sometimes' frequency options.",
+  [FrequencyId.never]: {
+    id: "jobBuilder.details.frequencyNeverLabel",
+    defaultMessage: "Never",
+    description: "The form label displayed on 'never' frequency options.",
   },
   [FrequencyId.rarely]: {
+    id: "jobBuilder.details.frequencyRarelyLabel",
+    defaultMessage: "Rarely",
+    description: "The form label displayed on 'rarely' frequency options.",
+  },
+  [FrequencyId.occasionally]: {
     id: "jobBuilder.details.frequencyOccasionallyLabel",
     defaultMessage: "Occasionally",
     description:
       "The form label displayed on 'occasionally' frequency options.",
   },
-  [FrequencyId.never]: {
-    id: "jobBuilder.details.frequencyNeverLabel",
-    defaultMessage: "Never",
-    description: "The form label displayed on 'never' frequency options.",
+  [FrequencyId.frequently]: {
+    id: "jobBuilder.details.frequencyFrequentlyLabel",
+    defaultMessage: "Frequently",
+    description: "The form label displayed on 'frequently' frequency options.",
+  },
+  [FrequencyId.always]: {
+    id: "jobBuilder.details.frequencyAlwaysLabel",
+    defaultMessage: "Almost Always",
+    description: "The form label displayed on 'always' frequency options.",
   },
 });
 
