@@ -52,6 +52,12 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
     });
   };
 
+  // The skills list should be only appear after skills have loaded at least once.
+  // They should continue to be visible after that, even while requests are in progress.
+  const showSkills =
+    skillsResource.initialRefreshFinished &&
+    applicantSkillsResource.initialRefreshFinished;
+
   return (
     <div>
       <h2 data-h2-heading="b(h3)" data-h2-margin="b(bottom, 1)">
@@ -120,15 +126,17 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
           {intl.formatMessage(loadingMessages.loading)}
         </h4>
       )}
-      <List
-        experiences={experiences}
-        experienceSkills={experienceSkills}
-        skillCategories={skillCategoriesResource.value}
-        skills={applicantSkills}
-        applicantId={applicantId}
-        handleDeleteSkill={removeSkill}
-        updateInProgress={applicantSkillsResource.status === "pending"}
-      />
+      {showSkills && (
+        <List
+          experiences={experiences}
+          experienceSkills={experienceSkills}
+          skillCategories={skillCategoriesResource.value}
+          skills={applicantSkills}
+          applicantId={applicantId}
+          handleDeleteSkill={removeSkill}
+          updateInProgress={applicantSkillsResource.status === "pending"}
+        />
+      )}
     </div>
   );
 };

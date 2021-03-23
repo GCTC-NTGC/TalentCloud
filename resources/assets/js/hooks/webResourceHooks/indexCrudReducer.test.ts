@@ -37,6 +37,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: undefined,
+          initialRefreshFinished: false,
         },
       };
       const action: IndexStartAction = { type: ActionTypes.IndexStart };
@@ -50,6 +51,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 2,
           error: undefined,
+          initialRefreshFinished: false,
         },
       };
       const action: IndexStartAction = { type: ActionTypes.IndexStart };
@@ -64,6 +66,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: undefined,
+          initialRefreshFinished: false,
         },
       };
       const action: IndexFulfillAction<TestResource> = {
@@ -79,6 +82,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "fulfilled",
           pendingCount: 0,
           error: undefined,
+          initialRefreshFinished: true,
         },
         values: {
           1: {
@@ -104,6 +108,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: new Error(),
+          initialRefreshFinished: false,
         },
         values: {
           1: {
@@ -147,6 +152,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "fulfilled",
           pendingCount: 0,
           error: undefined,
+          initialRefreshFinished: true,
         },
         values: {
           1: {
@@ -186,6 +192,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: undefined,
+          initialRefreshFinished: true,
         },
       };
       const action: IndexFulfillAction<TestResource> = {
@@ -198,6 +205,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "fulfilled",
           pendingCount: 0,
           error: undefined,
+          initialRefreshFinished: true,
         },
         values: {
           2: {
@@ -216,6 +224,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: undefined,
+          initialRefreshFinished: true,
         },
       };
       const action: IndexRejectAction = {
@@ -228,6 +237,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "rejected",
           pendingCount: 0,
           error: action.payload,
+          initialRefreshFinished: true,
         },
         // Values are unchanged
       };
@@ -240,6 +250,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 2,
           error: undefined,
+          initialRefreshFinished: false,
         },
       };
       const fulfilledAction: IndexFulfillAction<TestResource> = {
@@ -252,6 +263,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: undefined,
+          initialRefreshFinished: true,
         },
       };
       expect(indexCrudReducer(initialState, fulfilledAction)).toEqual(
@@ -267,6 +279,7 @@ describe("indexCrudReducer tests", (): void => {
           status: "pending",
           pendingCount: 1,
           error: rejectedAction.payload,
+          initialRefreshFinished: true,
         },
       };
       expect(indexCrudReducer(initialState, rejectedAction)).toEqual(
