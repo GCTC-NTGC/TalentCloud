@@ -25,6 +25,7 @@ import { RootState } from "../store/store";
 import {
   fetchCriteria,
   fetchJob,
+  fetchJobTasks,
   setSelectedJob,
 } from "../store/Job/jobActions";
 import { getSkills, getSkillsUpdating } from "../store/Skill/skillSelector";
@@ -66,7 +67,7 @@ export function useLoadTasks(
     let isSubscribed = true;
     if (jobId && tasks.length === 0 && !isLoadingTasks && !hasFetchedTasks) {
       setHasFetchedTasks(true);
-      dispatch(fetchJob(jobId)).catch((): void => {
+      dispatch(fetchJobTasks(jobId)).catch((): void => {
         if (isSubscribed) {
           setHasFetchedTasks(false);
         }
