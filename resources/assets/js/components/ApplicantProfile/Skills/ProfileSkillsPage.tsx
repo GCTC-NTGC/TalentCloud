@@ -11,7 +11,9 @@ import {
 } from "../../../hooks/apiResourceHooks";
 import { Experience, ExperienceSkill, Skill } from "../../../models/types";
 import { loadingMessages } from "../../Application/applicationMessages";
-import FindSkillsModal, { FindSkillsModalTrigger } from "../../FindSkillsModal";
+import FindSkillsDialog, {
+  FindSkillsDialogTrigger,
+} from "../../FindSkillsDialog/FindSkillsDialog";
 import RootContainer from "../../RootContainer";
 import List from "./List";
 
@@ -50,6 +52,12 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
         (id) => id !== skillId,
       ),
     });
+  };
+
+  const [isDialogVisible, setIsDialogVisible] = React.useState(false);
+  const openDialog = () => setIsDialogVisible(true);
+  const closeDialog = () => {
+    setIsDialogVisible(false);
   };
 
   return (
@@ -96,13 +104,15 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
         </div>
         <div data-h2-grid-item="b(1of1) m(1of6)">
           <div data-h2-grid-content>
-            <FindSkillsModalTrigger />
-            <FindSkillsModal
-              oldSkills={applicantSkills}
+            <FindSkillsDialogTrigger openDialog={openDialog} />
+            <FindSkillsDialog
+              previousSkills={applicantSkills}
               portal="applicant"
               skills={skillsResource.value}
               skillCategories={skillCategoriesResource.value}
               handleSubmit={submitNewSkills}
+              isDialogVisible={isDialogVisible}
+              closeDialog={closeDialog}
             />
           </div>
         </div>
