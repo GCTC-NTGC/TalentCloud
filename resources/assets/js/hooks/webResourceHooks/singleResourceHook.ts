@@ -116,7 +116,7 @@ export type UseResourceReturnType<T> = {
   value: T;
   status: ResourceStatus;
   error: undefined | Error | FetchError;
-  initialRefreshFinished: boolean; // Becomes true after the intial request is fulfilled or rejected. NOTE: if initial fetch is skipped, this will be set to true immediately.
+  initialRefreshFinished: boolean; // Becomes true after the initial request is fulfilled or rejected. NOTE: if initial fetch is skipped, this will be set to true immediately.
   update: (newValue: T) => Promise<T>;
   refresh: () => Promise<T>;
 };

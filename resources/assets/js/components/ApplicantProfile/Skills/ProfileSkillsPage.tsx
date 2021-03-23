@@ -52,7 +52,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
     });
   };
 
-  // The skills list should be only appear after skills have have loaded at least once.
+  // The skills list should be only appear after skills have loaded at least once.
   // They should continue to be visible after that, even while requests are in progress.
   const showSkills =
     skillsResource.initialRefreshFinished &&
