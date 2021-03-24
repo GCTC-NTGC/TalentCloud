@@ -2,6 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import {
   focusNextItem,
+  focusOnElement,
   focusPreviousItem,
   getTabList,
 } from "../../helpers/forms";
@@ -77,6 +78,9 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
       const content = accordion.querySelector(
         "[data-h2-accordion-content]",
       ) as HTMLElement;
+      const trigger = accordion.querySelector<HTMLElement>(
+        "[data-h2-accordion-trigger]",
+      );
 
       const childSkillCategoriesFocusList = getTabList(content);
       // ArrowLeft: close the accordion and move focus back on the trigger.
@@ -85,6 +89,9 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
       switch (event.key) {
         case "ArrowLeft":
           toggleAccordion(parentSkillCategoryKey);
+          if (trigger) {
+            focusOnElement(trigger);
+          }
           break;
         case "ArrowRight":
           onSkillCategoryClick(childSkillCategory);
@@ -125,6 +132,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
               id={`${id}-${key}`}
               triggerPos="left"
               toggleAccordion={() => toggleAccordion(key)}
+              overrideFocusRules
             >
               <Accordion.Btn
                 id={`skill-category-trigger-${id}-${key}`}
@@ -191,6 +199,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
                               )}
                               data-h2-button="hello"
                               type="button"
+                              tabIndex={-1}
                               onClick={(): void =>
                                 onSkillCategoryClick(childSkillCategory)
                               }

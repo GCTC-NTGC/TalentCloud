@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import {
   getLocale,
@@ -81,13 +81,61 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   // Stores a list of skills category keys of which accordions are expanded, for styling purposes.
   const [expandedAccordions, setExpandedAccordions] = useState<string[]>([]);
   // Used to set the button color of an active skill category.
+  const searchResultsSource = useRef<{
+    elementSelector: string;
+  }>({ elementSelector: "" });
   const [activeCategory, setActiveCategory] = useState<SkillCategory["key"]>(
     "",
   );
+  const prevTabbedElement = React.useRef<HTMLElement | null>(null);
 
   const parentSkillCategories: SkillCategory[] = skillCategories.filter(
     (skillCategory) => !skillCategory.parent_id,
   );
+
+  const skillsAccordionData = skills.reduce(
+    (collection: { [key: string]: boolean }, skill: Skill) => {
+      collection[`skill-${skill.id}`] = false;
+      return collection;
+    },
+    {},
+  );
+  const categoriesAccordionData = parentSkillCategories.reduce(
+    (
+      collection: { [key: string]: boolean },
+      parentSkillCategory: SkillCategory,
+    ) => {
+      collection[parentSkillCategory.key] = false;
+      return collection;
+    },
+    {},
+  );
+
+  const [accordionData, setAccordionData] = React.useState<{
+    [key: string]: boolean;
+  }>({ ...skillsAccordionData, ...categoriesAccordionData });
+
+  /**
+   * By default, this method will toggle the accordion from expanded to collapsed (or vice versa) with the given key.
+   * There is also a second parameter to set the state.
+   * @param key Accordion key.
+   * @param value Optional value to set the accordions state (expanded or collapsed).
+   */
+  const toggleAccordion = (key: string, isExpanded: boolean | null = null) => {
+    setAccordionData({
+      ...accordionData,
+      [key]: isExpanded !== null ? isExpanded : !accordionData[key],
+    });
+  };
+
+  const closeAllAccordions = () => {
+    setAccordionData(
+      Object.keys(accordionData).reduce((acc, key) => {
+        acc[key] = false;
+        return acc;
+      }, {}),
+    );
+  };
 
   /**
    * Returns a map of skills where the key represents the category id, and the value is an array of skills in that category.
@@ -141,6 +189,10 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
       description: "",
     });
     setResults(skillMatches);
+    searchResultsSource.current = {
+      elementSelector: "#skill-search-button",
+    };
+    prevTabbedElement.current = document.getElementById("skill-search-button");
     return Promise.resolve();
   };
 
@@ -150,6 +202,9 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    */
   const onSkillCategoryClick = (childSkillCategory: SkillCategory) => {
     setFirstVisit(false);
+    searchResultsSource.current = {
+      elementSelector: `#${childSkillCategory.key}-skill-category`,
+    };
     setActiveCategory(childSkillCategory.key);
     setResultsSectionText({
       title: intl.formatMessage(messages.skills, {
@@ -171,7 +226,9 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    */
   const resetResults = () => {
     setFirstVisit(true);
-    focusOnElement(`#${activeCategory}-skill-category`);
+    focusOnElement(searchResultsSource.current.elementSelector);
+    console.log(searchResultsSource.current.elementSelector);
+    searchResultsSource.current = { elementSelector: "" };
     setActiveCategory("");
     setResults([]);
   };
@@ -182,17 +239,18 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    * Using this we can determine where the next and previous tab will be.
    */
   const dialogRef = React.useRef<HTMLElement | null>(null);
-  const [
-    prevTabbedElement,
-    setPrevTabbedElement,
-  ] = React.useState<HTMLElement | null>(null);
+
   const handleTabableElements = React.useCallback(
     (event) => {
       if (event.key === "Tab" && dialogRef.current) {
         const { activeElement } = document;
         const tabableElements = Array.from(
-          dialogRef.current.querySelectorAll("[data-tabable='true']"),
+          dialogRef.current.querySelectorAll(
+            "[data-tabable='true']:not([disabled])",
+          ),
         ) as HTMLElement[];
+
+        console.log(tabableElements);
 
         if (tabableElements.length === 0) {
           event.preventDefault(); // TODO: should this throw an error?
@@ -211,38 +269,35 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
           return;
         }
 
-        const prevElement = tabableElements.find((element) => {
-          return element === activeElement;
-        });
-        if (prevElement) {
-          setPrevTabbedElement(prevElement);
-        }
+        // If prevTabbedElement is null, treat the current index as zero
+        const currentTabIndex =
+          prevTabbedElement.current !== null
+            ? tabableElements.findIndex(
+                (element) => element === prevTabbedElement.current,
+              )
+            : 0;
+        console.log("Current index", currentTabIndex);
+        const forwardIndex = (currentTabIndex + 1) % tabableElements.length;
+        // backwardIndex loops around to the last tabable element if currently focused on the first.
+        const backwardIndex =
+          currentTabIndex <= 0
+            ? tabableElements.length - 1
+            : currentTabIndex - 1;
 
-        if (
-          activeElement &&
-          !tabableElements.includes(activeElement as HTMLElement) &&
-          prevTabbedElement !== null
-        ) {
-          const tabForward =
-            tabableElements.findIndex((element) => element === activeElement) +
-            1;
-          const tabBackward =
-            tabableElements.findIndex((element) => element === activeElement) -
-            1;
-          console.log(tabForward);
-          console.log(tabBackward);
-          if (!event.shiftKey && tabForward) {
-            console.log("test1");
-            tabableElements[tabForward].focus();
-            event.preventDefault();
-            return;
-          }
-          if (event.shiftKey && tabBackward) {
-            console.log("test1");
-            tabableElements[tabBackward].focus();
-            event.preventDefault();
-          }
-        }
+        const targetElement = event.shiftKey
+          ? tabableElements[backwardIndex]
+          : tabableElements[forwardIndex];
+
+        console.log(
+          "Target index",
+          event.shiftKey ? backwardIndex : forwardIndex,
+        );
+        console.log("Target element", targetElement);
+
+        targetElement.focus();
+        prevTabbedElement.current = targetElement;
+        closeAllAccordions();
+        event.preventDefault();
       }
     },
     [prevTabbedElement],
@@ -255,54 +310,37 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
     return () => document.removeEventListener("keydown", handleTabableElements);
   }, [isDialogVisible, handleTabableElements]);
 
-  const skillsAccordionData = skills.reduce(
-    (collection: { [key: string]: boolean }, skill: Skill) => {
-      collection[`skill-${skill.id}`] = false;
-      return collection;
-    },
-    {},
-  );
-  const categoriesAccordionData = parentSkillCategories.reduce(
-    (
-      collection: { [key: string]: boolean },
-      parentSkillCategory: SkillCategory,
-    ) => {
-      collection[parentSkillCategory.key] = false;
-      return collection;
-    },
-    {},
-  );
-
-  const [accordionData, setAccordionData] = React.useState<{
-    [key: string]: boolean;
-  }>({ ...skillsAccordionData, ...categoriesAccordionData });
-
-  /**
-   * By default, this method will toggle the accordion from expanded to collapsed (or vice versa) with the given key.
-   * There is also a second parameter to set the state.
-   * @param key Accordion key.
-   * @param value Optional value to set the accordions state (expanded or collapsed).
-   */
-  const toggleAccordion = (key: string, isExpanded: boolean | null = null) => {
-    setAccordionData({
-      ...accordionData,
-      [key]: isExpanded !== null ? isExpanded : !accordionData[key],
-    });
-  };
+  React.useEffect(() => {
+    const handleFocus = (e: FocusEvent) => {
+      console.log("handle focus", e);
+      if (dialogRef.current) {
+        const tabableElements = Array.from(
+          dialogRef.current.querySelectorAll("[data-tabable='true']"),
+        ) as HTMLElement[];
+        const { activeElement } = document;
+        if (
+          activeElement &&
+          tabableElements.includes(activeElement as HTMLElement)
+        ) {
+          console.log("focus set prev tabbed", activeElement);
+          prevTabbedElement.current = activeElement as HTMLElement;
+        }
+      }
+    };
+    if (isDialogVisible) {
+      document.addEventListener("focus", handleFocus, true);
+    }
+    return () => document.removeEventListener("focus", handleFocus, true);
+  });
 
   /**
    * Closes the dialog and puts the focus back onto the dialog trigger.
    */
   const handleCloseDialog = () => {
-    closeDialog();
     focusOnElement(`[data-h2-dialog-trigger=${FIND_SKILLS_DIALOG_ID}]`);
     resetResults();
-    setAccordionData(
-      Object.keys(accordionData).reduce((acc, key) => {
-        acc[key] = false;
-        return acc;
-      }, {}),
-    );
+    closeAllAccordions();
+    closeDialog();
   };
 
   return (
@@ -335,6 +373,9 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
                 messages.searchBarInputPlaceholder,
               )}
               handleSubmit={handleSkillSearch}
+              buttonId="skill-search-button"
+              buttonAttributes={{ "data-tabable": true }}
+              inputAttributes={{ "data-tabable": true }}
             />
             <SkillCategories
               activeCategory={activeCategory}

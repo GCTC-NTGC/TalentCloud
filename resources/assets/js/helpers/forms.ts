@@ -9,6 +9,9 @@ import { notEmpty } from "./queries";
  */
 export const focusOnElement = (x: HTMLElement | string): void => {
   if (typeof x === "string") {
+    if (x === "") {
+      return;
+    }
     const element = document.querySelector(x) as HTMLElement;
     if (element) {
       element.focus();

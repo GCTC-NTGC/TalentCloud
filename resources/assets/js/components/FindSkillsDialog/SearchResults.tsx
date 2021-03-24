@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import {
   focusNextItem,
@@ -60,6 +60,26 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   }, [results]);
 
   const resultsRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    const keyHandler = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        resetResults();
+        e.preventDefault();
+      }
+    };
+    let element: HTMLElement;
+    if (resultsRef.current) {
+      element = resultsRef.current;
+      element.addEventListener("keydown", keyHandler);
+    }
+    return () => {
+      if (element) {
+        element.removeEventListener("keydown", keyHandler);
+      }
+    };
+  });
+
   const skillAccordionKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
     id: string,

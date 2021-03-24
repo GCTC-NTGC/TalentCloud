@@ -22,6 +22,8 @@ interface AccordionContext extends Div {
   triggerPos?: "left" | "right";
   /** Callback method for opening or closing accordion. */
   toggleAccordion?: () => void;
+  /** If true, don't focus the accordion trigger when it closes. */
+  overrideFocusRules?: boolean;
 }
 
 const AccordionContext = React.createContext<AccordionContext | undefined>(
@@ -64,14 +66,18 @@ const Btn: React.FunctionComponent<BtnProps> = ({
   children,
   ...rest
 }) => {
-  const { isExpanded, toggleAccordion } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
+  const {
+    isExpanded,
+    toggleAccordion,
+    overrideFocusRules,
+  } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
   const intl = useIntl();
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   React.useEffect(() => {
-    if (buttonRef.current && !isExpanded) {
+    if (buttonRef.current && !isExpanded && !overrideFocusRules) {
       buttonRef.current.focus();
     }
-  }, [buttonRef, isExpanded]);
+  }, [buttonRef, isExpanded, overrideFocusRules]);
   return (
     <button
       aria-expanded={isExpanded}
@@ -135,6 +141,7 @@ const Accordion: React.FunctionComponent<AccordionContext> &
     isExpanded = false,
     toggleAccordion,
     triggerPos,
+    overrideFocusRules,
     children,
     ...rest
   } = props;
@@ -151,6 +158,7 @@ const Accordion: React.FunctionComponent<AccordionContext> &
         triggerPos,
         isExpanded: expanded,
         toggleAccordion: toggleAccordion || (() => setExpanded(!expanded)),
+        overrideFocusRules,
       }}
     >
       <div
