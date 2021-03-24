@@ -49,7 +49,9 @@ const JobTasksPage: React.FunctionComponent<
     throw new Error("Unexpected locale");
   }
 
-  const handleModalCancel = (): void => {}; // No need to do anything.
+  const handleModalCancel = (): void => {
+    /** Do nothin. */
+  };
   const handleModalConfirm = (): void => {
     // Continue to next page
     navigate(jobBuilderSkills(locale, jobId));

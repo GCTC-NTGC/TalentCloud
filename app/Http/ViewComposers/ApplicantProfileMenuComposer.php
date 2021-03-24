@@ -19,45 +19,45 @@ class ApplicantProfileMenuComposer
     {
         $profileMenu = Lang::get('applicant/applicant_profile_menu');
 
-        $profileMenu['about']['link'] = route('profile.about.edit', $view->getData()['applicant']);
-        $profileMenu['experience']['link'] = route('profile.experience.edit', $view->getData()['applicant']);
-        $profileMenu['skills']['link'] = route('profile.skills.edit', $view->getData()['applicant']);
-        $profileMenu['skills-old']['link'] = route('profile.skills-old.edit', $view->getData()['applicant']);
-        $profileMenu['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
-        $profileMenu['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
+        $profileMenu['items']['about']['link'] = route('profile.about.edit', $view->getData()['applicant']);
+        $profileMenu['items']['experience']['link'] = route('profile.experience.edit', $view->getData()['applicant']);
+        $profileMenu['items']['skills']['link'] = route('profile.skills.edit', $view->getData()['applicant']);
+        $profileMenu['items']['skills-old']['link'] = route('profile.skills-old.edit', $view->getData()['applicant']);
+        $profileMenu['items']['references']['link'] = route('profile.references.edit', $view->getData()['applicant']);
+        $profileMenu['items']['portfolio']['link'] = route('profile.work_samples.edit', $view->getData()['applicant']);
 
         // Set archive variable to group sidebar
-        $profileMenu['about']['archive'] = true;
-        $profileMenu['experience']['archive'] = false;
-        $profileMenu['skills-old']['archive'] = true;
-        $profileMenu['references']['archive'] = true;
-        $profileMenu['portfolio']['archive'] = true;
+        $profileMenu['items']['about']['archive'] = true;
+        $profileMenu['items']['experience']['archive'] = false;
+        $profileMenu['items']['skills-old']['archive'] = true;
+        $profileMenu['items']['references']['archive'] = true;
+        $profileMenu['items']['portfolio']['archive'] = true;
 
         // Set active on the proper item
         switch (Route::currentRouteName()) {
             case ('profile.about'):
             case ('profile.about.edit'):
-                $profileMenu['about']['active'] = true;
+                $profileMenu['items']['about']['active'] = true;
                 break;
             case ('profile.experience'):
             case ('profile.experience.edit'):
-                $profileMenu['experience']['active'] = true;
+                $profileMenu['items']['experience']['active'] = true;
                 break;
             case ('profile.skills'):
             case ('profile.skills.edit'):
-                $profileMenu['skills']['active'] = true;
+                $profileMenu['items']['skills']['active'] = true;
                 break;
             case ('profile.skills-old'):
             case ('profile.skills-old.edit'):
-                $profileMenu['skills-old']['active'] = true;
+                $profileMenu['items']['skills-old']['active'] = true;
                 break;
             case ('profile.references'):
             case ('profile.references.edit'):
-                $profileMenu['references']['active'] = true;
+                $profileMenu['items']['references']['active'] = true;
                 break;
             case ('profile.portfolio'):
             case ('profile.work_samples.edit'):
-                $profileMenu['portfolio']['active'] = true;
+                $profileMenu['items']['portfolio']['active'] = true;
                 break;
             default:
                 // No active menu item

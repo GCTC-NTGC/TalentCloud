@@ -99,6 +99,7 @@ export interface ResourceState<T> {
     status: ResourceStatus;
     pendingCount: number;
     error: Error | FetchError | undefined;
+    initialRefreshFinished: boolean;
   };
   createMeta: {
     status: ResourceStatus;
@@ -116,13 +117,15 @@ export interface ResourceState<T> {
 }
 
 export function initializeState<T>(
-  items: { item: T; key: string }[],
+  items: { item: T; key: string | number }[],
+  doInitialRefresh = true,
 ): ResourceState<T> {
   return {
     indexMeta: {
       status: "initial",
       pendingCount: 0,
       error: undefined,
+      initialRefreshFinished: !doInitialRefresh,
     },
     createMeta: {
       status: "initial",
@@ -443,6 +446,7 @@ export function reducer<T>(
           status: state.indexMeta.pendingCount <= 1 ? "fulfilled" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: undefined,
+          initialRefreshFinished: true,
         },
         values: mergeIndexPayload(state.values, action.payload),
       };
@@ -454,6 +458,7 @@ export function reducer<T>(
           status: state.indexMeta.pendingCount <= 1 ? "rejected" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: action.payload,
+          initialRefreshFinished: true,
         },
       };
     case ActionTypes.CreateStart:

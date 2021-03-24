@@ -121,21 +121,21 @@ const languageRequirementDescriptions = defineMessages({
   [LanguageRequirementId.bilingualIntermediate]: {
     id: "application.basicInfo.languageRequirement.bilingualIntermediate",
     defaultMessage:
-      "This position requires advanced knowledge of either French or English.",
+      "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
     description:
       "Description for the 'Bilingual Intermediate' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.bilingualAdvanced]: {
     id: "application.basicInfo.languageRequirement.bilingualAdvanced",
     defaultMessage:
-      "This position requires working knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is BBB).",
+      "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
     description:
       "Description for the 'Bilingual Advanced' language requirement on the applicant timeline form.",
   },
   [LanguageRequirementId.englishOrFrench]: {
     id: "application.basicInfo.languageRequirement.englishOrFrench",
     defaultMessage:
-      "This position requires advanced knowledge of both French and English. As part of this process, your language abilities will be tested by the Public Service Commission of Canada (the proficiency requirement for this position is CBC).",
+      "This position requires advanced knowledge of either French or English.",
     description:
       "Description for the 'English or French' language requirement on the applicant timeline form.",
   },
@@ -175,7 +175,7 @@ const languageRequirementLabels = defineMessages({
   [LanguageRequirementId.bilingualAdvanced]: {
     id: "application.basicInfo.languageRequirement.label.bilingualAdvanced",
     defaultMessage:
-      "I have intermediate or better reading, writing and verbal communication skills in English and French.",
+      "I have advanced reading, writing and verbal communication skills in English and French.",
     description:
       "Text for 'Bilingual Advanced' language requirement on the applicant timeline form.",
   },

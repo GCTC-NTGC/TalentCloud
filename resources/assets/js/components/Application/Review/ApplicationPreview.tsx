@@ -113,14 +113,12 @@ const submittedApplicationHeaders = defineMessages({
 interface ExperienceAccordionProps {
   experience: Experience;
   experienceSkills: ExperienceSkill[];
-  irrelevantSkillCount: number;
   skills: Skill[];
 }
 
 const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   experience,
   experienceSkills,
-  irrelevantSkillCount,
   skills,
 }) => {
   switch (experience.type) {
@@ -130,7 +128,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -143,7 +141,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -156,7 +154,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleDelete={async (): Promise<void> => {}}
@@ -169,7 +167,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -182,7 +180,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -500,11 +498,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </p>
           <div data-c-accordion-group="">
             {experiences.map((experience) => {
-              const irrelevantSkillCount = getIrrelevantSkillCount(
-                hardCriteria,
-                experience,
-                experienceSkills,
-              );
               const relevantSkills = getRelevantExpSkills(
                 hardCriteria,
                 experience,
@@ -516,7 +509,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                   experience={experience}
                   experienceSkills={relevantSkills}
                   skills={skills}
-                  irrelevantSkillCount={irrelevantSkillCount}
                 />
               );
             })}
@@ -590,11 +582,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             {experiences
               .filter((experience) => experience.is_education_requirement)
               .map((educationExperience) => {
-                const irrelevantSkillCount = getIrrelevantSkillCount(
-                  hardCriteria,
-                  educationExperience,
-                  experienceSkills,
-                );
                 const relevantSkills = getRelevantExpSkills(
                   hardCriteria,
                   educationExperience,
@@ -606,7 +593,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                     experience={educationExperience}
                     experienceSkills={relevantSkills}
                     skills={skills}
-                    irrelevantSkillCount={irrelevantSkillCount}
                   />
                 );
               })}

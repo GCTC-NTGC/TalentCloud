@@ -54,14 +54,14 @@ describe("singleResourceHook", () => {
     expect(result.current.status).toEqual("fulfilled");
     expect(result.current.value).toEqual(newValue);
   });
-  it("Setting skipInitialFetch option stops initial fetch from happening", () => {
+  it("Setting skipInitialRefresh option stops initial fetch from happening", () => {
     fetchMock.mock("*", {});
     const initialValue = { name: "Talent Cloud", age: 3 };
     const parseResponse = () => ({ name: "Talent Cloud 2", age: 100 });
     const { result } = renderHook(() =>
       useResource(endpoint, initialValue, {
         parseResponse,
-        skipInitialFetch: true,
+        skipInitialRefresh: true,
       }),
     );
     expect(fetchMock.called()).toBe(false);
@@ -96,7 +96,7 @@ describe("singleResourceHook", () => {
     const { result, waitForNextUpdate } = renderHook(() =>
       useResource(endpoint, initialValue, {
         parseResponse,
-        skipInitialFetch: true,
+        skipInitialRefresh: true,
       }),
     );
     expect(result.current.status).toEqual("initial");
@@ -109,7 +109,7 @@ describe("singleResourceHook", () => {
   it("refresh() triggers a GET request to endpoint", async () => {
     fetchMock.getOnce(endpoint, {});
     const { result } = renderHook(() =>
-      useResource(endpoint, null, { skipInitialFetch: true }),
+      useResource(endpoint, null, { skipInitialRefresh: true }),
     );
     await act(async () => {
       await result.current.refresh();
@@ -121,7 +121,7 @@ describe("singleResourceHook", () => {
     const newValue = { name: "Talent Cloud 2", age: 100 };
     fetchMock.mock(endpoint, newValue);
     const { result } = renderHook(() =>
-      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+      useResource(endpoint, initialValue, { skipInitialRefresh: true }),
     );
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
@@ -149,7 +149,7 @@ describe("singleResourceHook", () => {
     const initialValue = { name: "Talent Cloud", age: 3 };
     fetchMock.once(endpoint, 404);
     const { result } = renderHook(() =>
-      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+      useResource(endpoint, initialValue, { skipInitialRefresh: true }),
     );
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
@@ -177,7 +177,7 @@ describe("singleResourceHook", () => {
       },
     );
     const { result } = renderHook(() =>
-      useResource(endpoint, null, { skipInitialFetch: true }),
+      useResource(endpoint, null, { skipInitialRefresh: true }),
     );
     await act(async () => {
       const refreshPromise1 = result.current.refresh();
@@ -192,7 +192,7 @@ describe("singleResourceHook", () => {
     fetchMock.mock("*", {});
     const { result, waitForNextUpdate } = renderHook(() =>
       useResource(endpoint, null, {
-        skipInitialFetch: true,
+        skipInitialRefresh: true,
       }),
     );
     expect(result.current.status).toEqual("initial");
@@ -205,7 +205,7 @@ describe("singleResourceHook", () => {
   it("update() triggers a PUT request to endpoint", async () => {
     fetchMock.putOnce(endpoint, {});
     const { result } = renderHook(() =>
-      useResource(endpoint, null, { skipInitialFetch: true }),
+      useResource(endpoint, null, { skipInitialRefresh: true }),
     );
     await act(async () => {
       await result.current.update(null);
@@ -219,7 +219,7 @@ describe("singleResourceHook", () => {
     const responseValue = { name: updateValue.name, age: updateValue.age + 1 };
     fetchMock.mock(endpoint, responseValue);
     const { result } = renderHook(() =>
-      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+      useResource(endpoint, initialValue, { skipInitialRefresh: true }),
     );
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
@@ -236,7 +236,7 @@ describe("singleResourceHook", () => {
     const updateValue = { name: "Talent Cloud 2", age: 100 };
     fetchMock.once(endpoint, 404);
     const { result } = renderHook(() =>
-      useResource(endpoint, initialValue, { skipInitialFetch: true }),
+      useResource(endpoint, initialValue, { skipInitialRefresh: true }),
     );
     expect(result.current.value).toEqual(initialValue);
     expect(result.current.status).toEqual("initial");
@@ -266,7 +266,7 @@ describe("singleResourceHook", () => {
       },
     );
     const { result } = renderHook(() =>
-      useResource(endpoint, null, { skipInitialFetch: true }),
+      useResource(endpoint, null, { skipInitialRefresh: true }),
     );
     await act(async () => {
       const updatePromise1 = result.current.update(null);
@@ -347,5 +347,39 @@ describe("singleResourceHook", () => {
     expect(result.current.status).toBe("fulfilled");
     expect(result.current.value).toEqual(responseValue);
     expect(result.current.error).toBeUndefined();
+  });
+  it("initialRefreshFinished is false until initial refresh completes", async () => {
+    fetchMock.mock(
+      "*",
+      {},
+      {
+        delay: 10,
+      },
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    expect(result.current.initialRefreshFinished).toEqual(false);
+    await waitForNextUpdate();
+    expect(result.current.initialRefreshFinished).toEqual(true);
+  });
+  it("initialRefreshFinished becomes true even when initial refresh completes with an error", async () => {
+    fetchMock.mock("*", 404, {
+      delay: 10,
+    });
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useResource(endpoint, null),
+    );
+    expect(result.current.initialRefreshFinished).toEqual(false);
+    await waitForNextUpdate();
+    expect(result.current.initialRefreshFinished).toEqual(true);
+  });
+  it("initialRefreshFinished begins as true when initial fetch is skipped", async () => {
+    const { result } = renderHook(() =>
+      useResource(endpoint, null, { skipInitialRefresh: true }),
+    );
+    expect(result.current.initialRefreshFinished).toEqual(true);
   });
 });

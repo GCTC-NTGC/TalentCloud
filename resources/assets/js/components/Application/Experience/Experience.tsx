@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import {
   Skill,
@@ -47,7 +47,7 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { focusOnElement } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/forms";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
@@ -86,11 +86,16 @@ export const ModalButton: React.FunctionComponent<{
   id: Experience["type"];
   title: string;
   icon: string;
-  openModal: (id: Experience["type"]) => void;
+  openModal: (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement>,
+  ) => void;
 }> = ({ id, title, icon, openModal }) => {
+  const ref = useRef<HTMLButtonElement>(null);
   return (
     <div key={id} data-c-grid-item="base(1of2) tp(1of3) tl(1of5)">
       <button
+        ref={ref}
         className="application-experience-trigger"
         data-c-card
         data-c-background="c1(100)"
@@ -99,7 +104,7 @@ export const ModalButton: React.FunctionComponent<{
         data-c-dialog-id={id}
         data-c-dialog-action="open"
         type="button"
-        onClick={(): void => openModal(id)}
+        onClick={(): void => openModal(id, ref)}
       >
         <i className={icon} aria-hidden="true" />
         <span data-c-font-size="regular" data-c-font-weight="bold">
@@ -115,7 +120,7 @@ const applicationExperienceAccordion = (
   irrelevantSkillCount: number,
   relevantSkills: ExperienceSkill[],
   skills: Skill[],
-  handleEdit: () => void,
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void,
   handleDelete: () => Promise<void>,
 ): React.ReactElement | null => {
   switch (experience.type) {
@@ -254,18 +259,31 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const [isModalVisible, setIsModalVisible] = useState<{
     id: Experience["type"] | "";
     visible: boolean;
+    triggerRef: React.RefObject<HTMLButtonElement> | null;
   }>({
     id: "",
     visible: false,
+    triggerRef: null,
   });
 
-  const openModal = (id: Experience["type"]): void => {
-    setIsModalVisible({ id, visible: true });
+  const openModal = (
+    id: Experience["type"],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
+  ): void => {
+    setIsModalVisible({ id, visible: true, triggerRef });
   };
 
   const closeModal = (): void => {
     setExperienceData(null);
-    setIsModalVisible({ id: "", visible: false });
+    if (isModalVisible.triggerRef?.current) {
+      isModalVisible.triggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setIsModalVisible({ id: "", visible: false, triggerRef: null });
   };
 
   const submitExperience = (data) =>
@@ -275,13 +293,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
     experience: Experience,
     savedOptionalSkills: Skill[],
     savedRequiredSkills: Skill[],
+    triggerRef: React.RefObject<HTMLButtonElement> | null,
   ): void => {
     setExperienceData({
       ...experience,
       savedOptionalSkills,
       savedRequiredSkills,
     });
-    setIsModalVisible({ id: experience.type, visible: true });
+    setIsModalVisible({ id: experience.type, visible: true, triggerRef });
   };
 
   const deleteExperience = (experience: Experience): Promise<void> =>
@@ -453,11 +472,14 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
                   })
                   .filter(notEmpty);
 
-                const handleEdit = () =>
+                const handleEdit = (
+                  triggerRef: React.RefObject<HTMLButtonElement> | null,
+                ) =>
                   editExperience(
                     experience,
                     savedOptionalSkills,
                     savedRequiredSkills,
+                    triggerRef,
                   );
                 const handleDelete = () => deleteExperience(experience);
 

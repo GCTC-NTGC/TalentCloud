@@ -11,7 +11,6 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { useDispatch } from "react-redux";
 import {
   ExperienceSkill,
   Skill,
@@ -55,6 +54,7 @@ import {
   validateAllForms,
   submitAllForms,
   focusOnElement,
+  getFocusableElements,
 } from "../../../helpers/forms";
 import {
   find,
@@ -69,7 +69,7 @@ import { SkillTypeId } from "../../../models/lookupConstants";
 export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
-  menuSkills: { [skillId: number]: string };
+  menuSkills: { id: number; name: string }[];
   intl: IntlShape;
   status: SkillStatus;
 }
@@ -89,22 +89,41 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         />
       </p>
       <ul>
-        {Object.keys(menuSkills).map((skillId) => (
-          <li key={skillId}>
+        {menuSkills.map((skill) => (
+          <li key={skill.id}>
             <StatusIcon
-              status={computeParentStatus(status, Number(skillId))}
+              status={computeParentStatus(status, Number(skill.id))}
               size=""
             />
             <a
-              href={`#${slugify(menuSkills[skillId])}`}
+              href={`#${slugify(skill.name)}`}
               title={intl.formatMessage(displayMessages.sidebarLinkTitle)}
             >
-              {menuSkills[skillId]}
+              {skill.name}
             </a>
           </li>
         ))}
       </ul>
     </div>
+  );
+};
+
+const SkillTitleButton: React.FunctionComponent<{
+  modalId: string;
+  handleClick: (ref: React.RefObject<HTMLButtonElement>) => void;
+  skillName: string;
+}> = ({ modalId, handleClick, skillName }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  return (
+    <button
+      ref={ref}
+      data-c-font-size="h3"
+      data-c-dialog-id={modalId}
+      type="button"
+      onClick={() => handleClick(ref)}
+    >
+      {skillName}
+    </button>
   );
 };
 
@@ -416,6 +435,9 @@ interface SkillsProps {
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
+  handleBatchUpdateExperienceSkills: (
+    experienceSkillsToUpdate: ExperienceSkill[],
+  ) => Promise<void>;
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<void>;
@@ -430,12 +452,12 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills,
   skills,
   handleUpdateExperienceJustification,
+  handleBatchUpdateExperienceSkills,
   handleRemoveExperienceJustification,
   handleContinue,
   handleQuit,
   handleReturn,
 }) => {
-  const dispatch = useDispatch();
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
@@ -444,15 +466,49 @@ const Skills: React.FC<SkillsProps> = ({
 
   const modalId = "skill-description";
   const [visible, setVisible] = useState(false);
-  const [modalHeading, setModalHeading] = useState("");
-  const [modalBody, setModalBody] = useState("");
+  const [modalContent, setModalContent] = useState<{
+    heading: string;
+    body: string;
+  }>({ heading: "", body: "" });
+  const [
+    modalTriggerRef,
+    setModalTriggerRef,
+  ] = useState<RefObject<HTMLButtonElement> | null>(null);
   const modalParentRef = useRef<HTMLDivElement>(null);
 
-  // This page should only list Hard Skills
-  const hardCriteria = criteria.filter((criterion) => {
-    const skill = getSkillOfCriteria(criterion, skills);
-    return skill?.skill_type_id === SkillTypeId.Hard;
-  });
+  const closeModal = () => {
+    setVisible(false);
+    if (modalTriggerRef?.current) {
+      modalTriggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setModalTriggerRef(null);
+  };
+
+  // This page should only list Hard Skills.
+  const hardCriteria = criteria
+    .map((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return { hardCriterion: criterion, skill };
+    })
+    .filter((criterionWithSkill) => {
+      return criterionWithSkill.skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort(
+      (
+        a: { hardCriterion: Criteria; skill: Skill },
+        b: { hardCriterion: Criteria; skill: Skill },
+      ) =>
+        localizeFieldNonNull(locale, a.skill, "name")
+          .toUpperCase()
+          .localeCompare(
+            localizeFieldNonNull(locale, b.skill, "name").toUpperCase(),
+          ),
+    );
 
   const softSkills = removeDuplicatesById(
     criteria
@@ -467,15 +523,16 @@ const Skills: React.FC<SkillsProps> = ({
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
   const menuSkills = hardCriteria.reduce(
-    (collection: { [skillId: number]: string }, criterion: Criteria) => {
-      const skill = getSkillOfCriteria(criterion, skills);
-      if (skill && !collection[criterion.skill_id]) {
-        // eslint-disable-next-line no-param-reassign
-        collection[criterion.skill_id] = localizeFieldNonNull(
-          locale,
-          skill,
-          "name",
-        );
+    (
+      collection: { id: number; name: string }[],
+      criterion: { hardCriterion: Criteria; skill: Skill },
+    ) => {
+      if (!collection.find((a) => criterion.hardCriterion.skill_id === a.id)) {
+        // Do not include duplicate skills.
+        collection.push({
+          id: criterion.hardCriterion.skill_id,
+          name: localizeFieldNonNull(locale, criterion.skill, "name"),
+        });
       }
       return collection;
     },
@@ -529,7 +586,7 @@ const Skills: React.FC<SkillsProps> = ({
       );
       if (experienceSkillsToUpdate.length > 0) {
         try {
-          await dispatch(batchUpdateExperienceSkills(experienceSkillsToUpdate));
+          await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
           setIsSubmitting(false);
           return Promise.resolve();
         } catch {
@@ -582,7 +639,7 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills.forEach((expSkill) => {
     if (
       hardCriteria.find(
-        (criterion) => criterion.skill_id === expSkill.skill_id,
+        (criterion) => criterion.hardCriterion.skill_id === expSkill.skill_id,
       ) &&
       !formRefs.current.has(expSkill.id)
     ) {
@@ -664,7 +721,7 @@ const Skills: React.FC<SkillsProps> = ({
           </p>
           <div className="skills-list">
             {hardCriteria.map((criterion) => {
-              const skill = getSkillOfCriteria(criterion, skills);
+              const { hardCriterion, skill } = criterion;
               if (skill === null) {
                 return null;
               }
@@ -677,7 +734,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={criterion.id}>
+                <div key={hardCriterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -685,25 +742,27 @@ const Skills: React.FC<SkillsProps> = ({
                     data-c-margin="bottom(1)"
                     id={skillHtmlId}
                   >
-                    <button
-                      data-c-font-size="h3"
-                      data-c-dialog-id={modalId}
-                      type="button"
-                      onClick={(e): void => {
-                        setModalHeading(skillName);
-                        setModalBody(skillDescription);
+                    <SkillTitleButton
+                      modalId={modalId}
+                      skillName={skillName}
+                      handleClick={(ref): void => {
+                        setModalContent({
+                          heading: skillName,
+                          body: skillDescription,
+                        });
+                        setModalTriggerRef(ref);
                         setVisible(true);
                       }}
-                    >
-                      {skillName}
-                    </button>
+                    />
                     <br />
                     <a
                       data-c-font-size="normal"
                       data-c-font-weight="bold"
                       href={applicantFaq(locale, "levels")}
                     >
-                      {intl.formatMessage(getSkillLevelName(criterion, skill))}
+                      {intl.formatMessage(
+                        getSkillLevelName(hardCriterion, skill),
+                      )}
                     </a>
                   </h3>
                   {getExperiencesOfSkill(skill, experienceSkills).length ===
@@ -870,8 +929,8 @@ const Skills: React.FC<SkillsProps> = ({
         id={modalId}
         parentElement={modalParentRef.current}
         visible={visible}
-        onModalConfirm={(e): void => setVisible(false)}
-        onModalCancel={(e): void => setVisible(false)}
+        onModalConfirm={closeModal}
+        onModalCancel={closeModal}
       >
         <Modal.Header>
           <div
@@ -887,16 +946,16 @@ const Skills: React.FC<SkillsProps> = ({
                 id={`${modalId}-title`}
                 data-c-dialog-focus=""
                 data-c-color="white"
+                tabIndex={0}
               >
-                {modalHeading}
+                {modalContent.heading}
               </h5>
               <button
                 data-c-dialog-action="close"
                 data-c-dialog-id={`${modalId}`}
                 type="button"
                 data-c-color="white"
-                tabIndex={0}
-                onClick={(e): void => setVisible(false)}
+                onClick={closeModal}
               >
                 <i className="fas fa-times" />
               </button>
@@ -907,7 +966,7 @@ const Skills: React.FC<SkillsProps> = ({
           <div data-c-border="bottom(thin, solid, black)">
             <div id={`${modalId}-description`}>
               <div data-c-container="medium" data-c-padding="tb(1)">
-                <p>{modalBody}</p>
+                <p>{modalContent.body}</p>
               </div>
             </div>
           </div>

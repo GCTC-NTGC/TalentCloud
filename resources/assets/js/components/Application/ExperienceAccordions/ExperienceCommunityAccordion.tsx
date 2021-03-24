@@ -104,7 +104,7 @@ interface ProfileCommunityAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileCommunityAccordion: React.FC<ProfileCommunityAccordionProps> = ({
@@ -155,7 +155,7 @@ interface ExperienceCommunityAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordionProps> = ({

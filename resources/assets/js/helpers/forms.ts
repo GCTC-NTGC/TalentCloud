@@ -3,6 +3,20 @@ import isEmpty from "lodash/isEmpty";
 import { RefObject } from "react";
 import { notEmpty } from "./queries";
 
+export const focusableElementSelector =
+  "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])";
+
+/**
+ * Get all focusable elements that are decendent of element,
+ * or all focusable elements in the document body if element is null.
+ */
+export const getFocusableElements = (
+  element: HTMLElement | null = null,
+): NodeListOf<HTMLElement> =>
+  element
+    ? element.querySelectorAll<HTMLElement>(focusableElementSelector)
+    : document.body.querySelectorAll<HTMLElement>(focusableElementSelector);
+
 /**
  * Takes a selector or an HTMLElement and focuses on the element.
  * @param x

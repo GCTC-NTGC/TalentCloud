@@ -275,5 +275,5 @@ return [
     'team_button_email_link' => 'talent.cloud-nuage.de.talents@tbs-sct.gc.ca',
     'team_button_email_title' => 'Get in touch with GC Talent Cloud via email.',
     'team_button_email_label' => 'Email',
-    'success_title' => 'All good in the hood.'
+    'success_title' => 'All good.'
 ];

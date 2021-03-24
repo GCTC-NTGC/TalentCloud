@@ -87,7 +87,7 @@ return [
     'two_factor_on' => 'On',
     'two_factor_off' => 'Off',
     'forget_remembered_devices' => 'Forget all trusted devices.',
-    'success_title' => 'All good in the hood.',
+    'success_title' => 'All good.',
     'danger_zone' => 'Danger zone!',
     'delete_copy_1' => 'Please note that your Talent Cloud account and profile information is about to be permanently deleted. If you want to apply to a job here in the future, you will have to register again.',
     'delete_copy_2' => 'If you have already applied for a job, we are required to keep a copy of that application for 5 years after which it will be deleted.',
