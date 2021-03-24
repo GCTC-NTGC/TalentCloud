@@ -1736,6 +1736,11 @@
         "id": "application.review.communication.notSet"
       },
       {
+        "defaultMessage": "Required",
+        "description": "Text displayed before skill level.",
+        "id": "application.review.requiredSkillLabel"
+      },
+      {
         "defaultMessage": "Basic Information",
         "description": "Manager's heading for the Basic Info section of the Application.",
         "id": "application.review.manager.basicInfoHeading"
