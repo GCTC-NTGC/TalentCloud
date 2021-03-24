@@ -307,7 +307,7 @@
     // Honeypot check
     if ($("section.tc-auth")) {
       $("section.tc-auth form").on("submit", function(e) {
-        if ($("input#website").val().length !== 0) {
+        if ($("input#website").length && $("input#website").val().length !== 0) {
           showFormErrors(
             $("section.tc-auth form"),
             { data:
@@ -378,7 +378,7 @@
 
     requiredFields();
 
-    // Label Handers ===================================================
+    // Label Handlers ===================================================
 
     function labelHandlers() {
       $.each(
@@ -601,7 +601,7 @@
           button.removeClass("working");
         })
         .catch(function(error) {
-          //If something went wrong, do nothing (individual errors processed seperately)
+          //If something went wrong, do nothing (individual errors processed separately)
           button.removeClass("working");
         });
     }
@@ -1260,11 +1260,11 @@
 
       // Edit Form IDs
       //
-      // // Queestion (English)
+      // // Question (English)
       // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
       // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
       //
-      // // Queestion (French)
+      // // Question (French)
       // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
       // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
 
