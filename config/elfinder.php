@@ -14,7 +14,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Filesystem disks (Flysytem)
+    | Filesystem disks (Flysystem)
     |--------------------------------------------------------------------------
     |
     | Define an array of Filesystem disks, which use Flysystem.

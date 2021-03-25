@@ -21,7 +21,7 @@ class ApplicantPolicyTest extends BasePolicyTest
         $userCanViewSelf = $this->getApplicantPolicy()->view($bobApplicant->user, $bobApplicant);
         $this->assertTrue($userCanViewSelf);
 
-        //Test 2: qpplicant cannot view other applicant
+        //Test 2: applicant cannot view other applicant
         $katyApplicant = $this->createApplicant();
         $user1CanViewApplicant2 = $this->getApplicantPolicy()->view($katyApplicant->user, $bobApplicant);
         $this->assertFalse($user1CanViewApplicant2);

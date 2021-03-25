@@ -187,7 +187,7 @@ export const getTempRatingGuideQuestionIdsByAssessment = createCachedSelector(
 });
 
 // TODO: test that this works like I think it does -- Tristan
-/** Returns true if there is an edited verision which differs from canonical version */
+/** Returns true if there is an edited version which differs from canonical version */
 export const ratingGuideQuestionIsEdited = createCachedSelector(
   getCanonRatingGuideQuestionById,
   getEditRatingGuideQuestionById,

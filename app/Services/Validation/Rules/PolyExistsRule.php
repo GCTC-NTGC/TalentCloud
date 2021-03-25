@@ -10,7 +10,7 @@ class PolyExistsRule implements Rule
 {
 
     /**
-     * The value in the the _type column, sepecifying the type of a polymorphic relationship.
+     * The value in the the _type column, specifying the type of a polymorphic relationship.
      * eg 'applicant' or 'application'
      *
      * @var string

@@ -118,7 +118,7 @@ return [
     | Custom Rule Language Lines
     |--------------------------------------------------------------------------
     |
-    | Here you may specify validation messages for custom rules and validtors.
+    | Here you may specify validation messages for custom rules and validators.
     */
     'applicant_has_relation' => 'le candidat doit posséder cet :attribute',
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
