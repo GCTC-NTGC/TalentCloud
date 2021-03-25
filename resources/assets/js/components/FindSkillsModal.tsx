@@ -70,7 +70,7 @@ const messages = defineMessages({
     defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
   },
   searchBarInputLabel: {
-    id: "findSkillsModal.seachBarInputLabel",
+    id: "findSkillsModal.searchBarInputLabel",
     defaultMessage: "Search for skills by name:",
   },
   searchBarInputPlaceholder: {

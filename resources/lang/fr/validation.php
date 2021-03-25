@@ -188,7 +188,7 @@ return [
     |
     */
     'attributes' => [
-        'submisstion_signature' => 'signature',
+        'submission_signature' => 'signature',
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'déclaration de compétence',
         'name'                  => 'nom',

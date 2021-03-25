@@ -190,7 +190,7 @@ return [
     */
 
     'attributes' => [
-        'submisstion_signature' => 'signature',
+        'submission_signature' => 'signature',
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'skill declaration',
         'name'                  => 'name',

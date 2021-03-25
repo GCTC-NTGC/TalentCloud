@@ -245,7 +245,7 @@ return [
             'name' => 'Programmation .Net',
             'description' => 'Se définit comme suit : Capacité de programmer des applications .Net à l\'aide de C #, C ++, F # ou Visual Basic'
         ],
-        'geospacial_programming' => [
+        'geospatial_programming' => [
             'name' => 'Programmes géospatiaux',
             'description' => 'Se définit comme suit : Capacité à concevoir et à créer des applications qui traitent, transforment, utilisent et affichent des données géospatiales.'
         ],
