@@ -3,7 +3,8 @@
 return [
     'never' => 'Jamais',
     'rarely' => 'Rarement',
-    'sometimes' => 'Parfois',
-    'often' => 'Habituellement',
+    'occasionally' => 'Parfois',
+    'frequently' => 'Habituellement',
     'always' => 'Presque toujours',
+
 ];

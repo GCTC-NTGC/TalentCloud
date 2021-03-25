@@ -129,7 +129,7 @@ return [
         'overtime_label' => 'Overtime',
         'overtime_desc' => 'Work extra hours in the evenings/weekends.',
         'overtime' => [
-            'frequently' => 'Frequently',
+            'frequently' => 'Sometimes',
             'available' => 'Opportunities available',
             'none' => 'None',
         ],

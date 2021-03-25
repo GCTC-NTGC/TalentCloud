@@ -30,23 +30,7 @@ describe("indexResourceHook", () => {
       expect(result.current.values).toEqual({});
       expect(result.current.indexStatus).toEqual("pending");
     });
-    it("If initial value is set, returns that value and does not automatically fetch.", () => {
-      fetchMock.mock("*", []);
-      const initialValue = [
-        { id: 1, name: "one" },
-        { id: 2, name: "two" },
-      ];
-      const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
-      );
-      expect(result.current.values).toEqual({
-        1: initialValue[0],
-        2: initialValue[1],
-      });
-      expect(result.current.indexStatus).toEqual("initial");
-      expect(fetchMock.called()).toBe(false);
-    });
-    it("If initial value is set, but forceInitialRefresh is true, returns the initial value but also fetches.", async () => {
+    it("If initial value is set returns the initial value but also fetches.", async () => {
       const initialValue = [
         { id: 1, name: "one" },
         { id: 2, name: "two" },
@@ -58,7 +42,7 @@ describe("indexResourceHook", () => {
       ];
       fetchMock.mock("*", updatedValue, { delay: 5 });
       const { result, waitFor } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, forceInitialRefresh: true }),
+        useResourceIndex(endpoint, { initialValue }),
       );
       expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
       expect(result.current.indexStatus).toEqual("pending");
@@ -67,13 +51,53 @@ describe("indexResourceHook", () => {
       expect(result.current.values).toEqual(arrayToIndexedObj(updatedValue));
       expect(result.current.indexStatus).toEqual("fulfilled");
     });
+    it("If initial value is set and skipInitialRefresh is true, returns initial and does not automatically fetch.", () => {
+      fetchMock.mock("*", []);
+      const initialValue = [
+        { id: 1, name: "one" },
+        { id: 2, name: "two" },
+      ];
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
+      );
+      expect(result.current.values).toEqual({
+        1: initialValue[0],
+        2: initialValue[1],
+      });
+      expect(result.current.indexStatus).toEqual("initial");
+      expect(fetchMock.called()).toBe(false);
+    });
+    it("initialRefreshFinished is false until initial refresh completes", async () => {
+      fetchMock.mock("*", [], { delay: 5 });
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint),
+      );
+      expect(result.current.initialRefreshFinished).toBe(false);
+      await waitForNextUpdate();
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
+    it("initialRefreshFinished becomes true even when initial refresh completes with an error", async () => {
+      fetchMock.mock("*", 404, { delay: 5 });
+      const { result, waitForNextUpdate } = renderHook(() =>
+        useResourceIndex(endpoint),
+      );
+      expect(result.current.initialRefreshFinished).toBe(false);
+      await waitForNextUpdate();
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
+    it("initialRefreshFinished begins as true when initial fetch is skipped", async () => {
+      const { result } = renderHook(() =>
+        useResourceIndex(endpoint, { skipInitialRefresh: true }),
+      );
+      expect(result.current.initialRefreshFinished).toBe(true);
+    });
     it("If initial value is set, all entities start with status of 'initial'", () => {
       const initialValue = [
         { id: 1, name: "one" },
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       expect(result.current.entityStatus).toEqual({
         1: "initial",
@@ -177,7 +201,6 @@ describe("indexResourceHook", () => {
         useResourceIndex(endpoint, {
           initialValue,
           keyFn,
-          forceInitialRefresh: true,
         }),
       );
       expect(result.current.values).toEqual({
@@ -195,7 +218,9 @@ describe("indexResourceHook", () => {
     it("refresh() triggers a GET request to endpoint and sets status to 'pending'", async () => {
       fetchMock.getOnce(endpoint, []);
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue: [] }),
+        useResourceIndex(endpoint, {
+          skipInitialRefresh: true,
+        }),
       );
       expect(result.current.indexStatus).toBe("initial");
       await act(async () => {
@@ -212,7 +237,9 @@ describe("indexResourceHook", () => {
       ];
       fetchMock.mock(endpoint, responseValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue: [] }),
+        useResourceIndex(endpoint, {
+          skipInitialRefresh: true,
+        }),
       );
       expect(result.current.values).toEqual({});
       expect(result.current.indexStatus).toEqual("initial");
@@ -231,7 +258,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       expect(result.current.values).toEqual(arrayToIndexedObj(initialValue));
       expect(result.current.indexStatus).toEqual("initial");
@@ -257,7 +288,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.refresh()).rejects.toBeInstanceOf(
@@ -279,7 +314,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
@@ -298,7 +337,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
@@ -322,7 +365,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.refresh()).rejects.toBeInstanceOf(Error);
@@ -342,7 +389,7 @@ describe("indexResourceHook", () => {
         delay: 20,
       });
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue: [] }),
+        useResourceIndex(endpoint, { skipInitialRefresh: true }),
       );
       await act(async () => {
         const refreshPromise1 = result.current.refresh();
@@ -363,7 +410,7 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         result.current.refresh();
@@ -403,7 +450,7 @@ describe("indexResourceHook", () => {
     it("create() changes createStatus from initial to pending, and to fulfilled when it completes", async () => {
       fetchMock.mock("*", { id: 1, name: "one" });
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+        useResourceIndex<TestResource>(endpoint, { skipInitialRefresh: true }),
       );
       expect(result.current.createStatus).toBe("initial");
       await act(async () => {
@@ -417,7 +464,7 @@ describe("indexResourceHook", () => {
     it("create() triggers a POST request to endpoint", async () => {
       fetchMock.postOnce(endpoint, { id: 1, name: "one" });
       const { result } = renderHook(() =>
-        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+        useResourceIndex<TestResource>(endpoint, { skipInitialRefresh: true }),
       );
       await act(async () => {
         await result.current.create({ id: 0, name: "one" });
@@ -434,7 +481,7 @@ describe("indexResourceHook", () => {
       });
       const { result } = renderHook(() =>
         useResourceIndex<TestResource>(endpoint, {
-          initialValue: [],
+          skipInitialRefresh: true,
           resolveCreateEndpoint,
         }),
       );
@@ -453,7 +500,7 @@ describe("indexResourceHook", () => {
       const responseValue = { id: 3, name: "three" };
       fetchMock.postOnce(endpoint, responseValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         const createResponseValue = await result.current.create(createValue);
@@ -470,7 +517,7 @@ describe("indexResourceHook", () => {
       const createValue = { id: 3, name: "three" };
       fetchMock.postOnce("*", 404);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
@@ -490,7 +537,11 @@ describe("indexResourceHook", () => {
       fetchMock.postOnce("*", 404);
       const handleError = jest.fn();
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
@@ -514,7 +565,11 @@ describe("indexResourceHook", () => {
       fetchMock.postOnce("*", { throws: new Error("Failed to fetch") });
       const handleError = jest.fn();
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
@@ -542,7 +597,11 @@ describe("indexResourceHook", () => {
       fetchMock.postOnce("*", "This response is not JSON");
       const handleError = jest.fn();
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.create(createValue)).rejects.toBeInstanceOf(
@@ -571,7 +630,7 @@ describe("indexResourceHook", () => {
       const duplicateValue = { id: 2, name: "UPDATED two" };
       fetchMock.postOnce("*", duplicateValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         await result.current.create(duplicateValue);
@@ -579,14 +638,14 @@ describe("indexResourceHook", () => {
       expect(result.current.values[2]).toEqual(duplicateValue);
       expect(result.current.createStatus).toEqual("fulfilled");
     });
-    it("If multiple create requests are started, createStatus remains pending untill all are complete", async () => {
+    it("If multiple create requests are started, createStatus remains pending until all are complete", async () => {
       const createOne = { id: 0, name: "one" };
       const createTwo = { id: 0, name: "two" };
       // NOTE: The value returned from server may be slightly different from what we send it - likely a different id.
       fetchMock.postOnce(endpoint, createOne);
       fetchMock.post("*", createTwo, { delay: 5 });
       const { result } = renderHook(() =>
-        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+        useResourceIndex<TestResource>(endpoint, { skipInitialRefresh: true }),
       );
       await act(async () => {
         const createPromise1 = result.current.create(createOne);
@@ -608,7 +667,7 @@ describe("indexResourceHook", () => {
       fetchMock.postOnce(endpoint, 404);
       fetchMock.post("*", createTwo, { delay: 5 });
       const { result } = renderHook(() =>
-        useResourceIndex<TestResource>(endpoint, { initialValue: [] }),
+        useResourceIndex<TestResource>(endpoint, { skipInitialRefresh: true }),
       );
       await act(async () => {
         await expect(result.current.create(createOne)).rejects.toThrow();
@@ -624,7 +683,7 @@ describe("indexResourceHook", () => {
       const keyFn = (item: any) => `${item.type}-${item.id}`;
       fetchMock.once("*", createValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue: [], keyFn }),
+        useResourceIndex(endpoint, { skipInitialRefresh: true, keyFn }),
       );
       expect(result.current.values).toEqual({});
       await act(async () => {
@@ -644,7 +703,7 @@ describe("indexResourceHook", () => {
       const updateValue = { id: 2, name: "UPDATE two" };
       fetchMock.mock("*", updateValue);
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       expect(result.current.entityStatus[2]).toEqual("initial");
       expect(result.current.entityStatus[1]).toEqual("initial");
@@ -669,7 +728,7 @@ describe("indexResourceHook", () => {
       const updateValue = { id: 2, name: "UPDATE two" };
       fetchMock.putOnce(`${endpoint}/${updateValue.id}`, updateValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         await result.current.update(updateValue);
@@ -689,7 +748,11 @@ describe("indexResourceHook", () => {
         updateValue,
       );
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, resolveEntityEndpoint }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          resolveEntityEndpoint,
+        }),
       );
       await act(async () => {
         await result.current.update(updateValue);
@@ -706,7 +769,7 @@ describe("indexResourceHook", () => {
       const responseValue = { id: 2, name: "UPDATE two RETURNED" };
       fetchMock.putOnce("*", responseValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         const updateResponseValue = await result.current.update(updateValue);
@@ -723,7 +786,7 @@ describe("indexResourceHook", () => {
       const updateValue = { id: 2, name: "UPDATE two" };
       fetchMock.putOnce("*", 404);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -742,7 +805,11 @@ describe("indexResourceHook", () => {
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -765,7 +832,11 @@ describe("indexResourceHook", () => {
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -786,7 +857,7 @@ describe("indexResourceHook", () => {
       const newValue = { id: 3, name: "three" };
       fetchMock.putOnce("*", newValue);
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         result.current.update(newValue);
@@ -806,7 +877,11 @@ describe("indexResourceHook", () => {
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -830,7 +905,11 @@ describe("indexResourceHook", () => {
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -857,7 +936,7 @@ describe("indexResourceHook", () => {
       ];
       const updateValue = { id: 2, name: "UPDATE two" };
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         const updatePromise1 = result.current.update(updateValue);
@@ -880,7 +959,7 @@ describe("indexResourceHook", () => {
       fetchMock.putOnce(`${endpoint}/${updateValue.id}`, 404);
       fetchMock.mock("*", updateValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       await act(async () => {
         expect(result.current.update(updateValue)).rejects.toBeInstanceOf(
@@ -903,7 +982,11 @@ describe("indexResourceHook", () => {
       const keyFn = (item: any) => `${item.type}-${item.id}`;
       fetchMock.once("*", responseValue);
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, keyFn }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          keyFn,
+        }),
       );
       expect(result.current.values).toEqual({
         "red-1": initialValue[0],
@@ -926,7 +1009,7 @@ describe("indexResourceHook", () => {
       ];
       fetchMock.mock("*", 200, { delay: 5 });
       const { result, waitForNextUpdate } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue }),
+        useResourceIndex(endpoint, { initialValue, skipInitialRefresh: true }),
       );
       expect(result.current.entityStatus[2]).toEqual("initial");
       expect(result.current.entityStatus[1]).toEqual("initial");
@@ -1017,7 +1100,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(
@@ -1039,7 +1126,11 @@ describe("indexResourceHook", () => {
         { id: 2, name: "two" },
       ];
       const { result } = renderHook(() =>
-        useResourceIndex(endpoint, { initialValue, handleError }),
+        useResourceIndex(endpoint, {
+          initialValue,
+          skipInitialRefresh: true,
+          handleError,
+        }),
       );
       await act(async () => {
         await expect(

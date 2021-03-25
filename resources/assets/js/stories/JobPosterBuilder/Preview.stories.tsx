@@ -26,7 +26,7 @@ stories.add(
       classification={text("Classification Code", "CS")}
       level={text("Position Level", "03")}
       flexHours={text("Flex Hours", "Frequently")}
-      telework={text("Telework", "Sometimes")}
+      telework={text("Telework", "Occasionally")}
       travel={text("Travel", "Many Opportunities for Travel")}
       overtime={text("Overtime", "Frequent Overtime Required")}
       education={text(

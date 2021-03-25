@@ -132,14 +132,14 @@ Route::group(
                         ->middleware('can:view,application')
                         ->name('applications.show');
 
-                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline');
-                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
-                        ->middleware('can:view,jobApplication')
+                    Route::get('applications/{application}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,application')
                         ->name('applications.timeline.next');
-                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline.step');
 
 
@@ -865,7 +865,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->name('jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collided with existing routes.
         'show' => 'jobs.show',
         'store' => 'jobs.store',
         'update' => 'jobs.update',
@@ -894,7 +894,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
 
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collided with existing routes.
         'show' => 'managers.show',
         'update' => 'managers.update'
     ]);

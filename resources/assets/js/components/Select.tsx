@@ -26,7 +26,7 @@ export interface SelectProps {
   nullSelection?: string;
   /** A list of options for select element following the SelectOption structure */
   options: SelectOption[];
-  /** Error text that appers underneath if error occurs (eg. required, ) */
+  /** Error text that appears underneath if error occurs (eg. required, ) */
   errorText?: string;
   /** The data-clone-grid-item value (refer to clone-framework docs for details) */
   grid?: string;

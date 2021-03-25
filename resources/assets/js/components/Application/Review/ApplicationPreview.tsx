@@ -32,12 +32,12 @@ import ExperienceEducationAccordion from "../ExperienceAccordions/ExperienceEduc
 import ExperiencePersonalAccordion from "../ExperienceAccordions/ExperiencePersonalAccordion";
 import ExperienceWorkAccordion from "../ExperienceAccordions/ExperienceWorkAccordion";
 import SkillAccordion from "./SkillAccordion";
-import { getLocale, localizeField } from "../../../helpers/localize";
 import {
-  getSkillOfCriteria,
-  getIrrelevantSkillCount,
-  getRelevantExpSkills,
-} from "../helpers";
+  getLocale,
+  localizeField,
+  localizeFieldNonNull,
+} from "../../../helpers/localize";
+import { getSkillOfCriteria, getRelevantExpSkills } from "../helpers";
 import { getSkillLevelName } from "../../../models/jobUtil";
 import { Link } from "../../../helpers/router";
 import {
@@ -82,6 +82,11 @@ const messages = defineMessages({
     description:
       "Text displayed if a user has not yet selected a communication preference in their profile.",
   },
+  requiredSkillLabel: {
+    id: "application.review.requiredSkillLabel",
+    defaultMessage: "Required",
+    description: "Text displayed before skill level.",
+  },
 });
 
 const submittedApplicationHeaders = defineMessages({
@@ -113,14 +118,12 @@ const submittedApplicationHeaders = defineMessages({
 interface ExperienceAccordionProps {
   experience: Experience;
   experienceSkills: ExperienceSkill[];
-  irrelevantSkillCount: number;
   skills: Skill[];
 }
 
 const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
   experience,
   experienceSkills,
-  irrelevantSkillCount,
   skills,
 }) => {
   switch (experience.type) {
@@ -130,7 +133,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -143,7 +146,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -156,7 +159,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleDelete={async (): Promise<void> => {}}
@@ -169,7 +172,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -182,7 +185,7 @@ const ExperienceAccordion: React.FC<ExperienceAccordionProps> = ({
           experience={experience}
           relevantSkills={experienceSkills}
           skills={skills}
-          irrelevantSkillCount={irrelevantSkillCount}
+          irrelevantSkillCount={0}
           showSkillDetails
           showButtons={false}
           handleEdit={(): void => {}}
@@ -232,10 +235,38 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
     experienceViewState || "experience",
   );
 
-  const hardCriteria = criteria.filter((criterion) => {
-    const skill = getSkillOfCriteria(criterion, skills);
-    return skill?.skill_type_id === SkillTypeId.Hard;
-  });
+  const hardCriteria = criteria
+    .filter((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort((a, b) => {
+      const skillA = getSkillOfCriteria(a, skills);
+      const skillB = getSkillOfCriteria(b, skills);
+      // Order by essential followed by asset.
+      if (a.criteria_type_id > b.criteria_type_id) {
+        return 1;
+      }
+      if (a.criteria_type_id < b.criteria_type_id) {
+        return -1;
+      }
+      // Order by skill name alphabetically.
+      if (skillA && skillB) {
+        if (
+          localizeFieldNonNull(locale, skillA, "name").toUpperCase() >
+          localizeFieldNonNull(locale, skillB, "name").toUpperCase()
+        ) {
+          return 1;
+        }
+        if (
+          localizeFieldNonNull(locale, skillA, "name").toUpperCase() <
+          localizeFieldNonNull(locale, skillB, "name").toUpperCase()
+        ) {
+          return -1;
+        }
+      }
+      return 0;
+    });
 
   const handleViewClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const viewType: ExperienceView = e.currentTarget.getAttribute(
@@ -500,11 +531,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
           </p>
           <div data-c-accordion-group="">
             {experiences.map((experience) => {
-              const irrelevantSkillCount = getIrrelevantSkillCount(
-                hardCriteria,
-                experience,
-                experienceSkills,
-              );
               const relevantSkills = getRelevantExpSkills(
                 hardCriteria,
                 experience,
@@ -516,7 +542,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                   experience={experience}
                   experienceSkills={relevantSkills}
                   skills={skills}
-                  irrelevantSkillCount={irrelevantSkillCount}
                 />
               );
             })}
@@ -537,9 +562,14 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
               const skillOfCriterion = getSkillOfCriteria(criterion, skills);
 
               if (skillOfCriterion !== null) {
-                const skillLevel = intl.formatMessage(
+                let skillLevel = intl.formatMessage(
                   getSkillLevelName(criterion, skillOfCriterion),
                 );
+                if (criterion.criteria_type_id === 1) {
+                  skillLevel = `${intl.formatMessage(
+                    messages.requiredSkillLabel,
+                  )} - ${skillLevel}`;
+                }
 
                 const experiencesOfCriterion = experienceSkills.filter(
                   (experienceSkill) =>
@@ -590,11 +620,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
             {experiences
               .filter((experience) => experience.is_education_requirement)
               .map((educationExperience) => {
-                const irrelevantSkillCount = getIrrelevantSkillCount(
-                  hardCriteria,
-                  educationExperience,
-                  experienceSkills,
-                );
                 const relevantSkills = getRelevantExpSkills(
                   hardCriteria,
                   educationExperience,
@@ -606,7 +631,6 @@ const ApplicationPreview: React.FunctionComponent<ApplicationPreviewProps> = ({
                     experience={educationExperience}
                     experienceSkills={relevantSkills}
                     skills={skills}
-                    irrelevantSkillCount={irrelevantSkillCount}
                   />
                 );
               })}

@@ -101,8 +101,8 @@ export const LanguageRequirementId = {
 export const FrequencyId = {
   never: 1,
   rarely: 2,
-  sometimes: 3,
-  often: 4,
+  occasionally: 3,
+  frequently: 4,
   always: 5,
 };
 

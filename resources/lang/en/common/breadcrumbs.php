@@ -21,6 +21,10 @@ return [
     'job-title-missing' => "'Title Missing'",
     'review' => 'Review',
     'builder' => 'Job Builder',
+    'application' => 'Application',
+    'applications' => 'Applications',
+    'application_id' => 'Application Id: :id',
+    'settings' => 'Settings',
     'managerPortal' => [
         'applications' => 'Review Applicants',
     ],
