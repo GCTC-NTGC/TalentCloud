@@ -125,8 +125,7 @@ class MenuComposer
                 case 'manager.jobs.edit':
                 case 'manager.jobs.review':
                 case 'admin.jobs.update':
-                    // $menu['items']['create_job']['active'] = true;
-                    $menu['items']['jobs']['active'] = true; // TODO: restore when job poster builder complete.
+                    $menu['items']['jobs']['active'] = true;
                     break;
                 case 'manager.profile':
                 case 'manager.profile.edit':
@@ -159,8 +158,6 @@ class MenuComposer
             // Set route links.
             $menu['items']['home']['link'] = route('manager.home');
             $menu['items']['jobs']['link'] = route('manager.jobs.index');
-            // TODO: restore when job poster builder complete.
-            // $menu['items']['create_job']['link'] = route('manager.jobs.create');
             $menu['items']['profile']['link'] = route('manager.profile');
             $menu['items']['faq']['link'] = route('manager.faq.section');
             $menu['items']['settings']['link'] = route('manager.settings.edit');
