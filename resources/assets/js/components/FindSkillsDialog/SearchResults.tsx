@@ -83,7 +83,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   const skillAccordionKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
     id: string,
-  ) => {
+  ): void => {
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
 
@@ -111,7 +111,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     id: string,
     newSkill: Skill,
     newSkillsState: Skill[],
-  ) => {
+  ): void => {
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
       const checkbox = document.getElementById(id) as HTMLInputElement;
@@ -135,7 +135,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     }
   };
 
-  const backBtnKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+  const backBtnKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
       switch (e.key) {

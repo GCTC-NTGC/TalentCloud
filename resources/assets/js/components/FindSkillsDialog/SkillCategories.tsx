@@ -72,7 +72,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
     id: string,
     childSkillCategory: SkillCategory,
     parentSkillCategoryKey: string,
-  ) => {
+  ): void => {
     const accordion = document.getElementById(id);
     if (accordion) {
       const content = accordion.querySelector(
