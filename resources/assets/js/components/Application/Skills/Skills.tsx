@@ -541,6 +541,45 @@ const Skills: React.FC<SkillsProps> = ({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   /**
+   * Returns a list of experience skills with updated justifications received from the formik form refs.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns List of experience skills
+   */
+  const getExperienceSkillsToUpdate = (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): ExperienceSkill[] =>
+    experienceSkills.reduce(
+      (
+        accumulator: ExperienceSkill[],
+        currentValue: ExperienceSkill,
+      ): ExperienceSkill[] => {
+        const formRefEntry = Array.from(refMap.entries()).find(
+          ([experienceSkillId, formRef]) =>
+            experienceSkillId === currentValue.id,
+        );
+
+        if (formRefEntry !== null && formRefEntry !== undefined) {
+          const [experienceSkillId, formRef] = formRefEntry;
+          if (
+            formRef.current !== null &&
+            currentValue.justification !== formRef.current.values.justification
+          ) {
+            accumulator.push({
+              ...currentValue,
+              justification: formRef.current.values.justification,
+            });
+            return accumulator;
+          }
+        }
+
+        return accumulator;
+      },
+      [],
+    );
+  /**
    * Validate many Formik forms, and submit all of them if all are valid.
    * @param refMap A map of experienceSkill id to formik Form ref
    * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
@@ -555,34 +594,8 @@ const Skills: React.FC<SkillsProps> = ({
     const refs = Array.from(refMap.values()).filter(notEmpty);
     const formsAreValid = await validateAllForms(refs);
     if (formsAreValid) {
-      const experienceSkillsToUpdate: ExperienceSkill[] = experienceSkills.reduce(
-        (
-          accumulator: ExperienceSkill[],
-          currentValue: ExperienceSkill,
-        ): ExperienceSkill[] => {
-          const formRefEntry = Array.from(refMap.entries()).find(
-            ([experienceSkillId, formRef]) =>
-              experienceSkillId === currentValue.id,
-          );
-
-          if (formRefEntry !== null && formRefEntry !== undefined) {
-            const [experienceSkillId, formRef] = formRefEntry;
-            if (
-              formRef.current !== null &&
-              currentValue.justification !==
-                formRef.current.values.justification
-            ) {
-              accumulator.push({
-                ...currentValue,
-                justification: formRef.current.values.justification,
-              });
-              return accumulator;
-            }
-          }
-
-          return accumulator;
-        },
-        [],
+      const experienceSkillsToUpdate: ExperienceSkill[] = getExperienceSkillsToUpdate(
+        refMap,
       );
       if (experienceSkillsToUpdate.length > 0) {
         try {
@@ -627,6 +640,37 @@ const Skills: React.FC<SkillsProps> = ({
       });
       setIsSubmitting(false);
       return Promise.reject();
+    }
+  };
+
+  /**
+   * Saves all skill justifications if valid.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const saveManyAndQuit = async (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values()).filter(notEmpty);
+    const formsAreValid = await validateAllForms(refs);
+    if (formsAreValid) {
+      const experienceSkillsToUpdate: ExperienceSkill[] = getExperienceSkillsToUpdate(
+        refMap,
+      );
+      if (experienceSkillsToUpdate.length > 0) {
+        try {
+          await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
+          setIsSubmitting(false);
+          return Promise.resolve();
+        } catch {
+          setIsSubmitting(false);
+          return Promise.reject();
+        }
+      }
     }
   };
 
@@ -894,11 +938,7 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): Promise<void> =>
-                    validateAndSubmitMany(formRefs.current)
-                      .then(handleQuit)
-                      .catch(() => {
-                        // Validation failed, do nothing.
-                      })
+                    saveManyAndQuit(formRefs.current).then(handleQuit)
                   }
                 >
                   {intl.formatMessage(navigationMessages.quit)}
