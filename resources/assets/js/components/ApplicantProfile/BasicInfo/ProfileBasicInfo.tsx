@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -155,7 +155,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     previousClassifications,
   };
 
-  const validationShema = Yup.object().shape({
+  const validationSchema = Yup.object().shape({
     citizenshipDeclaration: Yup.number()
       .typeError(intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
@@ -209,7 +209,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   } = useForm<BasicInfoFormValues>({
     mode: "onBlur",
     defaultValues,
-    resolver: yupResolver(validationShema),
+    resolver: yupResolver(validationSchema),
   });
 
   const gcEmployeeStatusState = watch("gcEmployeeStatus");

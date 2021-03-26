@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { FieldName, FieldValues, RegisterOptions } from "react-hook-form";
 import { GeneralProps } from "./utils";
 import { inputMessages } from "../Form/Messages";
 
