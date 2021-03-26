@@ -27,8 +27,8 @@ stories.add(
     return (
       <ProfileBasicInfo
         applicantId={1}
-        currentClassification={5}
-        currentLevel={3}
+        currentClassification={null}
+        currentLevel={null}
         previousClassifications={[]}
         citizenshipDeclaration={CitizenshipId.citizen}
         classifications={fakeClassifications()}

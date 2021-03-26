@@ -223,11 +223,14 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     handleSubmit,
     errors,
     control,
+    watch,
   } = useForm<BasicInfoFormValues>({
     mode: "onBlur",
     defaultValues,
     resolver: yupResolver(validationShema),
   });
+
+  const gcEmployeeStatusState = watch("gcEmployeeStatus");
 
   // Custom hook for working with uncontrolled field arrays (dynamic inputs).
   // https://react-hook-form.com/api#useFieldArray
@@ -246,12 +249,12 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     order: -1,
   };
 
-  const [currentEmployeeStatus, setCurrentEmployeeStatus] = useState<
-    number | null
-  >(gcEmployeeStatus);
-
   const NUM_OF_CLASSIFICATION_LEVELS = 9; // Since we do not fetch classification levels from an api the possible levels are 1-9.
-  const classificationLevels = () => {
+  /**
+   * This returns a list of classification level Option component (found in the H2 Select component).
+   * @returns List of classification level option elements.
+   */
+  const classificationLevels = (): React.ReactElement[] => {
     const levels: number[] = [];
     for (let i = 1; i <= NUM_OF_CLASSIFICATION_LEVELS; i += 1) {
       levels.push(i);
@@ -343,9 +346,6 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           label={intl.formatMessage(messages.gcEmployeeStatusLabel)}
           errorMessage={errors.gcEmployeeStatus?.message}
           data-h2-padding="b(right, 5) b(bottom, 1)"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>): void => {
-            setCurrentEmployeeStatus(parseInt(e.target.value, 10));
-          }}
         >
           {Object.values(GCEmployeeStatus).map((id) => (
             <Select.Option key={id} value={id}>
@@ -354,7 +354,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           ))}
         </Select>
         {/* If the user is currently a member of the GOC then allow setting a current classification */}
-        {currentEmployeeStatus === GCEmployeeStatus.current && (
+        {Number(gcEmployeeStatusState) === GCEmployeeStatus.current && (
           <div data-h2-grid="b(top, expanded, flush, 1)">
             <p data-h2-grid-item="b(1of1)">
               {intl.formatMessage(messages.currentClassificationAndLevel)}
@@ -393,7 +393,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           </div>
         )}
         {/* If the user is currently OR a previous member of the GOC then allow creating previous classifications */}
-        {currentEmployeeStatus !== GCEmployeeStatus.no && (
+        {Number(gcEmployeeStatusState) !== GCEmployeeStatus.no && (
           <>
             <p data-h2-margin="b(bottom, 1)">
               {intl.formatMessage(messages.addPreviousGcClassification)}
