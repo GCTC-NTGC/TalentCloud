@@ -95,7 +95,7 @@
     "dependencies": {
         "@formatjs/intl-getcanonicallocales": "^1.5.8",
         "@formatjs/intl-locale": "^2.4.21",
-        "@formatjs/intl-pluralrules": "^4.0.12",
+        "@formatjs/intl-pluralrules": "^4.0.13",
         "@formatjs/intl-relativetimeformat": "^8.1.4",
         "@hydrogen-design-system/system": "0.0.42",
         "axios": "^0.21.1",
