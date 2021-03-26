@@ -336,126 +336,128 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           ))}
         </Select>
         {/* If the user is currently a member of the GOC then allow setting a current classification */}
-        {Number(gcEmployeeStatusState) === GCEmployeeStatus.current && (
-          <div data-h2-grid="b(top, expanded, flush, 1)">
-            <p data-h2-grid-item="b(1of1)">
-              {intl.formatMessage(messages.currentClassificationAndLevel)}
-            </p>
-            <Select
-              name="currentClassification"
-              defaultValue={`${currentClassification}`}
-              required
-              register={register}
-              label={intl.formatMessage(messages.classificationLabel)}
-              errorMessage={errors.currentClassification?.message}
-              data-h2-grid-item="b(1of2)"
-              data-h2-padding="b(right, 5)"
-            >
-              {classifications.map((classification) => (
-                <Select.Option
-                  key={classification.key}
-                  value={classification.id}
-                >
-                  {localizeFieldNonNull(locale, classification, "name")}
-                </Select.Option>
-              ))}
-            </Select>
-            <Select
-              name="currentLevel"
-              defaultValue={`${currentLevel}`}
-              required
-              register={register}
-              label={intl.formatMessage(messages.levelLabel)}
-              errorMessage={errors.currentLevel?.message}
-              data-h2-grid-item="b(1of2)"
-              data-h2-padding="b(right, 5)"
-            >
-              {classificationLevels()}
-            </Select>
-          </div>
-        )}
+        {gcEmployeeStatusState &&
+          Number(gcEmployeeStatusState) === GCEmployeeStatus.current && (
+            <div data-h2-grid="b(top, expanded, flush, 1)">
+              <p data-h2-grid-item="b(1of1)">
+                {intl.formatMessage(messages.currentClassificationAndLevel)}
+              </p>
+              <Select
+                name="currentClassification"
+                defaultValue={`${currentClassification}`}
+                required
+                register={register}
+                label={intl.formatMessage(messages.classificationLabel)}
+                errorMessage={errors.currentClassification?.message}
+                data-h2-grid-item="b(1of2)"
+                data-h2-padding="b(right, 5)"
+              >
+                {classifications.map((classification) => (
+                  <Select.Option
+                    key={classification.key}
+                    value={classification.id}
+                  >
+                    {localizeFieldNonNull(locale, classification, "name")}
+                  </Select.Option>
+                ))}
+              </Select>
+              <Select
+                name="currentLevel"
+                defaultValue={`${currentLevel}`}
+                required
+                register={register}
+                label={intl.formatMessage(messages.levelLabel)}
+                errorMessage={errors.currentLevel?.message}
+                data-h2-grid-item="b(1of2)"
+                data-h2-padding="b(right, 5)"
+              >
+                {classificationLevels()}
+              </Select>
+            </div>
+          )}
         {/* If the user is currently OR a previous member of the GOC then allow creating previous classifications */}
-        {Number(gcEmployeeStatusState) !== GCEmployeeStatus.no && (
-          <>
-            <p data-h2-margin="b(bottom, 1)">
-              {intl.formatMessage(messages.addPreviousGcClassification)}
-            </p>
-            <ul>
-              {fields.map((previousClassification, index) => (
-                <li
-                  data-h2-grid="b(middle, expanded, padded, 1)"
-                  key={previousClassification.key}
-                >
-                  <Select
-                    name={`previousClassifications[${index}].classification_id`}
-                    defaultValue={`${
-                      previousClassification.classification_id !== -1
-                        ? previousClassification.classification_id
-                        : ""
-                    }`}
-                    required
-                    register={register()}
-                    label={intl.formatMessage(messages.classificationLabel)}
-                    errorMessage={
-                      errors.previousClassifications &&
-                      errors.previousClassifications[index]?.classification_id
-                        ?.message
-                    }
-                    data-h2-grid-item="b(5of12)"
+        {gcEmployeeStatusState &&
+          Number(gcEmployeeStatusState) !== GCEmployeeStatus.no && (
+            <>
+              <p data-h2-margin="b(bottom, 1)">
+                {intl.formatMessage(messages.addPreviousGcClassification)}
+              </p>
+              <ul>
+                {fields.map((previousClassification, index) => (
+                  <li
+                    data-h2-grid="b(middle, expanded, padded, 1)"
+                    key={previousClassification.key}
                   >
-                    {classifications.map((classification) => (
-                      <Select.Option
-                        key={classification.key}
-                        value={classification.id}
-                      >
-                        {localizeFieldNonNull(locale, classification, "name")}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                  <Select
-                    name={`previousClassifications[${index}].level`}
-                    defaultValue={`${
-                      previousClassification.level !== -1
-                        ? previousClassification.level
-                        : ""
-                    }`}
-                    required
-                    register={register()}
-                    label={intl.formatMessage(messages.levelLabel)}
-                    errorMessage={
-                      errors.previousClassifications &&
-                      errors.previousClassifications[index]?.level?.message
-                    }
-                    data-h2-grid-item="b(5of12)"
-                  >
-                    {classificationLevels()}
-                  </Select>
-                  <button
-                    data-h2-button=""
-                    data-h2-grid-item="b(1of12)"
-                    data-h2-font-style="b(underline)"
-                    data-h2-font-weight="b(700)"
-                    type="button"
-                    onClick={() => remove(index)}
-                  >
-                    {intl.formatMessage(messages.removeClassificationLabel)}
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <button
-              data-h2-button=""
-              data-h2-font-style="b(underline)"
-              data-h2-font-weight="b(700)"
-              data-h2-margin="b(left, 2)"
-              type="button"
-              onClick={() => append(newApplicantClassification)}
-            >
-              <i data-h2-padding="b(right, .25)" className="fas fa-plus" />
-              {intl.formatMessage(messages.addClassificationLabel)}
-            </button>
-          </>
-        )}
+                    <Select
+                      name={`previousClassifications[${index}].classification_id`}
+                      defaultValue={`${
+                        previousClassification.classification_id !== -1
+                          ? previousClassification.classification_id
+                          : ""
+                      }`}
+                      required
+                      register={register()}
+                      label={intl.formatMessage(messages.classificationLabel)}
+                      errorMessage={
+                        errors.previousClassifications &&
+                        errors.previousClassifications[index]?.classification_id
+                          ?.message
+                      }
+                      data-h2-grid-item="b(5of12)"
+                    >
+                      {classifications.map((classification) => (
+                        <Select.Option
+                          key={classification.key}
+                          value={classification.id}
+                        >
+                          {localizeFieldNonNull(locale, classification, "name")}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                    <Select
+                      name={`previousClassifications[${index}].level`}
+                      defaultValue={`${
+                        previousClassification.level !== -1
+                          ? previousClassification.level
+                          : ""
+                      }`}
+                      required
+                      register={register()}
+                      label={intl.formatMessage(messages.levelLabel)}
+                      errorMessage={
+                        errors.previousClassifications &&
+                        errors.previousClassifications[index]?.level?.message
+                      }
+                      data-h2-grid-item="b(5of12)"
+                    >
+                      {classificationLevels()}
+                    </Select>
+                    <button
+                      data-h2-button=""
+                      data-h2-grid-item="b(1of12)"
+                      data-h2-font-style="b(underline)"
+                      data-h2-font-weight="b(700)"
+                      type="button"
+                      onClick={() => remove(index)}
+                    >
+                      {intl.formatMessage(messages.removeClassificationLabel)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <button
+                data-h2-button=""
+                data-h2-font-style="b(underline)"
+                data-h2-font-weight="b(700)"
+                data-h2-margin="b(left, 2)"
+                type="button"
+                onClick={() => append(newApplicantClassification)}
+              >
+                <i data-h2-padding="b(right, .25)" className="fas fa-plus" />
+                {intl.formatMessage(messages.addClassificationLabel)}
+              </button>
+            </>
+          )}
         <div>
           <button
             data-h2-display="b(block)"

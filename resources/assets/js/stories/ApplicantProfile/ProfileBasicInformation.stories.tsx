@@ -21,29 +21,53 @@ const stories = storiesOf(
   module,
 ).addDecorator(withIntl);
 
-stories.add(
-  "Not GC Employee",
-  (): React.ReactElement => {
-    return (
-      <ProfileBasicInfo
-        applicantId={1}
-        currentClassification={null}
-        currentLevel={null}
-        previousClassifications={[]}
-        citizenshipDeclaration={CitizenshipId.citizen}
-        classifications={fakeClassifications()}
-        email={text("Email", "jerbo@personal.com", "Basic Info")}
-        gcEmployeeStatus={GCEmployeeStatus.no}
-        name={text("Name", "Gerardi Escandon", "Basic Info")}
-        veteranStatus={VeteranId.current}
-        handleUpdateProfile={async (x) => {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          action("Update Applicant Profile")(x);
-        }}
-      />
-    );
-  },
-);
+stories
+  .add(
+    "Empty Form",
+    (): React.ReactElement => {
+      return (
+        <ProfileBasicInfo
+          applicantId={1}
+          currentClassification={null}
+          currentLevel={null}
+          previousClassifications={[]}
+          citizenshipDeclaration={null}
+          classifications={fakeClassifications()}
+          email={text("Email", "jerbo@personal.com", "Basic Info")}
+          gcEmployeeStatus={null}
+          name={text("Name", "Gerardi Escandon", "Basic Info")}
+          veteranStatus={null}
+          handleUpdateProfile={async (x) => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            action("Update Applicant Profile")(x);
+          }}
+        />
+      );
+    },
+  )
+  .add(
+    "Not GC Employee",
+    (): React.ReactElement => {
+      return (
+        <ProfileBasicInfo
+          applicantId={1}
+          currentClassification={null}
+          currentLevel={null}
+          previousClassifications={[]}
+          citizenshipDeclaration={CitizenshipId.citizen}
+          classifications={fakeClassifications()}
+          email={text("Email", "jerbo@personal.com", "Basic Info")}
+          gcEmployeeStatus={GCEmployeeStatus.no}
+          name={text("Name", "Gerardi Escandon", "Basic Info")}
+          veteranStatus={VeteranId.current}
+          handleUpdateProfile={async (x) => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            action("Update Applicant Profile")(x);
+          }}
+        />
+      );
+    },
+  );
 stories.add(
   "Previous GC Employee",
   (): React.ReactElement => {
