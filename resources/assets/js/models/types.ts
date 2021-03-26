@@ -19,9 +19,18 @@ export interface Applicant {
   user: User;
 }
 
+export interface ApplicantClassification {
+  id: number;
+  applicant_id: number;
+  classification_id: number;
+  level: number;
+  order: number; // Used to allow user to order the list of classifications
+}
+
 export interface ApplicantProfile {
   citizenship_declaration_id: number;
   veteran_status_id: number;
+  gc_employee_status: number;
   applicant_classifications: ApplicantClassification[];
 }
 
@@ -454,11 +463,5 @@ export interface Email {
   subject: string;
   body: string;
 }
-export interface ApplicantClassification {
-  id: number;
-  applicant_id: number;
-  classification_id: number;
-  level: number;
-  order: number; // Used to allow user to order the list of classifications
-}
+
 export type DateString = string; // This type is used when the expected type is in the format yyyy-mm-dd.

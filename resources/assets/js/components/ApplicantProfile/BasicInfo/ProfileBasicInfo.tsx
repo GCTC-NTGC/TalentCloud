@@ -118,41 +118,38 @@ const messages = defineMessages({
 });
 export interface ProfileBasicInfoProps {
   applicantId: number;
-  currentClassification: number | null;
-  currentLevel: number | null;
+  applicantClassifications: ApplicantClassification[];
   citizenshipDeclaration: number | null;
   classifications: Classification[];
   email: string;
   gcEmployeeStatus: number | null;
   name: string;
-  previousClassifications: ApplicantClassification[];
   veteranStatus: number | null;
   handleUpdateProfile: (data: ApplicantProfile) => Promise<void>;
 }
 
 export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   applicantId,
-  currentClassification,
-  currentLevel,
+  applicantClassifications,
   citizenshipDeclaration,
   classifications,
   email,
   gcEmployeeStatus,
   name,
-  previousClassifications,
   veteranStatus,
   handleUpdateProfile,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const currentClassification = applicantClassifications.shift(); // Removes first element from array;
+  const previousClassifications = applicantClassifications;
 
   const defaultValues = {
     citizenshipDeclaration: citizenshipDeclaration || "",
     veteranStatus: veteranStatus || "",
     gcEmployeeStatus: gcEmployeeStatus || "",
-    currentClassification: currentClassification || "",
-    currentLevel: currentLevel || "",
-    previousClassifications,
+    currentClassification,
+    previousClassifications: previousClassifications || "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -165,17 +162,16 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     gcEmployeeStatus: Yup.number()
       .typeError(intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
-    currentClassification: Yup.number().when("gcEmployeeStatus", {
+    currentClassification: Yup.object().when("gcEmployeeStatus", {
       is: GCEmployeeStatus.current,
-      then: Yup.number()
-        .typeError(intl.formatMessage(validationMessages.required))
-        .required(intl.formatMessage(validationMessages.required)),
-    }),
-    currentLevel: Yup.number().when("gcEmployeeStatus", {
-      is: GCEmployeeStatus.current,
-      then: Yup.number()
-        .typeError(intl.formatMessage(validationMessages.required))
-        .required(intl.formatMessage(validationMessages.required)),
+      then: Yup.object().shape({
+        classification_id: Yup.number()
+          .typeError(intl.formatMessage(validationMessages.required))
+          .required(intl.formatMessage(validationMessages.required)),
+        level: Yup.number()
+          .typeError(intl.formatMessage(validationMessages.required))
+          .required(intl.formatMessage(validationMessages.required)),
+      }),
     }),
     previousClassifications: Yup.array().of(
       Yup.object().shape({
@@ -193,8 +189,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     citizenshipDeclaration: number | string;
     veteranStatus: number | string;
     gcEmployeeStatus: number | string;
-    currentClassification: number | string;
-    currentLevel: number | string;
+    currentClassification: ApplicantClassification;
     previousClassifications: ApplicantClassification[];
   }
 
@@ -249,6 +244,18 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     ));
   };
 
+  const formToValuesData = (values: BasicInfoFormValues): ApplicantProfile => {
+    const applicant_classifications = values.currentClassification
+      ? [values.currentClassification, ...values.previousClassifications]
+      : values.previousClassifications;
+    return {
+      citizenship_declaration_id: Number(values.citizenshipDeclaration),
+      veteran_status_id: Number(values.veteranStatus),
+      gc_employee_status: Number(values.gcEmployeeStatus),
+      applicant_classifications,
+    };
+  };
+
   return (
     <>
       <h2 data-h2-font-size="b(h3)" data-h2-margin="b(bottom, 1)">
@@ -282,7 +289,11 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
       </p>
 
       <Form
-        onSubmit={handleSubmit(handleUpdateProfile)}
+        onSubmit={handleSubmit((values, e) => {
+          e?.preventDefault();
+          const updateApplicantProfileWithValues = formToValuesData(values);
+          handleUpdateProfile(updateApplicantProfileWithValues);
+        })}
         data-h2-container="b(left, small)"
       >
         <Select
@@ -343,12 +354,14 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                 {intl.formatMessage(messages.currentClassificationAndLevel)}
               </p>
               <Select
-                name="currentClassification"
-                defaultValue={`${currentClassification}`}
+                name="currentClassification.classification_id"
                 required
-                register={register}
+                register={register()}
                 label={intl.formatMessage(messages.classificationLabel)}
-                errorMessage={errors.currentClassification?.message}
+                errorMessage={
+                  errors.currentClassification &&
+                  errors.currentClassification.classification_id?.message
+                }
                 data-h2-grid-item="b(1of2)"
                 data-h2-padding="b(right, 5)"
               >
@@ -362,12 +375,14 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                 ))}
               </Select>
               <Select
-                name="currentLevel"
-                defaultValue={`${currentLevel}`}
+                name="currentClassification.level"
                 required
-                register={register}
+                register={register()}
                 label={intl.formatMessage(messages.levelLabel)}
-                errorMessage={errors.currentLevel?.message}
+                errorMessage={
+                  errors.currentClassification &&
+                  errors.currentClassification.level?.message
+                }
                 data-h2-grid-item="b(1of2)"
                 data-h2-padding="b(right, 5)"
               >
@@ -383,67 +398,75 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                 {intl.formatMessage(messages.addPreviousGcClassification)}
               </p>
               <ul>
-                {fields.map((previousClassification, index) => (
-                  <li
-                    data-h2-grid="b(middle, expanded, padded, 1)"
-                    key={previousClassification.key}
-                  >
-                    <Select
-                      name={`previousClassifications[${index}].classification_id`}
-                      defaultValue={`${
-                        previousClassification.classification_id !== -1
-                          ? previousClassification.classification_id
-                          : ""
-                      }`}
-                      required
-                      register={register()}
-                      label={intl.formatMessage(messages.classificationLabel)}
-                      errorMessage={
-                        errors.previousClassifications &&
-                        errors.previousClassifications[index]?.classification_id
-                          ?.message
-                      }
-                      data-h2-grid-item="b(5of12)"
+                {fields.map((previousClassification, index) => {
+                  // Adds 1 to the index if the user is a current GC employee, since the first index is held in the selector above.
+
+                  return (
+                    <li
+                      data-h2-grid="b(middle, expanded, padded, 1)"
+                      key={previousClassification.key}
                     >
-                      {classifications.map((classification) => (
-                        <Select.Option
-                          key={classification.key}
-                          value={classification.id}
-                        >
-                          {localizeFieldNonNull(locale, classification, "name")}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                    <Select
-                      name={`previousClassifications[${index}].level`}
-                      defaultValue={`${
-                        previousClassification.level !== -1
-                          ? previousClassification.level
-                          : ""
-                      }`}
-                      required
-                      register={register()}
-                      label={intl.formatMessage(messages.levelLabel)}
-                      errorMessage={
-                        errors.previousClassifications &&
-                        errors.previousClassifications[index]?.level?.message
-                      }
-                      data-h2-grid-item="b(5of12)"
-                    >
-                      {classificationLevels()}
-                    </Select>
-                    <button
-                      data-h2-button=""
-                      data-h2-grid-item="b(1of12)"
-                      data-h2-font-style="b(underline)"
-                      data-h2-font-weight="b(700)"
-                      type="button"
-                      onClick={() => remove(index)}
-                    >
-                      {intl.formatMessage(messages.removeClassificationLabel)}
-                    </button>
-                  </li>
-                ))}
+                      <Select
+                        name={`previousClassifications[${index}].classification_id`}
+                        defaultValue={`${
+                          previousClassification.classification_id !== -1
+                            ? previousClassification.classification_id
+                            : ""
+                        }`}
+                        required
+                        register={register()}
+                        label={intl.formatMessage(messages.classificationLabel)}
+                        errorMessage={
+                          errors.previousClassifications &&
+                          errors.previousClassifications[index]
+                            ?.classification_id?.message
+                        }
+                        data-h2-grid-item="b(5of12)"
+                      >
+                        {classifications.map((classification) => (
+                          <Select.Option
+                            key={classification.key}
+                            value={classification.id}
+                          >
+                            {localizeFieldNonNull(
+                              locale,
+                              classification,
+                              "name",
+                            )}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                      <Select
+                        name={`previousClassifications[${index}].level`}
+                        defaultValue={`${
+                          previousClassification.level !== -1
+                            ? previousClassification.level
+                            : ""
+                        }`}
+                        required
+                        register={register()}
+                        label={intl.formatMessage(messages.levelLabel)}
+                        errorMessage={
+                          errors.previousClassifications &&
+                          errors.previousClassifications[index]?.level?.message
+                        }
+                        data-h2-grid-item="b(5of12)"
+                      >
+                        {classificationLevels()}
+                      </Select>
+                      <button
+                        data-h2-button=""
+                        data-h2-grid-item="b(1of12)"
+                        data-h2-font-style="b(underline)"
+                        data-h2-font-weight="b(700)"
+                        type="button"
+                        onClick={() => remove(index)}
+                      >
+                        {intl.formatMessage(messages.removeClassificationLabel)}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
               <button
                 data-h2-button=""

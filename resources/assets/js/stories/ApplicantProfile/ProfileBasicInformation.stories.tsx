@@ -28,9 +28,7 @@ stories
       return (
         <ProfileBasicInfo
           applicantId={1}
-          currentClassification={null}
-          currentLevel={null}
-          previousClassifications={[]}
+          applicantClassifications={[]}
           citizenshipDeclaration={null}
           classifications={fakeClassifications()}
           email={text("Email", "jerbo@personal.com", "Basic Info")}
@@ -51,9 +49,7 @@ stories
       return (
         <ProfileBasicInfo
           applicantId={1}
-          currentClassification={null}
-          currentLevel={null}
-          previousClassifications={[]}
+          applicantClassifications={[]}
           citizenshipDeclaration={CitizenshipId.citizen}
           classifications={fakeClassifications()}
           email={text("Email", "jerbo@personal.com", "Basic Info")}
@@ -74,9 +70,7 @@ stories.add(
     return (
       <ProfileBasicInfo
         applicantId={1}
-        currentClassification={null}
-        currentLevel={null}
-        previousClassifications={[
+        applicantClassifications={[
           fakeApplicantClassification1(),
           fakeApplicantClassification2(),
         ]}
@@ -100,9 +94,7 @@ stories.add(
     return (
       <ProfileBasicInfo
         applicantId={1}
-        currentClassification={5}
-        currentLevel={3}
-        previousClassifications={fakeApplicantClassifications()}
+        applicantClassifications={fakeApplicantClassifications()}
         citizenshipDeclaration={CitizenshipId.citizen}
         classifications={fakeClassifications()}
         email={text("Email", "jerbo@personal.com", "Basic Info")}
