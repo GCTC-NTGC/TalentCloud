@@ -237,7 +237,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   const { fields, append, remove } = useFieldArray({
     control,
     name: "previousClassifications",
-    keyName: "previousClassifications",
+    keyName: "key",
   });
 
   // new applicant classification object used when appending a new field in the fieldArray.
@@ -402,7 +402,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
               {fields.map((previousClassification, index) => (
                 <li
                   data-h2-grid="b(middle, expanded, padded, 1)"
-                  key={previousClassification.id}
+                  key={previousClassification.key}
                 >
                   <Select
                     name={`previousClassifications[${index}].classification_id`}
