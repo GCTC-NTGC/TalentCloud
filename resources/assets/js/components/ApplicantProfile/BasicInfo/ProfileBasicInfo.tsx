@@ -23,7 +23,7 @@ import { validationMessages } from "../../Form/Messages";
 import Select from "../../H2Components/Select";
 import { gcEmployeeStatus as gcEmployeeStatusMessages } from "../../../models/localizedConstants";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
-import { getApplicantProfileEndpoint } from "../../../api/applicantProfile";
+import { accountSettings } from "../../../helpers/routes";
 
 const messages = defineMessages({
   heading: {
@@ -291,10 +291,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
       </p>
       <p data-h2-margin="b(bottom, 1)">
         {intl.formatMessage(messages.toChangeGoTo)}:{" "}
-        <a
-          data-h2-font-color="b(theme-1)"
-          href={getApplicantProfileEndpoint(applicantId)}
-        >
+        <a data-h2-font-color="b(theme-1)" href={accountSettings(locale)}>
           {intl.formatMessage(messages.accountSettings)}
         </a>
       </p>
