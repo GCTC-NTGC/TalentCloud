@@ -28,7 +28,7 @@
         "@babel/cli": "^7.13.10",
         "@babel/core": "^7.13.10",
         "@babel/plugin-proposal-optional-chaining": "^7.13.12",
-        "@babel/preset-react": "^7.12.13",
+        "@babel/preset-react": "^7.13.13",
         "@babel/preset-typescript": "^7.13.0",
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@storybook/addon-actions": "^6.1.21",
