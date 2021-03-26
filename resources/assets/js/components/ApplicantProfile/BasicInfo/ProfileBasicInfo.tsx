@@ -157,50 +157,32 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
 
   const validationShema = Yup.object().shape({
     citizenshipDeclaration: Yup.number()
-      .oneOf(
-        Object.values(CitizenshipId),
-        intl.formatMessage(validationMessages.invalidSelection),
-      )
       .typeError(intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
     veteranStatus: Yup.number()
-      .oneOf(
-        Object.values(VeteranId),
-        intl.formatMessage(validationMessages.invalidSelection),
-      )
       .typeError(intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
     gcEmployeeStatus: Yup.number()
-      .oneOf(
-        Object.values(GCEmployeeStatus),
-        intl.formatMessage(validationMessages.invalidSelection),
-      )
       .typeError(intl.formatMessage(validationMessages.required))
       .required(intl.formatMessage(validationMessages.required)),
     currentClassification: Yup.number().when("gcEmployeeStatus", {
       is: GCEmployeeStatus.current,
       then: Yup.number()
-        .oneOf(classifications.map(({ id }) => id))
         .typeError(intl.formatMessage(validationMessages.required))
         .required(intl.formatMessage(validationMessages.required)),
     }),
     currentLevel: Yup.number().when("gcEmployeeStatus", {
       is: GCEmployeeStatus.current,
       then: Yup.number()
-        .min(1, intl.formatMessage(validationMessages.invalidSelection))
-        .max(9, intl.formatMessage(validationMessages.invalidSelection))
         .typeError(intl.formatMessage(validationMessages.required))
         .required(intl.formatMessage(validationMessages.required)),
     }),
     previousClassifications: Yup.array().of(
       Yup.object().shape({
         classification_id: Yup.number()
-          .oneOf(classifications.map(({ id }) => id))
           .typeError(intl.formatMessage(validationMessages.required))
           .required(intl.formatMessage(validationMessages.required)),
         level: Yup.number()
-          .min(1, intl.formatMessage(validationMessages.invalidSelection))
-          .max(9, intl.formatMessage(validationMessages.invalidSelection))
           .typeError(intl.formatMessage(validationMessages.required))
           .required(intl.formatMessage(validationMessages.required)),
       }),
@@ -412,7 +394,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                         : ""
                     }`}
                     required
-                    register={register}
+                    register={register()}
                     label={intl.formatMessage(messages.classificationLabel)}
                     errorMessage={
                       errors.previousClassifications &&
@@ -438,7 +420,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                         : ""
                     }`}
                     required
-                    register={register}
+                    register={register()}
                     label={intl.formatMessage(messages.levelLabel)}
                     errorMessage={
                       errors.previousClassifications &&
