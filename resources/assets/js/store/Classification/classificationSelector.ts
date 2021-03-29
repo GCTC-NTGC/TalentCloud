@@ -7,7 +7,7 @@ const getClassificationState = (
   state: RootState,
 ): { [key: string]: Classification } => state.classification.byId;
 
-// Get the list of classifications already stored in the state (via the function in classificationactions)
+// Get the list of classifications already stored in the state (via the function in classificationActions)
 export const getClassifications = createSelector(
   getClassificationState,
   (ClassificationState): Classification[] => Object.values(ClassificationState),

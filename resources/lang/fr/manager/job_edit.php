@@ -89,7 +89,7 @@ return [
 
         ]
     ],
-    /* Localizations for Default questions fuction in controller */
+    /* Localizations for Default questions function in controller */
     'questions' => [
         '00' => 'Pourquoi êtes-vous intéressé par ce travail?',
         '01' => 'Pourquoi pensez-vous que vous serez un bon candidat pour ce poste?'

@@ -2,7 +2,7 @@
 return [
     /*
      * --------------------------------------------------------------------------
-     * Managment Portal Home Hero Localization
+     * Management Portal Home Hero Localization
      * --------------------------------------------------------------------------
      * Route: /manager
      * Controller: None, localization in routes file.

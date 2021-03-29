@@ -70,7 +70,7 @@ const messages = defineMessages({
     defaultMessage: `There are {numOfSkills} results for skills related to "{searchQuery}".`,
   },
   searchBarInputLabel: {
-    id: "findSkillsModal.seachBarInputLabel",
+    id: "findSkillsModal.searchBarInputLabel",
     defaultMessage: "Search for skills by name:",
   },
   searchBarInputPlaceholder: {
@@ -273,7 +273,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                       </p>
                     </Accordion.Btn>
                     {/*
-                    TODO: Restore this when discriptions are added to Skill Categories on backend.
+                    TODO: Restore this when descriptions are added to Skill Categories on backend.
                     <p
                       data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
                       data-h2-font-color="b(black)"
@@ -317,7 +317,7 @@ const FindSkillsModal: React.FunctionComponent<FindSkillsModalProps> = ({
                                           messages.skills,
                                         )}`,
                                         description: "",
-                                        // TODO: Restore this when discriptions are added to Skill Categories on backend.
+                                        // TODO: Restore this when descriptions are added to Skill Categories on backend.
                                         // localizeFieldNonNull(
                                         //   locale,
                                         //   childSkillCategory,
