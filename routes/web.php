@@ -1091,4 +1091,7 @@ Route::prefix('api/v2')->name('api.v2.')->group(function (): void {
     )
         ->middleware('can:view,application')
         ->name('job-application-step.update');
+
+    Route::get('applicants', 'Api\ApplicantController@index')
+        ->name('applicants.index');
 });

@@ -2,14 +2,61 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateApplicantProfile;
 use App\Http\Resources\ApplicantProfile as ApplicantProfileResource;
+use App\Http\Resources\Applicant as ApplicantResource;
 use App\Models\Applicant;
 use App\Models\ApplicantClassification;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Builder;
 
 class ApplicantController extends Controller
 {
+
+    public function index(Request $request)
+    {
+
+        $limit = $request->query('limit', 1000); // TODO: The defuault limit should probably be con a config file, and used consistently across api endpoints.
+        $offset = $request->query('offset', 0);
+
+        $skillIds = preg_split('/,/', $request->query('skill_ids', ''), null, PREG_SPLIT_NO_EMPTY);
+        $classifications = preg_split('/,/', $request->query('classifications', ''), null, PREG_SPLIT_NO_EMPTY);
+
+        // TODO: Validate
+
+        Log::debug([
+            'limit' => $limit,
+            'offset' => $offset,
+            'skillIds' => $skillIds,
+            'classifications' => $classifications
+        ]);
+
+        $query = Applicant::limit($limit)->offset($offset);
+        foreach ($skillIds as $skillId) {
+            $query->whereHas('skills', function (Builder $query) use ($skillId) {
+                $query->where('skills.id', $skillId);
+            });
+        }
+        if (count($classifications) > 0) {
+            $query->where(function ($query) use ($classifications) {
+                foreach ($classifications as $classification) {
+                    $values = explode('-', $classification);
+                    $classificationCode = strtoupper($values[0]);
+                    $classificationLevel = $values[1];
+                    $query->orWhereHas('applicant_classifications', function (Builder $query) use ($classificationCode, $classificationLevel) {
+                        $query->where('applicant_classifications.level', (int)$classificationLevel)
+                            ->whereHas('classification', function (Builder $query) use ($classificationCode) {
+                                $query->where('key', $classificationCode);
+                            });
+                    });
+                }
+            });
+        }
+
+        return ApplicantResource::collection($query->get());
+    }
 
     /**
      * Retrieve Applicant profile.
