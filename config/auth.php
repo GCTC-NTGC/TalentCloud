@@ -42,8 +42,12 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'session',
             'provider' => 'users',
+        ],
+        'jwt' => [
+            'driver' => 'token',
+            'provider' => 'jwtusers',
         ],
     ],
 
@@ -68,6 +72,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'jwtusers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\JWTUser::class,
         ],
     ],
 
