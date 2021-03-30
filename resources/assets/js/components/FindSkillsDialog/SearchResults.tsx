@@ -62,6 +62,9 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   const resultsRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
+    // Ensure results are cleared when tabbing out of the results pane.
+    // Due to a keyHandler in FindSkillsDialog, tabbing will always send focus out of this component.
+    // Arrow keys must be used to navigate between elements within the results pane.
     const keyHandler = (e: KeyboardEvent) => {
       if (e.key === "Tab") {
         resetResults();
