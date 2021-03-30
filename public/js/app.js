@@ -347,7 +347,7 @@ function _typeof(obj) {
 
     if ($("section.tc-auth")) {
       $("section.tc-auth form").on("submit", function (e) {
-        if ($("input#website").val().length !== 0) {
+        if ($("input#website").length && $("input#website").val().length !== 0) {
           showFormErrors($("section.tc-auth form"), {
             data: {
               errors: {
@@ -388,7 +388,7 @@ function _typeof(obj) {
       });
     }
 
-    requiredFields(); // Label Handers ===================================================
+    requiredFields(); // Label Handlers ===================================================
 
     function labelHandlers() {
       $.each($("[class*='form__input-wrapper'] input, [class*='form__input-wrapper'] textarea"), function (e) {
@@ -526,7 +526,7 @@ function _typeof(obj) {
 
         button.removeClass("working");
       })["catch"](function (error) {
-        //If something went wrong, do nothing (individual errors processed seperately)
+        //If something went wrong, do nothing (individual errors processed separately)
         button.removeClass("working");
       });
     } // all .ajax-submit-all elements should trigger submitAllForms()
@@ -1007,11 +1007,11 @@ function _typeof(obj) {
         $(this).attr("name", $(this).attr("name").replace(":id", newID));
       }); // Edit Form IDs
       //
-      // // Queestion (English)
+      // // Question (English)
       // template.find("[data-form-id*='question-english']").find("label").attr("for", "questionEN" + newID);
       // template.find("[data-form-id*='question-english']").find("input").attr("id", "questionEN" + newID);
       //
-      // // Queestion (French)
+      // // Question (French)
       // template.find("[data-form-id*='question-french']").find("label").attr("for", "questionFR" + newID);
       // template.find("[data-form-id*='question-french']").find("input").attr("id", "questionFR" + newID);
       // Append Clone to the Wrapper
@@ -1103,6 +1103,25 @@ function _typeof(obj) {
   }
 
   formPreventMultipleSubmit();
+  /**
+   * Trigged when user clicks on hide/show icon in registration/login forms.
+   * It toggles the aria-pressed field btw true and false.
+   * This alerts users using a screen reader that the show password button has been pressed, or not pressed.
+   */
+
+  function showOrHidePasswordToggle() {
+    $(".showPassword").on("click", function (e) {
+      var pressed = e.currentTarget.getAttribute('aria-pressed');
+
+      if (pressed === "false") {
+        e.currentTarget.setAttribute('aria-pressed', "true");
+      } else {
+        e.currentTarget.setAttribute('aria-pressed', "false");
+      }
+    });
+  }
+
+  showOrHidePasswordToggle();
 })(jQuery);
 
 /***/ }),

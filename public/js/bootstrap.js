@@ -143,7 +143,7 @@ tslib_1.__exportStar(__webpack_require__(/*! ./src/emitter */ "./node_modules/@f
 /*!*****************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-getcanonicallocales/node_modules/tslib/tslib.es6.js ***!
   \*****************************************************************************************/
-/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
+/*! exports provided: __extends, __assign, __rest, __decorate, __param, __metadata, __awaiter, __generator, __createBinding, __exportStar, __values, __read, __spread, __spreadArrays, __spreadArray, __await, __asyncGenerator, __asyncDelegator, __asyncValues, __makeTemplateObject, __importStar, __importDefault, __classPrivateFieldGet, __classPrivateFieldSet */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -162,6 +162,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__read", function() { return __read; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spread", function() { return __spread; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArrays", function() { return __spreadArrays; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__spreadArray", function() { return __spreadArray; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__await", function() { return __await; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncGenerator", function() { return __asyncGenerator; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__asyncDelegator", function() { return __asyncDelegator; });
@@ -195,6 +196,8 @@ var extendStatics = function(d, b) {
 };
 
 function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
     extendStatics(d, b);
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -317,19 +320,27 @@ function __read(o, n) {
     return ar;
 }
 
+/** @deprecated */
 function __spread() {
     for (var ar = [], i = 0; i < arguments.length; i++)
         ar = ar.concat(__read(arguments[i]));
     return ar;
 }
 
+/** @deprecated */
 function __spreadArrays() {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
         for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
             r[k] = a[j];
     return r;
-};
+}
+
+function __spreadArray(to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
+}
 
 function __await(v) {
     return this instanceof __await ? (this.v = v, this) : new __await(v);
@@ -510,7 +521,7 @@ function compareExtension(e1, e2) {
     return e1.type < e2.type ? -1 : e1.type > e2.type ? 1 : 0;
 }
 function mergeVariants(v1, v2) {
-    var result = tslib_1.__spreadArrays(v1);
+    var result = tslib_1.__spreadArray([], v1);
     for (var _i = 0, v2_1 = v2; _i < v2_1.length; _i++) {
         var v = v2_1[_i];
         if (v1.indexOf(v) < 0) {
@@ -1865,7 +1876,7 @@ function emitUnicodeLanguageId(lang) {
     if (!lang) {
         return '';
     }
-    return tslib_1.__spreadArrays([lang.lang, lang.script, lang.region], (lang.variants || [])).filter(Boolean)
+    return tslib_1.__spreadArray([lang.lang, lang.script, lang.region], (lang.variants || [])).filter(Boolean)
         .join('-');
 }
 exports.emitUnicodeLanguageId = emitUnicodeLanguageId;
@@ -1877,10 +1888,10 @@ function emitUnicodeLocaleId(_a) {
         chunks.push(ext.type);
         switch (ext.type) {
             case 'u':
-                chunks.push.apply(chunks, tslib_1.__spreadArrays(ext.attributes, ext.keywords.reduce(function (all, kv) { return all.concat(kv); }, [])));
+                chunks.push.apply(chunks, tslib_1.__spreadArray(tslib_1.__spreadArray([], ext.attributes), ext.keywords.reduce(function (all, kv) { return all.concat(kv); }, [])));
                 break;
             case 't':
-                chunks.push.apply(chunks, tslib_1.__spreadArrays([emitUnicodeLanguageId(ext.lang)], ext.fields.reduce(function (all, kv) { return all.concat(kv); }, [])));
+                chunks.push.apply(chunks, tslib_1.__spreadArray([emitUnicodeLanguageId(ext.lang)], ext.fields.reduce(function (all, kv) { return all.concat(kv); }, [])));
                 break;
             default:
                 chunks.push(ext.value);
@@ -2202,7 +2213,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Locale = void 0;
 var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
 var ecma402_abstract_1 = __webpack_require__(/*! @formatjs/ecma402-abstract */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/index.js");
-var intl_getcanonicallocales_1 = __webpack_require__(/*! @formatjs/intl-getcanonicallocales */ "./node_modules/@formatjs/intl-getcanonicallocales/index.js");
+var intl_getcanonicallocales_1 = __webpack_require__(/*! @formatjs/intl-getcanonicallocales */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/index.js");
 var likelySubtagsData = tslib_1.__importStar(__webpack_require__(/*! cldr-core/supplemental/likelySubtags.json */ "./node_modules/cldr-core/supplemental/likelySubtags.json"));
 var get_internal_slots_1 = tslib_1.__importDefault(__webpack_require__(/*! ./get_internal_slots */ "./node_modules/@formatjs/intl-locale/get_internal_slots.js"));
 var likelySubtags = likelySubtagsData.supplemental.likelySubtags;
@@ -2302,7 +2313,7 @@ function mergeUnicodeLanguageId(lang, script, region, variants, replacement) {
         lang: !lang || lang === 'und' ? replacement.lang : lang,
         script: script || replacement.script,
         region: region || replacement.region,
-        variants: tslib_1.__spreadArrays(variants, replacement.variants),
+        variants: tslib_1.__spreadArray(tslib_1.__spreadArray([], variants), replacement.variants),
     };
 }
 function addLikelySubtags(tag) {
@@ -2411,13 +2422,7 @@ var Locale = /** @class */ (function () {
             tag = tag.toString();
         }
         internalSlots = get_internal_slots_1.default(this);
-        var options;
-        if (opts === undefined) {
-            options = Object.create(null);
-        }
-        else {
-            options = ecma402_abstract_1.ToObject(opts);
-        }
+        var options = ecma402_abstract_1.CoerceOptionsToObject(opts);
         tag = applyOptionsToTag(tag, options);
         var opt = Object.create(null);
         var calendar = ecma402_abstract_1.GetOption(options, 'calendar', 'string', undefined, undefined);
@@ -2608,7 +2613,7 @@ exports.default = Locale;
 /*!***********************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js ***!
   \***********************************************************************************************/
-/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2634,6 +2639,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return HourFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return MinFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return SecFromTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return OrdinaryHasInstance; });
 /**
  * https://tc39.es/ecma262/#sec-tostring
  */
@@ -2946,6 +2952,35 @@ function MinFromTime(t) {
 function SecFromTime(t) {
     return mod(Math.floor(t / MS_PER_SECOND), SECONDS_PER_MINUTE);
 }
+function IsCallable(fn) {
+    return typeof fn === 'function';
+}
+/**
+ * The abstract operation OrdinaryHasInstance implements
+ * the default algorithm for determining if an object O
+ * inherits from the instance object inheritance path
+ * provided by constructor C.
+ * @param C class
+ * @param O object
+ * @param internalSlots internalSlots
+ */
+function OrdinaryHasInstance(C, O, internalSlots) {
+    if (!IsCallable(C)) {
+        return false;
+    }
+    if (internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction) {
+        var BC = internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction;
+        return O instanceof BC;
+    }
+    if (typeof O !== 'object') {
+        return false;
+    }
+    var P = C.prototype;
+    if (typeof P !== 'object') {
+        throw new TypeError('OrdinaryHasInstance called on an object with an invalid prototype property.');
+    }
+    return Object.prototype.isPrototypeOf.call(P, O);
+}
 
 
 /***/ }),
@@ -3097,6 +3132,33 @@ function CanonicalizeTimeZoneName(tz, _a) {
         return 'UTC';
     }
     return ianaTimeZone;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: CoerceOptionsToObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return CoerceOptionsToObject; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+
+/**
+ * https://tc39.es/ecma402/#sec-coerceoptionstoobject
+ * @param options
+ * @returns
+ */
+function CoerceOptionsToObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    return Object(_262__WEBPACK_IMPORTED_MODULE_0__["ToObject"])(options);
 }
 
 
@@ -3440,9 +3502,7 @@ function offsetToGmtString(gmtFormat, hourFormat, offsetInMs, style) {
         if (!mins) {
             pattern = pattern.replace(/:?m+/, '');
         }
-        offsetStr = pattern
-            .replace(/H+/, String(hours))
-            .replace(/m+/, String(mins));
+        offsetStr = pattern.replace(/H+/, String(hours)).replace(/m+/, String(mins));
     }
     return gmtFormat.replace('{0}', offsetStr);
 }
@@ -3809,14 +3869,14 @@ function InitializeDateTimeFormat(dtf, locales, opts, _a) {
     if (!formats) {
         throw new RangeError("Calendar \"" + calendar + "\" is not supported. Try setting \"calendar\" to 1 of the following: " + Object.keys(dataLocaleData.formats).join(', '));
     }
-    matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
+    var formatMatcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
     var dateStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'dateStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.dateStyle = dateStyle;
     var timeStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'timeStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.timeStyle = timeStyle;
     var bestFormat;
     if (dateStyle === undefined && timeStyle === undefined) {
-        if (matcher === 'basic') {
+        if (formatMatcher === 'basic') {
             bestFormat = Object(_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_6__["BasicFormatMatcher"])(opt, formats);
         }
         else {
@@ -3924,10 +3984,12 @@ function PartitionDateTimePattern(dtf, x, implDetails) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimeRangePattern", function() { return PartitionDateTimeRangePattern; });
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
-/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
+/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+
 
 
 
@@ -3943,11 +4005,11 @@ var TABLE_2_FIELDS = [
     'second',
 ];
 function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
-    x = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(x);
+    x = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(x);
     if (isNaN(x)) {
         throw new RangeError('Invalid start time');
     }
-    y = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(y);
+    y = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(y);
     if (isNaN(y)) {
         throw new RangeError('Invalid end time');
     }
@@ -3955,10 +4017,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
     var getInternalSlots = implDetails.getInternalSlots, tzData = implDetails.tzData;
     var internalSlots = getInternalSlots(dtf);
     /** IMPL END */
-    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(x, 
+    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(x, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
-    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(y, 
+    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(y, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
     var pattern = internalSlots.pattern, rangePatterns = internalSlots.rangePatterns;
@@ -3990,7 +4052,7 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
                 else {
                     var v1 = tm1[fieldName];
                     var v2 = tm2[fieldName];
-                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_0__["SameValue"])(v1, v2)) {
+                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_1__["SameValue"])(v1, v2)) {
                         dateFieldsPracticallyEqual = false;
                     }
                     rangePattern = rp;
@@ -3999,10 +4061,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         }
     }
     if (dateFieldsPracticallyEqual) {
-        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern), x, implDetails);
+        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern), x, implDetails);
         for (var _a = 0, result_1 = result_2; _a < result_1.length; _a++) {
             var r = result_1[_a];
-            r.source = "shared" /* shared */;
+            r.source = _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared;
         }
         return result_2;
     }
@@ -4022,15 +4084,15 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         var rangePatternPart = _e[_d];
         var source = rangePatternPart.source, pattern_1 = rangePatternPart.pattern;
         var z = void 0;
-        if (source === "startRange" /* startRange */ ||
-            source === "shared" /* shared */) {
+        if (source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].startRange ||
+            source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared) {
             z = x;
         }
         else {
             z = y;
         }
-        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern_1);
-        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
+        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern_1);
+        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
         for (var _f = 0, partResult_1 = partResult; _f < partResult_1.length; _f++) {
             var r = partResult_1[_f];
             r.source = source;
@@ -4141,6 +4203,7 @@ function getApplicableZoneData(t, timeZone, tzData) {
     var dst = false;
     for (; i <= zoneData.length; i++) {
         if (i === zoneData.length || zoneData[i][0] * 1e3 > t) {
+            ;
             _a = zoneData[i - 1], offset = _a[2], dst = _a[3];
             break;
         }
@@ -4194,6 +4257,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitFallbackRangePattern", function() { return splitFallbackRangePattern; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitRangePattern", function() { return splitRangePattern; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+
 
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
@@ -4245,8 +4310,8 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'e':
             result.weekday = [
-                'numeric',
-                '2-digit',
+                undefined,
+                undefined,
                 'short',
                 'long',
                 'narrow',
@@ -4255,7 +4320,7 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'c':
             result.weekday = [
-                'numeric',
+                undefined,
                 undefined,
                 'short',
                 'long',
@@ -4437,17 +4502,17 @@ function splitFallbackRangePattern(pattern) {
         switch (pattern) {
             case '{0}':
                 return {
-                    source: "startRange" /* startRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                     pattern: pattern,
                 };
             case '{1}':
                 return {
-                    source: "endRange" /* endRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
                     pattern: pattern,
                 };
             default:
                 return {
-                    source: "shared" /* shared */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].shared,
                     pattern: pattern,
                 };
         }
@@ -4471,18 +4536,18 @@ function splitRangePattern(pattern) {
     if (!splitIndex) {
         return [
             {
-                source: "startRange" /* startRange */,
+                source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                 pattern: pattern,
             },
         ];
     }
     return [
         {
-            source: "startRange" /* startRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
             pattern: pattern.slice(0, splitIndex),
         },
         {
-            source: "endRange" /* endRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
             pattern: pattern.slice(splitIndex),
         },
     ];
@@ -4599,7 +4664,7 @@ function CanonicalCodeForDisplayNames(type, code) {
         if (!isUnicodeScriptSubtag(code)) {
             throw RangeError('invalid script');
         }
-        return "" + code[0].toUpperCase() + code.slice(1);
+        return "" + code[0].toUpperCase() + code.slice(1).toLowerCase();
     }
     Object(_utils__WEBPACK_IMPORTED_MODULE_1__["invariant"])(type === 'currency', 'invalid type');
     if (!Object(_IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_2__["IsWellFormedCurrencyCode"])(code)) {
@@ -4660,7 +4725,9 @@ __webpack_require__.r(__webpack_exports__);
  * @param fallback
  */
 function GetOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    if (typeof opts !== 'object') {
+        throw new TypeError('Options must be an object');
+    }
     var value = opts[prop];
     if (value !== undefined) {
         if (type !== 'boolean' && type !== 'string') {
@@ -4678,6 +4745,34 @@ function GetOption(opts, prop, type, values, fallback) {
         return value;
     }
     return fallback;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js ***!
+  \************************************************************************************************************/
+/*! exports provided: GetOptionsObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return GetOptionsObject; });
+/**
+ * https://tc39.es/ecma402/#sec-getoptionsobject
+ * @param options
+ * @returns
+ */
+function GetOptionsObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    if (typeof options === 'object') {
+        return options;
+    }
+    throw new TypeError('Options must be an object');
 }
 
 
@@ -5200,13 +5295,13 @@ function FormatNumericToString(intlObject, x) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return InitializeNumberFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -5222,11 +5317,11 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
     var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, availableLocales = _a.availableLocales, numberingSystemNames = _a.numberingSystemNames, getDefaultLocale = _a.getDefaultLocale, currencyDigitsData = _a.currencyDigitsData;
     // @ts-ignore
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
-    var options = opts === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(opts);
+    var options = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__["CoerceOptionsToObject"])(opts);
     var opt = Object.create(null);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined &&
         numberingSystemNames.indexOf(numberingSystem) < 0) {
         // 8.a. If numberingSystem does not match the Unicode Locale Identifier type nonterminal,
@@ -5234,23 +5329,23 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         throw RangeError("Invalid numberingSystems: " + numberingSystem);
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
     // [[RelevantExtensionKeys]] slot, which is a constant
     ['nu'], localeData, getDefaultLocale);
     var dataLocaleData = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_7__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_6__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
     var internalSlots = getInternalSlots(nf);
     internalSlots.locale = r.locale;
     internalSlots.dataLocale = r.dataLocale;
     internalSlots.numberingSystem = r.nu;
     internalSlots.dataLocaleData = dataLocaleData;
-    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
+    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
     var style = internalSlots.style;
     var mnfdDefault;
     var mxfdDefault;
     if (style === 'currency') {
         var currency = internalSlots.currency;
-        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
+        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
         mnfdDefault = cDigits;
         mxfdDefault = cDigits;
     }
@@ -5258,16 +5353,16 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         mnfdDefault = 0;
         mxfdDefault = style === 'percent' ? 0 : 3;
     }
-    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
+    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
     internalSlots.notation = notation;
-    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
-    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
+    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
+    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
     if (notation === 'compact') {
         internalSlots.compactDisplay = compactDisplay;
     }
-    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
+    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
     internalSlots.useGrouping = useGrouping;
-    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
+    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
     internalSlots.signDisplay = signDisplay;
     return nf;
 }
@@ -5316,6 +5411,7 @@ function PartitionNumberPattern(numberFormat, x, _a) {
         if (internalSlots.style === 'percent') {
             x *= 100;
         }
+        ;
         _b = Object(_ComputeExponent__WEBPACK_IMPORTED_MODULE_2__["ComputeExponent"])(numberFormat, x, {
             getInternalSlots: getInternalSlots,
         }), exponent = _b[0], magnitude = _b[1];
@@ -6203,10 +6299,10 @@ function GetOperands(s) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return InitializePluralRules; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -6216,14 +6312,14 @@ function InitializePluralRules(pl, locales, options, _a) {
     var availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getInternalSlots = _a.getInternalSlots;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
     var internalSlots = getInternalSlots(pl);
     internalSlots.initializedPluralRules = true;
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
-    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_4__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
+    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     internalSlots.locale = r.locale;
     return pl;
 }
@@ -6344,10 +6440,10 @@ function FormatRelativeTimeToParts(rtf, value, unit, implDetails) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return InitializeRelativeTimeFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -6360,23 +6456,25 @@ function InitializeRelativeTimeFormat(rtf, locales, options, _a) {
     internalSlots.initializedRelativeTimeFormat = true;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 
+    // @ts-expect-error TS option is wack
+    'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined) {
         if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
             throw new RangeError("Invalid numbering system " + numberingSystem);
         }
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     var locale = r.locale, nu = r.nu;
     internalSlots.locale = locale;
-    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
-    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
+    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
+    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
     var fields = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_4__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_3__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
     internalSlots.fields = fields;
     internalSlots.numberFormat = new Intl.NumberFormat(locales);
     internalSlots.pluralRules = new Intl.PluralRules(locales);
@@ -6776,7 +6874,7 @@ function isMissingLocaleDataError(e) {
 /*!*************************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/index.js ***!
   \*************************************************************************************************/
-/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, CoerceOptionsToObject, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, GetOptionsObject, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6790,208 +6888,218 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeTimeZoneName.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalizeTimeZoneName", function() { return _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__["CanonicalizeTimeZoneName"]; });
 
-/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__["BasicFormatMatcher"]; });
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CoerceOptionsToObject */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__["CoerceOptionsToObject"]; });
 
-/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__["DateTimeStyleFormat"]; });
+/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__["BasicFormatMatcher"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__["FormatDateTime"]; });
+/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__["DateTimeStyleFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__["FormatDateTimeRange"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__["FormatDateTime"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRangeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRange"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeRangeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__["InitializeDateTimeFormat"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__["FormatDateTimeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__["PartitionDateTimePattern"]; });
+/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__["InitializeDateTimeFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__["ToDateTimeOptions"]; });
+/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__["PartitionDateTimePattern"]; });
 
-/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__["CanonicalCodeForDisplayNames"]; });
+/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__["ToDateTimeOptions"]; });
 
-/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__["GetNumberOption"]; });
+/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__["CanonicalCodeForDisplayNames"]; });
 
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_14__["GetOption"]; });
+/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__["GetNumberOption"]; });
 
-/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SANCTIONED_UNITS"]; });
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_15__["GetOption"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["removeUnitNamespace"]; });
+/* harmony import */ var _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./GetOptionsObject */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__["GetOptionsObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SIMPLE_UNITS"]; });
+/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SANCTIONED_UNITS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["IsSanctionedSimpleUnitIdentifier"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["removeUnitNamespace"]; });
 
-/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__["IsValidTimeZoneName"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SIMPLE_UNITS"]; });
 
-/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__["IsWellFormedCurrencyCode"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["IsSanctionedSimpleUnitIdentifier"]; });
 
-/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__["IsWellFormedUnitIdentifier"]; });
+/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__["IsValidTimeZoneName"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__["ComputeExponent"]; });
+/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__["IsWellFormedCurrencyCode"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__["ComputeExponentForMagnitude"]; });
+/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__["IsWellFormedUnitIdentifier"]; });
 
-/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__["CurrencyDigits"]; });
+/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__["ComputeExponent"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__["FormatNumericToParts"]; });
+/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__["ComputeExponentForMagnitude"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__["FormatNumericToString"]; });
+/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__["CurrencyDigits"]; });
 
-/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__["InitializeNumberFormat"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__["FormatNumericToParts"]; });
 
-/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__["PartitionNumberPattern"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__["FormatNumericToString"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__["SetNumberFormatDigitOptions"]; });
+/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__["InitializeNumberFormat"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__["SetNumberFormatUnitOptions"]; });
+/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__["PartitionNumberPattern"]; });
 
-/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__["ToRawFixed"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__["SetNumberFormatDigitOptions"]; });
 
-/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__["ToRawPrecision"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__["SetNumberFormatUnitOptions"]; });
 
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__["PartitionPattern"]; });
+/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__["ToRawFixed"]; });
 
-/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__["GetOperands"]; });
+/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__["ToRawPrecision"]; });
 
-/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__["InitializePluralRules"]; });
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__["PartitionPattern"]; });
 
-/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__["ResolvePlural"]; });
+/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__["GetOperands"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__["FormatRelativeTime"]; });
+/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__["InitializePluralRules"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__["FormatRelativeTimeToParts"]; });
+/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__["ResolvePlural"]; });
 
-/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__["InitializeRelativeTimeFormat"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__["FormatRelativeTime"]; });
 
-/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__["MakePartsList"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__["FormatRelativeTimeToParts"]; });
 
-/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__["PartitionRelativeTimePattern"]; });
+/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__["InitializeRelativeTimeFormat"]; });
 
-/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__["SingularRelativeTimeUnit"]; });
+/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__["MakePartsList"]; });
 
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__["ResolveLocale"]; });
+/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__["PartitionRelativeTimePattern"]; });
 
-/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__["SupportedLocales"]; });
+/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__["SingularRelativeTimeUnit"]; });
 
-/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__["default"]; });
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__["ResolveLocale"]; });
 
-/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__["DATE_TIME_PROPS"]; });
+/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__["SupportedLocales"]; });
 
-/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__["parseDateTimeSkeleton"]; });
+/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__["default"]; });
 
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getInternalSlot"]; });
+/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__["DATE_TIME_PROPS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMultiInternalSlots"]; });
+/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__["parseDateTimeSkeleton"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["isLiteralPart"]; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setInternalSlot"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMultiInternalSlots"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setMultiInternalSlots"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["isLiteralPart"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMagnitude"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["defineProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setMultiInternalSlots"]; });
 
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/data.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_46__["isMissingLocaleDataError"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMagnitude"]; });
 
-/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_48__["RangePatternType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["defineProperty"]; });
 
-/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
-/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["invariant"]; });
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/data.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_48__["isMissingLocaleDataError"]; });
 
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToString"]; });
+/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_50__["RangePatternType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToNumber"]; });
+/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
+/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["invariant"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeClip"]; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToString"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToObject"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToNumber"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SameValue"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeClip"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ArrayCreate"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HasOwnProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SameValue"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Type"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ArrayCreate"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Day"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HasOwnProperty"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["WeekDay"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Type"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Day"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["WeekDay"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["YearFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DaysInYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayWithinYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["YearFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["InLeapYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DaysInYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MonthFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayWithinYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DateFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["InLeapYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HourFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MonthFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MinFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DateFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SecFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HourFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MinFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SecFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["OrdinaryHasInstance"]; });
+
+
 
 
 
@@ -7239,6 +7347,1759 @@ function invariant(condition, message, Err) {
         throw new Err(message);
     }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/index.js":
+/*!*****************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/index.js ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isUnicodeLanguageSubtag = exports.isUnicodeScriptSubtag = exports.isUnicodeRegionSubtag = exports.isStructurallyValidLanguageTag = exports.parseUnicodeLanguageId = exports.parseUnicodeLocaleId = exports.getCanonicalLocales = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
+var parser_1 = __webpack_require__(/*! ./src/parser */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+var emitter_1 = __webpack_require__(/*! ./src/emitter */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js");
+var canonicalizer_1 = __webpack_require__(/*! ./src/canonicalizer */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js");
+/**
+ * https://tc39.es/ecma402/#sec-canonicalizelocalelist
+ * @param locales
+ */
+function CanonicalizeLocaleList(locales) {
+    if (locales === undefined) {
+        return [];
+    }
+    var seen = [];
+    if (typeof locales === 'string') {
+        locales = [locales];
+    }
+    for (var _i = 0, locales_1 = locales; _i < locales_1.length; _i++) {
+        var locale = locales_1[_i];
+        var canonicalizedTag = emitter_1.emitUnicodeLocaleId(canonicalizer_1.canonicalizeUnicodeLocaleId(parser_1.parseUnicodeLocaleId(locale)));
+        if (seen.indexOf(canonicalizedTag) < 0) {
+            seen.push(canonicalizedTag);
+        }
+    }
+    return seen;
+}
+function getCanonicalLocales(locales) {
+    return CanonicalizeLocaleList(locales);
+}
+exports.getCanonicalLocales = getCanonicalLocales;
+var parser_2 = __webpack_require__(/*! ./src/parser */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+Object.defineProperty(exports, "parseUnicodeLocaleId", { enumerable: true, get: function () { return parser_2.parseUnicodeLocaleId; } });
+Object.defineProperty(exports, "parseUnicodeLanguageId", { enumerable: true, get: function () { return parser_2.parseUnicodeLanguageId; } });
+Object.defineProperty(exports, "isStructurallyValidLanguageTag", { enumerable: true, get: function () { return parser_2.isStructurallyValidLanguageTag; } });
+Object.defineProperty(exports, "isUnicodeRegionSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeRegionSubtag; } });
+Object.defineProperty(exports, "isUnicodeScriptSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeScriptSubtag; } });
+Object.defineProperty(exports, "isUnicodeLanguageSubtag", { enumerable: true, get: function () { return parser_2.isUnicodeLanguageSubtag; } });
+tslib_1.__exportStar(__webpack_require__(/*! ./src/types */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/types.js"), exports);
+tslib_1.__exportStar(__webpack_require__(/*! ./src/emitter */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js"), exports);
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/canonicalizer.js ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.canonicalizeUnicodeLocaleId = exports.canonicalizeUnicodeLanguageId = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
+var aliases_1 = __webpack_require__(/*! ./data/aliases */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js");
+var parser_1 = __webpack_require__(/*! ./parser */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/parser.js");
+var likelySubtags = tslib_1.__importStar(__webpack_require__(/*! cldr-core/supplemental/likelySubtags.json */ "./node_modules/cldr-core/supplemental/likelySubtags.json"));
+var emitter_1 = __webpack_require__(/*! ./emitter */ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js");
+function canonicalizeAttrs(strs) {
+    return Object.keys(strs.reduce(function (all, str) {
+        all[str.toLowerCase()] = 1;
+        return all;
+    }, {})).sort();
+}
+function canonicalizeKVs(arr) {
+    var all = {};
+    var result = [];
+    for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
+        var kv = arr_1[_i];
+        if (kv[0] in all) {
+            continue;
+        }
+        all[kv[0]] = 1;
+        if (!kv[1] || kv[1] === 'true') {
+            result.push([kv[0].toLowerCase()]);
+        }
+        else {
+            result.push([kv[0].toLowerCase(), kv[1].toLowerCase()]);
+        }
+    }
+    return result.sort(compareKV);
+}
+function compareKV(t1, t2) {
+    return t1[0] < t2[0] ? -1 : t1[0] > t2[0] ? 1 : 0;
+}
+function compareExtension(e1, e2) {
+    return e1.type < e2.type ? -1 : e1.type > e2.type ? 1 : 0;
+}
+function mergeVariants(v1, v2) {
+    var result = tslib_1.__spreadArray([], v1);
+    for (var _i = 0, v2_1 = v2; _i < v2_1.length; _i++) {
+        var v = v2_1[_i];
+        if (v1.indexOf(v) < 0) {
+            result.push(v);
+        }
+    }
+    return result;
+}
+/**
+ * CAVEAT: We don't do this section in the spec bc they have no JSON data
+ * Use the bcp47 data to replace keys, types, tfields, and tvalues by their canonical forms. See Section 3.6.4 U Extension Data Files) and Section 3.7.1 T Extension Data Files. The aliases are in the alias attribute value, while the canonical is in the name attribute value. For example,
+Because of the following bcp47 data:
+<key name="ms"…>…<type name="uksystem" … alias="imperial" … />…</key>
+We get the following transformation:
+en-u-ms-imperial ⇒ en-u-ms-uksystem
+ * @param lang
+ */
+function canonicalizeUnicodeLanguageId(unicodeLanguageId) {
+    /**
+     * If the language subtag matches the type attribute of a languageAlias element in Supplemental Data, replace the language subtag with the replacement value.
+     *  1. If there are additional subtags in the replacement value, add them to the result, but only if there is no corresponding subtag already in the tag.
+     *  2. Five special deprecated grandfathered codes (such as i-default) are in type attributes, and are also replaced.
+     */
+    // From https://github.com/unicode-org/icu/blob/master/icu4j/main/classes/core/src/com/ibm/icu/util/ULocale.java#L1246
+    // Try language _ variant
+    var finalLangAst = unicodeLanguageId;
+    if (unicodeLanguageId.variants.length) {
+        var replacedLang_1 = '';
+        for (var _i = 0, _a = unicodeLanguageId.variants; _i < _a.length; _i++) {
+            var variant = _a[_i];
+            if ((replacedLang_1 =
+                aliases_1.languageAlias[emitter_1.emitUnicodeLanguageId({
+                    lang: unicodeLanguageId.lang,
+                    variants: [variant],
+                })])) {
+                var replacedLangAst = parser_1.parseUnicodeLanguageId(replacedLang_1.split(parser_1.SEPARATOR));
+                finalLangAst = {
+                    lang: replacedLangAst.lang,
+                    script: finalLangAst.script || replacedLangAst.script,
+                    region: finalLangAst.region || replacedLangAst.region,
+                    variants: mergeVariants(finalLangAst.variants, replacedLangAst.variants),
+                };
+                break;
+            }
+        }
+    }
+    // language _ script _ country
+    // ug-Arab-CN -> ug-CN
+    if (finalLangAst.script && finalLangAst.region) {
+        var replacedLang_2 = aliases_1.languageAlias[emitter_1.emitUnicodeLanguageId({
+            lang: finalLangAst.lang,
+            script: finalLangAst.script,
+            region: finalLangAst.region,
+            variants: [],
+        })];
+        if (replacedLang_2) {
+            var replacedLangAst = parser_1.parseUnicodeLanguageId(replacedLang_2.split(parser_1.SEPARATOR));
+            finalLangAst = {
+                lang: replacedLangAst.lang,
+                script: replacedLangAst.script,
+                region: replacedLangAst.region,
+                variants: finalLangAst.variants,
+            };
+        }
+    }
+    // language _ country
+    // eg. az_AZ -> az_Latn_A
+    if (finalLangAst.region) {
+        var replacedLang_3 = aliases_1.languageAlias[emitter_1.emitUnicodeLanguageId({
+            lang: finalLangAst.lang,
+            region: finalLangAst.region,
+            variants: [],
+        })];
+        if (replacedLang_3) {
+            var replacedLangAst = parser_1.parseUnicodeLanguageId(replacedLang_3.split(parser_1.SEPARATOR));
+            finalLangAst = {
+                lang: replacedLangAst.lang,
+                script: finalLangAst.script || replacedLangAst.script,
+                region: replacedLangAst.region,
+                variants: finalLangAst.variants,
+            };
+        }
+    }
+    // only language
+    // e.g. twi -> ak
+    var replacedLang = aliases_1.languageAlias[emitter_1.emitUnicodeLanguageId({
+        lang: finalLangAst.lang,
+        variants: [],
+    })];
+    if (replacedLang) {
+        var replacedLangAst = parser_1.parseUnicodeLanguageId(replacedLang.split(parser_1.SEPARATOR));
+        finalLangAst = {
+            lang: replacedLangAst.lang,
+            script: finalLangAst.script || replacedLangAst.script,
+            region: finalLangAst.region || replacedLangAst.region,
+            variants: finalLangAst.variants,
+        };
+    }
+    if (finalLangAst.region) {
+        var region = finalLangAst.region.toUpperCase();
+        var regionAlias = aliases_1.territoryAlias[region];
+        var replacedRegion = void 0;
+        if (regionAlias) {
+            var regions = regionAlias.split(' ');
+            replacedRegion = regions[0];
+            var likelySubtag = likelySubtags.supplemental.likelySubtags[emitter_1.emitUnicodeLanguageId({
+                lang: finalLangAst.lang,
+                script: finalLangAst.script,
+                variants: [],
+            })];
+            if (likelySubtag) {
+                var likelyRegion = parser_1.parseUnicodeLanguageId(likelySubtag.split(parser_1.SEPARATOR)).region;
+                if (likelyRegion && regions.indexOf(likelyRegion) > -1) {
+                    replacedRegion = likelyRegion;
+                }
+            }
+        }
+        if (replacedRegion) {
+            finalLangAst.region = replacedRegion;
+        }
+        finalLangAst.region = finalLangAst.region.toUpperCase();
+    }
+    if (finalLangAst.script) {
+        finalLangAst.script =
+            finalLangAst.script[0].toUpperCase() +
+                finalLangAst.script.slice(1).toLowerCase();
+        if (aliases_1.scriptAlias[finalLangAst.script]) {
+            finalLangAst.script = aliases_1.scriptAlias[finalLangAst.script];
+        }
+    }
+    if (finalLangAst.variants.length) {
+        for (var i = 0; i < finalLangAst.variants.length; i++) {
+            var variant = finalLangAst.variants[i].toLowerCase();
+            if (aliases_1.variantAlias[variant]) {
+                var alias = aliases_1.variantAlias[variant];
+                if (parser_1.isUnicodeVariantSubtag(alias)) {
+                    finalLangAst.variants[i] = alias;
+                }
+                else if (parser_1.isUnicodeLanguageSubtag(alias)) {
+                    // Yes this can happen per the spec
+                    finalLangAst.lang = alias;
+                }
+            }
+        }
+        finalLangAst.variants.sort();
+    }
+    return finalLangAst;
+}
+exports.canonicalizeUnicodeLanguageId = canonicalizeUnicodeLanguageId;
+/**
+ * Canonicalize based on
+ * https://www.unicode.org/reports/tr35/tr35.html#Canonical_Unicode_Locale_Identifiers
+ * https://tc39.es/ecma402/#sec-canonicalizeunicodelocaleid
+ * IMPORTANT: This modifies the object inline
+ * @param locale
+ */
+function canonicalizeUnicodeLocaleId(locale) {
+    locale.lang = canonicalizeUnicodeLanguageId(locale.lang);
+    if (locale.extensions) {
+        for (var _i = 0, _a = locale.extensions; _i < _a.length; _i++) {
+            var extension = _a[_i];
+            switch (extension.type) {
+                case 'u':
+                    extension.keywords = canonicalizeKVs(extension.keywords);
+                    if (extension.attributes) {
+                        extension.attributes = canonicalizeAttrs(extension.attributes);
+                    }
+                    break;
+                case 't':
+                    if (extension.lang) {
+                        extension.lang = canonicalizeUnicodeLanguageId(extension.lang);
+                    }
+                    extension.fields = canonicalizeKVs(extension.fields);
+                    break;
+                default:
+                    extension.value = extension.value.toLowerCase();
+                    break;
+            }
+        }
+        locale.extensions.sort(compareExtension);
+    }
+    return locale;
+}
+exports.canonicalizeUnicodeLocaleId = canonicalizeUnicodeLocaleId;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js":
+/*!****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/data/aliases.js ***!
+  \****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.variantAlias = exports.scriptAlias = exports.territoryAlias = exports.languageAlias = void 0;
+/* @generated */
+// prettier-ignore  
+exports.languageAlias = {
+    "aa-saaho": "ssy",
+    "aam": "aas",
+    "aar": "aa",
+    "abk": "ab",
+    "adp": "dz",
+    "afr": "af",
+    "agp": "apf",
+    "ais": "ami",
+    "aju": "jrb",
+    "aka": "ak",
+    "alb": "sq",
+    "als": "sq",
+    "amh": "am",
+    "ara": "ar",
+    "arb": "ar",
+    "arg": "an",
+    "arm": "hy",
+    "art-lojban": "jbo",
+    "asd": "snz",
+    "asm": "as",
+    "aue": "ktz",
+    "ava": "av",
+    "ave": "ae",
+    "aym": "ay",
+    "ayr": "ay",
+    "ayx": "nun",
+    "aze": "az",
+    "azj": "az",
+    "bak": "ba",
+    "bam": "bm",
+    "baq": "eu",
+    "baz": "nvo",
+    "bcc": "bal",
+    "bcl": "bik",
+    "bel": "be",
+    "ben": "bn",
+    "bgm": "bcg",
+    "bh": "bho",
+    "bhk": "fbl",
+    "bih": "bho",
+    "bis": "bi",
+    "bjd": "drl",
+    "bjq": "bzc",
+    "bkb": "ebk",
+    "bod": "bo",
+    "bos": "bs",
+    "bre": "br",
+    "btb": "beb",
+    "bul": "bg",
+    "bur": "my",
+    "bxk": "luy",
+    "bxr": "bua",
+    "cat": "ca",
+    "ccq": "rki",
+    "cel-gaulish": "xtg",
+    "ces": "cs",
+    "cha": "ch",
+    "che": "ce",
+    "chi": "zh",
+    "chu": "cu",
+    "chv": "cv",
+    "cjr": "mom",
+    "cka": "cmr",
+    "cld": "syr",
+    "cmk": "xch",
+    "cmn": "zh",
+    "cnr": "sr-ME",
+    "cor": "kw",
+    "cos": "co",
+    "coy": "pij",
+    "cqu": "quh",
+    "cre": "cr",
+    "cwd": "cr",
+    "cym": "cy",
+    "cze": "cs",
+    "daf": "dnj",
+    "dan": "da",
+    "dap": "njz",
+    "deu": "de",
+    "dgo": "doi",
+    "dhd": "mwr",
+    "dik": "din",
+    "diq": "zza",
+    "dit": "dif",
+    "div": "dv",
+    "djl": "dze",
+    "dkl": "aqd",
+    "drh": "mn",
+    "drr": "kzk",
+    "drw": "fa-AF",
+    "dud": "uth",
+    "duj": "dwu",
+    "dut": "nl",
+    "dwl": "dbt",
+    "dzo": "dz",
+    "ekk": "et",
+    "ell": "el",
+    "elp": "amq",
+    "emk": "man",
+    "en-GB-oed": "en-GB-oxendict",
+    "eng": "en",
+    "epo": "eo",
+    "esk": "ik",
+    "est": "et",
+    "eus": "eu",
+    "ewe": "ee",
+    "fao": "fo",
+    "fas": "fa",
+    "fat": "ak",
+    "fij": "fj",
+    "fin": "fi",
+    "fra": "fr",
+    "fre": "fr",
+    "fry": "fy",
+    "fuc": "ff",
+    "ful": "ff",
+    "gav": "dev",
+    "gaz": "om",
+    "gbc": "wny",
+    "gbo": "grb",
+    "geo": "ka",
+    "ger": "de",
+    "gfx": "vaj",
+    "ggn": "gvr",
+    "ggo": "esg",
+    "ggr": "gtu",
+    "gio": "aou",
+    "gla": "gd",
+    "gle": "ga",
+    "glg": "gl",
+    "gli": "kzk",
+    "glv": "gv",
+    "gno": "gon",
+    "gre": "el",
+    "grn": "gn",
+    "gti": "nyc",
+    "gug": "gn",
+    "guj": "gu",
+    "guv": "duz",
+    "gya": "gba",
+    "hat": "ht",
+    "hau": "ha",
+    "hbs": "sr-Latn",
+    "hdn": "hai",
+    "hea": "hmn",
+    "heb": "he",
+    "her": "hz",
+    "him": "srx",
+    "hin": "hi",
+    "hmo": "ho",
+    "hrr": "jal",
+    "hrv": "hr",
+    "hun": "hu",
+    "hy-arevmda": "hyw",
+    "hye": "hy",
+    "i-ami": "ami",
+    "i-bnn": "bnn",
+    "i-default": "en-x-i-default",
+    "i-enochian": "und-x-i-enochian",
+    "i-hak": "hak",
+    "i-klingon": "tlh",
+    "i-lux": "lb",
+    "i-mingo": "see-x-i-mingo",
+    "i-navajo": "nv",
+    "i-pwn": "pwn",
+    "i-tao": "tao",
+    "i-tay": "tay",
+    "i-tsu": "tsu",
+    "ibi": "opa",
+    "ibo": "ig",
+    "ice": "is",
+    "ido": "io",
+    "iii": "ii",
+    "ike": "iu",
+    "iku": "iu",
+    "ile": "ie",
+    "ill": "ilm",
+    "ilw": "gal",
+    "in": "id",
+    "ina": "ia",
+    "ind": "id",
+    "ipk": "ik",
+    "isl": "is",
+    "ita": "it",
+    "iw": "he",
+    "izi": "eza",
+    "jar": "jgk",
+    "jav": "jv",
+    "jeg": "oyb",
+    "ji": "yi",
+    "jpn": "ja",
+    "jw": "jv",
+    "kal": "kl",
+    "kan": "kn",
+    "kas": "ks",
+    "kat": "ka",
+    "kau": "kr",
+    "kaz": "kk",
+    "kdv": "zkd",
+    "kgc": "tdf",
+    "kgd": "ncq",
+    "kgh": "kml",
+    "khk": "mn",
+    "khm": "km",
+    "kik": "ki",
+    "kin": "rw",
+    "kir": "ky",
+    "kmr": "ku",
+    "knc": "kr",
+    "kng": "kg",
+    "knn": "kok",
+    "koj": "kwv",
+    "kom": "kv",
+    "kon": "kg",
+    "kor": "ko",
+    "kpp": "jkm",
+    "kpv": "kv",
+    "krm": "bmf",
+    "ktr": "dtp",
+    "kua": "kj",
+    "kur": "ku",
+    "kvs": "gdj",
+    "kwq": "yam",
+    "kxe": "tvd",
+    "kxl": "kru",
+    "kzh": "dgl",
+    "kzj": "dtp",
+    "kzt": "dtp",
+    "lao": "lo",
+    "lat": "la",
+    "lav": "lv",
+    "lbk": "bnc",
+    "leg": "enl",
+    "lii": "raq",
+    "lim": "li",
+    "lin": "ln",
+    "lit": "lt",
+    "llo": "ngt",
+    "lmm": "rmx",
+    "ltz": "lb",
+    "lub": "lu",
+    "lug": "lg",
+    "lvs": "lv",
+    "mac": "mk",
+    "mah": "mh",
+    "mal": "ml",
+    "mao": "mi",
+    "mar": "mr",
+    "may": "ms",
+    "meg": "cir",
+    "mgx": "jbk",
+    "mhr": "chm",
+    "mkd": "mk",
+    "mlg": "mg",
+    "mlt": "mt",
+    "mnk": "man",
+    "mnt": "wnn",
+    "mo": "ro",
+    "mof": "xnt",
+    "mol": "ro",
+    "mon": "mn",
+    "mri": "mi",
+    "msa": "ms",
+    "mst": "mry",
+    "mup": "raj",
+    "mwd": "dmw",
+    "mwj": "vaj",
+    "mya": "my",
+    "myd": "aog",
+    "myt": "mry",
+    "nad": "xny",
+    "nau": "na",
+    "nav": "nv",
+    "nbf": "nru",
+    "nbl": "nr",
+    "nbx": "ekc",
+    "ncp": "kdz",
+    "nde": "nd",
+    "ndo": "ng",
+    "nep": "ne",
+    "nld": "nl",
+    "nln": "azd",
+    "nlr": "nrk",
+    "nno": "nn",
+    "nns": "nbr",
+    "nnx": "ngv",
+    "no": "nb",
+    "no-bok": "nb",
+    "no-bokmal": "nb",
+    "no-nyn": "nn",
+    "no-nynorsk": "nn",
+    "nob": "nb",
+    "noo": "dtd",
+    "nor": "nb",
+    "npi": "ne",
+    "nts": "pij",
+    "nxu": "bpp",
+    "nya": "ny",
+    "oci": "oc",
+    "ojg": "oj",
+    "oji": "oj",
+    "ori": "or",
+    "orm": "om",
+    "ory": "or",
+    "oss": "os",
+    "oun": "vaj",
+    "pan": "pa",
+    "pbu": "ps",
+    "pcr": "adx",
+    "per": "fa",
+    "pes": "fa",
+    "pli": "pi",
+    "plt": "mg",
+    "pmc": "huw",
+    "pmu": "phr",
+    "pnb": "lah",
+    "pol": "pl",
+    "por": "pt",
+    "ppa": "bfy",
+    "ppr": "lcq",
+    "prs": "fa-AF",
+    "pry": "prt",
+    "pus": "ps",
+    "puz": "pub",
+    "que": "qu",
+    "quz": "qu",
+    "rmr": "emx",
+    "rmy": "rom",
+    "roh": "rm",
+    "ron": "ro",
+    "rum": "ro",
+    "run": "rn",
+    "rus": "ru",
+    "sag": "sg",
+    "san": "sa",
+    "sap": "aqt",
+    "sca": "hle",
+    "scc": "sr",
+    "scr": "hr",
+    "sgl": "isk",
+    "sgn-BE-FR": "sfb",
+    "sgn-BE-NL": "vgt",
+    "sgn-BR": "bzs",
+    "sgn-CH-DE": "sgg",
+    "sgn-CO": "csn",
+    "sgn-DE": "gsg",
+    "sgn-DK": "dsl",
+    "sgn-ES": "ssp",
+    "sgn-FR": "fsl",
+    "sgn-GB": "bfi",
+    "sgn-GR": "gss",
+    "sgn-IE": "isg",
+    "sgn-IT": "ise",
+    "sgn-JP": "jsl",
+    "sgn-MX": "mfs",
+    "sgn-NI": "ncs",
+    "sgn-NL": "dse",
+    "sgn-NO": "nsi",
+    "sgn-PT": "psr",
+    "sgn-SE": "swl",
+    "sgn-US": "ase",
+    "sgn-ZA": "sfs",
+    "sh": "sr-Latn",
+    "sin": "si",
+    "skk": "oyb",
+    "slk": "sk",
+    "slo": "sk",
+    "slv": "sl",
+    "sme": "se",
+    "smo": "sm",
+    "sna": "sn",
+    "snd": "sd",
+    "som": "so",
+    "sot": "st",
+    "spa": "es",
+    "spy": "kln",
+    "sqi": "sq",
+    "src": "sc",
+    "srd": "sc",
+    "srp": "sr",
+    "ssw": "ss",
+    "sul": "sgd",
+    "sum": "ulw",
+    "sun": "su",
+    "swa": "sw",
+    "swc": "sw-CD",
+    "swe": "sv",
+    "swh": "sw",
+    "tah": "ty",
+    "tam": "ta",
+    "tat": "tt",
+    "tdu": "dtp",
+    "tel": "te",
+    "tgg": "bjp",
+    "tgk": "tg",
+    "tgl": "fil",
+    "tha": "th",
+    "thc": "tpo",
+    "thw": "ola",
+    "thx": "oyb",
+    "tib": "bo",
+    "tid": "itd",
+    "tie": "ras",
+    "tir": "ti",
+    "tkk": "twm",
+    "tl": "fil",
+    "tlw": "weo",
+    "tmp": "tyj",
+    "tne": "kak",
+    "tnf": "fa-AF",
+    "ton": "to",
+    "tsf": "taj",
+    "tsn": "tn",
+    "tso": "ts",
+    "ttq": "tmh",
+    "tuk": "tk",
+    "tur": "tr",
+    "tw": "ak",
+    "twi": "ak",
+    "uig": "ug",
+    "ukr": "uk",
+    "umu": "del",
+    "und-aaland": "und-AX",
+    "und-arevela": "und",
+    "und-arevmda": "und",
+    "und-bokmal": "und",
+    "und-hakka": "und",
+    "und-hepburn-heploc": "und-alalc97",
+    "und-lojban": "und",
+    "und-nynorsk": "und",
+    "und-saaho": "und",
+    "und-xiang": "und",
+    "unp": "wro",
+    "uok": "ema",
+    "urd": "ur",
+    "uzb": "uz",
+    "uzn": "uz",
+    "ven": "ve",
+    "vie": "vi",
+    "vol": "vo",
+    "wel": "cy",
+    "wgw": "wgb",
+    "wit": "nol",
+    "wiw": "nwo",
+    "wln": "wa",
+    "wol": "wo",
+    "xba": "cax",
+    "xho": "xh",
+    "xia": "acn",
+    "xkh": "waw",
+    "xpe": "kpe",
+    "xrq": "dmw",
+    "xsj": "suj",
+    "xsl": "den",
+    "ybd": "rki",
+    "ydd": "yi",
+    "yen": "ynq",
+    "yid": "yi",
+    "yiy": "yrm",
+    "yma": "lrr",
+    "ymt": "mtm",
+    "yor": "yo",
+    "yos": "zom",
+    "yuu": "yug",
+    "zai": "zap",
+    "zh-cmn": "zh",
+    "zh-cmn-Hans": "zh-Hans",
+    "zh-cmn-Hant": "zh-Hant",
+    "zh-gan": "gan",
+    "zh-guoyu": "zh",
+    "zh-hakka": "hak",
+    "zh-min": "nan-x-zh-min",
+    "zh-min-nan": "nan",
+    "zh-wuu": "wuu",
+    "zh-xiang": "hsn",
+    "zh-yue": "yue",
+    "zha": "za",
+    "zho": "zh",
+    "zir": "scv",
+    "zsm": "ms",
+    "zul": "zu",
+    "zyb": "za"
+};
+exports.territoryAlias = {
+    "100": "BG",
+    "104": "MM",
+    "108": "BI",
+    "112": "BY",
+    "116": "KH",
+    "120": "CM",
+    "124": "CA",
+    "132": "CV",
+    "136": "KY",
+    "140": "CF",
+    "144": "LK",
+    "148": "TD",
+    "152": "CL",
+    "156": "CN",
+    "158": "TW",
+    "162": "CX",
+    "166": "CC",
+    "170": "CO",
+    "172": "RU AM AZ BY GE KG KZ MD TJ TM UA UZ",
+    "174": "KM",
+    "175": "YT",
+    "178": "CG",
+    "180": "CD",
+    "184": "CK",
+    "188": "CR",
+    "191": "HR",
+    "192": "CU",
+    "196": "CY",
+    "200": "CZ SK",
+    "203": "CZ",
+    "204": "BJ",
+    "208": "DK",
+    "212": "DM",
+    "214": "DO",
+    "218": "EC",
+    "222": "SV",
+    "226": "GQ",
+    "230": "ET",
+    "231": "ET",
+    "232": "ER",
+    "233": "EE",
+    "234": "FO",
+    "238": "FK",
+    "239": "GS",
+    "242": "FJ",
+    "246": "FI",
+    "248": "AX",
+    "249": "FR",
+    "250": "FR",
+    "254": "GF",
+    "258": "PF",
+    "260": "TF",
+    "262": "DJ",
+    "266": "GA",
+    "268": "GE",
+    "270": "GM",
+    "275": "PS",
+    "276": "DE",
+    "278": "DE",
+    "280": "DE",
+    "288": "GH",
+    "292": "GI",
+    "296": "KI",
+    "300": "GR",
+    "304": "GL",
+    "308": "GD",
+    "312": "GP",
+    "316": "GU",
+    "320": "GT",
+    "324": "GN",
+    "328": "GY",
+    "332": "HT",
+    "334": "HM",
+    "336": "VA",
+    "340": "HN",
+    "344": "HK",
+    "348": "HU",
+    "352": "IS",
+    "356": "IN",
+    "360": "ID",
+    "364": "IR",
+    "368": "IQ",
+    "372": "IE",
+    "376": "IL",
+    "380": "IT",
+    "384": "CI",
+    "388": "JM",
+    "392": "JP",
+    "398": "KZ",
+    "400": "JO",
+    "404": "KE",
+    "408": "KP",
+    "410": "KR",
+    "414": "KW",
+    "417": "KG",
+    "418": "LA",
+    "422": "LB",
+    "426": "LS",
+    "428": "LV",
+    "430": "LR",
+    "434": "LY",
+    "438": "LI",
+    "440": "LT",
+    "442": "LU",
+    "446": "MO",
+    "450": "MG",
+    "454": "MW",
+    "458": "MY",
+    "462": "MV",
+    "466": "ML",
+    "470": "MT",
+    "474": "MQ",
+    "478": "MR",
+    "480": "MU",
+    "484": "MX",
+    "492": "MC",
+    "496": "MN",
+    "498": "MD",
+    "499": "ME",
+    "500": "MS",
+    "504": "MA",
+    "508": "MZ",
+    "512": "OM",
+    "516": "NA",
+    "520": "NR",
+    "524": "NP",
+    "528": "NL",
+    "530": "CW SX BQ",
+    "531": "CW",
+    "532": "CW SX BQ",
+    "533": "AW",
+    "534": "SX",
+    "535": "BQ",
+    "536": "SA IQ",
+    "540": "NC",
+    "548": "VU",
+    "554": "NZ",
+    "558": "NI",
+    "562": "NE",
+    "566": "NG",
+    "570": "NU",
+    "574": "NF",
+    "578": "NO",
+    "580": "MP",
+    "581": "UM",
+    "582": "FM MH MP PW",
+    "583": "FM",
+    "584": "MH",
+    "585": "PW",
+    "586": "PK",
+    "591": "PA",
+    "598": "PG",
+    "600": "PY",
+    "604": "PE",
+    "608": "PH",
+    "612": "PN",
+    "616": "PL",
+    "620": "PT",
+    "624": "GW",
+    "626": "TL",
+    "630": "PR",
+    "634": "QA",
+    "638": "RE",
+    "642": "RO",
+    "643": "RU",
+    "646": "RW",
+    "652": "BL",
+    "654": "SH",
+    "659": "KN",
+    "660": "AI",
+    "662": "LC",
+    "663": "MF",
+    "666": "PM",
+    "670": "VC",
+    "674": "SM",
+    "678": "ST",
+    "682": "SA",
+    "686": "SN",
+    "688": "RS",
+    "690": "SC",
+    "694": "SL",
+    "702": "SG",
+    "703": "SK",
+    "704": "VN",
+    "705": "SI",
+    "706": "SO",
+    "710": "ZA",
+    "716": "ZW",
+    "720": "YE",
+    "724": "ES",
+    "728": "SS",
+    "729": "SD",
+    "732": "EH",
+    "736": "SD",
+    "740": "SR",
+    "744": "SJ",
+    "748": "SZ",
+    "752": "SE",
+    "756": "CH",
+    "760": "SY",
+    "762": "TJ",
+    "764": "TH",
+    "768": "TG",
+    "772": "TK",
+    "776": "TO",
+    "780": "TT",
+    "784": "AE",
+    "788": "TN",
+    "792": "TR",
+    "795": "TM",
+    "796": "TC",
+    "798": "TV",
+    "800": "UG",
+    "804": "UA",
+    "807": "MK",
+    "810": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ",
+    "818": "EG",
+    "826": "GB",
+    "830": "JE GG",
+    "831": "GG",
+    "832": "JE",
+    "833": "IM",
+    "834": "TZ",
+    "840": "US",
+    "850": "VI",
+    "854": "BF",
+    "858": "UY",
+    "860": "UZ",
+    "862": "VE",
+    "876": "WF",
+    "882": "WS",
+    "886": "YE",
+    "887": "YE",
+    "890": "RS ME SI HR MK BA",
+    "891": "RS ME",
+    "894": "ZM",
+    "958": "AA",
+    "959": "QM",
+    "960": "QN",
+    "962": "QP",
+    "963": "QQ",
+    "964": "QR",
+    "965": "QS",
+    "966": "QT",
+    "967": "EU",
+    "968": "QV",
+    "969": "QW",
+    "970": "QX",
+    "971": "QY",
+    "972": "QZ",
+    "973": "XA",
+    "974": "XB",
+    "975": "XC",
+    "976": "XD",
+    "977": "XE",
+    "978": "XF",
+    "979": "XG",
+    "980": "XH",
+    "981": "XI",
+    "982": "XJ",
+    "983": "XK",
+    "984": "XL",
+    "985": "XM",
+    "986": "XN",
+    "987": "XO",
+    "988": "XP",
+    "989": "XQ",
+    "990": "XR",
+    "991": "XS",
+    "992": "XT",
+    "993": "XU",
+    "994": "XV",
+    "995": "XW",
+    "996": "XX",
+    "997": "XY",
+    "998": "XZ",
+    "999": "ZZ",
+    "004": "AF",
+    "008": "AL",
+    "010": "AQ",
+    "012": "DZ",
+    "016": "AS",
+    "020": "AD",
+    "024": "AO",
+    "028": "AG",
+    "031": "AZ",
+    "032": "AR",
+    "036": "AU",
+    "040": "AT",
+    "044": "BS",
+    "048": "BH",
+    "050": "BD",
+    "051": "AM",
+    "052": "BB",
+    "056": "BE",
+    "060": "BM",
+    "062": "034 143",
+    "064": "BT",
+    "068": "BO",
+    "070": "BA",
+    "072": "BW",
+    "074": "BV",
+    "076": "BR",
+    "084": "BZ",
+    "086": "IO",
+    "090": "SB",
+    "092": "VG",
+    "096": "BN",
+    "AAA": "AA",
+    "ABW": "AW",
+    "AFG": "AF",
+    "AGO": "AO",
+    "AIA": "AI",
+    "ALA": "AX",
+    "ALB": "AL",
+    "AN": "CW SX BQ",
+    "AND": "AD",
+    "ANT": "CW SX BQ",
+    "ARE": "AE",
+    "ARG": "AR",
+    "ARM": "AM",
+    "ASC": "AC",
+    "ASM": "AS",
+    "ATA": "AQ",
+    "ATF": "TF",
+    "ATG": "AG",
+    "AUS": "AU",
+    "AUT": "AT",
+    "AZE": "AZ",
+    "BDI": "BI",
+    "BEL": "BE",
+    "BEN": "BJ",
+    "BES": "BQ",
+    "BFA": "BF",
+    "BGD": "BD",
+    "BGR": "BG",
+    "BHR": "BH",
+    "BHS": "BS",
+    "BIH": "BA",
+    "BLM": "BL",
+    "BLR": "BY",
+    "BLZ": "BZ",
+    "BMU": "BM",
+    "BOL": "BO",
+    "BRA": "BR",
+    "BRB": "BB",
+    "BRN": "BN",
+    "BTN": "BT",
+    "BU": "MM",
+    "BUR": "MM",
+    "BVT": "BV",
+    "BWA": "BW",
+    "CAF": "CF",
+    "CAN": "CA",
+    "CCK": "CC",
+    "CHE": "CH",
+    "CHL": "CL",
+    "CHN": "CN",
+    "CIV": "CI",
+    "CMR": "CM",
+    "COD": "CD",
+    "COG": "CG",
+    "COK": "CK",
+    "COL": "CO",
+    "COM": "KM",
+    "CPT": "CP",
+    "CPV": "CV",
+    "CRI": "CR",
+    "CS": "RS ME",
+    "CT": "KI",
+    "CUB": "CU",
+    "CUW": "CW",
+    "CXR": "CX",
+    "CYM": "KY",
+    "CYP": "CY",
+    "CZE": "CZ",
+    "DD": "DE",
+    "DDR": "DE",
+    "DEU": "DE",
+    "DGA": "DG",
+    "DJI": "DJ",
+    "DMA": "DM",
+    "DNK": "DK",
+    "DOM": "DO",
+    "DY": "BJ",
+    "DZA": "DZ",
+    "ECU": "EC",
+    "EGY": "EG",
+    "ERI": "ER",
+    "ESH": "EH",
+    "ESP": "ES",
+    "EST": "EE",
+    "ETH": "ET",
+    "FIN": "FI",
+    "FJI": "FJ",
+    "FLK": "FK",
+    "FQ": "AQ TF",
+    "FRA": "FR",
+    "FRO": "FO",
+    "FSM": "FM",
+    "FX": "FR",
+    "FXX": "FR",
+    "GAB": "GA",
+    "GBR": "GB",
+    "GEO": "GE",
+    "GGY": "GG",
+    "GHA": "GH",
+    "GIB": "GI",
+    "GIN": "GN",
+    "GLP": "GP",
+    "GMB": "GM",
+    "GNB": "GW",
+    "GNQ": "GQ",
+    "GRC": "GR",
+    "GRD": "GD",
+    "GRL": "GL",
+    "GTM": "GT",
+    "GUF": "GF",
+    "GUM": "GU",
+    "GUY": "GY",
+    "HKG": "HK",
+    "HMD": "HM",
+    "HND": "HN",
+    "HRV": "HR",
+    "HTI": "HT",
+    "HUN": "HU",
+    "HV": "BF",
+    "IDN": "ID",
+    "IMN": "IM",
+    "IND": "IN",
+    "IOT": "IO",
+    "IRL": "IE",
+    "IRN": "IR",
+    "IRQ": "IQ",
+    "ISL": "IS",
+    "ISR": "IL",
+    "ITA": "IT",
+    "JAM": "JM",
+    "JEY": "JE",
+    "JOR": "JO",
+    "JPN": "JP",
+    "JT": "UM",
+    "KAZ": "KZ",
+    "KEN": "KE",
+    "KGZ": "KG",
+    "KHM": "KH",
+    "KIR": "KI",
+    "KNA": "KN",
+    "KOR": "KR",
+    "KWT": "KW",
+    "LAO": "LA",
+    "LBN": "LB",
+    "LBR": "LR",
+    "LBY": "LY",
+    "LCA": "LC",
+    "LIE": "LI",
+    "LKA": "LK",
+    "LSO": "LS",
+    "LTU": "LT",
+    "LUX": "LU",
+    "LVA": "LV",
+    "MAC": "MO",
+    "MAF": "MF",
+    "MAR": "MA",
+    "MCO": "MC",
+    "MDA": "MD",
+    "MDG": "MG",
+    "MDV": "MV",
+    "MEX": "MX",
+    "MHL": "MH",
+    "MI": "UM",
+    "MKD": "MK",
+    "MLI": "ML",
+    "MLT": "MT",
+    "MMR": "MM",
+    "MNE": "ME",
+    "MNG": "MN",
+    "MNP": "MP",
+    "MOZ": "MZ",
+    "MRT": "MR",
+    "MSR": "MS",
+    "MTQ": "MQ",
+    "MUS": "MU",
+    "MWI": "MW",
+    "MYS": "MY",
+    "MYT": "YT",
+    "NAM": "NA",
+    "NCL": "NC",
+    "NER": "NE",
+    "NFK": "NF",
+    "NGA": "NG",
+    "NH": "VU",
+    "NIC": "NI",
+    "NIU": "NU",
+    "NLD": "NL",
+    "NOR": "NO",
+    "NPL": "NP",
+    "NQ": "AQ",
+    "NRU": "NR",
+    "NT": "SA IQ",
+    "NTZ": "SA IQ",
+    "NZL": "NZ",
+    "OMN": "OM",
+    "PAK": "PK",
+    "PAN": "PA",
+    "PC": "FM MH MP PW",
+    "PCN": "PN",
+    "PER": "PE",
+    "PHL": "PH",
+    "PLW": "PW",
+    "PNG": "PG",
+    "POL": "PL",
+    "PRI": "PR",
+    "PRK": "KP",
+    "PRT": "PT",
+    "PRY": "PY",
+    "PSE": "PS",
+    "PU": "UM",
+    "PYF": "PF",
+    "PZ": "PA",
+    "QAT": "QA",
+    "QMM": "QM",
+    "QNN": "QN",
+    "QPP": "QP",
+    "QQQ": "QQ",
+    "QRR": "QR",
+    "QSS": "QS",
+    "QTT": "QT",
+    "QU": "EU",
+    "QUU": "EU",
+    "QVV": "QV",
+    "QWW": "QW",
+    "QXX": "QX",
+    "QYY": "QY",
+    "QZZ": "QZ",
+    "REU": "RE",
+    "RH": "ZW",
+    "ROU": "RO",
+    "RUS": "RU",
+    "RWA": "RW",
+    "SAU": "SA",
+    "SCG": "RS ME",
+    "SDN": "SD",
+    "SEN": "SN",
+    "SGP": "SG",
+    "SGS": "GS",
+    "SHN": "SH",
+    "SJM": "SJ",
+    "SLB": "SB",
+    "SLE": "SL",
+    "SLV": "SV",
+    "SMR": "SM",
+    "SOM": "SO",
+    "SPM": "PM",
+    "SRB": "RS",
+    "SSD": "SS",
+    "STP": "ST",
+    "SU": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ",
+    "SUN": "RU AM AZ BY EE GE KZ KG LV LT MD TJ TM UA UZ",
+    "SUR": "SR",
+    "SVK": "SK",
+    "SVN": "SI",
+    "SWE": "SE",
+    "SWZ": "SZ",
+    "SXM": "SX",
+    "SYC": "SC",
+    "SYR": "SY",
+    "TAA": "TA",
+    "TCA": "TC",
+    "TCD": "TD",
+    "TGO": "TG",
+    "THA": "TH",
+    "TJK": "TJ",
+    "TKL": "TK",
+    "TKM": "TM",
+    "TLS": "TL",
+    "TMP": "TL",
+    "TON": "TO",
+    "TP": "TL",
+    "TTO": "TT",
+    "TUN": "TN",
+    "TUR": "TR",
+    "TUV": "TV",
+    "TWN": "TW",
+    "TZA": "TZ",
+    "UGA": "UG",
+    "UK": "GB",
+    "UKR": "UA",
+    "UMI": "UM",
+    "URY": "UY",
+    "USA": "US",
+    "UZB": "UZ",
+    "VAT": "VA",
+    "VCT": "VC",
+    "VD": "VN",
+    "VEN": "VE",
+    "VGB": "VG",
+    "VIR": "VI",
+    "VNM": "VN",
+    "VUT": "VU",
+    "WK": "UM",
+    "WLF": "WF",
+    "WSM": "WS",
+    "XAA": "XA",
+    "XBB": "XB",
+    "XCC": "XC",
+    "XDD": "XD",
+    "XEE": "XE",
+    "XFF": "XF",
+    "XGG": "XG",
+    "XHH": "XH",
+    "XII": "XI",
+    "XJJ": "XJ",
+    "XKK": "XK",
+    "XLL": "XL",
+    "XMM": "XM",
+    "XNN": "XN",
+    "XOO": "XO",
+    "XPP": "XP",
+    "XQQ": "XQ",
+    "XRR": "XR",
+    "XSS": "XS",
+    "XTT": "XT",
+    "XUU": "XU",
+    "XVV": "XV",
+    "XWW": "XW",
+    "XXX": "XX",
+    "XYY": "XY",
+    "XZZ": "XZ",
+    "YD": "YE",
+    "YEM": "YE",
+    "YMD": "YE",
+    "YU": "RS ME",
+    "YUG": "RS ME",
+    "ZAF": "ZA",
+    "ZAR": "CD",
+    "ZMB": "ZM",
+    "ZR": "CD",
+    "ZWE": "ZW",
+    "ZZZ": "ZZ"
+};
+exports.scriptAlias = {
+    "Qaai": "Zinh"
+};
+exports.variantAlias = {
+    "heploc": "alalc97",
+    "polytoni": "polyton"
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/emitter.js ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.emitUnicodeLocaleId = exports.emitUnicodeLanguageId = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
+function emitUnicodeLanguageId(lang) {
+    if (!lang) {
+        return '';
+    }
+    return tslib_1.__spreadArray([lang.lang, lang.script, lang.region], (lang.variants || [])).filter(Boolean)
+        .join('-');
+}
+exports.emitUnicodeLanguageId = emitUnicodeLanguageId;
+function emitUnicodeLocaleId(_a) {
+    var lang = _a.lang, extensions = _a.extensions;
+    var chunks = [emitUnicodeLanguageId(lang)];
+    for (var _i = 0, extensions_1 = extensions; _i < extensions_1.length; _i++) {
+        var ext = extensions_1[_i];
+        chunks.push(ext.type);
+        switch (ext.type) {
+            case 'u':
+                chunks.push.apply(chunks, tslib_1.__spreadArray(tslib_1.__spreadArray([], ext.attributes), ext.keywords.reduce(function (all, kv) { return all.concat(kv); }, [])));
+                break;
+            case 't':
+                chunks.push.apply(chunks, tslib_1.__spreadArray([emitUnicodeLanguageId(ext.lang)], ext.fields.reduce(function (all, kv) { return all.concat(kv); }, [])));
+                break;
+            default:
+                chunks.push(ext.value);
+                break;
+        }
+    }
+    return chunks.filter(Boolean).join('-');
+}
+exports.emitUnicodeLocaleId = emitUnicodeLocaleId;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/parser.js":
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/parser.js ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parseUnicodeLocaleId = exports.parseUnicodeLanguageId = exports.isUnicodeVariantSubtag = exports.isUnicodeScriptSubtag = exports.isUnicodeRegionSubtag = exports.isStructurallyValidLanguageTag = exports.isUnicodeLanguageSubtag = exports.SEPARATOR = void 0;
+var tslib_1 = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-locale/node_modules/tslib/tslib.es6.js");
+var ALPHANUM_1_8 = /^[a-z0-9]{1,8}$/i;
+var ALPHANUM_2_8 = /^[a-z0-9]{2,8}$/i;
+var ALPHANUM_3_8 = /^[a-z0-9]{3,8}$/i;
+var KEY_REGEX = /^[a-z0-9][a-z]$/i;
+var TYPE_REGEX = /^[a-z0-9]{3,8}$/i;
+var ALPHA_4 = /^[a-z]{4}$/i;
+// alphanum-[tTuUxX]
+var OTHER_EXTENSION_TYPE = /^[0-9a-svwyz]$/i;
+var UNICODE_REGION_SUBTAG_REGEX = /^([a-z]{2}|[0-9]{3})$/i;
+var UNICODE_VARIANT_SUBTAG_REGEX = /^([a-z0-9]{5,8}|[0-9][a-z0-9]{3})$/i;
+var UNICODE_LANGUAGE_SUBTAG_REGEX = /^([a-z]{2,3}|[a-z]{5,8})$/i;
+var TKEY_REGEX = /^[a-z][0-9]$/i;
+exports.SEPARATOR = '-';
+function isUnicodeLanguageSubtag(lang) {
+    return UNICODE_LANGUAGE_SUBTAG_REGEX.test(lang);
+}
+exports.isUnicodeLanguageSubtag = isUnicodeLanguageSubtag;
+function isStructurallyValidLanguageTag(tag) {
+    try {
+        parseUnicodeLanguageId(tag.split(exports.SEPARATOR));
+    }
+    catch (e) {
+        return false;
+    }
+    return true;
+}
+exports.isStructurallyValidLanguageTag = isStructurallyValidLanguageTag;
+function isUnicodeRegionSubtag(region) {
+    return UNICODE_REGION_SUBTAG_REGEX.test(region);
+}
+exports.isUnicodeRegionSubtag = isUnicodeRegionSubtag;
+function isUnicodeScriptSubtag(script) {
+    return ALPHA_4.test(script);
+}
+exports.isUnicodeScriptSubtag = isUnicodeScriptSubtag;
+function isUnicodeVariantSubtag(variant) {
+    return UNICODE_VARIANT_SUBTAG_REGEX.test(variant);
+}
+exports.isUnicodeVariantSubtag = isUnicodeVariantSubtag;
+function parseUnicodeLanguageId(chunks) {
+    if (typeof chunks === 'string') {
+        chunks = chunks.split(exports.SEPARATOR);
+    }
+    var lang = chunks.shift();
+    if (!lang) {
+        throw new RangeError('Missing unicode_language_subtag');
+    }
+    if (lang === 'root') {
+        return { lang: 'root', variants: [] };
+    }
+    // unicode_language_subtag
+    if (!isUnicodeLanguageSubtag(lang)) {
+        throw new RangeError('Malformed unicode_language_subtag');
+    }
+    var script;
+    // unicode_script_subtag
+    if (isUnicodeScriptSubtag(chunks[0])) {
+        script = chunks.shift();
+    }
+    var region;
+    // unicode_region_subtag
+    if (isUnicodeRegionSubtag(chunks[0])) {
+        region = chunks.shift();
+    }
+    var variants = {};
+    while (chunks.length && isUnicodeVariantSubtag(chunks[0])) {
+        var variant = chunks.shift();
+        if (variant in variants) {
+            throw new RangeError("Duplicate variant \"" + variant + "\"");
+        }
+        variants[variant] = 1;
+    }
+    return {
+        lang: lang,
+        script: script,
+        region: region,
+        variants: Object.keys(variants),
+    };
+}
+exports.parseUnicodeLanguageId = parseUnicodeLanguageId;
+function parseUnicodeExtension(chunks) {
+    var keywords = [];
+    var keyword;
+    while (chunks.length && (keyword = parseKeyword(chunks))) {
+        keywords.push(keyword);
+    }
+    if (keywords.length) {
+        return {
+            type: 'u',
+            keywords: keywords,
+            attributes: [],
+        };
+    }
+    // Mix of attributes & keywords
+    // Check for attributes first
+    var attributes = [];
+    while (chunks.length && ALPHANUM_3_8.test(chunks[0])) {
+        attributes.push(chunks.shift());
+    }
+    while (chunks.length && (keyword = parseKeyword(chunks))) {
+        keywords.push(keyword);
+    }
+    if (keywords.length || attributes.length) {
+        return {
+            type: 'u',
+            attributes: attributes,
+            keywords: keywords,
+        };
+    }
+    throw new RangeError('Malformed unicode_extension');
+}
+function parseKeyword(chunks) {
+    var key;
+    if (!KEY_REGEX.test(chunks[0])) {
+        return;
+    }
+    key = chunks.shift();
+    var type = [];
+    while (chunks.length && TYPE_REGEX.test(chunks[0])) {
+        type.push(chunks.shift());
+    }
+    var value = '';
+    if (type.length) {
+        value = type.join(exports.SEPARATOR);
+    }
+    return [key, value];
+}
+function parseTransformedExtension(chunks) {
+    var lang;
+    try {
+        lang = parseUnicodeLanguageId(chunks);
+    }
+    catch (e) {
+        // Try just parsing tfield
+    }
+    var fields = [];
+    while (chunks.length && TKEY_REGEX.test(chunks[0])) {
+        var key = chunks.shift();
+        var value = [];
+        while (chunks.length && ALPHANUM_3_8.test(chunks[0])) {
+            value.push(chunks.shift());
+        }
+        if (!value.length) {
+            throw new RangeError("Missing tvalue for tkey \"" + key + "\"");
+        }
+        fields.push([key, value.join(exports.SEPARATOR)]);
+    }
+    if (fields.length) {
+        return {
+            type: 't',
+            fields: fields,
+            lang: lang,
+        };
+    }
+    throw new RangeError('Malformed transformed_extension');
+}
+function parsePuExtension(chunks) {
+    var exts = [];
+    while (chunks.length && ALPHANUM_1_8.test(chunks[0])) {
+        exts.push(chunks.shift());
+    }
+    if (exts.length) {
+        return {
+            type: 'x',
+            value: exts.join(exports.SEPARATOR),
+        };
+    }
+    throw new RangeError('Malformed private_use_extension');
+}
+function parseOtherExtensionValue(chunks) {
+    var exts = [];
+    while (chunks.length && ALPHANUM_2_8.test(chunks[0])) {
+        exts.push(chunks.shift());
+    }
+    if (exts.length) {
+        return exts.join(exports.SEPARATOR);
+    }
+    return '';
+}
+function parseExtensions(chunks) {
+    if (!chunks.length) {
+        return { extensions: [] };
+    }
+    var extensions = [];
+    var unicodeExtension;
+    var transformedExtension;
+    var puExtension;
+    var otherExtensionMap = {};
+    do {
+        var type = chunks.shift();
+        switch (type) {
+            case 'u':
+            case 'U':
+                if (unicodeExtension) {
+                    throw new RangeError('There can only be 1 -u- extension');
+                }
+                unicodeExtension = parseUnicodeExtension(chunks);
+                extensions.push(unicodeExtension);
+                break;
+            case 't':
+            case 'T':
+                if (transformedExtension) {
+                    throw new RangeError('There can only be 1 -t- extension');
+                }
+                transformedExtension = parseTransformedExtension(chunks);
+                extensions.push(transformedExtension);
+                break;
+            case 'x':
+            case 'X':
+                if (puExtension) {
+                    throw new RangeError('There can only be 1 -x- extension');
+                }
+                puExtension = parsePuExtension(chunks);
+                extensions.push(puExtension);
+                break;
+            default:
+                if (!OTHER_EXTENSION_TYPE.test(type)) {
+                    throw new RangeError('Malformed extension type');
+                }
+                if (type in otherExtensionMap) {
+                    throw new RangeError("There can only be 1 -" + type + "- extension");
+                }
+                var extension = {
+                    type: type,
+                    value: parseOtherExtensionValue(chunks),
+                };
+                otherExtensionMap[extension.type] = extension;
+                extensions.push(extension);
+                break;
+        }
+    } while (chunks.length);
+    return { extensions: extensions };
+}
+function parseUnicodeLocaleId(locale) {
+    var chunks = locale.split(exports.SEPARATOR);
+    var lang = parseUnicodeLanguageId(chunks);
+    return tslib_1.__assign({ lang: lang }, parseExtensions(chunks));
+}
+exports.parseUnicodeLocaleId = parseUnicodeLocaleId;
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/types.js":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-locale/node_modules/@formatjs/intl-getcanonicallocales/src/types.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
@@ -7663,7 +9524,7 @@ var PluralRules = /** @class */ (function () {
                 opts[field] = val;
             }
         });
-        opts.pluralCategories = tslib_1.__spreadArrays(PluralRules.localeData[opts.locale].categories[opts.type]);
+        opts.pluralCategories = tslib_1.__spreadArray([], PluralRules.localeData[opts.locale].categories[opts.type]);
         return opts;
     };
     PluralRules.prototype.select = function (val) {
@@ -7797,7 +9658,7 @@ if (Intl.PluralRules && typeof Intl.PluralRules.__addLocaleData === 'function') 
 /*!****************************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js ***!
   \****************************************************************************************************/
-/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7823,6 +9684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return HourFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return MinFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return SecFromTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return OrdinaryHasInstance; });
 /**
  * https://tc39.es/ecma262/#sec-tostring
  */
@@ -8135,6 +9997,35 @@ function MinFromTime(t) {
 function SecFromTime(t) {
     return mod(Math.floor(t / MS_PER_SECOND), SECONDS_PER_MINUTE);
 }
+function IsCallable(fn) {
+    return typeof fn === 'function';
+}
+/**
+ * The abstract operation OrdinaryHasInstance implements
+ * the default algorithm for determining if an object O
+ * inherits from the instance object inheritance path
+ * provided by constructor C.
+ * @param C class
+ * @param O object
+ * @param internalSlots internalSlots
+ */
+function OrdinaryHasInstance(C, O, internalSlots) {
+    if (!IsCallable(C)) {
+        return false;
+    }
+    if (internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction) {
+        var BC = internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction;
+        return O instanceof BC;
+    }
+    if (typeof O !== 'object') {
+        return false;
+    }
+    var P = C.prototype;
+    if (typeof P !== 'object') {
+        throw new TypeError('OrdinaryHasInstance called on an object with an invalid prototype property.');
+    }
+    return Object.prototype.isPrototypeOf.call(P, O);
+}
 
 
 /***/ }),
@@ -8286,6 +10177,33 @@ function CanonicalizeTimeZoneName(tz, _a) {
         return 'UTC';
     }
     return ianaTimeZone;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js":
+/*!**********************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js ***!
+  \**********************************************************************************************************************/
+/*! exports provided: CoerceOptionsToObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return CoerceOptionsToObject; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+
+/**
+ * https://tc39.es/ecma402/#sec-coerceoptionstoobject
+ * @param options
+ * @returns
+ */
+function CoerceOptionsToObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    return Object(_262__WEBPACK_IMPORTED_MODULE_0__["ToObject"])(options);
 }
 
 
@@ -8629,9 +10547,7 @@ function offsetToGmtString(gmtFormat, hourFormat, offsetInMs, style) {
         if (!mins) {
             pattern = pattern.replace(/:?m+/, '');
         }
-        offsetStr = pattern
-            .replace(/H+/, String(hours))
-            .replace(/m+/, String(mins));
+        offsetStr = pattern.replace(/H+/, String(hours)).replace(/m+/, String(mins));
     }
     return gmtFormat.replace('{0}', offsetStr);
 }
@@ -8998,14 +10914,14 @@ function InitializeDateTimeFormat(dtf, locales, opts, _a) {
     if (!formats) {
         throw new RangeError("Calendar \"" + calendar + "\" is not supported. Try setting \"calendar\" to 1 of the following: " + Object.keys(dataLocaleData.formats).join(', '));
     }
-    matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
+    var formatMatcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
     var dateStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'dateStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.dateStyle = dateStyle;
     var timeStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'timeStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.timeStyle = timeStyle;
     var bestFormat;
     if (dateStyle === undefined && timeStyle === undefined) {
-        if (matcher === 'basic') {
+        if (formatMatcher === 'basic') {
             bestFormat = Object(_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_6__["BasicFormatMatcher"])(opt, formats);
         }
         else {
@@ -9113,10 +11029,12 @@ function PartitionDateTimePattern(dtf, x, implDetails) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimeRangePattern", function() { return PartitionDateTimeRangePattern; });
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
-/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
+/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+
 
 
 
@@ -9132,11 +11050,11 @@ var TABLE_2_FIELDS = [
     'second',
 ];
 function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
-    x = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(x);
+    x = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(x);
     if (isNaN(x)) {
         throw new RangeError('Invalid start time');
     }
-    y = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(y);
+    y = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(y);
     if (isNaN(y)) {
         throw new RangeError('Invalid end time');
     }
@@ -9144,10 +11062,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
     var getInternalSlots = implDetails.getInternalSlots, tzData = implDetails.tzData;
     var internalSlots = getInternalSlots(dtf);
     /** IMPL END */
-    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(x, 
+    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(x, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
-    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(y, 
+    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(y, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
     var pattern = internalSlots.pattern, rangePatterns = internalSlots.rangePatterns;
@@ -9179,7 +11097,7 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
                 else {
                     var v1 = tm1[fieldName];
                     var v2 = tm2[fieldName];
-                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_0__["SameValue"])(v1, v2)) {
+                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_1__["SameValue"])(v1, v2)) {
                         dateFieldsPracticallyEqual = false;
                     }
                     rangePattern = rp;
@@ -9188,10 +11106,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         }
     }
     if (dateFieldsPracticallyEqual) {
-        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern), x, implDetails);
+        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern), x, implDetails);
         for (var _a = 0, result_1 = result_2; _a < result_1.length; _a++) {
             var r = result_1[_a];
-            r.source = "shared" /* shared */;
+            r.source = _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared;
         }
         return result_2;
     }
@@ -9211,15 +11129,15 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         var rangePatternPart = _e[_d];
         var source = rangePatternPart.source, pattern_1 = rangePatternPart.pattern;
         var z = void 0;
-        if (source === "startRange" /* startRange */ ||
-            source === "shared" /* shared */) {
+        if (source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].startRange ||
+            source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared) {
             z = x;
         }
         else {
             z = y;
         }
-        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern_1);
-        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
+        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern_1);
+        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
         for (var _f = 0, partResult_1 = partResult; _f < partResult_1.length; _f++) {
             var r = partResult_1[_f];
             r.source = source;
@@ -9330,6 +11248,7 @@ function getApplicableZoneData(t, timeZone, tzData) {
     var dst = false;
     for (; i <= zoneData.length; i++) {
         if (i === zoneData.length || zoneData[i][0] * 1e3 > t) {
+            ;
             _a = zoneData[i - 1], offset = _a[2], dst = _a[3];
             break;
         }
@@ -9383,6 +11302,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitFallbackRangePattern", function() { return splitFallbackRangePattern; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitRangePattern", function() { return splitRangePattern; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-pluralrules/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+
 
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
@@ -9434,8 +11355,8 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'e':
             result.weekday = [
-                'numeric',
-                '2-digit',
+                undefined,
+                undefined,
                 'short',
                 'long',
                 'narrow',
@@ -9444,7 +11365,7 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'c':
             result.weekday = [
-                'numeric',
+                undefined,
                 undefined,
                 'short',
                 'long',
@@ -9626,17 +11547,17 @@ function splitFallbackRangePattern(pattern) {
         switch (pattern) {
             case '{0}':
                 return {
-                    source: "startRange" /* startRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                     pattern: pattern,
                 };
             case '{1}':
                 return {
-                    source: "endRange" /* endRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
                     pattern: pattern,
                 };
             default:
                 return {
-                    source: "shared" /* shared */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].shared,
                     pattern: pattern,
                 };
         }
@@ -9660,18 +11581,18 @@ function splitRangePattern(pattern) {
     if (!splitIndex) {
         return [
             {
-                source: "startRange" /* startRange */,
+                source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                 pattern: pattern,
             },
         ];
     }
     return [
         {
-            source: "startRange" /* startRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
             pattern: pattern.slice(0, splitIndex),
         },
         {
-            source: "endRange" /* endRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
             pattern: pattern.slice(splitIndex),
         },
     ];
@@ -9788,7 +11709,7 @@ function CanonicalCodeForDisplayNames(type, code) {
         if (!isUnicodeScriptSubtag(code)) {
             throw RangeError('invalid script');
         }
-        return "" + code[0].toUpperCase() + code.slice(1);
+        return "" + code[0].toUpperCase() + code.slice(1).toLowerCase();
     }
     Object(_utils__WEBPACK_IMPORTED_MODULE_1__["invariant"])(type === 'currency', 'invalid type');
     if (!Object(_IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_2__["IsWellFormedCurrencyCode"])(code)) {
@@ -9849,7 +11770,9 @@ __webpack_require__.r(__webpack_exports__);
  * @param fallback
  */
 function GetOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    if (typeof opts !== 'object') {
+        throw new TypeError('Options must be an object');
+    }
     var value = opts[prop];
     if (value !== undefined) {
         if (type !== 'boolean' && type !== 'string') {
@@ -9867,6 +11790,34 @@ function GetOption(opts, prop, type, values, fallback) {
         return value;
     }
     return fallback;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js":
+/*!*****************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: GetOptionsObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return GetOptionsObject; });
+/**
+ * https://tc39.es/ecma402/#sec-getoptionsobject
+ * @param options
+ * @returns
+ */
+function GetOptionsObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    if (typeof options === 'object') {
+        return options;
+    }
+    throw new TypeError('Options must be an object');
 }
 
 
@@ -10389,13 +12340,13 @@ function FormatNumericToString(intlObject, x) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return InitializeNumberFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -10411,11 +12362,11 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
     var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, availableLocales = _a.availableLocales, numberingSystemNames = _a.numberingSystemNames, getDefaultLocale = _a.getDefaultLocale, currencyDigitsData = _a.currencyDigitsData;
     // @ts-ignore
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
-    var options = opts === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(opts);
+    var options = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__["CoerceOptionsToObject"])(opts);
     var opt = Object.create(null);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined &&
         numberingSystemNames.indexOf(numberingSystem) < 0) {
         // 8.a. If numberingSystem does not match the Unicode Locale Identifier type nonterminal,
@@ -10423,23 +12374,23 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         throw RangeError("Invalid numberingSystems: " + numberingSystem);
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
     // [[RelevantExtensionKeys]] slot, which is a constant
     ['nu'], localeData, getDefaultLocale);
     var dataLocaleData = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_7__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_6__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
     var internalSlots = getInternalSlots(nf);
     internalSlots.locale = r.locale;
     internalSlots.dataLocale = r.dataLocale;
     internalSlots.numberingSystem = r.nu;
     internalSlots.dataLocaleData = dataLocaleData;
-    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
+    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
     var style = internalSlots.style;
     var mnfdDefault;
     var mxfdDefault;
     if (style === 'currency') {
         var currency = internalSlots.currency;
-        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
+        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
         mnfdDefault = cDigits;
         mxfdDefault = cDigits;
     }
@@ -10447,16 +12398,16 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         mnfdDefault = 0;
         mxfdDefault = style === 'percent' ? 0 : 3;
     }
-    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
+    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
     internalSlots.notation = notation;
-    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
-    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
+    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
+    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
     if (notation === 'compact') {
         internalSlots.compactDisplay = compactDisplay;
     }
-    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
+    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
     internalSlots.useGrouping = useGrouping;
-    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
+    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
     internalSlots.signDisplay = signDisplay;
     return nf;
 }
@@ -10505,6 +12456,7 @@ function PartitionNumberPattern(numberFormat, x, _a) {
         if (internalSlots.style === 'percent') {
             x *= 100;
         }
+        ;
         _b = Object(_ComputeExponent__WEBPACK_IMPORTED_MODULE_2__["ComputeExponent"])(numberFormat, x, {
             getInternalSlots: getInternalSlots,
         }), exponent = _b[0], magnitude = _b[1];
@@ -11392,10 +13344,10 @@ function GetOperands(s) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return InitializePluralRules; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -11405,14 +13357,14 @@ function InitializePluralRules(pl, locales, options, _a) {
     var availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getInternalSlots = _a.getInternalSlots;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
     var internalSlots = getInternalSlots(pl);
     internalSlots.initializedPluralRules = true;
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
-    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_4__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
+    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     internalSlots.locale = r.locale;
     return pl;
 }
@@ -11533,10 +13485,10 @@ function FormatRelativeTimeToParts(rtf, value, unit, implDetails) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return InitializeRelativeTimeFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -11549,23 +13501,25 @@ function InitializeRelativeTimeFormat(rtf, locales, options, _a) {
     internalSlots.initializedRelativeTimeFormat = true;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 
+    // @ts-expect-error TS option is wack
+    'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined) {
         if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
             throw new RangeError("Invalid numbering system " + numberingSystem);
         }
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     var locale = r.locale, nu = r.nu;
     internalSlots.locale = locale;
-    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
-    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
+    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
+    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
     var fields = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_4__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_3__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
     internalSlots.fields = fields;
     internalSlots.numberFormat = new Intl.NumberFormat(locales);
     internalSlots.pluralRules = new Intl.PluralRules(locales);
@@ -11965,7 +13919,7 @@ function isMissingLocaleDataError(e) {
 /*!******************************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/index.js ***!
   \******************************************************************************************************/
-/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, CoerceOptionsToObject, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, GetOptionsObject, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11979,208 +13933,218 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeTimeZoneName.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalizeTimeZoneName", function() { return _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__["CanonicalizeTimeZoneName"]; });
 
-/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__["BasicFormatMatcher"]; });
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CoerceOptionsToObject */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__["CoerceOptionsToObject"]; });
 
-/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__["DateTimeStyleFormat"]; });
+/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__["BasicFormatMatcher"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__["FormatDateTime"]; });
+/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__["DateTimeStyleFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__["FormatDateTimeRange"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__["FormatDateTime"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRangeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRange"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeRangeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__["InitializeDateTimeFormat"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__["FormatDateTimeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__["PartitionDateTimePattern"]; });
+/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__["InitializeDateTimeFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__["ToDateTimeOptions"]; });
+/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__["PartitionDateTimePattern"]; });
 
-/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__["CanonicalCodeForDisplayNames"]; });
+/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__["ToDateTimeOptions"]; });
 
-/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__["GetNumberOption"]; });
+/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__["CanonicalCodeForDisplayNames"]; });
 
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_14__["GetOption"]; });
+/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__["GetNumberOption"]; });
 
-/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SANCTIONED_UNITS"]; });
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_15__["GetOption"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["removeUnitNamespace"]; });
+/* harmony import */ var _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./GetOptionsObject */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__["GetOptionsObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SIMPLE_UNITS"]; });
+/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SANCTIONED_UNITS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["IsSanctionedSimpleUnitIdentifier"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["removeUnitNamespace"]; });
 
-/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__["IsValidTimeZoneName"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SIMPLE_UNITS"]; });
 
-/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__["IsWellFormedCurrencyCode"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["IsSanctionedSimpleUnitIdentifier"]; });
 
-/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__["IsWellFormedUnitIdentifier"]; });
+/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__["IsValidTimeZoneName"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__["ComputeExponent"]; });
+/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__["IsWellFormedCurrencyCode"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__["ComputeExponentForMagnitude"]; });
+/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__["IsWellFormedUnitIdentifier"]; });
 
-/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__["CurrencyDigits"]; });
+/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__["ComputeExponent"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__["FormatNumericToParts"]; });
+/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__["ComputeExponentForMagnitude"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__["FormatNumericToString"]; });
+/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__["CurrencyDigits"]; });
 
-/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__["InitializeNumberFormat"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__["FormatNumericToParts"]; });
 
-/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__["PartitionNumberPattern"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__["FormatNumericToString"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__["SetNumberFormatDigitOptions"]; });
+/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__["InitializeNumberFormat"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__["SetNumberFormatUnitOptions"]; });
+/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__["PartitionNumberPattern"]; });
 
-/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__["ToRawFixed"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__["SetNumberFormatDigitOptions"]; });
 
-/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__["ToRawPrecision"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__["SetNumberFormatUnitOptions"]; });
 
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__["PartitionPattern"]; });
+/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__["ToRawFixed"]; });
 
-/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__["GetOperands"]; });
+/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__["ToRawPrecision"]; });
 
-/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__["InitializePluralRules"]; });
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__["PartitionPattern"]; });
 
-/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__["ResolvePlural"]; });
+/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__["GetOperands"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__["FormatRelativeTime"]; });
+/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__["InitializePluralRules"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__["FormatRelativeTimeToParts"]; });
+/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__["ResolvePlural"]; });
 
-/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__["InitializeRelativeTimeFormat"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__["FormatRelativeTime"]; });
 
-/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__["MakePartsList"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__["FormatRelativeTimeToParts"]; });
 
-/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__["PartitionRelativeTimePattern"]; });
+/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__["InitializeRelativeTimeFormat"]; });
 
-/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__["SingularRelativeTimeUnit"]; });
+/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__["MakePartsList"]; });
 
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__["ResolveLocale"]; });
+/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__["PartitionRelativeTimePattern"]; });
 
-/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__["SupportedLocales"]; });
+/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__["SingularRelativeTimeUnit"]; });
 
-/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__["default"]; });
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__["ResolveLocale"]; });
 
-/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__["DATE_TIME_PROPS"]; });
+/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__["SupportedLocales"]; });
 
-/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__["parseDateTimeSkeleton"]; });
+/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__["default"]; });
 
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getInternalSlot"]; });
+/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__["DATE_TIME_PROPS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMultiInternalSlots"]; });
+/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__["parseDateTimeSkeleton"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["isLiteralPart"]; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setInternalSlot"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMultiInternalSlots"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setMultiInternalSlots"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["isLiteralPart"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMagnitude"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["defineProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setMultiInternalSlots"]; });
 
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/data.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_46__["isMissingLocaleDataError"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMagnitude"]; });
 
-/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_48__["RangePatternType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["defineProperty"]; });
 
-/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
-/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["invariant"]; });
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/data.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_48__["isMissingLocaleDataError"]; });
 
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToString"]; });
+/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_50__["RangePatternType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToNumber"]; });
+/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
+/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["invariant"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeClip"]; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-pluralrules/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToString"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToObject"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToNumber"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SameValue"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeClip"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ArrayCreate"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HasOwnProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SameValue"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Type"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ArrayCreate"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Day"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HasOwnProperty"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["WeekDay"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Type"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Day"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["WeekDay"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["YearFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DaysInYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayWithinYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["YearFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["InLeapYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DaysInYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MonthFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayWithinYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DateFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["InLeapYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HourFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MonthFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MinFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DateFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SecFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HourFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MinFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SecFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["OrdinaryHasInstance"]; });
+
+
 
 
 
@@ -12947,7 +14911,7 @@ if (Intl.RelativeTimeFormat && typeof Intl.RelativeTimeFormat.__addLocaleData ==
 /*!***********************************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js ***!
   \***********************************************************************************************************/
-/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12973,6 +14937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return HourFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return MinFromTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return SecFromTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return OrdinaryHasInstance; });
 /**
  * https://tc39.es/ecma262/#sec-tostring
  */
@@ -13285,6 +15250,35 @@ function MinFromTime(t) {
 function SecFromTime(t) {
     return mod(Math.floor(t / MS_PER_SECOND), SECONDS_PER_MINUTE);
 }
+function IsCallable(fn) {
+    return typeof fn === 'function';
+}
+/**
+ * The abstract operation OrdinaryHasInstance implements
+ * the default algorithm for determining if an object O
+ * inherits from the instance object inheritance path
+ * provided by constructor C.
+ * @param C class
+ * @param O object
+ * @param internalSlots internalSlots
+ */
+function OrdinaryHasInstance(C, O, internalSlots) {
+    if (!IsCallable(C)) {
+        return false;
+    }
+    if (internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction) {
+        var BC = internalSlots === null || internalSlots === void 0 ? void 0 : internalSlots.boundTargetFunction;
+        return O instanceof BC;
+    }
+    if (typeof O !== 'object') {
+        return false;
+    }
+    var P = C.prototype;
+    if (typeof P !== 'object') {
+        throw new TypeError('OrdinaryHasInstance called on an object with an invalid prototype property.');
+    }
+    return Object.prototype.isPrototypeOf.call(P, O);
+}
 
 
 /***/ }),
@@ -13436,6 +15430,33 @@ function CanonicalizeTimeZoneName(tz, _a) {
         return 'UTC';
     }
     return ianaTimeZone;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js":
+/*!*****************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js ***!
+  \*****************************************************************************************************************************/
+/*! exports provided: CoerceOptionsToObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return CoerceOptionsToObject; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+
+/**
+ * https://tc39.es/ecma402/#sec-coerceoptionstoobject
+ * @param options
+ * @returns
+ */
+function CoerceOptionsToObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    return Object(_262__WEBPACK_IMPORTED_MODULE_0__["ToObject"])(options);
 }
 
 
@@ -13779,9 +15800,7 @@ function offsetToGmtString(gmtFormat, hourFormat, offsetInMs, style) {
         if (!mins) {
             pattern = pattern.replace(/:?m+/, '');
         }
-        offsetStr = pattern
-            .replace(/H+/, String(hours))
-            .replace(/m+/, String(mins));
+        offsetStr = pattern.replace(/H+/, String(hours)).replace(/m+/, String(mins));
     }
     return gmtFormat.replace('{0}', offsetStr);
 }
@@ -14148,14 +16167,14 @@ function InitializeDateTimeFormat(dtf, locales, opts, _a) {
     if (!formats) {
         throw new RangeError("Calendar \"" + calendar + "\" is not supported. Try setting \"calendar\" to 1 of the following: " + Object.keys(dataLocaleData.formats).join(', '));
     }
-    matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
+    var formatMatcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'formatMatcher', 'string', ['basic', 'best fit'], 'best fit');
     var dateStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'dateStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.dateStyle = dateStyle;
     var timeStyle = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'timeStyle', 'string', ['full', 'long', 'medium', 'short'], undefined);
     internalSlots.timeStyle = timeStyle;
     var bestFormat;
     if (dateStyle === undefined && timeStyle === undefined) {
-        if (matcher === 'basic') {
+        if (formatMatcher === 'basic') {
             bestFormat = Object(_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_6__["BasicFormatMatcher"])(opt, formats);
         }
         else {
@@ -14263,10 +16282,12 @@ function PartitionDateTimePattern(dtf, x, implDetails) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimeRangePattern", function() { return PartitionDateTimeRangePattern; });
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
-/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony import */ var _ToLocalTime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ToLocalTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToLocalTime.js");
+/* harmony import */ var _FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./FormatDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimePattern.js");
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+
 
 
 
@@ -14282,11 +16303,11 @@ var TABLE_2_FIELDS = [
     'second',
 ];
 function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
-    x = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(x);
+    x = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(x);
     if (isNaN(x)) {
         throw new RangeError('Invalid start time');
     }
-    y = Object(_262__WEBPACK_IMPORTED_MODULE_0__["TimeClip"])(y);
+    y = Object(_262__WEBPACK_IMPORTED_MODULE_1__["TimeClip"])(y);
     if (isNaN(y)) {
         throw new RangeError('Invalid end time');
     }
@@ -14294,10 +16315,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
     var getInternalSlots = implDetails.getInternalSlots, tzData = implDetails.tzData;
     var internalSlots = getInternalSlots(dtf);
     /** IMPL END */
-    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(x, 
+    var tm1 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(x, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
-    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_1__["ToLocalTime"])(y, 
+    var tm2 = Object(_ToLocalTime__WEBPACK_IMPORTED_MODULE_2__["ToLocalTime"])(y, 
     // @ts-ignore
     internalSlots.calendar, internalSlots.timeZone, { tzData: tzData });
     var pattern = internalSlots.pattern, rangePatterns = internalSlots.rangePatterns;
@@ -14329,7 +16350,7 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
                 else {
                     var v1 = tm1[fieldName];
                     var v2 = tm2[fieldName];
-                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_0__["SameValue"])(v1, v2)) {
+                    if (!Object(_262__WEBPACK_IMPORTED_MODULE_1__["SameValue"])(v1, v2)) {
                         dateFieldsPracticallyEqual = false;
                     }
                     rangePattern = rp;
@@ -14338,10 +16359,10 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         }
     }
     if (dateFieldsPracticallyEqual) {
-        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern), x, implDetails);
+        var result_2 = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern), x, implDetails);
         for (var _a = 0, result_1 = result_2; _a < result_1.length; _a++) {
             var r = result_1[_a];
-            r.source = "shared" /* shared */;
+            r.source = _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared;
         }
         return result_2;
     }
@@ -14361,15 +16382,15 @@ function PartitionDateTimeRangePattern(dtf, x, y, implDetails) {
         var rangePatternPart = _e[_d];
         var source = rangePatternPart.source, pattern_1 = rangePatternPart.pattern;
         var z = void 0;
-        if (source === "startRange" /* startRange */ ||
-            source === "shared" /* shared */) {
+        if (source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].startRange ||
+            source === _types_date_time__WEBPACK_IMPORTED_MODULE_0__["RangePatternType"].shared) {
             z = x;
         }
         else {
             z = y;
         }
-        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_3__["PartitionPattern"])(pattern_1);
-        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_2__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
+        var patternParts = Object(_PartitionPattern__WEBPACK_IMPORTED_MODULE_4__["PartitionPattern"])(pattern_1);
+        var partResult = Object(_FormatDateTimePattern__WEBPACK_IMPORTED_MODULE_3__["FormatDateTimePattern"])(dtf, patternParts, z, implDetails);
         for (var _f = 0, partResult_1 = partResult; _f < partResult_1.length; _f++) {
             var r = partResult_1[_f];
             r.source = source;
@@ -14480,6 +16501,7 @@ function getApplicableZoneData(t, timeZone, tzData) {
     var dst = false;
     for (; i <= zoneData.length; i++) {
         if (i === zoneData.length || zoneData[i][0] * 1e3 > t) {
+            ;
             _a = zoneData[i - 1], offset = _a[2], dst = _a[3];
             break;
         }
@@ -14533,6 +16555,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitFallbackRangePattern", function() { return splitFallbackRangePattern; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitRangePattern", function() { return splitRangePattern; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../types/date-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+
 
 /**
  * https://unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table
@@ -14584,8 +16608,8 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'e':
             result.weekday = [
-                'numeric',
-                '2-digit',
+                undefined,
+                undefined,
                 'short',
                 'long',
                 'narrow',
@@ -14594,7 +16618,7 @@ function matchSkeletonPattern(match, result) {
             return '{weekday}';
         case 'c':
             result.weekday = [
-                'numeric',
+                undefined,
                 undefined,
                 'short',
                 'long',
@@ -14776,17 +16800,17 @@ function splitFallbackRangePattern(pattern) {
         switch (pattern) {
             case '{0}':
                 return {
-                    source: "startRange" /* startRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                     pattern: pattern,
                 };
             case '{1}':
                 return {
-                    source: "endRange" /* endRange */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
                     pattern: pattern,
                 };
             default:
                 return {
-                    source: "shared" /* shared */,
+                    source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].shared,
                     pattern: pattern,
                 };
         }
@@ -14810,18 +16834,18 @@ function splitRangePattern(pattern) {
     if (!splitIndex) {
         return [
             {
-                source: "startRange" /* startRange */,
+                source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
                 pattern: pattern,
             },
         ];
     }
     return [
         {
-            source: "startRange" /* startRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].startRange,
             pattern: pattern.slice(0, splitIndex),
         },
         {
-            source: "endRange" /* endRange */,
+            source: _types_date_time__WEBPACK_IMPORTED_MODULE_1__["RangePatternType"].endRange,
             pattern: pattern.slice(splitIndex),
         },
     ];
@@ -14938,7 +16962,7 @@ function CanonicalCodeForDisplayNames(type, code) {
         if (!isUnicodeScriptSubtag(code)) {
             throw RangeError('invalid script');
         }
-        return "" + code[0].toUpperCase() + code.slice(1);
+        return "" + code[0].toUpperCase() + code.slice(1).toLowerCase();
     }
     Object(_utils__WEBPACK_IMPORTED_MODULE_1__["invariant"])(type === 'currency', 'invalid type');
     if (!Object(_IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_2__["IsWellFormedCurrencyCode"])(code)) {
@@ -14999,7 +17023,9 @@ __webpack_require__.r(__webpack_exports__);
  * @param fallback
  */
 function GetOption(opts, prop, type, values, fallback) {
-    // const descriptor = Object.getOwnPropertyDescriptor(opts, prop);
+    if (typeof opts !== 'object') {
+        throw new TypeError('Options must be an object');
+    }
     var value = opts[prop];
     if (value !== undefined) {
         if (type !== 'boolean' && type !== 'string') {
@@ -15017,6 +17043,34 @@ function GetOption(opts, prop, type, values, fallback) {
         return value;
     }
     return fallback;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js":
+/*!************************************************************************************************************************!*\
+  !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js ***!
+  \************************************************************************************************************************/
+/*! exports provided: GetOptionsObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return GetOptionsObject; });
+/**
+ * https://tc39.es/ecma402/#sec-getoptionsobject
+ * @param options
+ * @returns
+ */
+function GetOptionsObject(options) {
+    if (typeof options === 'undefined') {
+        return Object.create(null);
+    }
+    if (typeof options === 'object') {
+        return options;
+    }
+    throw new TypeError('Options must be an object');
 }
 
 
@@ -15539,13 +17593,13 @@ function FormatNumericToString(intlObject, x) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return InitializeNumberFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony import */ var _CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony import */ var _SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -15561,11 +17615,11 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
     var getInternalSlots = _a.getInternalSlots, localeData = _a.localeData, availableLocales = _a.availableLocales, numberingSystemNames = _a.numberingSystemNames, getDefaultLocale = _a.getDefaultLocale, currencyDigitsData = _a.currencyDigitsData;
     // @ts-ignore
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
-    var options = opts === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(opts);
+    var options = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_7__["CoerceOptionsToObject"])(opts);
     var opt = Object.create(null);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'localeMatcher', 'string', ['lookup', 'best fit'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined &&
         numberingSystemNames.indexOf(numberingSystem) < 0) {
         // 8.a. If numberingSystem does not match the Unicode Locale Identifier type nonterminal,
@@ -15573,23 +17627,23 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         throw RangeError("Invalid numberingSystems: " + numberingSystem);
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, 
     // [[RelevantExtensionKeys]] slot, which is a constant
     ['nu'], localeData, getDefaultLocale);
     var dataLocaleData = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_7__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_6__["invariant"])(!!dataLocaleData, "Missing locale data for " + r.dataLocale);
     var internalSlots = getInternalSlots(nf);
     internalSlots.locale = r.locale;
     internalSlots.dataLocale = r.dataLocale;
     internalSlots.numberingSystem = r.nu;
     internalSlots.dataLocaleData = dataLocaleData;
-    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_4__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
+    Object(_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatUnitOptions"])(nf, options, { getInternalSlots: getInternalSlots });
     var style = internalSlots.style;
     var mnfdDefault;
     var mxfdDefault;
     if (style === 'currency') {
         var currency = internalSlots.currency;
-        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_5__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
+        var cDigits = Object(_CurrencyDigits__WEBPACK_IMPORTED_MODULE_4__["CurrencyDigits"])(currency, { currencyDigitsData: currencyDigitsData });
         mnfdDefault = cDigits;
         mxfdDefault = cDigits;
     }
@@ -15597,16 +17651,16 @@ function InitializeNumberFormat(nf, locales, opts, _a) {
         mnfdDefault = 0;
         mxfdDefault = style === 'percent' ? 0 : 3;
     }
-    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
+    var notation = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'notation', 'string', ['standard', 'scientific', 'engineering', 'compact'], 'standard');
     internalSlots.notation = notation;
-    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_6__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
-    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
+    Object(_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_5__["SetNumberFormatDigitOptions"])(internalSlots, options, mnfdDefault, mxfdDefault, notation);
+    var compactDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'compactDisplay', 'string', ['short', 'long'], 'short');
     if (notation === 'compact') {
         internalSlots.compactDisplay = compactDisplay;
     }
-    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
+    var useGrouping = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'useGrouping', 'boolean', undefined, true);
     internalSlots.useGrouping = useGrouping;
-    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
+    var signDisplay = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(options, 'signDisplay', 'string', ['auto', 'never', 'always', 'exceptZero'], 'auto');
     internalSlots.signDisplay = signDisplay;
     return nf;
 }
@@ -15655,6 +17709,7 @@ function PartitionNumberPattern(numberFormat, x, _a) {
         if (internalSlots.style === 'percent') {
             x *= 100;
         }
+        ;
         _b = Object(_ComputeExponent__WEBPACK_IMPORTED_MODULE_2__["ComputeExponent"])(numberFormat, x, {
             getInternalSlots: getInternalSlots,
         }), exponent = _b[0], magnitude = _b[1];
@@ -16542,10 +18597,10 @@ function GetOperands(s) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return InitializePluralRules; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -16555,14 +18610,14 @@ function InitializePluralRules(pl, locales, options, _a) {
     var availableLocales = _a.availableLocales, relevantExtensionKeys = _a.relevantExtensionKeys, localeData = _a.localeData, getDefaultLocale = _a.getDefaultLocale, getInternalSlots = _a.getInternalSlots;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
     var internalSlots = getInternalSlots(pl);
     internalSlots.initializedPluralRules = true;
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
-    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_3__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_4__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    internalSlots.type = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'type', 'string', ['cardinal', 'ordinal'], 'cardinal');
+    Object(_NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_2__["SetNumberFormatDigitOptions"])(internalSlots, opts, 0, 3, 'standard');
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     internalSlots.locale = r.locale;
     return pl;
 }
@@ -16683,10 +18738,10 @@ function FormatRelativeTimeToParts(rtf, value, unit, implDetails) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return InitializeRelativeTimeFormat; });
 /* harmony import */ var _CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../CanonicalizeLocaleList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeLocaleList.js");
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../CoerceOptionsToObject */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
 
 
 
@@ -16699,23 +18754,25 @@ function InitializeRelativeTimeFormat(rtf, locales, options, _a) {
     internalSlots.initializedRelativeTimeFormat = true;
     var requestedLocales = Object(_CanonicalizeLocaleList__WEBPACK_IMPORTED_MODULE_0__["CanonicalizeLocaleList"])(locales);
     var opt = Object.create(null);
-    var opts = options === undefined ? Object.create(null) : Object(_262__WEBPACK_IMPORTED_MODULE_1__["ToObject"])(options);
-    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
+    var opts = Object(_CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_4__["CoerceOptionsToObject"])(options);
+    var matcher = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'localeMatcher', 'string', ['best fit', 'lookup'], 'best fit');
     opt.localeMatcher = matcher;
-    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numberingSystem', 'string', undefined, undefined);
+    var numberingSystem = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 
+    // @ts-expect-error TS option is wack
+    'numberingSystem', 'string', undefined, undefined);
     if (numberingSystem !== undefined) {
         if (!NUMBERING_SYSTEM_REGEX.test(numberingSystem)) {
             throw new RangeError("Invalid numbering system " + numberingSystem);
         }
     }
     opt.nu = numberingSystem;
-    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_3__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
+    var r = Object(_ResolveLocale__WEBPACK_IMPORTED_MODULE_2__["ResolveLocale"])(availableLocales, requestedLocales, opt, relevantExtensionKeys, localeData, getDefaultLocale);
     var locale = r.locale, nu = r.nu;
     internalSlots.locale = locale;
-    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
-    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_2__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
+    internalSlots.style = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'style', 'string', ['long', 'narrow', 'short'], 'long');
+    internalSlots.numeric = Object(_GetOption__WEBPACK_IMPORTED_MODULE_1__["GetOption"])(opts, 'numeric', 'string', ['always', 'auto'], 'always');
     var fields = localeData[r.dataLocale];
-    Object(_utils__WEBPACK_IMPORTED_MODULE_4__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
+    Object(_utils__WEBPACK_IMPORTED_MODULE_3__["invariant"])(!!fields, "Missing locale data for " + r.dataLocale);
     internalSlots.fields = fields;
     internalSlots.numberFormat = new Intl.NumberFormat(locales);
     internalSlots.pluralRules = new Intl.PluralRules(locales);
@@ -17115,7 +19172,7 @@ function isMissingLocaleDataError(e) {
 /*!*************************************************************************************************************!*\
   !*** ./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/index.js ***!
   \*************************************************************************************************************/
-/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime */
+/*! exports provided: BestFitFormatMatcher, CanonicalizeLocaleList, CanonicalizeTimeZoneName, CoerceOptionsToObject, BasicFormatMatcher, DateTimeStyleFormat, FormatDateTime, FormatDateTimeRange, FormatDateTimeRangeToParts, FormatDateTimeToParts, InitializeDateTimeFormat, PartitionDateTimePattern, ToDateTimeOptions, CanonicalCodeForDisplayNames, GetNumberOption, GetOption, GetOptionsObject, SANCTIONED_UNITS, removeUnitNamespace, SIMPLE_UNITS, IsSanctionedSimpleUnitIdentifier, IsValidTimeZoneName, IsWellFormedCurrencyCode, IsWellFormedUnitIdentifier, ComputeExponent, ComputeExponentForMagnitude, CurrencyDigits, FormatNumericToParts, FormatNumericToString, InitializeNumberFormat, PartitionNumberPattern, SetNumberFormatDigitOptions, SetNumberFormatUnitOptions, ToRawFixed, ToRawPrecision, PartitionPattern, GetOperands, InitializePluralRules, ResolvePlural, FormatRelativeTime, FormatRelativeTimeToParts, InitializeRelativeTimeFormat, MakePartsList, PartitionRelativeTimePattern, SingularRelativeTimeUnit, ResolveLocale, SupportedLocales, _formatToParts, DATE_TIME_PROPS, parseDateTimeSkeleton, getInternalSlot, getMultiInternalSlots, isLiteralPart, setInternalSlot, setMultiInternalSlots, getMagnitude, defineProperty, isMissingLocaleDataError, RangePatternType, invariant, ToString, ToNumber, TimeClip, ToObject, SameValue, ArrayCreate, HasOwnProperty, Type, Day, WeekDay, DayFromYear, TimeFromYear, YearFromTime, DaysInYear, DayWithinYear, InLeapYear, MonthFromTime, DateFromTime, HourFromTime, MinFromTime, SecFromTime, OrdinaryHasInstance */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17129,208 +19186,218 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CanonicalizeTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CanonicalizeTimeZoneName.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalizeTimeZoneName", function() { return _CanonicalizeTimeZoneName__WEBPACK_IMPORTED_MODULE_2__["CanonicalizeTimeZoneName"]; });
 
-/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_3__["BasicFormatMatcher"]; });
+/* harmony import */ var _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CoerceOptionsToObject */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/CoerceOptionsToObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CoerceOptionsToObject", function() { return _CoerceOptionsToObject__WEBPACK_IMPORTED_MODULE_3__["CoerceOptionsToObject"]; });
 
-/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_4__["DateTimeStyleFormat"]; });
+/* harmony import */ var _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DateTimeFormat/BasicFormatMatcher */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/BasicFormatMatcher.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BasicFormatMatcher", function() { return _DateTimeFormat_BasicFormatMatcher__WEBPACK_IMPORTED_MODULE_4__["BasicFormatMatcher"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_5__["FormatDateTime"]; });
+/* harmony import */ var _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DateTimeFormat/DateTimeStyleFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/DateTimeStyleFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeStyleFormat", function() { return _DateTimeFormat_DateTimeStyleFormat__WEBPACK_IMPORTED_MODULE_5__["DateTimeStyleFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_6__["FormatDateTimeRange"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTime", function() { return _DateTimeFormat_FormatDateTime__WEBPACK_IMPORTED_MODULE_6__["FormatDateTime"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRangeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRange */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRange.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRange", function() { return _DateTimeFormat_FormatDateTimeRange__WEBPACK_IMPORTED_MODULE_7__["FormatDateTimeRange"]; });
 
-/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeToParts"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeRangeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeRangeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeRangeToParts", function() { return _DateTimeFormat_FormatDateTimeRangeToParts__WEBPACK_IMPORTED_MODULE_8__["FormatDateTimeRangeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_9__["InitializeDateTimeFormat"]; });
+/* harmony import */ var _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./DateTimeFormat/FormatDateTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/FormatDateTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatDateTimeToParts", function() { return _DateTimeFormat_FormatDateTimeToParts__WEBPACK_IMPORTED_MODULE_9__["FormatDateTimeToParts"]; });
 
-/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_10__["PartitionDateTimePattern"]; });
+/* harmony import */ var _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./DateTimeFormat/InitializeDateTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/InitializeDateTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeDateTimeFormat", function() { return _DateTimeFormat_InitializeDateTimeFormat__WEBPACK_IMPORTED_MODULE_10__["InitializeDateTimeFormat"]; });
 
-/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_11__["ToDateTimeOptions"]; });
+/* harmony import */ var _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./DateTimeFormat/PartitionDateTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/PartitionDateTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionDateTimePattern", function() { return _DateTimeFormat_PartitionDateTimePattern__WEBPACK_IMPORTED_MODULE_11__["PartitionDateTimePattern"]; });
 
-/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_12__["CanonicalCodeForDisplayNames"]; });
+/* harmony import */ var _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DateTimeFormat/ToDateTimeOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/ToDateTimeOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToDateTimeOptions", function() { return _DateTimeFormat_ToDateTimeOptions__WEBPACK_IMPORTED_MODULE_12__["ToDateTimeOptions"]; });
 
-/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_13__["GetNumberOption"]; });
+/* harmony import */ var _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./DisplayNames/CanonicalCodeForDisplayNames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DisplayNames/CanonicalCodeForDisplayNames.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CanonicalCodeForDisplayNames", function() { return _DisplayNames_CanonicalCodeForDisplayNames__WEBPACK_IMPORTED_MODULE_13__["CanonicalCodeForDisplayNames"]; });
 
-/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_14__["GetOption"]; });
+/* harmony import */ var _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./GetNumberOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetNumberOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetNumberOption", function() { return _GetNumberOption__WEBPACK_IMPORTED_MODULE_14__["GetNumberOption"]; });
 
-/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SANCTIONED_UNITS"]; });
+/* harmony import */ var _GetOption__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./GetOption */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOption.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOption", function() { return _GetOption__WEBPACK_IMPORTED_MODULE_15__["GetOption"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["removeUnitNamespace"]; });
+/* harmony import */ var _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./GetOptionsObject */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/GetOptionsObject.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOptionsObject", function() { return _GetOptionsObject__WEBPACK_IMPORTED_MODULE_16__["GetOptionsObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["SIMPLE_UNITS"]; });
+/* harmony import */ var _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsSanctionedSimpleUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsSanctionedSimpleUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SANCTIONED_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SANCTIONED_UNITS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_15__["IsSanctionedSimpleUnitIdentifier"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "removeUnitNamespace", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["removeUnitNamespace"]; });
 
-/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_16__["IsValidTimeZoneName"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SIMPLE_UNITS", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["SIMPLE_UNITS"]; });
 
-/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_17__["IsWellFormedCurrencyCode"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsSanctionedSimpleUnitIdentifier", function() { return _IsSanctionedSimpleUnitIdentifier__WEBPACK_IMPORTED_MODULE_17__["IsSanctionedSimpleUnitIdentifier"]; });
 
-/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_18__["IsWellFormedUnitIdentifier"]; });
+/* harmony import */ var _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./IsValidTimeZoneName */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsValidTimeZoneName.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsValidTimeZoneName", function() { return _IsValidTimeZoneName__WEBPACK_IMPORTED_MODULE_18__["IsValidTimeZoneName"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_19__["ComputeExponent"]; });
+/* harmony import */ var _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./IsWellFormedCurrencyCode */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedCurrencyCode.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedCurrencyCode", function() { return _IsWellFormedCurrencyCode__WEBPACK_IMPORTED_MODULE_19__["IsWellFormedCurrencyCode"]; });
 
-/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_20__["ComputeExponentForMagnitude"]; });
+/* harmony import */ var _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./IsWellFormedUnitIdentifier */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/IsWellFormedUnitIdentifier.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "IsWellFormedUnitIdentifier", function() { return _IsWellFormedUnitIdentifier__WEBPACK_IMPORTED_MODULE_20__["IsWellFormedUnitIdentifier"]; });
 
-/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_21__["CurrencyDigits"]; });
+/* harmony import */ var _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./NumberFormat/ComputeExponent */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponent.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponent", function() { return _NumberFormat_ComputeExponent__WEBPACK_IMPORTED_MODULE_21__["ComputeExponent"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_22__["FormatNumericToParts"]; });
+/* harmony import */ var _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./NumberFormat/ComputeExponentForMagnitude */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ComputeExponentForMagnitude.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ComputeExponentForMagnitude", function() { return _NumberFormat_ComputeExponentForMagnitude__WEBPACK_IMPORTED_MODULE_22__["ComputeExponentForMagnitude"]; });
 
-/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_23__["FormatNumericToString"]; });
+/* harmony import */ var _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./NumberFormat/CurrencyDigits */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/CurrencyDigits.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CurrencyDigits", function() { return _NumberFormat_CurrencyDigits__WEBPACK_IMPORTED_MODULE_23__["CurrencyDigits"]; });
 
-/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_24__["InitializeNumberFormat"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToParts", function() { return _NumberFormat_FormatNumericToParts__WEBPACK_IMPORTED_MODULE_24__["FormatNumericToParts"]; });
 
-/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_25__["PartitionNumberPattern"]; });
+/* harmony import */ var _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./NumberFormat/FormatNumericToString */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/FormatNumericToString.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatNumericToString", function() { return _NumberFormat_FormatNumericToString__WEBPACK_IMPORTED_MODULE_25__["FormatNumericToString"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_26__["SetNumberFormatDigitOptions"]; });
+/* harmony import */ var _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./NumberFormat/InitializeNumberFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/InitializeNumberFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeNumberFormat", function() { return _NumberFormat_InitializeNumberFormat__WEBPACK_IMPORTED_MODULE_26__["InitializeNumberFormat"]; });
 
-/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_27__["SetNumberFormatUnitOptions"]; });
+/* harmony import */ var _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./NumberFormat/PartitionNumberPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/PartitionNumberPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionNumberPattern", function() { return _NumberFormat_PartitionNumberPattern__WEBPACK_IMPORTED_MODULE_27__["PartitionNumberPattern"]; });
 
-/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_28__["ToRawFixed"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatDigitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatDigitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatDigitOptions", function() { return _NumberFormat_SetNumberFormatDigitOptions__WEBPACK_IMPORTED_MODULE_28__["SetNumberFormatDigitOptions"]; });
 
-/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_29__["ToRawPrecision"]; });
+/* harmony import */ var _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./NumberFormat/SetNumberFormatUnitOptions */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/SetNumberFormatUnitOptions.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SetNumberFormatUnitOptions", function() { return _NumberFormat_SetNumberFormatUnitOptions__WEBPACK_IMPORTED_MODULE_29__["SetNumberFormatUnitOptions"]; });
 
-/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_30__["PartitionPattern"]; });
+/* harmony import */ var _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./NumberFormat/ToRawFixed */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawFixed.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawFixed", function() { return _NumberFormat_ToRawFixed__WEBPACK_IMPORTED_MODULE_30__["ToRawFixed"]; });
 
-/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_31__["GetOperands"]; });
+/* harmony import */ var _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./NumberFormat/ToRawPrecision */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/ToRawPrecision.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToRawPrecision", function() { return _NumberFormat_ToRawPrecision__WEBPACK_IMPORTED_MODULE_31__["ToRawPrecision"]; });
 
-/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_32__["InitializePluralRules"]; });
+/* harmony import */ var _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./PartitionPattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PartitionPattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionPattern", function() { return _PartitionPattern__WEBPACK_IMPORTED_MODULE_32__["PartitionPattern"]; });
 
-/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_33__["ResolvePlural"]; });
+/* harmony import */ var _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./PluralRules/GetOperands */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/GetOperands.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "GetOperands", function() { return _PluralRules_GetOperands__WEBPACK_IMPORTED_MODULE_33__["GetOperands"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_34__["FormatRelativeTime"]; });
+/* harmony import */ var _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./PluralRules/InitializePluralRules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/InitializePluralRules.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializePluralRules", function() { return _PluralRules_InitializePluralRules__WEBPACK_IMPORTED_MODULE_34__["InitializePluralRules"]; });
 
-/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_35__["FormatRelativeTimeToParts"]; });
+/* harmony import */ var _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./PluralRules/ResolvePlural */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/PluralRules/ResolvePlural.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolvePlural", function() { return _PluralRules_ResolvePlural__WEBPACK_IMPORTED_MODULE_35__["ResolvePlural"]; });
 
-/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_36__["InitializeRelativeTimeFormat"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTime */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTime.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTime", function() { return _RelativeTimeFormat_FormatRelativeTime__WEBPACK_IMPORTED_MODULE_36__["FormatRelativeTime"]; });
 
-/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_37__["MakePartsList"]; });
+/* harmony import */ var _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./RelativeTimeFormat/FormatRelativeTimeToParts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/FormatRelativeTimeToParts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormatRelativeTimeToParts", function() { return _RelativeTimeFormat_FormatRelativeTimeToParts__WEBPACK_IMPORTED_MODULE_37__["FormatRelativeTimeToParts"]; });
 
-/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_38__["PartitionRelativeTimePattern"]; });
+/* harmony import */ var _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./RelativeTimeFormat/InitializeRelativeTimeFormat */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/InitializeRelativeTimeFormat.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InitializeRelativeTimeFormat", function() { return _RelativeTimeFormat_InitializeRelativeTimeFormat__WEBPACK_IMPORTED_MODULE_38__["InitializeRelativeTimeFormat"]; });
 
-/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_39__["SingularRelativeTimeUnit"]; });
+/* harmony import */ var _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./RelativeTimeFormat/MakePartsList */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/MakePartsList.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MakePartsList", function() { return _RelativeTimeFormat_MakePartsList__WEBPACK_IMPORTED_MODULE_39__["MakePartsList"]; });
 
-/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_40__["ResolveLocale"]; });
+/* harmony import */ var _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./RelativeTimeFormat/PartitionRelativeTimePattern */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/PartitionRelativeTimePattern.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PartitionRelativeTimePattern", function() { return _RelativeTimeFormat_PartitionRelativeTimePattern__WEBPACK_IMPORTED_MODULE_40__["PartitionRelativeTimePattern"]; });
 
-/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_41__["SupportedLocales"]; });
+/* harmony import */ var _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./RelativeTimeFormat/SingularRelativeTimeUnit */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/RelativeTimeFormat/SingularRelativeTimeUnit.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SingularRelativeTimeUnit", function() { return _RelativeTimeFormat_SingularRelativeTimeUnit__WEBPACK_IMPORTED_MODULE_41__["SingularRelativeTimeUnit"]; });
 
-/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_42__["default"]; });
+/* harmony import */ var _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./ResolveLocale */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/ResolveLocale.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ResolveLocale", function() { return _ResolveLocale__WEBPACK_IMPORTED_MODULE_42__["ResolveLocale"]; });
 
-/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_43__["DATE_TIME_PROPS"]; });
+/* harmony import */ var _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./SupportedLocales */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/SupportedLocales.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SupportedLocales", function() { return _SupportedLocales__WEBPACK_IMPORTED_MODULE_43__["SupportedLocales"]; });
 
-/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_44__["parseDateTimeSkeleton"]; });
+/* harmony import */ var _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./NumberFormat/format_to_parts */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/NumberFormat/format_to_parts.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_formatToParts", function() { return _NumberFormat_format_to_parts__WEBPACK_IMPORTED_MODULE_44__["default"]; });
 
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getInternalSlot"]; });
+/* harmony import */ var _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./DateTimeFormat/utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DATE_TIME_PROPS", function() { return _DateTimeFormat_utils__WEBPACK_IMPORTED_MODULE_45__["DATE_TIME_PROPS"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMultiInternalSlots"]; });
+/* harmony import */ var _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./DateTimeFormat/skeleton */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/DateTimeFormat/skeleton.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseDateTimeSkeleton", function() { return _DateTimeFormat_skeleton__WEBPACK_IMPORTED_MODULE_46__["parseDateTimeSkeleton"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["isLiteralPart"]; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./utils */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/utils.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setInternalSlot"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMultiInternalSlots"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["setMultiInternalSlots"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isLiteralPart", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["isLiteralPart"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["getMagnitude"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setInternalSlot", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setInternalSlot"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["defineProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setMultiInternalSlots", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["setMultiInternalSlots"]; });
 
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/data.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_46__["isMissingLocaleDataError"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getMagnitude", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["getMagnitude"]; });
 
-/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_48__["RangePatternType"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defineProperty", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["defineProperty"]; });
 
-/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
-/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
-/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_45__["invariant"]; });
+/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./data */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/data.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isMissingLocaleDataError", function() { return _data__WEBPACK_IMPORTED_MODULE_48__["isMissingLocaleDataError"]; });
 
-/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToString"]; });
+/* harmony import */ var _types_relative_time__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! ./types/relative-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/relative-time.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_date_time__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! ./types/date-time */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/date-time.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RangePatternType", function() { return _types_date_time__WEBPACK_IMPORTED_MODULE_50__["RangePatternType"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToNumber"]; });
+/* harmony import */ var _types_list__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! ./types/list */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/list.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_plural_rules__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! ./types/plural-rules */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/plural-rules.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_number__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! ./types/number */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/number.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _types_displaynames__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! ./types/displaynames */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/types/displaynames.js");
+/* empty/unused harmony star reexport *//* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "invariant", function() { return _utils__WEBPACK_IMPORTED_MODULE_47__["invariant"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeClip"]; });
+/* harmony import */ var _262__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ./262 */ "./node_modules/@formatjs/intl-relativetimeformat/node_modules/@formatjs/ecma402-abstract/lib/262.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToString", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToString"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ToObject"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToNumber", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToNumber"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SameValue"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeClip", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeClip"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["ArrayCreate"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ToObject", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ToObject"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HasOwnProperty"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SameValue", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SameValue"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Type"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayCreate", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["ArrayCreate"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["Day"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HasOwnProperty", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HasOwnProperty"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["WeekDay"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Type"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Day", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["Day"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["TimeFromYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "WeekDay", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["WeekDay"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["YearFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DaysInYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TimeFromYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["TimeFromYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DayWithinYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "YearFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["YearFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["InLeapYear"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DaysInYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DaysInYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MonthFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DayWithinYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DayWithinYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["DateFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "InLeapYear", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["InLeapYear"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["HourFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MonthFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MonthFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["MinFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["DateFromTime"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_53__["SecFromTime"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "HourFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["HourFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "MinFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["MinFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SecFromTime", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["SecFromTime"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "OrdinaryHasInstance", function() { return _262__WEBPACK_IMPORTED_MODULE_55__["OrdinaryHasInstance"]; });
+
+
 
 
 
@@ -20276,7 +22343,7 @@ for (NAME in TypedArrayConstructorsList) {
 
 // WebKit bug - typed arrays constructors prototype is Object.prototype
 if (!NATIVE_ARRAY_BUFFER_VIEWS || typeof TypedArray != 'function' || TypedArray === Function.prototype) {
-  // eslint-disable-next-line no-shadow
+  // eslint-disable-next-line no-shadow -- safe
   TypedArray = function TypedArray() {
     throw TypeError('Incorrect invocation');
   };
@@ -20507,16 +22574,18 @@ if (!NATIVE_ARRAY_BUFFER) {
     }
   });
 } else {
+  /* eslint-disable no-new -- required for testing */
   if (!fails(function () {
     NativeArrayBuffer(1);
   }) || !fails(function () {
-    new NativeArrayBuffer(-1); // eslint-disable-line no-new
+    new NativeArrayBuffer(-1);
   }) || fails(function () {
-    new NativeArrayBuffer(); // eslint-disable-line no-new
-    new NativeArrayBuffer(1.5); // eslint-disable-line no-new
-    new NativeArrayBuffer(NaN); // eslint-disable-line no-new
+    new NativeArrayBuffer();
+    new NativeArrayBuffer(1.5);
+    new NativeArrayBuffer(NaN);
     return NativeArrayBuffer.name != ARRAY_BUFFER;
   })) {
+  /* eslint-enable no-new -- required for testing */
     $ArrayBuffer = function ArrayBuffer(length) {
       anInstance(this, $ArrayBuffer);
       return new NativeArrayBuffer(toIndex(length));
@@ -20642,14 +22711,12 @@ module.exports = function fill(value /* , start = 0, end = @length */) {
 
 var $forEach = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").forEach;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var STRICT_METHOD = arrayMethodIsStrict('forEach');
-var USES_TO_LENGTH = arrayMethodUsesToLength('forEach');
 
 // `Array.prototype.forEach` method implementation
 // https://tc39.es/ecma262/#sec-array.prototype.foreach
-module.exports = (!STRICT_METHOD || !USES_TO_LENGTH) ? function forEach(callbackfn /* , thisArg */) {
+module.exports = !STRICT_METHOD ? function forEach(callbackfn /* , thisArg */) {
   return $forEach(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
 } : [].forEach;
 
@@ -20728,10 +22795,10 @@ var createMethod = function (IS_INCLUDES) {
     var index = toAbsoluteIndex(fromIndex, length);
     var value;
     // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
+    // eslint-disable-next-line no-self-compare -- NaN check
     if (IS_INCLUDES && el != el) while (length > index) {
       value = O[index++];
-      // eslint-disable-next-line no-self-compare
+      // eslint-disable-next-line no-self-compare -- NaN check
       if (value != value) return true;
     // Array#indexOf ignores holes, Array#includes - not
     } else for (;length > index; index++) {
@@ -20747,6 +22814,51 @@ module.exports = {
   // `Array.prototype.indexOf` method
   // https://tc39.es/ecma262/#sec-array.prototype.indexof
   indexOf: createMethod(false)
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/array-iteration-from-last.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/core-js/internals/array-iteration-from-last.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var bind = __webpack_require__(/*! ../internals/function-bind-context */ "./node_modules/core-js/internals/function-bind-context.js");
+var IndexedObject = __webpack_require__(/*! ../internals/indexed-object */ "./node_modules/core-js/internals/indexed-object.js");
+var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules/core-js/internals/to-object.js");
+var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
+
+// `Array.prototype.{ findLast, findLastIndex }` methods implementation
+var createMethod = function (TYPE) {
+  var IS_FIND_INDEX = TYPE == 6;
+  return function ($this, callbackfn, that) {
+    var O = toObject($this);
+    var self = IndexedObject(O);
+    var boundFunction = bind(callbackfn, that, 3);
+    var index = toLength(self.length);
+    var value, result;
+    while (index-- > 0) {
+      value = self[index];
+      result = boundFunction(value, index, O);
+      if (result) switch (TYPE) {
+        case 5: return value; // find
+        case 6: return index; // findIndex
+      }
+    }
+    return IS_FIND_INDEX ? -1 : undefined;
+  };
+};
+
+module.exports = {
+  // `Array.prototype.findLast` method
+  // https://github.com/tc39/proposal-array-find-from-last
+  findLast: createMethod(5),
+  // `Array.prototype.findLastIndex` method
+  // https://github.com/tc39/proposal-array-find-from-last
+  findLastIndex: createMethod(6)
 };
 
 
@@ -20848,15 +22960,12 @@ var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ 
 var toInteger = __webpack_require__(/*! ../internals/to-integer */ "./node_modules/core-js/internals/to-integer.js");
 var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var min = Math.min;
 var nativeLastIndexOf = [].lastIndexOf;
 var NEGATIVE_ZERO = !!nativeLastIndexOf && 1 / [1].lastIndexOf(1, -0) < 0;
 var STRICT_METHOD = arrayMethodIsStrict('lastIndexOf');
-// For preventing possible almost infinite loop in non-standard implementations, test the forward version of the method
-var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
-var FORCED = NEGATIVE_ZERO || !STRICT_METHOD || !USES_TO_LENGTH;
+var FORCED = NEGATIVE_ZERO || !STRICT_METHOD;
 
 // `Array.prototype.lastIndexOf` method implementation
 // https://tc39.es/ecma262/#sec-array.prototype.lastindexof
@@ -20919,46 +23028,8 @@ var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-j
 module.exports = function (METHOD_NAME, argument) {
   var method = [][METHOD_NAME];
   return !!method && fails(function () {
-    // eslint-disable-next-line no-useless-call,no-throw-literal
+    // eslint-disable-next-line no-useless-call,no-throw-literal -- required for testing
     method.call(null, argument || function () { throw 1; }, 1);
-  });
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/array-method-uses-to-length.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/core-js/internals/array-method-uses-to-length.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
-var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
-var has = __webpack_require__(/*! ../internals/has */ "./node_modules/core-js/internals/has.js");
-
-var defineProperty = Object.defineProperty;
-var cache = {};
-
-var thrower = function (it) { throw it; };
-
-module.exports = function (METHOD_NAME, options) {
-  if (has(cache, METHOD_NAME)) return cache[METHOD_NAME];
-  if (!options) options = {};
-  var method = [][METHOD_NAME];
-  var ACCESSORS = has(options, 'ACCESSORS') ? options.ACCESSORS : false;
-  var argument0 = has(options, 0) ? options[0] : thrower;
-  var argument1 = has(options, 1) ? options[1] : undefined;
-
-  return cache[METHOD_NAME] = !!method && !fails(function () {
-    if (ACCESSORS && !DESCRIPTORS) return true;
-    var O = { length: -1 };
-
-    if (ACCESSORS) defineProperty(O, 1, { enumerable: true, get: thrower });
-    else O[1] = 1;
-
-    method.call(O, argument0, argument1);
   });
 };
 
@@ -21042,6 +23113,50 @@ module.exports = function (originalArray, length) {
       if (C === null) C = undefined;
     }
   } return new (C === undefined ? Array : C)(length === 0 ? 0 : length);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/array-unique-by.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/core-js/internals/array-unique-by.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
+var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules/core-js/internals/to-object.js");
+var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "./node_modules/core-js/internals/get-built-in.js");
+var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "./node_modules/core-js/internals/array-species-create.js");
+
+var push = [].push;
+
+// `Array.prototype.uniqueBy` method
+// https://github.com/tc39/proposal-array-unique
+module.exports = function uniqueBy(resolver) {
+  var that = toObject(this);
+  var length = toLength(that.length);
+  var result = arraySpeciesCreate(that, 0);
+  var Map = getBuiltIn('Map');
+  var map = new Map();
+  var resolverFunction, index, item, key;
+  if (typeof resolver == 'function') resolverFunction = resolver;
+  else if (resolver == null) resolverFunction = function (value) {
+    return value;
+  };
+  else throw new TypeError('Incorrect resolver!');
+  for (index = 0; index < length; index++) {
+    item = that[index];
+    key = resolverFunction(item);
+    if (!map.has(key)) map.set(key, item);
+  }
+  map.forEach(function (value) {
+    push.call(result, value);
+  });
+  return result;
 };
 
 
@@ -21240,7 +23355,7 @@ if (!IS_PURE) {
     AsyncIteratorPrototype = AsyncIterator.prototype;
   } else if (shared[USE_FUNCTION_CONSTRUCTOR] || global[USE_FUNCTION_CONSTRUCTOR]) {
     try {
-      // eslint-disable-next-line no-new-func
+      // eslint-disable-next-line no-new-func -- we have no alternatives without usage of modern syntax
       prototype = getPrototypeOf(getPrototypeOf(getPrototypeOf(Function('return async function*(){}()')())));
       if (getPrototypeOf(prototype) === Object.prototype) AsyncIteratorPrototype = prototype;
     } catch (error) { /* empty */ }
@@ -21309,7 +23424,7 @@ try {
   iteratorWithReturn[ITERATOR] = function () {
     return this;
   };
-  // eslint-disable-next-line no-throw-literal
+  // eslint-disable-next-line no-throw-literal -- required for testing
   Array.from(iteratorWithReturn, function () { throw 2; });
 } catch (error) { /* empty */ }
 
@@ -21878,10 +23993,14 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
     );
   };
 
-  // eslint-disable-next-line max-len
-  if (isForced(CONSTRUCTOR_NAME, typeof NativeConstructor != 'function' || !(IS_WEAK || NativePrototype.forEach && !fails(function () {
-    new NativeConstructor().entries().next();
-  })))) {
+  var REPLACE = isForced(
+    CONSTRUCTOR_NAME,
+    typeof NativeConstructor != 'function' || !(IS_WEAK || NativePrototype.forEach && !fails(function () {
+      new NativeConstructor().entries().next();
+    }))
+  );
+
+  if (REPLACE) {
     // create collection constructor
     Constructor = common.getConstructor(wrapper, CONSTRUCTOR_NAME, IS_MAP, ADDER);
     InternalMetadataModule.REQUIRED = true;
@@ -21892,7 +24011,7 @@ module.exports = function (CONSTRUCTOR_NAME, wrapper, common) {
     // V8 ~ Chromium 40- weak-collections throws on primitives, but should return false
     var THROWS_ON_PRIMITIVES = fails(function () { instance.has(1); });
     // most early implementations doesn't supports iterables, most modern - not close it correctly
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new -- required for testing
     var ACCEPT_ITERABLES = checkCorrectnessOfIteration(function (iterable) { new NativeConstructor(iterable); });
     // for early implementations -0 and +0 not the same
     var BUGGY_ZERO = !IS_WEAK && fails(function () {
@@ -22689,6 +24808,7 @@ var REGEXP_REPLACE_SUBSTITUTES_UNDEFINED_CAPTURE = (function () {
 // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
 // Weex JS has frozen built-in prototypes, so use try / catch wrapper
 var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = !fails(function () {
+  // eslint-disable-next-line regexp/no-empty-group -- required for testing
   var re = /(?:)/;
   var originalExec = re.exec;
   re.exec = function () { return originalExec.apply(this, arguments); };
@@ -22889,7 +25009,7 @@ var factories = {};
 var construct = function (C, argsLength, args) {
   if (!(argsLength in factories)) {
     for (var list = [], i = 0; i < argsLength; i++) list[i] = 'a[' + i + ']';
-    // eslint-disable-next-line no-new-func
+    // eslint-disable-next-line no-new-func -- we have no proper alternatives, IE8- only
     factories[argsLength] = Function('C,a', 'return new C(' + list.join(',') + ')');
   } return factories[argsLength](C, args);
 };
@@ -23005,7 +25125,7 @@ var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/co
 var getIterator = __webpack_require__(/*! ../internals/get-iterator */ "./node_modules/core-js/internals/get-iterator.js");
 
 module.exports = IS_PURE ? getIterator : function (it) {
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-undef -- safe
   return Map.prototype.entries.call(it);
 };
 
@@ -23023,7 +25143,7 @@ var IS_PURE = __webpack_require__(/*! ../internals/is-pure */ "./node_modules/co
 var getIterator = __webpack_require__(/*! ../internals/get-iterator */ "./node_modules/core-js/internals/get-iterator.js");
 
 module.exports = IS_PURE ? getIterator : function (it) {
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line no-undef -- safe
   return Set.prototype.values.call(it);
 };
 
@@ -23041,8 +25161,8 @@ var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules
 
 var floor = Math.floor;
 var replace = ''.replace;
-var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d\d?|<[^>]*>)/g;
-var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d\d?)/g;
+var SUBSTITUTION_SYMBOLS = /\$([$&'`]|\d{1,2}|<[^>]*>)/g;
+var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'`]|\d{1,2})/g;
 
 // https://tc39.es/ecma262/#sec-getsubstitution
 module.exports = function (matched, str, position, captures, namedCaptures, replacement) {
@@ -23094,12 +25214,12 @@ module.exports = function (matched, str, position, captures, namedCaptures, repl
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 module.exports =
-  // eslint-disable-next-line no-undef
+  /* global globalThis -- safe */
   check(typeof globalThis == 'object' && globalThis) ||
   check(typeof window == 'object' && window) ||
   check(typeof self == 'object' && self) ||
   check(typeof global == 'object' && global) ||
-  // eslint-disable-next-line no-new-func
+  // eslint-disable-next-line no-new-func -- fallback
   (function () { return this; })() || Function('return this')();
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
@@ -23196,8 +25316,6 @@ module.exports = !DESCRIPTORS && !fails(function () {
 /***/ (function(module, exports) {
 
 // IEEE754 conversions based on https://github.com/feross/ieee754
-// eslint-disable-next-line no-shadow-restricted-names
-var Infinity = 1 / 0;
 var abs = Math.abs;
 var pow = Math.pow;
 var floor = Math.floor;
@@ -23214,9 +25332,9 @@ var pack = function (number, mantissaLength, bytes) {
   var index = 0;
   var exponent, mantissa, c;
   number = abs(number);
-  // eslint-disable-next-line no-self-compare
+  // eslint-disable-next-line no-self-compare -- NaN check
   if (number != number || number === Infinity) {
-    // eslint-disable-next-line no-self-compare
+    // eslint-disable-next-line no-self-compare -- NaN check
     mantissa = number != number ? 1 : 0;
     exponent = eMax;
   } else {
@@ -23302,7 +25420,7 @@ var split = ''.split;
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 module.exports = fails(function () {
   // throws an error in rhino, see https://github.com/mozilla/rhino/issues/346
-  // eslint-disable-next-line no-prototype-builtins
+  // eslint-disable-next-line no-prototype-builtins -- safe
   return !Object('z').propertyIsEnumerable(0);
 }) ? function (it) {
   return classof(it) == 'String' ? split.call(it, '') : Object(it);
@@ -23981,7 +26099,7 @@ module.exports = Math.fround || function fround(x) {
   if ($abs < MIN32) return $sign * roundTiesToEven($abs / MIN32 / EPSILON32) * MIN32 * EPSILON32;
   a = (1 + EPSILON32 / EPSILON) * $abs;
   result = a - (a - $abs);
-  // eslint-disable-next-line no-self-compare
+  // eslint-disable-next-line no-self-compare -- NaN check
   if (result > MAX32 || result != result) return $sign * Infinity;
   return $sign * result;
 };
@@ -24019,13 +26137,13 @@ module.exports = Math.log1p || function log1p(x) {
 module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh) {
   if (
     arguments.length === 0
-      /* eslint-disable no-self-compare */
+      /* eslint-disable no-self-compare -- NaN check */
       || x != x
       || inLow != inLow
       || inHigh != inHigh
       || outLow != outLow
       || outHigh != outHigh
-      /* eslint-enable no-self-compare */
+      /* eslint-enable no-self-compare -- NaN check */
   ) return NaN;
   if (x === Infinity || x === -Infinity) return x;
   return (x - inLow) * (outHigh - outLow) / (inHigh - inLow) + outLow;
@@ -24044,7 +26162,7 @@ module.exports = Math.scale || function scale(x, inLow, inHigh, outLow, outHigh)
 // `Math.sign` method implementation
 // https://tc39.es/ecma262/#sec-math.sign
 module.exports = Math.sign || function sign(x) {
-  // eslint-disable-next-line no-self-compare
+  // eslint-disable-next-line no-self-compare -- NaN check
   return (x = +x) == 0 || x != x ? x : x < 0 ? -1 : 1;
 };
 
@@ -24163,12 +26281,16 @@ module.exports = global.Promise;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
+var V8_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "./node_modules/core-js/internals/engine-v8-version.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
 
 module.exports = !!Object.getOwnPropertySymbols && !fails(function () {
-  // Chrome 38 Symbol has incorrect toString conversion
-  // eslint-disable-next-line no-undef
-  return !String(Symbol());
+  /* global Symbol -- required for testing */
+  return !Symbol.sham &&
+    // Chrome 38 Symbol has incorrect toString conversion
+    // Chrome 38-40 symbols are not inherited from DOM collections prototypes to instances
+    (IS_NODE ? V8_VERSION === 38 : V8_VERSION > 37 && V8_VERSION < 41);
 });
 
 
@@ -24353,6 +26475,120 @@ module.exports = FORCED ? function parseInt(string, radix) {
 
 /***/ }),
 
+/***/ "./node_modules/core-js/internals/numeric-range-iterator.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/core-js/internals/numeric-range-iterator.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js");
+var createIteratorConstructor = __webpack_require__(/*! ../internals/create-iterator-constructor */ "./node_modules/core-js/internals/create-iterator-constructor.js");
+var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
+var defineProperties = __webpack_require__(/*! ../internals/object-define-properties */ "./node_modules/core-js/internals/object-define-properties.js");
+var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
+
+var INCORRECT_RANGE = 'Incorrect Number.range arguments';
+var NUMERIC_RANGE_ITERATOR = 'NumericRangeIterator';
+
+var setInternalState = InternalStateModule.set;
+var getInternalState = InternalStateModule.getterFor(NUMERIC_RANGE_ITERATOR);
+
+var $RangeIterator = createIteratorConstructor(function NumericRangeIterator(start, end, option, type, zero, one) {
+  if (typeof start != type || (end !== Infinity && end !== -Infinity && typeof end != type)) {
+    throw new TypeError(INCORRECT_RANGE);
+  }
+  if (start === Infinity || start === -Infinity) {
+    throw new RangeError(INCORRECT_RANGE);
+  }
+  var ifIncrease = end > start;
+  var inclusiveEnd = false;
+  var step;
+  if (option === undefined) {
+    step = undefined;
+  } else if (isObject(option)) {
+    step = option.step;
+    inclusiveEnd = !!option.inclusive;
+  } else if (typeof option == type) {
+    step = option;
+  } else {
+    throw new TypeError(INCORRECT_RANGE);
+  }
+  if (step == null) {
+    step = ifIncrease ? one : -one;
+  }
+  if (typeof step != type) {
+    throw new TypeError(INCORRECT_RANGE);
+  }
+  if (step === Infinity || step === -Infinity || (step === zero && start !== end)) {
+    throw new RangeError(INCORRECT_RANGE);
+  }
+  // eslint-disable-next-line no-self-compare -- NaN check
+  var hitsEnd = start != start || end != end || step != step || (end > start) !== (step > zero);
+  setInternalState(this, {
+    type: NUMERIC_RANGE_ITERATOR,
+    start: start,
+    end: end,
+    step: step,
+    inclusiveEnd: inclusiveEnd,
+    hitsEnd: hitsEnd,
+    currentCount: zero,
+    zero: zero
+  });
+  if (!DESCRIPTORS) {
+    this.start = start;
+    this.end = end;
+    this.step = step;
+    this.inclusive = inclusiveEnd;
+  }
+}, NUMERIC_RANGE_ITERATOR, function next() {
+  var state = getInternalState(this);
+  if (state.hitsEnd) return { value: undefined, done: true };
+  var start = state.start;
+  var end = state.end;
+  var step = state.step;
+  var currentYieldingValue = start + (step * state.currentCount++);
+  if (currentYieldingValue === end) state.hitsEnd = true;
+  var inclusiveEnd = state.inclusiveEnd;
+  var endCondition;
+  if (end > start) {
+    endCondition = inclusiveEnd ? currentYieldingValue > end : currentYieldingValue >= end;
+  } else {
+    endCondition = inclusiveEnd ? end > currentYieldingValue : end >= currentYieldingValue;
+  }
+  if (endCondition) {
+    return { value: undefined, done: state.hitsEnd = true };
+  } return { value: currentYieldingValue, done: false };
+});
+
+var getter = function (fn) {
+  return { get: fn, set: function () { /* empty */ }, configurable: true, enumerable: false };
+};
+
+if (DESCRIPTORS) {
+  defineProperties($RangeIterator.prototype, {
+    start: getter(function () {
+      return getInternalState(this).start;
+    }),
+    end: getter(function () {
+      return getInternalState(this).end;
+    }),
+    inclusive: getter(function () {
+      return getInternalState(this).inclusiveEnd;
+    }),
+    step: getter(function () {
+      return getInternalState(this).step;
+    })
+  });
+}
+
+module.exports = $RangeIterator;
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/object-assign.js":
 /*!*********************************************************!*\
   !*** ./node_modules/core-js/internals/object-assign.js ***!
@@ -24389,13 +26625,13 @@ module.exports = !nativeAssign || fails(function () {
   // should work with symbols and should have deterministic property order (V8 bug)
   var A = {};
   var B = {};
-  // eslint-disable-next-line no-undef
+  /* global Symbol -- required for testing */
   var symbol = Symbol();
   var alphabet = 'abcdefghijklmnopqrst';
   A[symbol] = 7;
   alphabet.split('').forEach(function (chr) { B[chr] = chr; });
   return nativeAssign({}, A)[symbol] != 7 || objectKeys(nativeAssign({}, B)).join('') != alphabet;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
+}) ? function assign(target, source) { // eslint-disable-line no-unused-vars -- required for `.length`
   var T = toObject(target);
   var argumentsLength = arguments.length;
   var index = 1;
@@ -24478,7 +26714,7 @@ var NullProtoObjectViaIFrame = function () {
 var activeXDocument;
 var NullProtoObject = function () {
   try {
-    /* global ActiveXObject */
+    /* global ActiveXObject -- old IE */
     activeXDocument = document.domain && new ActiveXObject('htmlfile');
   } catch (error) { /* ignore */ }
   NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame();
@@ -24827,7 +27063,7 @@ var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-j
 module.exports = IS_PURE || !fails(function () {
   var key = Math.random();
   // In FF throws only define methods
-  // eslint-disable-next-line no-undef, no-useless-call
+  // eslint-disable-next-line no-undef, no-useless-call -- required for testing
   __defineSetter__.call(null, key, function () { /* empty */ });
   delete global[key];
 });
@@ -24842,13 +27078,13 @@ module.exports = IS_PURE || !fails(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/* eslint-disable no-proto -- safe */
 var anObject = __webpack_require__(/*! ../internals/an-object */ "./node_modules/core-js/internals/an-object.js");
 var aPossiblePrototype = __webpack_require__(/*! ../internals/a-possible-prototype */ "./node_modules/core-js/internals/a-possible-prototype.js");
 
 // `Object.setPrototypeOf` method
 // https://tc39.es/ecma262/#sec-object.setprototypeof
 // Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
 module.exports = Object.setPrototypeOf || ('__proto__' in {} ? function () {
   var CORRECT_SETTER = false;
   var test = {};
@@ -25007,120 +27243,6 @@ module.exports = function (C, x) {
   resolve(x);
   return promiseCapability.promise;
 };
-
-
-/***/ }),
-
-/***/ "./node_modules/core-js/internals/range-iterator.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/core-js/internals/range-iterator.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var InternalStateModule = __webpack_require__(/*! ../internals/internal-state */ "./node_modules/core-js/internals/internal-state.js");
-var createIteratorConstructor = __webpack_require__(/*! ../internals/create-iterator-constructor */ "./node_modules/core-js/internals/create-iterator-constructor.js");
-var isObject = __webpack_require__(/*! ../internals/is-object */ "./node_modules/core-js/internals/is-object.js");
-var defineProperties = __webpack_require__(/*! ../internals/object-define-properties */ "./node_modules/core-js/internals/object-define-properties.js");
-var DESCRIPTORS = __webpack_require__(/*! ../internals/descriptors */ "./node_modules/core-js/internals/descriptors.js");
-
-var INCORRECT_RANGE = 'Incorrect Number.range arguments';
-var RANGE_ITERATOR = 'RangeIterator';
-
-var setInternalState = InternalStateModule.set;
-var getInternalState = InternalStateModule.getterFor(RANGE_ITERATOR);
-
-var $RangeIterator = createIteratorConstructor(function RangeIterator(start, end, option, type, zero, one) {
-  if (typeof start != type || (end !== Infinity && end !== -Infinity && typeof end != type)) {
-    throw new TypeError(INCORRECT_RANGE);
-  }
-  if (start === Infinity || start === -Infinity) {
-    throw new RangeError(INCORRECT_RANGE);
-  }
-  var ifIncrease = end > start;
-  var inclusiveEnd = false;
-  var step;
-  if (option === undefined) {
-    step = undefined;
-  } else if (isObject(option)) {
-    step = option.step;
-    inclusiveEnd = !!option.inclusive;
-  } else if (typeof option == type) {
-    step = option;
-  } else {
-    throw new TypeError(INCORRECT_RANGE);
-  }
-  if (step == null) {
-    step = ifIncrease ? one : -one;
-  }
-  if (typeof step != type) {
-    throw new TypeError(INCORRECT_RANGE);
-  }
-  if (step === Infinity || step === -Infinity || (step === zero && start !== end)) {
-    throw new RangeError(INCORRECT_RANGE);
-  }
-  // eslint-disable-next-line no-self-compare
-  var hitsEnd = start != start || end != end || step != step || (end > start) !== (step > zero);
-  setInternalState(this, {
-    type: RANGE_ITERATOR,
-    start: start,
-    end: end,
-    step: step,
-    inclusiveEnd: inclusiveEnd,
-    hitsEnd: hitsEnd,
-    currentCount: zero,
-    zero: zero
-  });
-  if (!DESCRIPTORS) {
-    this.start = start;
-    this.end = end;
-    this.step = step;
-    this.inclusive = inclusiveEnd;
-  }
-}, RANGE_ITERATOR, function next() {
-  var state = getInternalState(this);
-  if (state.hitsEnd) return { value: undefined, done: true };
-  var start = state.start;
-  var end = state.end;
-  var step = state.step;
-  var currentYieldingValue = start + (step * state.currentCount++);
-  if (currentYieldingValue === end) state.hitsEnd = true;
-  var inclusiveEnd = state.inclusiveEnd;
-  var endCondition;
-  if (end > start) {
-    endCondition = inclusiveEnd ? currentYieldingValue > end : currentYieldingValue >= end;
-  } else {
-    endCondition = inclusiveEnd ? end > currentYieldingValue : end >= currentYieldingValue;
-  }
-  if (endCondition) {
-    return { value: undefined, done: state.hitsEnd = true };
-  } return { value: currentYieldingValue, done: false };
-});
-
-var getter = function (fn) {
-  return { get: fn, set: function () { /* empty */ }, configurable: true, enumerable: false };
-};
-
-if (DESCRIPTORS) {
-  defineProperties($RangeIterator.prototype, {
-    start: getter(function () {
-      return getInternalState(this).start;
-    }),
-    end: getter(function () {
-      return getInternalState(this).end;
-    }),
-    inclusive: getter(function () {
-      return getInternalState(this).inclusiveEnd;
-    }),
-    step: getter(function () {
-      return getInternalState(this).step;
-    })
-  });
-}
-
-module.exports = $RangeIterator;
 
 
 /***/ }),
@@ -25323,6 +27445,7 @@ var UPDATES_LAST_INDEX_WRONG = (function () {
 var UNSUPPORTED_Y = stickyHelpers.UNSUPPORTED_Y || stickyHelpers.BROKEN_CARET;
 
 // nonparticipating capturing group, copied from es5-shim's String#split patch.
+// eslint-disable-next-line regexp/no-assertion-capturing-group, regexp/no-empty-group -- required for testing
 var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
 
 var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED || UNSUPPORTED_Y;
@@ -25481,7 +27604,7 @@ module.exports = function (it) {
 // `SameValueZero` abstract operation
 // https://tc39.es/ecma262/#sec-samevaluezero
 module.exports = function (x, y) {
-  // eslint-disable-next-line no-self-compare
+  // eslint-disable-next-line no-self-compare -- NaN check
   return x === y || x != x && y != y;
 };
 
@@ -25498,7 +27621,7 @@ module.exports = function (x, y) {
 // `SameValue` abstract operation
 // https://tc39.es/ecma262/#sec-samevalue
 module.exports = Object.is || function is(x, y) {
-  // eslint-disable-next-line no-self-compare
+  // eslint-disable-next-line no-self-compare -- NaN check
   return x === y ? x !== 0 || 1 / x === 1 / y : x != x && y != y;
 };
 
@@ -25629,7 +27752,7 @@ var store = __webpack_require__(/*! ../internals/shared-store */ "./node_modules
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.8.3',
+  version: '3.9.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2021 Denis Pushkarev (zloirock.ru)'
 });
@@ -25730,7 +27853,7 @@ module.exports = {
 // https://github.com/zloirock/core-js/issues/280
 var userAgent = __webpack_require__(/*! ../internals/engine-user-agent */ "./node_modules/core-js/internals/engine-user-agent.js");
 
-// eslint-disable-next-line unicorn/no-unsafe-regex
+// eslint-disable-next-line unicorn/no-unsafe-regex -- safe
 module.exports = /Version\/10\.\d+(\.\d+)?( Mobile\/\w+)? Safari\//.test(userAgent);
 
 
@@ -25862,7 +27985,7 @@ var adapt = function (delta, numPoints, firstTime) {
  * Converts a string of Unicode symbols (e.g. a domain name label) to a
  * Punycode string of ASCII-only symbols.
  */
-// eslint-disable-next-line  max-statements
+// eslint-disable-next-line max-statements -- TODO
 var encode = function (input) {
   var output = [];
 
@@ -26073,7 +28196,7 @@ var ONREADYSTATECHANGE = 'onreadystatechange';
 var defer, channel, port;
 
 var run = function (id) {
-  // eslint-disable-next-line no-prototype-builtins
+  // eslint-disable-next-line no-prototype-builtins -- safe
   if (queue.hasOwnProperty(id)) {
     var fn = queue[id];
     delete queue[id];
@@ -26103,7 +28226,7 @@ if (!set || !clear) {
     var i = 1;
     while (arguments.length > i) args.push(arguments[i++]);
     queue[++counter] = function () {
-      // eslint-disable-next-line no-new-func
+      // eslint-disable-next-line no-new-func -- spec requirement
       (typeof fn == 'function' ? fn : Function(fn)).apply(undefined, args);
     };
     defer(counter);
@@ -26635,7 +28758,7 @@ if (DESCRIPTORS) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* eslint-disable no-new */
+/* eslint-disable no-new -- required for testing */
 var global = __webpack_require__(/*! ../internals/global */ "./node_modules/core-js/internals/global.js");
 var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-js/internals/fails.js");
 var checkCorrectnessOfIteration = __webpack_require__(/*! ../internals/check-correctness-of-iteration */ "./node_modules/core-js/internals/check-correctness-of-iteration.js");
@@ -26657,6 +28780,28 @@ module.exports = !NATIVE_ARRAY_BUFFER_VIEWS || !fails(function () {
   // Safari (11+) bug - a reason why even Safari 13 should load a typed array polyfill
   return new Int8Array(new ArrayBuffer(2), 1, undefined).length !== 1;
 });
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/internals/typed-array-from-species-and-list.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/core-js/internals/typed-array-from-species-and-list.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var aTypedArrayConstructor = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js").aTypedArrayConstructor;
+var speciesConstructor = __webpack_require__(/*! ../internals/species-constructor */ "./node_modules/core-js/internals/species-constructor.js");
+
+module.exports = function (instance, list) {
+  var C = speciesConstructor(instance, instance.constructor);
+  var index = 0;
+  var length = list.length;
+  var result = new (aTypedArrayConstructor(C))(length);
+  while (length > index) result[index] = list[index++];
+  return result;
+};
 
 
 /***/ }),
@@ -26731,9 +28876,8 @@ module.exports = function (key) {
 var NATIVE_SYMBOL = __webpack_require__(/*! ../internals/native-symbol */ "./node_modules/core-js/internals/native-symbol.js");
 
 module.exports = NATIVE_SYMBOL
-  // eslint-disable-next-line no-undef
+  /* global Symbol -- safe */
   && !Symbol.sham
-  // eslint-disable-next-line no-undef
   && typeof Symbol.iterator == 'symbol';
 
 
@@ -26772,9 +28916,12 @@ var Symbol = global.Symbol;
 var createWellKnownSymbol = USE_SYMBOL_AS_UID ? Symbol : Symbol && Symbol.withoutSetter || uid;
 
 module.exports = function (name) {
-  if (!has(WellKnownSymbolsStore, name)) {
-    if (NATIVE_SYMBOL && has(Symbol, name)) WellKnownSymbolsStore[name] = Symbol[name];
-    else WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+  if (!has(WellKnownSymbolsStore, name) || !(NATIVE_SYMBOL || typeof WellKnownSymbolsStore[name] == 'string')) {
+    if (NATIVE_SYMBOL && has(Symbol, name)) {
+      WellKnownSymbolsStore[name] = Symbol[name];
+    } else {
+      WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name);
+    }
   } return WellKnownSymbolsStore[name];
 };
 
@@ -26789,8 +28936,8 @@ module.exports = function (name) {
 /***/ (function(module, exports) {
 
 // a string of all valid unicode whitespaces
-// eslint-disable-next-line max-len
-module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
+module.exports = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u2000\u2001\u2002' +
+  '\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u3000\u2028\u2029\uFEFF';
 
 
 /***/ }),
@@ -26816,7 +28963,7 @@ var $AggregateError = function AggregateError(errors, message) {
   var that = this;
   if (!(that instanceof $AggregateError)) return new $AggregateError(errors, message);
   if (setPrototypeOf) {
-    // eslint-disable-next-line unicorn/error-message
+    // eslint-disable-next-line unicorn/error-message -- expected
     that = setPrototypeOf(new Error(undefined), getPrototypeOf(that));
   }
   if (message !== undefined) createNonEnumerableProperty(that, 'message', String(message));
@@ -26987,7 +29134,8 @@ var FORCED = !IS_CONCAT_SPREADABLE_SUPPORT || !SPECIES_SUPPORT;
 // https://tc39.es/ecma262/#sec-array.prototype.concat
 // with adding support of @@isConcatSpreadable and @@species
 $({ target: 'Array', proto: true, forced: FORCED }, {
-  concat: function concat(arg) { // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
+  concat: function concat(arg) {
     var O = toObject(this);
     var A = arraySpeciesCreate(O, 0);
     var n = 0;
@@ -27046,14 +29194,12 @@ addToUnscopables('copyWithin');
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $every = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").every;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var STRICT_METHOD = arrayMethodIsStrict('every');
-var USES_TO_LENGTH = arrayMethodUsesToLength('every');
 
 // `Array.prototype.every` method
 // https://tc39.es/ecma262/#sec-array.prototype.every
-$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD }, {
   every: function every(callbackfn /* , thisArg */) {
     return $every(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27097,16 +29243,13 @@ addToUnscopables('fill');
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $filter = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").filter;
 var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
-// Edge 14- issue
-var USES_TO_LENGTH = arrayMethodUsesToLength('filter');
 
 // `Array.prototype.filter` method
 // https://tc39.es/ecma262/#sec-array.prototype.filter
 // with adding support of @@species
-$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
   filter: function filter(callbackfn /* , thisArg */) {
     return $filter(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27127,19 +29270,16 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $findIndex = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").findIndex;
 var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var FIND_INDEX = 'findIndex';
 var SKIPS_HOLES = true;
-
-var USES_TO_LENGTH = arrayMethodUsesToLength(FIND_INDEX);
 
 // Shouldn't skip holes
 if (FIND_INDEX in []) Array(1)[FIND_INDEX](function () { SKIPS_HOLES = false; });
 
 // `Array.prototype.findIndex` method
 // https://tc39.es/ecma262/#sec-array.prototype.findindex
-$({ target: 'Array', proto: true, forced: SKIPS_HOLES || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
   findIndex: function findIndex(callbackfn /* , that = undefined */) {
     return $findIndex(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27163,19 +29303,16 @@ addToUnscopables(FIND_INDEX);
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $find = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").find;
 var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var FIND = 'find';
 var SKIPS_HOLES = true;
-
-var USES_TO_LENGTH = arrayMethodUsesToLength(FIND);
 
 // Shouldn't skip holes
 if (FIND in []) Array(1)[FIND](function () { SKIPS_HOLES = false; });
 
 // `Array.prototype.find` method
 // https://tc39.es/ecma262/#sec-array.prototype.find
-$({ target: 'Array', proto: true, forced: SKIPS_HOLES || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: SKIPS_HOLES }, {
   find: function find(callbackfn /* , that = undefined */) {
     return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27309,13 +29446,10 @@ $({ target: 'Array', stat: true, forced: INCORRECT_ITERATION }, {
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $includes = __webpack_require__(/*! ../internals/array-includes */ "./node_modules/core-js/internals/array-includes.js").includes;
 var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
-
-var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
 
 // `Array.prototype.includes` method
 // https://tc39.es/ecma262/#sec-array.prototype.includes
-$({ target: 'Array', proto: true, forced: !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true }, {
   includes: function includes(el /* , fromIndex = 0 */) {
     return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27339,17 +29473,15 @@ addToUnscopables('includes');
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $indexOf = __webpack_require__(/*! ../internals/array-includes */ "./node_modules/core-js/internals/array-includes.js").indexOf;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var nativeIndexOf = [].indexOf;
 
 var NEGATIVE_ZERO = !!nativeIndexOf && 1 / [1].indexOf(1, -0) < 0;
 var STRICT_METHOD = arrayMethodIsStrict('indexOf');
-var USES_TO_LENGTH = arrayMethodUsesToLength('indexOf', { ACCESSORS: true, 1: 0 });
 
 // `Array.prototype.indexOf` method
 // https://tc39.es/ecma262/#sec-array.prototype.indexof
-$({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: NEGATIVE_ZERO || !STRICT_METHOD }, {
   indexOf: function indexOf(searchElement /* , fromIndex = 0 */) {
     return NEGATIVE_ZERO
       // convert -0 to +0
@@ -27506,16 +29638,13 @@ $({ target: 'Array', proto: true, forced: lastIndexOf !== [].lastIndexOf }, {
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $map = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").map;
 var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
-// FF49- issue
-var USES_TO_LENGTH = arrayMethodUsesToLength('map');
 
 // `Array.prototype.map` method
 // https://tc39.es/ecma262/#sec-array.prototype.map
 // with adding support of @@species
-$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
   map: function map(callbackfn /* , thisArg */) {
     return $map(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27571,20 +29700,17 @@ $({ target: 'Array', stat: true, forced: ISNT_GENERIC }, {
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $reduceRight = __webpack_require__(/*! ../internals/array-reduce */ "./node_modules/core-js/internals/array-reduce.js").right;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 var CHROME_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "./node_modules/core-js/internals/engine-v8-version.js");
 var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
 
 var STRICT_METHOD = arrayMethodIsStrict('reduceRight');
-// For preventing possible almost infinite loop in non-standard implementations, test the forward version of the method
-var USES_TO_LENGTH = arrayMethodUsesToLength('reduce', { 1: 0 });
 // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
 var CHROME_BUG = !IS_NODE && CHROME_VERSION > 79 && CHROME_VERSION < 83;
 
 // `Array.prototype.reduceRight` method
 // https://tc39.es/ecma262/#sec-array.prototype.reduceright
-$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH || CHROME_BUG }, {
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD || CHROME_BUG }, {
   reduceRight: function reduceRight(callbackfn /* , initialValue */) {
     return $reduceRight(this, callbackfn, arguments.length, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27605,19 +29731,17 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH || C
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $reduce = __webpack_require__(/*! ../internals/array-reduce */ "./node_modules/core-js/internals/array-reduce.js").left;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 var CHROME_VERSION = __webpack_require__(/*! ../internals/engine-v8-version */ "./node_modules/core-js/internals/engine-v8-version.js");
 var IS_NODE = __webpack_require__(/*! ../internals/engine-is-node */ "./node_modules/core-js/internals/engine-is-node.js");
 
 var STRICT_METHOD = arrayMethodIsStrict('reduce');
-var USES_TO_LENGTH = arrayMethodUsesToLength('reduce', { 1: 0 });
 // Chrome 80-82 has a critical bug
 // https://bugs.chromium.org/p/chromium/issues/detail?id=1049982
 var CHROME_BUG = !IS_NODE && CHROME_VERSION > 79 && CHROME_VERSION < 83;
 
 // `Array.prototype.reduce` method
 // https://tc39.es/ecma262/#sec-array.prototype.reduce
-$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH || CHROME_BUG }, {
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD || CHROME_BUG }, {
   reduce: function reduce(callbackfn /* , initialValue */) {
     return $reduce(this, callbackfn, arguments.length, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27647,7 +29771,7 @@ var test = [1, 2];
 // https://bugs.webkit.org/show_bug.cgi?id=188794
 $({ target: 'Array', proto: true, forced: String(test) === String(test.reverse()) }, {
   reverse: function reverse() {
-    // eslint-disable-next-line no-self-assign
+    // eslint-disable-next-line no-self-assign -- dirty hack
     if (isArray(this)) this.length = this.length;
     return nativeReverse.call(this);
   }
@@ -27674,10 +29798,8 @@ var toIndexedObject = __webpack_require__(/*! ../internals/to-indexed-object */ 
 var createProperty = __webpack_require__(/*! ../internals/create-property */ "./node_modules/core-js/internals/create-property.js");
 var wellKnownSymbol = __webpack_require__(/*! ../internals/well-known-symbol */ "./node_modules/core-js/internals/well-known-symbol.js");
 var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('slice');
-var USES_TO_LENGTH = arrayMethodUsesToLength('slice', { ACCESSORS: true, 0: 0, 1: 2 });
 
 var SPECIES = wellKnownSymbol('species');
 var nativeSlice = [].slice;
@@ -27686,7 +29808,7 @@ var max = Math.max;
 // `Array.prototype.slice` method
 // https://tc39.es/ecma262/#sec-array.prototype.slice
 // fallback for not array-like ES3 strings and DOM objects
-$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
   slice: function slice(start, end) {
     var O = toIndexedObject(this);
     var length = toLength(O.length);
@@ -27729,14 +29851,12 @@ $({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGT
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
 var $some = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").some;
 var arrayMethodIsStrict = __webpack_require__(/*! ../internals/array-method-is-strict */ "./node_modules/core-js/internals/array-method-is-strict.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var STRICT_METHOD = arrayMethodIsStrict('some');
-var USES_TO_LENGTH = arrayMethodUsesToLength('some');
 
 // `Array.prototype.some` method
 // https://tc39.es/ecma262/#sec-array.prototype.some
-$({ target: 'Array', proto: true, forced: !STRICT_METHOD || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !STRICT_METHOD }, {
   some: function some(callbackfn /* , thisArg */) {
     return $some(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
   }
@@ -27822,10 +29942,8 @@ var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules
 var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "./node_modules/core-js/internals/array-species-create.js");
 var createProperty = __webpack_require__(/*! ../internals/create-property */ "./node_modules/core-js/internals/create-property.js");
 var arrayMethodHasSpeciesSupport = __webpack_require__(/*! ../internals/array-method-has-species-support */ "./node_modules/core-js/internals/array-method-has-species-support.js");
-var arrayMethodUsesToLength = __webpack_require__(/*! ../internals/array-method-uses-to-length */ "./node_modules/core-js/internals/array-method-uses-to-length.js");
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('splice');
-var USES_TO_LENGTH = arrayMethodUsesToLength('splice', { ACCESSORS: true, 0: 0, 1: 2 });
 
 var max = Math.max;
 var min = Math.min;
@@ -27835,7 +29953,7 @@ var MAXIMUM_ALLOWED_LENGTH_EXCEEDED = 'Maximum allowed length exceeded';
 // `Array.prototype.splice` method
 // https://tc39.es/ecma262/#sec-array.prototype.splice
 // with adding support of @@species
-$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT || !USES_TO_LENGTH }, {
+$({ target: 'Array', proto: true, forced: !HAS_SPECIES_SUPPORT }, {
   splice: function splice(start, deleteCount /* , ...items */) {
     var O = toObject(this);
     var len = toLength(O.length);
@@ -28003,7 +30121,7 @@ var FORCED = fails(function () {
 // `Date.prototype.toJSON` method
 // https://tc39.es/ecma262/#sec-date.prototype.tojson
 $({ target: 'Date', proto: true, forced: FORCED }, {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
   toJSON: function toJSON(key) {
     var O = toObject(this);
     var pv = toPrimitive(O);
@@ -28057,7 +30175,7 @@ var getTime = DatePrototype.getTime;
 if (new Date(NaN) + '' != INVALID_DATE) {
   redefine(DatePrototype, TO_STRING, function toString() {
     var value = getTime.call(this);
-    // eslint-disable-next-line no-self-compare
+    // eslint-disable-next-line no-self-compare -- NaN check
     return value === value ? nativeDateToString.call(this) : INVALID_DATE;
   });
 }
@@ -28202,7 +30320,7 @@ if ($stringify) {
   // https://tc39.es/ecma262/#sec-json.stringify
   // https://github.com/tc39/proposal-well-formed-stringify
   $({ target: 'JSON', stat: true, forced: FORCED }, {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars -- required for `.length`
     stringify: function stringify(it, replacer, space) {
       var result = $stringify.apply(null, arguments);
       return typeof result == 'string' ? result.replace(re, fix) : result;
@@ -28464,7 +30582,8 @@ var BUGGY = !!$hypot && $hypot(Infinity, NaN) !== Infinity;
 // `Math.hypot` method
 // https://tc39.es/ecma262/#sec-math.hypot
 $({ target: 'Math', stat: true, forced: BUGGY }, {
-  hypot: function hypot(value1, value2) { // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
+  hypot: function hypot(value1, value2) {
     var sum = 0;
     var i = 0;
     var aLen = arguments.length;
@@ -28857,7 +30976,7 @@ var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/i
 // https://tc39.es/ecma262/#sec-number.isnan
 $({ target: 'Number', stat: true }, {
   isNaN: function isNaN(number) {
-    // eslint-disable-next-line no-self-compare
+    // eslint-disable-next-line no-self-compare -- NaN check
     return number != number;
   }
 });
@@ -28997,6 +31116,37 @@ var log = function (x) {
   } return n;
 };
 
+var multiply = function (data, n, c) {
+  var index = -1;
+  var c2 = c;
+  while (++index < 6) {
+    c2 += n * data[index];
+    data[index] = c2 % 1e7;
+    c2 = floor(c2 / 1e7);
+  }
+};
+
+var divide = function (data, n) {
+  var index = 6;
+  var c = 0;
+  while (--index >= 0) {
+    c += data[index];
+    data[index] = floor(c / n);
+    c = (c % n) * 1e7;
+  }
+};
+
+var dataToString = function (data) {
+  var index = 6;
+  var s = '';
+  while (--index >= 0) {
+    if (s !== '' || index === 0 || data[index] !== 0) {
+      var t = String(data[index]);
+      s = s === '' ? t : s + repeat.call('0', 7 - t.length) + t;
+    }
+  } return s;
+};
+
 var FORCED = nativeToFixed && (
   0.00008.toFixed(3) !== '0.000' ||
   0.9.toFixed(0) !== '1' ||
@@ -29010,7 +31160,6 @@ var FORCED = nativeToFixed && (
 // `Number.prototype.toFixed` method
 // https://tc39.es/ecma262/#sec-number.prototype.tofixed
 $({ target: 'Number', proto: true, forced: FORCED }, {
-  // eslint-disable-next-line max-statements
   toFixed: function toFixed(fractionDigits) {
     var number = thisNumberValue(this);
     var fractDigits = toInteger(fractionDigits);
@@ -29019,39 +31168,8 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
     var result = '0';
     var e, z, j, k;
 
-    var multiply = function (n, c) {
-      var index = -1;
-      var c2 = c;
-      while (++index < 6) {
-        c2 += n * data[index];
-        data[index] = c2 % 1e7;
-        c2 = floor(c2 / 1e7);
-      }
-    };
-
-    var divide = function (n) {
-      var index = 6;
-      var c = 0;
-      while (--index >= 0) {
-        c += data[index];
-        data[index] = floor(c / n);
-        c = (c % n) * 1e7;
-      }
-    };
-
-    var dataToString = function () {
-      var index = 6;
-      var s = '';
-      while (--index >= 0) {
-        if (s !== '' || index === 0 || data[index] !== 0) {
-          var t = String(data[index]);
-          s = s === '' ? t : s + repeat.call('0', 7 - t.length) + t;
-        }
-      } return s;
-    };
-
     if (fractDigits < 0 || fractDigits > 20) throw RangeError('Incorrect fraction digits');
-    // eslint-disable-next-line no-self-compare
+    // eslint-disable-next-line no-self-compare -- NaN check
     if (number != number) return 'NaN';
     if (number <= -1e21 || number >= 1e21) return String(number);
     if (number < 0) {
@@ -29064,26 +31182,26 @@ $({ target: 'Number', proto: true, forced: FORCED }, {
       z *= 0x10000000000000;
       e = 52 - e;
       if (e > 0) {
-        multiply(0, z);
+        multiply(data, 0, z);
         j = fractDigits;
         while (j >= 7) {
-          multiply(1e7, 0);
+          multiply(data, 1e7, 0);
           j -= 7;
         }
-        multiply(pow(10, j, 1), 0);
+        multiply(data, pow(10, j, 1), 0);
         j = e - 1;
         while (j >= 23) {
-          divide(1 << 23);
+          divide(data, 1 << 23);
           j -= 23;
         }
-        divide(1 << j);
-        multiply(1, 1);
-        divide(2);
-        result = dataToString();
+        divide(data, 1 << j);
+        multiply(data, 1, 1);
+        divide(data, 2);
+        result = dataToString(data);
       } else {
-        multiply(0, z);
-        multiply(1 << -e, 0);
-        result = dataToString() + repeat.call('0', fractDigits);
+        multiply(data, 0, z);
+        multiply(data, 1 << -e, 0);
+        result = dataToString(data) + repeat.call('0', fractDigits);
       }
     }
     if (fractDigits > 0) {
@@ -30207,7 +32325,7 @@ if (FORCED) {
       internalReject(state, error);
     }
   };
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
   Internal = function Promise(executor) {
     setInternalState(this, {
       type: PROMISE,
@@ -30267,7 +32385,7 @@ if (FORCED) {
 
     // wrap fetch result
     if (typeof $fetch == 'function') $({ global: true, enumerable: true, forced: true }, {
-      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line no-unused-vars -- required for `.length`
       fetch: function fetch(input /* , init */) {
         return promiseResolve(PromiseConstructor, $fetch.apply(global, arguments));
       }
@@ -30467,7 +32585,7 @@ var fails = __webpack_require__(/*! ../internals/fails */ "./node_modules/core-j
 
 // MS Edge has broken Reflect.defineProperty - throwing instead of returning false
 var ERROR_INSTEAD_OF_FALSE = fails(function () {
-  // eslint-disable-next-line no-undef
+  /* global Reflect -- required for testing */
   Reflect.defineProperty(definePropertyModule.f({}, 1, { value: 1 }), 1, { value: 2 });
 });
 
@@ -30763,7 +32881,7 @@ function set(target, propertyKey, V /* , receiver */) {
 var MS_EDGE_BUG = fails(function () {
   var Constructor = function () { /* empty */ };
   var object = definePropertyModule.f(new Constructor(), 'a', { configurable: true });
-  // eslint-disable-next-line no-undef
+  /* global Reflect -- required for testing */
   return Reflect.set(Constructor.prototype, 'a', 1, object) !== false;
 });
 
@@ -31325,7 +33443,8 @@ var INCORRECT_LENGTH = !!nativeFromCodePoint && nativeFromCodePoint.length != 1;
 // `String.fromCodePoint` method
 // https://tc39.es/ecma262/#sec-string.fromcodepoint
 $({ target: 'String', stat: true, forced: INCORRECT_LENGTH }, {
-  fromCodePoint: function fromCodePoint(x) { // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
+  fromCodePoint: function fromCodePoint(x) {
     var elements = [];
     var length = arguments.length;
     var i = 0;
@@ -31508,7 +33627,7 @@ var regExpExec = function (R, S) {
   } return regExpBuiltinExec.call(R, S);
 };
 
-// eslint-disable-next-line max-len
+// eslint-disable-next-line max-len -- ignore
 var $RegExpStringIterator = createIteratorConstructor(function RegExpStringIterator(regexp, string, global, fullUnicode) {
   setInternalState(this, {
     type: REGEXP_STRING_ITERATOR,
@@ -32024,9 +34143,11 @@ fixRegExpWellKnownSymbolLogic('split', 2, function (SPLIT, nativeSplit, maybeCal
   var internalSplit;
   if (
     'abbc'.split(/(b)*/)[1] == 'c' ||
+    // eslint-disable-next-line regexp/no-empty-group -- required for testing
     'test'.split(/(?:)/, -1).length != 4 ||
     'ab'.split(/(?:ab)*/).length != 2 ||
     '.'.split(/(.?)(.?)/).length != 4 ||
+    // eslint-disable-next-line regexp/no-assertion-capturing-group, regexp/no-empty-group -- required for testing
     '.'.split(/()()/).length > 1 ||
     ''.split(/.?/).length
   ) {
@@ -32755,7 +34876,7 @@ if ($stringify) {
   });
 
   $({ target: 'JSON', stat: true, forced: FORCED_JSON_STRINGIFY }, {
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars -- required for `.length`
     stringify: function stringify(it, replacer, space) {
       var args = [it];
       var index = 1;
@@ -32996,7 +35117,7 @@ var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.fill` method
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.fill
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars -- required for `.length`
 exportTypedArrayMethod('fill', function fill(value /* , start, end */) {
   return $fill.apply(aTypedArray(this), arguments);
 });
@@ -33015,22 +35136,16 @@ exportTypedArrayMethod('fill', function fill(value /* , start, end */) {
 
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js");
 var $filter = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").filter;
-var speciesConstructor = __webpack_require__(/*! ../internals/species-constructor */ "./node_modules/core-js/internals/species-constructor.js");
+var fromSpeciesAndList = __webpack_require__(/*! ../internals/typed-array-from-species-and-list */ "./node_modules/core-js/internals/typed-array-from-species-and-list.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
-var aTypedArrayConstructor = ArrayBufferViewCore.aTypedArrayConstructor;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.filter` method
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.filter
 exportTypedArrayMethod('filter', function filter(callbackfn /* , thisArg */) {
   var list = $filter(aTypedArray(this), callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  var C = speciesConstructor(this, this.constructor);
-  var index = 0;
-  var length = list.length;
-  var result = new (aTypedArrayConstructor(C))(length);
-  while (length > index) result[index] = list[index++];
-  return result;
+  return fromSpeciesAndList(this, list);
 });
 
 
@@ -33343,7 +35458,7 @@ var $join = [].join;
 
 // `%TypedArray%.prototype.join` method
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.join
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars -- required for `.length`
 exportTypedArrayMethod('join', function join(separator) {
   return $join.apply(aTypedArray(this), arguments);
 });
@@ -33368,7 +35483,7 @@ var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.lastIndexOf` method
 // https://tc39.es/ecma262/#sec-%typedarray%.prototype.lastindexof
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-vars -- required for `.length`
 exportTypedArrayMethod('lastIndexOf', function lastIndexOf(searchElement /* , fromIndex */) {
   return $lastIndexOf.apply(aTypedArray(this), arguments);
 });
@@ -33532,7 +35647,7 @@ var aTypedArray = ArrayBufferViewCore.aTypedArray;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 var FORCED = fails(function () {
-  // eslint-disable-next-line no-undef
+  /* global Int8Array -- safe */
   new Int8Array(1).set({});
 });
 
@@ -33571,7 +35686,7 @@ var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 var $slice = [].slice;
 
 var FORCED = fails(function () {
-  // eslint-disable-next-line no-undef
+  /* global Int8Array -- safe */
   new Int8Array(1).slice();
 });
 
@@ -33994,6 +36109,58 @@ addToUnscopables('filterOut');
 
 /***/ }),
 
+/***/ "./node_modules/core-js/modules/esnext.array.find-last-index.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/modules/esnext.array.find-last-index.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $findLastIndex = __webpack_require__(/*! ../internals/array-iteration-from-last */ "./node_modules/core-js/internals/array-iteration-from-last.js").findLastIndex;
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
+
+// `Array.prototype.findLastIndex` method
+// https://github.com/tc39/proposal-array-find-from-last
+$({ target: 'Array', proto: true }, {
+  findLastIndex: function findLastIndex(callbackfn /* , that = undefined */) {
+    return $findLastIndex(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+addToUnscopables('findLastIndex');
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/esnext.array.find-last.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/core-js/modules/esnext.array.find-last.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
+var $findLast = __webpack_require__(/*! ../internals/array-iteration-from-last */ "./node_modules/core-js/internals/array-iteration-from-last.js").findLast;
+var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
+
+// `Array.prototype.findLast` method
+// https://github.com/tc39/proposal-array-find-from-last
+$({ target: 'Array', proto: true }, {
+  findLast: function findLast(callbackfn /* , that = undefined */) {
+    return $findLast(this, callbackfn, arguments.length > 1 ? arguments[1] : undefined);
+  }
+});
+
+addToUnscopables('findLast');
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/modules/esnext.array.is-template-object.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/core-js/modules/esnext.array.is-template-object.js ***!
@@ -34114,39 +36281,13 @@ if (DESCRIPTORS && !('lastItem' in [])) {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var toLength = __webpack_require__(/*! ../internals/to-length */ "./node_modules/core-js/internals/to-length.js");
-var toObject = __webpack_require__(/*! ../internals/to-object */ "./node_modules/core-js/internals/to-object.js");
-var getBuiltIn = __webpack_require__(/*! ../internals/get-built-in */ "./node_modules/core-js/internals/get-built-in.js");
-var arraySpeciesCreate = __webpack_require__(/*! ../internals/array-species-create */ "./node_modules/core-js/internals/array-species-create.js");
 var addToUnscopables = __webpack_require__(/*! ../internals/add-to-unscopables */ "./node_modules/core-js/internals/add-to-unscopables.js");
-
-var push = [].push;
+var uniqueBy = __webpack_require__(/*! ../internals/array-unique-by */ "./node_modules/core-js/internals/array-unique-by.js");
 
 // `Array.prototype.uniqueBy` method
 // https://github.com/tc39/proposal-array-unique
 $({ target: 'Array', proto: true }, {
-  uniqueBy: function uniqueBy(resolver) {
-    var that = toObject(this);
-    var length = toLength(that.length);
-    var result = arraySpeciesCreate(that, 0);
-    var Map = getBuiltIn('Map');
-    var map = new Map();
-    var resolverFunction, index, item, key;
-    if (typeof resolver == 'function') resolverFunction = resolver;
-    else if (resolver == null) resolverFunction = function (value) {
-      return value;
-    };
-    else throw new TypeError('Incorrect resolver!');
-    for (index = 0; index < length; index++) {
-      item = that[index];
-      key = resolverFunction(item);
-      if (!map.has(key)) map.set(key, item);
-    }
-    map.forEach(function (value) {
-      push.call(result, value);
-    });
-    return result;
-  }
+  uniqueBy: uniqueBy
 });
 
 addToUnscopables('uniqueBy');
@@ -34724,15 +36865,15 @@ $({ target: 'AsyncIterator', proto: true, real: true }, {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var RangeIterator = __webpack_require__(/*! ../internals/range-iterator */ "./node_modules/core-js/internals/range-iterator.js");
+var NumericRangeIterator = __webpack_require__(/*! ../internals/numeric-range-iterator */ "./node_modules/core-js/internals/numeric-range-iterator.js");
 
 // `BigInt.range` method
 // https://github.com/tc39/proposal-Number.range
 if (typeof BigInt == 'function') {
   $({ target: 'BigInt', stat: true }, {
     range: function range(start, end, option) {
-      // eslint-disable-next-line no-undef
-      return new RangeIterator(start, end, option, 'bigint', BigInt(0), BigInt(1));
+      /* global BigInt -- safe */
+      return new NumericRangeIterator(start, end, option, 'bigint', BigInt(0), BigInt(1));
     }
   });
 }
@@ -35744,7 +37885,7 @@ var iterate = __webpack_require__(/*! ../internals/iterate */ "./node_modules/co
 // `Map.prototype.merge` method
 // https://github.com/tc39/proposal-collection-methods
 $({ target: 'Map', proto: true, real: true, forced: IS_PURE }, {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
   merge: function merge(iterable /* ...iterbles */) {
     var map = anObject(this);
     var setter = aFunction(map.set);
@@ -36298,13 +38439,13 @@ $({ target: 'Number', stat: true }, {
 "use strict";
 
 var $ = __webpack_require__(/*! ../internals/export */ "./node_modules/core-js/internals/export.js");
-var RangeIterator = __webpack_require__(/*! ../internals/range-iterator */ "./node_modules/core-js/internals/range-iterator.js");
+var NumericRangeIterator = __webpack_require__(/*! ../internals/numeric-range-iterator */ "./node_modules/core-js/internals/numeric-range-iterator.js");
 
 // `Number.range` method
 // https://github.com/tc39/proposal-Number.range
 $({ target: 'Number', stat: true }, {
   range: function range(start, end, option) {
-    return new RangeIterator(start, end, option, 'number', 0, 1);
+    return new NumericRangeIterator(start, end, option, 'number', 0, 1);
   }
 });
 
@@ -37713,22 +39854,89 @@ exportTypedArrayMethod('at', function at(index) {
 
 var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js");
 var $filterOut = __webpack_require__(/*! ../internals/array-iteration */ "./node_modules/core-js/internals/array-iteration.js").filterOut;
-var speciesConstructor = __webpack_require__(/*! ../internals/species-constructor */ "./node_modules/core-js/internals/species-constructor.js");
+var fromSpeciesAndList = __webpack_require__(/*! ../internals/typed-array-from-species-and-list */ "./node_modules/core-js/internals/typed-array-from-species-and-list.js");
 
 var aTypedArray = ArrayBufferViewCore.aTypedArray;
-var aTypedArrayConstructor = ArrayBufferViewCore.aTypedArrayConstructor;
 var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
 
 // `%TypedArray%.prototype.filterOut` method
 // https://github.com/tc39/proposal-array-filtering
 exportTypedArrayMethod('filterOut', function filterOut(callbackfn /* , thisArg */) {
   var list = $filterOut(aTypedArray(this), callbackfn, arguments.length > 1 ? arguments[1] : undefined);
-  var C = speciesConstructor(this, this.constructor);
-  var index = 0;
-  var length = list.length;
-  var result = new (aTypedArrayConstructor(C))(length);
-  while (length > index) result[index] = list[index++];
-  return result;
+  return fromSpeciesAndList(this, list);
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/esnext.typed-array.find-last-index.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/core-js/modules/esnext.typed-array.find-last-index.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js");
+var $findLastIndex = __webpack_require__(/*! ../internals/array-iteration-from-last */ "./node_modules/core-js/internals/array-iteration-from-last.js").findLastIndex;
+
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+
+// `%TypedArray%.prototype.findLastIndex` method
+// https://github.com/tc39/proposal-array-find-from-last
+exportTypedArrayMethod('findLastIndex', function findLastIndex(predicate /* , thisArg */) {
+  return $findLastIndex(aTypedArray(this), predicate, arguments.length > 1 ? arguments[1] : undefined);
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/esnext.typed-array.find-last.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/modules/esnext.typed-array.find-last.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js");
+var $findLast = __webpack_require__(/*! ../internals/array-iteration-from-last */ "./node_modules/core-js/internals/array-iteration-from-last.js").findLast;
+
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+
+// `%TypedArray%.prototype.findLast` method
+// https://github.com/tc39/proposal-array-find-from-last
+exportTypedArrayMethod('findLast', function findLast(predicate /* , thisArg */) {
+  return $findLast(aTypedArray(this), predicate, arguments.length > 1 ? arguments[1] : undefined);
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/core-js/modules/esnext.typed-array.unique-by.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/core-js/modules/esnext.typed-array.unique-by.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var ArrayBufferViewCore = __webpack_require__(/*! ../internals/array-buffer-view-core */ "./node_modules/core-js/internals/array-buffer-view-core.js");
+var arrayUniqueBy = __webpack_require__(/*! ../internals/array-unique-by */ "./node_modules/core-js/internals/array-unique-by.js");
+var fromSpeciesAndList = __webpack_require__(/*! ../internals/typed-array-from-species-and-list */ "./node_modules/core-js/internals/typed-array-from-species-and-list.js");
+
+var aTypedArray = ArrayBufferViewCore.aTypedArray;
+var exportTypedArrayMethod = ArrayBufferViewCore.exportTypedArrayMethod;
+
+// `%TypedArray%.prototype.uniqueBy` method
+// https://github.com/tc39/proposal-array-unique
+exportTypedArrayMethod('uniqueBy', function uniqueBy(resolver) {
+  return fromSpeciesAndList(this, arrayUniqueBy.call(aTypedArray(this), resolver));
 });
 
 
@@ -38068,7 +40276,7 @@ var wrap = function (scheduler) {
     var boundArgs = arguments.length > 2;
     var args = boundArgs ? slice.call(arguments, 2) : undefined;
     return scheduler(boundArgs ? function () {
-      // eslint-disable-next-line no-new-func
+      // eslint-disable-next-line no-new-func -- spec requirement
       (typeof handler == 'function' ? handler : Function(handler)).apply(this, args);
     } : handler, timeout);
   };
@@ -38494,14 +40702,12 @@ var HEX_START = /^(0x|0X)/;
 var OCT = /^[0-7]+$/;
 var DEC = /^\d+$/;
 var HEX = /^[\dA-Fa-f]+$/;
-// eslint-disable-next-line no-control-regex
-var FORBIDDEN_HOST_CODE_POINT = /[\u0000\u0009\u000A\u000D #%/:?@[\\]]/;
-// eslint-disable-next-line no-control-regex
-var FORBIDDEN_HOST_CODE_POINT_EXCLUDING_PERCENT = /[\u0000\u0009\u000A\u000D #/:?@[\\]]/;
-// eslint-disable-next-line no-control-regex
+/* eslint-disable no-control-regex -- safe */
+var FORBIDDEN_HOST_CODE_POINT = /[\u0000\t\u000A\u000D #%/:?@[\\]]/;
+var FORBIDDEN_HOST_CODE_POINT_EXCLUDING_PERCENT = /[\u0000\t\u000A\u000D #/:?@[\\]]/;
 var LEADING_AND_TRAILING_C0_CONTROL_OR_SPACE = /^[\u0000-\u001F ]+|[\u0000-\u001F ]+$/g;
-// eslint-disable-next-line no-control-regex
-var TAB_AND_NEW_LINE = /[\u0009\u000A\u000D]/g;
+var TAB_AND_NEW_LINE = /[\t\u000A\u000D]/g;
+/* eslint-enable no-control-regex -- safe */
 var EOF;
 
 var parseHost = function (url, input) {
@@ -38567,7 +40773,7 @@ var parseIPv4 = function (input) {
   return ipv4;
 };
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements -- TODO
 var parseIPv6 = function (input) {
   var address = [0, 0, 0, 0, 0, 0, 0, 0];
   var pieceIndex = 0;
@@ -38789,7 +40995,7 @@ var CANNOT_BE_A_BASE_URL_PATH = {};
 var QUERY = {};
 var FRAGMENT = {};
 
-// eslint-disable-next-line max-statements
+// eslint-disable-next-line max-statements -- TODO
 var parseURL = function (url, input, stateOverride, base) {
   var state = stateOverride || SCHEME_START;
   var pointer = 0;
@@ -39445,13 +41651,13 @@ if (NativeURL) {
   var nativeRevokeObjectURL = NativeURL.revokeObjectURL;
   // `URL.createObjectURL` method
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
   if (nativeCreateObjectURL) redefine(URLConstructor, 'createObjectURL', function createObjectURL(blob) {
     return nativeCreateObjectURL.apply(NativeURL, arguments);
   });
   // `URL.revokeObjectURL` method
   // https://developer.mozilla.org/en-US/docs/Web/API/URL/revokeObjectURL
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars -- required for `.length`
   if (nativeRevokeObjectURL) redefine(URLConstructor, 'revokeObjectURL', function revokeObjectURL(url) {
     return nativeRevokeObjectURL.apply(NativeURL, arguments);
   });
@@ -39502,6 +41708,22 @@ __webpack_require__(/*! ../modules/esnext.typed-array.filter-out */ "./node_modu
 
 /***/ }),
 
+/***/ "./node_modules/core-js/proposals/array-find-from-last.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/core-js/proposals/array-find-from-last.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-array-find-from-last/
+__webpack_require__(/*! ../modules/esnext.array.find-last */ "./node_modules/core-js/modules/esnext.array.find-last.js");
+__webpack_require__(/*! ../modules/esnext.array.find-last-index */ "./node_modules/core-js/modules/esnext.array.find-last-index.js");
+__webpack_require__(/*! ../modules/esnext.typed-array.find-last */ "./node_modules/core-js/modules/esnext.typed-array.find-last.js");
+__webpack_require__(/*! ../modules/esnext.typed-array.find-last-index */ "./node_modules/core-js/modules/esnext.typed-array.find-last-index.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/proposals/array-is-template-object.js":
 /*!********************************************************************!*\
   !*** ./node_modules/core-js/proposals/array-is-template-object.js ***!
@@ -39537,6 +41759,7 @@ __webpack_require__(/*! ../modules/esnext.array.last-item */ "./node_modules/cor
 // https://github.com/tc39/proposal-array-unique
 __webpack_require__(/*! ../modules/es.map */ "./node_modules/core-js/modules/es.map.js");
 __webpack_require__(/*! ../modules/esnext.array.unique-by */ "./node_modules/core-js/modules/esnext.array.unique-by.js");
+__webpack_require__(/*! ../modules/esnext.typed-array.unique-by */ "./node_modules/core-js/modules/esnext.typed-array.unique-by.js");
 
 
 /***/ }),
@@ -40016,6 +42239,7 @@ module.exports = parent;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ../proposals/array-filtering */ "./node_modules/core-js/proposals/array-filtering.js");
+__webpack_require__(/*! ../proposals/array-find-from-last */ "./node_modules/core-js/proposals/array-find-from-last.js");
 __webpack_require__(/*! ../proposals/array-last */ "./node_modules/core-js/proposals/array-last.js");
 __webpack_require__(/*! ../proposals/array-unique */ "./node_modules/core-js/proposals/array-unique.js");
 __webpack_require__(/*! ../proposals/collection-methods */ "./node_modules/core-js/proposals/collection-methods.js");
@@ -41047,7 +43271,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js */ "./node_modules/core-js/index.js");
 /* harmony import */ var core_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js__WEBPACK_IMPORTED_MODULE_0__);
  // adds almost all polyfills
-// Polyfills for missing browser API's (IE11 and Safari)
+// Polyfills for missing browser APIs (IE11 and Safari)
 // https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md#migrate-to-using-native-intl-apis
 
 if (!Intl.PluralRules) {
