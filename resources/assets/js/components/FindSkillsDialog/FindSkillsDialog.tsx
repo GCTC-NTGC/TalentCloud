@@ -81,14 +81,17 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   // This state controls the search results panes display.
   // If true it will display the default state, otherwise it will show the search results.
   const [firstVisit, setFirstVisit] = useState(true);
-  // This holds the html selector of the element that triggered the search.
-  const searchResultsSource = useRef<{
-    elementSelector: string;
-  }>({ elementSelector: "" });
   // This holds the active skill category's key, which is used for styling purposes.
   const [activeCategory, setActiveCategory] = useState<SkillCategory["key"]>(
     "",
   );
+
+  // NOTE: The following two hooks are useRef instead of useState because they are only used by callback functions;
+  //   We don't want the component to re-render in response to their value changing.
+  // This holds the html selector of the element that triggered the search.
+  const searchResultsSource = useRef<{
+    elementSelector: string;
+  }>({ elementSelector: "" });
   // This is used when manually adjusting tab focus to only focus on top level "menu" items.
   const prevTabbedElement = React.useRef<HTMLElement | null>(null);
 
@@ -194,6 +197,10 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
     searchResultsSource.current = {
       elementSelector: "#skill-search-button",
     };
+    // After doing a search, focus moves to the results pane, but for tabbing purposes we want to pretend these results
+    // are between the search bar and the first Skill Category: tabbing backward should return to the search bar, tabbing
+    // forward should move to the first Skill Category. Accordionly, we can pretend the previous tabbed element was the
+    // search button, which is right between those two elements.
     prevTabbedElement.current = document.getElementById("skill-search-button");
     return Promise.resolve();
   };
@@ -240,6 +247,8 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   ) => void = React.useCallback(
     (event) => {
       if (event.key === "Tab" && dialogRef.current) {
+        // In this dialog, not all focusable elements are meant to be reached via the tab key.
+        // We manually keep track of tabable elements with a `data-tabable` data attribute.
         const tabableElements = Array.from(
           dialogRef.current.querySelectorAll(
             "[data-tabable='true']:not([disabled])",
@@ -259,6 +268,9 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
           event.preventDefault();
           return;
         }
+
+        // Because "non-tabable" may recieve focus, we track the last "tabable" element we were at
+        // with prevTabbedElement, and calculate the next and prev tabable elements in reference to that.
 
         // If prevTabbedElement is null, treat the current index as zero
         const currentTabIndex =
@@ -285,7 +297,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
         event.preventDefault();
       }
     },
-    [prevTabbedElement],
+    [closeAllAccordions],
   );
   React.useEffect(() => {
     if (isDialogVisible) {
@@ -296,6 +308,8 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   }, [isDialogVisible, handleTabableElements]);
 
   React.useEffect(() => {
+    // If user manually focuses on a "legally tabable" element (eg by clicking or other keyboard hotkeys)
+    // update prevTabbedElement.
     const handleFocus = (e: FocusEvent) => {
       if (dialogRef.current) {
         const tabableElements = Array.from(
