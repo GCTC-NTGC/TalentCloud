@@ -91,9 +91,6 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   );
   // This is used when manually adjusting tab focus to only focus on top level "menu" items.
   const prevTabbedElement = React.useRef<HTMLElement | null>(null);
-  const parentSkillCategories: SkillCategory[] = skillCategories.filter(
-    (skillCategory) => !skillCategory.parent_id,
-  );
 
   /**
    * This state is an object which holds a list of all the accordions.
@@ -108,7 +105,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
       () => false,
     ),
     ...mapToObjectTrans(
-      parentSkillCategories,
+      skillCategories.filter((skillCategory) => !skillCategory.parent_id), // Only want parent categories.
       (parentSkillCategory) => parentSkillCategory.key,
       () => false,
     ),
