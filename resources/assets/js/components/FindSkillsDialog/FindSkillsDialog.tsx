@@ -12,6 +12,7 @@ import { focusOnElement } from "../../helpers/forms";
 import { dialogMessages as messages } from "./messages";
 import SkillCategories from "./SkillCategories";
 import SearchResults from "./SearchResults";
+import { mapToObjectTrans } from "../../helpers/queries";
 
 const FIND_SKILLS_DIALOG_ID = "dialog-id-find-skills";
 
@@ -88,29 +89,10 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   const [activeCategory, setActiveCategory] = useState<SkillCategory["key"]>(
     "",
   );
+  // This is used when manually adjusting tab focus to only focus on top level "menu" items.
   const prevTabbedElement = React.useRef<HTMLElement | null>(null);
   const parentSkillCategories: SkillCategory[] = skillCategories.filter(
     (skillCategory) => !skillCategory.parent_id,
-  );
-
-  const skillsAccordionData: { [key: string]: boolean } = skills.reduce(
-    (collection: { [key: string]: boolean }, skill: Skill) => {
-      collection[`skill-${skill.id}`] = false;
-      return collection;
-    },
-    {},
-  );
-  const categoriesAccordionData: {
-    [key: string]: boolean;
-  } = parentSkillCategories.reduce(
-    (
-      collection: { [key: string]: boolean },
-      parentSkillCategory: SkillCategory,
-    ) => {
-      collection[parentSkillCategory.key] = false;
-      return collection;
-    },
-    {},
   );
 
   /**
@@ -119,7 +101,18 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    */
   const [accordionData, setAccordionData] = React.useState<{
     [key: string]: boolean;
-  }>({ ...skillsAccordionData, ...categoriesAccordionData });
+  }>({
+    ...mapToObjectTrans(
+      skills,
+      (skill) => `skill-${skill.id}`,
+      () => false,
+    ),
+    ...mapToObjectTrans(
+      parentSkillCategories,
+      (parentSkillCategory) => parentSkillCategory.key,
+      () => false,
+    ),
+  });
 
   /**
    * By default, this method will toggle the accordion from expanded to collapsed (or vice versa) with the given key.
