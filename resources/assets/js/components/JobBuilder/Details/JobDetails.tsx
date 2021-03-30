@@ -49,13 +49,11 @@ import {
   educationMessages,
   buttonMessages,
 } from "./JobDetailsMessages";
-import { hasKey } from "../../../helpers/queries";
 import { localizeField, getLocale } from "../../../helpers/localize";
 import textToParagraphs from "../../../helpers/textToParagraphs";
 import {
   classificationsExtractKeyValueJsonArray,
   classificationsExtractKeyValueJson,
-  getClassificationKey,
 } from "../../../store/Classification/classificationSelector";
 
 interface JobDetailsProps {
@@ -85,8 +83,8 @@ const remoteWorkMessages = {
 
 type TeleworkOptionType =
   | "teleworkNever"
+  | "teleworkRarely"
   | "teleworkOccasionally"
-  | "teleworkSometimes"
   | "teleworkFrequently"
   | "teleworkAlways";
 
@@ -94,9 +92,9 @@ const teleworkMessages: {
   [key in TeleworkOptionType]: MessageDescriptor;
 } = {
   teleworkNever: frequencyName(FrequencyId.never),
-  teleworkOccasionally: frequencyName(FrequencyId.rarely),
-  teleworkSometimes: frequencyName(FrequencyId.sometimes),
-  teleworkFrequently: frequencyName(FrequencyId.often),
+  teleworkRarely: frequencyName(FrequencyId.rarely),
+  teleworkOccasionally: frequencyName(FrequencyId.occasionally),
+  teleworkFrequently: frequencyName(FrequencyId.frequently),
   teleworkAlways: frequencyName(FrequencyId.always),
 };
 
@@ -106,8 +104,8 @@ const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
 
 type FlexHourOptionType =
   | "flexHoursNever"
+  | "flexHoursRarely"
   | "flexHoursOccasionally"
-  | "flexHoursSometimes"
   | "flexHoursFrequently"
   | "flexHoursAlways";
 
@@ -115,9 +113,9 @@ const flexHourMessages: {
   [key in FlexHourOptionType]: MessageDescriptor;
 } = {
   flexHoursNever: frequencyName(FrequencyId.never),
-  flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
-  flexHoursSometimes: frequencyName(FrequencyId.rarely),
-  flexHoursFrequently: frequencyName(FrequencyId.often),
+  flexHoursRarely: frequencyName(FrequencyId.rarely),
+  flexHoursOccasionally: frequencyName(FrequencyId.occasionally),
+  flexHoursFrequently: frequencyName(FrequencyId.frequently),
   flexHoursAlways: frequencyName(FrequencyId.always),
 };
 const flexHourFrequencies: FlexHourOptionType[] = Object.keys(
@@ -191,16 +189,12 @@ const getEducationMsgForClassification = (
   classifications: Classification[],
   classification: number | string,
   intl: IntlShape,
+  locale: string,
 ): string => {
-  return hasKey(
-    educationMessages,
-    getClassificationKey(classifications, Number(classification)),
-  )
-    ? intl.formatMessage(
-        educationMessages[
-          getClassificationKey(classifications, Number(classification))
-        ],
-      )
+  const classificationObj: Classification | null =
+    classifications.find((item) => item.id === Number(classification)) || null;
+  return classificationObj !== null
+    ? classificationObj.education_requirements[locale]
     : intl.formatMessage(educationMessages.classificationNotFound);
 };
 
@@ -262,6 +256,7 @@ const jobToValues = (
         classifications,
         values.classification,
         intl,
+        locale,
       )
   ) {
     return {
@@ -429,6 +424,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
           classifications,
           values.classification,
           intl,
+          locale,
         );
   };
 
@@ -594,12 +590,12 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                       <div>
                         <ContextBlockItem
                           wrapperMargin="bottom(normal)"
-                          subtext={textToParagraphs(
+                          bodyText={textToParagraphs(
                             getEducationMsgForClassification(
-                              // classificationsExtractKeyValue(classifications),
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             ),
                             {},
                             {
@@ -643,6 +639,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             )}
                           />
                         </div>
@@ -1025,6 +1022,7 @@ export const JobDetails: React.FunctionComponent<JobDetailsProps> = ({
                               classifications,
                               values.classification,
                               intl,
+                              locale,
                             )
                       }
                       termLength={

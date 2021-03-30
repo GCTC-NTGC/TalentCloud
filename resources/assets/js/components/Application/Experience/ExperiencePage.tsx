@@ -11,8 +11,9 @@ import {
 } from "../../../helpers/routes";
 import ProgressBar, { stepNames } from "../ProgressBar/ProgressBar";
 import makeProgressBarSteps from "../ProgressBar/progressHelpers";
-import { ExperienceStep, ExperienceSubmitData } from "./Experience";
+import { ExperienceStep } from "./Experience";
 import {
+  Classification,
   Experience as ExperienceType,
   ExperienceSkill,
 } from "../../../models/types";
@@ -38,6 +39,8 @@ import {
   useJobApplicationSteps,
   useTouchApplicationStep,
 } from "../../../hooks/applicationHooks";
+import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
+import { useLoadClassifications } from "../../../hooks/classificationHooks";
 
 interface ExperiencePageProps {
   applicationId: number;
@@ -57,9 +60,14 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
     skillsLoaded,
   } = useFetchAllApplicationData(applicationId, dispatch);
 
+  const { classifications } = useLoadClassifications(dispatch);
   const application = useApplication(applicationId);
   const jobId = application?.job_poster_id;
   const job = useJob(jobId);
+  const classificationEducationRequirements =
+    classifications.find(
+      (item: Classification) => item.id === job?.classification_id,
+    )?.education_requirements[locale] || null;
   const criteria = useCriteria(jobId);
   const experiences = useExperiences(applicationId, application);
   const experienceSkills = useExperienceSkills(applicationId, application);
@@ -81,27 +89,16 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
   const showLoadingState =
     application === null ||
     job === null ||
+    classifications === null ||
     !experiencesLoaded ||
     !skillsLoaded ||
     !experienceConstantsLoaded;
 
-  const handleSubmit = async (data: ExperienceSubmitData): Promise<void> => {
+  const handleSubmit = async (
+    data: ExperienceSubmitData<ExperienceType>,
+  ): Promise<void> => {
     // extract the Experience object from the data.
-    let experience: ExperienceType | null = null;
-    if ("experienceWork" in data) {
-      experience = data.experienceWork;
-    } else if ("experienceAward" in data) {
-      experience = data.experienceAward;
-    } else if ("experienceCommunity" in data) {
-      experience = data.experienceCommunity;
-    } else if ("experienceEducation" in data) {
-      experience = data.experienceEducation;
-    } else if ("experiencePersonal" in data) {
-      experience = data.experiencePersonal;
-    }
-    if (experience === null) {
-      return;
-    }
+    const { experience } = data;
 
     const newLinkedSkills = [
       ...data.savedRequiredSkills,
@@ -241,8 +238,10 @@ export const ExperiencePage: React.FC<ExperiencePageProps> = ({
           criteria={criteria}
           skills={skills}
           jobId={job.id}
-          jobClassificationId={job.classification_id}
           jobEducationRequirements={localizeField(locale, job, "education")}
+          classificationEducationRequirements={
+            classificationEducationRequirements
+          }
           recipientTypes={awardRecipientTypes}
           recognitionTypes={awardRecognitionTypes}
           handleSubmitExperience={handleSubmit}

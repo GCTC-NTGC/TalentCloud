@@ -33,7 +33,7 @@ class Resource extends Model
     }
 
     /**
-     * The model's attibutes that admin cannot change.
+     * The model's attributes that admin cannot change.
      *
      * @var array
      */

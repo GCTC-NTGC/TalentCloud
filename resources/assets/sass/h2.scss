@@ -8,3 +8,10 @@
   $hover-bg-color: #5ea8e4
 );
 @use "../../../node_modules/@hydrogen-design-system/system/dist/import/latest/system.scss";
+
+// TODO: Move this to new file?
+$focus-color: #5b1647 !default;
+.search-result-checkbox input:focus + span  {
+  box-shadow: -1px -1px 0 $focus-color, 0 -1px 0 $focus-color, 1px -1px 0 $focus-color, 1px 0 0 $focus-color, 1px 1px 0 $focus-color, 0 1px 0 $focus-color, -1px 1px 0 $focus-color, -1px 0 0 $focus-color;
+  outline: none;
+}

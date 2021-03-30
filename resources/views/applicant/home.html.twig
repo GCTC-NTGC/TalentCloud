@@ -1,17 +1,10 @@
-{# =============================================================================
-
-    Talent Cloud
-    Applicant: Home
-
-============================================================================= #}
+{# Page Layout #}
 {% extends "layouts/base" %}
-{% block title %}
-	{{ home.home_title }}
-{% endblock %}
+{# Page Title #}
+{% block title %}{{ home.home_title }}{% endblock %}
+{# Page Content #}
 {% block body %}
 	<div data-clone>
-		{% include "common/goc" %}
-		{% include "common/alert" %}
 		<div
 			data-c-background="white(100)">
 			{# Home Heading ================================================= #}

@@ -1,9 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
-import { number, boolean, select } from "@storybook/addon-knobs";
+import { number, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { useIntl } from "react-intl";
 import WorkExperienceModal from "../../components/Application/ExperienceModals/WorkExperienceModal";
 import {
   fakeExperienceWork,
@@ -22,9 +21,8 @@ import EducationExperienceModal from "../../components/Application/ExperienceMod
 import CommunityExperienceModal from "../../components/Application/ExperienceModals/CommunityExperienceModal";
 import PersonalExperienceModal from "../../components/Application/ExperienceModals/PersonalExperienceModal";
 import AwardExperienceModal from "../../components/Application/ExperienceModals/AwardExperienceModal";
-import { ClassificationId } from "../../models/lookupConstants";
-import { mapToObject } from "../../helpers/queries";
-import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
+import fakeJob from "../../fakeData/fakeJob";
 
 const stories = storiesOf("Application/Experience Modals", module).addDecorator(
   withIntl,
@@ -129,7 +127,7 @@ export const recipientTypes = [
   { id: 3, name: { en: "My Project", fr: "Mon projet" } },
   { id: 4, name: { en: "My Organization", fr: "Mon organization" } },
 ];
-export const recogntitionTypes = [
+export const recognitionTypes = [
   { id: 1, name: { en: "International", fr: "International" } },
   { id: 2, name: { en: "National", fr: "National" } },
   { id: 3, name: { en: "Provincial", fr: "Provincial" } },
@@ -145,17 +143,6 @@ export const recogntitionTypes = [
   },
 ];
 
-const classificationOptions = mapToObject(
-  Object.keys(ClassificationId),
-  (x) => x,
-);
-
-const jobClassification = select(
-  "Job Classification",
-  classificationOptions,
-  "CS",
-  groupIds.details,
-);
 stories.add(
   "Work Experience Modal",
   (): React.ReactElement => {
@@ -176,9 +163,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -217,9 +204,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -258,9 +245,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -297,9 +284,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -336,9 +323,9 @@ stories.add(
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -371,15 +358,15 @@ stories.add(
             modalId="award-experience-modal"
             experienceAward={fakeExperienceAward()}
             recipientTypes={recipientTypes}
-            recognitionTypes={recogntitionTypes}
+            recognitionTypes={recognitionTypes}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"
@@ -412,15 +399,15 @@ stories.add(
             modalId="award-new-experience-modal"
             experienceAward={null}
             recipientTypes={recipientTypes}
-            recognitionTypes={recogntitionTypes}
+            recognitionTypes={recognitionTypes}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
             optionalSkills={optionalSkills}
             savedOptionalSkills={[optionalSkills[0]]}
-            jobClassification={jobClassification}
+            classificationEducationRequirements={fakeJob().education.en}
             jobEducationRequirements={
-              educationMessages[jobClassification].defaultMessage
+              fakeClassification1().education_requirements.en
             }
             experienceableId={1}
             experienceableType="application"

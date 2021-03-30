@@ -26,7 +26,7 @@ return [
         "null_work_copy" => "You don't currently have any equivalent experiences on your profile! Use the button above to add some.",
     ],
 
-    //TODO: move modals to under a ViewComposer's responsability
+    //TODO: move modals to under a ViewComposer's responsibility
     "modals" => [
         "delete_degree" => [
             "type" => "deleteConfirmation",

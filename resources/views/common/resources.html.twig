@@ -3,8 +3,6 @@
     {{ portal == 'manager' ? resources_template.manager_title : resources_template.hr_title }}
 {% endblock %}
 {% block body %}
-    {% include "common/goc" %}
-    {% include "common/alert" %}
     <div data-clone>
         {# Header #}
         <div data-c-overlay="black(80)" style="background-image: url('{{ asset("/images/bg_crowd.jpg") }}');">

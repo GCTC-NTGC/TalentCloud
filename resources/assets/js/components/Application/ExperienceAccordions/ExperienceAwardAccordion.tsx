@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { accordionMessages } from "../applicationMessages";
 import { getLocale, localizeFieldNonNull } from "../../../helpers/localize";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import { ExperienceAward, ExperienceSkill, Skill } from "../../../models/types";
 import {
   ApplicationExperienceAccordion,
@@ -84,7 +84,7 @@ const ExperienceAwardDetails: React.FC<{
             {intl.formatMessage(accordionMessages.awardDateLabel)}
           </p>
           {awardedDate ? (
-            <p>{readableDate(locale, awardedDate)}</p>
+            <p>{readableDateFromString(locale, awardedDate)}</p>
           ) : (
             notApplicable
           )}
@@ -99,8 +99,7 @@ interface ProfileAwardAccordionProps {
   relevantSkills: ExperienceSkill[];
   skillsById: { [id: number]: Skill };
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
-  handleEditSkill: (experienceSkillId: number) => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement>) => void;
 }
 
 export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
@@ -109,7 +108,6 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
   skillsById,
   handleDelete,
   handleEdit,
-  handleEditSkill,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
@@ -120,7 +118,7 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
     b: (value) => <span data-c-font-weight="bold">{value}</span>,
   });
   const subtitle = intl.formatMessage(accordionMessages.awardSubheading, {
-    date: readableDate(locale, experience.awarded_date),
+    date: readableDateFromString(locale, experience.awarded_date),
   });
   return (
     <ProfileExperienceAccordion
@@ -132,7 +130,6 @@ export const ProfileAwardAccordion: React.FC<ProfileAwardAccordionProps> = ({
       skillsById={skillsById}
       handleDelete={handleDelete}
       handleEdit={handleEdit}
-      handleEditSkill={handleEditSkill}
     >
       <ExperienceAwardDetails experience={experience} />
     </ProfileExperienceAccordion>
@@ -147,7 +144,7 @@ interface ExperienceAwardAccordionProps {
   showSkillDetails: boolean;
   showButtons: boolean;
   handleDelete: () => Promise<void>;
-  handleEdit: () => void;
+  handleEdit: (triggerRef: React.RefObject<HTMLButtonElement> | null) => void;
 }
 
 export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> = ({
@@ -169,7 +166,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
     b: (value) => <span data-c-font-weight="bold">{value}</span>,
   });
   const subtitle = intl.formatMessage(accordionMessages.awardSubheading, {
-    date: readableDate(locale, experience.awarded_date),
+    date: readableDateFromString(locale, experience.awarded_date),
   });
   return (
     <ApplicationExperienceAccordion

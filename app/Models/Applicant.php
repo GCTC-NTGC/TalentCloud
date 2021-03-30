@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\TalentCloudCrudTrait as CrudTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class Applicant
@@ -40,6 +41,8 @@ use App\Traits\TalentCloudCrudTrait as CrudTrait;
  * @property \Illuminate\Database\Eloquent\Collection $experiences_education
  * @property \Illuminate\Database\Eloquent\Collection $experiences_award
  * @property \Illuminate\Database\Eloquent\Collection $experiences_community
+ *
+ * @method \Illuminate\Database\Query\Builder experienceSkillsQuery
  */
 class Applicant extends BaseModel
 {
@@ -169,5 +172,29 @@ class Applicant extends BaseModel
     {
         return $this->morphMany(\App\Models\ExperienceCommunity::class, 'experienceable')
             ->orderBy('end_date', 'desc');
+    }
+
+    /**
+     * Returns a Laravel QueryBuilder object which will retrieve all ExperienceSkills
+     * which are linked to this Applicant, through this Applicant's Experiences.
+     *
+     * It returns the query builder object instead of the results of the query, so that additional
+     * clauses can be added by other code.
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function experienceSkillsQuery()
+    {
+        $applicantId = $this->id;
+        return ExperienceSkill::whereHasMorph(
+            'experience',
+            '*',
+            function (Builder $query) use ($applicantId): void {
+                $query->where([
+                    ['experienceable_type', 'applicant'],
+                    ['experienceable_id', $applicantId]
+                ]);
+            }
+        );
     }
 }

@@ -72,6 +72,256 @@
   {
     "descriptors": [
       {
+        "defaultMessage": "<b>No skills:</b> It seems you have not added any skills yet. You can create experiences now, but this section works best when you have some skills on your profile. <a>Click here to add skills.</a>",
+        "description": "Alert that appears when there are no skills yet attached to profile.",
+        "id": "profile.experience.noSkills"
+      },
+      {
+        "defaultMessage": "Use the buttons below to add experiences you want to share with the manager. Experiences you have added in the past also appear below, and you can edit them to link them to skills required for this job when necessary.",
+        "description": "First section of text on the experience step of the Application Timeline.",
+        "id": "profile.experience.preamble"
+      },
+      {
+        "defaultMessage": "Looks like you don't have any experience added yet. Use the buttons above to add experience. Don't forget that experience will always be saved to your profile so that you can use it on future applications!",
+        "description": "Message displayed when application has no experiences.",
+        "id": "profile.experience.noExperiences"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileExperience.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Describe how you used this skill:",
+        "description": "Label for the 'How did you use this skill?' field.",
+        "id": "profile.experience.skillSubform.justificationLabel"
+      },
+      {
+        "defaultMessage": "How did you use this skill...",
+        "description": "Placeholder text for the 'How did you use this skill?' field.",
+        "id": "profile.experience.skillSubform.justificationPlaceholder"
+      },
+      {
+        "defaultMessage": "Connect your Skills to this Experience",
+        "description": "Subtitle of Connect-to-skills section.",
+        "id": "profile.experience.skillSubform.connectSubtitle"
+      },
+      {
+        "defaultMessage": "Add any skills below that you learned or used in this experience. Hiring Managers see a lot of applicant profiles and you will need to set yourself apart if you want new job opportunities. You can do this by answering the following questions for each of the skills you add. This is the most important part of your profile if you're hoping a manager will find you.",
+        "description": "Explanation for Connect-to-skills section.",
+        "id": "profile.experience.skillSubform.connectDescription"
+      },
+      {
+        "defaultMessage": "What did you accomplish, create or deliver using this skill?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question1"
+      },
+      {
+        "defaultMessage": "What tasks or activities did you do that relate to this skill?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question2"
+      },
+      {
+        "defaultMessage": "Were there any special techniques or approaches that you used?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question3"
+      },
+      {
+        "defaultMessage": "How much responsibility did you have in this role?",
+        "description": "A question the user should answer when connecting a Skill to Experience.",
+        "id": "profile.experience.skillSubform.question4"
+      },
+      {
+        "defaultMessage": "Select all that apply:",
+        "description": "The label at the top of the group of skill checkboxes",
+        "id": "profile.experience.skillSubform.fieldsetLegend"
+      },
+      {
+        "defaultMessage": "Add some skills to your profile first.",
+        "description": "Message to show in skills checkbox when there are no skills to select from.",
+        "id": "profile.experience.skillSubform.noSkills"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Experience/ProfileSkillSubform.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{startDate} - {endDate}",
+        "description": "Shows the date range for the title bar (assuming activity has an end date).",
+        "id": "applicantProfile.experienceDetails.dateRange"
+      },
+      {
+        "defaultMessage": "{startDate} - Current",
+        "description": "Shows the date range for the title bar (assuming activity is ongoing).",
+        "id": "applicantProfile.experienceDetails.dateRangeCurrent"
+      },
+      {
+        "defaultMessage": "Details of this Experience",
+        "description": "Subtitle of the details section.",
+        "id": "applicantProfile.experienceDetails.detailsTitle"
+      },
+      {
+        "defaultMessage": "N/A",
+        "description": "Used for any un-set fields in experience dialogs.",
+        "id": "applicantProfile.experienceDetails.notApplicable"
+      },
+      {
+        "defaultMessage": "Type of Experience:",
+        "id": "applicantProfile.experienceDetails.experienceTypeLabel"
+      },
+      {
+        "defaultMessage": "Start Date:",
+        "id": "applicantProfile.experienceDetails.startDateLabel"
+      },
+      {
+        "defaultMessage": "End Date:",
+        "id": "applicantProfile.experienceDetails.endDateLabel"
+      },
+      {
+        "defaultMessage": "Ongoing",
+        "id": "applicantProfile.experienceDetails.ongoing"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {institution}",
+        "description": "Heading of Award Experience dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.awardHeading"
+      },
+      {
+        "defaultMessage": "Awarded on: {date}",
+        "description": "Shows the awarded date in the dialog title bar.",
+        "id": "applicantProfile.experienceDetails.awardSubheading"
+      },
+      {
+        "defaultMessage": "Award Experience",
+        "id": "applicantProfile.experienceDetails.awardType"
+      },
+      {
+        "defaultMessage": "Award Title:",
+        "id": "applicantProfile.experienceDetails.awardTitleLabel"
+      },
+      {
+        "defaultMessage": "Awarded to:",
+        "id": "applicantProfile.experienceDetails.awardRecipientLabel"
+      },
+      {
+        "defaultMessage": "Issuing Organization / Institution:",
+        "id": "applicantProfile.experienceDetails.awardIssuerLabel"
+      },
+      {
+        "defaultMessage": "Award Eligibility / Scope:",
+        "id": "applicantProfile.experienceDetails.awardScopeLabel"
+      },
+      {
+        "defaultMessage": "Date Awarded:",
+        "id": "applicantProfile.experienceDetails.awardDateLabel"
+      },
+      {
+        "defaultMessage": "<b>{title}</b> - {group}",
+        "description": "Title of Community Experience dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.communityHeading"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "id": "applicantProfile.experienceDetails.communityType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "applicantProfile.experienceDetails.communityRoleLabel"
+      },
+      {
+        "defaultMessage": "Group / Organization / Community:",
+        "id": "applicantProfile.experienceDetails.communityOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Project / Product:",
+        "id": "applicantProfile.experienceDetails.communityProjectLabel"
+      },
+      {
+        "defaultMessage": "<b>{educationType} in {areaOfStudy}</b> - {institution}",
+        "description": "Title of education dialog (this is the visible text when dialog is closed).",
+        "id": "applicantProfile.experienceDetails.educationHeading"
+      },
+      {
+        "defaultMessage": "Education",
+        "id": "applicantProfile.experienceDetails.educationType"
+      },
+      {
+        "defaultMessage": "Type of Education:",
+        "id": "applicantProfile.experienceDetails.educationTypeLabel"
+      },
+      {
+        "defaultMessage": "Area of Study:",
+        "id": "applicantProfile.experienceDetails.educationAreaOfStudyLabel"
+      },
+      {
+        "defaultMessage": "Institution:",
+        "id": "applicantProfile.experienceDetails.educationInstitutionLabel"
+      },
+      {
+        "defaultMessage": "Status:",
+        "id": "applicantProfile.experienceDetails.educationStatusLabel"
+      },
+      {
+        "defaultMessage": "Thesis Title:",
+        "id": "applicantProfile.experienceDetails.educationThesisLabel"
+      },
+      {
+        "defaultMessage": "Blockcert Link:",
+        "id": "applicantProfile.experienceDetails.educationBlockcertLabel"
+      },
+      {
+        "defaultMessage": "Yes, I have a Blockcert and can provide it on request.",
+        "id": "applicantProfile.experienceDetails.educationHasBlockcert"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "id": "applicantProfile.experienceDetails.personalType"
+      },
+      {
+        "defaultMessage": "Title of Experience:",
+        "id": "applicantProfile.experienceDetails.personalTitleLabel"
+      },
+      {
+        "defaultMessage": "Description:",
+        "id": "applicantProfile.experienceDetails.personalDescriptionLabel"
+      },
+      {
+        "defaultMessage": "Consent to Share:",
+        "id": "applicantProfile.experienceDetails.personalShareLabel"
+      },
+      {
+        "defaultMessage": "Sharing Approved",
+        "description": "Text shown when user has consented to share this experience.",
+        "id": "applicantProfile.experienceDetails.personalShareAllowed"
+      },
+      {
+        "defaultMessage": "Sharing Restricted",
+        "description": "Text shown when user has NOT consented to share this experience.",
+        "id": "applicantProfile.experienceDetails.personalShareDenied"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "id": "applicantProfile.experienceDetails.workType"
+      },
+      {
+        "defaultMessage": "Role / Job Title:",
+        "id": "applicantProfile.experienceDetails.workRoleLabel"
+      },
+      {
+        "defaultMessage": "Organization / Company:",
+        "id": "applicantProfile.experienceDetails.workOrganizationLabel"
+      },
+      {
+        "defaultMessage": "Team / Group:",
+        "id": "applicantProfile.experienceDetails.workTeamLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/ExperienceDetails/detailsMessages.json"
+  },
+  {
+    "descriptors": [
+      {
         "defaultMessage": "Cancel",
         "description": "Cancel button text",
         "id": "profileExperience.skillExperienceModal.cancel"
@@ -93,6 +343,175 @@
       }
     ],
     "path": "resources/assets/js/components/ApplicantProfile/ProfileExperience.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "{experienceCount, plural, =0 {No Experiences} one {1 Experience} other {{experienceCount} Experiences}}",
+        "description": "Subheading that displays the count of experiences on each accordion.",
+        "id": "applicantProfile.skills.accordion.experiencesLabel"
+      },
+      {
+        "defaultMessage": "Go to {link} section to add context to how you have used this skill.",
+        "description": "Text for accordion when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiences"
+      },
+      {
+        "defaultMessage": "My Experience",
+        "description": "Link text when no experiences within accordion.",
+        "id": "applicantProfile.skills.accordion.missingExperiencesLinkText"
+      },
+      {
+        "defaultMessage": "Remove Skill",
+        "description": "Text for the button to remove a skill on each accordion.",
+        "id": "applicantProfile.skills.accordion.skillRemoveLabel"
+      },
+      {
+        "defaultMessage": "Remove Skill",
+        "description": "Text for title of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogTitle"
+      },
+      {
+        "defaultMessage": "WARNING!",
+        "description": "Text for heading of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogHeading"
+      },
+      {
+        "defaultMessage": "This skill is linked to one or more experiences. Deleting this skill from your profile will also remove it from your experiences.",
+        "description": "First section of text for content of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogParagraph1"
+      },
+      {
+        "defaultMessage": "Are you sure you want to remove this skill from your profile?",
+        "description": "Second section of text for content of dialog to remove a skill.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogParagraph2"
+      },
+      {
+        "defaultMessage": "Remove this skill from my profile",
+        "description": "Text for the button to confirm removal of a skill within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogActionConfirm"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "description": "Text for the button to cancel removal of a skill within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillRemoveDialogActionCancel"
+      },
+      {
+        "defaultMessage": "Education",
+        "description": "Type of experience: Education Experience.",
+        "id": "applicantProfile.skills.accordion.educationExperienceTitle"
+      },
+      {
+        "defaultMessage": "Work Experience",
+        "description": "Type of experience: Work Experience.",
+        "id": "applicantProfile.skills.accordion.workExperienceTitle"
+      },
+      {
+        "defaultMessage": "Community Experience",
+        "description": "Type of experience: Community Experience.",
+        "id": "applicantProfile.skills.accordion.communityExperienceTitle"
+      },
+      {
+        "defaultMessage": "Personal Experience",
+        "description": "Type of experience: Personal Experience.",
+        "id": "applicantProfile.skills.accordion.personalExperienceTitle"
+      },
+      {
+        "defaultMessage": "Award",
+        "description": "Type of experience: Award Experience.",
+        "id": "applicantProfile.skills.accordion.awardExperienceTitle"
+      },
+      {
+        "defaultMessage": "Details of this experience",
+        "description": "Text for heading of dialog to edit a skill.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogHeading"
+      },
+      {
+        "defaultMessage": "Edit this experience",
+        "description": "Text for the button to edit an experience on profile within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogActionEdit"
+      },
+      {
+        "defaultMessage": "Close",
+        "description": "Text for the button to close dialog within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogActionClose"
+      },
+      {
+        "defaultMessage": "How I used {skillName}{locationExists, plural, =0 {} one { at {locationTitle}}}:",
+        "description": "Text for the justification title within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationTitle"
+      },
+      {
+        "defaultMessage": "You haven't written an explanation of how you used this skill during this experience.",
+        "description": "Text for missing justification within the Dialog.",
+        "id": "applicantProfile.skills.accordion.skillExperienceDialogJustificationMissing"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/Accordion.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Group",
+        "description": "Text for the 'Group' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.group"
+      },
+      {
+        "defaultMessage": "A-Z",
+        "description": "Text for the 'A-Z' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.alpha"
+      },
+      {
+        "defaultMessage": "Journey",
+        "description": "Text for the 'Journey' option on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.journey"
+      },
+      {
+        "defaultMessage": "Sort By:",
+        "description": "Text for the label on the sort toggle UI.",
+        "id": "applicantProfile.skills.list.sortBy"
+      },
+      {
+        "defaultMessage": "You haven't yet added any skills in this group.",
+        "description": "Text to show when user has no skills in a given category.",
+        "id": "applicantProfile.skills.list.categoryEmpty"
+      },
+      {
+        "defaultMessage": "Other",
+        "description": "Heading for skills not grouped under any SkillCategory.",
+        "id": "applicantProfile.skills.list.categoryOther"
+      },
+      {
+        "defaultMessage": "You haven't yet added any skills.",
+        "description": "Text to show when user has no skills.",
+        "id": "applicantProfile.skills.list.skillsEmpty"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/List.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Your Skills",
+        "id": "profileSkillsPage.heading"
+      },
+      {
+        "defaultMessage": "This is your library of skills. Managers will try to match their needs to these skills when searching for talent, or after you apply for a job. Use the Add Skills button to start building your library of skills.",
+        "description": "Appears at the top of the Profile Skills page, explaining the purpose of the page.",
+        "id": "profileSkillsPage.preamble"
+      },
+      {
+        "defaultMessage": "Find and Add Skills",
+        "description": "Section title accompanying the button that opens the Explore Skills modal.",
+        "id": "profileSkillsPage.addSkills.subtitle"
+      },
+      {
+        "defaultMessage": "Explore the government's most sought after skills, find the ones that apply to you, and add them to your profile.",
+        "description": "Text accompanying the button that opens the Explore Skills modal.",
+        "id": "profileSkillsPage.addSkills.explanation"
+      }
+    ],
+    "path": "resources/assets/js/components/ApplicantProfile/Skills/ProfileSkillsPage.json"
   },
   {
     "descriptors": [
@@ -387,6 +806,11 @@
         "id": "application.experience.errorRenderingExperience"
       },
       {
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "description": "List of soft skills that will be evaluated later.",
+        "id": "application.experience.softSkillsList"
+      },
+      {
         "defaultMessage": "UNKNOWN CLASSIFICATION",
         "description": "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
         "id": "application.education.missingClassification"
@@ -617,11 +1041,6 @@
         "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
-        "description": "List of soft skills that will be evaluated later.",
-        "id": "application.experience.softSkillsList"
-      },
-      {
         "defaultMessage": "To continue, please connect the following required skill(s) to an experience:",
         "description": "Error message displayed to user when experience step validation fails",
         "id": "application.experience.errorMessage"
@@ -697,15 +1116,6 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Edit Skill",
-        "id": "application.experienceAccordion.editExperienceSkill"
-      },
-      {
-        "defaultMessage": "Skills for this Job",
-        "description": "Subtitle of the skills section.",
-        "id": "application.experienceAccordion.skillsTitle"
-      },
-      {
         "defaultMessage": "There {skillCount, plural, one {is <b>#</b> other unrelated skill} other {are <b>#</b> other unrelated skills}} attached to this experience. You can see {skillCount, plural, one {it} other {them}} on your profile.",
         "description": "Say how many skills unrelated to this job are associated with this experience.",
         "id": "application.experienceAccordion.irrelevantSkillCount"
@@ -722,7 +1132,7 @@
       {
         "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
         "description": "Explanation of what it means that this experience meets an education requirement.",
-        "id": "application.experienceAccordion.educationRequirmentDescription"
+        "id": "application.experienceAccordion.educationRequirementDescription"
       },
       {
         "defaultMessage": "Delete Experience",
@@ -1218,7 +1628,7 @@
         "id": "application.intro.firstParagraph"
       },
       {
-        "defaultMessage": "We'll start by asking you about your experiences, varying across academia, work, community, and more. Once we have an understanding of your history, we'll ask you to explain how those experiences relate to the skills needed for this position.",
+        "defaultMessage": "We'll start by asking you about your experiences, varying across academia, work, community, and more.",
         "description": "Bullet point about the beginning of the application process.",
         "id": "application.intro.firstBullet"
       },
@@ -1324,6 +1734,11 @@
         "defaultMessage": "You haven't set a communication language preference in your profile yet.",
         "description": "Text displayed if a user has not yet selected a communication preference in their profile.",
         "id": "application.review.communication.notSet"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Text displayed before skill level.",
+        "id": "application.review.requiredSkillLabel"
       },
       {
         "defaultMessage": "Basic Information",
@@ -1592,6 +2007,16 @@
         "defaultMessage": "Confirm Removal",
         "description": "Button text for confirming the confirmation modal.",
         "id": "application.skills.confirmButtonText"
+      },
+      {
+        "defaultMessage": "Skills for this Job",
+        "description": "Subtitle of the skills section in Experience accordion on Application.",
+        "id": "application.skills.applicationSectionTitle"
+      },
+      {
+        "defaultMessage": "My Skills",
+        "description": "Subtitle of the skills section in Experience accordion on Profile.",
+        "id": "application.skills.profileSectionTitle"
       }
     ],
     "path": "resources/assets/js/components/Application/Skills/SkillsMessages.json"
@@ -1929,12 +2354,12 @@
         "id": "review.applications.applicationsBeforeClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n              =0 {Closes Today}\n            one {# Day Since Close}\n          other {# Days Since Close}\n        }",
+        "defaultMessage": "{dayCount, plural,\r\n              =0 {Closes Today}\r\n            one {# Day Since Close}\r\n          other {# Days Since Close}\r\n        }",
         "description": "Shows the number of days after the job closed.",
         "id": "job.daysAfterClosed"
       },
       {
-        "defaultMessage": "{dayCount, plural,\n            one {# Day}\n          other {# Days}\n          } Until Close",
+        "defaultMessage": "{dayCount, plural,\r\n            one {# Day}\r\n          other {# Days}\r\n          } Until Close",
         "description": "Shows the number of days before the job closes.",
         "id": "job.daysBeforeClosed"
       }
@@ -2472,9 +2897,168 @@
         "defaultMessage": "Something went wrong!",
         "description": "Title displayed on the Error Toast component.",
         "id": "errorToast.title"
+      },
+      {
+        "defaultMessage": "Dismiss",
+        "description": "Label for the Error Toast dismiss button.",
+        "id": "errorToast.dismiss"
       }
     ],
     "path": "resources/assets/js/components/ErrorToast.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Skills",
+        "id": "findSkillsModal.triggerLabel"
+      },
+      {
+        "defaultMessage": "Find and add skills",
+        "id": "findSkillsModal.modalHeading"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "findSkillsModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Skills",
+        "id": "findSkillsModal.save"
+      },
+      {
+        "defaultMessage": "Search for skills by name:",
+        "id": "findSkillsModal.searchBarInputLabel"
+      },
+      {
+        "defaultMessage": "eg. User interface design.",
+        "id": "findSkillsModal.searchBarInputPlaceholder"
+      },
+      {
+        "defaultMessage": "Search Skills",
+        "id": "findSkillsModal.searchBarButtonLabel"
+      },
+      {
+        "defaultMessage": "There are {numOfSkills} results for skills related to \"{searchQuery}\".",
+        "id": "findSkillsModal.searchResultsTitle"
+      },
+      {
+        "defaultMessage": "{category} Skills",
+        "id": "findSkillsModal.skills"
+      },
+      {
+        "defaultMessage": "There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in {category} category.",
+        "id": "findSkillsModal.numOfCategorySkills"
+      },
+      {
+        "defaultMessage": "Click to view {category} skills category. There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in this category.",
+        "id": "findSkillsModal.childCategoryButtonAriaLabel"
+      },
+      {
+        "defaultMessage": "Explore Categories",
+        "id": "findSkillsModal.skillsResultsHeading"
+      },
+      {
+        "defaultMessage": "Click on the categories on the left to explore skills. Only select the skills that you have experience with.",
+        "id": "findSkillsModal.skillResultsSubHeading"
+      },
+      {
+        "defaultMessage": "No skills available.",
+        "id": "findSkillsModal.noSkills"
+      },
+      {
+        "defaultMessage": "Back",
+        "id": "findSkillsModal.backButton"
+      },
+      {
+        "defaultMessage": "Already Added",
+        "id": "findSkillsModal.disabledSkillButton"
+      },
+      {
+        "defaultMessage": "Select {skill}",
+        "id": "findSkillsModal.selectSkillButton"
+      },
+      {
+        "defaultMessage": "Remove {skill}",
+        "id": "findSkillsModal.removeSkillButton"
+      },
+      {
+        "defaultMessage": "{numOfSkills} skill has been added. Select the save skills button, to save them to your profile.",
+        "id": "findSkillsModal.numOfSkillsAdded"
+      }
+    ],
+    "path": "resources/assets/js/components/FindSkillsDialog/messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Skills",
+        "id": "findSkillsModal.triggerLabel"
+      },
+      {
+        "defaultMessage": "Find and add skills",
+        "id": "findSkillsModal.modalHeading"
+      },
+      {
+        "defaultMessage": "Click to view...",
+        "id": "findSkillsModal.accordionButtonLabel"
+      },
+      {
+        "defaultMessage": "Explore Categories",
+        "id": "findSkillsModal.skillsResultsHeading"
+      },
+      {
+        "defaultMessage": "Click on the categories on the left to explore skills. Only select the skills that you have experience with.",
+        "id": "findSkillsModal.skillResultsSubHeading"
+      },
+      {
+        "defaultMessage": "Skills",
+        "id": "findSkillsModal.skills"
+      },
+      {
+        "defaultMessage": "No skills available.",
+        "id": "findSkillsModal.noSkills"
+      },
+      {
+        "defaultMessage": "Back",
+        "id": "findSkillsModal.backButton"
+      },
+      {
+        "defaultMessage": "Already Added",
+        "id": "findSkillsModal.disabledSkillButton"
+      },
+      {
+        "defaultMessage": "Select",
+        "id": "findSkillsModal.selectSkillButton"
+      },
+      {
+        "defaultMessage": "Remove",
+        "id": "findSkillsModal.removeSkillButton"
+      },
+      {
+        "defaultMessage": "Cancel",
+        "id": "findSkillsModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Skills",
+        "id": "findSkillsModal.save"
+      },
+      {
+        "defaultMessage": "There are {numOfSkills} results for skills related to \"{searchQuery}\".",
+        "id": "findSkillsModal.searchResultsTitle"
+      },
+      {
+        "defaultMessage": "Search for skills by name:",
+        "id": "findSkillsModal.searchBarInputLabel"
+      },
+      {
+        "defaultMessage": "eg. User interface design.",
+        "id": "findSkillsModal.searchBarInputPlaceholder"
+      },
+      {
+        "defaultMessage": "Search Skills",
+        "id": "findSkillsModal.searchBarButtonLabel"
+      }
+    ],
+    "path": "resources/assets/js/components/FindSkillsModal.json"
   },
   {
     "descriptors": [
@@ -2535,6 +3119,16 @@
       }
     ],
     "path": "resources/assets/js/components/Form/Messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Click to view...",
+        "description": " Accessibility text for the accordion expand button.",
+        "id": "hydrogen.accordion.expand"
+      }
+    ],
+    "path": "resources/assets/js/components/H2Components/Accordion.json"
   },
   {
     "descriptors": [
@@ -2917,81 +3511,6 @@
         "defaultMessage": "Paste the paragraph here to edit...",
         "description": "The placeholder displayed in 'customize education requirement' textbox",
         "id": "jobBuilder.details.educationRequirementPlaceholder"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.AS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in a natural, physical or applied science with specialization in a field relevant to the duties of the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.BI"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CO"
-      },
-      {
-        "defaultMessage": "2 years of secondary school, or equivalent:\nSuccessful completion of at least two years of secondary school education.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year secondary school requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CR"
-      },
-      {
-        "defaultMessage": "2 years post-secondary, or equivalent:\nSuccessful completion of two years of post-secondary education in computer science, information technology, information management or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the 2 year post-secondary requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.CS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.\n\nCandidates must always have a degree. The courses for the specialization must be acceptable and may have been taken at a recognized post-secondary institution, but not necessarily within a degree program in the required specialization. The specialization may also be obtained through an acceptable combination of education, training and/or experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nPost-secondary degree, or eligibility for a recognized professional designation in one of the provinces or territories of Canada.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EX"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nGraduation with a degree in forestry or wood science from a recognized post-secondary institution.\n\nor\n\nEquivalent experience:\nGraduation with a degree in a related science from a recognized post-secondary institution combined with acceptable experience.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.FO"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.IS"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of a post-secondary degree with specialization in physics, geology, chemistry or some other science relevant to the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PC"
-      },
-      {
-        "defaultMessage": "Post-secondary degree, or equivalent:\nSuccessful completion of a post-secondary degree with specialization in human resources management, labour or industrial relations, psychology, public or business administration, organizational development, education sciences, social sciences, sociology, or another specialty relevant to this position.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the post-secondary degree requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum post-secondary education stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PE"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.PM"
-      },
-      {
-        "defaultMessage": "Secondary school diploma, or equivalent:\nSuccessful completion of a secondary school diploma.\n\nor\n\nEquivalent experience:\nIf you have on-the-job learning or other non-conventional training that you believe is equivalent to the secondary school diploma requirement, put it forward for consideration. The manager may accept a combination of education, training and/or experience in a related field as an alternative to the minimum secondary school diploma stated above.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.AD"
-      },
-      {
-        "defaultMessage": "Post-secondary degree:\nSuccessful completion of post-secondary degree in mechanical engineering, civil engineering, electrical engineering, aeronautical engineering, geological engineering, naval architecture or some other engineering specialty relevant to the duties of the position.",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.EN-ENG"
-      },
-      {
-        "defaultMessage": "For FI-01 positions only:\n\n    Successful completion of two years of a post-secondary program with specialization in accounting, finance, business administration, commerce or economics; or\n    Possession of the Government of Canada Financial Management Certificate.\n\n    For FI-02 or above:\n    Successful completion of post-secondary degree with specialization in accounting, finance, business administration, commerce or economics AND experience related to positions in the Financial Management Group;\n\n    or\n\n    Eligibility for a recognized professional accounting designation. The recognized professional accounting designations are Chartered Professional Accountant (CPA), Chartered Accountant (CA), Certified Management Accountant (CMA), Certified General Accountant (CGA)",
-        "description": "Job Classification message from list of Classifications",
-        "id": "jobBuilder.details.educationMessages.FI"
       },
       {
         "defaultMessage": "Classification not found.",
@@ -3687,7 +4206,7 @@
         "id": "jobBuilder.review.reviewYourPoster"
       },
       {
-        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\n            understand how an applicant will see it once published.",
+        "defaultMessage": "Just a heads up! We've rearranged some of your information to help you\r\n            understand how an applicant will see it once published.",
         "description": "Description under primary title of review section",
         "id": "jobBuilder.review.headsUp"
       },
@@ -4912,51 +5431,11 @@
     "descriptors": [
       {
         "defaultMessage": "Search",
-        "description": "The label displayed for the search input field.",
-        "id": "searchBar.search.label"
-      },
-      {
-        "defaultMessage": "eg. Enter a value.",
-        "description": "The placeholder displayed for the search input field.",
-        "id": "searchBar.search.placeholder"
-      },
-      {
-        "defaultMessage": "Search",
         "description": "The placeholder displayed for the search button text.",
         "id": "searchBar.search.buttonText"
       }
     ],
     "path": "resources/assets/js/components/SearchBar.json"
-  },
-  {
-    "descriptors": [
-      {
-        "defaultMessage": "Results",
-        "description": "The message displayed before the number of results returned.",
-        "id": "results.title"
-      },
-      {
-        "defaultMessage": "Nothing found",
-        "description": "The message displayed if no results returned.",
-        "id": "results.empty"
-      },
-      {
-        "defaultMessage": "Click to view...",
-        "description": "The message displayed to expand the accordion.",
-        "id": "results.accordion.expand"
-      },
-      {
-        "defaultMessage": "Add",
-        "description": "The label for the add button.",
-        "id": "results.accordion.add"
-      },
-      {
-        "defaultMessage": "Added!",
-        "description": "The message displayed if skill added.",
-        "id": "results.accordion.added"
-      }
-    ],
-    "path": "resources/assets/js/components/SearchResults.json"
   },
   {
     "descriptors": [
@@ -5374,7 +5853,7 @@
       },
       {
         "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
-        "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+        "description": "Standard evaluation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
         "id": "assessmentType.narrativeReview.standardAnswer"
       },
       {
@@ -5431,55 +5910,55 @@
       },
       {
         "defaultMessage": "Alb.",
-        "id": "province.ab.abreviation"
+        "id": "province.ab.abbreviation"
       },
       {
         "defaultMessage": "B.C.",
-        "id": "province.bc.abreviation"
+        "id": "province.bc.abbreviation"
       },
       {
         "defaultMessage": "Man.",
-        "id": "province.mb.abreviation"
+        "id": "province.mb.abbreviation"
       },
       {
         "defaultMessage": "N.L.",
-        "id": "province.nl.abreviation"
+        "id": "province.nl.abbreviation"
       },
       {
         "defaultMessage": "N.B.",
-        "id": "province.nb.abreviation"
+        "id": "province.nb.abbreviation"
       },
       {
         "defaultMessage": "N.S.",
-        "id": "province.ns.abreviation"
+        "id": "province.ns.abbreviation"
       },
       {
         "defaultMessage": "Nvt.",
-        "id": "province.nu.abreviation"
+        "id": "province.nu.abbreviation"
       },
       {
         "defaultMessage": "N.W.T.",
-        "id": "province.nt.abreviation"
+        "id": "province.nt.abbreviation"
       },
       {
         "defaultMessage": "Ont.",
-        "id": "province.on.abreviation"
+        "id": "province.on.abbreviation"
       },
       {
         "defaultMessage": "P.E.I.",
-        "id": "province.pe.abreviation"
+        "id": "province.pe.abbreviation"
       },
       {
         "defaultMessage": "Que.",
-        "id": "province.qc.abreviation"
+        "id": "province.qc.abbreviation"
       },
       {
         "defaultMessage": "Sask.",
-        "id": "province.sk.abreviation"
+        "id": "province.sk.abbreviation"
       },
       {
         "defaultMessage": "Y.T.",
-        "id": "province.yk.abreviation"
+        "id": "province.yk.abbreviation"
       },
       {
         "defaultMessage": "Reliability",
@@ -5542,19 +6021,14 @@
         "id": "languageRequirement.context.expanded"
       },
       {
-        "defaultMessage": "Almost Always",
-        "description": "The form label displayed on 'always' frequency options.",
-        "id": "jobBuilder.details.frequencyAlwaysLabel"
+        "defaultMessage": "Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobBuilder.details.frequencyNeverLabel"
       },
       {
-        "defaultMessage": "Frequently",
-        "description": "The form label displayed on 'frequently' frequency options.",
-        "id": "jobBuilder.details.frequencyFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Sometimes",
-        "description": "The form label displayed on 'sometimes' frequency options.",
-        "id": "jobBuilder.details.frequencySometimesLabel"
+        "defaultMessage": "Rarely",
+        "description": "The form label displayed on 'rarely' frequency options.",
+        "id": "jobBuilder.details.frequencyRarelyLabel"
       },
       {
         "defaultMessage": "Occasionally",
@@ -5562,9 +6036,14 @@
         "id": "jobBuilder.details.frequencyOccasionallyLabel"
       },
       {
-        "defaultMessage": "Never",
-        "description": "The form label displayed on 'never' frequency options.",
-        "id": "jobBuilder.details.frequencyNeverLabel"
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobBuilder.details.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobBuilder.details.frequencyAlwaysLabel"
       },
       {
         "defaultMessage": "Yes, overtime is frequently required for the position.",

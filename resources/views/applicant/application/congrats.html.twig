@@ -9,7 +9,7 @@
 {% set header = application_template %}
 {% set application_template = application_template.complete %}
 {# Default Page Layout #}
-{% extends "layouts/base-test" %}
+{% extends "layouts/base" %}
 {# HTML Page Title #}
 {% block title %}
 	{{ application_template.complete_step_title }}
@@ -47,11 +47,11 @@
                             <ul data-c-color="c1">
                                 {# Link to email or new feedback form if it's ready
                                 for the launch of the application form. #}
-                                <li><a href="{{ config('mail.admin_address') }}" title="{{ application_template.submit_feedback_link_title }}">{{ application_template.submit_feedback_link_label }}</a></li>
+                                <li><a href="mailto:{{ config('mail.admin_address') }}" title="{{ application_template.submit_feedback_link_title }}">{{ application_template.submit_feedback_link_label }}</a></li>
                                 {# Link to the user's profile. #}
-                                <li><a href="{{ route('profile.about.edit', applicant.id) }}" title="{{ application_template.update_profile_link.title }}">{{ application_template.update_profile_link.text }}</a></li>
+                                <li><a href="{{ route('profile') }}" title="{{ application_template.update_profile_link.title }}">{{ application_template.update_profile_link.text }}</a></li>
                                 {# Link to the browse jobs page. #}
-                                <li><a href="{{ asset("/jobs") }}" title="{{ application_template.browse_jobs_title }}">{{ application_template.browse_jobs_label }}</a></li>
+                                <li><a href="{{ route('jobs.index') }}" title="{{ application_template.browse_jobs_title }}">{{ application_template.browse_jobs_label }}</a></li>
                                 {# Link to the FAQ. #}
                                 <li><a href="{{ route('faq') }}#applicants" title="{{ application_template.faq_link_label }}">{{ application_template.faq_link_label }}</a></li>
                             </ul>

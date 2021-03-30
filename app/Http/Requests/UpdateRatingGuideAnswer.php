@@ -30,7 +30,7 @@ class UpdateRatingGuideAnswer extends FormRequest
     public function rules()
     {
         return [
-            // RatingGuideQUestionId shouldn't be updated after creation
+            // RatingGuideQuestionId shouldn't be updated after creation
             // 'rating_guide_question_id' => ['required', new RatingGuideQuestionRule()],
             'criterion_id' => ['nullable', new ValidIdRule(Criteria::class)],
             'expected_answer' => 'nullable|string',

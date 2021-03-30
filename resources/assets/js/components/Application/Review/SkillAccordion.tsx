@@ -3,7 +3,7 @@ import { useIntl, IntlShape, defineMessages } from "react-intl";
 import { Experience, Skill, ExperienceSkill } from "../../../models/types";
 import { accordionMessages } from "../applicationMessages";
 import { getJustificationOfExperience } from "../helpers";
-import { readableDate } from "../../../helpers/dates";
+import { readableDateFromString } from "../../../helpers/dates";
 import {
   Locales,
   localizeFieldNonNull,
@@ -49,7 +49,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
   let endDateOrNa;
   if ("end_date" in experience) {
     endDateOrNa = experience.end_date ? (
-      <p>{readableDate(locale, experience.end_date)}</p>
+      <p>{readableDateFromString(locale, experience.end_date)}</p>
     ) : (
       notApplicable
     );
@@ -74,7 +74,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
             data-c-font-size="small"
           >
             {intl.formatMessage(accordionMessages.awardSubheading, {
-              date: readableDate(locale, experience.awarded_date),
+              date: readableDateFromString(locale, experience.awarded_date),
             })}
           </p>
           {justification ? (
@@ -165,7 +165,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 {intl.formatMessage(accordionMessages.awardDateLabel)}
               </p>
               {experience.awarded_date ? (
-                <p>{readableDate(locale, experience.awarded_date)}</p>
+                <p>{readableDateFromString(locale, experience.awarded_date)}</p>
               ) : (
                 notApplicable
               )}
@@ -184,13 +184,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
               b: (value) => <span data-c-font-weight="bold">{value}</span>,
             })}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -251,7 +253,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 {intl.formatMessage(accordionMessages.startDateLabel)}
               </p>
               {experience.start_date ? (
-                <p>{readableDate(locale, experience.start_date)}</p>
+                <p>{readableDateFromString(locale, experience.start_date)}</p>
               ) : (
                 notApplicable
               )}
@@ -285,13 +287,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
               b: (value) => <span data-c-font-weight="bold">{value}</span>,
             })}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -380,7 +384,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 {intl.formatMessage(accordionMessages.startDateLabel)}
               </p>
               {experience.start_date ? (
-                <p>{readableDate(locale, experience.start_date)}</p>
+                <p>{readableDateFromString(locale, experience.start_date)}</p>
               ) : (
                 { notApplicable }
               )}
@@ -427,13 +431,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
           <p data-c-color="c2" data-c-margin="top(2)">
             <span data-c-font-weight="bold">{experience.title}</span>
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -514,7 +520,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 {intl.formatMessage(accordionMessages.startDateLabel)}
               </p>
               {experience.start_date ? (
-                <p>{readableDate(locale, experience.start_date)}</p>
+                <p>{readableDateFromString(locale, experience.start_date)}</p>
               ) : (
                 notApplicable
               )}
@@ -540,13 +546,15 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
             <span data-c-font-weight="bold">{experience.title}</span> -{" "}
             {experience.organization}
           </p>
-          {titleBarDateRange(
-            experience.start_date,
-            experience.end_date,
-            experience.is_active,
-            intl,
-            locale,
-          )}
+          <p>
+            {titleBarDateRange(
+              experience.start_date,
+              experience.end_date,
+              experience.is_active,
+              intl,
+              locale,
+            )}
+          </p>
           {justification ? (
             <p data-c-font-style="italic" data-c-margin="bottom(1) top(1)">
               {justification}
@@ -609,7 +617,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 {intl.formatMessage(accordionMessages.startDateLabel)}
               </p>
               {experience.start_date ? (
-                <p>{readableDate(locale, experience.start_date)}</p>
+                <p>{readableDateFromString(locale, experience.start_date)}</p>
               ) : (
                 notApplicable
               )}
@@ -622,7 +630,7 @@ const ExperienceContent: React.FC<ExperienceContentProps> = ({
                 <p>{intl.formatMessage(accordionMessages.ongoing)}</p>
               )}
               {!experience.is_active && experience.end_date ? (
-                <p>{readableDate(locale, experience.end_date)}</p>
+                <p>{readableDateFromString(locale, experience.end_date)}</p>
               ) : (
                 notApplicable
               )}

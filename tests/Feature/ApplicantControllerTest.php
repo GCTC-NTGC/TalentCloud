@@ -51,11 +51,14 @@ class ApplicantControllerTest extends TestCase
         $applicant = factory(Applicant::class)->create();
         $applicant->applicant_classifications()->delete(); // Start with empty list.
 
+        $classificationCS = Classification::where('key', 'CS')->firstOrFail()->id;
+        $classificationPM = Classification::where('key', 'PM')->firstOrFail()->id;
+
         // Ensure that submitting applicant classifications creates new elements.
         $newApplicantClassification = [
             'id' => 0,
             'applicant_id' => $applicant->id,
-            'classification_id' => Classification::inRandomOrder()->first()->id,
+            'classification_id' => $classificationCS,
             'level' => 5,
             'order' => 1,
         ];
@@ -89,7 +92,7 @@ class ApplicantControllerTest extends TestCase
         $newApplicantClassification = array_replace(
             $newApplicantClassification,
             [
-                'classification_id' => $oldApplicantClassification['classification_id'] + 1,
+                'classification_id' => $classificationPM,
                 'level' => $newApplicantClassification['level'] + 1,
             ]
         );

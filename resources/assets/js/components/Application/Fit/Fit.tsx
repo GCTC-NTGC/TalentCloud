@@ -56,7 +56,7 @@ export const Fit: React.FunctionComponent<FitProps> = ({
       Array.from(refMap.entries()).some((ref) => {
         const [questionId, formRef] = ref;
         if (!formRef.current.isValid) {
-          focusOnElement(`answer-${questionId}`);
+          focusOnElement(`#answer-${questionId}`);
           return true;
         }
         return false;

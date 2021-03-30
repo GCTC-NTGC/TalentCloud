@@ -135,14 +135,14 @@ Route::group(
                         ->middleware('can:view,application')
                         ->name('applications.show');
 
-                    Route::get('applications/{jobApplication}/edit', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/edit', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline');
-                    Route::get('applications/{jobApplication}/next', 'ApplicationTimelineController@complete')
-                        ->middleware('can:view,jobApplication')
+                    Route::get('applications/{application}/next', 'ApplicationTimelineController@complete')
+                        ->middleware('can:view,application')
                         ->name('applications.timeline.next');
-                    Route::get('applications/{jobApplication}/{step}', 'ApplicationTimelineController@show')
-                        ->middleware('can:update,jobApplication')
+                    Route::get('applications/{application}/{step}', 'ApplicationTimelineController@show')
+                        ->middleware('can:update,application')
                         ->name('applications.timeline.step');
 
 
@@ -190,33 +190,34 @@ Route::group(
                     Route::get('profile', 'ApplicantProfileController@editAuthenticated')->name('profile');
                     Route::get('profile/about', 'ApplicantProfileController@editAuthenticated');
 
-                    /* Profile - About Me */
-                    Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
-                        ->middleware('can:view,applicant')
-                        ->middleware('can:update,applicant')
-                        ->name('profile.about.edit');
-
                     /* Profile - My Experience */
                     Route::get('profile/experience', 'ExperienceController@editAuthenticated');
-
                     Route::get('profile/{applicant}/experience', 'ExperienceController@edit')
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.experience.edit');
 
-                    Route::post('profile/{applicant}/experience/update', 'ExperienceController@update')
-                        ->middleware('can:update,applicant')
-                        ->name('profile.experience.update');
-
                     /* Profile - My Skills */
-                    Route::get('profile/skills', 'SkillDeclarationController@editAuthenticated');
-
-                    Route::get('profile/{applicant}/skills', 'SkillDeclarationController@edit')
+                    Route::get('profile/skills', 'ApplicantSkillsController@editAuthenticated');
+                    Route::get('profile/{applicant}/skills', 'ApplicantSkillsController@edit')
                         ->middleware('can:view,applicant')
                         ->middleware('can:update,applicant')
                         ->name('profile.skills.edit');
 
-                    /* Profile - My References */
+                    /* Profile - About Me (archived) */
+                    Route::get('profile/{applicant}/about', 'ApplicantProfileController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.about.edit');
+
+                    /* Profile - My Skills Declarations (archived) */
+                    Route::get('profile/skills-old', 'SkillDeclarationController@editAuthenticated');
+                    Route::get('profile/{applicant}/skills-old', 'SkillDeclarationController@edit')
+                        ->middleware('can:view,applicant')
+                        ->middleware('can:update,applicant')
+                        ->name('profile.skills-old.edit');
+
+                    /* Profile - My References  (archived) */
                     Route::get('profile/references', 'ReferencesController@editAuthenticated');
 
                     Route::get('profile/{applicant}/references', 'ReferencesController@edit')
@@ -224,7 +225,7 @@ Route::group(
                         ->middleware('can:update,applicant')
                         ->name('profile.references.edit');
 
-                    /* Profile - My Portfolio */
+                    /* Profile - My Portfolio (archived) */
                     Route::get('profile/portfolio', 'WorkSamplesController@editAuthenticated');
 
                     Route::get('profile/{applicant}/portfolio', 'WorkSamplesController@edit')
@@ -867,7 +868,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->name('jobs.setJobStatus');
     Route::resource('jobs', 'Api\JobController')->only([
         'show', 'store', 'update', 'index'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collided with existing routes.
         'show' => 'jobs.show',
         'store' => 'jobs.store',
         'update' => 'jobs.update',
@@ -896,7 +897,7 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
 
     Route::resource('managers', 'Api\ManagerController')->only([
         'show', 'update'
-    ])->names([ // Specify custom names because default names collied with existing routes.
+    ])->names([ // Specify custom names because default names collided with existing routes.
         'show' => 'managers.show',
         'update' => 'managers.update'
     ]);
@@ -959,6 +960,15 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:update,applicant')
         ->name('applicant.experience-community.store');
 
+    Route::get('applicants/{applicant}/skills', 'Api\ApplicantSkillsController@index')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.skills.index');
+    Route::put('applicants/{applicant}/skills', 'Api\ApplicantSkillsController@update')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:update,applicant')
+        ->name('applicant.skills.update');
+
     Route::put('experience-work/{work}', 'Api\ExperienceController@updateWork')
         ->where('work', '[0-9]+')
         ->middleware('can:update,work')
@@ -1001,6 +1011,10 @@ Route::prefix('api/v1')->name('api.v1.')->group(function (): void {
         ->middleware('can:delete,community')
         ->name('experience-community.destroy');
 
+    Route::get('applicants/{applicant}/experience-skills', 'Api\ExperienceSkillsController@indexForApplicant')
+        ->where('applicant', '[0-9]+')
+        ->middleware('can:view,applicant')
+        ->name('applicant.experience-skill.index');
     Route::post('experience-skills', 'Api\ExperienceSkillsController@store')
         ->middleware('can:create,App\Models\ExperienceSkill')
         ->name('experience-skill.store');

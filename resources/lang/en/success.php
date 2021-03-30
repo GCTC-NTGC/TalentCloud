@@ -8,7 +8,7 @@
 |
 */
 return [
-    'title' => 'All good in the hood.',
+    'title' => 'All good.',
     'update_personal' => 'Change of personal information was successful.',
     'update_password' => 'Change of password was successful.',
     'update_government' => 'Change of government email address was successful.',

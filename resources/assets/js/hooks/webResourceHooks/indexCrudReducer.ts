@@ -30,7 +30,7 @@ export enum ActionTypes {
 export type IndexStartAction = { type: ActionTypes.IndexStart };
 export type IndexFulfillAction<T> = {
   type: ActionTypes.IndexFulfill;
-  payload: T[];
+  payload: { item: T; key: string | number }[];
 };
 export type IndexRejectAction = {
   type: ActionTypes.IndexReject;
@@ -43,7 +43,7 @@ export type CreateStartAction<T> = {
 };
 export type CreateFulfillAction<T> = {
   type: ActionTypes.CreateFulfill;
-  payload: T;
+  payload: { item: T; key: string | number };
   meta: { item: T };
 };
 export type CreateRejectAction<T> = {
@@ -54,31 +54,31 @@ export type CreateRejectAction<T> = {
 
 export type UpdateStartAction<T> = {
   type: ActionTypes.UpdateStart;
-  meta: { id: number; item: T };
+  meta: { key: string | number; item: T };
 };
 export type UpdateFulfillAction<T> = {
   type: ActionTypes.UpdateFulfill;
   payload: T;
-  meta: { id: number; item: T };
+  meta: { key: string | number; item: T };
 };
 export type UpdateRejectAction<T> = {
   type: ActionTypes.UpdateReject;
   payload: Error | FetchError;
-  meta: { id: number; item: T };
+  meta: { key: string | number; item: T };
 };
 
 export type DeleteStartAction = {
   type: ActionTypes.DeleteStart;
-  meta: { id: number };
+  meta: { key: string | number };
 };
 export type DeleteFulfillAction = {
   type: ActionTypes.DeleteFulfill;
-  meta: { id: number };
+  meta: { key: string | number };
 };
 export type DeleteRejectAction = {
   type: ActionTypes.DeleteReject;
   payload: Error | FetchError;
-  meta: { id: number };
+  meta: { key: string | number };
 };
 export type AsyncAction<T> =
   | IndexStartAction
@@ -99,6 +99,7 @@ export interface ResourceState<T> {
     status: ResourceStatus;
     pendingCount: number;
     error: Error | FetchError | undefined;
+    initialRefreshFinished: boolean;
   };
   createMeta: {
     status: ResourceStatus;
@@ -106,7 +107,7 @@ export interface ResourceState<T> {
     error: Error | FetchError | undefined; // Only stores the most recent error;
   };
   values: {
-    [id: string]: {
+    [key: string]: {
       value: T;
       error: Error | FetchError | undefined;
       status: ResourceStatus;
@@ -115,51 +116,57 @@ export interface ResourceState<T> {
   };
 }
 
-export function initializeState<T extends { id: number }>(
-  items: T[],
+export function initializeState<T>(
+  items: { item: T; key: string | number }[],
+  doInitialRefresh = true,
 ): ResourceState<T> {
   return {
     indexMeta: {
       status: "initial",
       pendingCount: 0,
       error: undefined,
+      initialRefreshFinished: !doInitialRefresh,
     },
     createMeta: {
       status: "initial",
       pendingCount: 0,
       error: undefined,
     },
-    values: mapToObjectTrans(items, getId, (item) => ({
-      value: item,
-      error: undefined,
-      status: "initial",
-      pendingCount: 0,
-    })),
+    values: mapToObjectTrans(
+      items,
+      (x) => x.key,
+      (x) => ({
+        value: x.item,
+        error: undefined,
+        status: "initial",
+        pendingCount: 0,
+      }),
+    ),
   };
 }
 
 type StateValues<T> = ResourceState<T>["values"];
 
-function mergeIndexItem<T extends { id: number }>(
+function mergeIndexItem<T>(
   values: StateValues<T>,
-  item: T,
+  { item, key }: { item: T; key: string | number },
 ): StateValues<T> {
-  if (hasKey(values, item.id)) {
+  if (hasKey(values, key)) {
     // We leave the pending count as is, in case an update or delete is in progress for this item.
     // We do overwrite errors, and set status to "fulfilled" if it was "initial" or "rejected"
     return {
       ...values,
-      [item.id]: {
-        ...values[item.id],
+      [key]: {
+        ...values[key],
         value: item,
-        status: values[item.id].status === "pending" ? "pending" : "fulfilled",
+        status: values[key].status === "pending" ? "pending" : "fulfilled",
         error: undefined,
       },
     };
   }
   return {
     ...values,
-    [item.id]: {
+    [key]: {
       value: item,
       error: undefined,
       status: "fulfilled",
@@ -176,48 +183,46 @@ function mergeIndexItem<T extends { id: number }>(
  * @param values
  * @param payload
  */
-function mergeIndexPayload<T extends { id: number }>(
+function mergeIndexPayload<T>(
   values: StateValues<T>,
-  payload: T[],
+  payload: { item: T; key: string | number }[],
 ): StateValues<T> {
   // Update or create a values entry for each item in the payload.
   const newValues = payload.reduce(mergeIndexItem, values);
   // Delete any values entries that don't exist in the new payload.
-  const payloadIds = payload.map(getId);
-  return filterObjectProps(newValues, (item) =>
-    payloadIds.includes(item.value.id),
-  );
+  const payloadKeys = payload.map((x) => String(x.key)); // If x.key is a number, cast it to a string so it can be compared to key in filterObjectProps
+  return filterObjectProps(newValues, (_, key) => payloadKeys.includes(key));
 }
 
 /**
  * Updates values in response to CREATE FULFILLED action.
  * - Adds the new item to values, with "fulfilled" status.
- * - Note: If newly created item has the same id as an existing item, update that item instead.
+ * - Note: If newly created item has the same key as an existing item, update that item instead.
  *    This should never happen during normal interaction with a REST api.
  * @param values
  * @param payload
  */
-function mergeCreatePayload<T extends { id: number }>(
+function mergeCreatePayload<T>(
   values: StateValues<T>,
-  payload: T,
+  payload: { item: T; key: string | number },
 ): StateValues<T> {
-  if (hasKey(values, payload.id)) {
+  if (hasKey(values, payload.key)) {
     // It doesn't really make sense for the result of a create request to already exist...
     // But we have to trust the latest response from the server. Update the existing item.
     return {
       ...values,
-      [payload.id]: {
-        value: payload,
-        status: values[payload.id].pendingCount <= 1 ? "fulfilled" : "pending",
-        pendingCount: decrement(values[payload.id].pendingCount),
+      [payload.key]: {
+        value: payload.item,
+        status: values[payload.key].pendingCount <= 1 ? "fulfilled" : "pending",
+        pendingCount: decrement(values[payload.key].pendingCount),
         error: undefined,
       },
     };
   }
   return {
     ...values,
-    [payload.id]: {
-      value: payload,
+    [payload.key]: {
+      value: payload.item,
       error: undefined,
       status: "fulfilled",
       pendingCount: 0,
@@ -232,23 +237,23 @@ function mergeCreatePayload<T extends { id: number }>(
  * @param values
  * @param action
  */
-function mergeUpdateStart<T extends { id: number }>(
+function mergeUpdateStart<T>(
   values: StateValues<T>,
   action: UpdateStartAction<T>,
 ): StateValues<T> {
-  if (!hasKey(values, action.meta.id)) {
+  if (!hasKey(values, action.meta.key)) {
     // Do not update values. We don't want to create a new value in case the request fails and it doesn't represent anything on the server.
     // NOTE: if we move to optimistic updates, we should add to values here.
     return values;
   }
   return {
     ...values,
-    [action.meta.id]: {
+    [action.meta.key]: {
       // TODO: if we wanted to do an optimistic update, we could save action.payload.item here.
       // But we would need some way to reverse it if it failed.
-      ...values[action.meta.id],
+      ...values[action.meta.key],
       status: "pending",
-      pendingCount: values[action.meta.id].pendingCount + 1,
+      pendingCount: values[action.meta.key].pendingCount + 1,
       error: undefined,
     },
   };
@@ -259,15 +264,15 @@ function mergeUpdateStart<T extends { id: number }>(
  * @param values
  * @param action
  */
-function mergeUpdateFulfill<T extends { id: number }>(
+function mergeUpdateFulfill<T>(
   values: StateValues<T>,
   action: UpdateFulfillAction<T>,
 ): StateValues<T> {
-  if (!hasKey(values, action.meta.id)) {
+  if (!hasKey(values, action.meta.key)) {
     // Even though it didn't exist in local state yet, if the server says it exists, it exists.
     return {
       ...values,
-      [action.meta.id]: {
+      [action.meta.key]: {
         value: action.payload,
         status: "fulfilled",
         pendingCount: 0,
@@ -277,11 +282,11 @@ function mergeUpdateFulfill<T extends { id: number }>(
   }
   return {
     ...values,
-    [action.meta.id]: {
+    [action.meta.key]: {
       value: action.payload,
       status:
-        values[action.meta.id].pendingCount <= 1 ? "fulfilled" : "pending",
-      pendingCount: decrement(values[action.meta.id].pendingCount),
+        values[action.meta.key].pendingCount <= 1 ? "fulfilled" : "pending",
+      pendingCount: decrement(values[action.meta.key].pendingCount),
       error: undefined,
     },
   };
@@ -291,23 +296,24 @@ function mergeUpdateFulfill<T extends { id: number }>(
  * - DOES NOT throw error if item does exist, unlike other update mergeUpdate functions.
  *   UPDATE REJECTED action already represents a graceful response to an error.
  *   There is no relevant metadata to update, and nowhere to store the error, so return state as is.
- * - Otherwise updates metdata for item and overwrites error with payload.f
+ * - Otherwise updates metadata for item and overwrites error with payload.f
  * @param values
  * @param action
  */
-function mergeUpdateReject<T extends { id: number }>(
+function mergeUpdateReject<T>(
   values: StateValues<T>,
   action: UpdateRejectAction<T>,
 ): StateValues<T> {
-  if (!hasKey(values, action.meta.id)) {
+  if (!hasKey(values, action.meta.key)) {
     return values;
   }
   return {
     ...values,
-    [action.meta.id]: {
-      ...values[action.meta.id],
-      status: values[action.meta.id].pendingCount <= 1 ? "rejected" : "pending",
-      pendingCount: decrement(values[action.meta.id].pendingCount),
+    [action.meta.key]: {
+      ...values[action.meta.key],
+      status:
+        values[action.meta.key].pendingCount <= 1 ? "rejected" : "pending",
+      pendingCount: decrement(values[action.meta.key].pendingCount),
       error: action.payload,
     },
   };
@@ -316,23 +322,23 @@ function mergeUpdateReject<T extends { id: number }>(
  * Updates values in response to DELETE START action.
  * Updates metadata for item if it exists.
  *
- * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg multiple queued DELETE requests) that could cause this.
  * @param values
  * @param action
  */
-function mergeDeleteStart<T extends { id: number }>(
+function mergeDeleteStart<T>(
   values: StateValues<T>,
   action: DeleteStartAction,
 ): StateValues<T> {
-  if (!hasKey(values, action.meta.id)) {
+  if (!hasKey(values, action.meta.key)) {
     return values;
   }
   return {
     ...values,
-    [action.meta.id]: {
-      ...values[action.meta.id],
+    [action.meta.key]: {
+      ...values[action.meta.key],
       status: "pending",
-      pendingCount: values[action.meta.id].pendingCount + 1,
+      pendingCount: values[action.meta.key].pendingCount + 1,
       error: undefined,
     },
   };
@@ -348,34 +354,35 @@ function mergeDeleteStart<T extends { id: number }>(
  * @param values
  * @param action
  */
-function mergeDeleteFulfill<T extends { id: number }>(
+function mergeDeleteFulfill<T>(
   values: StateValues<T>,
   action: DeleteFulfillAction,
 ): StateValues<T> {
-  return deleteProperty(values, action.meta.id);
+  return deleteProperty(values, action.meta.key);
 }
 
 /**
  * Updates values in response to DELETE REJECTED action.
  * Updates metadata for item if it exists.
  *
- * Does not throw an error if item does not exist, as there are plausible scenarios (eg mupliple queued DELETE requests) that could cause this.
+ * Does not throw an error if item does not exist, as there are plausible scenarios (eg multiple queued DELETE requests) that could cause this.
  * @param values
  * @param action
  */
-function mergeDeleteReject<T extends { id: number }>(
+function mergeDeleteReject<T>(
   values: StateValues<T>,
   action: DeleteRejectAction,
 ): StateValues<T> {
-  if (!hasKey(values, action.meta.id)) {
+  if (!hasKey(values, action.meta.key)) {
     return values;
   }
   return {
     ...values,
-    [action.meta.id]: {
-      ...values[action.meta.id],
-      status: values[action.meta.id].pendingCount <= 1 ? "rejected" : "pending",
-      pendingCount: decrement(values[action.meta.id].pendingCount),
+    [action.meta.key]: {
+      ...values[action.meta.key],
+      status:
+        values[action.meta.key].pendingCount <= 1 ? "rejected" : "pending",
+      pendingCount: decrement(values[action.meta.key].pendingCount),
       error: action.payload,
     },
   };
@@ -408,7 +415,7 @@ function mergeDeleteReject<T extends { id: number }>(
  *     - "fulfilled" if the last completed request succeeded and no other request is in progress
  *     - "rejected" if the last completed request failed and no other request is in progress
  *   - pendingCount: stores the number of requests in progress. This helps account for the possibility of multiple requests being started in succession, and means one request could finish and the resource still be considered "pending".
- *   - error: stores the last error recieved from a REJECTED action. Overwritten with undefined if a later request is STARTed or FULFILLED.
+ *   - error: stores the last error received from a REJECTED action. Overwritten with undefined if a later request is STARTed or FULFILLED.
  *
  * Notes about item values:
  *   - Its possible to include items in the initial state and then not begin any requests, in which case there will be existing values with the "initial" status.
@@ -416,7 +423,7 @@ function mergeDeleteReject<T extends { id: number }>(
  * @param state
  * @param action
  */
-export function reducer<T extends { id: number }>(
+export function reducer<T>(
   state: ResourceState<T>,
   action: AsyncAction<T>,
 ): ResourceState<T> {
@@ -439,6 +446,7 @@ export function reducer<T extends { id: number }>(
           status: state.indexMeta.pendingCount <= 1 ? "fulfilled" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: undefined,
+          initialRefreshFinished: true,
         },
         values: mergeIndexPayload(state.values, action.payload),
       };
@@ -450,6 +458,7 @@ export function reducer<T extends { id: number }>(
           status: state.indexMeta.pendingCount <= 1 ? "rejected" : "pending",
           pendingCount: decrement(state.indexMeta.pendingCount),
           error: action.payload,
+          initialRefreshFinished: true,
         },
       };
     case ActionTypes.CreateStart:

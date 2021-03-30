@@ -11,7 +11,6 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField, FormikProps } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { useDispatch } from "react-redux";
 import {
   ExperienceSkill,
   Skill,
@@ -32,7 +31,11 @@ import AlertWhenUnsaved from "../../Form/AlertWhenUnsaved";
 import TextAreaInput from "../../Form/TextAreaInput";
 import WordCounter from "../../WordCounter/WordCounter";
 import { countNumberOfWords } from "../../WordCounter/helpers";
-import { navigationMessages, skillMessages } from "../applicationMessages";
+import {
+  experienceMessages,
+  navigationMessages,
+  skillMessages,
+} from "../applicationMessages";
 import displayMessages from "./skillsMessages";
 import {
   getSkillOfCriteria,
@@ -51,19 +54,22 @@ import {
   validateAllForms,
   submitAllForms,
   focusOnElement,
+  getFocusableElements,
 } from "../../../helpers/forms";
 import {
   find,
   getId,
   mapToObjectTrans,
   notEmpty,
+  removeDuplicatesById,
 } from "../../../helpers/queries";
 import { batchUpdateExperienceSkills } from "../../../store/Experience/experienceActions";
+import { SkillTypeId } from "../../../models/lookupConstants";
 
 export const JUSTIFICATION_WORD_LIMIT = 100;
 
 interface SidebarProps {
-  menuSkills: { [skillId: number]: string };
+  menuSkills: { id: number; name: string }[];
   intl: IntlShape;
   status: SkillStatus;
 }
@@ -83,22 +89,41 @@ const Sidebar: React.FC<SidebarProps> = ({ menuSkills, intl, status }) => {
         />
       </p>
       <ul>
-        {Object.keys(menuSkills).map((skillId) => (
-          <li key={skillId}>
+        {menuSkills.map((skill) => (
+          <li key={skill.id}>
             <StatusIcon
-              status={computeParentStatus(status, Number(skillId))}
+              status={computeParentStatus(status, Number(skill.id))}
               size=""
             />
             <a
-              href={`#${slugify(menuSkills[skillId])}`}
+              href={`#${slugify(skill.name)}`}
               title={intl.formatMessage(displayMessages.sidebarLinkTitle)}
             >
-              {menuSkills[skillId]}
+              {skill.name}
             </a>
           </li>
         ))}
       </ul>
     </div>
+  );
+};
+
+const SkillTitleButton: React.FunctionComponent<{
+  modalId: string;
+  handleClick: (ref: React.RefObject<HTMLButtonElement>) => void;
+  skillName: string;
+}> = ({ modalId, handleClick, skillName }) => {
+  const ref = useRef<HTMLButtonElement>(null);
+  return (
+    <button
+      ref={ref}
+      data-c-font-size="h3"
+      data-c-dialog-id={modalId}
+      type="button"
+      onClick={() => handleClick(ref)}
+    >
+      {skillName}
+    </button>
   );
 };
 
@@ -225,7 +250,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
           <div data-c-grid-item="base(3of4) tl(5of6)">
             <div data-c-padding="all(1)">
               <div data-c-grid="middle">
-                <div data-c-grid-item="tl(3of4)">
+                <div data-c-grid-item="tl(3of4) ds(2of4)">
                   <p>{heading}</p>
                   <p
                     data-c-margin="top(quarter)"
@@ -236,7 +261,7 @@ const ExperienceSkillAccordion: React.FC<ExperienceSkillAccordionProps> = ({
                   </p>
                 </div>
                 <div
-                  data-c-grid-item="tl(1of4)"
+                  data-c-grid-item="tl(1of4) ds(2of4)"
                   data-c-align="base(left) tl(center)"
                 >
                   {(experienceSkill.justification === null ||
@@ -410,6 +435,9 @@ interface SkillsProps {
   handleUpdateExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<ExperienceSkill>;
+  handleBatchUpdateExperienceSkills: (
+    experienceSkillsToUpdate: ExperienceSkill[],
+  ) => Promise<void>;
   handleRemoveExperienceJustification: (
     experience: ExperienceSkill,
   ) => Promise<void>;
@@ -424,12 +452,12 @@ const Skills: React.FC<SkillsProps> = ({
   experienceSkills,
   skills,
   handleUpdateExperienceJustification,
+  handleBatchUpdateExperienceSkills,
   handleRemoveExperienceJustification,
   handleContinue,
   handleQuit,
   handleReturn,
 }) => {
-  const dispatch = useDispatch();
   const intl = useIntl();
   const locale = getLocale(intl.locale);
   const initial = initialStatus(experienceSkills, JUSTIFICATION_WORD_LIMIT);
@@ -438,25 +466,73 @@ const Skills: React.FC<SkillsProps> = ({
 
   const modalId = "skill-description";
   const [visible, setVisible] = useState(false);
-  const [modalHeading, setModalHeading] = useState("");
-  const [modalBody, setModalBody] = useState("");
+  const [modalContent, setModalContent] = useState<{
+    heading: string;
+    body: string;
+  }>({ heading: "", body: "" });
+  const [
+    modalTriggerRef,
+    setModalTriggerRef,
+  ] = useState<RefObject<HTMLButtonElement> | null>(null);
   const modalParentRef = useRef<HTMLDivElement>(null);
+
+  const closeModal = () => {
+    setVisible(false);
+    if (modalTriggerRef?.current) {
+      modalTriggerRef.current.focus();
+    } else {
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+    }
+    setModalTriggerRef(null);
+  };
+
+  // This page should only list Hard Skills.
+  const hardCriteria = criteria
+    .map((criterion) => {
+      const skill = getSkillOfCriteria(criterion, skills);
+      return { hardCriterion: criterion, skill };
+    })
+    .filter((criterionWithSkill) => {
+      return criterionWithSkill.skill?.skill_type_id === SkillTypeId.Hard;
+    })
+    .sort(
+      (
+        a: { hardCriterion: Criteria; skill: Skill },
+        b: { hardCriterion: Criteria; skill: Skill },
+      ) =>
+        localizeFieldNonNull(locale, a.skill, "name")
+          .toUpperCase()
+          .localeCompare(
+            localizeFieldNonNull(locale, b.skill, "name").toUpperCase(),
+          ),
+    );
+
+  const softSkills = removeDuplicatesById(
+    criteria
+      .map((criterion) => getSkillOfCriteria(criterion, skills))
+      .filter(notEmpty)
+      .filter((skill) => skill.skill_type_id === SkillTypeId.Soft),
+  );
 
   // Maps ExperienceSkill ids to their accordion expansion state.
   const [accordionExpansions, setAccordionExpansions] = useState<{
     [experienceSkillId: number]: boolean;
   }>(mapToObjectTrans(experienceSkills, getId, () => false));
 
-  const menuSkills = criteria.reduce(
-    (collection: { [skillId: number]: string }, criterion: Criteria) => {
-      const skill = getSkillOfCriteria(criterion, skills);
-      if (skill && !collection[criterion.skill_id]) {
-        // eslint-disable-next-line no-param-reassign
-        collection[criterion.skill_id] = localizeFieldNonNull(
-          locale,
-          skill,
-          "name",
-        );
+  const menuSkills = hardCriteria.reduce(
+    (
+      collection: { id: number; name: string }[],
+      criterion: { hardCriterion: Criteria; skill: Skill },
+    ) => {
+      if (!collection.find((a) => criterion.hardCriterion.skill_id === a.id)) {
+        // Do not include duplicate skills.
+        collection.push({
+          id: criterion.hardCriterion.skill_id,
+          name: localizeFieldNonNull(locale, criterion.skill, "name"),
+        });
       }
       return collection;
     },
@@ -510,7 +586,7 @@ const Skills: React.FC<SkillsProps> = ({
       );
       if (experienceSkillsToUpdate.length > 0) {
         try {
-          await dispatch(batchUpdateExperienceSkills(experienceSkillsToUpdate));
+          await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
           setIsSubmitting(false);
           return Promise.resolve();
         } catch {
@@ -544,7 +620,7 @@ const Skills: React.FC<SkillsProps> = ({
             ...accordionExpansions,
             [experienceSkillId]: true,
           });
-          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          focusOnElement(`#experience-skill-textarea-${experienceSkillId}`);
           return true;
         }
         return false;
@@ -562,7 +638,9 @@ const Skills: React.FC<SkillsProps> = ({
   // Ensure each experienceSkill has a corresponding form ref
   experienceSkills.forEach((expSkill) => {
     if (
-      criteria.find((criterion) => criterion.skill_id === expSkill.skill_id) &&
+      hardCriteria.find(
+        (criterion) => criterion.hardCriterion.skill_id === expSkill.skill_id,
+      ) &&
       !formRefs.current.has(expSkill.id)
     ) {
       const ref = createRef<FormikProps<ExperienceSkillFormValues>>();
@@ -613,16 +691,37 @@ const Skills: React.FC<SkillsProps> = ({
               }}
             />
           </ul>
-          <p>
+          <p data-c-margin="bottom(1)">
             <FormattedMessage
               id="application.skills.instructionListEnd"
               defaultMessage="If a skill is only loosely connected to an experience, consider removing it. This can help the manager focus on your best examples."
               description="Paragraph after the instruction list on the Skills step."
             />
           </p>
+          <p data-c-color="gray">
+            {intl.formatMessage(experienceMessages.softSkillsList, {
+              skill: (
+                <>
+                  {softSkills.map((skill, index) => {
+                    const and = " and ";
+                    const lastElement = index === softSkills.length - 1;
+                    return (
+                      <React.Fragment key={skill.id}>
+                        {lastElement && softSkills.length > 1 && and}
+                        <span key={skill.id} data-c-font-weight="bold">
+                          {localizeFieldNonNull(locale, skill, "name")}
+                        </span>
+                        {!lastElement && softSkills.length > 2 && ", "}
+                      </React.Fragment>
+                    );
+                  })}
+                </>
+              ),
+            })}
+          </p>
           <div className="skills-list">
-            {criteria.map((criterion) => {
-              const skill = getSkillOfCriteria(criterion, skills);
+            {hardCriteria.map((criterion) => {
+              const { hardCriterion, skill } = criterion;
               if (skill === null) {
                 return null;
               }
@@ -635,7 +734,7 @@ const Skills: React.FC<SkillsProps> = ({
               const skillHtmlId = slugify(skillName);
 
               return (
-                <div key={criterion.id}>
+                <div key={hardCriterion.id}>
                   <h3
                     className="application-skill-title"
                     data-c-heading="h3"
@@ -643,25 +742,27 @@ const Skills: React.FC<SkillsProps> = ({
                     data-c-margin="bottom(1)"
                     id={skillHtmlId}
                   >
-                    <button
-                      data-c-font-size="h3"
-                      data-c-dialog-id={modalId}
-                      type="button"
-                      onClick={(e): void => {
-                        setModalHeading(skillName);
-                        setModalBody(skillDescription);
+                    <SkillTitleButton
+                      modalId={modalId}
+                      skillName={skillName}
+                      handleClick={(ref): void => {
+                        setModalContent({
+                          heading: skillName,
+                          body: skillDescription,
+                        });
+                        setModalTriggerRef(ref);
                         setVisible(true);
                       }}
-                    >
-                      {skillName}
-                    </button>
+                    />
                     <br />
                     <a
                       data-c-font-size="normal"
                       data-c-font-weight="bold"
                       href={applicantFaq(locale, "levels")}
                     >
-                      {intl.formatMessage(getSkillLevelName(criterion, skill))}
+                      {intl.formatMessage(
+                        getSkillLevelName(hardCriterion, skill),
+                      )}
                     </a>
                   </h3>
                   {getExperiencesOfSkill(skill, experienceSkills).length ===
@@ -742,7 +843,7 @@ const Skills: React.FC<SkillsProps> = ({
                                 })
                               }
                               formRef={
-                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, becuase if it was we just added it to map.
+                                formRefs.current.get(experienceSkill.id)! // Can assert this is not null, because if it was we just added it to map.
                               }
                               handleUpdateExperienceJustification={
                                 handleUpdateExperienceJustification
@@ -828,8 +929,8 @@ const Skills: React.FC<SkillsProps> = ({
         id={modalId}
         parentElement={modalParentRef.current}
         visible={visible}
-        onModalConfirm={(e): void => setVisible(false)}
-        onModalCancel={(e): void => setVisible(false)}
+        onModalConfirm={closeModal}
+        onModalCancel={closeModal}
       >
         <Modal.Header>
           <div
@@ -845,16 +946,16 @@ const Skills: React.FC<SkillsProps> = ({
                 id={`${modalId}-title`}
                 data-c-dialog-focus=""
                 data-c-color="white"
+                tabIndex={0}
               >
-                {modalHeading}
+                {modalContent.heading}
               </h5>
               <button
                 data-c-dialog-action="close"
                 data-c-dialog-id={`${modalId}`}
                 type="button"
                 data-c-color="white"
-                tabIndex={0}
-                onClick={(e): void => setVisible(false)}
+                onClick={closeModal}
               >
                 <i className="fas fa-times" />
               </button>
@@ -865,7 +966,7 @@ const Skills: React.FC<SkillsProps> = ({
           <div data-c-border="bottom(thin, solid, black)">
             <div id={`${modalId}-description`}>
               <div data-c-container="medium" data-c-padding="tb(1)">
-                <p>{modalBody}</p>
+                <p>{modalContent.body}</p>
               </div>
             </div>
           </div>

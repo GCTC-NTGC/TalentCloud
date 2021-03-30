@@ -3,14 +3,35 @@ import isEmpty from "lodash/isEmpty";
 import { RefObject } from "react";
 import { notEmpty } from "./queries";
 
+export const focusableElementSelector =
+  "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])";
+
 /**
- * Focuses on a element with given id.
- * @param id
+ * Get all focusable elements that are decendent of element,
+ * or all focusable elements in the document body if element is null.
  */
-export const focusOnElement = (elementId: string): void => {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.focus();
+export const getFocusableElements = (
+  element: HTMLElement | null = null,
+): NodeListOf<HTMLElement> =>
+  element
+    ? element.querySelectorAll<HTMLElement>(focusableElementSelector)
+    : document.body.querySelectorAll<HTMLElement>(focusableElementSelector);
+
+/**
+ * Takes a selector or an HTMLElement and focuses on the element.
+ * @param x
+ */
+export const focusOnElement = (x: HTMLElement | string): void => {
+  if (typeof x === "string") {
+    if (x === "") {
+      return;
+    }
+    const element = document.querySelector(x) as HTMLElement;
+    if (element) {
+      element.focus();
+    }
+  } else {
+    x.focus();
   }
 };
 
@@ -28,6 +49,56 @@ export const toggleAccordion = (elementId: string): void => {
     }
   }
 };
+
+/**
+ * Focuses on the previous element in the list.
+ * @param focusList List of focusable HTML elements.
+ */
+export const focusPreviousItem = (focusList: HTMLElement[]) => {
+  const item = document.activeElement as HTMLElement;
+  const activeElementIndex = focusList.findIndex(
+    (focusItem) => item === focusItem,
+  );
+  // If, the active element is first in order then move focus to last element in the focus list.
+  // Else, move to the previous element.
+  if (activeElementIndex === 0) {
+    focusList[focusList.length - 1].focus();
+  } else {
+    focusList[activeElementIndex - 1].focus();
+  }
+};
+
+/**
+ * Focuses on the next element in the list.
+ * @param focusList List of focusable HTML elements.
+ */
+export const focusNextItem = (focusList: HTMLElement[]) => {
+  const item = document.activeElement as HTMLElement;
+  const activeElementIndex = focusList.findIndex(
+    (focusItem) => item === focusItem,
+  );
+  // If, the active element is last in order then move focus to first element in the focus list.
+  // Else, move to the previous element.
+  if (activeElementIndex === focusList.length - 1) {
+    focusList[0].focus();
+  } else {
+    focusList[activeElementIndex + 1].focus();
+  }
+};
+
+/**
+ * Returns a list of tabable elements within the parent element.
+ * @param parentElement Parent element.
+ * @returns
+ */
+export const getTabList = (parentElement: HTMLElement | null): HTMLElement[] =>
+  parentElement
+    ? (Array.from(
+        parentElement.querySelectorAll(
+          "button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex='-1'])",
+        ),
+      ) as HTMLElement[])
+    : [];
 
 /**
  * Runs validation on all forms, then returns true if they are all valid.

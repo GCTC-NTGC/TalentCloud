@@ -2,25 +2,23 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { action } from "@storybook/addon-actions";
-import ExperienceStep, {
-  ExperienceSubmitData,
-} from "../../components/Application/Experience/Experience";
+import ExperienceStep from "../../components/Application/Experience/Experience";
 import { fakeSkills } from "../../fakeData/fakeSkills";
 import {
   educationStatuses,
   educationTypes,
   recipientTypes,
-  recogntitionTypes,
+  recognitionTypes,
 } from "./ExperienceModals.stories";
-import { EducationExperienceSubmitData } from "../../components/Application/ExperienceModals/EducationExperienceModal";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills, {
   createFakeExperienceSkill,
 } from "../../fakeData/fakeExperienceSkills";
 import { Experience, Skill } from "../../models/types";
 import { fakeCriteria } from "../../fakeData/fakeCriteria";
-import { ClassificationId } from "../../models/lookupConstants";
-import { educationMessages } from "../../components/JobBuilder/Details/JobDetailsMessages";
+import { ExperienceSubmitData } from "../../components/Application/ExperienceModals/ExperienceModalCommon";
+import { fakeClassification1 } from "../../fakeData/fakeClassifications";
+import fakeJob from "../../fakeData/fakeJob";
 
 const stories = storiesOf("Application/My Experience", module).addDecorator(
   withIntl,
@@ -57,14 +55,10 @@ const submitExperience = (
 };
 
 const handleSubmitExperience = async (
-  data: ExperienceSubmitData,
+  data: ExperienceSubmitData<Experience>,
 ): Promise<void> => {
-  const {
-    experienceEducation,
-    savedRequiredSkills,
-    savedOptionalSkills,
-  } = data as EducationExperienceSubmitData;
-  submitExperience(experienceEducation, [
+  const { experience, savedRequiredSkills, savedOptionalSkills } = data;
+  submitExperience(experience, [
     ...savedRequiredSkills,
     ...savedOptionalSkills,
   ]);
@@ -103,10 +97,12 @@ stories.add(
           action("Experience Deleted")(id);
         }}
         jobId={1}
-        jobClassificationId={ClassificationId.CS}
-        jobEducationRequirements={educationMessages.CS.defaultMessage}
+        jobEducationRequirements={fakeJob().education.en}
+        classificationEducationRequirements={
+          fakeClassification1().education_requirements.en
+        }
         recipientTypes={recipientTypes}
-        recognitionTypes={recogntitionTypes}
+        recognitionTypes={recognitionTypes}
         handleContinue={action("Save and Continue")}
         handleQuit={action("Save and Quit")}
         handleReturn={action("Save and Return")}

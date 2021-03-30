@@ -129,7 +129,7 @@ return [
         'overtime_label' => 'Heures supplémentaires',
         'overtime_desc' => 'Faites des heures supplémentaires les soirs et les fins de semaine.',
         'overtime' => [
-            'frequently' => 'Fréquemment',
+            'frequently' => 'Parfois',
             'available' => 'Opportunités possibles',
             'none' => 'Aucunes',
         ],
