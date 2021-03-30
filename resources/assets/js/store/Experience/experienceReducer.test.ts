@@ -240,7 +240,7 @@ describe("Experience Reducer tests", (): void => {
       const originalWork = fakeExperienceWork({
         id,
         title: "Original Work",
-        organization: "Previous Organisiation",
+        organization: "Previous Organisation",
         experienceable_id: applicantId,
         experienceable_type: "applicant",
       });

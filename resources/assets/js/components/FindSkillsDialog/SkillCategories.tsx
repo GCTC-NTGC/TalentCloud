@@ -150,7 +150,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
                 </p>
               </Accordion.Btn>
               {/*
-                TODO: Restore this when discriptions are added to Skill Categories on backend.
+                TODO: Restore this when descriptions are added to Skill Categories on backend.
                 <p
                   data-h2-padding="b(top, .25) b(bottom, 1) b(right, .5)"
                   data-h2-font-color="b(black)"

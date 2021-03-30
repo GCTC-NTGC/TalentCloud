@@ -502,7 +502,7 @@
       },
       {
         "defaultMessage": "Find and Add Skills",
-        "description": "Section title acompanying the button that opens the Explore Skills modal.",
+        "description": "Section title accompanying the button that opens the Explore Skills modal.",
         "id": "profileSkillsPage.addSkills.subtitle"
       },
       {
@@ -1736,6 +1736,11 @@
         "id": "application.review.communication.notSet"
       },
       {
+        "defaultMessage": "Required",
+        "description": "Text displayed before skill level.",
+        "id": "application.review.requiredSkillLabel"
+      },
+      {
         "defaultMessage": "Basic Information",
         "description": "Manager's heading for the Basic Info section of the Application.",
         "id": "application.review.manager.basicInfoHeading"
@@ -2921,7 +2926,7 @@
       },
       {
         "defaultMessage": "Search for skills by name:",
-        "id": "findSkillsModal.seachBarInputLabel"
+        "id": "findSkillsModal.searchBarInputLabel"
       },
       {
         "defaultMessage": "eg. User interface design.",
@@ -3042,7 +3047,7 @@
       },
       {
         "defaultMessage": "Search for skills by name:",
-        "id": "findSkillsModal.seachBarInputLabel"
+        "id": "findSkillsModal.searchBarInputLabel"
       },
       {
         "defaultMessage": "eg. User interface design.",
@@ -5848,7 +5853,7 @@
       },
       {
         "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
-        "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+        "description": "Standard evaluation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
         "id": "assessmentType.narrativeReview.standardAnswer"
       },
       {
@@ -5905,55 +5910,55 @@
       },
       {
         "defaultMessage": "Alb.",
-        "id": "province.ab.abreviation"
+        "id": "province.ab.abbreviation"
       },
       {
         "defaultMessage": "B.C.",
-        "id": "province.bc.abreviation"
+        "id": "province.bc.abbreviation"
       },
       {
         "defaultMessage": "Man.",
-        "id": "province.mb.abreviation"
+        "id": "province.mb.abbreviation"
       },
       {
         "defaultMessage": "N.L.",
-        "id": "province.nl.abreviation"
+        "id": "province.nl.abbreviation"
       },
       {
         "defaultMessage": "N.B.",
-        "id": "province.nb.abreviation"
+        "id": "province.nb.abbreviation"
       },
       {
         "defaultMessage": "N.S.",
-        "id": "province.ns.abreviation"
+        "id": "province.ns.abbreviation"
       },
       {
         "defaultMessage": "Nvt.",
-        "id": "province.nu.abreviation"
+        "id": "province.nu.abbreviation"
       },
       {
         "defaultMessage": "N.W.T.",
-        "id": "province.nt.abreviation"
+        "id": "province.nt.abbreviation"
       },
       {
         "defaultMessage": "Ont.",
-        "id": "province.on.abreviation"
+        "id": "province.on.abbreviation"
       },
       {
         "defaultMessage": "P.E.I.",
-        "id": "province.pe.abreviation"
+        "id": "province.pe.abbreviation"
       },
       {
         "defaultMessage": "Que.",
-        "id": "province.qc.abreviation"
+        "id": "province.qc.abbreviation"
       },
       {
         "defaultMessage": "Sask.",
-        "id": "province.sk.abreviation"
+        "id": "province.sk.abbreviation"
       },
       {
         "defaultMessage": "Y.T.",
-        "id": "province.yk.abreviation"
+        "id": "province.yk.abbreviation"
       },
       {
         "defaultMessage": "Reliability",

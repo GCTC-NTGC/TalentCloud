@@ -7,7 +7,7 @@ import {
 } from "../../api/assessmentPlanNotifications";
 import { FailedAction } from "../asyncAction";
 
-/** Fetcing all Assessment Plan Notifications for a job */
+/** Fetching all Assessment Plan Notifications for a job */
 
 export const FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED =
   "FETCH_ASSESSMENT_PLAN_NOTIFICATIONS_STARTED";

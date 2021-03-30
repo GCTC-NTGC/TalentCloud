@@ -137,7 +137,7 @@ export const getCanonAssessmentById = createCachedSelector(
     hasKey(assessments, assessmentId) ? assessments[assessmentId] : null,
 )((state, props): number => props.assessmentId);
 
-/** NOTE: this will return assessments assocaited with multiple jobs! */
+/** NOTE: this will return assessments associated with multiple jobs! */
 export const getAssessmentsByType = createCachedSelector(
   getCurrentAssessments,
   (state: RootState, props: { assessmentTypeId: number }): number =>
@@ -157,7 +157,7 @@ export const getEditAssessmentById = createCachedSelector(
     hasKey(assessments, assessmentId) ? assessments[assessmentId] : null,
 )((state, props): number => props.assessmentId);
 
-/** Returns true if there is an edited verision which differs from canonical version */
+/** Returns true if there is an edited version which differs from canonical version */
 export const assessmentIsEdited = createCachedSelector(
   getCanonAssessmentById,
   getEditAssessmentById,

@@ -18,7 +18,7 @@ export const dialogMessages = defineMessages({
     defaultMessage: "Save Skills",
   },
   searchBarInputLabel: {
-    id: "findSkillsModal.seachBarInputLabel",
+    id: "findSkillsModal.searchBarInputLabel",
     defaultMessage: "Search for skills by name:",
   },
   searchBarInputPlaceholder: {

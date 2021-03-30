@@ -220,7 +220,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
         category: localizeFieldNonNull(locale, childSkillCategory, "name"),
       }),
       description: "",
-      // TODO: Restore this when discriptions are added to Skill Categories on backend.
+      // TODO: Restore this when descriptions are added to Skill Categories on backend.
       // localizeFieldNonNull(
       //   locale,
       //   childSkillCategory,

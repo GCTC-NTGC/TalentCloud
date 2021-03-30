@@ -32,7 +32,7 @@ const ScrollToTop: React.FunctionComponent<ScrollToTopProps> = ({
         window.scrollTo(0, 0);
       }
 
-      // switch back to smooth scrool transition
+      // switch back to smooth scroll transition
       setScrollBehaviour("smooth");
     }
 

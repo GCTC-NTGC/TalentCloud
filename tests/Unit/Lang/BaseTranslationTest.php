@@ -73,8 +73,8 @@ abstract class BaseTranslationTest extends TestCase
     {
         $dir = implode('/', [$this->rootLangDir, $lang]);
         $langFiles = $this->getAllFilesInDirectoryTree($dir);
-        $formatedLangFiles = $this->formatLangFilenames($langFiles, $dir);
-        return $formatedLangFiles;
+        $formattedLangFiles = $this->formatLangFilenames($langFiles, $dir);
+        return $formattedLangFiles;
     }
 
     protected function getAllLangFilenames()
