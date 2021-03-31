@@ -144,7 +144,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
 
   const currentClassification =
     applicantClassifications.length > 0 ? applicantClassifications[0] : null; // This explicitly leaves it null if applicantClassifications is an empty array.
-  const previousClassifications = applicantClassifications.slice(0);
+  const previousClassifications = applicantClassifications.slice(1);
 
   // new applicant classification object used when appending a new field in the fieldArray.
   const emptyApplicantClassification = (): ApplicantClassification => {
