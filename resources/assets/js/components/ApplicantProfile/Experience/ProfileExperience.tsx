@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import {
   Experience,
@@ -276,6 +276,56 @@ export const ProfileExperience: React.FC<ProfileExperienceProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // useEffect should only run on mount and unmount.
+
+  const previousExperiences = useRef(experiences);
+  useEffect(() => {
+    if (experiences) {
+      const difference = previousExperiences.current.filter(
+        (x) => !experiences.includes(x),
+      );
+      if (difference && difference.length > 0) {
+        const differenceIndex = previousExperiences.current.findIndex(
+          (item) =>
+            item.id === difference[0].id && item.type === difference[0].type,
+        );
+
+        const focusOnAdjacent = (direction: string) => {
+          const index =
+            direction === "next" ? differenceIndex + 1 : differenceIndex - 1;
+          const adjacent = previousExperiences.current[index];
+          if (typeof adjacent !== "undefined") {
+            const adjacentId = `${adjacent.type}_${adjacent.id}`;
+            if (document !== null && adjacentId !== null) {
+              const container = document.getElementById(adjacentId);
+              if (container) {
+                const match = container.querySelector<HTMLElement>(
+                  "[data-c-accordion-trigger]",
+                );
+                if (match) {
+                  match.focus();
+                }
+              }
+            }
+          }
+        };
+
+        const previousDoesNotExists =
+          typeof previousExperiences.current[differenceIndex - 1] ===
+          "undefined";
+        const nextDoesNotExists =
+          typeof previousExperiences.current[differenceIndex + 1] ===
+          "undefined";
+
+        if (!nextDoesNotExists) {
+          focusOnAdjacent("next");
+        }
+        if (nextDoesNotExists && !previousDoesNotExists) {
+          focusOnAdjacent("previous");
+        }
+      }
+    }
+    previousExperiences.current = experiences;
+  }, [experiences]);
 
   return (
     <>
