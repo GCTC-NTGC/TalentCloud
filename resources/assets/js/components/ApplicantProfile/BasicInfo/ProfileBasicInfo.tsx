@@ -141,14 +141,28 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
-  const currentClassification = applicantClassifications.shift(); // Removes first element from array;
-  const previousClassifications = applicantClassifications;
+
+  const currentClassification =
+    applicantClassifications.length > 0 ? applicantClassifications[0] : null; // This explicitly leaves it null if applicantClassifications is an empty array.
+  const previousClassifications = applicantClassifications.slice(0);
+
+  // new applicant classification object used when appending a new field in the fieldArray.
+  const emptyApplicantClassification = (): ApplicantClassification => {
+    return {
+      id: 0,
+      applicant_id: applicantId,
+      classification_id: -1,
+      level: -1,
+      order: -1,
+    };
+  };
 
   const defaultValues = {
     citizenshipDeclaration: citizenshipDeclaration || "",
     veteranStatus: veteranStatus || "",
     gcEmployeeStatus: gcEmployeeStatus || "",
-    currentClassification,
+    currentClassification:
+      currentClassification || emptyApplicantClassification(),
     previousClassifications: previousClassifications || "",
   };
 
@@ -216,15 +230,6 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     name: "previousClassifications",
     keyName: "key",
   });
-
-  // new applicant classification object used when appending a new field in the fieldArray.
-  const newApplicantClassification: ApplicantClassification = {
-    id: 0,
-    applicant_id: applicantId,
-    classification_id: -1,
-    level: -1,
-    order: -1,
-  };
 
   const NUM_OF_CLASSIFICATION_LEVELS = 9; // Since we do not fetch classification levels from an api the possible levels are 1-9.
   /**
@@ -474,7 +479,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                 data-h2-font-weight="b(700)"
                 data-h2-margin="b(left, 2)"
                 type="button"
-                onClick={() => append(newApplicantClassification)}
+                onClick={() => append(emptyApplicantClassification())}
               >
                 <i data-h2-padding="b(right, .25)" className="fas fa-plus" />
                 {intl.formatMessage(messages.addClassificationLabel)}
