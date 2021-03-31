@@ -14,7 +14,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-font-size="h2"
         data-c-margin="bottom(normal)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="My Job Actions"
           description="Header for my job actions section."
           id="hrPortal.jobPageIndex.jobActionsHeader"
@@ -23,7 +23,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
       <p
         data-c-margin="bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs."
           description="Message before list of users job actions."
           id="hrPortal.jobPageIndex.jobActionsMessage"
@@ -232,7 +232,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
         data-c-font-size="h2"
         data-c-margin="top(triple) bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="All Jobs in"
           description="Message before department name."
           id="hrPortal.jobPageIndex.preDepartmentName"
@@ -242,7 +242,7 @@ exports[`Job Index Page should render JobIndexHr correctly 1`] = `
       <p
         data-c-margin="bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
@@ -426,7 +426,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-font-size="h2"
         data-c-margin="bottom(normal)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="My Job Actions"
           description="Header for my job actions section."
           id="hrPortal.jobPageIndex.jobActionsHeader"
@@ -435,14 +435,14 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
       <p
         data-c-margin="bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="This is a list of all job actions you are currently participating in. Looking for an older job? Check the 'My Completed Job Actions' section below your active jobs."
           description="Message before list of users job actions."
           id="hrPortal.jobPageIndex.jobActionsMessage"
         />
       </p>
       <p>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="Claim a job below!"
           description="Message displayed if the jobs actions list is empty."
           id="hrPortal.jobPageIndex.jobActionsEmpty"
@@ -459,7 +459,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-font-size="h2"
         data-c-margin="top(triple) bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="All Jobs in"
           description="Message before department name."
           id="hrPortal.jobPageIndex.preDepartmentName"
@@ -469,7 +469,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
       <p
         data-c-margin="bottom(double)"
       >
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="This is the list of all active job actions in your department. From here you can 'claim' a job, which will move it into your jobs list above and allow you to begin working with the hiring manager on finding the best talent possible. If you claim a job by accident, no fear, for you can click into the job summary and remove yourself using the 'Relinquish This Job' button."
           description="Message before list of unclaimed jobs."
           id="hrPortal.jobPageIndex.unclaimedJobsMessage"
@@ -479,7 +479,7 @@ exports[`Job Index Page should render JobIndexHr without any items 1`] = `
         data-c-grid="gutter"
       />
       <p>
-        <FormattedMessage
+        <MemoizedFormattedMessage
           defaultMessage="There are currently no active jobs available."
           description="Message displayed if the unclaimed jobs list is empty."
           id="hrPortal.jobPageIndex.unclaimedJobsEmpty"

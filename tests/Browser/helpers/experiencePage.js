@@ -20,7 +20,7 @@ function modal(titleText) {
       .eql("1");
   };
   const assertNotOpen = () => {
-    return t.expect(container.getStyleProperty("opaicty")).eql("0");
+    return t.expect(container.getStyleProperty("opacity")).eql("0");
   };
   return {
     container,

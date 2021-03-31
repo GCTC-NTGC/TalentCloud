@@ -90,7 +90,7 @@ $factory->afterCreating(JobApplication::class, function ($application): void {
     }
 
     if ($application->version_id === null || $application->version_id === 1) {
-        // Version 1 applications need a SkillDeclaration saved to the Application profile for each job critera.
+        // Version 1 applications need a SkillDeclaration saved to the Application profile for each job criteria.
         $applicant = $application->applicant;
         $applicantSkillIds = $applicant->skill_declarations->pluck('skill_id');
         foreach ($application->job_poster->criteria as $criterion) {

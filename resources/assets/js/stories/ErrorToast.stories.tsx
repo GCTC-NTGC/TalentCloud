@@ -20,7 +20,7 @@ stories.add("Error Toast", () => {
             <section>
               <p>
                 Note that multiple errors will queue up for display after the
-                current one dissappears.
+                current one disappears.
               </p>
               <button
                 type="button"

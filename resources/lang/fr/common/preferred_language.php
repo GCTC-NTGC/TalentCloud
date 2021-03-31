@@ -5,7 +5,7 @@ return [
     * Preferred Language Language Lines
     * --------------------------------------------------------------------------
     *
-    * The following language lines are used when displaying Preferred Lanugage
+    * The following language lines are used when displaying Preferred Language
     *
     */
     'en' => "Anglais",

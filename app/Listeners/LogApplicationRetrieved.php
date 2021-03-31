@@ -22,7 +22,7 @@ class LogApplicationRetrieved
     /**
      * Handle the event.
      *
-     * @param  AppliationRetrieved  $event
+     * @param  ApplicationRetrieved  $event
      * @return void
      */
     public function handle(ApplicationRetrieved $event)

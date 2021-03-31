@@ -58,7 +58,7 @@ class RecordJobStatusTransition
                     ' to ' . $toStatusKey .
                     ' by user ' . $userDescription);
 
-                // Send an email notification to talentcloud admins.
+                // Send an email notification to talent cloud admins.
                 Mail::to(config('mail.admin_address'))->send(new JobStatusChanged($transition));
             }
         }

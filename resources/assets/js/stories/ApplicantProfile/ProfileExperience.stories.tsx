@@ -17,7 +17,7 @@ import {
   educationStatuses,
   educationTypes,
   recipientTypes,
-  recogntitionTypes,
+  recognitionTypes,
 } from "../Application/ExperienceModals.stories";
 import { sleep } from "../helpers";
 import { ProfileSkillSubform } from "../../components/ApplicantProfile/Experience/ProfileSkillSubform";
@@ -130,7 +130,7 @@ stories.add(
           setExperiences,
         )}
         recipientTypes={recipientTypes}
-        recognitionTypes={recogntitionTypes}
+        recognitionTypes={recognitionTypes}
       />
     );
   },
@@ -166,7 +166,7 @@ stories.add(
           setExperiences,
         )}
         recipientTypes={recipientTypes}
-        recognitionTypes={recogntitionTypes}
+        recognitionTypes={recognitionTypes}
       />
     );
   },

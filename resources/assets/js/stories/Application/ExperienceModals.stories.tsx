@@ -127,7 +127,7 @@ export const recipientTypes = [
   { id: 3, name: { en: "My Project", fr: "Mon projet" } },
   { id: 4, name: { en: "My Organization", fr: "Mon organization" } },
 ];
-export const recogntitionTypes = [
+export const recognitionTypes = [
   { id: 1, name: { en: "International", fr: "International" } },
   { id: 2, name: { en: "National", fr: "National" } },
   { id: 3, name: { en: "Provincial", fr: "Provincial" } },
@@ -358,7 +358,7 @@ stories.add(
             modalId="award-experience-modal"
             experienceAward={fakeExperienceAward()}
             recipientTypes={recipientTypes}
-            recognitionTypes={recogntitionTypes}
+            recognitionTypes={recognitionTypes}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}
@@ -399,7 +399,7 @@ stories.add(
             modalId="award-new-experience-modal"
             experienceAward={null}
             recipientTypes={recipientTypes}
-            recognitionTypes={recogntitionTypes}
+            recognitionTypes={recognitionTypes}
             jobId={number("Job Id", 1, undefined, groupIds.details)}
             requiredSkills={requiredSkills}
             savedRequiredSkills={[requiredSkills[2], requiredSkills[3]]}

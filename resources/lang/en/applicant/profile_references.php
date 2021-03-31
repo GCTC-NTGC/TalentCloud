@@ -21,7 +21,7 @@ return [
         "null_copy" => "You don't currently have any references in your portfolio! Use the button above to add a reference."
     ],
 
-    //TODO: move modals to under a ViewComposer's responsability
+    //TODO: move modals to under a ViewComposer's responsibility
     "modals" => [
         "delete_reference" => [
             "type" => "deleteConfirmation",

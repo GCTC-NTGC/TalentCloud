@@ -122,7 +122,7 @@ return [
         ],
     ],
 
-    // Email that admin will recieve emails at.
+    // Email that admin will receive emails at.
 
     'admin_address' => env('ADMIN_EMAIL', 'Talent.Cloud-nuage.de.talents@tbs-sct.gc.ca')
 
