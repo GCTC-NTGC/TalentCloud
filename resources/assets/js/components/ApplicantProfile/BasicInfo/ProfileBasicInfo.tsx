@@ -162,8 +162,8 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     veteranStatus: veteranStatus || "",
     gcEmployeeStatus: gcEmployeeStatus || "",
     currentClassification:
-      currentClassification || emptyApplicantClassification(),
-    previousClassifications: previousClassifications || "",
+      currentClassification ?? emptyApplicantClassification(),
+    previousClassifications,
   };
 
   const validationSchema = Yup.object().shape({
@@ -197,6 +197,19 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           .required(intl.formatMessage(validationMessages.required)),
       }),
     ),
+    // Yup.object().when("gcEmployeeStatus", {
+    //   is: (value) => value !== GCEmployeeStatus.no,
+    //   then: Yup.array().of(
+    //     Yup.object().shape({
+    //       classification_id: Yup.number()
+    //         .typeError(intl.formatMessage(validationMessages.required))
+    //         .required(intl.formatMessage(validationMessages.required)),
+    //       level: Yup.number()
+    //         .typeError(intl.formatMessage(validationMessages.required))
+    //         .required(intl.formatMessage(validationMessages.required)),
+    //     }),
+    //   ),
+    // }),
   });
 
   interface BasicInfoFormValues {
@@ -204,7 +217,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
     veteranStatus: number | string;
     gcEmployeeStatus: number | string;
     currentClassification: ApplicantClassification;
-    previousClassifications: ApplicantClassification[];
+    previousClassifications: ApplicantClassification[] | undefined;
   }
 
   // Main hook to create a new form. Comes with many optional arguments.
@@ -251,8 +264,11 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
 
   const formToValuesData = (values: BasicInfoFormValues): ApplicantProfile => {
     const applicant_classifications = values.currentClassification
-      ? [values.currentClassification, ...values.previousClassifications]
-      : values.previousClassifications;
+      ? [
+          values.currentClassification,
+          ...(values.previousClassifications ?? []),
+        ]
+      : values.previousClassifications ?? [];
     return {
       citizenship_declaration_id: Number(values.citizenshipDeclaration),
       veteran_status_id: Number(values.veteranStatus),
