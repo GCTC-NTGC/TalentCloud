@@ -171,6 +171,7 @@ export const ExperienceWorkAccordion: React.FC<ExperienceWorkAccordionProps> = (
   );
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-briefcase"

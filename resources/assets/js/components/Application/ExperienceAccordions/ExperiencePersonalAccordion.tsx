@@ -194,6 +194,7 @@ export const ExperiencePersonalAccordion: React.FC<ExperiencePersonalAccordionPr
   );
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-mountain"

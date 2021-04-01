@@ -233,7 +233,7 @@ export const ExperienceEducationAccordion: React.FC<ExperienceEducationAccordion
   );
   return (
     <ApplicationExperienceAccordion
-      id={`${experience.id}-${experience.type}`}
+      id={`${experience.id}_${experience.type}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-book"

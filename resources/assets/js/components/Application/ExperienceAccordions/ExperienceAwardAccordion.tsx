@@ -170,6 +170,7 @@ export const ExperienceAwardAccordion: React.FC<ExperienceAwardAccordionProps> =
   });
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-trophy"

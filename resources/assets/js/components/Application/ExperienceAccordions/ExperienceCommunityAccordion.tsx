@@ -187,6 +187,7 @@ export const ExperienceCommunityAccordion: React.FC<ExperienceCommunityAccordion
   );
   return (
     <ApplicationExperienceAccordion
+      id={`${experience.type}_${experience.id}`}
       title={accordionTitle}
       subtitle={subtitle}
       iconClass="fa-people-carry"
