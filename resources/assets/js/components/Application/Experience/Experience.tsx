@@ -309,6 +309,56 @@ export const MyExperience: React.FunctionComponent<ExperienceProps> = ({
   const modalButtons = modalButtonProps(intl);
   const modalRoot = document.getElementById("modal-root");
 
+  const previousExperiences = useRef(experiences);
+  useEffect(() => {
+    if (experiences) {
+      const difference = previousExperiences.current.filter(
+        (x) => !experiences.includes(x),
+      );
+      if (difference && difference.length > 0) {
+        const differenceIndex = previousExperiences.current.findIndex(
+          (item) =>
+            item.id === difference[0].id && item.type === difference[0].type,
+        );
+
+        const focusOnAdjacent = (direction: string) => {
+          const index =
+            direction === "next" ? differenceIndex + 1 : differenceIndex - 1;
+          const adjacent = previousExperiences.current[index];
+          if (typeof adjacent !== "undefined") {
+            const adjacentId = `${adjacent.type}_${adjacent.id}`;
+            if (document !== null && adjacentId !== null) {
+              const container = document.getElementById(adjacentId);
+              if (container) {
+                const match = container.querySelector<HTMLElement>(
+                  "[data-c-accordion-trigger]",
+                );
+                if (match) {
+                  match.focus();
+                }
+              }
+            }
+          }
+        };
+
+        const previousDoesNotExists =
+          typeof previousExperiences.current[differenceIndex - 1] ===
+          "undefined";
+        const nextDoesNotExists =
+          typeof previousExperiences.current[differenceIndex + 1] ===
+          "undefined";
+
+        if (!nextDoesNotExists) {
+          focusOnAdjacent("next");
+        }
+        if (nextDoesNotExists && !previousDoesNotExists) {
+          focusOnAdjacent("previous");
+        }
+      }
+    }
+    previousExperiences.current = experiences;
+  }, [experiences]);
+
   return (
     <>
       <div data-c-container="medium">
