@@ -13,9 +13,9 @@ class JWTLoginController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('guest')->except('logout');
-    $this->middleware('guest:jwt')->except('logout');
-    $this->middleware('guest:jwt')->except('logout');
+    //$this->middleware('guest')->except('logout');
+    //$this->middleware('guest:jwt')->except('logout');
+    //$this->middleware('guest:jwt')->except('logout');
   }
 
   public function showLoginForm()
@@ -42,7 +42,7 @@ class JWTLoginController extends Controller
       'password' => 'required|min:6'
     ]);
 
-    if (Auth::guard('jwtusers')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+    if (Auth::guard('api')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
       return redirect()->intended('/admin');
     }

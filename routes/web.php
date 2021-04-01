@@ -322,7 +322,8 @@ Route::group(
 
             // Laravel default login, logout, register, and reset routes.
             Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-            Route::post('login', 'Auth\LoginController@login')->name('login.post');
+            # Route::post('login', 'Auth\LoginController@login')->name('login.post');
+            Route::post('login', 'Auth\JWTAuthController@login')->name('login.post');
             Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
             // Registration Routes...
