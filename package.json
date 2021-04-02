@@ -101,7 +101,7 @@
         "@hydrogen-design-system/system": "0.0.42",
         "axios": "^0.21.1",
         "babel-plugin-react-intl": "^7.9.4",
-        "classnames": "^2.3.0",
+        "classnames": "^2.3.1",
         "cldr-core": "^38.1.0",
         "clone-framework": "^2.4.18",
         "core-js": "^3.10.0",
