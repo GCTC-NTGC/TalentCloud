@@ -19,6 +19,7 @@ import {
   ResponseScreeningBuckets as ResponseBuckets,
   ReviewStatusId,
   ReviewStatusName,
+  GCEmployeeStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 import { Experience } from "./types";
@@ -403,7 +404,7 @@ const standardAssessmentText = defineMessages({
     defaultMessage:
       "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
     description:
-      "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+      "Standard evaluation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
   },
 });
 
@@ -465,63 +466,63 @@ const provinceNames = defineMessages({
 export const provinceName = (provinceId: number): MessageDescriptor =>
   getOrThrowError(provinceNames, provinceId, "invalid ProvinceId");
 
-const provinceAbreviations = defineMessages({
+const provinceAbbreviations = defineMessages({
   [ProvinceId.AB]: {
-    id: "province.ab.abreviation",
+    id: "province.ab.abbreviation",
     defaultMessage: "Alb.",
   },
   [ProvinceId.BC]: {
-    id: "province.bc.abreviation",
+    id: "province.bc.abbreviation",
     defaultMessage: "B.C.",
   },
   [ProvinceId.MB]: {
-    id: "province.mb.abreviation",
+    id: "province.mb.abbreviation",
     defaultMessage: "Man.",
   },
   [ProvinceId.NL]: {
-    id: "province.nl.abreviation",
+    id: "province.nl.abbreviation",
     defaultMessage: "N.L.",
   },
   [ProvinceId.NB]: {
-    id: "province.nb.abreviation",
+    id: "province.nb.abbreviation",
     defaultMessage: "N.B.",
   },
   [ProvinceId.NS]: {
-    id: "province.ns.abreviation",
+    id: "province.ns.abbreviation",
     defaultMessage: "N.S.",
   },
   [ProvinceId.NU]: {
-    id: "province.nu.abreviation",
+    id: "province.nu.abbreviation",
     defaultMessage: "Nvt.",
   },
   [ProvinceId.NT]: {
-    id: "province.nt.abreviation",
+    id: "province.nt.abbreviation",
     defaultMessage: "N.W.T.",
   },
   [ProvinceId.ON]: {
-    id: "province.on.abreviation",
+    id: "province.on.abbreviation",
     defaultMessage: "Ont.",
   },
   [ProvinceId.PE]: {
-    id: "province.pe.abreviation",
+    id: "province.pe.abbreviation",
     defaultMessage: "P.E.I.",
   },
   [ProvinceId.QC]: {
-    id: "province.qc.abreviation",
+    id: "province.qc.abbreviation",
     defaultMessage: "Que.",
   },
   [ProvinceId.SK]: {
-    id: "province.sk.abreviation",
+    id: "province.sk.abbreviation",
     defaultMessage: "Sask.",
   },
   [ProvinceId.YT]: {
-    id: "province.yk.abreviation",
+    id: "province.yk.abbreviation",
     defaultMessage: "Y.T.",
   },
 });
 
-export const provinceAbreviation = (provinceId: number): MessageDescriptor =>
-  getOrThrowError(provinceAbreviations, provinceId, "invalid ProvinceId");
+export const provinceAbbreviation = (provinceId: number): MessageDescriptor =>
+  getOrThrowError(provinceAbbreviations, provinceId, "invalid ProvinceId");
 
 const securityClearances = defineMessages({
   [SecurityClearanceId.reliability]: {
@@ -1327,3 +1328,33 @@ export const getExperienceJustificationLabel = (
 
   return label;
 };
+
+export const gcEmployeeStatuses = defineMessages({
+  [GCEmployeeStatus.current]: {
+    id: "application.basicInfo.gcEmployeeStatus.current",
+    defaultMessage:
+      "Yes - I am currently an employee of the Government of Canada.",
+    description: "Select option text for the 'Yes' GC employee status.",
+  },
+  [GCEmployeeStatus.no]: {
+    id: "application.basicInfo.gcEmployeeStatus.no",
+    defaultMessage:
+      "No - I am not, and have never been, an employee of the Government of Canada.",
+    description: "Select option text for the 'No' GC employee status.",
+  },
+  [GCEmployeeStatus.past]: {
+    id: "application.basicInfo.gcEmployeeStatus.past",
+    defaultMessage:
+      "I was previously, but am no longer, an employee of the Government of Canada.",
+    description: "Select option text for the 'Previous' GC employee status.",
+  },
+});
+
+export const gcEmployeeStatus = (
+  gcEmployeeStatusId: number,
+): MessageDescriptor =>
+  getOrThrowError(
+    gcEmployeeStatuses,
+    gcEmployeeStatusId,
+    "invalid GC employee Status",
+  );

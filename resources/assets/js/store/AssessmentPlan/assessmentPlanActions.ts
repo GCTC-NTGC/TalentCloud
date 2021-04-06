@@ -14,7 +14,7 @@ import { FailedAction } from "../asyncAction";
  */
 
 export const FETCH_ASSESSMENT_PLAN_STARTED = "FETCH_ASSESSMENT_PLAN_STARTED";
-export const FETCH_ASSESSMENT_PLAN_SUCCEEEDED =
+export const FETCH_ASSESSMENT_PLAN_SUCCEEDED =
   "FETCH_ASSESSMENT_PLAN_SUCCEEDED";
 export const FETCH_ASSESSMENT_PLAN_FAILED = "FETCH_ASSESSMENT_PLAN_FAILED";
 
@@ -24,7 +24,7 @@ export type FetchAssessmentPlanStartedAction = Action<
 >;
 
 export type FetchAssessmentPlanSucceededAction = Action<
-  typeof FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
+  typeof FETCH_ASSESSMENT_PLAN_SUCCEEDED,
   {
     jobId: number;
     assessments: Assessment[];
@@ -56,7 +56,7 @@ export const fetchAssessmentPlanSucceeded = (
   ratingGuideAnswers: RatingGuideAnswer[],
 ): FetchAssessmentPlanSucceededAction => {
   return {
-    type: FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
+    type: FETCH_ASSESSMENT_PLAN_SUCCEEDED,
     payload: {
       jobId,
       assessments,

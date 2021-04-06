@@ -88,7 +88,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
               <FormattedMessage
                 id="profileSkillsPage.addSkills.subtitle"
                 defaultMessage="Find and Add Skills"
-                description="Section title acompanying the button that opens the Explore Skills modal."
+                description="Section title accompanying the button that opens the Explore Skills modal."
               />
             </h4>
             <p>

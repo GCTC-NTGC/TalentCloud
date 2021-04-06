@@ -38,7 +38,7 @@ export function baseApiUrl(version = 1): string {
 
 /**
  *
- * @param imgFile The name of the img file, not inluding the /images/ path.
+ * @param imgFile The name of the img file, not including the /images/ path.
  */
 export function imageUrl(imgFile: string): string {
   return `${baseUrl()}/images/${imgFile}`;

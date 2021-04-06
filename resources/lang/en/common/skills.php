@@ -245,8 +245,8 @@ return [
             'name' => '.Net Programming',
             'description' => 'Defined as: Ability to program .Net applications using C#, C++, F# or Visual Basic'
         ],
-        'geospacial_programming' => [
-            'name' => 'Geospacial programming',
+        'geospatial_programming' => [
+            'name' => 'Geospatial programming',
             'description' => 'Defined as: Ability to design and build applications that handle, transform, use and display geospatial data.'
         ],
         'microsoft_dynamics' => [
@@ -259,7 +259,7 @@ return [
         ],
         'systems_thinking' => [
             'name' => 'Systems Thinking',
-            'description' => 'Defined as: Ability to understand and analyze how disparate aspects of service integrate and impact eachother and turn into a clear direction for the service'
+            'description' => 'Defined as: Ability to understand and analyze how disparate aspects of service integrate and impact each other and turn into a clear direction for the service'
         ],
         'web_architecture' => [
             'name' => 'Web Information Architecture',
@@ -371,7 +371,7 @@ return [
         ],
         'business_process_modelling_software' => [
             'name' => 'Business process modelling software',
-            'description' => 'Defined as: Ability to work in modelling software or applications, including but not limited to Visio, Powerpoint, Excel, and Dia, to produce workflows.'
+            'description' => 'Defined as: Ability to work in modelling software or applications, including but not limited to Visio, PowerPoint, Excel, and Dia, to produce workflows.'
         ],
         'business_process_modelling' => [
             'name' => 'Business process modelling',

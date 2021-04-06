@@ -26,7 +26,7 @@ class ApplicationTrackerComposer
         $app_tracker['items']['preview']['url'] = route('job.application.edit.5', $view->getData()['job']);
         $app_tracker['items']['confirm']['url'] = route('job.application.edit.6', $view->getData()['job']);
 
-        // TODO: all these checks shouldn't be neccessary when controllers are properly set up
+        // TODO: all these checks shouldn't be necessary when controllers are properly set up
         if (isset($view->getData()['job_application'])) {
             $job_application = $view->getData()['job_application'];
             if ($job_application != null && $job_application instanceof JobApplication) {

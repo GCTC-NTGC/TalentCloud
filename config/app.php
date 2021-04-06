@@ -149,7 +149,7 @@ return [
     | Encryption Key
     |--------------------------------------------------------------------------
     |
-    | This key is used by the Illuminate encrypter service and should be set
+    | This key is used by the Illuminate encryption service and should be set
     | to a random, 32 character string, otherwise these encrypted strings
     | will not be safe. Please do this before deploying an application!
     |
@@ -164,7 +164,7 @@ return [
     | Strategic Talent Response constants
     |--------------------------------------------------------------------------
     |
-    | Constants used for our emergencey Strategic Talent Response.
+    | Constants used for our emergency Strategic Talent Response.
     |
     */
     'strategic_response_department_id' => env('STRATEGIC_RESPONSE_DEPT_ID', 18),

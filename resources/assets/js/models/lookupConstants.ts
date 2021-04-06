@@ -182,6 +182,12 @@ export const VeteranId = {
   past: 3,
 };
 
+export const GCEmployeeStatus = {
+  no: 1,
+  current: 2,
+  past: 3,
+};
+
 export const ApplicationStatusId = {
   draft: 1,
   submitted: 2,
