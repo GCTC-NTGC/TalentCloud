@@ -45,7 +45,7 @@ jobs:
           ${{ runner.os }}-composer-
 
     - name: Install dependencies
-      uses: php-actions/composer@april-2021-issue
+      uses: php-actions/composer@v5
       with:
         args: --no-interaction --prefer-dist --no-progress --no-suggest
         php_version: 7.2
