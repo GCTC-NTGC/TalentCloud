@@ -17,8 +17,11 @@ class ApplicantController extends Controller
 
     public function index(Request $request)
     {
-
-        $limit = $request->query('limit', 1000); // TODO: The defuault limit should probably be con a config file, and used consistently across api endpoints.
+        $maxLimit = config('app.api_max_limit');
+        $limit = $request->query('limit', $maxLimit);
+        if ($limit > $maxLimit) {
+            $limit = $maxLimit;
+        }
         $offset = $request->query('offset', 0);
 
         $skillIds = preg_split('/,/', $request->query('skill_ids', ''), null, PREG_SPLIT_NO_EMPTY);
