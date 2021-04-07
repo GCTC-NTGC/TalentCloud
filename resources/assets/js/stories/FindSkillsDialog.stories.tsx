@@ -8,6 +8,7 @@ import { fakeSkillCategories } from "../fakeData/fakeSkillCategories";
 import FindSkillsDialog, {
   FindSkillsDialogTrigger,
 } from "../components/FindSkillsDialog/FindSkillsDialog";
+import { promiseAction } from "./helpers";
 
 const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
@@ -29,10 +30,7 @@ stories.add(
           portal="applicant"
           skills={fakeSkills()}
           skillCategories={fakeSkillCategories()}
-          handleSubmit={async (x) => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            action("Submit Skills")(x);
-          }}
+          handleSubmit={promiseAction("Submit Skills")}
           isDialogVisible={isDialogVisible}
           closeDialog={() => setIsDialogVisible(false)}
         />
