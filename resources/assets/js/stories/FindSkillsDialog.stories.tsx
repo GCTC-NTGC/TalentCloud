@@ -9,7 +9,7 @@ import FindSkillsDialog, {
   FindSkillsDialogTrigger,
 } from "../components/FindSkillsDialog/FindSkillsDialog";
 
-const stories = storiesOf("Components/Find Skills Dialog", module).addDecorator(
+const stories = storiesOf("Applicant Profile/Skills", module).addDecorator(
   withIntl,
 );
 
