@@ -256,14 +256,13 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
         ) as HTMLElement[];
 
         if (tabableElements.length === 0) {
-          event.preventDefault(); // TODO: should this throw an error?
           return;
         }
 
         const firstElement = tabableElements[0] as HTMLElement;
 
         if (tabableElements.length === 1) {
-          // This check to avoid strange behavior if firstElement == lastElement.
+          // This check is to avoid strange behavior if firstElement == lastElement.
           firstElement.focus();
           event.preventDefault();
           return;
@@ -299,6 +298,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
     },
     [closeAllAccordions],
   );
+
   React.useEffect(() => {
     if (isDialogVisible) {
       document.addEventListener("keydown", handleTabableElements);
