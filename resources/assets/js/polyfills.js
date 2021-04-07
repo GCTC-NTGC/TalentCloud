@@ -1,6 +1,6 @@
 import "core-js"; // adds almost all polyfills
 
-// Polyfills for missing browser API's (IE11 and Safari)
+// Polyfills for missing browser APIs (IE11 and Safari)
 // https://github.com/formatjs/react-intl/blob/master/docs/Upgrade-Guide.md#migrate-to-using-native-intl-apis
 if (!Intl.PluralRules) {
   require('@formatjs/intl-getcanonicallocales/polyfill');

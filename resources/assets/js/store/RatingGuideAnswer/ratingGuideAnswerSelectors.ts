@@ -158,7 +158,7 @@ export const getEditRatingGuideAnswerById = createCachedSelector(
     hasKey(answerState, answerId) ? answerState[answerId] : null,
 )((state, props): number => props.answerId);
 
-/** Returns true if there is an edited verision which differs from canonical version */
+/** Returns true if there is an edited version which differs from canonical version */
 export const ratingGuideAnswerIsEdited = createCachedSelector(
   getCanonRatingGuideAnswerById,
   getEditRatingGuideAnswerById,

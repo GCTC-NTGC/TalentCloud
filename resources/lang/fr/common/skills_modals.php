@@ -9,7 +9,7 @@ return [
     * The following language lines are used on the skill template
     *
     */
-    // TODO: move modals to under a ViewComposer's responsability
+    // TODO: move modals to under a ViewComposer's responsibility
     'modals' => [
       'delete_skill' => [
           'type' => 'deleteConfirmation',

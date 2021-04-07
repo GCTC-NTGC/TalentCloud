@@ -33,7 +33,7 @@ class ViewComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\InternetExplorerComposer'
         );
 
-        // Governement of Canada header bar.
+        // Government of Canada header bar.
         View::composer(
             ['common/goc', 'common/header', 'response/header'],
             'App\Http\ViewComposers\GocComposer'

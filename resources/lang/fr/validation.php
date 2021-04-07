@@ -118,7 +118,7 @@ return [
     | Custom Rule Language Lines
     |--------------------------------------------------------------------------
     |
-    | Here you may specify validation messages for custom rules and validtors.
+    | Here you may specify validation messages for custom rules and validators.
     */
     'applicant_has_relation' => 'le candidat doit posséder cet :attribute',
     'contains_object_with_attribute' => ':attribute ne contient pas la :relation egal à :attributeValue',
@@ -188,7 +188,7 @@ return [
     |
     */
     'attributes' => [
-        'submisstion_signature' => 'signature',
+        'submission_signature' => 'signature',
         'submission_date'       => 'date',
         'skill_declaration_id'  => 'déclaration de compétence',
         'name'                  => 'nom',

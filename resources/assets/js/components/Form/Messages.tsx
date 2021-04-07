@@ -66,4 +66,32 @@ export const inputMessages = defineMessages({
     defaultMessage: "Required",
     description: "Displayed next to required form inputs.",
   },
+  optional: {
+    id: "formInput.optional",
+    defaultMessage: "Optional",
+    description: "Displayed next to required form inputs.",
+  },
+  moreInfo: {
+    id: "formInput.moreInfo",
+    defaultMessage: "More",
+    description:
+      "Start of label for button that displays additional information under required form inputs.",
+  },
+  lessInfo: {
+    id: "formInput.lessInfo",
+    defaultMessage: "Less",
+    description:
+      "Start of label for button that displays additional information under required form inputs.",
+  },
+  info: {
+    id: "formInput.info",
+    defaultMessage: "Info",
+    description:
+      "End of label for button that displays additional information under required form inputs.",
+  },
+  nullSelectOption: {
+    id: "formInput.nullSelectOption",
+    defaultMessage: "Select from the following...",
+    description: "The default selection option displayed on select box.",
+  },
 });

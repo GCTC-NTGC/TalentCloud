@@ -17,7 +17,7 @@ return [
         "add_button_label" => "Ajouter un échantillon de travail",
         "null_copy" => "Vous n'avez actuellement aucun échantillon de travail dans votre portefeuille. Utilisez le bouton ci-dessus pour ajouter un échantillon de travail."
     ],
-    //TODO: move modals to under a ViewComposer's responsability
+    //TODO: move modals to under a ViewComposer's responsibility
     "modals" => [
         "delete_sample" => [
             "type" => "deleteConfirmation",

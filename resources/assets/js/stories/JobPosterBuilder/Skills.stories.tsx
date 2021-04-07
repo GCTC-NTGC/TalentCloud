@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { withIntl } from "storybook-addon-intl";
 import { select, boolean } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
-import { SelectTypeOptionsProp } from "@storybook/addon-knobs/dist/components/types";
+import { SelectTypeOptionsProp } from "@storybook/addon-knobs/dist/ts3.9/components/types";
 import JobSkills from "../../components/JobBuilder/Skills/JobSkills";
 import fakeJob, { fakeCriterion, fakeJobTasks } from "../../fakeData/fakeJob";
 import { fakeSkills } from "../../fakeData/fakeSkills";

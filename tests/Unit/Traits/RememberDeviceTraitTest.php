@@ -41,7 +41,7 @@ class RememberDeviceTraitTest extends TestCase
         $this->assertSame(60, strlen($user->getRememberDeviceToken()));
     }
 
-    public function testCylcleTokenSavesDifferentEveryTime()
+    public function testCycleTokenSavesDifferentEveryTime()
     {
         $user = factory(User::class)->create();
         $user->cycleRememberDeviceToken();

@@ -18,7 +18,7 @@ return [
         "add_button_label" => "Ajouter une référence",
         "null_copy" => "Vous n'avez actuellement aucune référence dans votre portefeuille. Utilisez le bouton ci-dessus pour ajouter une référence."
     ],
-    //TODO: move modals to under a ViewComposer's responsability
+    //TODO: move modals to under a ViewComposer's responsibility
     "modals" => [
         "delete_reference" => [
             "type" => "deleteConfirmation",

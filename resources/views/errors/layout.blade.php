@@ -1,5 +1,5 @@
 @extends(backpack_user() && (starts_with(\Request::path(), config('backpack.base.route_prefix'))) ? 'backpack::layouts.top_left' : 'backpack::layouts.plain')
-{{-- show error using sidebar layout if looged in AND on an admin page; otherwise use a blank page --}}
+{{-- show error using sidebar layout if logged in AND on an admin page; otherwise use a blank page --}}
 
 @php
   $title = 'Error '.$error_number;

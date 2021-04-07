@@ -9,7 +9,7 @@ use App\Models\Lookup\ReviewStatus;
 use App\Models\Lookup\ReviewDecision;
 
 /**
- * Class AppliationReview
+ * Class ApplicationReview
  *
  * @property int $id
  * @property int $job_application_id
