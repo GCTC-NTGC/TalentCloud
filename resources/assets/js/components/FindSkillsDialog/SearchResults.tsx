@@ -16,14 +16,12 @@ interface SearchResultsProps {
   accordionData: { [key: string]: boolean };
   /** The description displayed after user chooses a skill category or searches for a skill. */
   description: string;
-  /** Boolean that is set to true if it's the user's first visit on the dialog. */
-  firstVisit: boolean;
   /** List of newly added skills. */
   newSkills: Skill[];
   /** List of previously added skills. */
   previousSkills: Skill[];
   /** The skills displayed after user chooses a skill category or searches for a skill. */
-  results: Skill[];
+  results: Skill[] | null;
   /** The title displayed after user chooses a skill category or searches for a skill. */
   title: string;
   /** Resets the search results pane to its default state. */
@@ -37,7 +35,6 @@ interface SearchResultsProps {
 const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   accordionData,
   description,
-  firstVisit,
   newSkills,
   previousSkills,
   title,
@@ -54,7 +51,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
    */
   const firstSkillResultRef = React.useRef<HTMLButtonElement | null>(null); // first element in skills results list.
   React.useEffect(() => {
-    if (results.length !== 0 && firstSkillResultRef.current) {
+    if (results && results.length !== 0 && firstSkillResultRef.current) {
       firstSkillResultRef.current.focus();
     }
   }, [results]);
@@ -158,7 +155,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
       data-h2-grid-item="s(3of5) b(1of1)"
       data-h2-border="s(gray-2, left, solid, thin) b(gray-2, top, solid, thin)"
     >
-      {firstVisit ? (
+      {results === null ? (
         <div
           data-h2-padding="s(tb, 5) s(right, 3) s(left, 4) b(bottom, 3) b(rl, 2)"
           data-h2-container="b(center, large)"
@@ -209,7 +206,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
           >
             {description}
           </p>
-          {!firstVisit && results.length > 0 ? (
+          {results && results.length > 0 ? (
             <>
               {/* This message is for screen readers. It provides a status message to the user on how many skills they have added. */}
               <p role="status" data-h2-visibility="b(invisible)">

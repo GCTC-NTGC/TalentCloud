@@ -72,15 +72,12 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   // List of new Skills that will be saved to the user on submit.
   const [newSkills, setNewSkills] = useState<Skill[]>([]);
   // List of skills that displayed in the results section of the modal.
-  const [results, setResults] = useState<Skill[]>([]);
+  const [results, setResults] = useState<Skill[] | null>(null);
   // Stores the skill category's name and description for the results section.
   const [resultsSectionText, setResultsSectionText] = useState<{
     title: string;
     description: string;
   }>({ title: "", description: "" });
-  // This state controls the search results panes display.
-  // If true it will display the default state, otherwise it will show the search results.
-  const [firstVisit, setFirstVisit] = useState(true);
   // This holds the active skill category's key, which is used for styling purposes.
   const [activeCategory, setActiveCategory] = useState<SkillCategory["key"]>(
     "",
@@ -168,8 +165,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    */
   const handleSkillSearch = (searchQuery: string): Promise<void> => {
     if (searchQuery.length === 0) {
-      setResults([]);
-      setFirstVisit(true);
+      setResults(null);
       return Promise.resolve();
     }
 
@@ -185,7 +181,6 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
     );
 
     // Set the skillResults state with the matches from the query.
-    setFirstVisit(false);
     setResultsSectionText({
       title: intl.formatMessage(messages.searchResultsTitle, {
         numOfSkills: skillMatches.length,
@@ -210,10 +205,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    * @param childSkillCategory Skill Category object.
    */
   const onSkillCategoryClick = (childSkillCategory: SkillCategory): void => {
-    setFirstVisit(false);
-    searchResultsSource.current = {
-      elementSelector: `#${childSkillCategory.key}-skill-category`,
-    };
+    setResults(categoryIdToSkillsMap.get(childSkillCategory.id) ?? []);
     setActiveCategory(childSkillCategory.key);
     setResultsSectionText({
       title: intl.formatMessage(messages.skills, {
@@ -227,18 +219,19 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
       //   "description",
       // ),
     });
-    setResults(categoryIdToSkillsMap.get(childSkillCategory.id) ?? []);
+    searchResultsSource.current = {
+      elementSelector: `#${childSkillCategory.key}-skill-category`,
+    };
   };
 
   /**
    * Resets the search results pane to its default state, and puts focus back on the search results source.
    */
   const resetResults = (): void => {
-    setFirstVisit(true);
+    setResults(null);
+    setActiveCategory("");
     focusOnElement(searchResultsSource.current.elementSelector);
     searchResultsSource.current = { elementSelector: "" };
-    setActiveCategory("");
-    setResults([]);
   };
 
   const dialogRef = React.useRef<HTMLElement | null>(null);
@@ -387,7 +380,6 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
           <SearchResults
             accordionData={accordionData}
             description={resultsSectionText.description}
-            firstVisit={firstVisit}
             newSkills={newSkills}
             previousSkills={previousSkills}
             results={results}
@@ -421,8 +413,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
               onClick={() =>
                 handleSubmit(newSkills).then(() => {
                   setNewSkills([]);
-                  setFirstVisit(true);
-                  setResults([]);
+                  setResults(null);
                   handleCloseDialog();
                 })
               }
