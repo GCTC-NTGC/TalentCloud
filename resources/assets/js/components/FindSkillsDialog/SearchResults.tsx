@@ -68,7 +68,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     const keyHandler = (e: KeyboardEvent) => {
       if (e.key === "Tab") {
         resetResults();
-        e.preventDefault();
+        // e.preventDefault();
       }
     };
     let element: HTMLElement;
