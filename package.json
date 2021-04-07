@@ -116,7 +116,7 @@
         "re-reselect": "^4.0.0",
         "react": "^16.14.0",
         "react-dom": "^16.14.0",
-        "react-hook-form": "^6.15.5",
+        "react-hook-form": "^7.0.4",
         "react-intl": "^5.15.7",
         "react-markdown": "^5.0.3",
         "react-redux": "^7.2.3",
