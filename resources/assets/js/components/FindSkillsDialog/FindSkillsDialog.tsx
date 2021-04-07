@@ -133,14 +133,14 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
   /**
    * Closes all skill category and skill accordions in the dialog.
    */
-  const closeAllAccordions = (): void => {
+  const closeAllAccordions = React.useCallback(() => {
     setAccordionData(
       Object.keys(accordionData).reduce((acc, key) => {
         acc[key] = false;
         return acc;
       }, {}),
     );
-  };
+  }, [accordionData]);
 
   /**
    * Returns a map of skills where the key represents the category id, and the value is an array of skills in that category.
