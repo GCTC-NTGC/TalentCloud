@@ -11,6 +11,8 @@ interface DialogContext extends Div {
   isVisible: boolean;
   /** Callback method that closes the dialog. */
   closeDialog: () => void;
+  /** If true, don't focus add any focus on events. */
+  overrideFocusRules?: boolean;
 }
 
 const DialogContext = React.createContext<DialogContext | undefined>(undefined);
@@ -132,7 +134,15 @@ interface DialogComposition {
 const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
   props,
 ) => {
-  const { id, isVisible, className, children, closeDialog, ...rest } = props;
+  const {
+    id,
+    isVisible,
+    className,
+    children,
+    closeDialog,
+    overrideFocusRules,
+    ...rest
+  } = props;
   // Focus the first focusable element when the modal becomes visible.
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
@@ -157,7 +167,6 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
             const focusableDialogElements = getTabList(dialogRef.current);
 
             if (focusableDialogElements.length === 0) {
-              event.preventDefault(); // TODO: should this throw an error?
               return;
             }
 
@@ -208,12 +217,12 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
   );
 
   React.useEffect(() => {
-    if (isVisible) {
+    if (isVisible && !overrideFocusRules) {
       document.addEventListener("keydown", handleKeyUp);
     }
 
     return () => document.removeEventListener("keydown", handleKeyUp);
-  }, [isVisible, handleKeyUp]);
+  }, [isVisible, handleKeyUp, overrideFocusRules]);
 
   return (
     <DialogContext.Provider value={props}>

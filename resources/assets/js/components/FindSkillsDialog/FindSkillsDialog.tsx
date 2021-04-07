@@ -347,6 +347,7 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
         isVisible={isDialogVisible}
         closeDialog={handleCloseDialog}
         data-h2-radius="b(round)"
+        overrideFocusRules
       >
         <Dialog.Header className="gradient-left-right">
           <Dialog.Title
