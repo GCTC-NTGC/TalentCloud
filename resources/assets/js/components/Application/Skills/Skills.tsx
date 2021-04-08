@@ -8,9 +8,10 @@ import React, {
   RefObject,
 } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
-import { Formik, Form, FastField, FormikProps } from "formik";
+import { Formik, Form, FastField, FormikProps, FormikValues } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
+import { isEmpty } from "lodash";
 import {
   ExperienceSkill,
   Skill,
@@ -52,9 +53,9 @@ import {
 import Modal from "../../Modal";
 import {
   validateAllForms,
-  submitAllForms,
   focusOnElement,
   getFocusableElements,
+  getValidForms,
 } from "../../../helpers/forms";
 import {
   find,
@@ -656,11 +657,26 @@ const Skills: React.FC<SkillsProps> = ({
   ): Promise<void> => {
     setIsSubmitting(true);
     const refs = Array.from(refMap.values()).filter(notEmpty);
-    const formsAreValid = await validateAllForms(refs);
-    if (formsAreValid) {
+    const validFormsRefs: React.RefObject<
+      FormikProps<FormikValues>
+    >[] = await getValidForms(refs);
+    const validFormsRefMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    > = new Map();
+
+    refMap.forEach((ref, experienceSkillId) => {
+      if (validFormsRefs.includes(ref)) {
+        validFormsRefMap.set(experienceSkillId, ref);
+      }
+    });
+
+    if (validFormsRefMap.size > 0) {
       const experienceSkillsToUpdate: ExperienceSkill[] = getExperienceSkillsToUpdate(
-        refMap,
+        validFormsRefMap,
       );
+
+      console.log(experienceSkillsToUpdate.length);
       if (experienceSkillsToUpdate.length > 0) {
         try {
           await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
@@ -672,6 +688,7 @@ const Skills: React.FC<SkillsProps> = ({
         }
       }
     }
+    setIsSubmitting(false);
   };
 
   // formRefs holds a dictionary of experienceSkill.id to refs to Formik forms.
