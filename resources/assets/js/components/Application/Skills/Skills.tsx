@@ -11,7 +11,6 @@ import { FormattedMessage, useIntl, IntlShape } from "react-intl";
 import { Formik, Form, FastField, FormikProps, FormikValues } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { isEmpty } from "lodash";
 import {
   ExperienceSkill,
   Skill,
