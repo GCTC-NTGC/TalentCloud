@@ -19,6 +19,7 @@ import {
   ResponseScreeningBuckets as ResponseBuckets,
   ReviewStatusId,
   ReviewStatusName,
+  GCEmployeeStatus,
 } from "./lookupConstants";
 import { getOrThrowError } from "../helpers/queries";
 import { Experience } from "./types";
@@ -1327,3 +1328,33 @@ export const getExperienceJustificationLabel = (
 
   return label;
 };
+
+export const gcEmployeeStatuses = defineMessages({
+  [GCEmployeeStatus.current]: {
+    id: "application.basicInfo.gcEmployeeStatus.current",
+    defaultMessage:
+      "Yes - I am currently an employee of the Government of Canada.",
+    description: "Select option text for the 'Yes' GC employee status.",
+  },
+  [GCEmployeeStatus.no]: {
+    id: "application.basicInfo.gcEmployeeStatus.no",
+    defaultMessage:
+      "No - I am not, and have never been, an employee of the Government of Canada.",
+    description: "Select option text for the 'No' GC employee status.",
+  },
+  [GCEmployeeStatus.past]: {
+    id: "application.basicInfo.gcEmployeeStatus.past",
+    defaultMessage:
+      "I was previously, but am no longer, an employee of the Government of Canada.",
+    description: "Select option text for the 'Previous' GC employee status.",
+  },
+});
+
+export const gcEmployeeStatus = (
+  gcEmployeeStatusId: number,
+): MessageDescriptor =>
+  getOrThrowError(
+    gcEmployeeStatuses,
+    gcEmployeeStatusId,
+    "invalid GC employee Status",
+  );
