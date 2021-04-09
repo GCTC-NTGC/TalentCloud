@@ -1,14 +1,16 @@
 import React, { createRef, useState, MutableRefObject } from "react";
 import { useIntl, FormattedMessage } from "react-intl";
-import { FormikProps } from "formik";
+import { FormikProps, FormikValues } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
 import {
   validateAllForms,
   submitAllForms,
   focusOnElement,
+  getValidForms,
 } from "../../../helpers/forms";
 import { fitMessages, navigationMessages } from "../applicationMessages";
+import { notEmpty } from "../../../helpers/queries";
 
 interface FitProps {
   applicationId: number;
@@ -63,6 +65,32 @@ export const Fit: React.FunctionComponent<FitProps> = ({
       });
       setIsSubmitting(false);
       return Promise.reject();
+    }
+  };
+
+  /**
+   * Validate many Formik forms, and submit only valid ones.
+   * @param refMap A map of question id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const saveManyAndQuit = async (
+    refMap: Map<number, React.MutableRefObject<FormikProps<QuestionValues>>>,
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values()).filter(notEmpty);
+    const validFormsRefs: React.RefObject<
+      FormikProps<FormikValues>
+    >[] = await getValidForms(refs);
+
+    if (validFormsRefs.length > 0) {
+      try {
+        await submitAllForms(refs);
+        setIsSubmitting(false);
+        return Promise.resolve();
+      } catch {
+        setIsSubmitting(false);
+        return Promise.reject();
+      }
     }
   };
 
@@ -141,7 +169,7 @@ export const Fit: React.FunctionComponent<FitProps> = ({
               type="button"
               disabled={isSubmitting}
               onClick={(): Promise<void> =>
-                validateAndSubmit(formRefs.current).then(handleQuit)
+                saveManyAndQuit(formRefs.current).then(handleQuit)
               }
             >
               {intl.formatMessage(navigationMessages.quit)}
