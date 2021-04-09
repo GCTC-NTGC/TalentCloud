@@ -33,7 +33,7 @@
         "@fortawesome/fontawesome-free": "^5.15.3",
         "@storybook/addon-actions": "^6.2.5",
         "@storybook/addon-knobs": "^6.2.5",
-        "@storybook/addons": "^6.2.5",
+        "@storybook/addons": "^6.2.7",
         "@storybook/react": "^6.2.5",
         "@storybook/theming": "^6.2.5",
         "@testing-library/jest-dom": "^5.11.10",
