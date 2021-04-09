@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { getFocusableElements } from "../../helpers/forms";
+import { getFocusableElements } from "../../helpers/focus";
 import { GeneralBtnProps } from "./utils";
 
 type DivProps = React.HTMLAttributes<HTMLDivElement>;

@@ -50,12 +50,8 @@ import {
   computeExperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
-import {
-  validateAllForms,
-  submitAllForms,
-  focusOnElement,
-  getFocusableElements,
-} from "../../../helpers/forms";
+import { validateAllForms } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/focus";
 import {
   find,
   getId,

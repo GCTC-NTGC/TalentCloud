@@ -47,7 +47,7 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { focusOnElement, getFocusableElements } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/focus";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(

@@ -3,11 +3,8 @@ import { useIntl, FormattedMessage } from "react-intl";
 import { FormikProps } from "formik";
 import { JobPosterQuestion, JobApplicationAnswer } from "../../../models/types";
 import Question, { QuestionValues } from "./Question";
-import {
-  validateAllForms,
-  submitAllForms,
-  focusOnElement,
-} from "../../../helpers/forms";
+import { validateAllForms, submitAllForms } from "../../../helpers/forms";
+import { focusOnElement } from "../../../helpers/focus";
 import { fitMessages, navigationMessages } from "../applicationMessages";
 
 interface FitProps {

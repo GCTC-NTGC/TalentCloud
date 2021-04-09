@@ -5,7 +5,7 @@ import {
   focusOnElement,
   focusPreviousItem,
   getFocusableElements,
-} from "../../helpers/forms";
+} from "../../helpers/focus";
 import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 import { Skill, SkillCategory } from "../../models/types";
 import Accordion from "../H2Components/Accordion";

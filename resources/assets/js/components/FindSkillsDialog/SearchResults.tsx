@@ -4,7 +4,7 @@ import {
   focusNextItem,
   focusPreviousItem,
   getFocusableElements,
-} from "../../helpers/forms";
+} from "../../helpers/focus";
 import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 import { addOrRemove } from "../../helpers/queries";
 import { Skill } from "../../models/types";

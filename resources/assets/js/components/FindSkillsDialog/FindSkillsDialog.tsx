@@ -8,7 +8,7 @@ import {
 import { Skill, SkillCategory } from "../../models/types";
 import SearchBar from "../SearchBar";
 import Dialog from "../H2Components/Dialog";
-import { focusOnElement } from "../../helpers/forms";
+import { focusOnElement } from "../../helpers/focus";
 import { dialogMessages as messages } from "./messages";
 import SkillCategories from "./SkillCategories";
 import SearchResults from "./SearchResults";

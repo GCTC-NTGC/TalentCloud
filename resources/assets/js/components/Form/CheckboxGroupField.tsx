@@ -1,7 +1,7 @@
 import { Field, useField } from "formik";
 import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { focusOnElement } from "../../helpers/forms";
+import { focusOnElement } from "../../helpers/focus";
 import { inputMessages } from "./Messages";
 
 interface CheckboxGroupFieldProps {
