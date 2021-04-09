@@ -2,9 +2,9 @@ import * as React from "react";
 import { focusOnElement, getTabList } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
-type Div = React.HTMLAttributes<HTMLDivElement>;
-type Heading = React.HTMLAttributes<HTMLDivElement>;
-interface DialogContext extends Div {
+type DivProps = React.HTMLAttributes<HTMLDivElement>;
+type HeadingProps = React.HTMLAttributes<HTMLHeadElement>;
+interface DialogContext extends DivProps {
   /** The dialogs id. */
   id: string;
   /** Boolean that controls if modal is open or closed. */
@@ -32,7 +32,7 @@ const useDialogContext = (): DialogContext => {
   return context;
 };
 
-type ActionsProps = Div;
+type ActionsProps = DivProps;
 const Actions: React.FunctionComponent<ActionsProps> = ({
   children,
   ...rest
@@ -65,7 +65,7 @@ const ActionBtn: React.FunctionComponent<ActionBtnProps> = ({
   );
 };
 
-type ContentProps = Div;
+type ContentProps = DivProps;
 const Content: React.FunctionComponent<ContentProps> = ({
   children,
   ...rest
@@ -78,7 +78,7 @@ const Content: React.FunctionComponent<ContentProps> = ({
   );
 };
 
-type HeaderProps = Div;
+type HeaderProps = DivProps;
 const Header: React.FunctionComponent<HeaderProps> = ({
   children,
   ...rest
@@ -91,7 +91,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   );
 };
 
-type TitleProps = Heading;
+type TitleProps = HeadingProps;
 const Title: React.FunctionComponent<TitleProps> = ({ children, ...rest }) => {
   const { id } = useDialogContext();
   return (

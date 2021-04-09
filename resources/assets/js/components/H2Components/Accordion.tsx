@@ -3,7 +3,7 @@ import { useIntl, defineMessages } from "react-intl";
 import { getTabList } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
-type Div = React.HTMLAttributes<HTMLDivElement>;
+type DivProps = React.HTMLAttributes<HTMLDivElement>;
 
 const messages = defineMessages({
   expand: {
@@ -13,7 +13,7 @@ const messages = defineMessages({
   },
 });
 
-interface AccordionContext extends Div {
+interface AccordionContext extends DivProps {
   /** The accordions id. */
   id?: string;
   /** The state of the accordion (expanded or collapsed). */
@@ -105,7 +105,11 @@ const Btn: React.FunctionComponent<BtnProps> = ({
   );
 };
 
-const Content: React.FunctionComponent<Div> = ({ children, ...rest }) => {
+type ContentProps = DivProps;
+const Content: React.FunctionComponent<ContentProps> = ({
+  children,
+  ...rest
+}) => {
   const { isExpanded } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
@@ -131,7 +135,7 @@ const Content: React.FunctionComponent<Div> = ({ children, ...rest }) => {
 
 interface AccordionComposition {
   Btn: React.FunctionComponent<BtnProps>;
-  Content: React.FunctionComponent<Div>;
+  Content: React.FunctionComponent<ContentProps>;
 }
 
 const Accordion: React.FunctionComponent<AccordionContext> &
