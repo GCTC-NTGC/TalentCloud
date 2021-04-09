@@ -143,7 +143,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
               toggleAccordion={() =>
                 toggleAccordion(id, "parentSkillCategories")
               }
-              overrideFocusRules
+              overrideCloseFocusRules
             >
               <Accordion.Btn
                 id={`skill-category-trigger-${id}-${key}`}

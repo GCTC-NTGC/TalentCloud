@@ -23,7 +23,9 @@ interface AccordionContext extends DivProps {
   /** Callback method for opening or closing accordion. */
   toggleAccordion?: () => void;
   /** If true, don't focus the accordion trigger when it closes. */
-  overrideFocusRules?: boolean;
+  overrideOpenFocusRules?: boolean;
+  /** If true, don't focus the accordion trigger when it closes. */
+  overrideCloseFocusRules?: boolean;
 }
 
 const AccordionContext = React.createContext<AccordionContext | undefined>(
@@ -69,15 +71,15 @@ const Btn: React.FunctionComponent<BtnProps> = ({
   const {
     isExpanded,
     toggleAccordion,
-    overrideFocusRules,
+    overrideCloseFocusRules,
   } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
   const intl = useIntl();
   const buttonRef = React.useRef<HTMLButtonElement | null>(null);
   React.useEffect(() => {
-    if (buttonRef.current && !isExpanded && !overrideFocusRules) {
+    if (buttonRef.current && !isExpanded && !overrideCloseFocusRules) {
       buttonRef.current.focus();
     }
-  }, [buttonRef, isExpanded, overrideFocusRules]);
+  }, [buttonRef, isExpanded, overrideCloseFocusRules]);
   return (
     <button
       aria-expanded={isExpanded}
@@ -110,16 +112,16 @@ const Content: React.FunctionComponent<ContentProps> = ({
   children,
   ...rest
 }) => {
-  const { isExpanded } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
+  const { isExpanded, overrideOpenFocusRules } = useAccordionContext(); // Ensures sub-component can only be used within the Accordion component.
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
-    if (contentRef.current && isExpanded) {
+    if (contentRef.current && isExpanded && !overrideOpenFocusRules) {
       const focusableElements = getFocusableElements(contentRef.current);
       if (focusableElements.length > 0) {
         focusableElements[0].focus();
       }
     }
-  }, [contentRef, isExpanded]);
+  }, [contentRef, isExpanded, overrideOpenFocusRules]);
   return (
     <div
       data-h2-visibility={!isExpanded ? "b(hidden)" : ""}
@@ -145,7 +147,8 @@ const Accordion: React.FunctionComponent<AccordionContext> &
     isExpanded = false,
     toggleAccordion,
     triggerPos,
-    overrideFocusRules,
+    overrideOpenFocusRules,
+    overrideCloseFocusRules,
     children,
     ...rest
   } = props;
@@ -162,7 +165,8 @@ const Accordion: React.FunctionComponent<AccordionContext> &
         triggerPos,
         isExpanded: expanded,
         toggleAccordion: toggleAccordion || (() => setExpanded(!expanded)),
-        overrideFocusRules,
+        overrideOpenFocusRules,
+        overrideCloseFocusRules,
       }}
     >
       <div
