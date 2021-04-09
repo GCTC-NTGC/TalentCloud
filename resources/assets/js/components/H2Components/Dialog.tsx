@@ -136,7 +136,7 @@ const Trigger: React.FunctionComponent<TriggerProps> = ({
 }) => {
   return (
     <button
-      aria-haspopup
+      aria-haspopup="dialog"
       data-h2-button={buttonStyling}
       data-h2-dialog-trigger={`${id}`}
       type="button"
