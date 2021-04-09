@@ -201,6 +201,7 @@ const List: React.FC<ListProps> = ({
                     <p>{intl.formatMessage(messages.categoryEmpty)}</p>
                   )}
                   {group.skills
+                    .filter((item, index, self) => self.indexOf(item) === index)
                     .sort(sortByLocalizedName(locale))
                     .map((skill: Skill) => {
                       const experiencesOfSkill = getExperiencesOfSkill(
