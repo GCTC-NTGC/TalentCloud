@@ -645,7 +645,7 @@ const Skills: React.FC<SkillsProps> = ({
   };
 
   /**
-   * Saves all skill justifications if valid.
+   * Validate many Formik forms, and submit only valid ones.
    * @param refMap A map of experienceSkill id to formik Form ref
    * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
    */
@@ -676,7 +676,6 @@ const Skills: React.FC<SkillsProps> = ({
         validFormsRefMap,
       );
 
-      console.log(experienceSkillsToUpdate.length);
       if (experienceSkillsToUpdate.length > 0) {
         try {
           await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
@@ -688,7 +687,6 @@ const Skills: React.FC<SkillsProps> = ({
         }
       }
     }
-    setIsSubmitting(false);
   };
 
   // formRefs holds a dictionary of experienceSkill.id to refs to Formik forms.
