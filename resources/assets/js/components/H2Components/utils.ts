@@ -1,19 +1,10 @@
-export interface GeneralProps {
-  /** The standard css class attribute */
-  className?: string;
-  /** The standard inline styling attribute */
-  style?: React.CSSProperties;
-}
-
-export interface GeneralBtnProps {
+export interface GeneralBtnProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   /** The hydrogen styling for a button component */
   buttonStyling?: string;
-  /** The type of button: "submit" | "reset" | "button" */
-  type?: "submit" | "reset" | "button";
-  /** The onClick event handler */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  /** This sets the button to disabled state, preventing user from interacting with the button. */
-  disabled?: boolean;
 }
 
 export type H2Color =

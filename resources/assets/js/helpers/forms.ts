@@ -3,46 +3,6 @@ import isEmpty from "lodash/isEmpty";
 import { RefObject } from "react";
 import { notEmpty } from "./queries";
 
-export const focusableElementSelector =
-  "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])";
-
-/**
- * Get all focusable elements that are decendent of element,
- * or all focusable elements in the document body if element is null.
- */
-export const getFocusableElements = (
-  element: HTMLElement | null = null,
-): NodeListOf<HTMLElement> =>
-  element
-    ? element.querySelectorAll<HTMLElement>(focusableElementSelector)
-    : document.body.querySelectorAll<HTMLElement>(focusableElementSelector);
-
-/**
- * Focuses on a element with given id.
- * @param id
- */
-export const focusOnElement = (elementId: string): void => {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.focus();
-  }
-};
-
-/**
- * Toggle accordion with given id.
- * @param id
- */
-export const toggleAccordion = (elementId: string): void => {
-  const element = document.getElementById(elementId);
-  if (element) {
-    element.classList.toggle("active");
-    const { firstElementChild } = element;
-    if (firstElementChild) {
-      firstElementChild.setAttribute("aria-expanded", "true");
-    }
-  }
-};
-
 /**
  * Runs validation on all forms, then returns true if they are all valid.
  * TODO: Figure out how to focus the first (or last) invalid input, if any.

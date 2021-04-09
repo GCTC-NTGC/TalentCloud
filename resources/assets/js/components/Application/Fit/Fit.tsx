@@ -6,9 +6,9 @@ import Question, { QuestionValues } from "./Question";
 import {
   validateAllForms,
   submitAllForms,
-  focusOnElement,
   getValidForms,
 } from "../../../helpers/forms";
+import { focusOnElement } from "../../../helpers/focus";
 import { fitMessages, navigationMessages } from "../applicationMessages";
 import { notEmpty } from "../../../helpers/queries";
 
@@ -58,7 +58,7 @@ export const Fit: React.FunctionComponent<FitProps> = ({
       Array.from(refMap.entries()).some((ref) => {
         const [questionId, formRef] = ref;
         if (!formRef.current.isValid) {
-          focusOnElement(`answer-${questionId}`);
+          focusOnElement(`#answer-${questionId}`);
           return true;
         }
         return false;

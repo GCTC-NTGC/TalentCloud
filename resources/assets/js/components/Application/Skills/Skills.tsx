@@ -50,12 +50,8 @@ import {
   computeExperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
-import {
-  validateAllForms,
-  focusOnElement,
-  getFocusableElements,
-  getValidForms,
-} from "../../../helpers/forms";
+import { validateAllForms, getValidForms } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/focus";
 import {
   find,
   getId,
@@ -633,7 +629,7 @@ const Skills: React.FC<SkillsProps> = ({
             ...accordionExpansions,
             [experienceSkillId]: true,
           });
-          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          focusOnElement(`#experience-skill-textarea-${experienceSkillId}`);
           return true;
         }
         return false;
