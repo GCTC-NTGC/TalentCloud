@@ -176,6 +176,7 @@ return [
         'website' => [
             'size' => 'Your submission looks like a bot might have filled it out! Only fill out the required fields.',
         ],
+        'classification' => 'The classification field must contain a recognized Classification code and a number, seperated by a dash. For example, EX-04 or IT-01.',
     ],
 
     /*

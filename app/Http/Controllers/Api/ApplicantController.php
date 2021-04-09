@@ -11,6 +11,7 @@ use App\Models\Applicant;
 use App\Models\ApplicantClassification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
+use ValidClassificationRule;
 
 class ApplicantController extends Controller
 {
@@ -27,7 +28,12 @@ class ApplicantController extends Controller
         $skillIds = preg_split('/,/', $request->query('skill_ids', ''), null, PREG_SPLIT_NO_EMPTY);
         $classifications = preg_split('/,/', $request->query('classifications', ''), null, PREG_SPLIT_NO_EMPTY);
 
-        // TODO: Validate
+        $validated = $request->validate([
+            'limit' => "integer|max:$maxLimit",
+            'offset' => 'integer',
+            'skillIds' => 'regex:/^[0-9]+(,[0-9]+)*$/',
+            'classifications' => ['string', new ValidClassificationRule()],
+        ])
 
         Log::debug([
             'limit' => $limit,

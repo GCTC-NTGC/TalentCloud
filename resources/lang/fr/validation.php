@@ -176,6 +176,7 @@ return [
         'website' => [
             'size' => 'Votre soumission semble avoir été remplie par un robot ! Ne remplissez que les champs obligatoires.',
         ],
+        'classification' => 'Le champ classification doit contenir un code de classification reconnu et un numéro, séparés par un tiret. Par exemple, EX-04 ou IT-01.'
     ],
     /*
     |--------------------------------------------------------------------------
