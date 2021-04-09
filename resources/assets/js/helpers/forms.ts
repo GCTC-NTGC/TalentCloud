@@ -4,7 +4,7 @@ import { RefObject } from "react";
 import { notEmpty } from "./queries";
 
 export const focusableElementSelector =
-  "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])";
+  "button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex='-1'])";
 
 /**
  * Get all focusable elements that are decendent of element,
@@ -54,9 +54,9 @@ export const toggleAccordion = (elementId: string): void => {
  * Focuses on the previous element in the list.
  * @param focusList List of focusable HTML elements.
  */
-export const focusPreviousItem = (focusList: HTMLElement[]) => {
+export const focusPreviousItem = (focusList: NodeListOf<HTMLElement>): void => {
   const item = document.activeElement as HTMLElement;
-  const activeElementIndex = focusList.findIndex(
+  const activeElementIndex = Array.from(focusList).findIndex(
     (focusItem) => item === focusItem,
   );
   // If, the active element is first in order then move focus to last element in the focus list.
@@ -72,9 +72,9 @@ export const focusPreviousItem = (focusList: HTMLElement[]) => {
  * Focuses on the next element in the list.
  * @param focusList List of focusable HTML elements.
  */
-export const focusNextItem = (focusList: HTMLElement[]) => {
+export const focusNextItem = (focusList: NodeListOf<HTMLElement>): void => {
   const item = document.activeElement as HTMLElement;
-  const activeElementIndex = focusList.findIndex(
+  const activeElementIndex = Array.from(focusList).findIndex(
     (focusItem) => item === focusItem,
   );
   // If, the active element is last in order then move focus to first element in the focus list.
@@ -85,20 +85,6 @@ export const focusNextItem = (focusList: HTMLElement[]) => {
     focusList[activeElementIndex + 1].focus();
   }
 };
-
-/**
- * Returns a list of tabable elements within the parent element.
- * @param parentElement Parent element.
- * @returns
- */
-export const getTabList = (parentElement: HTMLElement | null): HTMLElement[] =>
-  parentElement
-    ? (Array.from(
-        parentElement.querySelectorAll(
-          "button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex='-1'])",
-        ),
-      ) as HTMLElement[])
-    : [];
 
 /**
  * Runs validation on all forms, then returns true if they are all valid.

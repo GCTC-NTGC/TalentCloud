@@ -1,5 +1,5 @@
 import * as React from "react";
-import { focusOnElement, getTabList } from "../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
 type DivProps = React.HTMLAttributes<HTMLDivElement>;
@@ -172,7 +172,7 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
   const dialogRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (isVisible && dialogRef.current) {
-      const focusableModalElements = getTabList(dialogRef.current);
+      const focusableModalElements = getFocusableElements(dialogRef.current);
       if (focusableModalElements.length > 0) {
         const firstElement = focusableModalElements[0] as HTMLElement;
         firstElement.focus();
@@ -189,7 +189,9 @@ const Dialog: React.FunctionComponent<DialogContext> & DialogComposition = (
           break;
         case "Tab":
           if (dialogRef && dialogRef.current) {
-            const focusableDialogElements = getTabList(dialogRef.current);
+            const focusableDialogElements = getFocusableElements(
+              dialogRef.current,
+            );
 
             if (focusableDialogElements.length === 0) {
               return;

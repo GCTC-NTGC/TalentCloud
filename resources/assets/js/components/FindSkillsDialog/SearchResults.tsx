@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import {
   focusNextItem,
   focusPreviousItem,
-  getTabList,
+  getFocusableElements,
 } from "../../helpers/forms";
 import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 import { addOrRemove } from "../../helpers/queries";
@@ -87,7 +87,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     id: number,
   ): void => {
     if (resultsRef.current) {
-      const skillResultsTabList = getTabList(resultsRef.current);
+      const skillResultsTabList = getFocusableElements(resultsRef.current);
 
       switch (e.key) {
         case "ArrowLeft":
@@ -115,7 +115,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     newSkillsState: Skill[],
   ): void => {
     if (resultsRef.current) {
-      const skillResultsTabList = getTabList(resultsRef.current);
+      const skillResultsTabList = getFocusableElements(resultsRef.current);
       const checkbox = document.getElementById(id) as HTMLInputElement;
       switch (event.key) {
         case "ArrowLeft":
@@ -145,7 +145,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     event: React.KeyboardEvent<HTMLButtonElement>,
   ): void => {
     if (resultsRef.current) {
-      const skillResultsTabList = getTabList(resultsRef.current);
+      const skillResultsTabList = getFocusableElements(resultsRef.current);
       switch (event.key) {
         case "ArrowUp":
           focusPreviousItem(skillResultsTabList);

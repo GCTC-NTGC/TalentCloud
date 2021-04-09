@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl, defineMessages } from "react-intl";
-import { getTabList } from "../../helpers/forms";
+import { getFocusableElements } from "../../helpers/forms";
 import { GeneralBtnProps } from "./utils";
 
 type DivProps = React.HTMLAttributes<HTMLDivElement>;
@@ -114,7 +114,7 @@ const Content: React.FunctionComponent<ContentProps> = ({
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (contentRef.current && isExpanded) {
-      const focusableElements = getTabList(contentRef.current);
+      const focusableElements = getFocusableElements(contentRef.current);
       if (focusableElements.length > 0) {
         focusableElements[0].focus();
       }

@@ -4,7 +4,7 @@ import {
   focusNextItem,
   focusOnElement,
   focusPreviousItem,
-  getTabList,
+  getFocusableElements,
 } from "../../helpers/forms";
 import { getLocale, localizeFieldNonNull } from "../../helpers/localize";
 import { Skill, SkillCategory } from "../../models/types";
@@ -85,7 +85,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
         "[data-h2-accordion-trigger]",
       );
 
-      const childSkillCategoriesFocusList = getTabList(content);
+      const childSkillCategoriesFocusList = getFocusableElements(content);
       // ArrowLeft: close the accordion and move focus back on the trigger.
       // ArrowRight: Select the child skill category and move focus on the skill results.
       // ArrowUp & ArrowDown: Allow user to navigate through child skill categories only using the up and down arrows.
