@@ -13,7 +13,7 @@ class ValidClassificationRule implements Rule
      *
      * @var string
      */
-    const PATTERN = '^(.)+-([0-9]+)$';
+    const PATTERN = '^(.+)-([0-9]+)$';
 
     /**
      * Determine if the validation rule passes.
