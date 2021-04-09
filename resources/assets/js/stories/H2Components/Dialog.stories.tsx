@@ -46,18 +46,6 @@ stories.add(
                 "Text",
               )}
             </Dialog.Title>
-            <Dialog.ActionBtn
-              data-h2-dialog-exit-trigger
-              data-h2-button="round, small, solid"
-              data-h2-align="b(right)"
-            >
-              <i
-                data-h2-font-size="b(normal)"
-                data-h2-font-color="b(white)"
-                className="fas fa-times"
-                aria-hidden="true"
-              />
-            </Dialog.ActionBtn>
           </Dialog.Header>
           <Dialog.Content>
             <p data-h2-padding="b(all, 3)">

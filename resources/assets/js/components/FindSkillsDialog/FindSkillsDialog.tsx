@@ -15,7 +15,6 @@ import SearchResults from "./SearchResults";
 import { mapToObjectTrans } from "../../helpers/queries";
 
 const FIND_SKILLS_DIALOG_ID = "dialog-id-find-skills";
-
 interface FindSkillsDialogTriggerProps {
   openDialog: () => void;
 }

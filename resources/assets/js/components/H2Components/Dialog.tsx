@@ -78,15 +78,36 @@ const Content: React.FunctionComponent<ContentProps> = ({
   );
 };
 
-type HeaderProps = DivProps;
+interface HeaderProps extends DivProps {
+  closeBtnColor?: string;
+}
 const Header: React.FunctionComponent<HeaderProps> = ({
+  closeBtnColor,
   children,
   ...rest
 }) => {
-  useDialogContext(); // Ensures sub-component can only be used within the Dialog component.
+  const { closeDialog } = useDialogContext();
   return (
     <div data-h2-dialog-title {...rest}>
-      {children}
+      <div data-h2-grid="b(middle, expanded, padded, .5)">
+        <div data-h2-grid-item="b(11of12)">{children}</div>
+        <div data-h2-align="b(center)" data-h2-grid-item="b(1of12)">
+          <button
+            data-h2-button={`${closeBtnColor}, round, small, solid`}
+            data-h2-align="b(right)"
+            type="button"
+            onClick={closeDialog}
+          >
+            <i
+              data-h2-font-size="b(normal)"
+              data-h2-font-color="b(white)"
+              className="fas fa-times"
+              aria-hidden="true"
+            />
+            <p data-h2-visibility="b(hidden)">Close Dialog</p>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -95,9 +116,10 @@ type TitleProps = HeadingProps;
 const Title: React.FunctionComponent<TitleProps> = ({ children, ...rest }) => {
   const { id } = useDialogContext();
   return (
-    <h5 data-h2-focus id={`${id}Title`} {...rest}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <h1 tabIndex={0} id={`${id}Title`} {...rest}>
       {children}
-    </h5>
+    </h1>
   );
 };
 
