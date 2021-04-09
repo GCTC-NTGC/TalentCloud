@@ -37,3 +37,29 @@ export const submitAllForms = (
     }),
   );
 };
+
+/**
+ * Takes a list of formik refs and returns a list of the refs that pass validation.
+ * @param refs
+ * @returns
+ */
+export const getValidForms = (
+  refs: RefObject<FormikProps<FormikValues>>[],
+): Promise<RefObject<FormikProps<FormikValues>>[]> => {
+  const validFormRefs: React.RefObject<FormikProps<FormikValues>>[] = [];
+
+  return Promise.all(
+    refs.filter(notEmpty).map(
+      (ref: RefObject<FormikProps<FormikValues>>): Promise<void> => {
+        if (ref.current !== null) {
+          return ref.current.validateForm().then((errors) => {
+            if (errors && isEmpty(errors)) {
+              validFormRefs.push(ref);
+            }
+          });
+        }
+        return Promise.resolve();
+      },
+    ),
+  ).then(() => validFormRefs);
+};
