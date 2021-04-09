@@ -13,7 +13,10 @@ import { searchResultsMessages as messages } from "./messages";
 
 interface SearchResultsProps {
   /** Object holding the state (expanded or collapsed) of all dialog accordions. */
-  accordionData: { [key: string]: boolean };
+  accordionData: {
+    skills: { [id: string]: boolean };
+    parentSkillCategories: { [key: string]: boolean };
+  };
   /** The description displayed after user chooses a skill category or searches for a skill. */
   description: string;
   /** List of newly added skills. */
@@ -29,7 +32,7 @@ interface SearchResultsProps {
   /** Callback function to set the new skills list state. */
   setNewSkills: (value: React.SetStateAction<Skill[]>) => void;
   /** Callback function that toggles the accordion's state. */
-  toggleAccordion: (key: string, value?: boolean | null) => void;
+  toggleAccordion: (id: number, key: string, value?: boolean | null) => void;
 }
 
 const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
@@ -81,7 +84,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
 
   const skillAccordionKeyDown = (
     e: React.KeyboardEvent<HTMLButtonElement>,
-    id: string,
+    id: number,
   ): void => {
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
@@ -91,7 +94,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
           resetResults();
           break;
         case "ArrowRight":
-          toggleAccordion(id);
+          toggleAccordion(id, "skills");
           break;
         case "ArrowUp":
           focusPreviousItem(skillResultsTabList);
@@ -106,7 +109,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
   };
 
   const addSkillKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
+    event: React.KeyboardEvent<HTMLInputElement>,
     id: string,
     newSkill: Skill,
     newSkillsState: Skill[],
@@ -114,19 +117,23 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
       const checkbox = document.getElementById(id) as HTMLInputElement;
-      switch (e.key) {
+      switch (event.key) {
         case "ArrowLeft":
           resetResults();
+          event.preventDefault();
           break;
         case "ArrowRight":
           setNewSkills(addOrRemove(newSkill, newSkillsState));
           checkbox.checked = !checkbox.checked;
+          event.preventDefault();
           break;
         case "ArrowUp":
           focusPreviousItem(skillResultsTabList);
+          event.preventDefault();
           break;
         case "ArrowDown":
           focusNextItem(skillResultsTabList);
+          event.preventDefault();
           break;
         default:
         // do nothing;
@@ -134,15 +141,19 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
     }
   };
 
-  const backBtnKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+  const backBtnKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+  ): void => {
     if (resultsRef.current) {
       const skillResultsTabList = getTabList(resultsRef.current);
-      switch (e.key) {
+      switch (event.key) {
         case "ArrowUp":
           focusPreviousItem(skillResultsTabList);
+          event.preventDefault();
           break;
         case "ArrowDown":
           focusNextItem(skillResultsTabList);
+          event.preventDefault();
           break;
         default:
         // do nothing;
@@ -228,20 +239,18 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
                     previousSkills.find(
                       (previousSkill) => previousSkill.id === skill.id,
                     ) !== undefined;
-                  const resultId = `skill-${id}`;
                   const checkboxId = `${id}-skill-checkbox`;
                   return (
                     <li key={id} data-h2-grid="b(middle, contained, padded, 0)">
                       <Accordion
-                        isExpanded={accordionData[resultId]}
-                        toggleAccordion={() => toggleAccordion(resultId)}
+                        isExpanded={accordionData.skills[id]}
+                        toggleAccordion={() => toggleAccordion(id, "skills")}
                         data-h2-grid-item="b(3of4)"
                       >
                         <Accordion.Btn
                           role="menuitem"
-                          id={resultId}
                           innerRef={index === 0 ? firstSkillResultRef : null}
-                          onKeyDown={(e) => skillAccordionKeyDown(e, resultId)}
+                          onKeyDown={(e) => skillAccordionKeyDown(e, id)}
                         >
                           <p
                             data-h2-font-weight="b(700)"
@@ -300,7 +309,7 @@ const SearchResults: React.FunctionComponent<SearchResultsProps> = ({
                             setNewSkills(addOrRemove(skill, newSkills));
                           }}
                           onKeyDown={(e) =>
-                            addSkillKeyDown(e, resultId, skill, newSkills)
+                            addSkillKeyDown(e, checkboxId, skill, newSkills)
                           }
                           defaultChecked={isPreviousSkill}
                           disabled={isPreviousSkill}

@@ -15,7 +15,10 @@ interface SkillCategoriesProps {
   /** Key of the currently selected skill category. */
   activeCategory: SkillCategory["key"];
   /** Object holding the state (expanded or collapsed) of all dialog accordions. */
-  accordionData: { [key: string]: boolean };
+  accordionData: {
+    skills: { [id: string]: boolean };
+    parentSkillCategories: { [key: string]: boolean };
+  };
   /** List of skills */
   skills: Skill[];
   /** List of skill categories. */
@@ -23,7 +26,7 @@ interface SkillCategoriesProps {
   /** Sets the state of the skill results section when a skill category is clicked. */
   onSkillCategoryClick: (skillCategory: SkillCategory) => void;
   /** Callback function that toggles the accordion's state. */
-  toggleAccordion: (key: string, value?: boolean | null) => void;
+  toggleAccordion: (id: number, key: string, value?: boolean | null) => void;
 }
 
 const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
@@ -71,7 +74,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
     event: React.KeyboardEvent<HTMLButtonElement>,
     id: string,
     childSkillCategory: SkillCategory,
-    parentSkillCategoryKey: string,
+    parentSkillCategoryId: number,
   ): void => {
     const accordion = document.getElementById(id);
     if (accordion) {
@@ -88,19 +91,23 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
       // ArrowUp & ArrowDown: Allow user to navigate through child skill categories only using the up and down arrows.
       switch (event.key) {
         case "ArrowLeft":
-          toggleAccordion(parentSkillCategoryKey);
+          toggleAccordion(parentSkillCategoryId, "parentSkillCategories");
           if (trigger) {
             focusOnElement(trigger);
           }
+          event.preventDefault();
           break;
         case "ArrowRight":
           onSkillCategoryClick(childSkillCategory);
+          event.preventDefault();
           break;
         case "ArrowUp":
           focusPreviousItem(childSkillCategoriesFocusList);
+          event.preventDefault();
           break;
         case "ArrowDown":
           focusNextItem(childSkillCategoriesFocusList);
+          event.preventDefault();
           break;
         default:
         // do nothing;
@@ -122,16 +129,20 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
         return (
           <li
             key={id}
-            data-h2-bg-color={`b(gray-1, ${accordionData[key] ? ".5" : "0"})`}
+            data-h2-bg-color={`b(gray-1, ${
+              accordionData.parentSkillCategories[id] ? ".5" : "0"
+            })`}
             data-h2-padding="b(tb, 1)"
             data-h2-border="b(gray-2, top, solid, thin)"
             data-h2-margin="b(tb, 0)"
           >
             <Accordion
-              isExpanded={accordionData[key]}
+              isExpanded={accordionData.parentSkillCategories[id]}
               id={`${id}-${key}`}
               triggerPos="left"
-              toggleAccordion={() => toggleAccordion(key)}
+              toggleAccordion={() =>
+                toggleAccordion(id, "parentSkillCategories")
+              }
               overrideFocusRules
             >
               <Accordion.Btn
@@ -208,7 +219,7 @@ const SkillCategories: React.FunctionComponent<SkillCategoriesProps> = ({
                                   e,
                                   `${id}-${key}`,
                                   childSkillCategory,
-                                  parentSkillCategory.key,
+                                  id,
                                 )
                               }
                             >

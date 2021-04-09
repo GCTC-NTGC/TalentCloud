@@ -79,9 +79,11 @@ const Content: React.FunctionComponent<ContentProps> = ({
 };
 
 interface HeaderProps extends DivProps {
+  buttonAttributes?: { [key: string]: string | boolean };
   closeBtnColor?: string;
 }
 const Header: React.FunctionComponent<HeaderProps> = ({
+  buttonAttributes,
   closeBtnColor,
   children,
   ...rest
@@ -97,6 +99,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
             data-h2-align="b(right)"
             type="button"
             onClick={closeDialog}
+            {...buttonAttributes}
           >
             <i
               data-h2-font-size="b(normal)"

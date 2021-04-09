@@ -96,18 +96,23 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    * The value represents if the accordion is expanded or not.
    */
   const [accordionData, setAccordionData] = React.useState<{
-    [key: string]: boolean;
+    skills: { [id: string]: boolean };
+    parentSkillCategories: { [key: string]: boolean };
   }>({
-    ...mapToObjectTrans(
-      skills,
-      (skill) => `skill-${skill.id}`,
-      () => false,
-    ),
-    ...mapToObjectTrans(
-      skillCategories.filter((skillCategory) => !skillCategory.parent_id), // Only want parent categories.
-      (parentSkillCategory) => parentSkillCategory.key,
-      () => false,
-    ),
+    skills: {
+      ...mapToObjectTrans(
+        skills,
+        (skill) => skill.id,
+        () => false,
+      ),
+    },
+    parentSkillCategories: {
+      ...mapToObjectTrans(
+        skillCategories.filter((skillCategory) => !skillCategory.parent_id), // Only want parent categories.
+        (parentSkillCategory) => parentSkillCategory.id,
+        () => false,
+      ),
+    },
   });
 
   /**
@@ -117,12 +122,16 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    * @param value Optional value to set the accordions state (expanded or collapsed).
    */
   const toggleAccordion = (
-    key: string,
+    id: number,
+    key: "skills" | "parentSkillCategories",
     isExpanded: boolean | null = null,
   ): void => {
     setAccordionData({
       ...accordionData,
-      [key]: isExpanded !== null ? isExpanded : !accordionData[key],
+      [key]: {
+        ...accordionData[key],
+        [id]: isExpanded !== null ? isExpanded : !accordionData[key][id],
+      },
     });
   };
 
@@ -130,13 +139,23 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
    * Closes all skill category and skill accordions in the dialog.
    */
   const closeAllAccordions = React.useCallback(() => {
-    setAccordionData(
-      Object.keys(accordionData).reduce((acc, key) => {
-        acc[key] = false;
-        return acc;
-      }, {}),
-    );
-  }, [accordionData]);
+    setAccordionData({
+      skills: {
+        ...mapToObjectTrans(
+          skills,
+          (skill) => skill.id,
+          () => false,
+        ),
+      },
+      parentSkillCategories: {
+        ...mapToObjectTrans(
+          skillCategories.filter((skillCategory) => !skillCategory.parent_id), // Only want parent categories.
+          (parentSkillCategory) => parentSkillCategory.id,
+          () => false,
+        ),
+      },
+    });
+  }, [skillCategories, skills]);
 
   /**
    * Returns a map of skills where the key represents the category id, and the value is an array of skills in that category.
@@ -341,11 +360,15 @@ const FindSkillsDialog: React.FunctionComponent<FindSkillsDialogProps> = ({
         data-h2-radius="b(round)"
         overrideFocusRules
       >
-        <Dialog.Header className="gradient-left-right">
+        <Dialog.Header
+          buttonAttributes={{ "data-tabable": true }}
+          className="gradient-left-right"
+        >
           <Dialog.Title
             data-h2-padding="b(all, 1)"
             data-h2-font-color="b(white)"
             data-h2-font-size="b(h4)"
+            data-tabable
           >
             {intl.formatMessage(messages.modalHeading)}
           </Dialog.Title>
