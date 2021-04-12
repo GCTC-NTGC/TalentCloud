@@ -34,7 +34,7 @@
         "phpunit/php-code-coverage": "^7.0",
         "phpunit/phpunit": "^8.5",
         "sebastian/global-state": "^3.0",
-        "slevomat/coding-standard": "^6.0",
+        "slevomat/coding-standard": "^7.0",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload": {
