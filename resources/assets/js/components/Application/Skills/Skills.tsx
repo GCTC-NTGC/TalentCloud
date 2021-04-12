@@ -8,7 +8,7 @@ import React, {
   RefObject,
 } from "react";
 import { FormattedMessage, useIntl, IntlShape } from "react-intl";
-import { Formik, Form, FastField, FormikProps } from "formik";
+import { Formik, Form, FastField, FormikProps, FormikValues } from "formik";
 import * as Yup from "yup";
 import Swal, { SweetAlertResult } from "sweetalert2";
 import {
@@ -50,12 +50,8 @@ import {
   computeExperienceStatus,
 } from "./skillsHelpers";
 import Modal from "../../Modal";
-import {
-  validateAllForms,
-  submitAllForms,
-  focusOnElement,
-  getFocusableElements,
-} from "../../../helpers/forms";
+import { validateAllForms, getValidForms } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/focus";
 import {
   find,
   getId,
@@ -541,6 +537,45 @@ const Skills: React.FC<SkillsProps> = ({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   /**
+   * Returns a list of experience skills with updated justifications received from the formik form refs.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns List of experience skills
+   */
+  const getExperienceSkillsToUpdate = (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): ExperienceSkill[] =>
+    experienceSkills.reduce(
+      (
+        accumulator: ExperienceSkill[],
+        currentValue: ExperienceSkill,
+      ): ExperienceSkill[] => {
+        const formRefEntry = Array.from(refMap.entries()).find(
+          ([experienceSkillId, formRef]) =>
+            experienceSkillId === currentValue.id,
+        );
+
+        if (formRefEntry !== null && formRefEntry !== undefined) {
+          const [experienceSkillId, formRef] = formRefEntry;
+          if (
+            formRef.current !== null &&
+            currentValue.justification !== formRef.current.values.justification
+          ) {
+            accumulator.push({
+              ...currentValue,
+              justification: formRef.current.values.justification,
+            });
+            return accumulator;
+          }
+        }
+
+        return accumulator;
+      },
+      [],
+    );
+  /**
    * Validate many Formik forms, and submit all of them if all are valid.
    * @param refMap A map of experienceSkill id to formik Form ref
    * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
@@ -555,34 +590,8 @@ const Skills: React.FC<SkillsProps> = ({
     const refs = Array.from(refMap.values()).filter(notEmpty);
     const formsAreValid = await validateAllForms(refs);
     if (formsAreValid) {
-      const experienceSkillsToUpdate: ExperienceSkill[] = experienceSkills.reduce(
-        (
-          accumulator: ExperienceSkill[],
-          currentValue: ExperienceSkill,
-        ): ExperienceSkill[] => {
-          const formRefEntry = Array.from(refMap.entries()).find(
-            ([experienceSkillId, formRef]) =>
-              experienceSkillId === currentValue.id,
-          );
-
-          if (formRefEntry !== null && formRefEntry !== undefined) {
-            const [experienceSkillId, formRef] = formRefEntry;
-            if (
-              formRef.current !== null &&
-              currentValue.justification !==
-                formRef.current.values.justification
-            ) {
-              accumulator.push({
-                ...currentValue,
-                justification: formRef.current.values.justification,
-              });
-              return accumulator;
-            }
-          }
-
-          return accumulator;
-        },
-        [],
+      const experienceSkillsToUpdate: ExperienceSkill[] = getExperienceSkillsToUpdate(
+        refMap,
       );
       if (experienceSkillsToUpdate.length > 0) {
         try {
@@ -620,13 +629,58 @@ const Skills: React.FC<SkillsProps> = ({
             ...accordionExpansions,
             [experienceSkillId]: true,
           });
-          focusOnElement(`experience-skill-textarea-${experienceSkillId}`);
+          focusOnElement(`#experience-skill-textarea-${experienceSkillId}`);
           return true;
         }
         return false;
       });
       setIsSubmitting(false);
       return Promise.reject();
+    }
+  };
+
+  /**
+   * Validate many Formik forms, and submit only valid ones.
+   * @param refMap A map of experienceSkill id to formik Form ref
+   * @returns A promise that resolves if submission succeeds, and rejects if validation or submission fails.
+   */
+  const saveManyAndQuit = async (
+    refMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    >,
+  ): Promise<void> => {
+    setIsSubmitting(true);
+    const refs = Array.from(refMap.values()).filter(notEmpty);
+    const validFormsRefs: React.RefObject<
+      FormikProps<FormikValues>
+    >[] = await getValidForms(refs);
+    const validFormsRefMap: Map<
+      number,
+      React.RefObject<FormikProps<ExperienceSkillFormValues>>
+    > = new Map();
+
+    refMap.forEach((ref, experienceSkillId) => {
+      if (validFormsRefs.includes(ref)) {
+        validFormsRefMap.set(experienceSkillId, ref);
+      }
+    });
+
+    if (validFormsRefMap.size > 0) {
+      const experienceSkillsToUpdate: ExperienceSkill[] = getExperienceSkillsToUpdate(
+        validFormsRefMap,
+      );
+
+      if (experienceSkillsToUpdate.length > 0) {
+        try {
+          await handleBatchUpdateExperienceSkills(experienceSkillsToUpdate);
+          setIsSubmitting(false);
+          return Promise.resolve();
+        } catch {
+          setIsSubmitting(false);
+          return Promise.reject();
+        }
+      }
     }
   };
 
@@ -894,11 +948,7 @@ const Skills: React.FC<SkillsProps> = ({
                   type="button"
                   disabled={isSubmitting}
                   onClick={(): Promise<void> =>
-                    validateAndSubmitMany(formRefs.current)
-                      .then(handleQuit)
-                      .catch(() => {
-                        // Validation failed, do nothing.
-                      })
+                    saveManyAndQuit(formRefs.current).then(handleQuit)
                   }
                 >
                   {intl.formatMessage(navigationMessages.quit)}

@@ -11,7 +11,9 @@ import {
 } from "../../../hooks/apiResourceHooks";
 import { Experience, ExperienceSkill, Skill } from "../../../models/types";
 import { loadingMessages } from "../../Application/applicationMessages";
-import FindSkillsModal, { FindSkillsModalTrigger } from "../../FindSkillsModal";
+import FindSkillsDialog, {
+  FindSkillsDialogTrigger,
+} from "../../FindSkillsDialog/FindSkillsDialog";
 import RootContainer from "../../RootContainer";
 import List from "./List";
 
@@ -52,6 +54,17 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
     });
   };
 
+  const [isDialogVisible, setIsDialogVisible] = React.useState(false);
+  const openDialog = () => setIsDialogVisible(true);
+  const closeDialog = () => {
+    setIsDialogVisible(false);
+  };
+  // The skills list should be only appear after skills have loaded at least once.
+  // They should continue to be visible after that, even while requests are in progress.
+  const showSkills =
+    skillsResource.initialRefreshFinished &&
+    applicantSkillsResource.initialRefreshFinished;
+
   return (
     <div>
       <h2 data-h2-heading="b(h3)" data-h2-margin="b(bottom, 1)">
@@ -82,7 +95,7 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
               <FormattedMessage
                 id="profileSkillsPage.addSkills.subtitle"
                 defaultMessage="Find and Add Skills"
-                description="Section title acompanying the button that opens the Explore Skills modal."
+                description="Section title accompanying the button that opens the Explore Skills modal."
               />
             </h4>
             <p>
@@ -96,13 +109,15 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
         </div>
         <div data-h2-grid-item="b(1of1) m(1of6)">
           <div data-h2-grid-content>
-            <FindSkillsModalTrigger />
-            <FindSkillsModal
-              oldSkills={applicantSkills}
+            <FindSkillsDialogTrigger openDialog={openDialog} />
+            <FindSkillsDialog
+              previousSkills={applicantSkills}
               portal="applicant"
               skills={skillsResource.value}
               skillCategories={skillCategoriesResource.value}
               handleSubmit={submitNewSkills}
+              isDialogVisible={isDialogVisible}
+              closeDialog={closeDialog}
             />
           </div>
         </div>
@@ -120,15 +135,17 @@ export const ProfileExperiencePage: React.FC<{ applicantId: number }> = ({
           {intl.formatMessage(loadingMessages.loading)}
         </h4>
       )}
-      <List
-        experiences={experiences}
-        experienceSkills={experienceSkills}
-        skillCategories={skillCategoriesResource.value}
-        skills={applicantSkills}
-        applicantId={applicantId}
-        handleDeleteSkill={removeSkill}
-        updateInProgress={applicantSkillsResource.status === "pending"}
-      />
+      {showSkills && (
+        <List
+          experiences={experiences}
+          experienceSkills={experienceSkills}
+          skillCategories={skillCategoriesResource.value}
+          skills={applicantSkills}
+          applicantId={applicantId}
+          handleDeleteSkill={removeSkill}
+          updateInProgress={applicantSkillsResource.status === "pending"}
+        />
+      )}
     </div>
   );
 };

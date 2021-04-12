@@ -502,7 +502,7 @@
       },
       {
         "defaultMessage": "Find and Add Skills",
-        "description": "Section title acompanying the button that opens the Explore Skills modal.",
+        "description": "Section title accompanying the button that opens the Explore Skills modal.",
         "id": "profileSkillsPage.addSkills.subtitle"
       },
       {
@@ -806,6 +806,11 @@
         "id": "application.experience.errorRenderingExperience"
       },
       {
+        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
+        "description": "List of soft skills that will be evaluated later.",
+        "id": "application.experience.softSkillsList"
+      },
+      {
         "defaultMessage": "UNKNOWN CLASSIFICATION",
         "description": "This is shown in place of Education Requirements, if the job's classification has no matching justification. It's the result of an error and indicates a bug, and should never be see.",
         "id": "application.education.missingClassification"
@@ -1036,11 +1041,6 @@
         "id": "application.experience.assetSkillsListIntro"
       },
       {
-        "defaultMessage": "Don't forget, {skill} will be evaluated later in the hiring process.",
-        "description": "List of soft skills that will be evaluated later.",
-        "id": "application.experience.softSkillsList"
-      },
-      {
         "defaultMessage": "To continue, please connect the following required skill(s) to an experience:",
         "description": "Error message displayed to user when experience step validation fails",
         "id": "application.experience.errorMessage"
@@ -1132,7 +1132,7 @@
       {
         "defaultMessage": "You've selected this experience as an indicator of how you meet the education requirements for this job.",
         "description": "Explanation of what it means that this experience meets an education requirement.",
-        "id": "application.experienceAccordion.educationRequirmentDescription"
+        "id": "application.experienceAccordion.educationRequirementDescription"
       },
       {
         "defaultMessage": "Delete Experience",
@@ -1734,6 +1734,11 @@
         "defaultMessage": "You haven't set a communication language preference in your profile yet.",
         "description": "Text displayed if a user has not yet selected a communication preference in their profile.",
         "id": "application.review.communication.notSet"
+      },
+      {
+        "defaultMessage": "Required",
+        "description": "Text displayed before skill level.",
+        "id": "application.review.requiredSkillLabel"
       },
       {
         "defaultMessage": "Basic Information",
@@ -2912,6 +2917,87 @@
         "id": "findSkillsModal.modalHeading"
       },
       {
+        "defaultMessage": "Cancel",
+        "id": "findSkillsModal.cancel"
+      },
+      {
+        "defaultMessage": "Save Skills",
+        "id": "findSkillsModal.save"
+      },
+      {
+        "defaultMessage": "Search for skills by name:",
+        "id": "findSkillsModal.searchBarInputLabel"
+      },
+      {
+        "defaultMessage": "eg. User interface design.",
+        "id": "findSkillsModal.searchBarInputPlaceholder"
+      },
+      {
+        "defaultMessage": "Search Skills",
+        "id": "findSkillsModal.searchBarButtonLabel"
+      },
+      {
+        "defaultMessage": "There are {numOfSkills} results for skills related to \"{searchQuery}\".",
+        "id": "findSkillsModal.searchResultsTitle"
+      },
+      {
+        "defaultMessage": "{category} Skills",
+        "id": "findSkillsModal.skills"
+      },
+      {
+        "defaultMessage": "There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in {category} category.",
+        "id": "findSkillsModal.numOfCategorySkills"
+      },
+      {
+        "defaultMessage": "Click to view {category} skills category. There's {numOfSkills, plural, =0 {no skills} one {1 skill} other {{numOfSkills} skills}} in this category.",
+        "id": "findSkillsModal.childCategoryButtonAriaLabel"
+      },
+      {
+        "defaultMessage": "Explore Categories",
+        "id": "findSkillsModal.skillsResultsHeading"
+      },
+      {
+        "defaultMessage": "Click on the categories on the left to explore skills. Only select the skills that you have experience with.",
+        "id": "findSkillsModal.skillResultsSubHeading"
+      },
+      {
+        "defaultMessage": "No skills available.",
+        "id": "findSkillsModal.noSkills"
+      },
+      {
+        "defaultMessage": "Back",
+        "id": "findSkillsModal.backButton"
+      },
+      {
+        "defaultMessage": "Already Added",
+        "id": "findSkillsModal.disabledSkillButton"
+      },
+      {
+        "defaultMessage": "Select {skill}",
+        "id": "findSkillsModal.selectSkillButton"
+      },
+      {
+        "defaultMessage": "Remove {skill}",
+        "id": "findSkillsModal.removeSkillButton"
+      },
+      {
+        "defaultMessage": "{numOfSkills} skill has been added. Select the save skills button, to save them to your profile.",
+        "id": "findSkillsModal.numOfSkillsAdded"
+      }
+    ],
+    "path": "resources/assets/js/components/FindSkillsDialog/messages.json"
+  },
+  {
+    "descriptors": [
+      {
+        "defaultMessage": "Add Skills",
+        "id": "findSkillsModal.triggerLabel"
+      },
+      {
+        "defaultMessage": "Find and add skills",
+        "id": "findSkillsModal.modalHeading"
+      },
+      {
         "defaultMessage": "Click to view...",
         "id": "findSkillsModal.accordionButtonLabel"
       },
@@ -2961,7 +3047,7 @@
       },
       {
         "defaultMessage": "Search for skills by name:",
-        "id": "findSkillsModal.seachBarInputLabel"
+        "id": "findSkillsModal.searchBarInputLabel"
       },
       {
         "defaultMessage": "eg. User interface design.",
@@ -5767,7 +5853,7 @@
       },
       {
         "defaultMessage": "The provided description contains sufficient evidence to advance this candidate to the next screening steps.",
-        "description": "Standard evalutation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
+        "description": "Standard evaluation statement which replaces 'expected answer' for all skills under the Narrative Review assessment type.",
         "id": "assessmentType.narrativeReview.standardAnswer"
       },
       {
@@ -5824,55 +5910,55 @@
       },
       {
         "defaultMessage": "Alb.",
-        "id": "province.ab.abreviation"
+        "id": "province.ab.abbreviation"
       },
       {
         "defaultMessage": "B.C.",
-        "id": "province.bc.abreviation"
+        "id": "province.bc.abbreviation"
       },
       {
         "defaultMessage": "Man.",
-        "id": "province.mb.abreviation"
+        "id": "province.mb.abbreviation"
       },
       {
         "defaultMessage": "N.L.",
-        "id": "province.nl.abreviation"
+        "id": "province.nl.abbreviation"
       },
       {
         "defaultMessage": "N.B.",
-        "id": "province.nb.abreviation"
+        "id": "province.nb.abbreviation"
       },
       {
         "defaultMessage": "N.S.",
-        "id": "province.ns.abreviation"
+        "id": "province.ns.abbreviation"
       },
       {
         "defaultMessage": "Nvt.",
-        "id": "province.nu.abreviation"
+        "id": "province.nu.abbreviation"
       },
       {
         "defaultMessage": "N.W.T.",
-        "id": "province.nt.abreviation"
+        "id": "province.nt.abbreviation"
       },
       {
         "defaultMessage": "Ont.",
-        "id": "province.on.abreviation"
+        "id": "province.on.abbreviation"
       },
       {
         "defaultMessage": "P.E.I.",
-        "id": "province.pe.abreviation"
+        "id": "province.pe.abbreviation"
       },
       {
         "defaultMessage": "Que.",
-        "id": "province.qc.abreviation"
+        "id": "province.qc.abbreviation"
       },
       {
         "defaultMessage": "Sask.",
-        "id": "province.sk.abreviation"
+        "id": "province.sk.abbreviation"
       },
       {
         "defaultMessage": "Y.T.",
-        "id": "province.yk.abreviation"
+        "id": "province.yk.abbreviation"
       },
       {
         "defaultMessage": "Reliability",
@@ -5935,19 +6021,14 @@
         "id": "languageRequirement.context.expanded"
       },
       {
-        "defaultMessage": "Almost Always",
-        "description": "The form label displayed on 'always' frequency options.",
-        "id": "jobBuilder.details.frequencyAlwaysLabel"
+        "defaultMessage": "Never",
+        "description": "The form label displayed on 'never' frequency options.",
+        "id": "jobBuilder.details.frequencyNeverLabel"
       },
       {
-        "defaultMessage": "Frequently",
-        "description": "The form label displayed on 'frequently' frequency options.",
-        "id": "jobBuilder.details.frequencyFrequentlyLabel"
-      },
-      {
-        "defaultMessage": "Sometimes",
-        "description": "The form label displayed on 'sometimes' frequency options.",
-        "id": "jobBuilder.details.frequencySometimesLabel"
+        "defaultMessage": "Rarely",
+        "description": "The form label displayed on 'rarely' frequency options.",
+        "id": "jobBuilder.details.frequencyRarelyLabel"
       },
       {
         "defaultMessage": "Occasionally",
@@ -5955,9 +6036,14 @@
         "id": "jobBuilder.details.frequencyOccasionallyLabel"
       },
       {
-        "defaultMessage": "Never",
-        "description": "The form label displayed on 'never' frequency options.",
-        "id": "jobBuilder.details.frequencyNeverLabel"
+        "defaultMessage": "Frequently",
+        "description": "The form label displayed on 'frequently' frequency options.",
+        "id": "jobBuilder.details.frequencyFrequentlyLabel"
+      },
+      {
+        "defaultMessage": "Almost Always",
+        "description": "The form label displayed on 'always' frequency options.",
+        "id": "jobBuilder.details.frequencyAlwaysLabel"
       },
       {
         "defaultMessage": "Yes, overtime is frequently required for the position.",

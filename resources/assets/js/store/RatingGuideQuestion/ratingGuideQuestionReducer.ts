@@ -3,7 +3,7 @@ import { RatingGuideQuestion } from "../../models/types";
 import {
   AssessmentPlanAction,
   FETCH_ASSESSMENT_PLAN_STARTED,
-  FETCH_ASSESSMENT_PLAN_SUCCEEEDED,
+  FETCH_ASSESSMENT_PLAN_SUCCEEDED,
   FETCH_ASSESSMENT_PLAN_FAILED,
 } from "../AssessmentPlan/assessmentPlanActions";
 import {
@@ -143,7 +143,7 @@ export const ratingGuideQuestionReducer = (
   switch (action.type) {
     case FETCH_ASSESSMENT_PLAN_STARTED:
       return state;
-    case FETCH_ASSESSMENT_PLAN_SUCCEEEDED:
+    case FETCH_ASSESSMENT_PLAN_SUCCEEDED:
       return {
         ...state,
         ratingGuideQuestions: {

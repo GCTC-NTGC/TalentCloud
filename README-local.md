@@ -44,7 +44,7 @@ Example Expected output
 ... Started A high performance web server and a reverse proxy server.
 ```
 
-### Install PostGres
+### Install Postgres
 
 *For more detailed instructions, go [here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)*
 
@@ -339,7 +339,7 @@ brew install pkg-config imagemagick
 pecl install imagick
 ```
 
-## Install PostGres
+## Install Postgres
 
 ```
 brew install postgresql

@@ -101,8 +101,8 @@ export const LanguageRequirementId = {
 export const FrequencyId = {
   never: 1,
   rarely: 2,
-  sometimes: 3,
-  often: 4,
+  occasionally: 3,
+  frequently: 4,
   always: 5,
 };
 
@@ -178,6 +178,12 @@ export const CitizenshipId = {
 
 export const VeteranId = {
   none: 1,
+  current: 2,
+  past: 3,
+};
+
+export const GCEmployeeStatus = {
+  no: 1,
   current: 2,
   past: 3,
 };

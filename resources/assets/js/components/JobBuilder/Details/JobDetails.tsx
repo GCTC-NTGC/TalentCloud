@@ -83,8 +83,8 @@ const remoteWorkMessages = {
 
 type TeleworkOptionType =
   | "teleworkNever"
+  | "teleworkRarely"
   | "teleworkOccasionally"
-  | "teleworkSometimes"
   | "teleworkFrequently"
   | "teleworkAlways";
 
@@ -92,9 +92,9 @@ const teleworkMessages: {
   [key in TeleworkOptionType]: MessageDescriptor;
 } = {
   teleworkNever: frequencyName(FrequencyId.never),
-  teleworkOccasionally: frequencyName(FrequencyId.rarely),
-  teleworkSometimes: frequencyName(FrequencyId.sometimes),
-  teleworkFrequently: frequencyName(FrequencyId.often),
+  teleworkRarely: frequencyName(FrequencyId.rarely),
+  teleworkOccasionally: frequencyName(FrequencyId.occasionally),
+  teleworkFrequently: frequencyName(FrequencyId.frequently),
   teleworkAlways: frequencyName(FrequencyId.always),
 };
 
@@ -104,8 +104,8 @@ const teleworkFrequencies: TeleworkOptionType[] = Object.keys(
 
 type FlexHourOptionType =
   | "flexHoursNever"
+  | "flexHoursRarely"
   | "flexHoursOccasionally"
-  | "flexHoursSometimes"
   | "flexHoursFrequently"
   | "flexHoursAlways";
 
@@ -113,9 +113,9 @@ const flexHourMessages: {
   [key in FlexHourOptionType]: MessageDescriptor;
 } = {
   flexHoursNever: frequencyName(FrequencyId.never),
-  flexHoursOccasionally: frequencyName(FrequencyId.sometimes),
-  flexHoursSometimes: frequencyName(FrequencyId.rarely),
-  flexHoursFrequently: frequencyName(FrequencyId.often),
+  flexHoursRarely: frequencyName(FrequencyId.rarely),
+  flexHoursOccasionally: frequencyName(FrequencyId.occasionally),
+  flexHoursFrequently: frequencyName(FrequencyId.frequently),
   flexHoursAlways: frequencyName(FrequencyId.always),
 };
 const flexHourFrequencies: FlexHourOptionType[] = Object.keys(

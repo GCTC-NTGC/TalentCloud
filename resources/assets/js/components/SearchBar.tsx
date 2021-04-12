@@ -15,6 +15,11 @@ interface SearchBarProps {
   submitButton?: React.ReactElement;
   /** The function that runs when user clicks the search button, if the validation is successful. */
   handleSubmit: (searchQuery: string) => Promise<void>;
+
+  inputId?: string;
+  buttonId?: string;
+  inputAttributes?: { [key: string]: string | boolean };
+  buttonAttributes?: { [key: string]: string | boolean };
 }
 
 interface SearchBarValues {
@@ -27,6 +32,10 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   searchPlaceholder,
   submitButton,
   handleSubmit,
+  inputId,
+  buttonId,
+  inputAttributes,
+  buttonAttributes,
 }: SearchBarProps): React.ReactElement => {
   const initialValues: SearchBarValues = {
     search: "",
@@ -57,21 +66,24 @@ export const SearchBar: React.FunctionComponent<SearchBarProps> = ({
               <div data-h2-grid-item="b(6of7)">
                 <div data-h2-grid-content>
                   <FastField
-                    id="search_form_input"
+                    id={inputId}
                     type="search"
                     name="search"
                     component={TextInput}
                     label={searchLabel}
                     placeholder={searchPlaceholder}
+                    {...inputAttributes}
                   />
                 </div>
               </div>
               <div data-h2-grid-item="b(1of7)" data-h2-align="b(center)">
                 {submitButton || (
                   <button
+                    id={buttonId}
                     type="submit"
                     disabled={isSubmitting}
                     data-h2-button="theme-1, round, small, solid"
+                    {...buttonAttributes}
                   >
                     <p data-h2-button-label>
                       <i aria-hidden="true" className="fas fa-search" />

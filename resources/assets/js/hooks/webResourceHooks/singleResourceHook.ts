@@ -13,6 +13,7 @@ export interface ResourceState<T> {
   status: ResourceStatus;
   pendingCount: number;
   error: Error | FetchError | undefined;
+  initialRefreshFinished: boolean;
 }
 
 export enum ActionTypes {
@@ -57,12 +58,16 @@ export type AsyncAction<T> =
   | UpdateFulfillAction<T>
   | UpdateRejectAction<T>;
 
-export function initialState<T>(initialValue: T): ResourceState<T> {
+export function initialState<T>(
+  initialValue: T,
+  doInitialRefresh: boolean,
+): ResourceState<T> {
   return {
     value: initialValue,
     status: "initial",
     pendingCount: 0,
     error: undefined,
+    initialRefreshFinished: !doInitialRefresh,
   };
 }
 
@@ -78,6 +83,7 @@ export function reducer<T>(
         status: "pending",
         pendingCount: state.pendingCount + 1,
         error: undefined,
+        initialRefreshFinished: state.initialRefreshFinished,
       };
     case ActionTypes.GetFulfill:
     case ActionTypes.UpdateFulfill:
@@ -86,6 +92,7 @@ export function reducer<T>(
         status: state.pendingCount <= 1 ? "fulfilled" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: undefined,
+        initialRefreshFinished: true,
       };
     case ActionTypes.GetReject:
     case ActionTypes.UpdateReject:
@@ -94,6 +101,7 @@ export function reducer<T>(
         status: state.pendingCount <= 1 ? "rejected" : "pending",
         pendingCount: decrement(state.pendingCount),
         error: action.payload,
+        initialRefreshFinished: true,
       };
     default:
       return state;
@@ -108,6 +116,7 @@ export type UseResourceReturnType<T> = {
   value: T;
   status: ResourceStatus;
   error: undefined | Error | FetchError;
+  initialRefreshFinished: boolean; // Becomes true after the initial request is fulfilled or rejected. NOTE: if initial fetch is skipped, this will be set to true immediately.
   update: (newValue: T) => Promise<T>;
   refresh: () => Promise<T>;
 };
@@ -117,18 +126,18 @@ export function useResource<T>(
   initialValue: T,
   overrides?: {
     parseResponse?: (response: Json) => T; // Defaults to the identity function.
-    skipInitialFetch?: boolean; // Defaults to false. Override if you want to keep the initialValue until refresh is called manually.
+    skipInitialRefresh?: boolean; // Defaults to false. Override if you want to keep the initialValue until refresh is called manually.
     handleError?: (error: Error | FetchError) => void; // In addition to using the error returned by the hook, you may provide a callback called on every new error.
   },
 ): UseResourceReturnType<T> {
   const parseResponse = overrides?.parseResponse ?? identity;
-  const doInitialRefresh = overrides?.skipInitialFetch !== true;
+  const doInitialRefresh = overrides?.skipInitialRefresh !== true;
   const handleError = overrides?.handleError ?? doNothing;
   const isSubscribed = useRef(true);
 
   const [state, dispatch] = useReducer<
     Reducer<ResourceState<T>, AsyncAction<T>>
-  >(reducer, initialState(initialValue));
+  >(reducer, initialState(initialValue, doInitialRefresh));
 
   const refresh = useCallback(async (): Promise<T> => {
     dispatch({ type: ActionTypes.GetStart });
@@ -204,6 +213,7 @@ export function useResource<T>(
     value: state.value,
     status: state.status,
     error: state.error,
+    initialRefreshFinished: state.initialRefreshFinished,
     update,
     refresh,
   };

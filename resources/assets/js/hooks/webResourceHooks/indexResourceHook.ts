@@ -139,8 +139,8 @@ export const UNEXPECTED_FORMAT_ERROR =
 export function useResourceIndex<T>(
   endpoint: string, // API endpoint that returns a list of T.
   overrides?: {
-    initialValue?: T[]; // Defaults to an empty list. If this is overridden, initial fetch is skipped (unless forceInitialRefresh is set to true).
-    forceInitialRefresh?: boolean; // If you set an initialValue but also want to refresh immediately, set this to true.
+    initialValue?: T[]; // Defaults to an empty list.
+    skipInitialRefresh?: boolean; // Defaults to false. Override if you want to keep the initialValue until refresh is called manually.
     parseEntityResponse?: (response: Json) => T; // Defaults to the identity function.
     parseIndexResponse?: (response: Json) => T[]; // Defaults to (response) => response.map(parseEntityResponse)
     resolveEntityEndpoint?: (baseEndpoint: string, entity: T) => string; // Defaults to appending '/id' to baseEndpoint. Used for update (PUT) and delete (DELETE) requests.
@@ -150,6 +150,7 @@ export function useResourceIndex<T>(
   },
 ): {
   values: IndexedObject<T>;
+  initialRefreshFinished: boolean; // If an initial refresh happens, this becomes true after is fulfilled or rejected. If initial fetch is skipped, this will be true immediately.
   indexStatus: ResourceStatus; // The state of any requests to reload the entire index.
   createStatus: ResourceStatus; // If ANY create requests are in progress, this is 'pending'. Otherwise, it is 'fulfilled' or 'rejected' depending on the last request to complete.
   entityStatus: IndexedObject<ResourceStatus>; // Note that if indexStatus is 'pending', every entity status will also be 'pending'.
@@ -159,9 +160,7 @@ export function useResourceIndex<T>(
   deleteResource: (value: T) => Promise<void>;
 } {
   const initialValue = overrides?.initialValue ?? [];
-  const doInitialRefresh =
-    overrides?.initialValue === undefined ||
-    overrides?.forceInitialRefresh === true;
+  const doInitialRefresh = overrides?.skipInitialRefresh !== true;
   const parseEntityResponse = overrides?.parseEntityResponse ?? identity;
   const parseIndexResponse = useMemo(
     () =>
@@ -186,11 +185,14 @@ export function useResourceIndex<T>(
   const isSubscribed = useRef(true);
 
   const [state, dispatch] = useReducer<
-    Reducer<ResourceState<T>, AsyncAction<T>>,
-    { item: T; key: string | number }[] // This represent type of initialValue, passed to initializeState to create initial state.
-  >(indexCrudReducer, initialValue.map(addKey), initializeState);
+    Reducer<ResourceState<T>, AsyncAction<T>>
+  >(
+    indexCrudReducer,
+    initializeState(initialValue.map(addKey), doInitialRefresh),
+  );
 
   const values = useMemo(() => valuesSelector(state), [state]);
+  const { initialRefreshFinished } = state.indexMeta;
   const indexStatus = state.indexMeta.status;
   const createStatus = state.createMeta.status;
   const entityStatus = useMemo(() => statusSelector(state), [state]);
@@ -356,6 +358,7 @@ export function useResourceIndex<T>(
 
   return {
     values,
+    initialRefreshFinished,
     indexStatus,
     createStatus,
     entityStatus,

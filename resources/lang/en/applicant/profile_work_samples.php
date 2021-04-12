@@ -20,7 +20,7 @@ return [
         "null_copy" => "You don't currently have any work samples in your profile! Use the button above to add a work sample."
     ],
 
-    //TODO: move modals to under a ViewComposer's responsability
+    //TODO: move modals to under a ViewComposer's responsibility
     "modals" => [
         "delete_sample" => [
             "type" => "deleteConfirmation",

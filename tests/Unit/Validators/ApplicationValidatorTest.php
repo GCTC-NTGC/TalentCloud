@@ -60,7 +60,7 @@ class ApplicationValidatorTest extends TestCase
     {
         $validator = new ApplicationValidator();
 
-        // For experience step to be complete, 'experienc_saved' simply needs to be true.
+        // For experience step to be complete, 'experience_saved' simply needs to be true.
         $application = factory(JobApplication::class)->create([
         'experience_saved' => false
         ]);

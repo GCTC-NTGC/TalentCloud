@@ -8,7 +8,7 @@ import {
   educationStatuses,
   educationTypes,
   recipientTypes,
-  recogntitionTypes,
+  recognitionTypes,
 } from "./ExperienceModals.stories";
 import fakeExperiences from "../../fakeData/fakeExperience";
 import fakeExperienceSkills, {
@@ -102,7 +102,7 @@ stories.add(
           fakeClassification1().education_requirements.en
         }
         recipientTypes={recipientTypes}
-        recognitionTypes={recogntitionTypes}
+        recognitionTypes={recognitionTypes}
         handleContinue={action("Save and Continue")}
         handleQuit={action("Save and Quit")}
         handleReturn={action("Save and Return")}

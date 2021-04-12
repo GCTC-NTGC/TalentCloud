@@ -207,6 +207,11 @@ export const basicInfoMessages = defineMessages({
     description:
       "Heading for language requirements section in Application form.",
   },
+  gcEmployeeStatus: {
+    id: "application.basicInfo.gcEmployeeStatus",
+    defaultMessage: "Are you a GC employee?",
+    description: "Label for the gc employee status select box.",
+  },
 });
 
 export const experienceMessages = defineMessages({

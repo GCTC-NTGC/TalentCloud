@@ -17,7 +17,7 @@ import {
 } from "../../Application/Experience/Experience";
 import { mapToObject, getId } from "../../../helpers/queries";
 import { experienceMessages } from "../../Application/applicationMessages";
-import { getFocusableElements, toggleAccordion } from "../../../helpers/forms";
+import { getFocusableElements, toggleAccordion } from "../../../helpers/focus";
 import { useUrlHash } from "../../../helpers/router";
 
 import { getExperienceSkillsOfExperience } from "../../Application/helpers";
