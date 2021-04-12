@@ -47,7 +47,7 @@ import {
 } from "../helpers";
 import { navigationMessages, experienceMessages } from "../applicationMessages";
 import { notEmpty, removeDuplicatesById } from "../../../helpers/queries";
-import { focusOnElement, getFocusableElements } from "../../../helpers/forms";
+import { focusOnElement, getFocusableElements } from "../../../helpers/focus";
 import { ExperienceSubmitData } from "../ExperienceModals/ExperienceModalCommon";
 
 export function modalButtonProps(
@@ -775,7 +775,7 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
   // Hack solution for experience step validation error message: focusOnElement is called in the onClick method (line 830) before the element is added to the dom. Therefore, the useEffect hook is needed for the first focus, after hasError triggers re-render.
   useEffect(() => {
     if (hasError) {
-      focusOnElement("experience-step-form-error");
+      focusOnElement("#experience-step-form-error");
     }
     if (disconnectedRequiredSkills.length === 0) {
       setHasError(false);
@@ -846,7 +846,7 @@ export const ExperienceStep: React.FunctionComponent<ExperienceStepProps> = ({
                   handleContinue();
                 } else {
                   setHasError(true);
-                  focusOnElement("experience-step-form-error");
+                  focusOnElement("#experience-step-form-error");
                 }
               }}
             >
