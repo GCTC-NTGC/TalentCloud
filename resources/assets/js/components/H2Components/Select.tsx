@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { GeneralProps } from "./utils";
 import { inputMessages } from "../Form/Messages";
 
-interface SelectContext extends GeneralProps {
+interface SelectContext {
   /** Additional information displayed under the input */
   additionalInfo?: string;
   /** The default value of the select input when it is rendered. */

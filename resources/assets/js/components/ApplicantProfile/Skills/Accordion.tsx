@@ -215,6 +215,11 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl.locale);
+  const [isDialogVisible, setIsDialogVisible] = React.useState(false);
+  const openDialog = () => setIsDialogVisible(true);
+  const closeDialog = () => {
+    setIsDialogVisible(false);
+  };
   return (
     <Accordion
       triggerPos="right"
@@ -286,6 +291,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                       id={dialogId}
                       data-h2-display="b(block)"
                       data-h2-button="black, round, medium, clear"
+                      onClick={openDialog}
                     >
                       <i
                         className={getExperienceIcon(
@@ -301,7 +307,11 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         {getExperienceTitle(currentExperience)}
                       </span>
                     </Dialog.Trigger>
-                    <Dialog id={dialogId}>
+                    <Dialog
+                      isVisible={isDialogVisible}
+                      closeDialog={closeDialog}
+                      id={dialogId}
+                    >
                       <Dialog.Header
                         data-h2-grid="b(middle, contained, padded, .5)"
                         data-h2-bg-color="b(theme-1, 1)"
@@ -463,6 +473,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                             <Dialog.ActionBtn
                               buttonStyling="gray-4, round, solid"
                               data-h2-padding="b(rl, 2) b(tb, .5)"
+                              onClick={closeDialog}
                             >
                               {intl.formatMessage(
                                 messages.skillExperienceDialogActionClose,
@@ -483,6 +494,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                   data-h2-padding="b(all, .5)"
                   data-h2-margin="b(right, 1)"
                   disabled={disableDelete}
+                  onClick={openDialog}
                 >
                   <i
                     className="fas fa-trash"
@@ -493,7 +505,11 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                     {intl.formatMessage(messages.skillRemoveLabel)}
                   </span>
                 </Dialog.Trigger>
-                <Dialog id={`skill-remove-dialog-${skill.id}`}>
+                <Dialog
+                  isVisible={isDialogVisible}
+                  closeDialog={closeDialog}
+                  id={`skill-remove-dialog-${skill.id}`}
+                >
                   <Dialog.Header
                     data-h2-grid="b(middle, contained, padded, .5)"
                     data-h2-bg-color="b(theme-1, 1)"
@@ -517,6 +533,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                       <Dialog.ActionBtn
                         data-h2-button="round, small, solid"
                         data-h2-margin="b(right, 1)"
+                        onClick={closeDialog}
                       >
                         <i
                           data-h2-font-size="b(normal)"
@@ -555,6 +572,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                           disabled={disableDelete}
                           onClick={() => {
                             handleDeleteSkill(skill.id);
+                            closeDialog();
                           }}
                         >
                           {intl.formatMessage(
@@ -568,6 +586,7 @@ export const SkillAccordion: React.FC<SkillAccordionProps> = ({
                         <Dialog.ActionBtn
                           buttonStyling="theme-1, round, solid"
                           data-h2-padding="b(rl, 2) b(tb, .5)"
+                          onClick={closeDialog}
                         >
                           {intl.formatMessage(
                             messages.skillRemoveDialogActionCancel,

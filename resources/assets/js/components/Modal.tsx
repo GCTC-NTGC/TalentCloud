@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { getFocusableElements } from "../helpers/forms";
+import { getFocusableElements } from "../helpers/focus";
 
 interface ModalProps {
   id: string;

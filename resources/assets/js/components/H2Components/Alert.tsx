@@ -1,10 +1,7 @@
 import React from "react";
-import { GeneralBtnProps, GeneralProps, H2Color } from "./utils";
+import { GeneralBtnProps, H2Color } from "./utils";
 
-type DismissBtnProps = GeneralProps &
-  Omit<GeneralBtnProps, "type" | "onClick"> & {
-    onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  };
+type DismissBtnProps = GeneralBtnProps;
 const DismissBtn: React.FunctionComponent<DismissBtnProps> = ({
   className,
   children,
@@ -13,35 +10,36 @@ const DismissBtn: React.FunctionComponent<DismissBtnProps> = ({
   disabled,
   ...rest
 }) => (
-    <button
-      data-h2-alert-dismissal-trigger
-      type="button"
-      className={className}
-      data-h2-button={buttonStyling}
-      onClick={onClick}
-      disabled={disabled}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
+  <button
+    data-h2-alert-dismissal-trigger
+    type="button"
+    className={className}
+    data-h2-button={buttonStyling}
+    onClick={onClick}
+    disabled={disabled}
+    {...rest}
+  >
+    {children}
+  </button>
+);
 
-const Title: React.FunctionComponent<GeneralProps> = ({
+type TitleProps = React.HTMLAttributes<HTMLParagraphElement>;
+const Title: React.FunctionComponent<TitleProps> = ({
   className,
   children,
   ...rest
 }) => (
-    <p data-h2-alert-title className={className} {...rest}>
-      {children}
-    </p>
-  );
+  <p data-h2-alert-title className={className} {...rest}>
+    {children}
+  </p>
+);
 
 interface AlertComposition {
   DismissBtn: React.FunctionComponent<DismissBtnProps>;
-  Title: React.FunctionComponent<GeneralProps>;
+  Title: React.FunctionComponent<TitleProps>;
 }
 
-interface AlertProps extends GeneralProps {
+interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   color: H2Color;
   position: "static" | "toast";
   dismissBtn?: React.ReactElement;
@@ -67,7 +65,7 @@ const Alert: React.FunctionComponent<AlertProps> & AlertComposition = ({
       <div data-h2-alert-content>{children}</div>
     </div>
   </div>
-  );
+);
 
 // We expose the children components here, as properties.
 // Using the dot notation we explicitly set the composition relationships

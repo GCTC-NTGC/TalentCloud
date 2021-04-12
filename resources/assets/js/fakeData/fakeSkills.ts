@@ -6,8 +6,13 @@ import {
 } from "./fakeClassifications";
 import {
   fakeSkillCategoryChild1,
+  fakeSkillCategoryChild2,
+  fakeSkillCategoryChild3,
   fakeSkillCategoryChild4,
   fakeSkillCategoryChild5,
+  fakeSkillCategoryChild6,
+  fakeSkillCategoryChild7,
+  fakeSkillCategoryChild8,
 } from "./fakeSkillCategories";
 
 export const fakeSkill = (overrides: Partial<Skill> = {}): Skill => ({
@@ -45,7 +50,10 @@ export const fakeSkill2 = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: false,
   is_culture_skill: false,
   classifications: [fakeClassification1()],
-  skill_category_ids: [fakeSkillCategoryChild5().id],
+  skill_category_ids: [
+    fakeSkillCategoryChild5().id,
+    fakeSkillCategoryChild7().id,
+  ],
   ...overrides,
 });
 
@@ -125,7 +133,11 @@ export const fakeSkill6 = (overrides: Partial<Skill> = {}): Skill => ({
   is_future_skill: false,
   is_culture_skill: true,
   classifications: [fakeClassification2()],
-  skill_category_ids: [],
+  skill_category_ids: [
+    fakeSkillCategoryChild2().id,
+    fakeSkillCategoryChild3().id,
+    fakeSkillCategoryChild6().id,
+  ],
   ...overrides,
 });
 

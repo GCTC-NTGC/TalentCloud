@@ -1,7 +1,7 @@
 import { Field, useField } from "formik";
 import React, { useEffect } from "react";
 import { FormattedMessage } from "react-intl";
-import { focusOnElement } from "../../helpers/forms";
+import { focusOnElement } from "../../helpers/focus";
 import { inputMessages } from "./Messages";
 
 interface CheckboxGroupFieldProps {
@@ -29,7 +29,7 @@ export const CheckboxGroupField: React.FC<CheckboxGroupFieldProps> = ({
   const hasError = !!meta.error && meta.touched;
   useEffect(() => {
     if (hasError) {
-      focusOnElement(`${id}-${allBoxes[0].value}`);
+      focusOnElement(`#${id}-${allBoxes[0].value}`);
     }
   });
   return (
