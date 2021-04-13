@@ -9,20 +9,24 @@ use App\Http\Resources\ApplicantProfile as ApplicantProfileResource;
 use App\Http\Resources\Applicant as ApplicantResource;
 use App\Models\Applicant;
 use App\Models\ApplicantClassification;
+use App\Services\Validation\Rules\CommaSeparatedListRule;
 use Illuminate\Database\Eloquent\Builder;
 use App\Services\Validation\Rules\ValidClassificationRule;
+use Illuminate\Support\Facades\Log;
 
 class ApplicantController extends Controller
 {
 
     public function index(Request $request)
     {
+        $expectsJson = $request->expectsJson();
+        Log::debug("Expects json: $expectsJson");
         $maxLimit = config('app.api_max_limit');
         $request->validate([
             'limit' => "sometimes|integer|max:$maxLimit",
             'offset' => 'sometimes|integer|nullable',
-            'skillIds' => 'sometimes|regex:/^[0-9]+(,[0-9]+)*$/',
-            'classifications' => ['sometimes', 'string', new ValidClassificationRule()],
+            'skillIds' => 'sometimes|string|regex:/^[0-9]+(,[0-9]+)*$/',
+            'classifications' => ['sometimes', 'string', new CommaSeparatedListRule(new ValidClassificationRule())],
         ]);
 
         $limit = $request->query('limit', $maxLimit);
