@@ -3,6 +3,8 @@ import { useIntl } from "react-intl";
 import { inputMessages } from "../Form/Messages";
 
 interface SelectContext {
+  /** HTML id of the input element */
+  id?: string;
   /** Additional information displayed under the input */
   additionalInfo?: string;
   /** The default value of the select input when it is rendered. */
@@ -61,6 +63,7 @@ const Select: React.FunctionComponent<SelectContext> & SelectComposition = (
 ) => {
   const intl = useIntl();
   const {
+    id,
     additionalInfo,
     defaultValue,
     errorMessage,
@@ -74,6 +77,8 @@ const Select: React.FunctionComponent<SelectContext> & SelectComposition = (
     children,
     ...rest
   } = props;
+  const registerProps = register ? register(name) : {};
+  console.log(defaultValue);
   return (
     // The select context provider doesn't provide any props to its children (Option),
     // however it does ensure the Option component can only be used within a Select component.
@@ -81,7 +86,7 @@ const Select: React.FunctionComponent<SelectContext> & SelectComposition = (
       <div data-h2-form-item="select" {...rest}>
         <div data-h2-input-title-wrapper>
           <div data-h2-input-label-wrapper>
-            <label data-h2-input-label htmlFor="selectInput">
+            <label data-h2-input-label htmlFor={id || name}>
               {label}
             </label>
           </div>
@@ -98,13 +103,13 @@ const Select: React.FunctionComponent<SelectContext> & SelectComposition = (
         <div data-h2-input-wrapper>
           <span data-h2-input-select-icon>▼</span>
           <select
+            id={id || name}
             name={name}
-            ref={register}
             data-h2-input
-            id="selectInput"
             required={required}
             onChange={onChange}
             defaultValue={defaultValue}
+            {...registerProps}
           >
             {nullSelection ? (
               <option value="" disabled>
