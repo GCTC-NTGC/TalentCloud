@@ -241,26 +241,12 @@ export const assetSkillName = (): MessageDescriptor => skillLevelNames.asset;
 export const assetSkillDescription = (): MessageDescriptor =>
   skillLevelDescriptions.asset;
 
-export const assessmentType = (assessmentTypeId: number): MessageDescriptor => {
-  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
-    throw new Error("invalid AssessmentTypeValue");
-  }
-  return {
-    [AssessmentTypeId.ApplicationScreeningQuestion]:
-      assessmentTypes.applicationScreeningQuestion,
-    [AssessmentTypeId.GroupTest]: assessmentTypes.groupTest,
-    [AssessmentTypeId.InformalPhoneConversation]:
-      assessmentTypes.informalPhoneConversation,
-    [AssessmentTypeId.Interview]: assessmentTypes.interview,
-    [AssessmentTypeId.NarrativeAssessment]: assessmentTypes.narrativeAssessment,
-    [AssessmentTypeId.OnSiteExam]: assessmentTypes.onSiteExam,
-    [AssessmentTypeId.OnlineExam]: assessmentTypes.onlineExam,
-    [AssessmentTypeId.PortfolioReview]: assessmentTypes.portfolioReview,
-    [AssessmentTypeId.ReferenceCheck]: assessmentTypes.referenceCheck,
-    [AssessmentTypeId.SeriousGames]: assessmentTypes.seriousGames,
-    [AssessmentTypeId.TakeHomeExam]: assessmentTypes.takeHomeExam,
-  }[assessmentTypeId.toString()];
-};
+export const assessmentType = (assessmentTypeId: number): MessageDescriptor =>
+  getOrThrowError(
+    assessmentTypes,
+    assessmentTypeId,
+    "invalid AssessmentTypeValue",
+  );
 
 const criteriaTypes = defineMessages({
   asset: {
@@ -275,15 +261,8 @@ const criteriaTypes = defineMessages({
   },
 });
 
-export const criteriaType = (criteriaTypeId: number): MessageDescriptor => {
-  if (!CriteriaTypeIdValues.includes(criteriaTypeId)) {
-    throw new Error("invalid CriteriaTypeValue");
-  }
-  return {
-    [CriteriaTypeId.Asset]: criteriaTypes.asset,
-    [CriteriaTypeId.Essential]: criteriaTypes.essential,
-  }[criteriaTypeId.toString()];
-};
+export const criteriaType = (criteriaTypeId: number): MessageDescriptor =>
+  getOrThrowError(criteriaTypes, criteriaTypeId, "invalid CriteriaTypeValue");
 
 const assessmentTypeDescriptions = defineMessages({
   narrativeAssessment: {
@@ -367,29 +346,12 @@ const assessmentTypeDescriptions = defineMessages({
 
 export const assessmentTypeDescription = (
   assessmentTypeId: number,
-): MessageDescriptor => {
-  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
-    throw new Error("invalid AssessmentTypeValue");
-  }
-  return {
-    [AssessmentTypeId.ApplicationScreeningQuestion]:
-      assessmentTypeDescriptions.applicationScreeningQuestion,
-    [AssessmentTypeId.GroupTest]: assessmentTypeDescriptions.groupTest,
-    [AssessmentTypeId.InformalPhoneConversation]:
-      assessmentTypeDescriptions.informalPhoneConversation,
-    [AssessmentTypeId.Interview]: assessmentTypeDescriptions.interview,
-    [AssessmentTypeId.NarrativeAssessment]:
-      assessmentTypeDescriptions.narrativeAssessment,
-    [AssessmentTypeId.OnSiteExam]: assessmentTypeDescriptions.onSiteExam,
-    [AssessmentTypeId.OnlineExam]: assessmentTypeDescriptions.onlineExam,
-    [AssessmentTypeId.PortfolioReview]:
-      assessmentTypeDescriptions.portfolioReview,
-    [AssessmentTypeId.ReferenceCheck]:
-      assessmentTypeDescriptions.referenceCheck,
-    [AssessmentTypeId.SeriousGames]: assessmentTypeDescriptions.seriousGames,
-    [AssessmentTypeId.TakeHomeExam]: assessmentTypeDescriptions.takeHomeExam,
-  }[assessmentTypeId];
-};
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentTypeDescriptions,
+    assessmentTypeId,
+    "invalid AssessmentTypeValue",
+  );
 
 const standardAssessmentText = defineMessages({
   narrativeReviewQuestion: {
