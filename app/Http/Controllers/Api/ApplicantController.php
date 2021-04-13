@@ -9,9 +9,8 @@ use App\Http\Resources\ApplicantProfile as ApplicantProfileResource;
 use App\Http\Resources\Applicant as ApplicantResource;
 use App\Models\Applicant;
 use App\Models\ApplicantClassification;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
-use ValidClassificationRule;
+use App\Services\Validation\Rules\ValidClassificationRule;
 
 class ApplicantController extends Controller
 {
@@ -19,6 +18,13 @@ class ApplicantController extends Controller
     public function index(Request $request)
     {
         $maxLimit = config('app.api_max_limit');
+        $request->validate([
+            'limit' => "sometimes|integer|max:$maxLimit",
+            'offset' => 'sometimes|integer|nullable',
+            'skillIds' => 'sometimes|regex:/^[0-9]+(,[0-9]+)*$/',
+            'classifications' => ['sometimes', 'string', new ValidClassificationRule()],
+        ]);
+
         $limit = $request->query('limit', $maxLimit);
         if ($limit > $maxLimit) {
             $limit = $maxLimit;
@@ -27,20 +33,6 @@ class ApplicantController extends Controller
 
         $skillIds = preg_split('/,/', $request->query('skill_ids', ''), null, PREG_SPLIT_NO_EMPTY);
         $classifications = preg_split('/,/', $request->query('classifications', ''), null, PREG_SPLIT_NO_EMPTY);
-
-        $validated = $request->validate([
-            'limit' => "integer|max:$maxLimit",
-            'offset' => 'integer',
-            'skillIds' => 'regex:/^[0-9]+(,[0-9]+)*$/',
-            'classifications' => ['string', new ValidClassificationRule()],
-        ])
-
-        Log::debug([
-            'limit' => $limit,
-            'offset' => $offset,
-            'skillIds' => $skillIds,
-            'classifications' => $classifications
-        ]);
 
         $query = Applicant::limit($limit)->offset($offset);
         foreach ($skillIds as $skillId) {

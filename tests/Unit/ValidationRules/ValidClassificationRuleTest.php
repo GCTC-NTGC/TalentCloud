@@ -29,15 +29,6 @@ class ValidClassificationRuleTest extends TestCase
         $this->assertTrue($validator->passes());
     }
 
-    public function testFailsForEmptyString()
-    {
-        $rules = [
-            'test' => new ValidClassificationRule(),
-        ];
-        $validator = Validator::make(['test' => ''], $rules);
-        $this->assertFalse($validator->passes());
-    }
-
     public function testFailsWithoutDigits()
     {
         $rules = [
