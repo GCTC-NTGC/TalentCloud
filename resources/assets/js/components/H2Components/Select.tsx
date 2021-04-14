@@ -78,7 +78,6 @@ const Select: React.FunctionComponent<SelectContext> & SelectComposition = (
     ...rest
   } = props;
   const registerProps = register ? register(name) : {};
-  console.log(defaultValue);
   return (
     // The select context provider doesn't provide any props to its children (Option),
     // however it does ensure the Option component can only be used within a Select component.
