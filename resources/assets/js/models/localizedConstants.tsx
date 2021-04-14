@@ -180,57 +180,57 @@ export const skillLevelName = (
   skillLevelL10n(skillLevelId, skillTypeId, skillLevelNames);
 
 const assessmentTypes = defineMessages({
-  narrativeAssessment: {
+  [AssessmentTypeId.NarrativeAssessment]: {
     id: "assessmentType.narrativeAssessment",
     defaultMessage: "Narrative Review",
     description: "Title of an assessment type.",
   },
-  applicationScreeningQuestion: {
+  [AssessmentTypeId.ApplicationScreeningQuestion]: {
     id: "assessmentType.applicationScreeningQuestion",
     defaultMessage: "Application Screening Question",
     description: "Title of an assessment type.",
   },
-  groupTest: {
+  [AssessmentTypeId.GroupTest]: {
     id: "assessmentType.groupTest",
     defaultMessage: "Group Test",
     description: "Title of an assessment type.",
   },
-  informalPhoneConversation: {
+  [AssessmentTypeId.InformalPhoneConversation]: {
     id: "assessmentType.informalPhoneConversation",
     defaultMessage: "Informal Phone Conversation",
     description: "Title of an assessment type.",
   },
-  interview: {
+  [AssessmentTypeId.Interview]: {
     id: "assessmentType.interview",
     defaultMessage: "Interview",
     description: "Title of an assessment type.",
   },
-  onlineExam: {
+  [AssessmentTypeId.OnlineExam]: {
     id: "assessmentType.onlineExam",
     defaultMessage: "Online Exam",
     description: "Title of an assessment type.",
   },
-  onSiteExam: {
+  [AssessmentTypeId.OnSiteExam]: {
     id: "assessmentType.onSiteExam",
     defaultMessage: "On-Site Exam",
     description: "Title of an assessment type.",
   },
-  takeHomeExam: {
+  [AssessmentTypeId.TakeHomeExam]: {
     id: "assessmentType.takeHomeExam",
     defaultMessage: "Take Home Exam",
     description: "Title of an assessment type.",
   },
-  portfolioReview: {
+  [AssessmentTypeId.PortfolioReview]: {
     id: "assessmentType.portfolioReview",
     defaultMessage: "Portfolio Review",
     description: "Title of an assessment type.",
   },
-  referenceCheck: {
+  [AssessmentTypeId.ReferenceCheck]: {
     id: "assessmentType.referenceCheck",
     defaultMessage: "Reference Check",
     description: "Title of an assessment type.",
   },
-  seriousGames: {
+  [AssessmentTypeId.SeriousGames]: {
     id: "assessmentType.seriousGames",
     defaultMessage: "Serious Games",
     description: "Title of an assessment type.",
@@ -241,122 +241,101 @@ export const assetSkillName = (): MessageDescriptor => skillLevelNames.asset;
 export const assetSkillDescription = (): MessageDescriptor =>
   skillLevelDescriptions.asset;
 
-export const assessmentType = (assessmentTypeId: number): MessageDescriptor => {
-  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
-    throw new Error("invalid AssessmentTypeValue");
-  }
-  return {
-    [AssessmentTypeId.ApplicationScreeningQuestion]:
-      assessmentTypes.applicationScreeningQuestion,
-    [AssessmentTypeId.GroupTest]: assessmentTypes.groupTest,
-    [AssessmentTypeId.InformalPhoneConversation]:
-      assessmentTypes.informalPhoneConversation,
-    [AssessmentTypeId.Interview]: assessmentTypes.interview,
-    [AssessmentTypeId.NarrativeAssessment]: assessmentTypes.narrativeAssessment,
-    [AssessmentTypeId.OnSiteExam]: assessmentTypes.onSiteExam,
-    [AssessmentTypeId.OnlineExam]: assessmentTypes.onlineExam,
-    [AssessmentTypeId.PortfolioReview]: assessmentTypes.portfolioReview,
-    [AssessmentTypeId.ReferenceCheck]: assessmentTypes.referenceCheck,
-    [AssessmentTypeId.SeriousGames]: assessmentTypes.seriousGames,
-    [AssessmentTypeId.TakeHomeExam]: assessmentTypes.takeHomeExam,
-  }[assessmentTypeId.toString()];
-};
+export const assessmentType = (assessmentTypeId: number): MessageDescriptor =>
+  getOrThrowError(
+    assessmentTypes,
+    assessmentTypeId,
+    "invalid AssessmentTypeValue",
+  );
 
 const criteriaTypes = defineMessages({
-  asset: {
+  [CriteriaTypeId.Asset]: {
     id: "criteriaType.asset",
     defaultMessage: "Asset",
     description: "Title of an asset criteria type.",
   },
-  essential: {
+  [CriteriaTypeId.Essential]: {
     id: "criteriaType.essential",
     defaultMessage: "Essential",
     description: "Title of an essential criteria type.",
   },
 });
 
-export const criteriaType = (criteriaTypeId: number): MessageDescriptor => {
-  if (!CriteriaTypeIdValues.includes(criteriaTypeId)) {
-    throw new Error("invalid CriteriaTypeValue");
-  }
-  return {
-    [CriteriaTypeId.Asset]: criteriaTypes.asset,
-    [CriteriaTypeId.Essential]: criteriaTypes.essential,
-  }[criteriaTypeId.toString()];
-};
+export const criteriaType = (criteriaTypeId: number): MessageDescriptor =>
+  getOrThrowError(criteriaTypes, criteriaTypeId, "invalid CriteriaTypeValue");
 
 const assessmentTypeDescriptions = defineMessages({
-  narrativeAssessment: {
+  [AssessmentTypeId.NarrativeAssessment]: {
     id: "assessmentType.narrativeAssessment.description",
     defaultMessage:
       "This is a description requested during the application process, in which applicants to self-identify and describe their experience and level of expertise with a skill.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  applicationScreeningQuestion: {
+  [AssessmentTypeId.ApplicationScreeningQuestion]: {
     id: "assessmentType.applicationScreeningQuestion.description",
     defaultMessage:
       "These questions appear in the application form, and are submitted through Talent Cloud, they allow a first glance at the applicant’s understanding, process, knowledge, or cultural fit for the position.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  groupTest: {
+  [AssessmentTypeId.GroupTest]: {
     id: "assessmentType.groupTest.description",
     defaultMessage:
       "Applicants perform this test in real-time in conjunction with other applicants, team members, or facilitators, to determine their skill prowess, team communication, and performance in a collaborative environment.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  informalPhoneConversation: {
+  [AssessmentTypeId.InformalPhoneConversation]: {
     id: "assessmentType.informalPhoneConversation.description",
     defaultMessage:
       "A loose structure chat between a member of the hiring board and an applicant, aimed at discovering the applicant’s knowledge, aptitudes, or personality traits, conversations may vary between applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  interview: {
+  [AssessmentTypeId.Interview]: {
     id: "assessmentType.interview.description",
     defaultMessage:
       "A formal question-and-answer examination performed in real-time between the hiring-board and an applicant. Questions are aimed at assessing skill expertise, level, and approach. Each question is crafted beforehand and follows the same structure between all interviewed applicants.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  onlineExam: {
+  [AssessmentTypeId.OnlineExam]: {
     id: "assessmentType.onlineExam.description",
     defaultMessage:
       "Prepared examination that does not require supervision, and can be performed from any location through internet access, with a defined time-frame for completion.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  onSiteExam: {
+  [AssessmentTypeId.OnSiteExam]: {
     id: "assessmentType.onSiteExam.description",
     defaultMessage:
       "Prepared examination that requires the applicant to perform a test at a specific location under supervision, aimed at assessing skill expertise and technique.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  takeHomeExam: {
+  [AssessmentTypeId.TakeHomeExam]: {
     id: "assessmentType.takeHomeExam.description",
     defaultMessage:
       "Applicants receive a physical package containing the assessment tools, they complete the assessment at their own leisure and at their preferred location without supervision, and must return the materials before a specific deadline.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  portfolioReview: {
+  [AssessmentTypeId.PortfolioReview]: {
     id: "assessmentType.portfolioReview.description",
     defaultMessage:
       "During the application process, applicants provide access to samples of their work to exhibit their skill level, and back-up their skill claims. ",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  referenceCheck: {
+  [AssessmentTypeId.ReferenceCheck]: {
     id: "assessmentType.referenceCheck.description",
     defaultMessage:
       "During the application process, applicants provide contact information to an acquaintance who can validate and confirm their skill expertise, knowledge or aptitude.",
     description:
       "Description of an assessment type, to help a manager understand when to use it.",
   },
-  seriousGames: {
+  [AssessmentTypeId.SeriousGames]: {
     id: "assessmentType.seriousGames.description",
     defaultMessage:
       "Test involving the use of games to explore a candidate’s communication skills, resilience, emotional intelligence, among many other soft skills.",
@@ -367,29 +346,12 @@ const assessmentTypeDescriptions = defineMessages({
 
 export const assessmentTypeDescription = (
   assessmentTypeId: number,
-): MessageDescriptor => {
-  if (!AssessmentTypeIdValues.includes(assessmentTypeId)) {
-    throw new Error("invalid AssessmentTypeValue");
-  }
-  return {
-    [AssessmentTypeId.ApplicationScreeningQuestion]:
-      assessmentTypeDescriptions.applicationScreeningQuestion,
-    [AssessmentTypeId.GroupTest]: assessmentTypeDescriptions.groupTest,
-    [AssessmentTypeId.InformalPhoneConversation]:
-      assessmentTypeDescriptions.informalPhoneConversation,
-    [AssessmentTypeId.Interview]: assessmentTypeDescriptions.interview,
-    [AssessmentTypeId.NarrativeAssessment]:
-      assessmentTypeDescriptions.narrativeAssessment,
-    [AssessmentTypeId.OnSiteExam]: assessmentTypeDescriptions.onSiteExam,
-    [AssessmentTypeId.OnlineExam]: assessmentTypeDescriptions.onlineExam,
-    [AssessmentTypeId.PortfolioReview]:
-      assessmentTypeDescriptions.portfolioReview,
-    [AssessmentTypeId.ReferenceCheck]:
-      assessmentTypeDescriptions.referenceCheck,
-    [AssessmentTypeId.SeriousGames]: assessmentTypeDescriptions.seriousGames,
-    [AssessmentTypeId.TakeHomeExam]: assessmentTypeDescriptions.takeHomeExam,
-  }[assessmentTypeId];
-};
+): MessageDescriptor =>
+  getOrThrowError(
+    assessmentTypeDescriptions,
+    assessmentTypeId,
+    "invalid AssessmentTypeValue",
+  );
 
 const standardAssessmentText = defineMessages({
   narrativeReviewQuestion: {

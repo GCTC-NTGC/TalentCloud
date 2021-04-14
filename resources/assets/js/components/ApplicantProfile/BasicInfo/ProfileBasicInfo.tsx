@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from "react";
 import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 import * as Yup from "yup";
@@ -147,12 +148,12 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   const previousClassifications = applicantClassifications.slice(1);
 
   // new applicant classification object used when appending a new field in the fieldArray.
-  const emptyApplicantClassification = (): ApplicantClassification => {
+  const emptyApplicantClassification = (): any => {
     return {
       id: 0,
       applicant_id: applicantId,
-      classification_id: -1,
-      level: -1,
+      classification_id: "",
+      level: "",
       order: -1,
     };
   };
@@ -197,19 +198,6 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
           .required(intl.formatMessage(validationMessages.required)),
       }),
     ),
-    // Yup.object().when("gcEmployeeStatus", {
-    //   is: (value) => value !== GCEmployeeStatus.no,
-    //   then: Yup.array().of(
-    //     Yup.object().shape({
-    //       classification_id: Yup.number()
-    //         .typeError(intl.formatMessage(validationMessages.required))
-    //         .required(intl.formatMessage(validationMessages.required)),
-    //       level: Yup.number()
-    //         .typeError(intl.formatMessage(validationMessages.required))
-    //         .required(intl.formatMessage(validationMessages.required)),
-    //     }),
-    //   ),
-    // }),
   });
 
   interface BasicInfoFormValues {
@@ -223,9 +211,9 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   // Main hook to create a new form. Comes with many optional arguments.
   // https://react-hook-form.com/api#useForm
   const {
+    formState: { errors },
     register,
     handleSubmit,
-    errors,
     control,
     watch,
   } = useForm<BasicInfoFormValues>({
@@ -263,12 +251,14 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
   };
 
   const formToValuesData = (values: BasicInfoFormValues): ApplicantProfile => {
-    const applicant_classifications = values.currentClassification
-      ? [
-          values.currentClassification,
-          ...(values.previousClassifications ?? []),
-        ]
-      : values.previousClassifications ?? [];
+    const applicant_classifications =
+      values.currentClassification &&
+      values.gcEmployeeStatus === GCEmployeeStatus.current
+        ? [
+            values.currentClassification,
+            ...(values.previousClassifications ?? []),
+          ]
+        : values.previousClassifications ?? [];
     return {
       citizenship_declaration_id: Number(values.citizenshipDeclaration),
       veteran_status_id: Number(values.veteranStatus),
@@ -377,7 +367,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
               <Select
                 name="currentClassification.classification_id"
                 required
-                register={register()}
+                register={register}
                 label={intl.formatMessage(messages.classificationLabel)}
                 errorMessage={
                   errors.currentClassification &&
@@ -398,7 +388,7 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
               <Select
                 name="currentClassification.level"
                 required
-                register={register()}
+                register={register}
                 label={intl.formatMessage(messages.levelLabel)}
                 errorMessage={
                   errors.currentClassification &&
@@ -419,23 +409,23 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                 {intl.formatMessage(messages.addPreviousGcClassification)}
               </p>
               <ul>
-                {fields.map((previousClassification, index) => {
-                  // Adds 1 to the index if the user is a current GC employee, since the first index is held in the selector above.
-
+                {fields.map((previousClassification: any, index) => {
                   return (
                     <li
                       data-h2-grid="b(middle, expanded, padded, 1)"
                       key={previousClassification.key}
                     >
                       <Select
-                        name={`previousClassifications[${index}].classification_id`}
+                        name={
+                          `previousClassifications.${index}.classification_id` as const
+                        }
                         defaultValue={`${
                           previousClassification.classification_id !== -1
                             ? previousClassification.classification_id
                             : ""
                         }`}
                         required
-                        register={register()}
+                        register={register}
                         label={intl.formatMessage(messages.classificationLabel)}
                         errorMessage={
                           errors.previousClassifications &&
@@ -458,14 +448,14 @@ export const ProfileBasicInfo: React.FC<ProfileBasicInfoProps> = ({
                         ))}
                       </Select>
                       <Select
-                        name={`previousClassifications[${index}].level`}
+                        name={`previousClassifications.${index}.level` as const}
                         defaultValue={`${
                           previousClassification.level !== -1
                             ? previousClassification.level
                             : ""
                         }`}
                         required
-                        register={register()}
+                        register={register}
                         label={intl.formatMessage(messages.levelLabel)}
                         errorMessage={
                           errors.previousClassifications &&
