@@ -5,9 +5,9 @@ import { GeneralBtnProps } from "./utils";
 type DivProps = React.HTMLAttributes<HTMLDivElement>;
 type HeadingProps = React.HTMLAttributes<HTMLHeadElement>;
 interface DialogContext extends DivProps {
-  /** The dialogs id. */
+  /** The dialogs id. This must match the dialog trigger id. */
   id: string;
-  /** Boolean that controls if modal is open or closed. */
+  /** Boolean that controls if dialog is open or closed. */
   isVisible: boolean;
   /** Callback method that closes the dialog. */
   closeDialog: () => void;
@@ -91,11 +91,11 @@ const Header: React.FunctionComponent<HeaderProps> = ({
   const { closeDialog } = useDialogContext();
   return (
     <div data-h2-dialog-title {...rest}>
-      <div data-h2-grid="b(middle, expanded, padded, .5)">
+      <div data-h2-grid="b(top, expanded, padded, .5)">
         <div data-h2-grid-item="b(11of12)">{children}</div>
         <div data-h2-align="b(center)" data-h2-grid-item="b(1of12)">
           <button
-            data-h2-button={`${closeBtnColor}, round, small, solid`}
+            data-h2-button="round, small, solid"
             data-h2-align="b(right)"
             type="button"
             onClick={closeDialog}
@@ -103,7 +103,7 @@ const Header: React.FunctionComponent<HeaderProps> = ({
           >
             <i
               data-h2-font-size="b(normal)"
-              data-h2-font-color="b(white)"
+              data-h2-font-color={`b(${closeBtnColor || "white"})`}
               className="fas fa-times"
               aria-hidden="true"
             />
