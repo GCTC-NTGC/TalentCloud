@@ -9203,16 +9203,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "7.0.2",
+            "version": "7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "7815b1397bd9ff3e09bac9446ecb680f3fc69844"
+                "reference": "ce75dc28e6c4c9850844bdfd3b5641973ad6e721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/7815b1397bd9ff3e09bac9446ecb680f3fc69844",
-                "reference": "7815b1397bd9ff3e09bac9446ecb680f3fc69844",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/ce75dc28e6c4c9850844bdfd3b5641973ad6e721",
+                "reference": "ce75dc28e6c4c9850844bdfd3b5641973ad6e721",
                 "shasum": ""
             },
             "require": {
@@ -9256,7 +9256,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-14T18:15:42+00:00"
+            "time": "2021-04-16T12:07:02+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
