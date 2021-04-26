@@ -119,7 +119,7 @@
         "react-hook-form": "^7.2.2",
         "react-intl": "^5.15.8",
         "react-markdown": "^6.0.1",
-        "react-redux": "^7.2.3",
+        "react-redux": "^7.2.4",
         "react-router-dom": "^5.2.0",
         "react-test-renderer": "^16.14.0",
         "redux": "^4.1.0",
