@@ -60,14 +60,6 @@ mix
     "public/js",
   )
   .ts(
-    "resources/assets/js/components/StrategicTalentResponse/StrApiTestPage.tsx",
-    "public/js",
-  )
-  .ts(
-    "resources/assets/js/components/StrategicTalentResponse/ResponseScreening/ResponseScreeningPage.tsx",
-    "public/js",
-  )
-  .ts(
     "resources/assets/js/components/Application/ApplicationRoot.tsx",
     "public/js",
   )
