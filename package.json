@@ -104,7 +104,7 @@
         "classnames": "^2.3.1",
         "cldr-core": "^38.1.0",
         "clone-framework": "^2.4.18",
-        "core-js": "^3.10.2",
+        "core-js": "^3.12.0",
         "dayjs": "^1.10.4",
         "formik": "^2.2.6",
         "history": "^5.0.0",
