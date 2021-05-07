@@ -1,7 +1,10 @@
 <?php
+
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
+
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Default Log Channel
@@ -12,7 +15,9 @@ return [
     | one of the channels defined in the "channels" configuration array.
     |
     */
+
     'default' => env('LOG_CHANNEL', 'stack'),
+
     /*
     |--------------------------------------------------------------------------
     | Log Channels
@@ -27,10 +32,13 @@ return [
     |                    "custom", "stack"
     |
     */
+
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily'],
+            /* 'channels' => ['daily'], */
+            /* directs log messages to two channels: daily and stdout */
+            'channels' => ['daily', 'stdout'],
         ],
         'single' => [
             'driver' => 'single',
@@ -73,6 +81,19 @@ return [
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => 'debug',
+        ],
+
+        /* *********************************************** */
+        /* New log channel which writes messages to stdout */
+        /* *********************************************** */
+
+        'stdout' => [
+            'driver' => 'monolog',
+            'level' => 'info',
+            'handler' => StreamHandler::class,
+            'with' => [
+                'stream' => 'php://stdout',  /* not sure this is still supported */
+            ],
         ],
     ],
 ];
