@@ -106,7 +106,7 @@
         "clone-framework": "^2.4.18",
         "core-js": "^3.10.2",
         "dayjs": "^1.10.4",
-        "formik": "^2.2.6",
+        "formik": "^2.2.8",
         "history": "^5.0.0",
         "intl": "^1.2.5",
         "isomorphic-fetch": "^3.0.0",
