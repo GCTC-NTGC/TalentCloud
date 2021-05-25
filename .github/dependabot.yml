@@ -1,0 +1,177 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    timezone: US/Eastern
+  open-pull-requests-limit: 99
+  target-branch: dev
+  labels:
+  - Dependency
+  - PHP
+  ignore:
+  - dependency-name: doctrine/inflector
+    versions:
+    - ">= 1.4.a, < 1.5"
+  - dependency-name: laravel/dusk
+    versions:
+    - "> 5.5.1"
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    timezone: US/Eastern
+  open-pull-requests-limit: 99
+  target-branch: dev
+  labels:
+  - Dependency
+  - NPM
+  ignore:
+  - dependency-name: babel-plugin-react-intl
+    versions:
+    - ">= 8.a, < 9"
+  - dependency-name: "@types/react-intl"
+    versions:
+    - ">= 3.a, < 4"
+  - dependency-name: "@storybook/addons"
+    versions:
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+    - 6.2.6
+    - 6.2.7
+    - 6.2.8
+  - dependency-name: "@storybook/theming"
+    versions:
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+    - 6.2.6
+    - 6.2.7
+    - 6.2.8
+  - dependency-name: "@storybook/addon-actions"
+    versions:
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+    - 6.2.6
+    - 6.2.7
+    - 6.2.8
+  - dependency-name: "@storybook/react"
+    versions:
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+    - 6.2.6
+    - 6.2.7
+    - 6.2.8
+  - dependency-name: snyk
+    versions:
+    - 1.442.0
+    - 1.443.0
+    - 1.451.0
+    - 1.463.0
+    - 1.469.0
+    - 1.470.0
+    - 1.472.0
+    - 1.474.0
+    - 1.479.0
+    - 1.486.0
+    - 1.492.0
+    - 1.494.0
+    - 1.502.0
+    - 1.507.0
+    - 1.514.0
+    - 1.518.0
+    - 1.522.0
+    - 1.523.0
+    - 1.524.0
+    - 1.525.0
+    - 1.534.0
+    - 1.535.0
+    - 1.541.0
+    - 1.554.0
+    - 1.555.0
+    - 1.557.0
+    - 1.559.0
+    - 1.560.0
+    - 1.563.0
+    - 1.565.0
+    - 1.566.0
+    - 1.567.0
+    - 1.571.0
+    - 1.572.0
+  - dependency-name: "@storybook/addon-knobs"
+    versions:
+    - 6.2.0
+    - 6.2.1
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+    - 6.2.6
+    - 6.2.7
+    - 6.2.8
+  - dependency-name: "@types/node"
+    versions:
+    - 14.14.23
+    - 15.0.0
+  - dependency-name: "@typescript-eslint/eslint-plugin"
+    versions:
+    - 4.16.0
+  - dependency-name: eslint-plugin-promise
+    versions:
+    - 4.3.0
+    - 5.0.0
+  - dependency-name: "@formatjs/intl-relativetimeformat"
+    versions:
+    - 8.0.5
+  - dependency-name: "@formatjs/intl-pluralrules"
+    versions:
+    - 4.0.7
+  - dependency-name: react-intl
+    versions:
+    - 5.12.4
+    - 5.14.0
+    - 5.15.6
+    - 5.16.0
+    - 5.17.1
+  - dependency-name: "@formatjs/intl-locale"
+    versions:
+    - 2.4.15
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.0
+  - dependency-name: sweetalert2
+    versions:
+    - 10.16.5
+    - 10.16.6
+  - dependency-name: react-hook-form
+    versions:
+    - 7.0.0
+    - 7.0.1
+    - 7.0.2
+    - 7.0.3
+    - 7.0.4
+    - 7.2.0
+    - 7.2.1
+    - 7.2.3
+    - 7.3.0
+    - 7.3.1
+    - 7.3.3
+    - 7.3.4
+  - dependency-name: core-js
+    versions:
+    - 3.11.0
+  - dependency-name: ts-loader
+    versions:
+    - 9.0.0
+    - 9.1.0
