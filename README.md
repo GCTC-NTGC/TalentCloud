@@ -1,9 +1,6 @@
 # GC Talent Cloud / Nuage de talents du GC
 
-## The GC Talent Cloud project is now complete. The team that built this product is now working on https://github.com/GCTC-NTGC/gc-digital-talent.
-
-
-![Workflow Status](https://github.com/GCTC-NTGC/TalentCloud/actions/workflows/tests.yml/badge.svg?branch=dev) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
+The GC Talent Cloud project is now complete. The team that built this product is now working on https://github.com/GCTC-NTGC/gc-digital-talent.
 
 ## About
 
