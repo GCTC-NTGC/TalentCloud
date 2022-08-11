@@ -1,5 +1,8 @@
 # GC Talent Cloud / Nuage de talents du GC
 
+## The GC Talent Cloud project is now complete. The team that built this product is now working on https://github.com/GCTC-NTGC/gc-digital-talent.
+
+
 ![Workflow Status](https://github.com/GCTC-NTGC/TalentCloud/actions/workflows/tests.yml/badge.svg?branch=dev) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/badges/quality-score.png?b=dev)](https://scrutinizer-ci.com/g/GCTC-NTGC/TalentCloud/?branch=dev) [![codecov](https://codecov.io/gh/GCTC-NTGC/TalentCloud/branch/dev/graph/badge.svg)](https://codecov.io/gh/GCTC-NTGC/TalentCloud/?branch=dev)
 
 ## About
@@ -9,6 +12,9 @@ Talent Cloud aspires to be a cross-sectoral initiative testing new realities for
 The talent cloud initiative is a grass-roots project put forward by a group of employees passionate about imagining new options for public sector talent mobility. The project team is being incubated (as a cross-sector lab) under the CIOB at TBS. The project is being funded during its start-up and testing phases by contributions from partner departments.
 
 ## À propos
+
+Le projet Nuage de talents du GC est maintenant terminé. L'équipe qui a construit ce produit travaille maintenant sur https://github.com/GCTC-NTGC/gc-digital-talent.
+
 
 Nuage de talent s'efforce d'être une initiative intersectorielle mettant à l'essai de nouvelles réalités pour le talent à l'intérieur et à l'extérieur du gouvernement. Cette initiative vise à tester la viabilité d'un nouveau modèle de recrutement et de mobilisation de talents au sein de la fonction publique. Le Nuage de talent est fondamentalement un répertoire massif de talents préévalulé, où l'organisation et la distribution des talents sont optimisées pour un placement rapide pour le travail de projet.
 
