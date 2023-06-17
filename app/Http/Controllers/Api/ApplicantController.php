@@ -2,14 +2,66 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateApplicantProfile;
 use App\Http\Resources\ApplicantProfile as ApplicantProfileResource;
+use App\Http\Resources\Applicant as ApplicantResource;
 use App\Models\Applicant;
 use App\Models\ApplicantClassification;
+use App\Services\Validation\Rules\CommaSeparatedListRule;
+use Illuminate\Database\Eloquent\Builder;
+use App\Services\Validation\Rules\ValidClassificationRule;
+use Illuminate\Support\Facades\Log;
 
 class ApplicantController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $expectsJson = $request->expectsJson();
+        Log::debug("Expects json: $expectsJson");
+        $maxLimit = config('app.api_max_limit');
+        $request->validate([
+            'limit' => "sometimes|integer|max:$maxLimit",
+            'offset' => 'sometimes|integer|nullable',
+            'skillIds' => 'sometimes|string|regex:/^[0-9]+(,[0-9]+)*$/',
+            'classifications' => ['sometimes', 'string', new CommaSeparatedListRule(new ValidClassificationRule())],
+        ]);
+
+        $limit = $request->query('limit', $maxLimit);
+        if ($limit > $maxLimit) {
+            $limit = $maxLimit;
+        }
+        $offset = $request->query('offset', 0);
+
+        $skillIds = preg_split('/,/', $request->query('skill_ids', ''), null, PREG_SPLIT_NO_EMPTY);
+        $classifications = preg_split('/,/', $request->query('classifications', ''), null, PREG_SPLIT_NO_EMPTY);
+
+        $query = Applicant::limit($limit)->offset($offset);
+        foreach ($skillIds as $skillId) {
+            $query->whereHas('skills', function (Builder $query) use ($skillId) {
+                $query->where('skills.id', $skillId);
+            });
+        }
+        if (count($classifications) > 0) {
+            $query->where(function ($query) use ($classifications) {
+                foreach ($classifications as $classification) {
+                    $values = explode('-', $classification);
+                    $classificationCode = strtoupper($values[0]);
+                    $classificationLevel = $values[1];
+                    $query->orWhereHas('applicant_classifications', function (Builder $query) use ($classificationCode, $classificationLevel) {
+                        $query->where('applicant_classifications.level', (int)$classificationLevel)
+                            ->whereHas('classification', function (Builder $query) use ($classificationCode) {
+                                $query->where('key', $classificationCode);
+                            });
+                    });
+                }
+            });
+        }
+
+        return ApplicantResource::collection($query->get());
+    }
 
     /**
      * Retrieve Applicant profile.
